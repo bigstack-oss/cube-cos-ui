@@ -1,0 +1,11 @@
+{
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "singleQuote": true,
+  "semi": false,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindFunctions": ["classnames"],
+  "tailwindConfig": "./packages/cube-frontend-web-app/tailwind.config.js"
+}

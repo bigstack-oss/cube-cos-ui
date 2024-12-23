@@ -1,0 +1,37 @@
+{
+  "name": "@cube-frontend/components",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "tsc": "tsc",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "serve-storybook": "pnpm dlx http-server ./storybook-static"
+  },
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@chromatic-com/storybook": "^3.2.3",
+    "@fontsource/inter": "^5.1.0",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-onboarding": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@storybook/test": "^8.4.7",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "autoprefixer": "catalog:",
+    "classnames": "^2.5.1",
+    "@cube-frontend/utils": "workspace:*",
+    "postcss": "catalog:",
+    "prop-types": "^15.8.1",
+    "storybook": "^8.4.7",
+    "tailwindcss": "catalog:"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9.5"
+  }
+}

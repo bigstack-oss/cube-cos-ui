@@ -1,0 +1,42 @@
+{
+  "name": "@cube-frontend/root",
+  "private": true,
+  "version": "1.0.0",
+  "description": "cube frontend monorepo",
+  "type": "module",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9.5"
+  },
+  "scripts": {
+    "tsc": "pnpm -r tsc",
+    "eslint": "eslint .",
+    "eslint:fix": "eslint . --fix",
+    "eslint:inspect": "eslint --inspect-config .eslintrc.js",
+    "prettier": "prettier --check \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
+    "prettier:fix": "prettier --write \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
+    "format": "pnpm prettier:fix && pnpm eslint:fix",
+    "lint": "pnpm tsc && pnpm eslint && pnpm prettier",
+    "components:dev": "pnpm --filter @cube-frontend/components storybook",
+    "components:build": "pnpm --filter @cube-frontend/components build-storybook",
+    "components:serve": "pnpm --filter @cube-frontend/components serve-storybook",
+    "web-app:dev": "pnpm --filter @cube-frontend/web-app dev",
+    "web-app:build": "pnpm --filter @cube-frontend/web-app build",
+    "web-app:preview": "pnpm --filter @cube-frontend/web-app preview"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.18.2"
+  },
+  "dependencies": {
+    "eslint-plugin-tailwindcss": "^3.17.5",
+    "prettier-plugin-tailwindcss": "^0.6.9"
+  }
+}

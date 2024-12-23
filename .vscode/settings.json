@@ -1,0 +1,22 @@
+{
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    ".*Style.*",
+    ".*Styles.*",
+    ".*Class.*",
+    ".*Classes.*",
+    ".*ClassName.*"
+  ],
+  // reference: https://github.com/paolotiu/tailwind-intellisense-regex-list?tab=readme-ov-file#classnames
+  "tailwindCSS.experimental.classRegex": [
+    ["classnames\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
+  ],
+  "cSpell.words": ["tseslint"]
+}
