@@ -12,7 +12,7 @@
   "dependencies": {
     "@fontsource/inter": "catalog:",
     "@cube-frontend/api": "workspace:*",
-    "@cube-frontend/components": "workspace:*",
+    "@cube-frontend/ui-library": "workspace:*",
     "@cube-frontend/utils": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
