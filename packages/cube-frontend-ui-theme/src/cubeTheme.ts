@@ -39,7 +39,7 @@ export const cubeTheme = {
       100: '#D5D6DA',
       150: '#C3C4C9',
       200: '#B0B2B8',
-      300: '#A8A8A8',
+      300: '#8A8D97',
       400: '#656975',
       500: '#3F4453',
       600: '#323642',
@@ -76,7 +76,7 @@ export const cubeTheme = {
       850: '#0F729A',
     },
     green: {
-      0: '#FFFFFF',
+      0: '#EFFFFB',
       50: '#D7FBF2',
       100: '#BFF7E9',
       150: '#A7F2E0',
@@ -90,7 +90,7 @@ export const cubeTheme = {
       850: '#004031',
     },
     yellow: {
-      0: '#FFFBF0',
+      0: '#FFFBEF',
       50: '#FEF5D7',
       100: '#FEF0BF',
       150: '#FDEAA7',
@@ -117,8 +117,13 @@ export const cubeTheme = {
       800: '#DB2525',
       850: '#D51C1C',
     },
+    cosmos: {
+      primary: '#4C68F9',
+      secondary: '#57E2E2',
+    },
     scene: {
-      // TODO: Theme gradient
+      gradient:
+        'linear-gradient(90deg, #2700C3 0%, #4C68F9 30%, #31C4FF 65%, #57E2E2 100%)',
       background: '#F7F7FA',
     },
     functional: {
@@ -157,9 +162,9 @@ export const cubeTheme = {
     },
   },
   fontFamily: {
-    sans: ['inter', ...defaultTheme.fontFamily.sans],
-    inter: ['inter', ...defaultTheme.fontFamily.sans],
-    urbanist: ['urbanist', ...defaultTheme.fontFamily.sans],
+    urbanist: ['Urbanist', ...defaultTheme.fontFamily.sans],
+    inter: ['Inter', ...defaultTheme.fontFamily.sans],
+    sans: ['Inter', ...defaultTheme.fontFamily.sans],
   },
   fontSize: {
     // Headings - Primary
@@ -212,13 +217,33 @@ export const cubeTheme = {
     'primary-body3': ['13px', { lineHeight: '18px', fontWeight: 400 }],
     'primary-body4': ['12px', { lineHeight: '16px', fontWeight: 400 }],
     'primary-body5': ['11px', { lineHeight: '15px', fontWeight: 400 }],
+    'primary-body6': ['10px', { lineHeight: '13px', fontWeight: 400 }],
 
     // Body - Secondary
-    'secondary-body1': ['15px', { lineHeight: '22px', fontWeight: 400 }],
-    'secondary-body2': ['14px', { lineHeight: '20px', fontWeight: 400 }],
-    'secondary-body3': ['13px', { lineHeight: '18px', fontWeight: 400 }],
-    'secondary-body4': ['12px', { lineHeight: '16px', fontWeight: 400 }],
-    'secondary-body5': ['11px', { lineHeight: '15px', fontWeight: 400 }],
+    'secondary-body1': [
+      '15px',
+      { lineHeight: '22px', letterSpacing: '0.02em', fontWeight: 400 },
+    ],
+    'secondary-body2': [
+      '14px',
+      { lineHeight: '18px', letterSpacing: '0.02em', fontWeight: 400 },
+    ],
+    'secondary-body3': [
+      '13px',
+      { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: 400 },
+    ],
+    'secondary-body4': [
+      '12px',
+      { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: 400 },
+    ],
+    'secondary-body5': [
+      '11px',
+      { lineHeight: '15px', letterSpacing: '0.02em', fontWeight: 400 },
+    ],
+    'secondary-body6': [
+      '10px',
+      { lineHeight: '14px', letterSpacing: '0.02em', fontWeight: 400 },
+    ],
   },
   fontWeight: {
     regular: '400',
