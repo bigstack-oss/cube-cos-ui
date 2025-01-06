@@ -2,19 +2,19 @@ import { PluginCreator } from 'tailwindcss/types/config'
 
 export const cubePlugin: PluginCreator = ({ addUtilities }) => {
   addUtilities({
-    'icon-sm': {
+    '.icon-sm': {
       width: '12px',
       height: '12px',
     },
-    'icon-md': {
+    '.icon-md': {
       width: '16px',
       height: '16px',
     },
-    'icon-lg': {
+    '.icon-lg': {
       width: '20px',
       height: '20px',
     },
-    'icon-xl': {
+    '.icon-xl': {
       width: '24px',
       height: '24px',
     },
