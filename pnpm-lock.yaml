@@ -100,7 +100,7 @@ importers:
         specifier: workspace:*
         version: link:../cube-frontend-utils
       '@fontsource/inter':
-        specifier: ^5.1.0
+        specifier: 'catalog:'
         version: 5.1.1
       '@storybook/addon-essentials':
         specifier: ^8.4.7
