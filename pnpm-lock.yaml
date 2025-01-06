@@ -77,6 +77,9 @@ importers:
       typescript-eslint:
         specifier: ^8.18.2
         version: 8.19.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.6.3)
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.6.3)(vite@6.0.7(@types/node@22.10.4)(jiti@2.4.2)(yaml@2.7.0))
 
   packages/cube-frontend-api:
     dependencies:
@@ -96,6 +99,9 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^3.2.3
         version: 3.2.3(react@18.3.1)(storybook@8.4.7(prettier@3.4.2))
+      '@cube-frontend/ui-theme':
+        specifier: workspace:*
+        version: link:../cube-frontend-ui-theme
       '@cube-frontend/utils':
         specifier: workspace:*
         version: link:../cube-frontend-utils
@@ -123,12 +129,6 @@ importers:
       '@storybook/test':
         specifier: ^8.4.7
         version: 8.4.7(storybook@8.4.7(prettier@3.4.2))
-      '@types/react':
-        specifier: 'catalog:'
-        version: 19.0.2
-      '@types/react-dom':
-        specifier: 'catalog:'
-        version: 19.0.2(@types/react@19.0.2)
       autoprefixer:
         specifier: 'catalog:'
         version: 10.4.20(postcss@8.4.49)
@@ -147,6 +147,16 @@ importers:
       tailwindcss:
         specifier: 'catalog:'
         version: 3.4.17
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.0.2
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.0.2(@types/react@19.0.2)
+      vite:
+        specifier: ^6.0.5
+        version: 6.0.7(@types/node@22.10.4)(jiti@2.4.2)(yaml@2.7.0)
 
   packages/cube-frontend-ui-theme:
     dependencies:
@@ -1715,6 +1725,9 @@ packages:
     resolution: {integrity: sha512-OkToC372DtlQeje9/zHIo5CT8lRP/FUgEOKBEhU4e0abL7J7CD24fD9ohiLN5hagG/kWCYj4K5oaxxtj2Z0Dig==}
     engines: {node: '>=18'}
 
+  globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
     engines: {node: '>= 0.4'}
@@ -2555,6 +2568,16 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
+  tsconfck@3.1.4:
+    resolution: {integrity: sha512-kdqWFGVJqe+KGYvlSO9NIaWn9jT1Ny4oKVzAJsKii5eoE9snzTJzL4+MMVOMn+fikWGFmKEylcXL710V/kIPJQ==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   tsconfig-paths@4.2.0:
     resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}
     engines: {node: '>=6'}
@@ -2633,6 +2656,14 @@ packages:
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
+
+  vite-tsconfig-paths@5.1.4:
+    resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
 
   vite@6.0.7:
     resolution: {integrity: sha512-RDt8r/7qx9940f8FcOIAH9PTViRrghKaK2K1jY3RaAURrEUbm9Du1mJ72G+jlhtG3WwodnfzY8ORQZbBavZEAQ==}
@@ -4345,6 +4376,8 @@ snapshots:
 
   globals@15.14.0: {}
 
+  globrex@0.1.2: {}
+
   gopd@1.2.0: {}
 
   graceful-fs@4.2.11:
@@ -5073,6 +5106,10 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
+  tsconfck@3.1.4(typescript@5.6.3):
+    optionalDependencies:
+      typescript: 5.6.3
+
   tsconfig-paths@4.2.0:
     dependencies:
       json5: 2.2.3
@@ -5144,6 +5181,17 @@ snapshots:
       which-typed-array: 1.1.18
 
   uuid@9.0.1: {}
+
+  vite-tsconfig-paths@5.1.4(typescript@5.6.3)(vite@6.0.7(@types/node@22.10.4)(jiti@2.4.2)(yaml@2.7.0)):
+    dependencies:
+      debug: 4.4.0
+      globrex: 0.1.2
+      tsconfck: 3.1.4(typescript@5.6.3)
+    optionalDependencies:
+      vite: 6.0.7(@types/node@22.10.4)(jiti@2.4.2)(yaml@2.7.0)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   vite@6.0.7(@types/node@22.10.4)(jiti@2.4.2)(yaml@2.7.0):
     dependencies:

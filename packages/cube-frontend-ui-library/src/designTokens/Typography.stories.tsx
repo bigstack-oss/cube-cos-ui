@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { cubeTheme } from '../theme'
+import { cubePreset } from '@cube-frontend/ui-theme'
 
 const meta = {} satisfies Meta
 
 export default meta
 
-const typography = cubeTheme.fontSize
+const typography = cubePreset.theme.fontSize
 
 const TypographyBox = ({
   fontSizeName,
