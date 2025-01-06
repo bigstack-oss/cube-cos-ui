@@ -13,6 +13,7 @@
     "@fontsource/inter": "catalog:",
     "@cube-frontend/api": "workspace:*",
     "@cube-frontend/ui-library": "workspace:*",
+    "@cube-frontend/ui-theme": "workspace:*",
     "@cube-frontend/utils": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
