@@ -24,6 +24,9 @@
       "@cube-frontend/ui-library": [
         "./packages/cube-frontend-ui-library/src/index.ts"
       ],
+      "@cube-frontend/ui-theme": [
+        "./packages/cube-frontend-ui-theme/src/index.ts"
+      ],
       "@cube-frontend/web-app/*": ["./packages/cube-frontend-web-app/src/*"]
     }
   }
