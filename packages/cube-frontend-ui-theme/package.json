@@ -1,0 +1,16 @@
+{
+  "name": "@cube-frontend/ui-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "tailwindcss": "catalog:"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9.5"
+  }
+}
