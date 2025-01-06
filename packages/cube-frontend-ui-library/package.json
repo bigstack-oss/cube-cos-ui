@@ -12,6 +12,7 @@
   "main": "./src/index.ts",
   "dependencies": {
     "@chromatic-com/storybook": "^3.2.3",
+    "@cube-frontend/ui-theme": "workspace:*",
     "@cube-frontend/utils": "workspace:*",
     "@fontsource/inter": "catalog:",
     "@storybook/addon-essentials": "^8.4.7",
@@ -21,8 +22,6 @@
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
     "@storybook/test": "^8.4.7",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
     "autoprefixer": "catalog:",
     "classnames": "^2.5.1",
     "postcss": "catalog:",
@@ -33,5 +32,10 @@
   "engines": {
     "node": ">=22",
     "pnpm": ">=9.5"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "vite": "^6.0.5"
   }
 }

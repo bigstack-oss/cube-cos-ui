@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { cubeTheme } from '../theme'
+import { cubePreset } from '@cube-frontend/ui-theme'
 
 const meta = {} satisfies Meta
 
 export default meta
 
-const colors = cubeTheme.colors
+const colors = cubePreset.theme.colors
 
 const ColorBox = ({
   colorName,
