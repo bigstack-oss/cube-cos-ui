@@ -16,7 +16,7 @@ export default tseslint.config(
       {
         settings: {
           tailwindcss: {
-            whitelist: ['cube\\-.*'],
+            whitelist: ['cube\\-.*', 'icon\\-(sm|md|lg|xl)'],
             config: 'packages/cube-frontend-web-app/tailwind.config.js',
           },
         },
