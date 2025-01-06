@@ -1,0 +1,52 @@
+name: ci-workflow
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build-and-check:
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      # Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # Install dependencies
+      - name: Install dependencies
+        run: pnpm install
+
+      # TypeScript check
+      - name: Run TypeScript check
+        run: pnpm tsc
+
+      # Prettier formatting check
+      - name: Run Prettier check
+        run: pnpm prettier
+
+      # ESLint linting
+      - name: Run ESLint check
+        run: pnpm eslint
+
+      # Build UI library
+      - name: Build UI Library
+        run: pnpm ui-library:build
+
+      # Build Web App
+      - name: Build Web App
+        run: pnpm web-app:build
