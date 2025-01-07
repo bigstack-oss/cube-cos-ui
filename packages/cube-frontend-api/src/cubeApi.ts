@@ -8,7 +8,7 @@ export const cubeApiClient = axios.create({
 })
 
 const fetchSettings = async () => {
-  return 'Welcome to Cube!'
+  return 'Welcome to Gube!'
 }
 
 export const cubeApi = {
