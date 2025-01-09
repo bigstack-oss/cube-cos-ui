@@ -7,7 +7,7 @@ import eslintConfigPrettier from 'eslint-config-prettier'
 import tailwind from 'eslint-plugin-tailwindcss'
 
 export default tseslint.config(
-  { ignores: ['**/storybook-static'] },
+  { ignores: ['**/storybook-static', '**/dist'] },
   {
     extends: [
       js.configs.recommended,
