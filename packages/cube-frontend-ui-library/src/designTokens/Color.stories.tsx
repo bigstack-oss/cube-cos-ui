@@ -5,7 +5,7 @@ const meta = {} satisfies Meta
 
 export default meta
 
-const colors = cubePreset.theme.colors
+const colors = cubePreset.theme.extend.colors
 
 const ColorBox = ({
   colorName,
@@ -31,7 +31,7 @@ export const Color: StoryObj = {
     <div className="flex flex-row flex-wrap space-x-4 space-y-4">
       {Object.entries(colors).map(([colorName, colorShades]) => (
         <div key={colorName}>
-          <h3 className="text-lg font-semibold mb-2">{colorName}</h3>
+          <h3 className="mb-2 text-lg font-semibold">{colorName}</h3>
           {typeof colorShades === 'string' ? (
             <ColorBox colorName={colorName} colorValue={colorShades} />
           ) : (

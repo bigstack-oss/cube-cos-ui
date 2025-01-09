@@ -5,7 +5,7 @@ const meta = {} satisfies Meta
 
 export default meta
 
-const typography = cubePreset.theme.fontSize
+const typography = cubePreset.theme.extend.fontSize
 
 const TypographyBox = ({
   fontSizeName,
