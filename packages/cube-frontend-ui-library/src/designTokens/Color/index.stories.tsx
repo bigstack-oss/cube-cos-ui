@@ -1,9 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { cubePreset } from '@cube-frontend/ui-theme'
-import { UILibrary_Layout } from '../components/Demo/Layout'
-import { UILibrary_Section } from '../components/Demo/Section'
+import type { Meta, StoryObj } from '@storybook/react'
 import classNames from 'classnames'
 import { ReactNode } from 'react'
+import { StoryLayout } from '../../components/StoryLayout/StoryLayout'
 
 const meta = {} satisfies Meta
 
@@ -94,11 +93,11 @@ const ColorColumns = (props: {
 
 export const Color: StoryObj = {
   render: () => (
-    <UILibrary_Layout
+    <StoryLayout
       title="Colors"
       desc="Flexible color palette to achieve clean interfaces and captivating brand experiences."
     >
-      <UILibrary_Section title="Color Palette">
+      <StoryLayout.Section title="Color Palette">
         <ColorBoxContainer title="COSMOS">
           <ColorBox colorName="Primary" colorValue={colors.cosmos.primary} />
           <ColorBox
@@ -199,8 +198,8 @@ export const Color: StoryObj = {
           <ColorBox colorName="9" colorValue={colors.chart[9]} />
           <ColorBox colorName="10" colorValue={colors.chart[10]} />
         </ColorBoxContainer>
-      </UILibrary_Section>
-      <UILibrary_Section title="Color Scale">
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Color Scale">
         <div className="flex flex-wrap gap-x-4 gap-y-8">
           <ColorColumns
             title="Primary"
@@ -217,7 +216,7 @@ export const Color: StoryObj = {
           <ColorColumns title="Yellow" colors={Object.entries(colors.yellow)} />
           <ColorColumns title="Red" colors={Object.entries(colors.red)} />
         </div>
-      </UILibrary_Section>
-    </UILibrary_Layout>
+      </StoryLayout.Section>
+    </StoryLayout>
   ),
 }

@@ -1,8 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { cubePreset } from '@cube-frontend/ui-theme'
-import { UILibrary_Layout } from '../components/Demo/Layout'
-import { UILibrary_Section } from '../components/Demo/Section'
+import type { Meta, StoryObj } from '@storybook/react'
 import classNames from 'classnames'
+import { StoryLayout } from '../components/StoryLayout/StoryLayout'
 
 const meta = {} satisfies Meta
 
@@ -105,11 +104,11 @@ const BodyBox = ({
 
 export const Typography: StoryObj = {
   render: () => (
-    <UILibrary_Layout
+    <StoryLayout
       title="Typography"
       desc="Flexible color palette to achieve clean interfaces and captivating brand experiences."
     >
-      <UILibrary_Section title="Typefaces">
+      <StoryLayout.Section title="Typefaces">
         <div className="flex flex-col space-y-4">
           <div className="grid grid-cols-3 items-center gap-8">
             <h1 className="primary-h1">Urbanist</h1>
@@ -132,11 +131,11 @@ export const Typography: StoryObj = {
             </a>
           </div>
         </div>
-      </UILibrary_Section>
-      <UILibrary_Section title="Rem Base Size">
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Rem Base Size">
         <div>1rem = 16px</div>
-      </UILibrary_Section>
-      <UILibrary_Section title="Heading - Primary">
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Heading - Primary">
         <div className="flex flex-col space-y-8">
           <HeadingBox
             title="Heading 01"
@@ -164,8 +163,8 @@ export const Typography: StoryObj = {
             variant="primary"
           />
         </div>
-      </UILibrary_Section>
-      <UILibrary_Section title="Heading - Secondary">
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Heading - Secondary">
         <div className="flex flex-col space-y-8">
           <HeadingBox
             title="Heading 01"
@@ -193,8 +192,8 @@ export const Typography: StoryObj = {
             variant="secondary"
           />
         </div>
-      </UILibrary_Section>
-      <UILibrary_Section title="Body - Primary">
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Body - Primary">
         <div className="flex flex-col space-y-8">
           <BodyBox
             title="Body 01"
@@ -227,8 +226,8 @@ export const Typography: StoryObj = {
             variant="primary"
           />
         </div>
-      </UILibrary_Section>
-      <UILibrary_Section title="Body - Secondary">
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Body - Secondary">
         <div className="flex flex-col space-y-8">
           <BodyBox
             title="Body 01"
@@ -261,7 +260,7 @@ export const Typography: StoryObj = {
             variant="secondary"
           />
         </div>
-      </UILibrary_Section>
-    </UILibrary_Layout>
+      </StoryLayout.Section>
+    </StoryLayout>
   ),
 }
