@@ -1,10 +1,11 @@
 import { PresetsConfig } from 'tailwindcss/types/config'
 import { cubeTheme } from './cubeTheme'
-import { cubePlugin } from './cubePlugin'
+import { iconPlugin } from './plugins/iconPlugin'
+import { typographyPlugin } from './plugins/typographyPlugin'
 
 export const cubePreset = {
   theme: {
     extend: cubeTheme,
   },
-  plugins: [cubePlugin],
+  plugins: [iconPlugin, typographyPlugin],
 } satisfies PresetsConfig

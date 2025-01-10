@@ -51,6 +51,7 @@ export default tseslint.config(
           ignoreRestSiblings: true,
         },
       ],
+      'tailwindcss/no-custom-classname': 'error',
     },
   },
   eslintConfigPrettier,

@@ -1,7 +1,7 @@
 import { PluginCreator } from 'tailwindcss/types/config'
 
-export const cubePlugin: PluginCreator = ({ addUtilities }) => {
-  addUtilities({
+export const iconPlugin: PluginCreator = ({ addComponents }) => {
+  addComponents({
     '.icon-sm': {
       width: '12px',
       height: '12px',
