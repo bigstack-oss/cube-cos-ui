@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { StoryLayout } from '../../components/StoryLayout/StoryLayout'
+import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { BodyBox } from './BodyBox'
 import { BodyBoxHeader } from './BodyBoxHeader'
 import { HeadingBox } from './HeadingBox'

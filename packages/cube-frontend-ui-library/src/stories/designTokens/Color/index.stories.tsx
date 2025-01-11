@@ -2,7 +2,7 @@ import { cubePreset } from '@cube-frontend/ui-theme'
 import type { Meta, StoryObj } from '@storybook/react'
 import classNames from 'classnames'
 import { ReactNode } from 'react'
-import { StoryLayout } from '../../components/StoryLayout/StoryLayout'
+import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 
 const meta = {} satisfies Meta
 
