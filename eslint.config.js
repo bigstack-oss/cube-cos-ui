@@ -17,6 +17,7 @@ export default tseslint.config(
         settings: {
           tailwindcss: {
             whitelist: ['cube\\-.*'],
+            callees: ['classnames', 'classNames'],
             config: 'packages/cube-frontend-web-app/tailwind.config.js',
           },
         },

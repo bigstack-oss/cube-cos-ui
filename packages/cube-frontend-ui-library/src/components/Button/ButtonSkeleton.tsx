@@ -9,9 +9,9 @@ const getClassName = (size: CubeButtonSize) => {
   const baseClasses = classNames('rounded-[5px] bg-functional-skeleton')
 
   const sizeClasses: Record<CubeButtonSize, string> = {
-    sm: classNames('w-[104px] h-[26px]'),
-    md: classNames('w-[118px] h-[34px]'),
-    lg: classNames('w-[126px] h-[42px]'),
+    sm: classNames('h-[26px] w-[104px]'),
+    md: classNames('h-[34px] w-[118px]'),
+    lg: classNames('h-[42px] w-[126px]'),
   }
 
   return classNames(baseClasses, sizeClasses[size])

@@ -6,6 +6,6 @@
   "trailingComma": "all",
   "tabWidth": 2,
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindFunctions": ["classnames"],
+  "tailwindFunctions": ["classnames", "classNames"],
   "tailwindConfig": "./packages/cube-frontend-web-app/tailwind.config.js"
 }
