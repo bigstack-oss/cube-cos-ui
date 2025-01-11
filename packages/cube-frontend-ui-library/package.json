@@ -14,6 +14,7 @@
     "@cube-frontend/ui-theme": "workspace:*",
     "@cube-frontend/utils": "workspace:*",
     "@fontsource/inter": "catalog:",
+    "@fontsource/urbanist": "catalog:",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/addon-onboarding": "^8.4.7",
