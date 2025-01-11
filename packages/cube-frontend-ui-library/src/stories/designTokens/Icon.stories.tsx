@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Children, PropsWithChildren } from 'react'
-import { CaretLeft } from '../components/Icon/CaretLeft'
-import { Home01 } from '../components/Icon/Home01'
-import { X } from '../components/Icon/X'
-import { IconSize } from '../components/Icon/iconUtils'
+import { CaretLeft } from '../../components/Icon/CaretLeft'
+import { Home01 } from '../../components/Icon/Home01'
+import { X } from '../../components/Icon/X'
+import { IconSize } from '../../components/Icon/iconUtils'
 
 const meta = {} satisfies Meta
 
