@@ -5,31 +5,29 @@ import {
 } from 'tailwindcss/types/config'
 import { cubeTheme, TypographyVariant } from '../cubeTheme'
 
-type FontSizeConfig = Partial<{
+export type FontAttributes = Partial<{
   lineHeight: string
   letterSpacing: string
   fontWeight: string | number
 }>
 
+export type FontConfiguration = [fontSize: string, attributes: FontAttributes]
+
 /**
  * Convert `Record<string, string | number | undefined>` to `Record<string, string | null>`.
  */
-const normalizeFontConfiguration = (
-  values: [fontSize: string, configuration: FontSizeConfig] | undefined,
+const normalizeFontAttributes = (
+  attributes: FontAttributes | undefined,
 ): Record<string, string | null> => {
-  const configuration = values?.[1]
-
-  if (!configuration) {
+  if (!attributes) {
     return {}
   }
 
-  // Replace all `undefined` with `null` in the entries because values in
-  // `addComponents` cannot be `undefined`.
-  const normalizedEntries = Object.entries(configuration).map(
+  const normalizedAttributes = Object.entries(attributes).map(
     ([key, value]) => [key, value?.toString() ?? null],
   )
 
-  return Object.fromEntries(normalizedEntries)
+  return Object.fromEntries(normalizedAttributes)
 }
 
 const HEADING_COUNT = 5
@@ -52,7 +50,7 @@ const createComponents = (
       {
         fontFamily: themeFn(`fontFamily.${fontFamilyKey}`),
         fontSize: themeFn(`fontSize.${key}`),
-        ...normalizeFontConfiguration(themeFn('fontSize')?.[key]),
+        ...normalizeFontAttributes(themeFn('fontSize')?.[key]?.[1]),
       },
     ]),
   ) satisfies CSSRuleObject
