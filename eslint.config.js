@@ -19,6 +19,7 @@ export default tseslint.config(
             whitelist: ['cube\\-.*'],
             callees: ['classnames', 'classNames'],
             config: 'packages/cube-frontend-web-app/tailwind.config.js',
+            classRegex: '^(\\w+)?[cC]lass(Name)?$',
           },
         },
       },
@@ -38,7 +39,12 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'no-console': 'error',
+      'no-console': [
+        'error',
+        {
+          allow: ['error', 'warn'],
+        },
+      ],
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',

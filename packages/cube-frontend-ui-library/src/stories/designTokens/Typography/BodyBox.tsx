@@ -16,10 +16,7 @@ export const BodyBox = (props: BodyBoxProps) => {
 
   return (
     <div
-      className={classNames(
-        'grid h-20 grid-cols-2 items-center gap-10',
-        themeFontSizeKey,
-      )}
+      className={classNames('grid h-20 grid-cols-2 gap-10', themeFontSizeKey)}
     >
       <div className="grid grid-cols-3">
         <span className="font-normal">{title}</span>
