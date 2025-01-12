@@ -3,7 +3,7 @@ import {
   PluginAPI,
   PluginCreator,
 } from 'tailwindcss/types/config'
-import { cubeTheme, TypographyVariant } from '../cubeTheme'
+import { cubeTheme } from '../cubeTheme'
 
 export type FontAttributes = Partial<{
   lineHeight: string
@@ -34,14 +34,13 @@ const HEADING_COUNT = 5
 const BODY_COUNT = 6
 
 const createComponents = (
-  variant: TypographyVariant,
-  type: 'h' | 'body',
+  prefix: string,
   count: number,
   fontFamilyKey: keyof (typeof cubeTheme)['fontFamily'],
   themeFn: PluginAPI['theme'],
 ): CSSRuleObject => {
   const keys = Array.from(Array(count).keys()).map(
-    (_, index) => `${variant}-${type}${index + 1}`,
+    (_, index) => `${prefix}${index + 1}`,
   )
 
   const components = Object.fromEntries(
@@ -60,29 +59,25 @@ const createComponents = (
 
 export const typographyPlugin: PluginCreator = ({ addComponents, theme }) => {
   const primaryHeadings = createComponents(
-    TypographyVariant.Primary,
-    'h',
+    'primary-h',
     HEADING_COUNT,
     'urbanist',
     theme,
   )
-  const primaryBodies = createComponents(
-    TypographyVariant.Primary,
-    'body',
-    BODY_COUNT,
-    'inter',
-    theme,
-  )
   const secondaryHeadings = createComponents(
-    TypographyVariant.Secondary,
-    'h',
+    'secondary-h',
     HEADING_COUNT,
     'inter',
     theme,
   )
+  const primaryBodies = createComponents(
+    'primary-body',
+    BODY_COUNT,
+    'inter',
+    theme,
+  )
   const secondaryBodies = createComponents(
-    TypographyVariant.Secondary,
-    'body',
+    'secondary-body',
     BODY_COUNT,
     'urbanist',
     theme,
@@ -90,8 +85,8 @@ export const typographyPlugin: PluginCreator = ({ addComponents, theme }) => {
 
   addComponents([
     primaryHeadings,
-    primaryBodies,
     secondaryHeadings,
+    primaryBodies,
     secondaryBodies,
   ])
 }

@@ -1,11 +1,6 @@
 import { CustomThemeConfig } from 'tailwindcss/types/config'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
-export enum TypographyVariant {
-  Primary = 'primary',
-  Secondary = 'secondary',
-}
-
 export const cubeTheme = {
   colors: {
     primary: {
@@ -173,97 +168,79 @@ export const cubeTheme = {
   },
   fontSize: {
     // Headings - Primary
-    [`${TypographyVariant.Primary}-h1`]: [
+    'primary-h1': [
       '30px',
       { lineHeight: '38px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
-    [`${TypographyVariant.Primary}-h2`]: [
+    'primary-h2': [
       '24px',
       { lineHeight: '30px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
-    [`${TypographyVariant.Primary}-h3`]: [
+    'primary-h3': [
       '20px',
       { lineHeight: '24px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
-    [`${TypographyVariant.Primary}-h4`]: [
+    'primary-h4': [
       '18px',
       { lineHeight: '22px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
-    [`${TypographyVariant.Primary}-h5`]: [
+    'primary-h5': [
       '16px',
       { lineHeight: '20px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
 
     // Headings - Secondary
-    [`${TypographyVariant.Secondary}-h1`]: [
+    'secondary-h1': [
       '30px',
       { lineHeight: '38px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
-    [`${TypographyVariant.Secondary}-h2`]: [
+    'secondary-h2': [
       '24px',
       { lineHeight: '30px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
-    [`${TypographyVariant.Secondary}-h3`]: [
+    'secondary-h3': [
       '20px',
       { lineHeight: '24px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
-    [`${TypographyVariant.Secondary}-h4`]: [
+    'secondary-h4': [
       '18px',
       { lineHeight: '22px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
-    [`${TypographyVariant.Secondary}-h5`]: [
+    'secondary-h5': [
       '16px',
       { lineHeight: '20px', letterSpacing: '0.02em', fontWeight: 600 },
     ],
 
     // Body - Primary
-    [`${TypographyVariant.Primary}-body1`]: [
-      '15px',
-      { lineHeight: '22px', fontWeight: 400 },
-    ],
-    [`${TypographyVariant.Primary}-body2`]: [
-      '14px',
-      { lineHeight: '20px', fontWeight: 400 },
-    ],
-    [`${TypographyVariant.Primary}-body3`]: [
-      '13px',
-      { lineHeight: '18px', fontWeight: 400 },
-    ],
-    [`${TypographyVariant.Primary}-body4`]: [
-      '12px',
-      { lineHeight: '16px', fontWeight: 400 },
-    ],
-    [`${TypographyVariant.Primary}-body5`]: [
-      '11px',
-      { lineHeight: '15px', fontWeight: 400 },
-    ],
-    [`${TypographyVariant.Primary}-body6`]: [
-      '10px',
-      { lineHeight: '13px', fontWeight: 400 },
-    ],
+    'primary-body1': ['15px', { lineHeight: '22px', fontWeight: 400 }],
+    'primary-body2': ['14px', { lineHeight: '20px', fontWeight: 400 }],
+    'primary-body3': ['13px', { lineHeight: '18px', fontWeight: 400 }],
+    'primary-body4': ['12px', { lineHeight: '16px', fontWeight: 400 }],
+    'primary-body5': ['11px', { lineHeight: '15px', fontWeight: 400 }],
+    'primary-body6': ['10px', { lineHeight: '13px', fontWeight: 400 }],
 
     // Body - Secondary
-    [`${TypographyVariant.Secondary}-body1`]: [
+    'secondary-body1': [
       '15px',
       { lineHeight: '22px', letterSpacing: '0.02em', fontWeight: 400 },
     ],
-    [`${TypographyVariant.Secondary}-body2`]: [
+    'secondary-body2': [
       '14px',
       { lineHeight: '18px', letterSpacing: '0.02em', fontWeight: 400 },
     ],
-    [`${TypographyVariant.Secondary}-body3`]: [
+    'secondary-body3': [
       '13px',
       { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: 400 },
     ],
-    [`${TypographyVariant.Secondary}-body4`]: [
+    'secondary-body4': [
       '12px',
       { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: 400 },
     ],
-    [`${TypographyVariant.Secondary}-body5`]: [
+    'secondary-body5': [
       '11px',
       { lineHeight: '15px', letterSpacing: '0.02em', fontWeight: 400 },
     ],
-    [`${TypographyVariant.Secondary}-body6`]: [
+    'secondary-body6': [
       '10px',
       { lineHeight: '14px', letterSpacing: '0.02em', fontWeight: 400 },
     ],
