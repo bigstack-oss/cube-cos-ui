@@ -5,12 +5,15 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import tailwind from 'eslint-plugin-tailwindcss'
+import importPlugin from 'eslint-plugin-import'
 
 export default tseslint.config(
   { ignores: ['**/storybook-static', '**/dist'] },
   {
     extends: [
       js.configs.recommended,
+      // TODO (low-priority): Find a way to get rid of the following ignore.
+      // eslint-disable-next-line import/no-named-as-default-member
       ...tseslint.configs.recommended,
       ...tailwind.configs['flat/recommended'],
       {
@@ -59,6 +62,32 @@ export default tseslint.config(
         },
       ],
       'tailwindcss/no-custom-classname': 'error',
+    },
+  },
+  {
+    extends: [
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
+    ],
+    settings: {
+      'import/resolver': {
+        typescript: true,
+        node: true,
+      },
+    },
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['../**/cube-frontend*', 'packages/**/*'],
+              message:
+                'Relative package imports are not allowed. Please use path alias imports instead.',
+            },
+          ],
+        },
+      ],
     },
   },
   eslintConfigPrettier,
