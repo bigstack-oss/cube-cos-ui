@@ -22,10 +22,12 @@
     "@storybook/react-vite": "^8.4.7",
     "@storybook/test": "^8.4.7",
     "autoprefixer": "catalog:",
+    "class-variance-authority": "catalog:",
     "classnames": "^2.5.1",
     "postcss": "catalog:",
     "prop-types": "^15.8.1",
     "storybook": "^8.4.7",
+    "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:"
   },
   "engines": {
