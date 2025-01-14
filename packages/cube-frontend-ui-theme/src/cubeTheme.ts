@@ -244,6 +244,10 @@ export const cubeTheme = {
       '10px',
       { lineHeight: '14px', letterSpacing: '0.02em', fontWeight: 400 },
     ],
+    'secondary-body7': [
+      '9px',
+      { lineHeight: '12px', letterSpacing: '0.02em', fontWeight: 400 },
+    ],
   },
   fontWeight: {
     regular: '400',
