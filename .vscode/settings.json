@@ -16,7 +16,8 @@
   ],
   // reference: https://github.com/paolotiu/tailwind-intellisense-regex-list?tab=readme-ov-file#classnames
   "tailwindCSS.experimental.classRegex": [
-    ["classnames\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]", "(\\w+)?Class(Name)?"]
+    ["(classnames|classNames|cva|twMerge)\\(([^)]*)\\)", "(\\w+)?Class(Name)?"],
+    ["[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
   "cSpell.words": ["tseslint"]
 }
