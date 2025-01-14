@@ -31,7 +31,6 @@ const normalizeFontAttributes = (
 }
 
 const HEADING_COUNT = 5
-const BODY_COUNT = 6
 
 const createComponents = (
   prefix: string,
@@ -70,15 +69,10 @@ export const typographyPlugin: PluginCreator = ({ addComponents, theme }) => {
     'inter',
     theme,
   )
-  const primaryBodies = createComponents(
-    'primary-body',
-    BODY_COUNT,
-    'inter',
-    theme,
-  )
+  const primaryBodies = createComponents('primary-body', 6, 'inter', theme)
   const secondaryBodies = createComponents(
     'secondary-body',
-    BODY_COUNT,
+    7,
     'urbanist',
     theme,
   )

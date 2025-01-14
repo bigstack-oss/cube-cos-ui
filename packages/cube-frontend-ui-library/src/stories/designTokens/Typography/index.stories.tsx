@@ -126,37 +126,49 @@ export const Typography: StoryObj = {
         </div>
       </StoryLayout.Section>
       <StoryLayout.Section title="Body - Secondary">
-        <BodyBoxHeader />
+        <BodyBoxHeader includeExtraBold={true} />
         <div className="flex flex-col gap-y-12">
           <BodyBox
             title="Body 01"
             fontFamily="urbanist"
             themeFontSizeKey="secondary-body1"
+            includeExtraBold={true}
           />
           <BodyBox
             title="Body 02"
             fontFamily="urbanist"
             themeFontSizeKey="secondary-body2"
+            includeExtraBold={true}
           />
           <BodyBox
             title="Body 03"
             fontFamily="urbanist"
             themeFontSizeKey="secondary-body3"
+            includeExtraBold={true}
           />
           <BodyBox
             title="Body 04"
             fontFamily="urbanist"
             themeFontSizeKey="secondary-body4"
+            includeExtraBold={true}
           />
           <BodyBox
             title="Body 05"
             fontFamily="urbanist"
             themeFontSizeKey="secondary-body5"
+            includeExtraBold={true}
           />
           <BodyBox
             title="Body 06"
             fontFamily="urbanist"
             themeFontSizeKey="secondary-body6"
+            includeExtraBold={true}
+          />
+          <BodyBox
+            title="Body 07"
+            fontFamily="urbanist"
+            themeFontSizeKey="secondary-body7"
+            includeExtraBold={true}
           />
         </div>
       </StoryLayout.Section>

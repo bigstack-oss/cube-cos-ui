@@ -8,6 +8,7 @@ import '@fontsource/inter/600.css'
 import '@fontsource/urbanist/400.css'
 import '@fontsource/urbanist/500.css'
 import '@fontsource/urbanist/600.css'
+import '@fontsource/urbanist/800.css'
 import './App.css'
 import './tailwind.css'
 
