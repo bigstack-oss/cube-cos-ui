@@ -1,0 +1,109 @@
+import { cva } from 'class-variance-authority'
+import { createElement, MouseEvent } from 'react'
+import { twMerge } from 'tailwind-merge'
+import { DotSpan } from './DotSpan'
+import { NumberSpan } from './NumberSpan'
+
+export type CosTabProps = {
+  label: string
+  // TODO: Support query params if necessary.
+  href?: string
+  isActive: boolean
+  disabled?: boolean
+  onClick?: (e: MouseEvent<HTMLElement>) => void
+} & (
+  | { number: number; dot?: never }
+  | { number?: never; dot: true }
+  | { number?: never; dot?: never }
+)
+
+const tab = cva(undefined, {
+  variants: {
+    isActive: {
+      false: ['border-b-transparent text-functional-text-light'],
+    },
+    disabled: {
+      false: ['cursor-pointer font-medium hover:text-functional-hover-primary'],
+      true: [
+        'cursor-default border-b-transparent text-functional-disable-text',
+      ],
+    },
+  },
+  compoundVariants: [
+    {
+      isActive: true,
+      disabled: false,
+      className: 'border-b-cosmos-primary font-semibold text-cosmos-primary',
+    },
+  ],
+  defaultVariants: {
+    isActive: false,
+    disabled: false,
+  },
+})
+
+export const CosTab = (props: CosTabProps) => {
+  const {
+    label,
+    href,
+    isActive,
+    disabled = false,
+    number,
+    dot,
+    onClick: onClickProp,
+  } = props
+
+  const onClick = (e: MouseEvent<HTMLElement>) => {
+    if (!disabled) {
+      onClickProp?.(e)
+    }
+  }
+
+  const renderLabel = () => (
+    <span
+      data-label={label}
+      className={twMerge(
+        'inline-flex flex-col items-center',
+        // Use pseudo element to avoid slight layout shift caused by the font weight changes between inactive and active states.
+        'before:secondary-body2 before:pointer-events-none before:invisible before:h-0 before:select-none before:font-semibold before:content-[attr(data-label)]',
+      )}
+    >
+      {label}
+    </span>
+  )
+
+  const renderDecoration = () => {
+    if (number !== undefined) {
+      return <NumberSpan number={number} disabled={disabled} />
+    } else if (dot) {
+      return <DotSpan disabled={disabled} />
+    } else {
+      return undefined
+    }
+  }
+
+  const renderTab = () => {
+    const tagType: 'a' | 'span' = href && !disabled ? 'a' : 'span'
+
+    const hrefAttribute = tagType === 'a' ? href : undefined
+
+    return createElement(
+      tagType,
+      {
+        className: twMerge(
+          'secondary-body2 flex min-h-[34px] min-w-[76px] max-w-[200px] items-center justify-center border-b-2 px-2.5 py-2',
+          tab({
+            isActive,
+            disabled,
+          }),
+        ),
+        href: hrefAttribute,
+        onClick,
+      },
+      renderLabel(),
+      renderDecoration(),
+    )
+  }
+
+  return renderTab()
+}
