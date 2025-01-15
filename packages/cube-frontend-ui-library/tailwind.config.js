@@ -12,7 +12,7 @@ export default {
       // We added this pattern because there's a page (story) that lists all
       // the color tokens, and the classes for those colors are dynamically
       // generated at runtime, so it's safe to include them in the CSS output.
-      pattern: /bg-(\w+)-(\d+)/,
+      pattern: /(bg|text)-(\w+)-(\d+)/,
     },
   ],
 }

@@ -26,7 +26,8 @@
     "autoprefixer": "catalog:",
     "postcss": "catalog:",
     "tailwindcss": "catalog:",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "vite-plugin-svgr": "catalog:"
   },
   "engines": {
     "node": ">=22",

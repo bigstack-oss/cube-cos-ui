@@ -28,7 +28,8 @@
     "prop-types": "^15.8.1",
     "storybook": "^8.4.7",
     "tailwind-merge": "catalog:",
-    "tailwindcss": "catalog:"
+    "tailwindcss": "catalog:",
+    "vite-plugin-svgr": "catalog:"
   },
   "engines": {
     "node": ">=22",

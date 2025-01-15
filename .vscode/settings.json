@@ -23,5 +23,12 @@
     ["twJoin\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"],
     ["(\\w+)?Class(Name)?"]
   ],
-  "cSpell.words": ["tseslint"]
+  "cSpell.words": [
+    "autoprefixer",
+    "fontsource",
+    "keyclock",
+    "svgr",
+    "tseslint",
+    "vite"
+  ]
 }

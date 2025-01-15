@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosHyperlink } from '../../../components/CosHyperlink/CosHyperlink'
-import { Home01 } from '../../../components/Icon/Home01'
+import Home01 from '../../../components/CosIcon/monochrome/home_01.svg?react'
 import { HyperlinkBox } from './HyperlinkBox'
 
 const meta = {

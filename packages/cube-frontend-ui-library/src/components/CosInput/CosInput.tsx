@@ -1,14 +1,16 @@
-import { forwardRef, InputHTMLAttributes, useId, ReactNode } from 'react'
+import { forwardRef, InputHTMLAttributes, useId } from 'react'
 import { CosInputSkeleton } from './CosInputSkeleton'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
+import { SvgComponent } from '../CosIcon/CosIcon'
+import WarningFilled from '../CosIcon/monochrome/warning_filled.svg?react'
 
 export type CosInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isLoading?: boolean
   label?: string
   helpMessage?: string
   errorMessage?: string | boolean
-  trailingIcon?: ReactNode
+  trailingIcon?: React.ReactElement<SvgComponent>
 }
 
 const input = cva(
@@ -99,7 +101,7 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
 
       const errorIcon = (() => {
         if (isError) {
-          return <div className="size-10 rounded-full bg-status-negative"></div>
+          return <WarningFilled className="icon-md text-status-negative" />
         } else {
           return undefined
         }

@@ -12,7 +12,7 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ['designTokens', 'components', 'demo'],
+        order: ['designTokens', 'components'],
       },
     },
     controls: {
@@ -20,6 +20,7 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+      expanded: true,
     },
   },
 }

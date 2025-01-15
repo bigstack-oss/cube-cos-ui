@@ -13,3 +13,4 @@ catalog:
   autoprefixer: ^10.4.20
   "@fontsource/inter": "^5.1.0"
   "@fontsource/urbanist": "^5.1.1"
+  "vite-plugin-svgr": "^4.3.0"
