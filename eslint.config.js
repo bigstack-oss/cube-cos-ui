@@ -19,7 +19,7 @@ export default tseslint.config(
       {
         settings: {
           tailwindcss: {
-            whitelist: ['cube\\-.*'],
+            whitelist: ['cos\\-.*'],
             callees: ['classnames', 'classNames', 'cva', 'twMerge'],
             config: 'packages/cube-frontend-web-app/tailwind.config.js',
             classRegex: '^(\\w+)?[cC]lass(Name)?$',

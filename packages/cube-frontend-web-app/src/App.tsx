@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="min-h-svh w-full bg-scene-background">
       <Button>Test My Button</Button>
-      {data && <p className="cube-haha mt-12 pt-2">{toUpperCase(data)}</p>}
+      {data && <p className="cos-haha mt-12 pt-2">{toUpperCase(data)}</p>}
     </div>
   )
 }
