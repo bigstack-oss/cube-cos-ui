@@ -254,4 +254,14 @@ export const cubeTheme = {
     medium: '500',
     semibold: '600',
   },
+  keyframes: {
+    'cos-skeleton': {
+      '100%': {
+        backgroundPositionX: '-20%',
+      },
+    },
+  },
+  animation: {
+    skeleton: 'cos-skeleton 1.5s ease-in-out infinite',
+  },
 } satisfies Partial<CustomThemeConfig>
