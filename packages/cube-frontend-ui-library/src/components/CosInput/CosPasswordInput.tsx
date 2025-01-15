@@ -10,12 +10,12 @@ const ViewOffIcon = (props: ComponentProps<'div'>) => (
 )
 
 type CosPasswordInput = Omit<CosInputProps, 'trailingIcon' | 'type'> & {
-  defaultShowText?: boolean
+  initialShowPassword?: boolean
 }
 
 export const CosPasswordInput = (props: CosPasswordInput) => {
-  const { defaultShowText = false, disabled } = props
-  const [showPassword, setShowPassword] = useState<boolean>(defaultShowText)
+  const { initialShowPassword = false, disabled, ...restProps } = props
+  const [showPassword, setShowPassword] = useState<boolean>(initialShowPassword)
   const handleShowHide = () => {
     setShowPassword((prev) => !prev)
   }
@@ -24,7 +24,7 @@ export const CosPasswordInput = (props: CosPasswordInput) => {
 
   return (
     <CosInput
-      {...props}
+      {...restProps}
       type={showPassword ? 'text' : 'password'}
       trailingIcon={
         <IconComponent onClick={disabled ? undefined : handleShowHide} />
