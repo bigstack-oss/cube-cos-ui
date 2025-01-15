@@ -1,7 +1,8 @@
-import { IconProps } from '../Icon/iconUtils'
+import { SvgComponent } from '../CosIcon/CosIcon'
 import { createElement } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
+import { getIconSizeClass } from '../CosIcon/utils'
 
 export type CosHyperlinkColor = 'primary' | 'secondary'
 
@@ -25,7 +26,7 @@ export type CosHyperlinkProps = BaseHyperlinkProps &
   (
     | {
         variant: Extract<CosHyperlinkVariant, 'icon-left' | 'icon-right'>
-        Icon: React.ComponentType<IconProps>
+        Icon: SvgComponent
       }
     | {
         variant: Extract<CosHyperlinkVariant, 'text-only' | 'text-inline'>
@@ -76,7 +77,7 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
   const renderLeftIcon = () => {
     if (variant === 'icon-left') {
       const { Icon } = props
-      return Icon && <Icon size={size} />
+      return Icon && <Icon className={getIconSizeClass(size)} />
     }
     return undefined
   }
@@ -84,7 +85,7 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
   const renderRightIcon = () => {
     if (variant === 'icon-right') {
       const { Icon } = props
-      return Icon && <Icon size={size} />
+      return Icon && <Icon className={getIconSizeClass(size)} />
     }
     return undefined
   }

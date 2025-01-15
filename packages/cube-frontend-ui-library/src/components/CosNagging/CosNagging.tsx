@@ -1,9 +1,10 @@
-import { Home01 } from '../Icon/Home01'
-import { CaretLeft } from '../Icon/CaretLeft'
+import WarningFilled from '../../components/CosIcon/monochrome/warning_filled.svg?react'
+import WarningAltFilled from '../../components/CosIcon/monochrome/warning_alt_filled.svg?react'
 import { PropsWithClassName } from '@cube-frontend/utils'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { CosHyperlink } from '../CosHyperlink/CosHyperlink'
+import { SvgComponent } from '../CosIcon/CosIcon'
 
 export type CosNaggingType = 'error' | 'warning'
 
@@ -36,13 +37,26 @@ const nagging = cva(
   },
 )
 
+const typeIconBaseClass = twMerge('icon-md shrink-0')
+const typeIcons: Record<CosNaggingType, React.ReactElement<SvgComponent>> = {
+  error: (
+    <WarningAltFilled
+      className={twMerge(typeIconBaseClass, 'text-status-negative')}
+    />
+  ),
+  warning: (
+    <WarningFilled
+      className={twMerge(typeIconBaseClass, 'text-status-warning')}
+    />
+  ),
+}
+
 export const CosNagging = (props: CosNaggingProps) => {
   const { className, type, variant, title } = props
 
-  const isTypeWarning = type === 'warning'
   const isVariantSidebar = variant === 'sidebar'
 
-  const IconComponent = isTypeWarning ? Home01 : CaretLeft
+  const icon = typeIcons[type]
 
   const renderTitle = () => {
     const titleElement = (
@@ -95,7 +109,7 @@ export const CosNagging = (props: CosNaggingProps) => {
   return (
     <div className={twMerge(nagging({ variant, type }), className)}>
       <div className="flex items-start gap-2">
-        <IconComponent className="shrink-0" size="md" />
+        {icon}
         {renderTitle()}
       </div>
       {renderDescription()}

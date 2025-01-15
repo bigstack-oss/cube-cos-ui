@@ -1,13 +1,7 @@
-import { ComponentProps, useState } from 'react'
+import { useState } from 'react'
 import { CosInput, CosInputProps } from './CosInput'
-
-const ViewIcon = (props: ComponentProps<'div'>) => (
-  <div {...props} className="size-10 rounded-full bg-status-positive"></div>
-)
-
-const ViewOffIcon = (props: ComponentProps<'div'>) => (
-  <div {...props} className="size-10 rounded-full bg-status-warning"></div>
-)
+import View from '../CosIcon/monochrome/view.svg?react'
+import ViewOff from '../CosIcon/monochrome/view_off.svg?react'
 
 type CosPasswordInput = Omit<CosInputProps, 'trailingIcon' | 'type'> & {
   initialShowPassword?: boolean
@@ -20,7 +14,7 @@ export const CosPasswordInput = (props: CosPasswordInput) => {
     setShowPassword((prev) => !prev)
   }
 
-  const IconComponent = showPassword ? ViewOffIcon : ViewIcon
+  const IconComponent = showPassword ? View : ViewOff
 
   return (
     <CosInput
@@ -28,7 +22,10 @@ export const CosPasswordInput = (props: CosPasswordInput) => {
       type={showPassword ? 'text' : 'password'}
       disabled={disabled}
       trailingIcon={
-        <IconComponent onClick={disabled ? undefined : handleShowHide} />
+        <IconComponent
+          className="cursor-pointer"
+          onClick={disabled ? undefined : handleShowHide}
+        />
       }
     />
   )

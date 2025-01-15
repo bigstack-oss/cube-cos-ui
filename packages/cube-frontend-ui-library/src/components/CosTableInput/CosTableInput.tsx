@@ -2,6 +2,7 @@ import { forwardRef, InputHTMLAttributes, useId } from 'react'
 import { CosTableInputSkeleton } from './CosTableInputSkeleton'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
+import WarningFilled from '../CosIcon/monochrome/warning_filled.svg?react'
 
 export type CosTableInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isLoading?: boolean
@@ -49,9 +50,8 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
     const renderErrorIcon = () => {
       return (
         <div className="absolute right-0 flex size-4 shrink-0 translate-x-6 items-center justify-center overflow-hidden [&>*]:size-4">
-          {/* TODO: Replace this placeholder div with the real icon after icons are available. */}
           {isError && (
-            <div className="size-10 rounded-full bg-status-negative" />
+            <WarningFilled className="icon-md text-status-negative" />
           )}
         </div>
       )

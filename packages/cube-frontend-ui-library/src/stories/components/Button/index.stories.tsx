@@ -8,7 +8,7 @@ const meta = {
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof Button>
 
 const buttonText = 'Call to action'
 
