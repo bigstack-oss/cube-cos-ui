@@ -5,78 +5,55 @@ import { CosTableInputSkeleton } from './CosTableInputSkeleton'
 export type CosTableInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isLoading?: boolean
   errorMessage?: string | boolean
-  showEllipsis?: boolean
 }
 
-const getClassNames = (isError: boolean, showEllipsis: boolean) => {
-  const containerClasses = 'min-w-[60px] max-w-[320px] space-y-[6px]'
-
+const getClassName = (isError: boolean) => {
   const inputClasses = classnames(
-    'w-full rounded-[6px] border px-3 py-2 text-primary-body3 text-functional-text outline-none placeholder:text-functional-border-darker focus:border-functional-hover-primary',
-    'disabled:border-functional-disable-text disabled:bg-grey-0 disabled:text-functional-disable-text disabled:placeholder:text-functional-border-divider',
+    'primary-body3 w-full truncate rounded-[6px] border bg-grey-0 px-3 py-2 text-functional-text outline-none',
+    'placeholder:text-functional-border-darker',
+    'focus:border-functional-hover-primary',
+    'disabled:border-functional-disable-text disabled:text-functional-disable-text disabled:placeholder:text-functional-border-divider',
     isError
       ? 'border-status-negative hover:border-status-negative'
       : 'border-functional-border-divider hover:border-functional-hover-primary',
-    showEllipsis && 'truncate',
   )
-
-  const iconClasses = classnames(
-    'absolute right-0 flex size-4 translate-x-6 items-center justify-center overflow-hidden',
-    '[&>*]:z-10 [&>*]:size-4 [&>*]:object-contain',
-  )
-
-  return {
-    containerClasses,
-    inputClasses,
-    iconClasses,
-  }
+  return inputClasses
 }
 
 export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
   (props: CosTableInputProps, ref) => {
-    const {
-      className,
-
-      isLoading = false,
-      errorMessage,
-      showEllipsis = false,
-      ...inputProps
-    } = props
+    const { className, isLoading = false, errorMessage, ...restProps } = props
 
     const defaultId = useId()
-    const inputId = inputProps.id || defaultId
+    const inputId = restProps.id || defaultId
 
     const isError = !!errorMessage
-    const hasValidErrorMessageToShow =
-      isError && typeof errorMessage === 'string' && errorMessage !== ''
 
-    const { containerClasses, inputClasses, iconClasses } = getClassNames(
-      isError,
-      showEllipsis,
-    )
+    const inputClasses = getClassName(isError)
 
     const renderErrorIcon = () => {
       const Icon = (() => {
-        if (hasValidErrorMessageToShow) {
+        if (isError) {
           return <div className="size-10 rounded-full bg-status-negative"></div>
-        } else if (isError) {
-          return <div className="size-10 rounded-full bg-status-negative"></div>
-        } else {
-          return null
         }
       })()
-      return <div className={iconClasses}>{Icon}</div>
+
+      return (
+        <div className="absolute right-0 flex size-4 shrink-0 translate-x-6 items-center justify-center overflow-hidden [&>*]:size-4">
+          {Icon}
+        </div>
+      )
     }
 
     return (
-      <div className={classnames(className)}>
-        <div className={containerClasses}>
+      <div className={className}>
+        <div className="min-w-[59px] max-w-[344px] space-y-[6px]">
           <div className="relative flex items-center">
             {isLoading ? (
               <CosTableInputSkeleton />
             ) : (
               <input
-                {...inputProps}
+                {...restProps}
                 id={inputId}
                 ref={ref}
                 className={inputClasses}
