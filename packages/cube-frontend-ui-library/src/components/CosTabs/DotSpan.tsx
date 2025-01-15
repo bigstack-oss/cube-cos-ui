@@ -1,11 +1,10 @@
 import { cva } from 'class-variance-authority'
-import { twMerge } from 'tailwind-merge'
 
 export type DotSpanProps = {
   disabled?: boolean
 }
 
-const dotSpan = cva(undefined, {
+const dotSpan = cva('ml-2.5 size-1 shrink-0 rounded-full', {
   variants: {
     disabled: {
       false: ['bg-cosmos-secondary'],
@@ -22,12 +21,9 @@ export const DotSpan = (props: DotSpanProps) => {
 
   return (
     <span
-      className={twMerge(
-        'ml-2.5 size-1 shrink-0 rounded-full',
-        dotSpan({
-          disabled,
-        }),
-      )}
+      className={dotSpan({
+        disabled,
+      })}
     />
   )
 }

@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 import { createElement, MouseEvent } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { twJoin, twMerge } from 'tailwind-merge'
 import { DotSpan } from './DotSpan'
 import { NumberSpan } from './NumberSpan'
 
@@ -17,30 +17,35 @@ export type CosTabProps = {
   | { number?: never; dot?: never }
 )
 
-const tab = cva(undefined, {
-  variants: {
-    isActive: {
-      false: ['border-b-transparent text-functional-text-light'],
+const tab = cva(
+  'secondary-body2 flex min-h-[34px] max-w-[200px] items-center justify-center border-b-2 px-2.5 py-2',
+  {
+    variants: {
+      isActive: {
+        false: ['border-b-transparent text-functional-text-light'],
+      },
+      disabled: {
+        false: [
+          'cursor-pointer font-medium hover:text-functional-hover-primary',
+        ],
+        true: [
+          'cursor-default border-b-transparent text-functional-disable-text',
+        ],
+      },
     },
-    disabled: {
-      false: ['cursor-pointer font-medium hover:text-functional-hover-primary'],
-      true: [
-        'cursor-default border-b-transparent text-functional-disable-text',
-      ],
-    },
-  },
-  compoundVariants: [
-    {
-      isActive: true,
+    compoundVariants: [
+      {
+        isActive: true,
+        disabled: false,
+        className: 'border-b-cosmos-primary font-semibold text-cosmos-primary',
+      },
+    ],
+    defaultVariants: {
+      isActive: false,
       disabled: false,
-      className: 'border-b-cosmos-primary font-semibold text-cosmos-primary',
     },
-  ],
-  defaultVariants: {
-    isActive: false,
-    disabled: false,
   },
-})
+)
 
 export const CosTab = (props: CosTabProps) => {
   const {
@@ -62,7 +67,7 @@ export const CosTab = (props: CosTabProps) => {
   const renderLabel = () => (
     <span
       data-label={label}
-      className={twMerge(
+      className={twJoin(
         'inline-flex flex-col items-center',
         // Use pseudo element to avoid slight layout shift caused by the font weight changes between inactive and active states.
         'before:secondary-body2 before:pointer-events-none before:invisible before:h-0 before:select-none before:font-semibold before:content-[attr(data-label)]',
@@ -91,7 +96,6 @@ export const CosTab = (props: CosTabProps) => {
       tagType,
       {
         className: twMerge(
-          'secondary-body2 flex min-h-[34px] min-w-[76px] max-w-[200px] items-center justify-center border-b-2 px-2.5 py-2',
           tab({
             isActive,
             disabled,
