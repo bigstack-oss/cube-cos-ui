@@ -1,34 +1,22 @@
-import classnames from 'classnames'
+import { BorderColorClass } from '@cube-frontend/ui-theme'
+import { twJoin, twMerge } from 'tailwind-merge'
 
 type CosStrokeType = 'regular' | 'dot'
 
 export type CosStrokeProps = {
   type?: CosStrokeType
-  hexColor?: string
+  color?: BorderColorClass
 }
 
-const isValidHexColor = (color: string): boolean => {
-  return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color)
-}
-
-const getClassNames = (type: CosStrokeType) => {
-  const typeClasses: Record<CosStrokeType, string> = {
-    regular: 'border-functional-border-divider',
-    dot: 'border-t-4 border-dotted border-primary-50',
-  }
-
-  return classnames(typeClasses[type])
+const typeBaseClasses: Record<CosStrokeType, string> = {
+  regular: twJoin('border-functional-border-divider'),
+  dot: twJoin('border-t-4 border-dotted border-primary-50'),
 }
 
 export const CosStroke = (props: CosStrokeProps) => {
-  const { type = 'regular', hexColor } = props
+  const { type = 'regular', color } = props
 
-  const classNames = getClassNames(type)
+  const baseClasses = typeBaseClasses[type]
 
-  const style =
-    !!hexColor && isValidHexColor(hexColor)
-      ? { borderColor: hexColor }
-      : undefined
-
-  return <hr className={classNames} style={style} />
+  return <hr className={twMerge(baseClasses, color)} />
 }

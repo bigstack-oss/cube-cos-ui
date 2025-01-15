@@ -19,18 +19,18 @@ export const Gallery: StoryObj = {
         </StrokeBox>
       </StoryLayout.Section>
       <StoryLayout.Section title="Stroke">
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col gap-y-8">
           <StrokeBox title="Regular (default color)">
             <CosStroke type="regular" />
           </StrokeBox>
           <StrokeBox title="Regular (custom color)">
-            <CosStroke type="regular" hexColor="#E0F6FF" />
+            <CosStroke type="regular" color="border-primary-500" />
           </StrokeBox>
           <StrokeBox title="Dot (default color)">
             <CosStroke type="dot" />
           </StrokeBox>
           <StrokeBox title="Dot (custom color)">
-            <CosStroke type="dot" hexColor="#E0F6FF" />
+            <CosStroke type="dot" color="border-secondary-500" />
           </StrokeBox>
         </div>
       </StoryLayout.Section>
