@@ -6,7 +6,7 @@ export type CosTabsProps = {
   children: ReactNode
 }
 
-const CosTabsImplementation = (props: CosTabsProps) => {
+export const CosTabs = (props: CosTabsProps) => {
   const { children } = props
 
   return (
@@ -16,10 +16,5 @@ const CosTabsImplementation = (props: CosTabsProps) => {
   )
 }
 
-export const CosTabs: typeof CosTabsImplementation & {
-  Tab: typeof CosTab
-  Skeleton: typeof CosTabSkeleton
-} = Object.assign(CosTabsImplementation, {
-  Tab: CosTab,
-  Skeleton: CosTabSkeleton,
-})
+CosTabs.Tab = CosTab
+CosTabs.Skeleton = CosTabSkeleton
