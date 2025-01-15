@@ -1,5 +1,6 @@
-import { CustomThemeConfig } from 'tailwindcss/types/config'
+import { FlattenedObjectKeys } from '@cube-frontend/utils'
 import defaultTheme from 'tailwindcss/defaultTheme'
+import { CustomThemeConfig } from 'tailwindcss/types/config'
 
 export const cubeTheme = {
   colors: {
@@ -265,3 +266,11 @@ export const cubeTheme = {
     skeleton: 'cos-skeleton 1.5s ease-in-out infinite',
   },
 } satisfies Partial<CustomThemeConfig>
+
+export type BorderColorClass = `border-${FlattenedObjectKeys<
+  typeof cubeTheme.colors,
+  // Separator
+  '-',
+  // Excluded keys
+  'DEFAULT'
+>}`
