@@ -126,9 +126,6 @@ importers:
       '@fontsource/urbanist':
         specifier: 'catalog:'
         version: 5.1.1
-      '@storybook/addon-actions':
-        specifier: ^8.4.7
-        version: 8.4.7(storybook@8.4.7(prettier@3.4.2))
       '@storybook/addon-essentials':
         specifier: ^8.4.7
         version: 8.4.7(@types/react@19.0.4)(storybook@8.4.7(prettier@3.4.2))
