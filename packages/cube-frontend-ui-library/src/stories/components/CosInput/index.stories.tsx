@@ -3,9 +3,10 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { CosInput, CosInputProps } from '../../../components/CosInput/CosInput'
 import { CosPasswordInput } from '../../../components/CosInput/CosPasswordInput'
 import { InputBox } from './InputBox'
-import { action } from '@storybook/addon-actions'
 
-const meta = {} satisfies Meta
+const meta = {
+  argTypes: { onChange: { action: 'onChange' } },
+} satisfies Meta
 
 export default meta
 
@@ -19,9 +20,7 @@ const INPUT_DATA = {
 }
 
 export const Gallery: StoryObj = {
-  args: {
-    onChange: action('onChange'),
-  },
+  args: {},
   render: (args: CosInputProps) => {
     const { onChange } = args
     return (

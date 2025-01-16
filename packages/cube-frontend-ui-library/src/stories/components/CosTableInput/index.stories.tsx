@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import {
   CosTableInput,
@@ -7,7 +6,9 @@ import {
 } from '../../../components/CosTableInput/CosTableInput'
 import { InputBox } from './InputBox'
 
-const meta = {} satisfies Meta
+const meta = {
+  argTypes: { onChange: { action: 'onChange' } },
+} satisfies Meta
 
 export default meta
 
@@ -19,9 +20,7 @@ const INPUT_DATA = {
 }
 
 export const Gallery: StoryObj = {
-  args: {
-    onChange: action('onChange'),
-  },
+  args: {},
   render: (args: CosTableInputProps) => {
     const { onChange } = args
     return (
