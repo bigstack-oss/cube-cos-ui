@@ -1,23 +1,23 @@
 import classnames from 'classnames'
 import { Home01 } from '../Icon/Home01'
 import { CaretLeft } from '../Icon/CaretLeft'
+import { PropsWithClassName } from '@cube-frontend/utils'
 
 export type CosNaggingType = 'error' | 'warning'
 
 export type CosNaggingVariant = 'sidebar' | 'top'
 
-export type CosNaggingProps = {
+export type CosNaggingProps = PropsWithClassName & {
   type: CosNaggingType
   title: string
 } & (
-  | { variant: Extract<CosNaggingVariant, 'sidebar'>; description?: string }
-  | { variant: Extract<CosNaggingVariant, 'top'>; description?: never }
-) &
-  ({ showLink: true; linkText: string; linkHref: string } | { showLink: false })
+    | { variant: Extract<CosNaggingVariant, 'sidebar'>; description?: string }
+    | { variant: Extract<CosNaggingVariant, 'top'> }
+  ) & { link?: { href: string; text: string } }
 
 const getClassNames = (type: CosNaggingType, variant: CosNaggingVariant) => {
   const baseContainerClasses = classnames(
-    'flex gap-[6px] rounded-md bg-yellow-50 p-3',
+    'flex h-full min-w-[184px] gap-[6px] rounded-md bg-yellow-50 p-3',
     'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
   )
 
@@ -48,7 +48,7 @@ const Hyperlink = (props: { text: string; href: string }) => (
 )
 
 export const CosNagging = (props: CosNaggingProps) => {
-  const { type, variant, title, description, showLink } = props
+  const { className, type, variant, title } = props
 
   const { containerClasses } = getClassNames(type, variant)
 
@@ -58,14 +58,14 @@ export const CosNagging = (props: CosNaggingProps) => {
   const IconComponent = isTypeWarning ? Home01 : CaretLeft
 
   const renderTitle = () => {
-    if (showLink && !isVariantSidebar) {
-      const { linkText, linkHref } = props
+    if (!isVariantSidebar) {
+      const { link } = props
       return (
         <div className="flex flex-wrap items-center gap-2">
           <div className="primary-body4 font-semibold text-functional-title">
             {title}
           </div>
-          <Hyperlink text={linkText} href={linkHref} />
+          {link && <Hyperlink text={link.text} href={link.href} />}
         </div>
       )
     } else {
@@ -78,33 +78,28 @@ export const CosNagging = (props: CosNaggingProps) => {
   }
 
   const renderDescription = () => {
-    if (isVariantSidebar)
+    if (isVariantSidebar) {
+      const { description } = props
       return (
         <div className="primary-body4 text-functional-text">{description}</div>
       )
-    return null
+    }
   }
 
   const renderLink = () => {
-    if (isVariantSidebar && showLink) {
-      const { linkText, linkHref } = props
-      return <Hyperlink text={linkText} href={linkHref} />
+    if (isVariantSidebar) {
+      const { link } = props
+      return link && <Hyperlink text={link.text} href={link.href} />
     }
-    return null
   }
 
   return (
-    <div className={containerClasses}>
-      {/** header */}
+    <div className={classnames(containerClasses, className)}>
       <div className="flex items-start gap-2">
-        {/** icon */}
-        <IconComponent className="shrink-0" size="sm" />
-        {/** title */}
+        <IconComponent className="shrink-0" size="md" />
         {renderTitle()}
       </div>
-      {/** description */}
       {renderDescription()}
-      {/** call to action */}
       {renderLink()}
     </div>
   )

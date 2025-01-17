@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { CosNagging } from '../../../components/CosNagging/CosNagging'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
-import { NaggingBoxForSidebar, NaggingBoxForTop } from './NaggingBox'
+import {
+  NaggingBoxForSidebar,
+  NaggingBoxForTop,
+  NaggingRowForTop,
+} from './NaggingBox'
 
 const meta = {
   component: CosNagging,
@@ -15,8 +19,10 @@ const naggingContent = {
   longerTitle:
     'Two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this',
   description: 'Text goes here. Text goes here. (Optional)',
-  linkText: 'Call to action',
-  linkHref: '/',
+  link: {
+    text: 'Call to action',
+    href: '/',
+  },
 }
 
 export const Sidebar: StoryObj = {
@@ -29,9 +35,10 @@ export const Sidebar: StoryObj = {
             type="error"
             variant="sidebar"
             title={naggingContent.title}
-            showLink={true}
-            linkText={naggingContent.linkText}
-            linkHref={naggingContent.linkHref}
+            link={{
+              text: naggingContent.link.text,
+              href: naggingContent.link.href,
+            }}
           />
         </NaggingBoxForSidebar>
       </StoryLayout.Section>
@@ -46,9 +53,16 @@ export const Sidebar: StoryObj = {
               variant="sidebar"
               title={naggingContent.title}
               description={naggingContent.description}
-              showLink={true}
-              linkText={naggingContent.linkText}
-              linkHref={naggingContent.linkHref}
+              link={{
+                text: naggingContent.link.text,
+                href: naggingContent.link.href,
+              }}
+            />
+            <CosNagging
+              type="error"
+              variant="sidebar"
+              title={naggingContent.title}
+              description={naggingContent.description}
             />
           </NaggingBoxForSidebar>
           <NaggingBoxForSidebar title="Warning">
@@ -57,9 +71,16 @@ export const Sidebar: StoryObj = {
               variant="sidebar"
               title={naggingContent.title}
               description={naggingContent.description}
-              showLink={true}
-              linkText={naggingContent.linkText}
-              linkHref={naggingContent.linkHref}
+              link={{
+                text: naggingContent.link.text,
+                href: naggingContent.link.href,
+              }}
+            />
+            <CosNagging
+              type="warning"
+              variant="sidebar"
+              title={naggingContent.title}
+              description={naggingContent.description}
             />
           </NaggingBoxForSidebar>
         </div>
@@ -71,9 +92,15 @@ export const Sidebar: StoryObj = {
               type="error"
               variant="sidebar"
               title={naggingContent.title}
-              showLink={true}
-              linkText={naggingContent.linkText}
-              linkHref={naggingContent.linkHref}
+              link={{
+                text: naggingContent.link.text,
+                href: naggingContent.link.href,
+              }}
+            />
+            <CosNagging
+              type="error"
+              variant="sidebar"
+              title={naggingContent.title}
             />
           </NaggingBoxForSidebar>
           <NaggingBoxForSidebar title="Two lines title">
@@ -82,9 +109,16 @@ export const Sidebar: StoryObj = {
               variant="sidebar"
               title={naggingContent.longTitle}
               description={naggingContent.description}
-              showLink={true}
-              linkText={naggingContent.linkText}
-              linkHref={naggingContent.linkHref}
+              link={{
+                text: naggingContent.link.text,
+                href: naggingContent.link.href,
+              }}
+            />
+            <CosNagging
+              type="warning"
+              variant="sidebar"
+              title={naggingContent.longTitle}
+              description={naggingContent.description}
             />
           </NaggingBoxForSidebar>
         </div>
@@ -103,9 +137,10 @@ export const Top: StoryObj = {
             type="error"
             variant="top"
             title={naggingContent.title}
-            showLink={true}
-            linkText={naggingContent.linkText}
-            linkHref={naggingContent.linkHref}
+            link={{
+              text: naggingContent.link.text,
+              href: naggingContent.link.href,
+            }}
           />
         </NaggingBoxForTop>
       </StoryLayout.Section>
@@ -113,50 +148,91 @@ export const Top: StoryObj = {
         <div className="flex flex-col gap-8">
           <NaggingBoxForTop
             title="Critical Warning"
-            description="Nagging refers to intrusive, repetitive prompts that pressure users into actions. Hence, only critical reminders are displayed here. And keep it within 2 lines"
+            description={`Nagging refers to intrusive, repetitive prompts that pressure users into actions.
+              Hence, only critical reminders are displayed here. And keep it within 2 lines`}
           >
-            <CosNagging
-              type="error"
-              variant="top"
-              title={naggingContent.title}
-              showLink={true}
-              linkText={naggingContent.linkText}
-              linkHref={naggingContent.linkHref}
-            />
+            <NaggingRowForTop title="With link">
+              <CosNagging
+                type="error"
+                variant="top"
+                title={naggingContent.title}
+                link={{
+                  text: naggingContent.link.text,
+                  href: naggingContent.link.href,
+                }}
+              />
+            </NaggingRowForTop>
+            <NaggingRowForTop title="Without link">
+              <CosNagging
+                type="error"
+                variant="top"
+                title={naggingContent.title}
+              />
+            </NaggingRowForTop>
           </NaggingBoxForTop>
           <NaggingBoxForTop title="Warning">
-            <CosNagging
-              type="warning"
-              variant="top"
-              title={naggingContent.title}
-              showLink={true}
-              linkText={naggingContent.linkText}
-              linkHref={naggingContent.linkHref}
-            />
+            <NaggingRowForTop title="With link">
+              <CosNagging
+                type="warning"
+                variant="top"
+                title={naggingContent.title}
+                link={{
+                  text: naggingContent.link.text,
+                  href: naggingContent.link.href,
+                }}
+              />
+            </NaggingRowForTop>
+            <NaggingRowForTop title="Without link">
+              <CosNagging
+                type="warning"
+                variant="top"
+                title={naggingContent.title}
+              />
+            </NaggingRowForTop>
           </NaggingBoxForTop>
         </div>
       </StoryLayout.Section>
       <StoryLayout.Section title="Layout">
         <div className="flex flex-col gap-8">
           <NaggingBoxForTop title="One line title">
-            <CosNagging
-              type="error"
-              variant="top"
-              title={naggingContent.title}
-              showLink={true}
-              linkText={naggingContent.linkText}
-              linkHref={naggingContent.linkHref}
-            />
+            <NaggingRowForTop title="With link">
+              <CosNagging
+                type="error"
+                variant="top"
+                title={naggingContent.title}
+                link={{
+                  text: naggingContent.link.text,
+                  href: naggingContent.link.href,
+                }}
+              />
+            </NaggingRowForTop>
+            <NaggingRowForTop title="Without link">
+              <CosNagging
+                type="error"
+                variant="top"
+                title={naggingContent.title}
+              />
+            </NaggingRowForTop>
           </NaggingBoxForTop>
-          <NaggingBoxForTop title="Two lines title">
-            <CosNagging
-              type="warning"
-              variant="top"
-              title={naggingContent.longerTitle}
-              showLink={true}
-              linkText={naggingContent.linkText}
-              linkHref={naggingContent.linkHref}
-            />
+          <NaggingBoxForTop title="Multiple lines title">
+            <NaggingRowForTop title="With link">
+              <CosNagging
+                type="warning"
+                variant="top"
+                title={naggingContent.longerTitle}
+                link={{
+                  text: naggingContent.link.text,
+                  href: naggingContent.link.href,
+                }}
+              />
+            </NaggingRowForTop>
+            <NaggingRowForTop title="Without link">
+              <CosNagging
+                type="warning"
+                variant="top"
+                title={naggingContent.longerTitle}
+              />
+            </NaggingRowForTop>
           </NaggingBoxForTop>
         </div>
       </StoryLayout.Section>
