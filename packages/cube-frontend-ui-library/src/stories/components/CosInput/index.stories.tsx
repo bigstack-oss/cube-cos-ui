@@ -3,6 +3,7 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { CosInput, CosInputProps } from '../../../components/CosInput/CosInput'
 import { CosPasswordInput } from '../../../components/CosInput/CosPasswordInput'
 import { InputBox } from './InputBox'
+import { ChangeEventHandler, useState } from 'react'
 
 const meta = {
   argTypes: { onChange: { action: 'onChange' } },
@@ -17,19 +18,46 @@ const INPUT_DATA = {
   longText:
     'Display an ellipsis when a long message is entered in the input field.',
   errorMessage: 'Error message here',
+  helpMessage: 'Helper message here',
 }
 
 export const Gallery: StoryObj = {
   args: {},
-  render: (args: CosInputProps) => {
+  render: function Render(args: CosInputProps) {
     const { onChange } = args
+    const [text, setText] = useState<string>('')
+    const [textDefault, setTextDefault] = useState<string>(INPUT_DATA.text)
+    const [textLongDefault, setTextLongDefault] = useState<string>(
+      INPUT_DATA.longText,
+    )
+
+    const handleTextChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+      setText(e.target.value)
+      if (onChange) onChange(e)
+    }
+
+    const handleTextDefaultChange: ChangeEventHandler<HTMLInputElement> = (
+      e,
+    ) => {
+      setTextDefault(e.target.value)
+      if (onChange) onChange(e)
+    }
+
+    const handleTextLongDefaultChange: ChangeEventHandler<HTMLInputElement> = (
+      e,
+    ) => {
+      setTextLongDefault(e.target.value)
+      if (onChange) onChange(e)
+    }
+
     return (
       <StoryLayout title="Text Input">
         <StoryLayout.Section title="Text Input">
           <InputBox title="Master">
             <CosInput
               placeholder={INPUT_DATA.placeholder}
-              onChange={onChange}
+              value={text}
+              onChange={handleTextChange}
             />
             <div className="primary-body3 col-span-2 text-functional-text-light">
               The min width of text frame is 170px.
@@ -47,100 +75,154 @@ export const Gallery: StoryObj = {
               <div className="text-center">Display Text</div>
               <div className="text-center">Hide Text</div>
             </InputBox>
-            <InputBox title="Default / Hover">
+            <InputBox title="Default">
               <CosInput
                 label={INPUT_DATA.label}
                 placeholder={INPUT_DATA.placeholder}
-                onChange={onChange}
+                value={text}
+                onChange={handleTextChange}
               />
               <CosPasswordInput
                 label={INPUT_DATA.label}
                 placeholder={INPUT_DATA.placeholder}
                 initialShowPassword={true}
-                onChange={onChange}
+                value={text}
+                onChange={handleTextChange}
               />
               <CosPasswordInput
                 label={INPUT_DATA.label}
                 placeholder={INPUT_DATA.placeholder}
-                onChange={onChange}
+                value={text}
+                onChange={handleTextChange}
               />
             </InputBox>
-            <InputBox title="Filled Default / Hover">
+            <InputBox title="Required">
               <CosInput
+                required
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.text}
-                onChange={onChange}
+                placeholder={INPUT_DATA.placeholder}
+                value={text}
+                onChange={handleTextChange}
               />
               <CosPasswordInput
+                required
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.text}
+                placeholder={INPUT_DATA.placeholder}
                 initialShowPassword={true}
-                onChange={onChange}
+                value={text}
+                onChange={handleTextChange}
               />
               <CosPasswordInput
+                required
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.text}
-                onChange={onChange}
+                placeholder={INPUT_DATA.placeholder}
+                value={text}
+                onChange={handleTextChange}
               />
             </InputBox>
-            <InputBox title="Error">
+            <InputBox title="Filled Default">
               <CosInput
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.text}
-                errorMessage={INPUT_DATA.errorMessage}
-                onChange={onChange}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
               />
               <CosPasswordInput
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.text}
+                initialShowPassword={true}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
+              />
+              <CosPasswordInput
+                label={INPUT_DATA.label}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
+              />
+            </InputBox>
+            <InputBox title="Helper Message">
+              <CosInput
+                label={INPUT_DATA.label}
+                helpMessage={INPUT_DATA.helpMessage}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
+              />
+              <CosPasswordInput
+                label={INPUT_DATA.label}
+                helpMessage={INPUT_DATA.helpMessage}
+                initialShowPassword={true}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
+              />
+              <CosPasswordInput
+                label={INPUT_DATA.label}
+                helpMessage={INPUT_DATA.helpMessage}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
+              />
+            </InputBox>
+            <InputBox title="Error Message">
+              <CosInput
+                label={INPUT_DATA.label}
+                errorMessage={INPUT_DATA.errorMessage}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
+              />
+              <CosPasswordInput
+                label={INPUT_DATA.label}
                 errorMessage={INPUT_DATA.errorMessage}
                 initialShowPassword={true}
-                onChange={onChange}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
               />
               <CosPasswordInput
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.text}
                 errorMessage={INPUT_DATA.errorMessage}
-                onChange={onChange}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
               />
             </InputBox>
             <InputBox title="Disable">
               <CosInput
                 label={INPUT_DATA.label}
                 defaultValue={INPUT_DATA.text}
-                onChange={onChange}
                 disabled
               />
               <CosPasswordInput
                 label={INPUT_DATA.label}
                 defaultValue={INPUT_DATA.text}
-                onChange={onChange}
                 initialShowPassword={true}
                 disabled
               />
               <CosPasswordInput
                 label={INPUT_DATA.label}
                 defaultValue={INPUT_DATA.text}
-                onChange={onChange}
                 disabled
               />
             </InputBox>
             <InputBox title="Truncate text">
               <CosInput
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.longText}
-                onChange={onChange}
+                value={textLongDefault}
+                onChange={handleTextLongDefaultChange}
               />
               <CosPasswordInput
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.longText}
-                onChange={onChange}
                 initialShowPassword={true}
+                value={textLongDefault}
+                onChange={handleTextLongDefaultChange}
               />
               <CosPasswordInput
                 label={INPUT_DATA.label}
-                defaultValue={INPUT_DATA.longText}
-                onChange={onChange}
+                value={textLongDefault}
+                onChange={handleTextLongDefaultChange}
               />
             </InputBox>
           </div>
