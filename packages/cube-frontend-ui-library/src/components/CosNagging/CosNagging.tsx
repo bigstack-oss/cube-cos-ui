@@ -1,7 +1,8 @@
-import classnames from 'classnames'
 import { Home01 } from '../Icon/Home01'
 import { CaretLeft } from '../Icon/CaretLeft'
 import { PropsWithClassName } from '@cube-frontend/utils'
+import { cva } from 'class-variance-authority'
+import { twMerge } from 'tailwind-merge'
 
 export type CosNaggingType = 'error' | 'warning'
 
@@ -15,30 +16,24 @@ export type CosNaggingProps = PropsWithClassName & {
     | { variant: Extract<CosNaggingVariant, 'top'> }
   ) & { link?: { href: string; text: string } }
 
-const getClassNames = (type: CosNaggingType, variant: CosNaggingVariant) => {
-  const baseContainerClasses = classnames(
-    'flex h-full min-w-[184px] gap-[6px] rounded-md bg-yellow-50 p-3',
+const nagging = cva(
+  [
+    'flex h-full gap-[6px] rounded-md border bg-yellow-50 p-3',
     'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
-  )
-
-  const typeContainerClasses: Record<CosNaggingType, string> = {
-    error: 'border border-status-negative',
-    warning: 'border border-status-warning',
-  }
-
-  const variantContainerClasses: Record<CosNaggingVariant, string> = {
-    sidebar: 'max-w-[184px] flex-col',
-    top: '',
-  }
-
-  return {
-    containerClasses: classnames(
-      baseContainerClasses,
-      typeContainerClasses[type],
-      variantContainerClasses[variant],
-    ),
-  }
-}
+  ],
+  {
+    variants: {
+      type: {
+        error: 'border-status-negative',
+        warning: 'border-status-warning',
+      },
+      variant: {
+        sidebar: 'w-[184px] flex-col',
+        top: '',
+      },
+    },
+  },
+)
 
 // TODO: Will replace it with real Hyperlink component
 const Hyperlink = (props: { text: string; href: string }) => (
@@ -49,8 +44,6 @@ const Hyperlink = (props: { text: string; href: string }) => (
 
 export const CosNagging = (props: CosNaggingProps) => {
   const { className, type, variant, title } = props
-
-  const { containerClasses } = getClassNames(type, variant)
 
   const isTypeWarning = type === 'warning'
   const isVariantSidebar = variant === 'sidebar'
@@ -94,7 +87,7 @@ export const CosNagging = (props: CosNaggingProps) => {
   }
 
   return (
-    <div className={classnames(containerClasses, className)}>
+    <div className={twMerge(nagging({ variant, type }), className)}>
       <div className="flex items-start gap-2">
         <IconComponent className="shrink-0" size="md" />
         {renderTitle()}
