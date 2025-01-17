@@ -1,6 +1,7 @@
 import { forwardRef, InputHTMLAttributes, useId, ReactNode } from 'react'
 import { CosInputSkeleton } from './CosInputSkeleton'
-import classnames from 'classnames'
+import { cva } from 'class-variance-authority'
+import { twMerge } from 'tailwind-merge'
 
 export type CosInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isLoading?: boolean
@@ -10,29 +11,45 @@ export type CosInputProps = InputHTMLAttributes<HTMLInputElement> & {
   trailingIcon?: ReactNode
 }
 
-const getClassNames = (isError: boolean, hasIcon: boolean) => {
-  const inputClasses = classnames(
-    'primary-body2 w-full truncate rounded-[6px] border bg-grey-0 px-4 py-[9px] text-functional-text outline-none',
-    'placeholder:text-functional-border-darker',
-    'focus:border-functional-hover-primary',
-    'disabled:border-functional-disable-text disabled:text-functional-disable-text disabled:placeholder:text-functional-border-divider',
-    isError
-      ? 'border-status-negative pr-8 hover:border-status-negative'
-      : 'border-functional-border-divider hover:border-functional-hover-primary',
-    hasIcon && 'pr-8',
-    hasIcon && isError && 'pr-[56px]',
-  )
+const input = cva(
+  [
+    'primary-body2 w-full truncate rounded-[6px] py-[9px] outline-none',
+    'bg-grey-0',
+    'text-functional-text placeholder:text-functional-border-darker',
+    'border border-functional-border-divider',
+    'hover:border-functional-hover-primary focus:border-functional-hover-primary',
+  ],
+  {
+    variants: {
+      isError: {
+        true: [
+          'pl-4 pr-8',
+          'border-status-negative hover:border-status-negative',
+        ],
+      },
+      disabled: {
+        true: [
+          'disabled:border-functional-disable-text disabled:text-functional-disable-text disabled:placeholder:text-functional-border-divider',
+          'disabled:hover:border-functional-disable-text',
+        ],
+      },
+      hasIcon: {
+        true: 'pl-4 pr-8',
+        false: 'px-4',
+      },
+    },
+    compoundVariants: [{ isError: true, hasIcon: true, class: 'pr-[56px]' }],
+  },
+)
 
-  const footerClasses = classnames(
-    'text-secondary-body4',
-    isError ? 'text-status-negative' : 'text-functional-text-light',
-  )
-
-  return {
-    inputClasses,
-    footerClasses,
-  }
-}
+const footer = cva('primary-body4', {
+  variants: {
+    isError: {
+      true: 'text-status-negative',
+      false: 'text-functional-text-light',
+    },
+  },
+})
 
 export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
   (props: CosInputProps, ref) => {
@@ -44,21 +61,16 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
       helpMessage,
       errorMessage,
       trailingIcon,
+      disabled,
       ...restProps
     } = props
 
     const defaultId = useId()
     const inputId = restProps.id || defaultId
 
-    const hasValidErrorMessageToShow =
-      !!errorMessage && typeof errorMessage === 'string'
-    const hasFooterMessageToShow = !!helpMessage || hasValidErrorMessageToShow
-    const hasCustomIconToShow = !!trailingIcon
-
-    const { inputClasses, footerClasses } = getClassNames(
-      hasValidErrorMessageToShow,
-      hasCustomIconToShow,
-    )
+    const isError = !!errorMessage && typeof errorMessage === 'string'
+    const hasFooterMessage = !!helpMessage || isError
+    const hasIcon = !!trailingIcon
 
     const renderLabel = () => {
       if (!label) return null
@@ -75,7 +87,7 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
 
     const renderIcon = () => {
       const customIcon = (() => {
-        if (hasCustomIconToShow) {
+        if (hasIcon) {
           return trailingIcon
         } else {
           return undefined
@@ -83,7 +95,7 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
       })()
 
       const errorIcon = (() => {
-        if (hasValidErrorMessageToShow) {
+        if (isError) {
           return <div className="size-10 rounded-full bg-status-negative"></div>
         } else {
           return undefined
@@ -99,12 +111,14 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
     }
 
     const renderFooterMessage = () => {
-      if (!hasFooterMessageToShow) return null
+      if (!hasFooterMessage) return null
 
       return isLoading ? (
         <CosInputSkeleton type="footerMessage" />
       ) : (
-        <div className={footerClasses}>{errorMessage ?? helpMessage}</div>
+        <div className={twMerge(footer({ isError }))}>
+          {errorMessage ?? helpMessage}
+        </div>
       )
     }
 
@@ -121,7 +135,8 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
                   {...restProps}
                   id={inputId}
                   ref={ref}
-                  className={inputClasses}
+                  disabled={disabled}
+                  className={twMerge(input({ isError, disabled, hasIcon }))}
                   required={required}
                 />
                 {renderIcon()}
