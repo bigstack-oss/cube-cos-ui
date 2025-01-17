@@ -26,6 +26,7 @@ export const CosPasswordInput = (props: CosPasswordInput) => {
     <CosInput
       {...restProps}
       type={showPassword ? 'text' : 'password'}
+      disabled={disabled}
       trailingIcon={
         <IconComponent onClick={disabled ? undefined : handleShowHide} />
       }
