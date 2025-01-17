@@ -11,7 +11,7 @@ const meta = {
 export default meta
 
 const hyperlinkText = 'Call to action'
-const hyperlinkHref = '/'
+const hyperlinkHref = `/#${Math.random()}`
 
 export const Gallery: StoryObj = {
   args: {},
@@ -24,18 +24,22 @@ export const Gallery: StoryObj = {
               color="primary"
               variant="text-only"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
           </HyperlinkBox>
           <HyperlinkBox title="Master - SM">
             <CosHyperlink
               color="primary"
               variant="text-only"
               size="sm"
-              text={hyperlinkText}
               href={hyperlinkHref}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
           </HyperlinkBox>
         </div>
       </StoryLayout.Section>
@@ -47,133 +51,245 @@ export const Gallery: StoryObj = {
             <div className="primary-body2">Icon left</div>
             <div className="primary-body2">Icon right</div>
           </HyperlinkBox>
-          <HyperlinkBox title="Primary - MD">
+          <HyperlinkBox title="MD - Primary">
             <CosHyperlink
               color="primary"
               variant="text-only"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="primary"
               variant="text-inline"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="primary"
               variant="icon-left"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
               Icon={Home01}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="primary"
               variant="icon-right"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
               Icon={Home01}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
           </HyperlinkBox>
-          <HyperlinkBox title="Primary - SM">
+          <HyperlinkBox title="MD - Secondary">
             <CosHyperlink
-              color="primary"
+              color="secondary"
               variant="text-only"
-              size="sm"
-              text={hyperlinkText}
+              size="md"
               href={hyperlinkHref}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
-              color="primary"
+              color="secondary"
               variant="text-inline"
-              size="sm"
-              text={hyperlinkText}
+              size="md"
               href={hyperlinkHref}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
-              color="primary"
+              color="secondary"
               variant="icon-left"
-              size="sm"
-              text={hyperlinkText}
+              size="md"
               href={hyperlinkHref}
               Icon={Home01}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
-              color="primary"
+              color="secondary"
               variant="icon-right"
-              size="sm"
-              text={hyperlinkText}
+              size="md"
               href={hyperlinkHref}
               Icon={Home01}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
           </HyperlinkBox>
-          <HyperlinkBox title="Secondary - MD">
+          <HyperlinkBox title="MD - Disabled">
             <CosHyperlink
               color="secondary"
               variant="text-only"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
-            />
+              disabled={true}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="secondary"
               variant="text-inline"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
-            />
+              disabled={true}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="secondary"
               variant="icon-left"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
               Icon={Home01}
-            />
+              disabled={true}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="secondary"
               variant="icon-right"
               size="md"
-              text={hyperlinkText}
               href={hyperlinkHref}
               Icon={Home01}
-            />
+              disabled={true}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
           </HyperlinkBox>
-          <HyperlinkBox title="Secondary - SM">
+          <HyperlinkBox title="SM - Primary">
+            <CosHyperlink
+              color="primary"
+              variant="text-only"
+              size="sm"
+              href={hyperlinkHref}
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
+            <CosHyperlink
+              color="primary"
+              variant="text-inline"
+              size="sm"
+              href={hyperlinkHref}
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
+            <CosHyperlink
+              color="primary"
+              variant="icon-left"
+              size="sm"
+              href={hyperlinkHref}
+              Icon={Home01}
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
+            <CosHyperlink
+              color="primary"
+              variant="icon-right"
+              size="sm"
+              href={hyperlinkHref}
+              Icon={Home01}
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
+          </HyperlinkBox>
+          <HyperlinkBox title="SM - Secondary">
             <CosHyperlink
               color="secondary"
               variant="text-only"
               size="sm"
-              text={hyperlinkText}
               href={hyperlinkHref}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="secondary"
               variant="text-inline"
               size="sm"
-              text={hyperlinkText}
               href={hyperlinkHref}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="secondary"
               variant="icon-left"
               size="sm"
-              text={hyperlinkText}
               href={hyperlinkHref}
               Icon={Home01}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
             <CosHyperlink
               color="secondary"
               variant="icon-right"
               size="sm"
-              text={hyperlinkText}
               href={hyperlinkHref}
               Icon={Home01}
-            />
+              disabled={false}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
+          </HyperlinkBox>
+          <HyperlinkBox title="SM - Disabled">
+            <CosHyperlink
+              color="secondary"
+              variant="text-only"
+              size="sm"
+              href={hyperlinkHref}
+              disabled={true}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
+            <CosHyperlink
+              color="secondary"
+              variant="text-inline"
+              size="sm"
+              href={hyperlinkHref}
+              disabled={true}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
+            <CosHyperlink
+              color="secondary"
+              variant="icon-left"
+              size="sm"
+              href={hyperlinkHref}
+              Icon={Home01}
+              disabled={true}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
+            <CosHyperlink
+              color="secondary"
+              variant="icon-right"
+              size="sm"
+              href={hyperlinkHref}
+              Icon={Home01}
+              disabled={true}
+            >
+              {hyperlinkText}
+            </CosHyperlink>
           </HyperlinkBox>
         </div>
       </StoryLayout.Section>
