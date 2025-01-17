@@ -5,6 +5,7 @@ import {
   CosTableInputProps,
 } from '../../../components/CosTableInput/CosTableInput'
 import { InputBox } from './InputBox'
+import { ChangeEventHandler, useState } from 'react'
 
 const meta = {
   argTypes: { onChange: { action: 'onChange' } },
@@ -21,8 +22,33 @@ const INPUT_DATA = {
 
 export const Gallery: StoryObj = {
   args: {},
-  render: (args: CosTableInputProps) => {
+  render: function Render(args: CosTableInputProps) {
     const { onChange } = args
+    const [text, setText] = useState<string>('')
+    const [textDefault, setTextDefault] = useState<string>(INPUT_DATA.text)
+    const [textLongDefault, setTextLongDefault] = useState<string>(
+      INPUT_DATA.longText,
+    )
+
+    const handleTextChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+      setText(e.target.value)
+      if (onChange) onChange(e)
+    }
+
+    const handleTextDefaultChange: ChangeEventHandler<HTMLInputElement> = (
+      e,
+    ) => {
+      setTextDefault(e.target.value)
+      if (onChange) onChange(e)
+    }
+
+    const handleTextLongDefaultChange: ChangeEventHandler<HTMLInputElement> = (
+      e,
+    ) => {
+      setTextLongDefault(e.target.value)
+      if (onChange) onChange(e)
+    }
+
     return (
       <StoryLayout
         title="Text Input - Inside Table"
@@ -35,22 +61,25 @@ export const Gallery: StoryObj = {
           >
             <CosTableInput
               placeholder={INPUT_DATA.placeholder}
-              onChange={onChange}
+              value={text}
+              onChange={handleTextChange}
             />
           </InputBox>
         </StoryLayout.Section>
         <StoryLayout.Section title="Variants">
           <div className="flex flex-col space-y-8">
-            <InputBox title="Default / Hover">
+            <InputBox title="Default">
               <CosTableInput
                 placeholder={INPUT_DATA.placeholder}
-                onChange={onChange}
+                value={text}
+                onChange={handleTextChange}
               />
             </InputBox>
-            <InputBox title="Filled Default / Hover">
+            <InputBox title="Filled Default">
               <CosTableInput
-                defaultValue={INPUT_DATA.text}
-                onChange={onChange}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
               />
             </InputBox>
             <InputBox
@@ -58,22 +87,24 @@ export const Gallery: StoryObj = {
               desc="Error information will be shown as tooltips."
             >
               <CosTableInput
-                defaultValue={INPUT_DATA.text}
+                placeholder={INPUT_DATA.placeholder}
+                value={textDefault}
+                onChange={handleTextDefaultChange}
                 errorMessage={INPUT_DATA.errorMessage}
-                onChange={onChange}
               />
             </InputBox>
             <InputBox title="Disable">
               <CosTableInput
+                placeholder={INPUT_DATA.placeholder}
                 defaultValue={INPUT_DATA.text}
-                onChange={onChange}
                 disabled
               />
             </InputBox>
             <InputBox title="Truncate text">
               <CosTableInput
-                defaultValue={INPUT_DATA.longText}
-                onChange={onChange}
+                placeholder={INPUT_DATA.placeholder}
+                value={textLongDefault}
+                onChange={handleTextLongDefaultChange}
               />
             </InputBox>
           </div>
