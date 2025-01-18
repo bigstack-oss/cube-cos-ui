@@ -6,10 +6,13 @@ import {
 } from '../../../components/CosTableInput/CosTableInput'
 import { InputBox } from './InputBox'
 import { ChangeEventHandler, useState } from 'react'
+import { fn } from '@storybook/test'
 
 const meta = {
-  argTypes: { onChange: { action: 'onChange' } },
-} satisfies Meta
+  argTypes: {
+    onChange: fn(),
+  },
+} satisfies Meta<CosTableInputProps>
 
 export default meta
 

@@ -1,3 +1,5 @@
+import { CosSkeleton } from '../../internal/components/CosSkeleton/CosSkeleton'
+
 export const CosTableInputSkeleton = () => (
-  <div className="h-[34px] w-full rounded-[5px] bg-functional-skeleton" />
+  <CosSkeleton className="h-[34px] w-full" />
 )
