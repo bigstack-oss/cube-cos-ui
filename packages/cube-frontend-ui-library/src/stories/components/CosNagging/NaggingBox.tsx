@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from 'react'
+import { Children, PropsWithChildren, ReactNode } from 'react'
 
 export type NaggingBoxProps = PropsWithChildren<{
   title: string
@@ -6,12 +6,18 @@ export type NaggingBoxProps = PropsWithChildren<{
 }>
 
 export const NaggingBoxForSidebar = (props: NaggingBoxProps) => {
-  const { children, title, description } = props
+  const { children: childrenProp, title, description } = props
+
+  const children = Children.map(childrenProp, (child) => (
+    // Wrap sidebar nagging in a container with the same width of sidebar
+    // for demonstration.
+    <div className="w-[200px]">{child}</div>
+  ))
 
   return (
     <div className="grid grid-cols-6 items-center gap-12">
       <div className="primary-body2 col-span-1 font-medium">{title}</div>
-      <div className="col-span-3 flex space-x-6">{children}</div>
+      <div className="col-span-3 flex gap-x-6">{children}</div>
       {description && (
         <div className="primary-body3 col-span-2 text-functional-text-light">
           {description}
