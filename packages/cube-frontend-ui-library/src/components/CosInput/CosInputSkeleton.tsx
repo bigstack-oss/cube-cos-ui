@@ -1,4 +1,5 @@
-import classNames from 'classnames'
+import { twMerge } from 'tailwind-merge'
+import { CosSkeleton } from '../../internal/components/CosSkeleton/CosSkeleton'
 
 export type InputSkeletonType = 'input' | 'label' | 'footerMessage'
 
@@ -15,12 +16,5 @@ const heightClasses: Record<InputSkeletonType, string> = {
 export const CosInputSkeleton = (props: CosInputSkeletonProps) => {
   const { type } = props
 
-  return (
-    <div
-      className={classNames(
-        'w-full rounded-[5px] bg-functional-skeleton',
-        heightClasses[type],
-      )}
-    />
-  )
+  return <CosSkeleton className={twMerge('w-full', heightClasses[type])} />
 }

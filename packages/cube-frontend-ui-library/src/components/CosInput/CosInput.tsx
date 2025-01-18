@@ -38,7 +38,10 @@ const input = cva(
         false: 'px-4',
       },
     },
-    compoundVariants: [{ isError: true, hasIcon: true, class: 'pr-[56px]' }],
+    compoundVariants: [
+      { isError: true, hasIcon: true, class: 'pr-[56px]' },
+      { isError: true, hasIcon: false, class: 'pr-9' },
+    ],
   },
 )
 
