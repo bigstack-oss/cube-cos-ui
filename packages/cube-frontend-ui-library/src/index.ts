@@ -8,4 +8,3 @@ export * from './components/CosTableInput/CosTableInput'
 export * from './components/CosTableInput/CosTableInputSkeleton'
 export { type CosTabProps } from './components/CosTabs/CosTab'
 export * from './components/CosTabs/CosTabs'
-
