@@ -108,5 +108,3 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
 
   return renderHyperlink()
 }
-
-export default CosHyperlink

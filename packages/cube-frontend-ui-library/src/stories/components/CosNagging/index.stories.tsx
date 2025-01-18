@@ -19,10 +19,10 @@ const naggingContent = {
   longerTitle:
     'Two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this',
   description: 'Text goes here. Text goes here. (Optional)',
-  link: {
+  createLink: () => ({
     text: 'Call to action',
-    href: '/',
-  },
+    href: `/#${Math.random()}`,
+  }),
 }
 
 export const Sidebar: StoryObj = {
@@ -35,10 +35,7 @@ export const Sidebar: StoryObj = {
             type="error"
             variant="sidebar"
             title={naggingContent.title}
-            link={{
-              text: naggingContent.link.text,
-              href: naggingContent.link.href,
-            }}
+            link={naggingContent.createLink()}
           />
         </NaggingBoxForSidebar>
       </StoryLayout.Section>
@@ -53,10 +50,7 @@ export const Sidebar: StoryObj = {
               variant="sidebar"
               title={naggingContent.title}
               description={naggingContent.description}
-              link={{
-                text: naggingContent.link.text,
-                href: naggingContent.link.href,
-              }}
+              link={naggingContent.createLink()}
             />
             <CosNagging
               type="error"
@@ -71,10 +65,7 @@ export const Sidebar: StoryObj = {
               variant="sidebar"
               title={naggingContent.title}
               description={naggingContent.description}
-              link={{
-                text: naggingContent.link.text,
-                href: naggingContent.link.href,
-              }}
+              link={naggingContent.createLink()}
             />
             <CosNagging
               type="warning"
@@ -92,10 +83,7 @@ export const Sidebar: StoryObj = {
               type="error"
               variant="sidebar"
               title={naggingContent.title}
-              link={{
-                text: naggingContent.link.text,
-                href: naggingContent.link.href,
-              }}
+              link={naggingContent.createLink()}
             />
             <CosNagging
               type="error"
@@ -109,10 +97,7 @@ export const Sidebar: StoryObj = {
               variant="sidebar"
               title={naggingContent.longTitle}
               description={naggingContent.description}
-              link={{
-                text: naggingContent.link.text,
-                href: naggingContent.link.href,
-              }}
+              link={naggingContent.createLink()}
             />
             <CosNagging
               type="warning"
@@ -137,10 +122,7 @@ export const Top: StoryObj = {
             type="error"
             variant="top"
             title={naggingContent.title}
-            link={{
-              text: naggingContent.link.text,
-              href: naggingContent.link.href,
-            }}
+            link={naggingContent.createLink()}
           />
         </NaggingBoxForTop>
       </StoryLayout.Section>
@@ -156,10 +138,7 @@ export const Top: StoryObj = {
                 type="error"
                 variant="top"
                 title={naggingContent.title}
-                link={{
-                  text: naggingContent.link.text,
-                  href: naggingContent.link.href,
-                }}
+                link={naggingContent.createLink()}
               />
             </NaggingRowForTop>
             <NaggingRowForTop title="Without link">
@@ -176,10 +155,7 @@ export const Top: StoryObj = {
                 type="warning"
                 variant="top"
                 title={naggingContent.title}
-                link={{
-                  text: naggingContent.link.text,
-                  href: naggingContent.link.href,
-                }}
+                link={naggingContent.createLink()}
               />
             </NaggingRowForTop>
             <NaggingRowForTop title="Without link">
@@ -200,10 +176,7 @@ export const Top: StoryObj = {
                 type="error"
                 variant="top"
                 title={naggingContent.title}
-                link={{
-                  text: naggingContent.link.text,
-                  href: naggingContent.link.href,
-                }}
+                link={naggingContent.createLink()}
               />
             </NaggingRowForTop>
             <NaggingRowForTop title="Without link">
@@ -220,10 +193,7 @@ export const Top: StoryObj = {
                 type="warning"
                 variant="top"
                 title={naggingContent.longerTitle}
-                link={{
-                  text: naggingContent.link.text,
-                  href: naggingContent.link.href,
-                }}
+                link={naggingContent.createLink()}
               />
             </NaggingRowForTop>
             <NaggingRowForTop title="Without link">
