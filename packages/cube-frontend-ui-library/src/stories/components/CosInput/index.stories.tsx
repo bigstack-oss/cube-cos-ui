@@ -4,10 +4,13 @@ import { CosInput, CosInputProps } from '../../../components/CosInput/CosInput'
 import { CosPasswordInput } from '../../../components/CosInput/CosPasswordInput'
 import { InputBox } from './InputBox'
 import { ChangeEventHandler, useState } from 'react'
+import { fn } from '@storybook/test'
 
 const meta = {
-  argTypes: { onChange: { action: 'onChange' } },
-} satisfies Meta
+  args: {
+    onChange: fn(),
+  },
+} satisfies Meta<typeof CosInput>
 
 export default meta
 
