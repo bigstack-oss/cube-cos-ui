@@ -47,15 +47,12 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
     const isError = !!errorMessage
 
     const renderErrorIcon = () => {
-      const Icon = (() => {
-        if (isError) {
-          return <div className="size-10 rounded-full bg-status-negative"></div>
-        }
-      })()
-
       return (
         <div className="absolute right-0 flex size-4 shrink-0 translate-x-6 items-center justify-center overflow-hidden [&>*]:size-4">
-          {Icon}
+          {/* TODO: Replace this placeholder div with the real icon after icons are available. */}
+          {isError && (
+            <div className="size-10 rounded-full bg-status-negative" />
+          )}
         </div>
       )
     }
