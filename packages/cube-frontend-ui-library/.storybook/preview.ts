@@ -21,9 +21,6 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    actions: {
-      argTypeREgex: '^on[A-Z].*',
-    },
   },
 }
 
