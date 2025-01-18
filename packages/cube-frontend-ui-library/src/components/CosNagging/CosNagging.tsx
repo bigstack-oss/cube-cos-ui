@@ -77,6 +77,7 @@ export const CosNagging = (props: CosNaggingProps) => {
         <div className="primary-body4 text-functional-text">{description}</div>
       )
     }
+    return undefined
   }
 
   const renderLink = () => {
@@ -84,6 +85,7 @@ export const CosNagging = (props: CosNaggingProps) => {
       const { link } = props
       return link && <Hyperlink text={link.text} href={link.href} />
     }
+    return undefined
   }
 
   return (
