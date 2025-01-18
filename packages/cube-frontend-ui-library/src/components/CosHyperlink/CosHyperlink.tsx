@@ -15,7 +15,7 @@ export type CosHyperlinkSize = 'sm' | 'md'
 
 type BaseHyperlinkProps = {
   color?: CosHyperlinkColor
-  size: CosHyperlinkSize
+  size?: CosHyperlinkSize
   disabled?: boolean
   children: string
   href: string
@@ -78,6 +78,7 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
       const { Icon } = props
       return Icon && <Icon size={size} />
     }
+    return undefined
   }
 
   const renderRightIcon = () => {
@@ -85,6 +86,7 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
       const { Icon } = props
       return Icon && <Icon size={size} />
     }
+    return undefined
   }
 
   const renderHyperlink = () => {

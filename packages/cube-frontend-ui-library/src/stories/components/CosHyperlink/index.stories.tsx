@@ -18,7 +18,7 @@ export const Gallery: StoryObj = {
   render: () => (
     <StoryLayout title="Hyperlink">
       <StoryLayout.Section title="Hyperlink">
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col gap-y-8">
           <HyperlinkBox title="Master - MD">
             <CosHyperlink
               color="primary"
@@ -44,7 +44,7 @@ export const Gallery: StoryObj = {
         </div>
       </StoryLayout.Section>
       <StoryLayout.Section title="Variants">
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col gap-y-8">
           <HyperlinkBox title="">
             <div className="primary-body2">Text only</div>
             <div className="primary-body2">Text inline</div>
