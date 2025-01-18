@@ -3,6 +3,7 @@ import { CaretLeft } from '../Icon/CaretLeft'
 import { PropsWithClassName } from '@cube-frontend/utils'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
+import { CosHyperlink } from '../CosHyperlink/CosHyperlink'
 
 export type CosNaggingType = 'error' | 'warning'
 
@@ -18,7 +19,7 @@ export type CosNaggingProps = PropsWithClassName & {
 
 const nagging = cva(
   [
-    'flex h-full gap-[6px] rounded-md border bg-yellow-50 p-3',
+    'flex gap-[6px] self-start rounded-md border bg-yellow-50 p-3',
     'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
   ],
   {
@@ -28,18 +29,11 @@ const nagging = cva(
         warning: 'border-status-warning',
       },
       variant: {
-        sidebar: 'w-[184px] flex-col',
+        sidebar: 'flex-col',
         top: '',
       },
     },
   },
-)
-
-// TODO: Will replace it with real Hyperlink component
-const Hyperlink = (props: { text: string; href: string }) => (
-  <div className="primary-body4 font-medium text-primary underline underline-offset-4">
-    {props.text}
-  </div>
 )
 
 export const CosNagging = (props: CosNaggingProps) => {
@@ -51,22 +45,26 @@ export const CosNagging = (props: CosNaggingProps) => {
   const IconComponent = isTypeWarning ? Home01 : CaretLeft
 
   const renderTitle = () => {
+    const titleElement = (
+      <div className="primary-body4 font-semibold text-functional-title">
+        {title}
+      </div>
+    )
+
     if (!isVariantSidebar) {
       const { link } = props
       return (
         <div className="flex flex-wrap items-center gap-2">
-          <div className="primary-body4 font-semibold text-functional-title">
-            {title}
-          </div>
-          {link && <Hyperlink text={link.text} href={link.href} />}
+          {titleElement}
+          {link && (
+            <CosHyperlink variant="text-inline" size="sm" href={link.href}>
+              {link.text}
+            </CosHyperlink>
+          )}
         </div>
       )
     } else {
-      return (
-        <div className="primary-body4 font-semibold text-functional-title">
-          {title}
-        </div>
-      )
+      return titleElement
     }
   }
 
@@ -80,10 +78,16 @@ export const CosNagging = (props: CosNaggingProps) => {
     return undefined
   }
 
-  const renderLink = () => {
+  const renderBottomLink = () => {
     if (isVariantSidebar) {
       const { link } = props
-      return link && <Hyperlink text={link.text} href={link.href} />
+      return (
+        link && (
+          <CosHyperlink variant="text-inline" size="sm" href={link.href}>
+            {link.text}
+          </CosHyperlink>
+        )
+      )
     }
     return undefined
   }
@@ -95,7 +99,7 @@ export const CosNagging = (props: CosNaggingProps) => {
         {renderTitle()}
       </div>
       {renderDescription()}
-      {renderLink()}
+      {renderBottomLink()}
     </div>
   )
 }
