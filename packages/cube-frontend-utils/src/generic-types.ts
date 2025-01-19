@@ -16,3 +16,5 @@ export type FlattenedObjectKeys<
   Separator extends string = '.',
   ExcludedKeys extends string | number = '',
 > = FlattenObjectKeysInternal<T, Separator, ExcludedKeys>
+
+export type ValueOfSet<T> = T extends Set<infer Value> ? Value : never
