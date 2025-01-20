@@ -4,7 +4,7 @@ import { PropsWithClassName } from '@cube-frontend/utils'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { CosHyperlink } from '../CosHyperlink/CosHyperlink'
-import { SvgComponent } from '../CosIcon/CosIcon'
+import { SvgElement } from '../CosIcon/CosIcon'
 
 export type CosNaggingType = 'error' | 'warning'
 
@@ -38,7 +38,7 @@ const nagging = cva(
 )
 
 const typeIconBaseClass = twMerge('icon-md shrink-0')
-const typeIcons: Record<CosNaggingType, React.ReactElement<SvgComponent>> = {
+const typeIcons: Record<CosNaggingType, SvgElement> = {
   error: (
     <WarningAltFilled
       className={twMerge(typeIconBaseClass, 'text-status-negative')}

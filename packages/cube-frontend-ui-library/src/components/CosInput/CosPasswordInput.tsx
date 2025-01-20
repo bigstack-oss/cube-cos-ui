@@ -22,10 +22,7 @@ export const CosPasswordInput = (props: CosPasswordInput) => {
       type={showPassword ? 'text' : 'password'}
       disabled={disabled}
       trailingIcon={
-        <IconComponent
-          className="cursor-pointer"
-          onClick={disabled ? undefined : handleShowHide}
-        />
+        <IconComponent onClick={disabled ? undefined : handleShowHide} />
       }
     />
   )
