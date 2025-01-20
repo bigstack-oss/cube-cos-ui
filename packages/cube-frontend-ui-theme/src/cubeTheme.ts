@@ -1,8 +1,8 @@
 import { FlattenedObjectKeys } from '@cube-frontend/utils'
 import defaultTheme from 'tailwindcss/defaultTheme'
 import { CustomThemeConfig } from 'tailwindcss/types/config'
-import { cosAnimationKeyframes } from './plugins/animationKeyframes'
-import { cosAnimations } from './plugins/animations'
+import { cosAnimationKeyframes } from './utils/animationKeyframes'
+import { cosAnimations } from './utils/animations'
 
 export const cubeTheme = {
   colors: {
