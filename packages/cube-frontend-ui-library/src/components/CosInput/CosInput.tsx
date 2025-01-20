@@ -1,8 +1,8 @@
-import { forwardRef, InputHTMLAttributes, useId } from 'react'
+import { cloneElement, forwardRef, InputHTMLAttributes, useId } from 'react'
 import { CosInputSkeleton } from './CosInputSkeleton'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
-import { SvgComponent } from '../CosIcon/CosIcon'
+import { SvgElement } from '../CosIcon/CosIcon'
 import WarningFilled from '../CosIcon/monochrome/warning_filled.svg?react'
 
 export type CosInputProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -10,7 +10,7 @@ export type CosInputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   helpMessage?: string
   errorMessage?: string | boolean
-  trailingIcon?: React.ReactElement<SvgComponent>
+  trailingIcon?: SvgElement
 }
 
 const input = cva(
@@ -91,14 +91,6 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
     }
 
     const renderIcon = () => {
-      const customIcon = (() => {
-        if (hasIcon) {
-          return trailingIcon
-        } else {
-          return undefined
-        }
-      })()
-
       const errorIcon = (() => {
         if (isError) {
           return <WarningFilled className="icon-md text-status-negative" />
@@ -107,10 +99,31 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
         }
       })()
 
+      const customIcon = (() => {
+        if (!hasIcon) {
+          return undefined
+        }
+        const colorClass = twMerge(
+          disabled ? 'text-functional-border-divider' : 'text-functional-text',
+        )
+        const cursorClass = twMerge(
+          disabled ? 'cursor-default' : 'cursor-pointer',
+        )
+        return cloneElement(trailingIcon, {
+          className: twMerge(
+            trailingIcon.props.className,
+            // Overrides icon size, color, and cursor style within the input.
+            'icon-md',
+            colorClass,
+            cursorClass,
+          ),
+        })
+      })()
+
       return (
-        <span className="absolute right-0 flex h-4 shrink-0 -translate-x-4 items-center justify-center gap-2 overflow-hidden [&>*]:size-4">
-          {!!errorIcon && errorIcon}
-          {!!customIcon && customIcon}
+        <span className="absolute right-0 flex h-4 shrink-0 -translate-x-4 items-center justify-center gap-2 overflow-hidden">
+          {errorIcon}
+          {customIcon}
         </span>
       )
     }

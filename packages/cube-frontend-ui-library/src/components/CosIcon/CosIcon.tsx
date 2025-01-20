@@ -7,11 +7,13 @@ export type IconSize = 'sm' | 'md' | 'lg' | 'xl'
 
 export type SvgComponent = typeof SvgComponentInstance
 
+export type SvgElement = ReactElement<ComponentProps<SvgComponent>>
+
 export type CosIconFrameProps = {
   className?: string
   size?: IconSize
   onClick?: () => void
-  children: ReactElement<ComponentProps<SvgComponent>>
+  children: SvgElement
 }
 
 export const CosIconFrame = (props: CosIconFrameProps) => {
