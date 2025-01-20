@@ -1,10 +1,11 @@
+import { useState } from 'react'
 import {
   StoryLayout,
   StoryLayoutProps,
 } from '../../../internal/components/StoryLayout/StoryLayout'
 import { IconGalleryItem } from './IconGalleryItem'
 import { IconSize, SvgComponent } from '../../../components/CosIcon/CosIcon'
-import { useState } from 'react'
+import { CosInput } from '../../../components/CosInput/CosInput'
 
 export type IconGalleryItemProps = Omit<StoryLayoutProps, 'children'> & {
   size?: IconSize
@@ -28,8 +29,7 @@ export const IconGallery = (props: IconGalleryItemProps) => {
   return (
     <StoryLayout title={title} desc={desc}>
       <div className="flex flex-col gap-y-8">
-        <input
-          className="w-[400px] rounded-md border border-functional-text-light p-2"
+        <CosInput
           placeholder='Search for an icon (e.g. "home")'
           value={search}
           onChange={(e) => setSearch(e.target.value)}

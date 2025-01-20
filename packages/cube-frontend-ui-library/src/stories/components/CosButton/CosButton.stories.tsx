@@ -1,91 +1,64 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Button, CubeButtonSize } from '../../../components/Button/Button'
-import ButtonSkeleton from '../../../components/Button/ButtonSkeleton'
+import { CosButton } from '../../../components/CosButton/CosButton'
+import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
+import { ButtonVariantTable } from './ButtonVariantTable'
+import ButtonSkeletonTable from './ButtonSkeletonTable'
 
 const meta = {
   title: 'Atoms/Button',
-  component: Button,
-} satisfies Meta<typeof Button>
+  component: CosButton,
+  argTypes: {
+    type: {
+      control: { disable: true },
+    },
+    size: {
+      control: { disable: true },
+    },
+    usage: {
+      control: { disable: true },
+    },
+    loading: {
+      control: { disable: true },
+    },
+    disabled: {
+      control: { disable: true },
+    },
+    className: {
+      control: { disable: true },
+    },
+    children: {
+      control: { disabled: true },
+    },
+  },
+} satisfies Meta<typeof CosButton>
 
 export default meta
 
-type Story = StoryObj<typeof Button>
-
-const buttonText = 'Call to action'
-
-const SizeBlocks = (props: { title: string; size: CubeButtonSize }) => {
-  const { title, size } = props
-
-  return (
-    <div className="flex flex-row items-center space-x-4">
-      <span className="font-inter text-primary-h3">{title}</span>
-      <div className="flex flex-col space-y-4">
-        <div className="flex items-center space-x-4">
-          <span className="w-12 font-inter text-primary-body3">Default</span>
-          <Button size={size} variant="primary">
-            {buttonText}
-          </Button>
-          <Button size={size} variant="secondary">
-            {buttonText}
-          </Button>
-          <Button size={size} variant="ghost">
-            {buttonText}
-          </Button>
-        </div>
-        <div className="flex items-center space-x-4">
-          <span className="w-12 font-inter text-primary-body3">Disable</span>
-          <Button size={size} variant="primary" disabled>
-            {buttonText}
-          </Button>
-          <Button size={size} variant="secondary" disabled>
-            {buttonText}
-          </Button>
-          <Button size={size} variant="ghost" disabled>
-            {buttonText}
-          </Button>
-        </div>
-        <div className="flex items-center space-x-4">
-          <span className="w-12 font-inter text-primary-body3">Skeleton</span>
-          <ButtonSkeleton size={size} />
-          <ButtonSkeleton size={size} />
-          <ButtonSkeleton size={size} />
-        </div>
-      </div>
-    </div>
-  )
+type ButtonStoryArgs = React.ComponentProps<typeof CosButton> & {
+  buttonText: string
 }
 
-export const Gallery: StoryObj = {
-  args: {},
-  render: () => (
-    <div className="flex flex-col gap-y-4">
-      <SizeBlocks title="SM" size="sm" />
-      <SizeBlocks title="MD" size="md" />
-      <SizeBlocks title="LG" size="lg" />
-    </div>
-  ),
-}
+type Story = StoryObj<ButtonStoryArgs>
 
-export const Primary: Story = {
+export const Gallery: Story = {
   args: {
-    variant: 'primary',
-    disabled: false,
-    children: buttonText,
+    buttonText: 'Call to action',
   },
-}
+  render: (props: ButtonStoryArgs) => {
+    const { buttonText } = props
 
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    disabled: false,
-    children: buttonText,
-  },
-}
-
-export const Ghost: Story = {
-  args: {
-    variant: 'ghost',
-    disabled: false,
-    children: buttonText,
+    return (
+      <StoryLayout
+        title="Button"
+        desc="Buttons allow users to take actions, and make choices, with a single tap."
+      >
+        <StoryLayout.Section title="Variants">
+          <ButtonVariantTable buttonText={buttonText} />
+        </StoryLayout.Section>
+        <StoryLayout.Section title="Button Skeleton">
+          <ButtonSkeletonTable />
+        </StoryLayout.Section>
+      </StoryLayout>
+    )
   },
 }

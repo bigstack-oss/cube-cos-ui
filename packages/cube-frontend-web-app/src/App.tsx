@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { cubeApi } from '@cube-frontend/api'
-import { Button, CosIconFrame } from '@cube-frontend/ui-library'
+import { CosButton, CosIconFrame } from '@cube-frontend/ui-library'
 import AddCircle from '@cube-frontend/ui-library/icons/monochrome/add_circle.svg?react'
 import Keycloak from '@cube-frontend/ui-library/icons/colored/keyclock.svg?react'
 import HomeIcon from '@cube-frontend/ui-library/icons/monochrome/home_02.svg?react'
@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className="min-h-svh w-full bg-scene-background p-4">
-      <Button>Button</Button>
+      <CosButton>CosButton</CosButton>
       {/* This is only for demonstration about how to use icon library now. */}
       <div className="flex items-center gap-x-2">
         <AddCircle className="icon-xl text-green-600" />

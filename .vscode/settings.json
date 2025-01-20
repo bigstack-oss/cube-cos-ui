@@ -28,6 +28,7 @@
     "fontsource",
     "keyclock",
     "svgr",
+    "Svgs",
     "tseslint",
     "vite"
   ]
