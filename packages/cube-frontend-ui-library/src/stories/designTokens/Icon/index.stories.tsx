@@ -85,6 +85,13 @@ export const Size: Story = {
       <StoryLayout title="Icon Size">
         <StoryLayout.Section title="Without Frame">
           {renderSizeRow(
+            'Extra Small',
+            <Home01
+              className={twMerge('icon-xs', className)}
+              onClick={onClick}
+            />,
+          )}
+          {renderSizeRow(
             'Small',
             <Home01
               className={twMerge('icon-sm', className)}
@@ -114,6 +121,12 @@ export const Size: Story = {
           )}
         </StoryLayout.Section>
         <StoryLayout.Section title="With Frame">
+          {renderSizeRow(
+            'Extra Small',
+            <CosIconFrame size="xs" className={className} onClick={onClick}>
+              <Warning />
+            </CosIconFrame>,
+          )}
           {renderSizeRow(
             'Small',
             <CosIconFrame size="sm" className={className} onClick={onClick}>

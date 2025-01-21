@@ -3,7 +3,7 @@ import { getContainerClasses, getIconClasses } from './utils'
 
 import type SvgComponentInstance from '*.svg?react'
 
-export type IconSize = 'sm' | 'md' | 'lg' | 'xl'
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export type SvgComponent = typeof SvgComponentInstance
 

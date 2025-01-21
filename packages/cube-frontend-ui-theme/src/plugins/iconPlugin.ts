@@ -2,6 +2,14 @@ import { PluginCreator } from 'tailwindcss/types/config'
 
 export const iconPlugin: PluginCreator = ({ addComponents }) => {
   addComponents({
+    '.icon-xs': {
+      width: '10px',
+      height: '10px',
+    },
+    '.icon-frame-xs': {
+      width: '16px',
+      height: '16px',
+    },
     '.icon-sm': {
       width: '12px',
       height: '12px',
