@@ -40,26 +40,26 @@ export const Default: StoryObj = {
     const [selectedItemsRadio, setSelectedItemsRadio] = useState<
       CosDropdownItemType[]
     >([])
-    const [selectedItemsCheckbox, setSelectedItemsCheckbox] = useState<
-      CosDropdownItemType[]
-    >([])
+    // const [selectedItemsCheckbox, setSelectedItemsCheckbox] = useState<
+    //   CosDropdownItemType[]
+    // >([])
 
     const onSelectedItemsChangeRadio = (selectedItem: CosDropdownItemType) => {
       setSelectedItemsRadio([selectedItem])
     }
 
-    const onSelectedItemsChangeCheckbox = (
-      selectedItem: CosDropdownItemType,
-    ) => {
-      setSelectedItemsCheckbox((prevItems) => {
-        const isSelected = selectedItemsCheckbox.some(
-          (item) => item.key === selectedItem.key,
-        )
-        return isSelected
-          ? prevItems.filter((item) => item.key !== selectedItem.key)
-          : [...prevItems, selectedItem]
-      })
-    }
+    // const onSelectedItemsChangeCheckbox = (
+    //   selectedItem: CosDropdownItemType,
+    // ) => {
+    //   setSelectedItemsCheckbox((prevItems) => {
+    //     const isSelected = selectedItemsCheckbox.some(
+    //       (item) => item.key === selectedItem.key,
+    //     )
+    //     return isSelected
+    //       ? prevItems.filter((item) => item.key !== selectedItem.key)
+    //       : [...prevItems, selectedItem]
+    //   })
+    // }
 
     return (
       <StoryLayout title="Dropdown">
@@ -137,26 +137,26 @@ export const InTable: StoryObj = {
     const [selectedItemsRadio, setSelectedItemsRadio] = useState<
       CosDropdownItemType[]
     >([])
-    const [selectedItemsCheckbox, setSelectedItemsCheckbox] = useState<
-      CosDropdownItemType[]
-    >([])
+    // const [selectedItemsCheckbox, setSelectedItemsCheckbox] = useState<
+    //   CosDropdownItemType[]
+    // >([])
 
     const onSelectedItemsChangeRadio = (selectedItem: CosDropdownItemType) => {
       setSelectedItemsRadio([selectedItem])
     }
 
-    const onSelectedItemsChangeCheckbox = (
-      selectedItem: CosDropdownItemType,
-    ) => {
-      setSelectedItemsCheckbox((prevItems) => {
-        const isSelected = selectedItemsCheckbox.some(
-          (item) => item.key === selectedItem.key,
-        )
-        return isSelected
-          ? prevItems.filter((item) => item.key !== selectedItem.key)
-          : [...prevItems, selectedItem]
-      })
-    }
+    // const onSelectedItemsChangeCheckbox = (
+    //   selectedItem: CosDropdownItemType,
+    // ) => {
+    //   setSelectedItemsCheckbox((prevItems) => {
+    //     const isSelected = selectedItemsCheckbox.some(
+    //       (item) => item.key === selectedItem.key,
+    //     )
+    //     return isSelected
+    //       ? prevItems.filter((item) => item.key !== selectedItem.key)
+    //       : [...prevItems, selectedItem]
+    //   })
+    // }
 
     return (
       <StoryLayout title="Dropdown - Inside Table">
@@ -234,26 +234,26 @@ export const Filter: StoryObj = {
     const [selectedItemsRadio, setSelectedItemsRadio] = useState<
       CosDropdownItemType[]
     >([])
-    const [selectedItemsCheckbox, setSelectedItemsCheckbox] = useState<
-      CosDropdownItemType[]
-    >([])
+    // const [selectedItemsCheckbox, setSelectedItemsCheckbox] = useState<
+    //   CosDropdownItemType[]
+    // >([])
 
     const onSelectedItemsChangeRadio = (selectedItem: CosDropdownItemType) => {
       setSelectedItemsRadio([selectedItem])
     }
 
-    const onSelectedItemsChangeCheckbox = (
-      selectedItem: CosDropdownItemType,
-    ) => {
-      setSelectedItemsCheckbox((prevItems) => {
-        const isSelected = selectedItemsCheckbox.some(
-          (item) => item.key === selectedItem.key,
-        )
-        return isSelected
-          ? prevItems.filter((item) => item.key !== selectedItem.key)
-          : [...prevItems, selectedItem]
-      })
-    }
+    // const onSelectedItemsChangeCheckbox = (
+    //   selectedItem: CosDropdownItemType,
+    // ) => {
+    //   setSelectedItemsCheckbox((prevItems) => {
+    //     const isSelected = selectedItemsCheckbox.some(
+    //       (item) => item.key === selectedItem.key,
+    //     )
+    //     return isSelected
+    //       ? prevItems.filter((item) => item.key !== selectedItem.key)
+    //       : [...prevItems, selectedItem]
+    //   })
+    // }
 
     return (
       <StoryLayout title="Dropdown - Filter">
