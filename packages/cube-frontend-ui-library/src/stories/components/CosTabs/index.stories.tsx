@@ -6,7 +6,7 @@ import { TabsRow } from './TabsRow'
 
 const meta = {
   title: 'components/Tabs',
-} satisfies Meta
+} satisfies Meta<typeof CosTabs>
 
 export default meta
 
