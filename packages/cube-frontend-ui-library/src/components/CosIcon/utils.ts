@@ -2,6 +2,10 @@ import { twMerge } from 'tailwind-merge'
 import { IconSize } from './CosIcon'
 
 const sizeClasses: Record<IconSize, Record<'container' | 'icon', string>> = {
+  xs: {
+    container: twMerge('icon-frame-xs'),
+    icon: twMerge('icon-xs'),
+  },
   sm: {
     container: twMerge('icon-frame-sm'),
     icon: twMerge('icon-sm'),
