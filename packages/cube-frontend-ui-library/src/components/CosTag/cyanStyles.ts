@@ -47,7 +47,7 @@ const cyanStroke = compoundsCreator('cyan', 'stroke', [
     className: twMerge(
       'bg-secondary-50 hover:bg-secondary-100',
       'text-functional-text',
-      'border border-primary-600',
+      'border border-secondary-600',
     ),
   },
   {
