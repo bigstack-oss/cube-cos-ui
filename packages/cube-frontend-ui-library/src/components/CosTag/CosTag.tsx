@@ -16,7 +16,10 @@ export type CosTagProps = {
   variant: CosTagVariant
   disabled?: boolean
 } & (
-  | NonNullable<unknown>
+  | // The props for the close button and icon are both optional.
+  // To allow this, we need to add an empty object to the union type.
+  // `NonNullable<unknown>` is used to avoid `{}`.
+  NonNullable<unknown>
   | {
       showCloseButton: boolean
       onClose?: () => void
