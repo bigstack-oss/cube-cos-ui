@@ -21,15 +21,15 @@ export type UseFloatingOptions<Anchor extends HTMLElement> = {
   placement: Placement
   /**
    * The boundary element for the floating element.
-   * When `flip` or `translate` is enabled, the floating element will
-   * adjust its position to stay within the boundary if it overflows.
+   * When `autoPlacement` or `translate` is enabled, the floating element
+   * will adjust its position to stay within the boundary if it overflows.
    */
   boundaryElement: HTMLElement | null
   offsets?: Offsets
 } & (
   | NonNullable<unknown>
-  | { flip: boolean; translate?: never }
-  | { flip?: never; translate: boolean }
+  | { autoPlacement: boolean; translate?: never }
+  | { autoPlacement?: never; translate: boolean }
 )
 
 export const useFloating = <
@@ -54,7 +54,7 @@ export const useFloating = <
   const elementRect = useElementDomRect(elementRef.current)
   const boundaryRect = useElementDomRect(boundaryElement)
 
-  const flip = 'flip' in options
+  const autoPlacement = 'autoPlacement' in options
   const translate = 'translate' in options
 
   const resolvedStyles = useMemo<ResolvedFloatingStyles | undefined>(() => {
@@ -72,8 +72,8 @@ export const useFloating = <
       offsets,
     )
 
-    if (flip) {
-      floatingRect.fitByFlip(boundaryRect)
+    if (autoPlacement) {
+      floatingRect.fitByAutoPlacement(boundaryRect)
     } else if (translate) {
       floatingRect.fitByTranslate(boundaryRect)
     }
@@ -85,7 +85,7 @@ export const useFloating = <
     boundaryRect,
     placement,
     offsets,
-    flip,
+    autoPlacement,
     translate,
   ])
 

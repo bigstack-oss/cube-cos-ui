@@ -46,7 +46,7 @@ export const InfoBox = (props: InfoBoxProps) => {
       x: 14,
       y: 2,
     },
-    translate: true,
+    autoPlacement: true,
   })
 
   const { idealPlacement, floatingStyle, translationOffsets } =
