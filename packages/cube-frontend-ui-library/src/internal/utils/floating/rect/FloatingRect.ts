@@ -1,4 +1,4 @@
-import { flipPlacementIfNecessary } from '../flip/flipPlacementIfNecessary'
+import { computeIdealPlacement } from '../autoPlacement/computeIdealPlacement'
 import { computeTranslate } from '../translate/computeTranslate'
 import {
   FloatingStyle,
@@ -11,7 +11,7 @@ import {
 import { computeFloatingBoundary } from './computeFloatingBoundary'
 
 interface IFloatingRect {
-  fitByFlip: (boundaryRect: DOMRect) => this
+  fitByAutoPlacement: (boundaryRect: DOMRect) => this
   fitByTranslate: (boundaryRect: DOMRect) => this
   resolveStyles: () => ResolvedFloatingStyles
 }
@@ -29,7 +29,7 @@ export class FloatingRect implements IFloatingRect {
   private readonly _originalPlacement: Placement
   private readonly _offsets: Offsets | undefined = undefined
 
-  private _flipBoundaryDomRect: DOMRect | undefined = undefined
+  private _autoPlacementBoundaryDomRect: DOMRect | undefined = undefined
   private _translateBoundaryDomRect: DOMRect | undefined = undefined
 
   constructor(
@@ -44,17 +44,21 @@ export class FloatingRect implements IFloatingRect {
     this._offsets = offsets
   }
 
-  fitByFlip(boundaryDomRect: DOMRect): this {
+  fitByAutoPlacement(boundaryDomRect: DOMRect): this {
     if (this._translateBoundaryDomRect) {
-      throw new Error('flip and translate cannot be used at the same time')
+      throw new Error(
+        'autoPlacement and translate cannot be used at the same time',
+      )
     }
-    this._flipBoundaryDomRect = boundaryDomRect
+    this._autoPlacementBoundaryDomRect = boundaryDomRect
     return this
   }
 
   fitByTranslate(boundaryRect: DOMRect): this {
-    if (this._flipBoundaryDomRect) {
-      throw new Error('translate and flip cannot be used at the same time')
+    if (this._autoPlacementBoundaryDomRect) {
+      throw new Error(
+        'translate and autoPlacement cannot be used at the same time',
+      )
     }
     this._translateBoundaryDomRect = boundaryRect
     return this
@@ -75,10 +79,14 @@ export class FloatingRect implements IFloatingRect {
       y: 0,
     }
 
-    if (this._flipBoundaryDomRect) {
-      idealPlacement = this.computeIdealPlacement(
+    if (this._autoPlacementBoundaryDomRect) {
+      const overflowPx = this.computeOverflowPx(
         floatingBoundary,
-        this._flipBoundaryDomRect,
+        this._autoPlacementBoundaryDomRect,
+      )
+      idealPlacement = computeIdealPlacement(
+        this._originalPlacement,
+        overflowPx,
       )
       finalBoundary = computeFloatingBoundary(
         this._anchorDomRect,
@@ -106,18 +114,6 @@ export class FloatingRect implements IFloatingRect {
       floatingStyle,
       translationOffsets,
     }
-  }
-
-  private computeIdealPlacement(
-    floatingBoundary: XYBoundary,
-    boundaryDomRect: DOMRect,
-  ): Placement {
-    const overflowPx = this.computeOverflowPx(floatingBoundary, boundaryDomRect)
-    const idealPlacement = flipPlacementIfNecessary(
-      this._originalPlacement,
-      overflowPx,
-    )
-    return idealPlacement
   }
 
   private computeOverflowPx(
