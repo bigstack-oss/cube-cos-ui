@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { ChangeEvent, useState } from 'react'
-import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import {
   CosRadioButton,
   CosRadioButtonProps,
 } from '../../../components/CosRadioButton/CosRadioButton'
 import { CosRadioButtonGroup } from '../../../components/CosRadioButton/CosRadioButtonGroup'
+import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { RadioButtonGrid } from './RadioButtonGrid'
 
 const meta = {
@@ -33,44 +33,42 @@ const options = [
 export const Gallery: StoryObj = {
   args: {},
   render: function Render() {
-    const [radio, setRadio] = useState<string>()
+    const [selectedValue, setSelectedValue] = useState<string>()
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target
-      setRadio(value)
+      setSelectedValue(value)
     }
 
     return (
       <StoryLayout title="Radio Button">
         <StoryLayout.Section title="Radio Button">
-          <div className="flex flex-col gap-y-8">
-            <RadioButtonGrid title="Master">
-              <CosRadioButton
-                label={radioButtonLabel}
-                value={radioButtonValue}
-                checked={radio === radioButtonValue}
-                onChange={handleChange}
-              />
-            </RadioButtonGrid>
-          </div>
+          <RadioButtonGrid title="Master">
+            <CosRadioButton
+              label={radioButtonLabel}
+              value={radioButtonValue}
+              checked={selectedValue === radioButtonValue}
+              onChange={handleChange}
+            />
+          </RadioButtonGrid>
         </StoryLayout.Section>
         <StoryLayout.Section title="Variants">
           <div className="flex flex-col gap-y-8">
-            <RadioButtonGrid title="Unselect">
+            <RadioButtonGrid title="Unselected">
               <CosRadioButton
                 label={radioButtonLabel}
                 value={radioButtonValue}
-                checked={radio === radioButtonValue}
+                checked={selectedValue === radioButtonValue}
                 onChange={handleChange}
               />
-              <CosRadioButton label={radioButtonLabel} disabled />
+              <CosRadioButton label={radioButtonLabel} disabled={true} />
             </RadioButtonGrid>
-            <RadioButtonGrid title="Select">
-              <CosRadioButton label={radioButtonLabel} defaultChecked={true} />
+            <RadioButtonGrid title="Selected">
+              <CosRadioButton label={radioButtonLabel} checked={true} />
               <CosRadioButton
                 label={radioButtonLabel}
-                defaultChecked={true}
-                disabled
+                checked={true}
+                disabled={true}
               />
             </RadioButtonGrid>
           </div>
@@ -84,7 +82,7 @@ export const Gallery: StoryObj = {
                     key={item.value}
                     label={item.label}
                     value={item.value}
-                    checked={radio === item.value}
+                    checked={selectedValue === item.value}
                     onChange={handleChange}
                   />
                 ))}
@@ -97,7 +95,7 @@ export const Gallery: StoryObj = {
                     key={item.value}
                     label={item.label}
                     value={item.value}
-                    checked={radio === item.value}
+                    checked={selectedValue === item.value}
                     onChange={handleChange}
                   />
                 ))}
@@ -106,11 +104,9 @@ export const Gallery: StoryObj = {
           </div>
         </StoryLayout.Section>
         <StoryLayout.Section title="Skeleton">
-          <div className="flex flex-col gap-y-8">
-            <RadioButtonGrid title="Default">
-              <CosRadioButton label={radioButtonLabel} isLoading />
-            </RadioButtonGrid>
-          </div>
+          <RadioButtonGrid title="Default">
+            <CosRadioButton label={radioButtonLabel} isLoading />
+          </RadioButtonGrid>
         </StoryLayout.Section>
       </StoryLayout>
     )
