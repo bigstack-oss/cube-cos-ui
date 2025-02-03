@@ -1,4 +1,4 @@
-import { ChangeEvent, forwardRef, InputHTMLAttributes, useState } from 'react'
+import { ChangeEvent, InputHTMLAttributes, useState, RefObject } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import CheckboxUnselected from '../../components/CosIcon/monochrome/checkbox.svg?react'
@@ -13,27 +13,24 @@ export type CosCheckboxProps = Omit<
   'checked' | 'defaultChecked'
 > & {
   label: string
-  indeterminate?: boolean
   checked?: boolean | null
   defaultChecked?: boolean | null
   isLoading?: boolean
+  ref?: RefObject<HTMLInputElement | null>
 }
 
 const checkbox = {
-  container: cva(
-    'inline-flex w-fit cursor-pointer gap-x-2 text-primary-body2',
-    {
-      variants: {
-        disabled: {
-          true: 'cursor-default',
-        },
+  container: cva('primary-body2 inline-flex w-fit cursor-pointer gap-x-2', {
+    variants: {
+      disabled: {
+        true: 'cursor-default',
       },
     },
-  ),
-  icon: cva(
+  }),
+  iconWrap: cva(
     [
-      'icon-md mt-0.5 shrink-0',
-      'text-functional-border-darker hover:text-functional-hover-primary',
+      'shrink-0 p-0.5',
+      'text-functional-border-darker transition-colors duration-100 peer-hover:text-functional-hover-primary',
     ],
     {
       variants: {
@@ -41,7 +38,7 @@ const checkbox = {
           true: 'text-primary',
         },
         disabled: {
-          true: 'text-functional-disable-text hover:text-functional-disable-text',
+          true: 'text-functional-disable-text peer-hover:text-functional-disable-text',
         },
       },
     },
@@ -55,71 +52,76 @@ const checkbox = {
   }),
 }
 
-export const CosCheckbox = forwardRef<HTMLInputElement, CosCheckboxProps>(
-  (props: CosCheckboxProps, ref) => {
-    const {
-      label,
-      indeterminate,
-      id,
-      className,
-      defaultChecked,
-      checked: controlledChecked,
-      onChange: onControlledCheckedChange,
-      disabled,
-      isLoading = false,
-      ...restProps
-    } = props
+export const CosCheckbox = (props: CosCheckboxProps) => {
+  const {
+    label,
+    id,
+    className,
+    defaultChecked = false,
+    checked: controlledChecked,
+    onChange: onControlledCheckedChange,
+    disabled,
+    isLoading = false,
+    ref,
+    ...restProps
+  } = props
 
-    const [uncontrolledChecked, setUncontrolledChecked] = useState<
-      boolean | null
-    >(defaultChecked || indeterminate ? null : false)
+  const [uncontrolledChecked, setUncontrolledChecked] = useState<
+    boolean | null
+  >(defaultChecked)
 
-    const isControlled = controlledChecked !== undefined
+  const isControlled = controlledChecked !== undefined
 
-    const effectiveChecked = isControlled
-      ? controlledChecked
-      : uncontrolledChecked
+  const effectiveChecked = isControlled
+    ? controlledChecked
+    : uncontrolledChecked
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      if (!isControlled) {
-        setUncontrolledChecked(event.target.checked)
-      }
-      onControlledCheckedChange?.(event)
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!isControlled) {
+      setUncontrolledChecked(event.target.checked)
     }
+    onControlledCheckedChange?.(event)
+  }
 
-    const renderIcon = (checked: boolean | null, indeterminate?: boolean) => {
-      const className = twMerge(
-        checkbox.icon({
-          disabled,
-          isSelected: effectiveChecked === null || effectiveChecked,
-        }),
-      )
-
-      const IconComponent = (() => {
-        if (indeterminate && checked === null) return CheckboxIndeterminate
-        return checked ? CheckboxSelected : CheckboxUnselected
-      })()
-
-      return <IconComponent className={className} />
-    }
-
-    if (isLoading) return <CosCheckboxSkeleton />
+  const renderIcon = () => {
+    const IconComponent = (() => {
+      if (effectiveChecked === null) return CheckboxIndeterminate
+      return effectiveChecked ? CheckboxSelected : CheckboxUnselected
+    })()
 
     return (
-      <label htmlFor={id} className={twMerge(checkbox.container({ disabled }))}>
-        <input
-          {...restProps}
-          id={id}
-          ref={ref}
-          type="checkbox"
-          checked={effectiveChecked ?? false}
-          onChange={handleChange}
-          disabled={disabled}
-          className="hidden"
-        />
-        {renderIcon(effectiveChecked, indeterminate)}
-        <span className={twMerge(checkbox.label({ disabled }))}>{label}</span>
-      </label>
+      <div
+        className={twMerge(
+          checkbox.iconWrap({
+            isSelected: effectiveChecked || effectiveChecked === null,
+            disabled,
+          }),
+        )}
+      >
+        <IconComponent className="icon-md" />
+      </div>
     )
-  },
-)
+  }
+
+  if (isLoading) return <CosCheckboxSkeleton />
+
+  return (
+    <label
+      htmlFor={id}
+      className={twMerge(checkbox.container({ disabled }), className)}
+    >
+      <input
+        {...restProps}
+        id={id}
+        ref={ref}
+        type="checkbox"
+        checked={effectiveChecked ?? false}
+        onChange={handleChange}
+        disabled={disabled}
+        className="peer hidden"
+      />
+      {renderIcon()}
+      <span className={twMerge(checkbox.label({ disabled }))}>{label}</span>
+    </label>
+  )
+}
