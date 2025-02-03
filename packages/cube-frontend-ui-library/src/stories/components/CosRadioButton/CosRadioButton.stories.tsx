@@ -9,7 +9,7 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { RadioButtonGrid } from './RadioButtonGrid'
 
 const meta = {
-  title: 'Molecules/RadioButton',
+  title: 'Molecules/Radio Button',
   component: CosRadioButton,
 } satisfies Meta<typeof CosRadioButton>
 

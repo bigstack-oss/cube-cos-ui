@@ -4,7 +4,7 @@ import { CosBackButton } from '../../../components/CosBackButton/CosBackButton'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 
 const meta = {
-  title: 'Molecules/BackButton',
+  title: 'Molecules/Back Button',
   component: CosBackButton,
   argTypes: {
     loading: {
