@@ -8,6 +8,7 @@ import {
 } from './NaggingBox'
 
 const meta = {
+  title: 'Molecules/Nagging',
   component: CosNagging,
 } satisfies Meta<typeof CosNagging>
 

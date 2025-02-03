@@ -4,6 +4,7 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { StatusRow } from './StatusRow'
 
 const meta = {
+  title: 'Atoms/Status',
   component: CosStatus,
 } satisfies Meta<typeof CosStatus>
 

@@ -5,7 +5,9 @@ import { BodyBoxHeader } from './BodyBoxHeader'
 import { HeadingBox } from './HeadingBox'
 import { Typeface } from './Typeface'
 
-const meta = {} satisfies Meta
+const meta = {
+  title: 'Design Tokens/Typography',
+} satisfies Meta
 
 export default meta
 

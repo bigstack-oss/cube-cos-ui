@@ -4,16 +4,16 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { TagLayout } from './TagLayout'
 
 const meta = {
-  title: 'components/Tags',
+  title: 'Atoms/Tags',
 } satisfies Meta<typeof CosTag>
 
 export default meta
 
-export const TagStory: StoryObj = {
-  render: () => <Gallery />,
+export const Gallery: StoryObj = {
+  render: () => <TagGallery />,
 }
 
-const Gallery = () => {
+const TagGallery = () => {
   return (
     <StoryLayout title="Tags">
       <StoryLayout.Section title="Default">

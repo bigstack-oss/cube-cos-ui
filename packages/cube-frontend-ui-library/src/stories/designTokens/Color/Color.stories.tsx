@@ -4,7 +4,9 @@ import { ColorBox } from './ColorBox'
 import { ColorPaletteRow } from './ColorPaletteRow'
 import { ColorScale } from './ColorScale'
 
-const meta = {} satisfies Meta
+const meta = {
+  title: 'Design Tokens/Color',
+} satisfies Meta
 
 export default meta
 
