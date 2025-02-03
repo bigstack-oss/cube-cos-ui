@@ -6,6 +6,8 @@ export type {
 } from './components/CosBasicTable/sorting/sortingUtils'
 export * from './components/CosButton/CosButton'
 export * from './components/CosButton/CosButtonSkeleton'
+export * from './components/CosBackButton/CosBackButton'
+export * from './components/CosBackButton/CosBackButtonSkeleton'
 export * from './components/CosCheckbox/CosCheckbox'
 export * from './components/CosCheckbox/CosCheckboxGrid'
 export * from './components/CosCheckbox/CosCheckboxSkeleton'
