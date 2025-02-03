@@ -33,8 +33,8 @@ export type CosTagVariant = 'filled' | 'stroke'
 
 const tag = cva(
   [
-    'inline-flex items-center gap-x-[5px]',
-    'h-[21px] cursor-default rounded-[20px] px-2.5 py-1',
+    'inline-flex items-center gap-x-[5px] whitespace-nowrap',
+    'h-[21px] w-fit cursor-default rounded-[20px] px-2.5 py-1',
     'secondary-body5 font-semibold',
   ],
   {

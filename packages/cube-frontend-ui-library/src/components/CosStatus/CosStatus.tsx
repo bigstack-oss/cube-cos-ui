@@ -8,7 +8,7 @@ export type CosStatusProps = {
 
 const statusCva = cva(
   [
-    'flex h-[17px] cursor-default items-center rounded-[20px] border px-2.5',
+    'flex h-[17px] w-fit cursor-default items-center rounded-[20px] border px-2.5',
     'secondary-body6 font-semibold',
   ],
   {
