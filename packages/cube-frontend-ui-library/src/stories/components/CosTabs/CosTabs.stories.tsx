@@ -5,12 +5,12 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { TabsRow } from './TabsRow'
 
 const meta = {
-  title: 'components/Tabs',
+  title: 'Molecules/Tabs',
 } satisfies Meta<typeof CosTabs>
 
 export default meta
 
-export const Tabs: StoryObj = {
+export const Gallery: StoryObj = {
   render: () => <TabsGallery />,
 }
 

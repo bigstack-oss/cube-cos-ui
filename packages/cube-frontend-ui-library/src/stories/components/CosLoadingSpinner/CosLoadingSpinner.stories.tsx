@@ -4,6 +4,7 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { SpinnerRow } from './SpinnerRow'
 
 const meta = {
+  title: 'Atoms/LoadingSpinner',
   component: CosLoadingSpinner,
 } satisfies Meta<typeof CosLoadingSpinner>
 

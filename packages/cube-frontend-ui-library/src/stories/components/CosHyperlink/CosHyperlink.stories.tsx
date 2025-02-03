@@ -5,6 +5,7 @@ import Home01 from '../../../components/CosIcon/monochrome/home_01.svg?react'
 import { HyperlinkBox } from './HyperlinkBox'
 
 const meta = {
+  title: 'Atoms/Hyperlink',
   component: CosHyperlink,
 } satisfies Meta<typeof CosHyperlink>
 

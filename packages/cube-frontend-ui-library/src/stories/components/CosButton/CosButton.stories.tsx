@@ -3,6 +3,7 @@ import { Button, CubeButtonSize } from '../../../components/Button/Button'
 import ButtonSkeleton from '../../../components/Button/ButtonSkeleton'
 
 const meta = {
+  title: 'Atoms/Button',
   component: Button,
 } satisfies Meta<typeof Button>
 

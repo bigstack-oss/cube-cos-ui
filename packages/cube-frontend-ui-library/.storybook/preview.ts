@@ -12,7 +12,13 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ['designTokens', 'components'],
+        order: [
+          'Design Tokens',
+          ['Color', 'Typography', 'Icon'],
+          'Atoms',
+          'Molecules',
+          'Organisms',
+        ],
       },
     },
     controls: {

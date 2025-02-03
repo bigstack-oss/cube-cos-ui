@@ -4,6 +4,7 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { StrokeBox } from './StrokeBox'
 
 const meta = {
+  title: 'Atoms/Stroke',
   component: CosStroke,
 } satisfies Meta<typeof CosStroke>
 

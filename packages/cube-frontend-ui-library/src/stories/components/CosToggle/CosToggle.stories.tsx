@@ -6,12 +6,12 @@ import { ToggleRow } from './ToggleRow'
 import { ToggleRowHeader } from './ToggleRowHeader'
 
 const meta = {
-  title: 'components/Toggle',
+  title: 'Atoms/Toggle',
 } satisfies Meta
 
 export default meta
 
-export const Toggle: StoryObj = {
+export const Gallery: StoryObj = {
   render: () => <ToggleGallery />,
 }
 
