@@ -7,16 +7,17 @@ import { NestedLayout } from './NestedLayout'
 import { PlacementGrid } from './PlacementGrid'
 
 const meta = {
-  title: 'components/Tooltip',
+  title: 'Atoms/Tooltip',
+  component: CosTooltip,
 } satisfies Meta<typeof CosTooltip>
 
 export default meta
 
-export const CosTooltipGallery: StoryObj = {
-  render: () => <Gallery />,
+export const Gallery: StoryObj = {
+  render: () => <TooltipGallery />,
 }
 
-const Gallery = () => {
+const TooltipGallery = () => {
   return (
     <StoryLayout title="Tooltip">
       <StoryLayout.Section title="Placements">
