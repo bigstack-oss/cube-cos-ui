@@ -6,6 +6,7 @@ import { CosCheckbox } from '../../../components/CosCheckbox/CosCheckbox'
 import { CosCheckboxGrid } from '../../../components/CosCheckbox/CosCheckboxGrid'
 
 const meta = {
+  title: 'Molecules/Checkbox',
   component: CosCheckbox,
 } satisfies Meta<typeof CosCheckbox>
 
@@ -18,23 +19,19 @@ export const Gallery: StoryObj = {
   args: {},
   render: function Render() {
     const [checked, setChecked] = useState<boolean | null>(true)
-    const [unchecked, setUnchecked] = useState<boolean | null>(null)
+    const [unchecked, setUnchecked] = useState<boolean | null>(false)
     const [indeterminateChecked, setIndeterminateChecked] = useState<
       boolean | null
     >(null)
 
-    const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleChecked = (event: ChangeEvent<HTMLInputElement>) =>
       setChecked(event.target.checked)
-    }
 
-    const handleUnchecked = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleUnchecked = (event: ChangeEvent<HTMLInputElement>) =>
       setUnchecked(event.target.checked)
-    }
-    const handleIndeterminateChecked = (
-      event: ChangeEvent<HTMLInputElement>,
-    ) => {
+
+    const handleIndeterminateChecked = (event: ChangeEvent<HTMLInputElement>) =>
       setIndeterminateChecked(event.target.checked)
-    }
 
     return (
       <StoryLayout title="Checkbox">
@@ -82,14 +79,12 @@ export const Gallery: StoryObj = {
                 label={checkboxText}
                 checked={indeterminateChecked}
                 onChange={handleIndeterminateChecked}
-                indeterminate
               />
               <CosCheckbox
                 label={checkboxText}
                 checked={null}
                 onChange={handleIndeterminateChecked}
                 disabled
-                indeterminate
               />
             </CheckboxGrid>
           </div>
