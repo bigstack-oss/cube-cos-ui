@@ -1,3 +1,7 @@
+import { GetCosBasicTable } from '@cube-frontend/ui-library'
+
+export const NodeTable = GetCosBasicTable<MockNode>()
+
 export type MockNode = {
   id: string
   hostname: string
