@@ -9,7 +9,7 @@ import { ChangeEventHandler, useState } from 'react'
 import { fn } from '@storybook/test'
 
 const meta = {
-  title: 'Molecules/TableInput',
+  title: 'Molecules/Table Input',
   argTypes: {
     onChange: fn(),
   },

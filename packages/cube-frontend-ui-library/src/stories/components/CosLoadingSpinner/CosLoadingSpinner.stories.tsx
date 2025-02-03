@@ -5,7 +5,7 @@ import { SpinnerRow } from './SpinnerRow'
 import { PropsWithClassName } from '@cube-frontend/utils'
 
 const meta = {
-  title: 'Atoms/LoadingSpinner',
+  title: 'Atoms/Loading Spinner',
   component: CosLoadingSpinner,
   argTypes: {
     variant: {
