@@ -18,6 +18,14 @@ export const iconPlugin: PluginCreator = ({ addComponents }) => {
       width: '24px',
       height: '24px',
     },
+    '.icon-md-sm': {
+      width: '14px',
+      height: '14px',
+    },
+    '.icon-frame-md-sm': {
+      width: '28px',
+      height: '28px',
+    },
     '.icon-md': {
       width: '16px',
       height: '16px',
@@ -27,8 +35,8 @@ export const iconPlugin: PluginCreator = ({ addComponents }) => {
       height: '32px',
     },
     '.icon-lg': {
-      width: '20px',
-      height: '20px',
+      width: '18px',
+      height: '18px',
     },
     '.icon-frame-lg': {
       width: '40px',

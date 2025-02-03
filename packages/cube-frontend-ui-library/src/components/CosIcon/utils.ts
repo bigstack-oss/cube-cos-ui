@@ -10,6 +10,10 @@ const sizeClasses: Record<IconSize, Record<'container' | 'icon', string>> = {
     container: twMerge('icon-frame-sm'),
     icon: twMerge('icon-sm'),
   },
+  'md-sm': {
+    container: twMerge('icon-frame-md-sm'),
+    icon: twMerge('icon-md-sm'),
+  },
   md: {
     container: twMerge('icon-frame-md'),
     icon: twMerge('icon-md'),

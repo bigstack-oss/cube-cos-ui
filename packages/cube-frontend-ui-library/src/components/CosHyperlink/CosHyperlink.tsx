@@ -1,7 +1,7 @@
-import { SvgComponent } from '../CosIcon/CosIcon'
+import { IconSize, SvgComponent } from '../CosIcon/CosIcon'
 import { createElement } from 'react'
 import { cva } from 'class-variance-authority'
-import { twMerge } from 'tailwind-merge'
+import { twJoin, twMerge } from 'tailwind-merge'
 import { getIconSizeClass } from '../CosIcon/utils'
 
 export type CosHyperlinkColor = 'primary' | 'secondary'
@@ -74,20 +74,30 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
     href,
   } = props
 
-  const renderLeftIcon = () => {
-    if (variant === 'icon-left') {
-      const { Icon } = props
-      return Icon && <Icon className={getIconSizeClass(size)} />
+  const renderIcon = (iconVariant: 'icon-left' | 'icon-right') => {
+    if (props.variant !== iconVariant) {
+      return null
     }
-    return undefined
-  }
 
-  const renderRightIcon = () => {
-    if (variant === 'icon-right') {
-      const { Icon } = props
-      return Icon && <Icon className={getIconSizeClass(size)} />
+    const { Icon } = props
+
+    const sizeMapping: Record<
+      CosHyperlinkSize,
+      { iconSize: IconSize; iconFrameSize: string }
+    > = {
+      sm: { iconSize: 'sm', iconFrameSize: twJoin('size-[15px]') },
+      md: { iconSize: 'md-sm', iconFrameSize: twJoin('size-[17px]') },
     }
-    return undefined
+    const { iconSize, iconFrameSize } = sizeMapping[size]
+    const iconSizeClass = getIconSizeClass(iconSize)
+
+    return (
+      <div
+        className={twMerge('flex items-center justify-center', iconFrameSize)}
+      >
+        <Icon className={iconSizeClass} />
+      </div>
+    )
   }
 
   const renderHyperlink = () => {
@@ -101,9 +111,9 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
         className: twMerge(hyperlink({ color, size, variant, disabled })),
         href: hrefAttribute,
       },
-      renderLeftIcon(),
+      renderIcon('icon-left'),
       children,
-      renderRightIcon(),
+      renderIcon('icon-right'),
     )
   }
 

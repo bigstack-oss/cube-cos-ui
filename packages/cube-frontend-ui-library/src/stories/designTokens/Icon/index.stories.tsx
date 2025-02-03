@@ -99,6 +99,13 @@ export const Size: Story = {
             />,
           )}
           {renderSizeRow(
+            'Medium-Small',
+            <Home01
+              className={twMerge('icon-md-sm', className)}
+              onClick={onClick}
+            />,
+          )}
+          {renderSizeRow(
             'Medium',
             <Home01
               className={twMerge('icon-md', className)}
@@ -130,6 +137,12 @@ export const Size: Story = {
           {renderSizeRow(
             'Small',
             <CosIconFrame size="sm" className={className} onClick={onClick}>
+              <Warning />
+            </CosIconFrame>,
+          )}
+          {renderSizeRow(
+            'Medium-Small',
+            <CosIconFrame size="md-sm" className={className} onClick={onClick}>
               <Warning />
             </CosIconFrame>,
           )}
