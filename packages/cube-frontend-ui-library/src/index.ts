@@ -1,5 +1,9 @@
 export * from './components/CosBasicTable/CosBasicTable'
 export * from './components/CosBasicTable/rendering/CosTableTdSkeleton'
+export type {
+  ColumnCompareFnMap,
+  CompareFn,
+} from './components/CosBasicTable/sorting/sortingUtils'
 export * from './components/CosButton/CosButton'
 export * from './components/CosButton/CosButtonSkeleton'
 export * from './components/CosCheckbox/CosCheckbox'

@@ -1,12 +1,12 @@
-import { CosStatus, CosTag, GetCosBasicTable } from '@cube-frontend/ui-library'
+import { CosStatus, CosTag } from '@cube-frontend/ui-library'
 import { Meta, StoryObj } from '@storybook/react'
 import { CosProgressBar } from '../../../../internal/components/CosProgressBar/CosProgressBar'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
-import { MockNode, mockNodes } from '../mockNodes'
-
-const NodeTable = GetCosBasicTable<MockNode>()
+import { CustomSortingRule } from './CustomSortingRule'
+import { mockNodes, NodeTable } from './utils'
 
 const meta = {
+  title: 'organisms/Tables/Basic',
   component: NodeTable,
 } satisfies Meta
 
@@ -19,11 +19,13 @@ export const Gallery: StoryObj = {
         <Default />
       </StoryLayout.Section>
       <StoryLayout.Section title="Sortable">
-        <div className=""></div>
         <Sortable />
       </StoryLayout.Section>
       <StoryLayout.Section title="Sortable With Default State">
         <SortableWithDefaultState />
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Custom Sorting Rule">
+        <CustomSortingRule />
       </StoryLayout.Section>
       <StoryLayout.Section title="Skeleton">
         <Skeleton />
