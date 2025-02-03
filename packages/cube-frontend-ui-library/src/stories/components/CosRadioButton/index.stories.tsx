@@ -9,6 +9,7 @@ import { CosRadioButtonGroup } from '../../../components/CosRadioButton/CosRadio
 import { RadioButtonGrid } from './RadioButtonGrid'
 
 const meta = {
+  title: 'Molecules/RadioButton',
   component: CosRadioButton,
 } satisfies Meta<typeof CosRadioButton>
 
