@@ -29,7 +29,7 @@ export default meta
 
 type Story = StoryObj<React.ComponentProps<typeof CosIconFrame>>
 
-export const MonochromeGallery: Story = {
+export const MonochromeIconGallery: Story = {
   args: {
     className: twMerge('text-functional-text'),
   },

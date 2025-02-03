@@ -1,4 +1,5 @@
-export * from './components/Button/Button'
+export * from './components/CosButton/CosButton'
+export * from './components/CosButton/CosButtonSkeleton'
 export * from './components/CosHyperlink/CosHyperlink'
 export * from './components/CosIcon/CosIcon'
 export * from './components/CosIcon/utils'
