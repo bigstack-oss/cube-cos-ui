@@ -56,7 +56,6 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
   const {
     label,
     id,
-    className,
     defaultChecked = false,
     checked: controlledChecked,
     onChange: onControlledCheckedChange,
@@ -106,10 +105,7 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
   if (isLoading) return <CosCheckboxSkeleton />
 
   return (
-    <label
-      htmlFor={id}
-      className={twMerge(checkbox.container({ disabled }), className)}
-    >
+    <label htmlFor={id} className={twMerge(checkbox.container({ disabled }))}>
       <input
         {...restProps}
         id={id}
