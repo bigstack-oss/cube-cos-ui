@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { ChangeEvent, useState } from 'react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
-import { CosRadioButton } from '../../../components/CosRadioButton/CosRadioButton'
-import { CosRadioButtonGrid } from '../../../components/CosRadioButton/CosRadioButtonGrid'
+import {
+  CosRadioButton,
+  CosRadioButtonProps,
+} from '../../../components/CosRadioButton/CosRadioButton'
+import { CosRadioButtonGroup } from '../../../components/CosRadioButton/CosRadioButtonGroup'
 import { RadioButtonGrid } from './RadioButtonGrid'
 
 const meta = {
@@ -24,7 +27,7 @@ const options = [
     label: 'The Lord of the Rings: The Return of the King',
     value: 'lotr-return',
   },
-]
+] satisfies CosRadioButtonProps[]
 
 export const Gallery: StoryObj = {
   args: {},
@@ -74,7 +77,7 @@ export const Gallery: StoryObj = {
         <StoryLayout.Section title="Layout">
           <div className="flex flex-col gap-y-20">
             <RadioButtonGrid title="Vertical">
-              <CosRadioButtonGrid direction="vertical">
+              <CosRadioButtonGroup direction="vertical" className="col-span-3">
                 {options.map((item) => (
                   <CosRadioButton
                     key={item.value}
@@ -84,10 +87,10 @@ export const Gallery: StoryObj = {
                     onChange={handleChange}
                   />
                 ))}
-              </CosRadioButtonGrid>
+              </CosRadioButtonGroup>
             </RadioButtonGrid>
             <RadioButtonGrid title="Wrap">
-              <CosRadioButtonGrid direction="wrap" className="col-span-3">
+              <CosRadioButtonGroup direction="wrap" className="col-span-3">
                 {options.map((item) => (
                   <CosRadioButton
                     key={item.value}
@@ -97,7 +100,7 @@ export const Gallery: StoryObj = {
                     onChange={handleChange}
                   />
                 ))}
-              </CosRadioButtonGrid>
+              </CosRadioButtonGroup>
             </RadioButtonGrid>
           </div>
         </StoryLayout.Section>

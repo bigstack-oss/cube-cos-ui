@@ -1,4 +1,4 @@
-import { ChangeEvent, forwardRef, InputHTMLAttributes, useState } from 'react'
+import { ChangeEvent, InputHTMLAttributes, RefObject, useState } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import RadioButtonUnselected from '../../components/CosIcon/monochrome/radio_button.svg?react'
@@ -8,23 +8,21 @@ import { CosRadioButtonSkeleton } from './CosRadioButtonSkeleton'
 export type CosRadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string
   isLoading?: boolean
+  ref?: RefObject<HTMLInputElement | null>
 }
 
 const radioButton = {
-  container: cva(
-    'inline-flex w-fit cursor-pointer gap-x-2 text-primary-body2',
-    {
-      variants: {
-        disabled: {
-          true: 'cursor-default',
-        },
+  container: cva('primary-body2 inline-flex w-fit cursor-pointer gap-x-2', {
+    variants: {
+      disabled: {
+        true: 'cursor-default',
       },
     },
-  ),
-  icon: cva(
+  }),
+  iconWrap: cva(
     [
-      'icon-md mt-0.5 shrink-0',
-      'text-functional-border-darker hover:text-functional-hover-primary',
+      'shrink-0 p-0.5',
+      'text-functional-border-darker transition-colors duration-100 peer-hover:text-functional-hover-primary',
     ],
     {
       variants: {
@@ -32,7 +30,7 @@ const radioButton = {
           true: 'text-primary',
         },
         disabled: {
-          true: 'text-functional-disable-text hover:text-functional-disable-text',
+          true: 'text-functional-disable-text peer-hover:text-functional-disable-text',
         },
       },
     },
@@ -46,71 +44,69 @@ const radioButton = {
   }),
 }
 
-export const CosRadioButton = forwardRef<HTMLInputElement, CosRadioButtonProps>(
-  (props: CosRadioButtonProps, ref) => {
-    const {
-      label,
-      id,
-      className,
-      defaultChecked,
-      checked: controlledChecked,
-      onChange: onControlledCheckedChange,
-      disabled,
-      isLoading = false,
-      ...restProps
-    } = props
+export const CosRadioButton = (props: CosRadioButtonProps) => {
+  const {
+    label,
+    id,
+    ref,
+    defaultChecked = false,
+    checked: controlledChecked,
+    onChange: onControlledCheckedChange,
+    disabled,
+    isLoading = false,
+    ...restProps
+  } = props
 
-    const [uncontrolledChecked, setUncontrolledChecked] = useState<boolean>(
-      defaultChecked || false,
-    )
+  const [uncontrolledChecked, setUncontrolledChecked] =
+    useState<boolean>(defaultChecked)
 
-    const isControlled = controlledChecked !== undefined
+  const isControlled = controlledChecked !== undefined
 
-    const effectiveChecked = isControlled
-      ? controlledChecked
-      : uncontrolledChecked
+  const effectiveChecked = isControlled
+    ? controlledChecked
+    : uncontrolledChecked
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      if (!isControlled) {
-        setUncontrolledChecked(event.target.checked)
-      }
-      onControlledCheckedChange?.(event)
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!isControlled) {
+      setUncontrolledChecked(event.target.checked)
     }
+    onControlledCheckedChange?.(event)
+  }
 
-    const renderIcon = (checked: boolean) => {
-      const className = twMerge(
-        radioButton.icon({ disabled, isSelected: effectiveChecked }),
-      )
-
-      const IconComponent = (() => {
-        return checked ? RadioButtonSelected : RadioButtonUnselected
-      })()
-
-      return <IconComponent className={className} />
-    }
-
-    if (isLoading) return <CosRadioButtonSkeleton />
-
+  const renderIcon = () => {
+    const IconComponent = effectiveChecked
+      ? RadioButtonSelected
+      : RadioButtonUnselected
     return (
-      <label
-        htmlFor={id}
-        className={twMerge(radioButton.container({ disabled }))}
+      <div
+        className={twMerge(
+          radioButton.iconWrap({ disabled, isSelected: effectiveChecked }),
+        )}
       >
-        <input
-          {...restProps}
-          id={id}
-          ref={ref}
-          type="radio"
-          checked={effectiveChecked ?? false}
-          onChange={handleChange}
-          disabled={disabled}
-          className="hidden"
-        />
-        {renderIcon(effectiveChecked)}
-        <span className={twMerge(radioButton.label({ disabled }))}>
-          {label}
-        </span>
-      </label>
+        <IconComponent className="icon-md" />
+      </div>
     )
-  },
-)
+  }
+
+  if (isLoading) return <CosRadioButtonSkeleton />
+
+  return (
+    <label
+      htmlFor={id}
+      className={twMerge(radioButton.container({ disabled }))}
+    >
+      <input
+        {...restProps}
+        id={id}
+        ref={ref}
+        type="radio"
+        checked={effectiveChecked ?? false}
+        onChange={handleChange}
+        disabled={disabled}
+        className="peer hidden"
+      />
+      {renderIcon()}
+      <span className={twMerge(radioButton.label({ disabled }))}>{label}</span>
+    </label>
+  )
+}
