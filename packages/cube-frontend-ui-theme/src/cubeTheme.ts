@@ -272,3 +272,11 @@ export type BorderColorClass = `border-${FlattenedObjectKeys<
   // Excluded keys
   'DEFAULT'
 >}`
+
+export type BackgroundColorClass = `bg-${FlattenedObjectKeys<
+  typeof cubeTheme.colors,
+  // Separator
+  '-',
+  // Excluded keys
+  'DEFAULT'
+>}`
