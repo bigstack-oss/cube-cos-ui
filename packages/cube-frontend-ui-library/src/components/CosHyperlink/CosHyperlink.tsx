@@ -3,6 +3,7 @@ import { createElement } from 'react'
 import { cva } from 'class-variance-authority'
 import { twJoin, twMerge } from 'tailwind-merge'
 import { getIconSizeClass } from '../CosIcon/utils'
+import { PropsWithClassName } from '@cube-frontend/utils'
 
 export type CosHyperlinkColor = 'primary' | 'secondary'
 
@@ -19,10 +20,12 @@ type BaseHyperlinkProps = {
   size?: CosHyperlinkSize
   disabled?: boolean
   children: string
-  href: string
+  href?: string
+  onClick?: () => void
 }
 
-export type CosHyperlinkProps = BaseHyperlinkProps &
+export type CosHyperlinkProps = PropsWithClassName &
+  BaseHyperlinkProps &
   (
     | {
         variant: Extract<CosHyperlinkVariant, 'icon-left' | 'icon-right'>
@@ -66,13 +69,20 @@ const hyperlink = cva(['flex items-center gap-x-1 font-medium'], {
 
 export const CosHyperlink = (props: CosHyperlinkProps) => {
   const {
+    className: classNameProps,
     color = 'primary',
     size = 'md',
     variant = 'text-only',
     disabled = false,
     children,
     href,
+    onClick,
   } = props
+
+  const handleClick = () => {
+    if (disabled) return
+    onClick?.()
+  }
 
   const renderIcon = (iconVariant: 'icon-left' | 'icon-right') => {
     if (props.variant !== iconVariant) {
@@ -101,15 +111,19 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
   }
 
   const renderHyperlink = () => {
-    const hyperlinkType: 'a' | 'div' = !disabled ? 'a' : 'div'
+    const hyperlinkType = !disabled && href ? 'a' : 'div'
 
     const hrefAttribute = hyperlinkType === 'a' ? href : undefined
 
     return createElement(
       hyperlinkType,
       {
-        className: twMerge(hyperlink({ color, size, variant, disabled })),
+        className: twMerge(
+          hyperlink({ color, size, variant, disabled }),
+          classNameProps,
+        ),
         href: hrefAttribute,
+        onClick: handleClick,
       },
       renderIcon('icon-left'),
       children,
