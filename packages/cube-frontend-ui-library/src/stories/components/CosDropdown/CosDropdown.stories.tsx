@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
 import { CosDropdownItemType } from '../../../components/CosDropdown/cosDropdownUtils'
+import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { DropdownBox } from './DropdownBox'
 
 const meta = {
+  title: 'Molecules/Dropdown',
   component: CosDropdown,
 } satisfies Meta<typeof CosDropdown>
 
