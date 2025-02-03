@@ -1,5 +1,5 @@
 export * from './cubePreset'
-export type { BorderColorClass } from './cubeTheme'
+export type { BackgroundColorClass, BorderColorClass } from './cubeTheme'
 export type {
   FontAttributes,
   FontConfiguration,
