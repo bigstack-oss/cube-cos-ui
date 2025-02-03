@@ -1,5 +1,5 @@
-import { ChangeEvent, InputHTMLAttributes, useState, RefObject } from 'react'
 import { cva } from 'class-variance-authority'
+import { ChangeEvent, InputHTMLAttributes, RefObject, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import CheckboxUnselected from '../../components/CosIcon/monochrome/checkbox.svg?react'
 import CheckboxSelected from '../../components/CosIcon/monochrome/checkbox_checked_filled.svg?react'
@@ -13,7 +13,13 @@ export type CosCheckboxProps = Omit<
   'checked' | 'defaultChecked'
 > & {
   label: string
+  /**
+   * Use `null` for indeterminate state.
+   */
   checked?: boolean | null
+  /**
+   * Use `null` for indeterminate state.
+   */
   defaultChecked?: boolean | null
   isLoading?: boolean
   ref?: RefObject<HTMLInputElement | null>
@@ -75,6 +81,8 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
     ? controlledChecked
     : uncontrolledChecked
 
+  const isIndeterminate = effectiveChecked === null
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
       setUncontrolledChecked(event.target.checked)
@@ -84,7 +92,7 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
 
   const renderIcon = () => {
     const IconComponent = (() => {
-      if (effectiveChecked === null) return CheckboxIndeterminate
+      if (isIndeterminate) return CheckboxIndeterminate
       return effectiveChecked ? CheckboxSelected : CheckboxUnselected
     })()
 
@@ -92,7 +100,7 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
       <div
         className={twMerge(
           checkbox.iconWrap({
-            isSelected: effectiveChecked || effectiveChecked === null,
+            isSelected: effectiveChecked || isIndeterminate,
             disabled,
           }),
         )}
