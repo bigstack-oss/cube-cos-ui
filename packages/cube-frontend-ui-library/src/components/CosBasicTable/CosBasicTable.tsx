@@ -1,0 +1,117 @@
+import { PropsWithChildren, useMemo } from 'react'
+import { twMerge } from 'tailwind-merge'
+import { CosTableRow } from './cosTableUtils'
+import { CreateCosTableColumn } from './rendering/CosTableColumn'
+import { CosTableTd } from './rendering/CosTableTd'
+import { CosTableTh } from './rendering/CosTableTh'
+import { SortingState } from './sorting/sortingUtils'
+import { useSortedRows } from './sorting/useSortedRows'
+import { useColumnPayloads } from './useColumnPayloads'
+
+const tdBorderRadiusClass = twMerge(
+  '[&:last-of-type>td:first-of-type]:rounded-bl-[5px]',
+  '[&:last-of-type>td:last-of-type]:rounded-br-[5px]',
+)
+
+export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
+  rows: Row[]
+  defaultSortingState?: SortingState<Row>
+  isLoading?: boolean
+  /**
+   * @default 5
+   */
+  skeletonRowCount?: number
+}>
+
+const CosBasicTableComponent = <Row extends CosTableRow>(
+  props: CosBasicTableProps<Row>,
+) => {
+  const {
+    children,
+    rows,
+    defaultSortingState,
+    isLoading,
+    skeletonRowCount = 5,
+  } = props
+
+  const { columns, rowCompareFnMapRef } = useColumnPayloads<Row>(children)
+
+  const { sortedRows, sortingState, onSortDirectionChange } = useSortedRows(
+    rows,
+    columns,
+    defaultSortingState,
+    rowCompareFnMapRef,
+  )
+
+  const skeletonIndexes = useMemo<number[]>(() => {
+    return Array.from(Array(skeletonRowCount).keys()).map((_, index) => index)
+  }, [skeletonRowCount])
+
+  const renderSkeletonRows = () => {
+    return skeletonIndexes.map((index) => (
+      <tr key={index} className={tdBorderRadiusClass}>
+        {columns.map((column, colIndex) => (
+          <CosTableTd
+            key={column.property?.toString() ?? colIndex}
+            column={column}
+            isLoading={isLoading}
+          />
+        ))}
+      </tr>
+    ))
+  }
+
+  const renderDataRows = () => {
+    return sortedRows.map((row) => (
+      <tr
+        key={row.id}
+        className={twMerge(
+          '[&>td]:hover:bg-functional-hover-grey',
+          tdBorderRadiusClass,
+        )}
+      >
+        {columns.map((column, colIndex) => (
+          <CosTableTd
+            key={column.property?.toString() ?? colIndex}
+            row={row}
+            column={column}
+          />
+        ))}
+      </tr>
+    ))
+  }
+
+  return (
+    <div className="overflow-auto">
+      <table className="w-full border-separate border-spacing-0">
+        <thead>
+          <tr>
+            {columns.map((column, index) => (
+              <CosTableTh
+                key={column.property?.toString() ?? index}
+                column={column}
+                sortingState={sortingState}
+                onSortClick={() => onSortDirectionChange(column.property!)}
+              />
+            ))}
+          </tr>
+        </thead>
+        <tbody>{isLoading ? renderSkeletonRows() : renderDataRows()}</tbody>
+      </table>
+    </div>
+  )
+}
+
+CosBasicTableComponent.Column = CreateCosTableColumn()
+
+type CosBasicTableWithColumn<Row extends CosTableRow> =
+  typeof CosBasicTableComponent<Row> & {
+    Column: ReturnType<typeof CreateCosTableColumn<Row>>
+  }
+
+// Function ensuring the table row type is assigned.
+export const GetCosBasicTable = <
+  Row extends CosTableRow,
+>(): CosBasicTableWithColumn<Row> => {
+  return CosBasicTableComponent as CosBasicTableWithColumn<Row>
+}

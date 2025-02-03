@@ -1,3 +1,5 @@
+export * from './components/CosBasicTable/CosBasicTable'
+export * from './components/CosBasicTable/rendering/CosTableTdSkeleton'
 export * from './components/CosButton/CosButton'
 export * from './components/CosButton/CosButtonSkeleton'
 export * from './components/CosCheckbox/CosCheckbox'
