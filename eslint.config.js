@@ -8,7 +8,7 @@ import tailwind from 'eslint-plugin-tailwindcss'
 import importPlugin from 'eslint-plugin-import'
 
 export default tseslint.config(
-  { ignores: ['**/storybook-static', '**/dist'] },
+  { ignores: ['**/storybook-static', '**/dist', '**/keycloak/themes/base'] },
   {
     extends: [
       js.configs.recommended,
