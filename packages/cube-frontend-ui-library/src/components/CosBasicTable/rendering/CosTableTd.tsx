@@ -39,7 +39,9 @@ export const CosTableTd = <Row extends CosTableRow>(
     const propertyValue = property ? row[property] : undefined
 
     if (typeof children === 'function') {
-      return children(propertyValue as Row[keyof Row], row)
+      return children(propertyValue!, row)
+    } else if (children) {
+      return children
     }
 
     return propertyValue?.toString()
