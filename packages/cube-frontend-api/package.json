@@ -6,7 +6,8 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "./scripts/api-sdk.sh generate",
+    "validate": "./cube-cos-openapi/scripts/validate.sh"
   },
   "keywords": [],
   "author": "",

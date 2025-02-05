@@ -18,6 +18,8 @@
     "prettier:fix": "prettier --write \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
     "format": "pnpm prettier:fix && pnpm eslint:fix",
     "lint": "pnpm tsc && pnpm eslint && pnpm prettier",
+    "api:generate": "pnpm --filter @cube-frontend/api generate",
+    "api:validate": "pnpm --filter @cube-frontend/api validate",
     "ui-library:dev": "pnpm --filter @cube-frontend/ui-library storybook",
     "ui-library:build": "pnpm --filter @cube-frontend/ui-library build-storybook",
     "ui-library:serve": "pnpm --filter @cube-frontend/ui-library serve-storybook",

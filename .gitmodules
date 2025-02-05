@@ -1,0 +1,3 @@
+[submodule "packages/cube-frontend-api/cube-cos-openapi"]
+	path = packages/cube-frontend-api/cube-cos-openapi
+	url = git@github.com:bigstack-oss/cube-cos-openapi.git
