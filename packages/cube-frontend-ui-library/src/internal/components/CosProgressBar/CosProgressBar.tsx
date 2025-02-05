@@ -40,7 +40,6 @@ export const CosProgressBar = (props: CosProgressBarProps) => {
             progressCva({
               isFull: progress >= 100,
             }),
-            'absolute h-full',
             color,
           )}
           style={progressWidthStyle}

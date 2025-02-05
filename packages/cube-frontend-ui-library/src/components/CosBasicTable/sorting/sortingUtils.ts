@@ -30,7 +30,7 @@ export type CompareFn<T> = (preceding: T, following: T) => boolean
 //          v                                 ^
 // No sorting (undefined) -> descending -> ascending
 export const computeNextSortDirection = (
-  currentDirection: SortDirection | undefined,
+  currentDirection: SortDirection,
 ): SortDirection => {
   if (currentDirection === undefined) {
     return 'descending'

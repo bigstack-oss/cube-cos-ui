@@ -18,9 +18,7 @@ export type ColumnPayloads<Row extends CosTableRow> = {
 export const useColumnPayloads = <Row extends CosTableRow>(
   children: ReactNode,
 ): ColumnPayloads<Row> => {
-  const [columns, setColumns] = useState<CosTableColumnProps<Row, keyof Row>[]>(
-    [],
-  )
+  const [columns, setColumns] = useState<CosTableColumnProps<Row>[]>([])
   const rowCompareFnMapRef = useRef<RowCompareFnMap<Row>>({})
 
   useEffect(() => {
