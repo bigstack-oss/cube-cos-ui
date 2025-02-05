@@ -10,6 +10,7 @@ import '../src/tailwind.css'
 
 const preview: Preview = {
   parameters: {
+    layout: 'fullscreen',
     options: {
       storySort: {
         order: [

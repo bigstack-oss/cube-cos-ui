@@ -16,6 +16,7 @@
     "@cube-frontend/utils": "workspace:*",
     "@fontsource/inter": "catalog:",
     "@fontsource/urbanist": "catalog:",
+    "axios": "^1.7.9",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
@@ -25,6 +26,7 @@
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "catalog:",
     "postcss": "catalog:",
+    "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
     "vite": "^6.0.5",
     "vite-plugin-svgr": "catalog:"

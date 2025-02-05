@@ -282,6 +282,9 @@ importers:
       '@fontsource/urbanist':
         specifier: 'catalog:'
         version: 5.1.1
+      axios:
+        specifier: ^1.7.9
+        version: 1.7.9
       react:
         specifier: 'catalog:'
         version: 19.0.0
@@ -304,6 +307,9 @@ importers:
       postcss:
         specifier: 'catalog:'
         version: 8.4.49
+      tailwind-merge:
+        specifier: 'catalog:'
+        version: 2.6.0
       tailwindcss:
         specifier: 'catalog:'
         version: 3.4.17
