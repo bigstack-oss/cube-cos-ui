@@ -1,0 +1,13 @@
+name: cos-ui-keycloak-dev
+services:
+  keycloak:
+    build: .
+    container_name: keycloak
+    ports:
+      - 8642:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    volumes:
+      - ./keycloak/themes/cos-ui:/opt/jboss/keycloak/themes/cos-ui:ro
+    restart: unless-stopped
