@@ -74,29 +74,27 @@ export const CosTooltip = (props: CosTooltipProps) => {
   }
 
   return (
-    <>
-      <div
-        ref={anchorRef}
-        className={twMerge('inline-flex', className)}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        onClick={onClick}
-      >
-        {anchorElement}
-        {visibilityState !== undefined &&
-          createPortal(
-            <InfoBox
-              // Assign a key to remount the InfoBox to prevent layout shifts
-              // when switching from hover content to click content.
-              key={visibilityState}
-              information={infoMap[visibilityState]!}
-              placement={placement}
-              anchorRef={anchorRef}
-              boundaryElement={UNSAFE_boundaryElement}
-            />,
-            document.body,
-          )}
-      </div>
-    </>
+    <div
+      ref={anchorRef}
+      className={twMerge('inline-flex', className)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+    >
+      {anchorElement}
+      {visibilityState !== undefined &&
+        createPortal(
+          <InfoBox
+            // Assign a key to remount the InfoBox to prevent layout shifts
+            // when switching from hover content to click content.
+            key={visibilityState}
+            information={infoMap[visibilityState]!}
+            placement={placement}
+            anchorRef={anchorRef}
+            boundaryElement={UNSAFE_boundaryElement}
+          />,
+          document.body,
+        )}
+    </div>
   )
 }
