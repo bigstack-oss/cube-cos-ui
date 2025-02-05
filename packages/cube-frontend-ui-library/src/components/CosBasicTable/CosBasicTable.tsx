@@ -23,7 +23,7 @@ export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   skeletonRowCount?: number
 }>
 
-const CosBasicTableComponent = <Row extends CosTableRow>(
+const CosBasicTable = <Row extends CosTableRow>(
   props: CosBasicTableProps<Row>,
 ) => {
   const {
@@ -102,10 +102,10 @@ const CosBasicTableComponent = <Row extends CosTableRow>(
   )
 }
 
-CosBasicTableComponent.Column = CreateCosTableColumn()
+CosBasicTable.Column = CreateCosTableColumn()
 
 type CosBasicTableWithColumn<Row extends CosTableRow> =
-  typeof CosBasicTableComponent<Row> & {
+  typeof CosBasicTable<Row> & {
     Column: ReturnType<typeof CreateCosTableColumn<Row>>
   }
 
@@ -113,5 +113,5 @@ type CosBasicTableWithColumn<Row extends CosTableRow> =
 export const GetCosBasicTable = <
   Row extends CosTableRow,
 >(): CosBasicTableWithColumn<Row> => {
-  return CosBasicTableComponent as CosBasicTableWithColumn<Row>
+  return CosBasicTable as CosBasicTableWithColumn<Row>
 }
