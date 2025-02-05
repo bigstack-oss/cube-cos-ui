@@ -14,6 +14,8 @@
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
     "eslint:inspect": "eslint --inspect-config .eslintrc.js",
+    "keycloak-login:build": "pnpm --filter @cube-frontend/keycloak-login build",
+    "keycloak-login:dev": "pnpm --filter @cube-frontend/keycloak-login dev",
     "keycloak-login:infra": "docker compose -f ./packages/cube-frontend-keycloak-login/docker-compose.yaml up -d",
     "prettier": "prettier --check \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
     "prettier:fix": "prettier --write \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
