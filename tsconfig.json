@@ -25,6 +25,9 @@
       "@cube-frontend/ui-library": [
         "./packages/cube-frontend-ui-library/src/index.ts"
       ],
+      "@cube-frontend/ui-library/assets/*": [
+        "./packages/cube-frontend-ui-library/src/assets/*"
+      ],
       "@cube-frontend/ui-library/icons/monochrome/*": [
         "./packages/cube-frontend-ui-library/src/components/CosIcon/monochrome/*"
       ],
