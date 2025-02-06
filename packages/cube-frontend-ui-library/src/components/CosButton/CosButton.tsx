@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react'
 import { IconSize, SvgComponent } from '../CosIcon/CosIcon'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
@@ -11,6 +12,7 @@ export type CosButtonType = 'primary' | 'secondary' | 'ghost' | 'warning'
 export type CosButtonSize = 'sm' | 'md' | 'lg'
 
 export type CosButtonProps = PropsWithClassName & {
+  htmlType?: ButtonHTMLAttributes<HTMLButtonElement>['type']
   /**
    * @default "primary"
    */
@@ -136,6 +138,7 @@ const getIconSizeByButtonSize = (size: CosButtonSize) => {
 
 export const CosButton = (props: CosButtonProps) => {
   const {
+    htmlType,
     type = 'primary',
     size = 'md',
     usage = 'text-only',
@@ -190,6 +193,7 @@ export const CosButton = (props: CosButtonProps) => {
 
   return (
     <button
+      type={htmlType}
       className={twMerge(button({ type, size, usage }), className)}
       disabled={disabled}
       onClick={onClick}
