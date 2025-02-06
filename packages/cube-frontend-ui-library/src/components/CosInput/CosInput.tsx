@@ -84,7 +84,9 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
         <CosInputSkeleton type="label" />
       ) : (
         <div className="primary-body2 flex space-x-1">
-          <label className="font-semibold">{label}</label>
+          <label htmlFor={inputId} className="font-semibold">
+            {label}
+          </label>
           {required && <span className="text-status-negative">*</span>}
         </div>
       )
