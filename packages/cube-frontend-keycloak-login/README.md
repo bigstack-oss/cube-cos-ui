@@ -2,7 +2,7 @@
 
 ## How to Run
 
-1. Run `pnpm keycloak-login:infra` and wait for the container to start.
+1. Run `pnpm keycloak-login:infra` and wait for the container to start (this may take a few minutes.)
    - Once it's ready, open http://localhost:8642 to access the Keycloak Welcome page.
 2. WIP
 

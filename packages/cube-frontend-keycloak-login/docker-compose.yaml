@@ -10,4 +10,4 @@ services:
       KEYCLOAK_PASSWORD: admin
     volumes:
       - ./keycloak/themes/cos-ui:/opt/jboss/keycloak/themes/cos-ui:ro
-    restart: unless-stopped
+    restart: always
