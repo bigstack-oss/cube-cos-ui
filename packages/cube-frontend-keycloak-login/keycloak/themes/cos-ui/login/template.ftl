@@ -1,10 +1,11 @@
 <#macro registrationLayout bodyClass="" displayInfo=false displayMessage=true displayRequiredFields=false showAnotherWayIfPresent=true>
 <!DOCTYPE html>
-<html class="${properties.kcHtmlClass!}">
+<html class="${properties.kcHtmlClass!}" style="height: 100%;">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow">
 
     <#if properties.meta?has_content>
@@ -36,16 +37,8 @@
     </#if>
 </head>
 
-<body class="${properties.kcBodyClass!}">
-<div class="${properties.kcLoginClass!}">
-    <div class="${properties.kcFormCardClass!}">
-      <div id="kc-content">
-        <div id="kc-content-wrapper">
-            <#nested "form">
-        </div>
-      </div>
-    </div>
-  </div>
+<body class="${properties.kcBodyClass!}" style="height: 100%;">
+    <#nested "form">
 </body>
 </html>
 </#macro>

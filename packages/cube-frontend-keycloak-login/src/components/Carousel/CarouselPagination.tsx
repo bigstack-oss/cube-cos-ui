@@ -1,5 +1,6 @@
 import { cva } from 'class-variance-authority'
 import { useMemo } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 export type CarouselPaginationProps = {
   itemCount: number
@@ -27,7 +28,15 @@ export const CarouselPagination = (props: CarouselPaginationProps) => {
   )
 
   return (
-    <div className="absolute bottom-[120px] flex w-full items-center justify-center gap-x-4">
+    <div
+      className={twMerge(
+        'absolute bottom-[40px] flex w-full items-center justify-center gap-x-4',
+        'height-sm:bottom-[70px]',
+        'height-md:bottom-[80px]',
+        'height-lg:bottom-[110px]',
+        'height-xl:bottom-[120px]',
+      )}
+    >
       {array.map((index) => (
         <span
           key={index}
