@@ -40,7 +40,7 @@ export const Carousel = () => {
 
   return (
     <div className="relative flex h-full w-1/2 items-center bg-primary">
-      <div className="flex overflow-hidden">
+      <div className="flex h-full overflow-hidden">
         {assetsWithUrl.map((asset, index) => (
           <CarouselSlide
             key={asset.path}

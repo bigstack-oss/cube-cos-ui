@@ -12,7 +12,7 @@ import './tailwind.css'
 
 export const App = () => {
   return (
-    <div className="flex h-svh min-h-[860px] w-full bg-grey-0">
+    <div className="flex size-full min-h-[720px] min-w-[1280px] bg-grey-0">
       <LoginForm />
       <Carousel />
     </div>

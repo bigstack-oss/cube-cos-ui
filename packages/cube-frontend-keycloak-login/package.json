@@ -15,7 +15,8 @@
     "@fontsource/urbanist": "catalog:",
     "class-variance-authority": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "tailwind-merge": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",

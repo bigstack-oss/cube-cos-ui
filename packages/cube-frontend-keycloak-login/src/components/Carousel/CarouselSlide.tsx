@@ -17,7 +17,7 @@ export const CarouselSlide = (props: CarouselSlideProps) => {
       }}
     >
       <img
-        className="w-full max-w-[80%] object-contain"
+        className="w-full object-contain"
         draggable={false}
         src={asset.path}
         alt={asset.alt}

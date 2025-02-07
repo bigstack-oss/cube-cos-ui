@@ -138,6 +138,9 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.0.0(react@19.0.0)
+      tailwind-merge:
+        specifier: 'catalog:'
+        version: 2.6.0
     devDependencies:
       '@types/react':
         specifier: 'catalog:'

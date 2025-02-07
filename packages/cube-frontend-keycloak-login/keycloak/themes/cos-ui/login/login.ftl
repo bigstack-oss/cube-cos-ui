@@ -10,9 +10,6 @@
                 authSelectedCredentials: <#if auth.selectedCredential?has_content>"${auth.selectedCredential}"<#else>undefined</#if>,
             }
         </script>
-        <div id="kc-form">
-            <div id="kc-form-wrapper"></div>
-        </div>
+        <div id="kc-form-wrapper" style="height: 100%;"></div>
     </#if>
-
 </@layout.registrationLayout>

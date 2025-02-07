@@ -5,6 +5,20 @@ import { cosAnimationKeyframes } from './utils/animationKeyframes'
 import { cosAnimations } from './utils/animations'
 
 export const cubeTheme = {
+  screens: {
+    'height-sm': {
+      raw: '(min-height: 768px)',
+    },
+    'height-md': {
+      raw: '(min-height: 864px)',
+    },
+    'height-lg': {
+      raw: '(min-height: 960px)',
+    },
+    'height-xl': {
+      raw: '(min-height: 1080px)',
+    },
+  },
   colors: {
     primary: {
       DEFAULT: '#4C68F9',
