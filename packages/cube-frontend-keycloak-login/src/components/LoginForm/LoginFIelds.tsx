@@ -5,19 +5,30 @@ import {
   CosPasswordInput,
   CosStroke,
 } from '@cube-frontend/ui-library'
+import { useMemo } from 'react'
 
 export const LoginFields = () => {
-  const { incorrectCredentials } = window.keycloakLoginContext
+  const { incorrectCredentials, sessionTimedOut } = window.keycloakLoginContext
+
+  const naggingMessage = useMemo<string | undefined>(() => {
+    if (sessionTimedOut) {
+      return 'Session timed out. Please login again.'
+    } else if (incorrectCredentials) {
+      return 'Invalid username or password.'
+    }
+
+    return undefined
+  }, [incorrectCredentials, sessionTimedOut])
 
   return (
     <div className="flex flex-col gap-y-[23px]">
       <CosStroke type="dot" color="border-chart-2" />
-      {incorrectCredentials && (
+      {naggingMessage && (
         <CosNagging
           className="w-full"
           type="error"
           variant="top"
-          title="Invalid username or password."
+          title={naggingMessage}
         />
       )}
       <CosInput
