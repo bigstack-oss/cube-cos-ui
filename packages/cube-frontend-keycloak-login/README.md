@@ -57,3 +57,4 @@ This copies the generated files to `packages/cube-frontend-keycloak-login/keyclo
   - `standalone/`: Configuration files to override Keycloak's default theme cache for real-time updates.
   - `themes/`:
     - `cos-ui/`: Custom theme for COS UI 3.0. For reference, the default theme files can be found in the container at `/opt/jboss/keycloak/themes/base`.
+- `src/`: Source code for the Login page React application.

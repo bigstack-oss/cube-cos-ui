@@ -1,14 +1,15 @@
 import { cva } from 'class-variance-authority'
 import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { slideIndexToAssetIndex } from './slideIndexToAssetIndex'
 
 export type CarouselPaginationProps = {
-  itemCount: number
-  activeIndex: number
+  currentSlideIndex: number
+  assetsLength: number
   onIndicatorClick: (index: number) => void
 }
 
-const dot = cva(
+const indicator = cva(
   'size-2.5 cursor-pointer rounded-full bg-functional-disable-light',
   {
     variants: {
@@ -20,30 +21,33 @@ const dot = cva(
 )
 
 export const CarouselPagination = (props: CarouselPaginationProps) => {
-  const { itemCount, activeIndex, onIndicatorClick } = props
+  const { currentSlideIndex, assetsLength, onIndicatorClick } = props
 
-  const array = useMemo<number[]>(
-    () => Array.from(Array(itemCount).keys()).map((_, index) => index),
-    [itemCount],
-  )
+  const indexes = useMemo<number[]>(() => {
+    return Array.from(Array(assetsLength).keys()).map((_, index) => index)
+  }, [assetsLength])
+
+  const currentAssetIndex = useMemo<number>(() => {
+    return slideIndexToAssetIndex(currentSlideIndex, assetsLength)
+  }, [currentSlideIndex, assetsLength])
 
   return (
     <div
       className={twMerge(
-        'absolute bottom-[40px] flex w-full items-center justify-center gap-x-4',
+        'absolute bottom-[40px] flex w-full select-none items-center justify-center gap-x-4',
         'height-sm:bottom-[70px]',
         'height-md:bottom-[80px]',
         'height-lg:bottom-[110px]',
         'height-xl:bottom-[120px]',
       )}
     >
-      {array.map((index) => (
+      {indexes.map((indicatorIndex) => (
         <span
-          key={index}
-          className={dot({
-            isActive: index === activeIndex % itemCount,
+          key={indicatorIndex}
+          className={indicator({
+            isActive: indicatorIndex === currentAssetIndex,
           })}
-          onClick={() => onIndicatorClick(index)}
+          onClick={() => onIndicatorClick(indicatorIndex)}
         />
       ))}
     </div>
