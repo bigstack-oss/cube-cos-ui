@@ -2,7 +2,17 @@
 
 This guide explains how to preview the Keycloak login page in your local environment.
 
-## Starting the Keycloak Server
+## 1. Development
+
+Run:
+
+```sh
+pnpm keycloak-login:dev
+```
+
+Visit http://localhost:5173 to begin development. Once you're done, move on to the next step.
+
+## 2. Starting the Keycloak Server
 
 Run:
 
@@ -10,9 +20,11 @@ Run:
 pnpm keycloak-login:infra
 ```
 
-Wait a few minutes for the container to start. Once it's ready, visit http://localhost:8642 to access the Keycloak Welcome page.
+Wait a few minutes for the container to initialize. Once it's ready, you should see the Keycloak Welcome page at http://localhost:8642.
 
-## Building the React App
+Be aware of a [known issue](https://github.com/docker/for-win/issues/584#issuecomment-286792858) in Docker: host-mount volumes won't be available for containers that auto-start in detached mode (`-d`). To work around this, you need to delete the container and restart the server after every host reboot.
+
+## 3. Building the React App
 
 Run:
 
@@ -20,11 +32,19 @@ Run:
 pnpm keycloak-login:build
 ```
 
-This builds the React app and generates output files in a format Keycloak expects.
+This builds the React app and outputs files in a way Keycloak expects.
 
-The generated files will also be copied to `packages/cube-frontend-keycloak-login/keycloak/themes/cos-ui/login/resources`, allowing Keycloak to load the custom theme.
+## 4. Copy the Output Files to Keycloak
 
-## Changing the Login Theme
+Run:
+
+```sh
+pnpm keycloak-login:copy-output
+```
+
+This copies the generated files to `packages/cube-frontend-keycloak-login/keycloak/themes/cos-ui/login/resources`, which is mounted to the Keycloak container. This allows Keycloak to load the custom theme.
+
+## 5. Changing the Login Theme
 
 1. Log in to the Keycloak Admin Console at http://localhost:8642/auth/admin using `admin/admin`.
 2. In **Master** Realm -> **Realm Settings**, open the **Themes** tab.
@@ -34,7 +54,6 @@ The generated files will also be copied to `packages/cube-frontend-keycloak-logi
 ## Folder Structure
 
 - `keycloak/`
-  - `standalone/configuration/`: Configuration files to override Keycloak's default theme cache for real-time updates.
+  - `standalone/`: Configuration files to override Keycloak's default theme cache for real-time updates.
   - `themes/`:
-    - `base/`: Default Keycloak theme for DEV reference.
-    - `cos-ui/`: Custom theme for COS UI 3.0.
+    - `cos-ui/`: Custom theme for COS UI 3.0. For reference, the default theme files can be found in the container at `/opt/jboss/keycloak/themes/base`.
