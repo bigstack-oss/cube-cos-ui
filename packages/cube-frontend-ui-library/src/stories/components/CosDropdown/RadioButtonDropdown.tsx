@@ -36,10 +36,11 @@ type RadioButtonDropdownProps = {
   isDisabled: boolean
   hasDefaultValue: boolean
   hasSearchbar: boolean
+  label?: string
 }
 
 export const RadioButtonDropdown = (props: RadioButtonDropdownProps) => {
-  const { variant, isDisabled, hasDefaultValue, hasSearchbar } = props
+  const { variant, isDisabled, hasDefaultValue, hasSearchbar, label } = props
 
   const [searchValue, setSearchValue] = useState('')
   const [selectedCountry, setSelectedCountry] = useState<OptionType[]>(
@@ -63,6 +64,7 @@ export const RadioButtonDropdown = (props: RadioButtonDropdownProps) => {
     <CosDropdown
       type="search"
       variant={variant}
+      label={label}
       selectedItems={selectedCountry}
       searchValue={searchValue}
       onSearchChange={handleSearchChange}
@@ -97,6 +99,7 @@ export const RadioButtonDropdown = (props: RadioButtonDropdownProps) => {
     <CosDropdown
       type="regular"
       variant={variant}
+      label={label}
       selectedItems={selectedCountry}
       disabled={isDisabled}
     >

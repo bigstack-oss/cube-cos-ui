@@ -14,9 +14,10 @@ export type CosDropdownContextValue<Item> = {
   // Common props
   type: CosDropdownType
   variant: CosDropdownVariant
+  label: string | undefined
   selectedItems: Item[]
   itemCount: number
-  disabled?: boolean
+  disabled: boolean
   // Checkbox props
   onAllCheckChange: OnAllCheckChange | undefined
   onClearClick: OnClearClick | undefined
@@ -34,6 +35,7 @@ export const CosDropdownContext = createContext<
   // Common props
   type: 'regular',
   variant: 'default',
+  label: undefined,
   selectedItems: [],
   itemCount: 0,
   disabled: false,

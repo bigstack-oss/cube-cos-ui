@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import CaretDown from '../../components/CosIcon/monochrome/caret_down.svg?react'
 import XSmall from '../../components/CosIcon/monochrome/x_small.svg?react'
 import { CosDropdownContext } from './context'
-import { trigger, triggerIcon } from './styles'
+import { trigger, triggerIcon, dropdownLabel } from './styles'
 
 export type CosDropdownTriggerProps =
   ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -21,6 +21,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
     onDropdownOpenChange,
     type,
     variant,
+    label,
     selectedItems,
     disabled: isDisabledContext,
     onClearClick,
@@ -42,6 +43,11 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
     }
   }, [isSelected, selectedItems])
 
+  const renderLabel = () => {
+    if (!label) return null
+    return <p className={twMerge(dropdownLabel({ variant }))}>{label}</p>
+  }
+
   const renderClearButton = () => {
     const handleClearClick = (e: React.MouseEvent<SVGSVGElement>) => {
       e.stopPropagation()
@@ -54,24 +60,27 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
   }
 
   return (
-    <button
-      type="button"
-      disabled={disabled}
-      onClick={onDropdownOpenChange}
-      className={twMerge(
-        trigger({
-          variant,
-          hasSearchbar,
-          hasSelectedValue: isSelected,
-          disabled,
-        }),
-      )}
-    >
-      <span className="w-full truncate text-left">{displayText}</span>
-      <span className="flex shrink-0 items-center">
-        {renderClearButton()}
-        <CaretDown className={twMerge(triggerIcon({ isOpen }))} />
-      </span>
-    </button>
+    <>
+      {renderLabel()}
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={onDropdownOpenChange}
+        className={twMerge(
+          trigger({
+            variant,
+            hasSearchbar,
+            hasSelectedValue: isSelected,
+            disabled,
+          }),
+        )}
+      >
+        <span className="w-full truncate text-left">{displayText}</span>
+        <span className="flex shrink-0 items-center">
+          {renderClearButton()}
+          <CaretDown className={twMerge(triggerIcon({ isOpen }))} />
+        </span>
+      </button>
+    </>
   )
 }

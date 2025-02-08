@@ -76,10 +76,11 @@ type CheckboxDropdownProps = {
   isDisabled: boolean
   hasDefaultValue: boolean
   hasSearchbar: boolean
+  label?: string
 }
 
 export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
-  const { variant, isDisabled, hasDefaultValue, hasSearchbar } = props
+  const { variant, isDisabled, hasDefaultValue, hasSearchbar, label } = props
 
   const [searchValue, setSearchValue] = useState('')
   const [selectedFruits, setSelectedFruits] = useState<OptionType[]>(
@@ -120,6 +121,7 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
     <CosDropdown
       type="search-checkbox"
       variant={variant}
+      label={label}
       selectedItems={selectedFruits}
       onAllCheckChange={handleAllFruitsSelect}
       searchValue={searchValue}
@@ -157,6 +159,7 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
     <CosDropdown
       type="checkbox"
       variant={variant}
+      label={label}
       selectedItems={selectedFruits}
       onAllCheckChange={handleAllFruitsSelect}
       disabled={isDisabled}
