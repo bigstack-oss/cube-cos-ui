@@ -1,54 +1,59 @@
-import { LabelHTMLAttributes, useContext, useId } from 'react'
-import { CosDropdownContext } from './cosDropdownUtils'
+import { useContext, useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { item } from './cosDropdownStyles'
+import { CosCheckbox } from '../CosCheckbox/CosCheckbox'
+import { CosDropdownContext } from './context'
+import { item } from './styles'
 
-export type CosDropdownItemProps = LabelHTMLAttributes<HTMLLabelElement> & {
-  value: string
+export type CosDropdownItemProps = {
   children: string
   disabled?: boolean
+  checked: boolean
+  onClick: () => void
 }
 
 export const CosDropdownItem = (props: CosDropdownItemProps) => {
-  const { variant, type, selectedItems, onSelectedItemsChange, filterValue } =
-    useContext(CosDropdownContext)
-  const { children, value, disabled = false, ...restProps } = props
+  const { children: label, disabled = false, checked, onClick } = props
 
-  const isSelected = selectedItems.some(
-    (selectedItem) => selectedItem.key === value,
-  )
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  // TODO: implement dropdown filter result
-  const isFilterResult = children.includes(filterValue?.trim() ?? children)
+  const { variant, type } = useContext(CosDropdownContext)
 
-  const defaultId = useId()
+  const isCheckbox = type === 'checkbox' || type === 'search-checkbox'
 
-  const itemId = restProps.id ?? defaultId
+  const handleClick = () => !disabled && onClick()
 
-  const handleSelect = () =>
-    onSelectedItemsChange({ key: value, label: children, disabled })
-
-  if (!isFilterResult) return null
-
-  return (
-    <label
-      htmlFor={itemId}
-      key={itemId}
-      className={twMerge(item.label({ variant, isSelected }))}
+  return isCheckbox ? (
+    <div
+      ref={containerRef}
+      className={twMerge(
+        item({ variant, isSelected: checked, isCheckbox, disabled }),
+      )}
+    >
+      {/** TODO: The checkbox needs to be aligned with the design */}
+      <CosCheckbox
+        label={label}
+        disabled={disabled}
+        checked={checked}
+        onChange={handleClick}
+      />
+    </div>
+  ) : (
+    <div
+      ref={containerRef}
+      className={twMerge(
+        item({ variant, isSelected: checked, isCheckbox, disabled }),
+      )}
+      onClick={handleClick}
     >
       <input
-        type={type}
-        id={itemId}
+        type="radio"
         className="peer hidden"
-        checked={isSelected}
         disabled={disabled}
-        onChange={handleSelect}
+        checked={checked}
+        onChange={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       />
-      <span
-        className={twMerge(item.span({ type, variant, isSelected, disabled }))}
-      >
-        {children}
-      </span>
-    </label>
+      <span>{label}</span>
+    </div>
   )
 }
