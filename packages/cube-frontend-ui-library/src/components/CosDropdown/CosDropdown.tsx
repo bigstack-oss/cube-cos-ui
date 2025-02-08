@@ -101,6 +101,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
         // Common props
         type,
         variant,
+        label,
         selectedItems,
         itemCount,
         disabled,

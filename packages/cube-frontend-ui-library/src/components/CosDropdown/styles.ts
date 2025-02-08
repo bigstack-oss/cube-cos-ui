@@ -127,6 +127,15 @@ export const triggerIcon = cva(
   },
 )
 
+export const dropdownLabel = cva('primary-body3 font-semibold', {
+  variants: {
+    variant: {
+      default: 'mb-2',
+      'in-table': 'mb-1.5',
+    },
+  },
+})
+
 export const content = cva(
   [
     'absolute z-10 overflow-y-auto rounded-[5px] border bg-white py-2',
