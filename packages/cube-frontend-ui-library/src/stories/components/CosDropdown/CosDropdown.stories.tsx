@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
+import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
 import { DropdownBox } from './DropdownBox'
 import { RadioButtonDropdown } from './RadioButtonDropdown'
 import { CheckboxDropdown } from './CheckboxDropdown'
@@ -278,6 +278,42 @@ export const Default: StoryObj = {
               isDisabled={true}
               hasDefaultValue={true}
               hasSearchbar={true}
+            />
+          </DropdownBox>
+        </StoryLayout.Section>
+        <StoryLayout.Section title="Skeleton">
+          <DropdownBox title="">
+            <p className="primary-body2 col-span-1">Default</p>
+            <p className="primary-body2 col-span-1">Default - Label</p>
+            <p className="primary-body2 col-span-1">In Table</p>
+            <p className="primary-body2 col-span-1">In Table - Label</p>
+          </DropdownBox>
+          <DropdownBox title="Skeleton">
+            <CosDropdown
+              isLoading={true}
+              variant="default"
+              selectedItems={[]}
+              children={undefined}
+            />
+            <CosDropdown
+              isLoading={true}
+              variant="default"
+              label="Label"
+              selectedItems={[]}
+              children={undefined}
+            />
+            <CosDropdown
+              isLoading={true}
+              variant="in-table"
+              selectedItems={[]}
+              children={undefined}
+            />
+            <CosDropdown
+              isLoading={true}
+              variant="in-table"
+              label="Label"
+              selectedItems={[]}
+              children={undefined}
             />
           </DropdownBox>
         </StoryLayout.Section>

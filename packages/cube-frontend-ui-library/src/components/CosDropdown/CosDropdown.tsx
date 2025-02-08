@@ -12,12 +12,15 @@ import {
   parseNodes,
   getOptionalProps,
 } from './utils'
+import { CosDropdownSkeleton } from './CosDropdownSkeleton'
 
 export type CosDropdownProps<Item, Type extends CosDropdownType> = {
   type?: Type
   variant?: CosDropdownVariant
+  label?: string
   selectedItems: Item[]
   disabled?: boolean
+  isLoading?: boolean
   children: ReactNode
 } & CheckboxDropdownProps<Type> &
   SearchDropdownProps<Type>
@@ -46,8 +49,10 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
   const {
     type = 'regular',
     variant = 'default',
+    label,
     selectedItems,
     disabled = false,
+    isLoading = false,
     children,
   } = props
 
@@ -83,6 +88,9 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [handleClickOutside])
+
+  if (isLoading)
+    return <CosDropdownSkeleton variant={variant} hasLabel={!!label} />
 
   return (
     <CosDropdownContext.Provider
