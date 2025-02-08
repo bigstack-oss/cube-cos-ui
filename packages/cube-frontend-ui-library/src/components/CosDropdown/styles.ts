@@ -191,3 +191,22 @@ export const item = cva(
     },
   },
 )
+
+export const skeleton = {
+  container: cva('w-full', {
+    variants: {
+      variant: {
+        default: 'space-y-[8px]',
+        'in-table': 'space-y-[6px]',
+      },
+    },
+  }),
+  input: cva('w-full', {
+    variants: {
+      variant: {
+        default: 'h-[38px]',
+        'in-table': 'h-[34px]',
+      },
+    },
+  }),
+}
