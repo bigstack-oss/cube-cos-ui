@@ -1,5 +1,6 @@
 import { CSSProperties, useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { mainContentPaddingTopClass } from '../../keycloakLoginStyles'
 import { CarouselPagination } from './CarouselPagination'
 import { CarouselSlide } from './CarouselSlide'
 import { useCarouselAutoPlay } from './useCarouselAutoPlay'
@@ -85,11 +86,12 @@ export const Carousel = (props: CarouselProps) => {
   }
 
   return (
-    <div className="relative flex h-full w-1/2 items-center overflow-hidden bg-primary">
+    <div className="relative h-full w-1/2 overflow-hidden bg-primary">
       {/* Element for overall translation. */}
       <div
         className={twMerge(
           'flex h-full',
+          mainContentPaddingTopClass,
           // Disable CSS transition when resetting `currentSlideIndex` to prevent flickering.
           !isResettingSlideIndex && 'transition-transform duration-500',
         )}

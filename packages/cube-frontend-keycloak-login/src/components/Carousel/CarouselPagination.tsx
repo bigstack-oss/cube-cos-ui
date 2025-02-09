@@ -34,11 +34,12 @@ export const CarouselPagination = (props: CarouselPaginationProps) => {
   return (
     <div
       className={twMerge(
-        'absolute bottom-[40px] flex w-full select-none items-center justify-center gap-x-4',
-        'height-sm:bottom-[70px]',
-        'height-md:bottom-[80px]',
-        'height-lg:bottom-[110px]',
-        'height-xl:bottom-[120px]',
+        'absolute flex w-full select-none items-center justify-center gap-x-4',
+        'top-[665px]',
+        'height-sm:top-[707px]',
+        'height-md:top-[787px]',
+        'height-lg:top-[875px]',
+        'height-xl:top-[1007px]',
       )}
     >
       {indexes.map((indicatorIndex) => (

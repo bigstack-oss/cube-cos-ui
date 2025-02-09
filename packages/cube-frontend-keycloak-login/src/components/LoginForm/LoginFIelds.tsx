@@ -3,7 +3,6 @@ import {
   CosInput,
   CosNagging,
   CosPasswordInput,
-  CosStroke,
 } from '@cube-frontend/ui-library'
 import { useMemo } from 'react'
 
@@ -22,7 +21,6 @@ export const LoginFields = () => {
 
   return (
     <div className="flex flex-col gap-y-[23px]">
-      <CosStroke type="dot" color="border-chart-2" />
       {naggingMessage && (
         <CosNagging
           className="w-full"

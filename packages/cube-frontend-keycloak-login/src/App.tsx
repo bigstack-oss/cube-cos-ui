@@ -17,16 +17,28 @@ export const App = () => {
   const assets = useMemo<Asset[]>(() => {
     const assetsWithPath = [
       {
-        path: '/img/login_slide_0.png',
-        alt: 'cubecos',
+        path: '/img/automation.png',
+        alt: 'Automation',
       },
       {
-        path: '/img/login_slide_1.png',
-        alt: 'File storage',
+        path: '/img/network.png',
+        alt: 'Network',
       },
       {
-        path: '/img/login_slide_2.png',
-        alt: 'Virtualization',
+        path: '/img/storage.png',
+        alt: 'Storage',
+      },
+      {
+        path: '/img/compute.png',
+        alt: 'Compute',
+      },
+      {
+        path: '/img/gpu.png',
+        alt: 'GPU',
+      },
+      {
+        path: '/img/monitor.png',
+        alt: 'Monitor',
       },
     ]
 

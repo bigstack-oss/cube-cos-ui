@@ -5,11 +5,12 @@ export const LoginCopyright = () => {
   return (
     <footer
       className={twMerge(
-        'mt-[30px] flex items-center justify-center gap-x-2',
-        'height-sm:mt-[45px]',
-        'height-md:mt-[90px]',
+        'flex items-center justify-center gap-x-2',
+        'mt-[30px]',
+        'height-sm:mt-14',
+        'height-md:mt-[72px]',
         'height-lg:mt-[120px]',
-        'height-xl:mt-auto',
+        'height-xl:mt-[174px]',
       )}
     >
       <span className="primary-body2 text-functional-border-darker">
