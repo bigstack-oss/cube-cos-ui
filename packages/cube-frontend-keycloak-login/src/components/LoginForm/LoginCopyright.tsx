@@ -1,7 +1,7 @@
 import { CosHyperlink } from '@cube-frontend/ui-library'
 import { twMerge } from 'tailwind-merge'
 
-export const LoginFooter = () => {
+export const LoginCopyright = () => {
   return (
     <footer
       className={twMerge(
