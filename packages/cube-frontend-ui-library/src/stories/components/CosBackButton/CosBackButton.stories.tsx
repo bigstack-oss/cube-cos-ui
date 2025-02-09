@@ -36,21 +36,24 @@ const BackButtonRow = (props: BackButtonRowProps) => {
 export const Gallery: Story = {
   args: {
     details: 'Link Details',
-    children: 'Previous Page',
+    href: '/',
     onClick: fn(),
+    children: 'Previous Page',
   },
   render: (props) => {
-    const { details, children, onClick } = props
+    const { details, href, onClick, children } = props
 
     return (
       <StoryLayout title="Back Button">
         <StoryLayout.Section title="Layout">
           <div className="flex flex-col gap-y-12">
             <BackButtonRow title="Regular">
-              <CosBackButton onClick={onClick}>{children}</CosBackButton>
+              <CosBackButton onClick={onClick} href={href}>
+                {children}
+              </CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="Details">
-              <CosBackButton details={details} onClick={onClick}>
+              <CosBackButton details={details} href={href} onClick={onClick}>
                 {children}
               </CosBackButton>
             </BackButtonRow>
@@ -59,12 +62,17 @@ export const Gallery: Story = {
         <StoryLayout.Section title="Skeleton">
           <div className="flex flex-col gap-y-12">
             <BackButtonRow title="Regular">
-              <CosBackButton onClick={onClick} loading={true}>
+              <CosBackButton onClick={onClick} href={href} loading={true}>
                 {children}
               </CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="Details">
-              <CosBackButton details={details} loading={true} onClick={onClick}>
+              <CosBackButton
+                details={details}
+                href={href}
+                loading={true}
+                onClick={onClick}
+              >
                 {children}
               </CosBackButton>
             </BackButtonRow>
