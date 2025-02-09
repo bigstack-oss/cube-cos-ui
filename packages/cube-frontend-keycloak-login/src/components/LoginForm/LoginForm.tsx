@@ -1,8 +1,9 @@
-import { CosButton, CosHyperlink } from '@cube-frontend/ui-library'
-import { LoginFields } from './LoginFIelds'
-import { LoginFooter } from './LoginFooter'
-import { LoginHeader } from './LoginHeader'
+import { CosButton } from '@cube-frontend/ui-library'
 import { twMerge } from 'tailwind-merge'
+import { LoginCopyright } from './LoginCopyright'
+import { LoginFields } from './LoginFIelds'
+import { LoginHeader } from './LoginHeader'
+import { LoginHelp } from './LoginHelp'
 
 export const LoginForm = () => {
   const { formActionUrl, authSelectedCredentials } = window.keycloakLoginContext
@@ -25,14 +26,7 @@ export const LoginForm = () => {
         <CosButton htmlType="submit" size="lg">
           Log in
         </CosButton>
-        <div className="flex items-center justify-center gap-x-3">
-          <span className="primary-body2 text-functional-text">
-            Couldn’t log in ?
-          </span>
-          <CosHyperlink variant="text-only" href="...">
-            Contact Support
-          </CosHyperlink>
-        </div>
+        <LoginHelp />
         {/* Keeping this input to match the native Keycloak login form. */}
         <input
           type="hidden"
@@ -40,7 +34,7 @@ export const LoginForm = () => {
           value={authSelectedCredentials}
         />
       </div>
-      <LoginFooter />
+      <LoginCopyright />
     </form>
   )
 }
