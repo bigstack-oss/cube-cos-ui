@@ -55,7 +55,7 @@ export const Gallery: Story = {
         <StoryLayout.Section title="Variants">
           <ButtonVariantTable buttonText={buttonText} />
         </StoryLayout.Section>
-        <StoryLayout.Section title="Button Skeleton">
+        <StoryLayout.Section title="Skeleton">
           <ButtonSkeletonTable />
         </StoryLayout.Section>
       </StoryLayout>

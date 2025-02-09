@@ -5,22 +5,30 @@ import { CosBackButtonSkeleton } from './CosBackButtonSkeleton'
 export type CosBackButtonProps = {
   details?: string
   loading?: boolean
-  children: string
+  href?: string
   onClick?: () => void
+  children: string
 }
 
 export const CosBackButton = (props: CosBackButtonProps) => {
-  const { details, loading = false, children, onClick } = props
+  const { details, loading = false, href, onClick, children } = props
+
+  if (!href && !onClick) {
+    console.warn('CosBackButton: Either href or onClick is required')
+  }
 
   if (loading) {
     return <CosBackButtonSkeleton hasDetails={!!details} />
   }
 
+  const ClickTag = href ? 'a' : 'div'
+
   return (
     <div className="flex items-center gap-x-3">
-      <div
+      <ClickTag
         className="group/back-button flex cursor-pointer items-center gap-x-3"
         onClick={onClick}
+        {...(ClickTag === 'a' && { href })}
       >
         <ChevronLeft className="icon-lg text-functional-text" />
         <CosHyperlink
@@ -31,7 +39,7 @@ export const CosBackButton = (props: CosBackButtonProps) => {
         >
           {children}
         </CosHyperlink>
-      </div>
+      </ClickTag>
       <span className="primary-body3 text-functional-text-light">
         {details}
       </span>
