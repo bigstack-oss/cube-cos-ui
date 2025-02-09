@@ -1,9 +1,10 @@
 import { BorderColorClass } from '@cube-frontend/ui-theme'
+import { PropsWithClassName } from '@cube-frontend/utils'
 import { twJoin, twMerge } from 'tailwind-merge'
 
 type CosStrokeType = 'regular' | 'dot'
 
-export type CosStrokeProps = {
+export type CosStrokeProps = PropsWithClassName & {
   type?: CosStrokeType
   color?: BorderColorClass
 }
@@ -14,9 +15,9 @@ const typeBaseClasses: Record<CosStrokeType, string> = {
 }
 
 export const CosStroke = (props: CosStrokeProps) => {
-  const { type = 'regular', color } = props
+  const { className, type = 'regular', color } = props
 
   const baseClasses = typeBaseClasses[type]
 
-  return <hr className={twMerge(baseClasses, color)} />
+  return <hr className={twMerge(baseClasses, color, className)} />
 }

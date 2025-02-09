@@ -144,7 +144,7 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
 
     return (
       <div className={className}>
-        <div className="min-w-[202px] max-w-[412px] space-y-[6px]">
+        <div className="min-w-[202px] space-y-[6px]">
           {renderLabel()}
           <div className="relative flex items-center">
             {isLoading ? (
