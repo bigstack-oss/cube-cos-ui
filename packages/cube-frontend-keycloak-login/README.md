@@ -22,7 +22,7 @@ pnpm keycloak-login:infra
 
 Wait a few minutes for the container to initialize. Once it's ready, you should see the Keycloak Welcome page at http://localhost:8642.
 
-Be aware of a [known issue](https://github.com/docker/for-win/issues/584#issuecomment-286792858) in Docker: host-mount volumes won't be available for containers that auto-start in detached mode (`-d`). To work around this, you need to delete the container and restart the server after every host reboot.
+Be aware of a [known issue](https://github.com/docker/for-win/issues/584#issuecomment-286792858) in Docker: host-mount volumes won't be available for containers that auto-start in detached mode (`-d`) after host reboot (i.e., restarting your computer). To work around this, you need to restart the container after every host reboot.
 
 ## 3. Building the React App
 
