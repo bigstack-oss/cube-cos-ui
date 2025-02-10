@@ -252,7 +252,15 @@ importers:
         specifier: 'catalog:'
         version: 3.4.17
 
-  packages/cube-frontend-utils: {}
+  packages/cube-frontend-utils:
+    dependencies:
+      react:
+        specifier: 'catalog:'
+        version: 19.0.0
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.0.4
 
   packages/cube-frontend-web-app:
     dependencies:
