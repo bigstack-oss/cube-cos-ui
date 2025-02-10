@@ -1,6 +1,8 @@
 {
   "name": "@cube-frontend/api",
   "version": "1.0.0",
+  "private": true,
+  "license" : "Apache-2.0",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
@@ -8,7 +10,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
   "dependencies": {
     "axios": "^1.7.9",
     "@cube-frontend/utils": "workspace:*"
