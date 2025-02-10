@@ -6,7 +6,10 @@ export const LoginHelp = () => {
       <span className="primary-body2 text-functional-text">
         Couldn’t log in ?
       </span>
-      <CosHyperlink variant="text-only" href="...">
+      <CosHyperlink
+        variant="text-only"
+        href="https://www.bigstack.co/contact-us"
+      >
         Contact Support
       </CosHyperlink>
     </div>
