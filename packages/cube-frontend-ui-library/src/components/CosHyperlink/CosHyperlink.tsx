@@ -1,5 +1,5 @@
 import { IconSize, SvgComponent } from '../CosIcon/CosIcon'
-import { createElement } from 'react'
+import { AnchorHTMLAttributes, createElement } from 'react'
 import { cva } from 'class-variance-authority'
 import { twJoin, twMerge } from 'tailwind-merge'
 import { getIconSizeClass } from '../CosIcon/utils'
@@ -21,6 +21,7 @@ type BaseHyperlinkProps = {
   disabled?: boolean
   children: string
   href?: string
+  target?: AnchorHTMLAttributes<HTMLAnchorElement>['target']
   onClick?: () => void
 }
 
@@ -76,6 +77,7 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
     disabled = false,
     children,
     href,
+    target,
     onClick,
   } = props
 
@@ -115,6 +117,8 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
 
     const hrefAttribute = hyperlinkType === 'a' ? href : undefined
 
+    const targetAttribute = hyperlinkType === 'a' ? target : undefined
+
     return createElement(
       hyperlinkType,
       {
@@ -123,6 +127,7 @@ export const CosHyperlink = (props: CosHyperlinkProps) => {
           classNameProps,
         ),
         href: hrefAttribute,
+        target: targetAttribute,
         onClick: handleClick,
       },
       renderIcon('icon-left'),
