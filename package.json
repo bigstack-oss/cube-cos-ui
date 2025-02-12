@@ -1,6 +1,5 @@
 {
   "name": "@cube-frontend/root",
-  "version": "1.0.0",
   "private": true,
   "license": "Apache-2.0",
   "description": "cube frontend monorepo",
@@ -15,9 +14,9 @@
     "eslint:fix": "eslint . --fix",
     "eslint:inspect": "eslint --inspect-config .eslintrc.js",
     "keycloak-login:build": "pnpm --filter @cube-frontend/keycloak-login build",
-    "keycloak-login:copy-output": "rm -rf ./packages/cube-frontend-keycloak-login/keycloak/themes/cos-ui/login/resources && cp -r ./packages/cube-frontend-keycloak-login/dist/resources ./packages/cube-frontend-keycloak-login/keycloak/themes/cos-ui/login",
+    "keycloak-login:copy-output": "pnpm --filter @cube-frontend/keycloak-login copy-output",
     "keycloak-login:dev": "pnpm --filter @cube-frontend/keycloak-login dev",
-    "keycloak-login:infra": "docker compose -f ./packages/cube-frontend-keycloak-login/docker-compose.yaml up -d",
+    "keycloak-login:infra": "pnpm --filter @cube-frontend/keycloak-login infra",
     "prettier": "prettier --check \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
     "prettier:fix": "prettier --write \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
     "format": "pnpm prettier:fix && pnpm eslint:fix",

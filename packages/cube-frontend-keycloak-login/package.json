@@ -1,12 +1,14 @@
 {
   "name": "@cube-frontend/keycloak-login",
   "private": true,
-  "version": "0.0.0",
+  "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "tsc": "tsc",
     "dev": "vite",
-    "build": "tsc -b && vite build"
+    "build": "tsc -b && vite build",
+    "copy-output": "rm -rf ./keycloak/themes/cos-ui/login/resources && cp -r ./dist/resources ./keycloak/themes/cos-ui/login",
+    "infra": "docker compose -f ./docker-compose.yaml up -d"
   },
   "dependencies": {
     "@cube-frontend/ui-library": "workspace:*",
