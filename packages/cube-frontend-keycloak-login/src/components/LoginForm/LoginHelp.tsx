@@ -9,6 +9,7 @@ export const LoginHelp = () => {
       <CosHyperlink
         variant="text-only"
         href="https://www.bigstack.co/contact-us"
+        target="_blank"
       >
         Contact Support
       </CosHyperlink>
