@@ -63,3 +63,9 @@ jobs:
 
       - name: Build Web App
         run: pnpm web-app:build
+
+      - name: Build Keycloak Login
+        run: pnpm keycloak-login:build
+
+      - name: Copy Keycloak Login Output
+        run: pnpm keycloak-login:copy-output
