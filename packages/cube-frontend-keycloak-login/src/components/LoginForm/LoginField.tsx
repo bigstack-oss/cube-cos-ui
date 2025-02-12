@@ -34,20 +34,20 @@ export const LoginFields = () => {
         label="Username"
         placeholder="Username"
         autoFocus={true}
-        tabIndex={1}
+        tabIndex={0}
       />
       <CosPasswordInput
         name="password"
         label="Password"
         placeholder="Password"
         autoComplete="off"
-        tabIndex={2}
+        tabIndex={0}
       />
       <CosCheckbox
         name="rememberMe"
         label="Remember username"
         defaultChecked={true}
-        tabIndex={3}
+        tabIndex={0}
       />
     </div>
   )

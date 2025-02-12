@@ -3,7 +3,7 @@ import { Plugin } from 'vite'
 // A quick fix that adjusts the font paths in the generated CSS for Keycloak.
 // For example, converting `url(/resources/font/inter.woff2)` to `url('../font/inter.woff2')`.
 // See https://www.keycloak.org/docs/latest/server_development/index.html#adding-an-image-to-a-theme
-export const transformCssFontPath = (): Plugin => {
+export const transformCssFontPath = (resourcesPath: string): Plugin => {
   return {
     name: 'transform-css-font-path',
     enforce: 'post',
@@ -18,10 +18,8 @@ export const transformCssFontPath = (): Plugin => {
           return
         }
 
-        asset.source = asset.source.replace(
-          /\(\/resources\/font\/(.*?)\)/g,
-          "('../font/$1')",
-        )
+        const regexp = new RegExp(`\\(/${resourcesPath}/font/(.*?)\\)`, 'g')
+        asset.source = asset.source.replace(regexp, "('../font/$1')")
       })
     },
   }

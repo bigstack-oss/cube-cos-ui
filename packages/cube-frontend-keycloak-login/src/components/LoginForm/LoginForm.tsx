@@ -2,7 +2,7 @@ import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import { twMerge } from 'tailwind-merge'
 import { mainContentPaddingTopClass } from '../../keycloakLoginStyles'
 import { LoginCopyright } from './LoginCopyright'
-import { LoginFields } from './LoginFIelds'
+import { LoginFields } from './LoginField'
 import { LoginHeader } from './LoginHeader'
 import { LoginHelp } from './LoginHelp'
 
@@ -34,6 +34,7 @@ export const LoginForm = () => {
         <input
           type="hidden"
           name="credentialId"
+          tabIndex={-1}
           value={authSelectedCredentials}
         />
       </div>
