@@ -6,6 +6,8 @@ services:
     ports:
       - 8642:8080
     environment:
+      # The older version of Keycloak only supports these variables.
+      # The new `KC_DB_USERNAME` and `KC_DB_PASSWORD` won't work.
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
     volumes:

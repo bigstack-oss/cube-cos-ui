@@ -16,7 +16,11 @@ export const LoginCopyright = () => {
       <span className="primary-body2 text-functional-border-darker">
         Copyright©Bigstack
       </span>
-      <CosHyperlink variant="text-inline" color="secondary" href="...">
+      <CosHyperlink
+        variant="text-inline"
+        color="secondary"
+        href="TODO: terms and policy href"
+      >
         Terms & Policy
       </CosHyperlink>
     </footer>

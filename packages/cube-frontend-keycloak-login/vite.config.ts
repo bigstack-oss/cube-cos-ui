@@ -22,7 +22,7 @@ export default defineConfig({
   build: {
     assetsDir: ASSETS_DIR,
     rollupOptions: {
-      plugins: [transformCssFontPath()],
+      plugins: [transformCssFontPath(ASSETS_DIR)],
       output: {
         entryFileNames: `${ASSETS_DIR}/js/[name].js`,
         chunkFileNames: `${ASSETS_DIR}/js/[name].js`,
