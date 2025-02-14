@@ -282,6 +282,9 @@ importers:
       '@fontsource/urbanist':
         specifier: 'catalog:'
         version: 5.1.1
+      axios:
+        specifier: ^1.7.9
+        version: 1.7.9
       react:
         specifier: 'catalog:'
         version: 19.0.0

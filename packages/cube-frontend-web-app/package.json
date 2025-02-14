@@ -16,6 +16,7 @@
     "@cube-frontend/utils": "workspace:*",
     "@fontsource/inter": "catalog:",
     "@fontsource/urbanist": "catalog:",
+    "axios": "^1.7.9",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
