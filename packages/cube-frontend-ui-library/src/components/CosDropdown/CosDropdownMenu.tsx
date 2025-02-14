@@ -1,9 +1,9 @@
 import { ReactNode, useContext, useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { CosDropdownContext } from './context'
+import { CosCheckbox } from '../CosCheckbox/CosCheckbox'
 import { CosDropdownSearchBar } from './CosDropdownSearchBar'
-import { CosDropdownItem } from './CosDropdownItem'
-import { content } from './styles'
+import { CosDropdownContext } from './context'
+import { content, item } from './styles'
 
 export type CosDropdownMenuProps = {
   children: ReactNode
@@ -19,14 +19,19 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     onAllCheckChange,
     selectedItems,
     itemCount,
+    searchValue,
   } = useContext(CosDropdownContext)
 
   // TODO: Implement vertical placement with useFloating hook
   const verticalPlacement = 'bottom'
 
+  const isCheckbox = type === 'checkbox' || type === 'search-checkbox'
+
   const showSearchInput = type === 'search' || type === 'search-checkbox'
 
-  const showAllCheckbox = type === 'checkbox' || type === 'search-checkbox'
+  const showAllCheckbox =
+    (type === 'checkbox' || type === 'search-checkbox') &&
+    (!searchValue || searchValue == '')
 
   const isAllChecked = useMemo(() => {
     return selectedItems.length === itemCount
@@ -38,12 +43,23 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     >
       {showSearchInput && <CosDropdownSearchBar />}
       {showAllCheckbox && (
-        <CosDropdownItem
-          checked={isAllChecked}
-          onClick={() => onAllCheckChange?.(!isAllChecked)}
+        <div
+          className={twMerge(
+            item({
+              variant,
+              type,
+              isSelected: isAllChecked,
+              isCheckbox,
+              disabled: false,
+            }),
+          )}
         >
-          All
-        </CosDropdownItem>
+          <CosCheckbox
+            label="All"
+            checked={isAllChecked}
+            onClick={() => onAllCheckChange?.(!isAllChecked)}
+          />
+        </div>
       )}
       {children}
     </div>
