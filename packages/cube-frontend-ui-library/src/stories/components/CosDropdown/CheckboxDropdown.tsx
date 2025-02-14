@@ -130,9 +130,7 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
       disabled={isDisabled}
     >
       <CosDropdown.Trigger placeholder="Select Fruits">
-        {selectedFruits.length > 0
-          ? `${selectedFruits.length} selected`
-          : undefined}
+        {selectedFruits.length > 0 ? 'Fruits' : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
         {fruits.map((fruit) => {
@@ -145,7 +143,8 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
           return (
             <CosDropdown.Item
               key={fruit.code}
-              checked={selectedFruits.some((f) => f.code === fruit.code)}
+              // checked={selectedFruits.some((f) => f.code === fruit.code)}
+              item={fruit}
               disabled={fruit.disabled}
               onClick={() => handleFruitClick(fruit)}
             >
@@ -173,7 +172,8 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
         {fruits.map((fruit) => (
           <CosDropdown.Item
             key={fruit.code}
-            checked={selectedFruits.some((f) => f.code === fruit.code)}
+            // checked={selectedFruits.some((f) => f.code === fruit.code)}
+            item={fruit}
             disabled={fruit.disabled}
             onClick={() => handleFruitClick(fruit)}
           >

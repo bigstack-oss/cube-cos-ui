@@ -1,51 +1,43 @@
-import { ButtonHTMLAttributes, useContext, useEffect, useState } from 'react'
+import { ButtonHTMLAttributes, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
-import CaretDown from '../../components/CosIcon/monochrome/caret_down.svg?react'
+import ChevronDown from '../../components/CosIcon/monochrome/chevron_down.svg?react'
 import XSmall from '../../components/CosIcon/monochrome/x_small.svg?react'
 import { CosDropdownContext } from './context'
-import { trigger, triggerIcon, dropdownLabel } from './styles'
+import { clearButton, trigger, triggerIcon } from './styles'
 
-export type CosDropdownTriggerProps =
-  ButtonHTMLAttributes<HTMLButtonElement> & {
-    children?: string
-    placeholder?: string
-  }
+export type CosDropdownTriggerProps = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'disabled'
+> & {
+  children?: string
+  placeholder?: string
+}
 
 export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
-  const { children, placeholder, disabled: isDisabledProps } = props
-
-  const [isSelected, setIsSelected] = useState(false)
+  const { children, placeholder } = props
 
   const {
     dropdownOpen: isOpen,
     onDropdownOpenChange,
     type,
     variant,
-    label,
     selectedItems,
-    disabled: isDisabledContext,
+    disabled,
     onClearClick,
   } = useContext(CosDropdownContext)
 
-  const hasSearchbar = type === 'search' || type === 'search-checkbox'
+  const isSelected = selectedItems.length > 0
 
-  const disabled = isDisabledProps || isDisabledContext
+  const hasSearchbar = type === 'search' || type === 'search-checkbox'
 
   const placeholderText = placeholder ?? 'Choose'
 
   const displayText = isSelected ? children : placeholderText
 
-  useEffect(() => {
-    if (selectedItems.length > 0) {
-      setIsSelected(true)
-    } else {
-      setIsSelected(false)
-    }
-  }, [isSelected, selectedItems])
-
-  const renderLabel = () => {
-    if (!label) return null
-    return <p className={twMerge(dropdownLabel({ variant }))}>{label}</p>
+  const renderSelectedItemCount = () => {
+    return type === 'search-checkbox' && isSelected ? (
+      <p>{`(${selectedItems.length})`}</p>
+    ) : null
   }
 
   const renderClearButton = () => {
@@ -55,32 +47,33 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
     }
 
     return (type === 'search' || type === 'search-checkbox') && isSelected ? (
-      <XSmall className="icon-md" onClick={(e) => handleClearClick(e)} />
+      <XSmall
+        className={twMerge(clearButton({ disabled }))}
+        onClick={(e) => handleClearClick(e)}
+      />
     ) : null
   }
 
   return (
-    <>
-      {renderLabel()}
-      <button
-        type="button"
-        disabled={disabled}
-        onClick={onDropdownOpenChange}
-        className={twMerge(
-          trigger({
-            variant,
-            hasSearchbar,
-            hasSelectedValue: isSelected,
-            disabled,
-          }),
-        )}
-      >
-        <span className="w-full truncate text-left">{displayText}</span>
-        <span className="flex shrink-0 items-center">
-          {renderClearButton()}
-          <CaretDown className={twMerge(triggerIcon({ isOpen }))} />
-        </span>
-      </button>
-    </>
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onDropdownOpenChange}
+      className={twMerge(
+        trigger({
+          variant,
+          hasSearchbar,
+          hasSelectedValue: isSelected,
+          disabled,
+        }),
+      )}
+    >
+      <span className="w-full truncate text-left">{displayText}</span>
+      <span className="flex shrink-0 items-center gap-2">
+        {renderSelectedItemCount()}
+        {renderClearButton()}
+        <ChevronDown className={twMerge(triggerIcon({ isOpen }))} />
+      </span>
+    </button>
   )
 }
