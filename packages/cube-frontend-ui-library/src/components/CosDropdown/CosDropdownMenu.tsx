@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CosDropdownContext } from './context'
 import { CosDropdownSearchBar } from './CosDropdownSearchBar'
@@ -21,10 +21,6 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     itemCount,
   } = useContext(CosDropdownContext)
 
-  const [isAllChecked, setIsAllChecked] = useState(
-    selectedItems.length === itemCount,
-  )
-
   // TODO: Implement vertical placement with useFloating hook
   const verticalPlacement = 'bottom'
 
@@ -32,9 +28,9 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
 
   const showAllCheckbox = type === 'checkbox' || type === 'search-checkbox'
 
-  useEffect(() => {
-    setIsAllChecked(selectedItems.length === itemCount)
-  }, [selectedItems, itemCount])
+  const isAllChecked = useMemo(() => {
+    return selectedItems.length === itemCount
+  }, [selectedItems.length, itemCount])
 
   return (
     <div

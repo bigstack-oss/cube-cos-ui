@@ -117,15 +117,23 @@ export const trigger = cva(
 )
 
 export const triggerIcon = cva(
-  'icon-md shrink-0 transition-transform duration-200',
+  'icon-md shrink-0 transition-transform duration-300',
   {
     variants: {
       isOpen: {
-        true: 'rotate-180',
+        true: '-scale-y-100 transform',
       },
     },
   },
 )
+
+export const clearButton = cva('icon-md text-functional-text-light', {
+  variants: {
+    disabled: {
+      true: 'hidden',
+    },
+  },
+})
 
 export const dropdownLabel = cva('primary-body3 font-semibold', {
   variants: {
@@ -185,8 +193,14 @@ export const item = cva(
   {
     variants: {
       variant: {
-        default: 'primary-body3 px-[22px] py-[11px]',
-        'in-table': 'primary-body4 px-6 py-[9px]',
+        default: 'primary-body3',
+        'in-table': 'primary-body4',
+      },
+      type: {
+        regular: '',
+        checkbox: '',
+        search: '',
+        'search-checkbox': '',
       },
       isSelected: {
         true: 'font-semibold',
@@ -198,6 +212,24 @@ export const item = cva(
         true: 'cursor-default text-functional-disable-text hover:bg-white',
       },
     },
+    compoundVariants: [
+      { variant: 'default', type: 'regular', class: 'px-[24px] py-[10px]' },
+      { variant: 'default', type: 'checkbox', class: 'px-[22px] py-[11px]' },
+      { variant: 'default', type: 'search', class: 'px-[24px] py-[10px]' },
+      {
+        variant: 'default',
+        type: 'search-checkbox',
+        class: 'px-[22px] py-[11px]',
+      },
+      { variant: 'in-table', type: 'regular', class: 'px-[24px] py-[9px]' },
+      { variant: 'in-table', type: 'checkbox', class: 'px-[16px] py-[9.5px]' },
+      { variant: 'in-table', type: 'search', class: 'px-[24px] py-[9px]' },
+      {
+        variant: 'in-table',
+        type: 'search-checkbox',
+        class: 'px-[16px] py-[9.5px]',
+      },
+    ],
   },
 )
 

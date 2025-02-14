@@ -85,7 +85,7 @@ export const RadioButtonDropdown = (props: RadioButtonDropdownProps) => {
           return (
             <CosDropdown.Item
               key={country.code}
-              checked={country.code === selectedCountry?.[0]?.code}
+              item={country}
               disabled={country.disabled}
               onClick={() => handleCountryClick(country)}
             >
@@ -110,7 +110,7 @@ export const RadioButtonDropdown = (props: RadioButtonDropdownProps) => {
         {countries.map((country) => (
           <CosDropdown.Item
             key={country.code}
-            checked={country.code === selectedCountry?.[0]?.code}
+            item={country}
             disabled={country.disabled}
             onClick={() => handleCountryClick(country)}
           >

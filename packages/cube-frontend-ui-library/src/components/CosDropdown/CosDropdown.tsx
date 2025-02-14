@@ -9,10 +9,12 @@ import {
   OnAllCheckChange,
   OnClearClick,
   OnSearchChange,
-  parseNodes,
   getOptionalProps,
 } from './utils'
+import { parseNodes } from './parseNodes'
 import { CosDropdownSkeleton } from './CosDropdownSkeleton'
+import { twMerge } from 'tailwind-merge'
+import { dropdownLabel } from './styles'
 
 export type CosDropdownProps<Item, Type extends CosDropdownType> = {
   type?: Type
@@ -65,22 +67,24 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
   const {
     triggerNode,
     menuNode,
-    validItemCount: itemCount,
+    enabledItemCount: itemCount,
   } = parseNodes(children)
 
   const onDropdownOpenChange = () => {
     setDropdownOpen((prev) => !prev)
   }
 
-  const handleClickOutside = useCallback(
-    (event: MouseEvent) => {
-      const target = event.target as Element
-      if (dropdownRef.current && !dropdownRef.current.contains(target)) {
-        setDropdownOpen(false)
-      }
-    },
-    [dropdownRef],
-  )
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    const target = event.target as Element
+    if (dropdownRef.current && !dropdownRef.current.contains(target)) {
+      setDropdownOpen(false)
+    }
+  }, [])
+
+  const renderLabel = () => {
+    if (!label) return null
+    return <p className={twMerge(dropdownLabel({ variant }))}>{label}</p>
+  }
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
@@ -101,7 +105,6 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
         // Common props
         type,
         variant,
-        label,
         selectedItems,
         itemCount,
         disabled,
@@ -114,6 +117,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
       }}
     >
       <div ref={dropdownRef} className="relative">
+        {renderLabel()}
         {triggerNode}
         {menuNode}
       </div>

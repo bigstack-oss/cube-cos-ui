@@ -7,7 +7,7 @@ export const CosDropdownSearchBar = () => {
   const { searchValue, onSearchChange } = useContext(CosDropdownContext)
 
   return (
-    <div className="relative flex px-[22px] py-[5px]">
+    <div className="relative flex items-center px-[22px] py-[5px]">
       <input
         type="text"
         className={twMerge(
@@ -16,9 +16,9 @@ export const CosDropdownSearchBar = () => {
         )}
         placeholder="Search Key-Value"
         value={searchValue}
-        onChange={(e) => onSearchChange?.(e)}
+        onChange={onSearchChange}
       />
-      <Search className="icon-md absolute right-[38px] top-1/2 shrink-0 -translate-y-1/2 text-functional-text" />
+      <Search className="icon-md absolute right-[38px] shrink-0 text-functional-text" />
     </div>
   )
 }

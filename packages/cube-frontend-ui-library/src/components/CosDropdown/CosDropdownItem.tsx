@@ -1,47 +1,45 @@
-import { useContext, useRef } from 'react'
+import { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CosCheckbox } from '../CosCheckbox/CosCheckbox'
 import { CosDropdownContext } from './context'
-import { item } from './styles'
+import { item as itemStyle } from './styles'
 
-export type CosDropdownItemProps = {
+export type CosDropdownItemProps<Item> = {
   children: string
   disabled?: boolean
-  checked: boolean
+  item: Item
   onClick: () => void
 }
 
-export const CosDropdownItem = (props: CosDropdownItemProps) => {
-  const { children: label, disabled = false, checked, onClick } = props
+export const CosDropdownItem = <Item,>(props: CosDropdownItemProps<Item>) => {
+  const { children: label, disabled = false, item, onClick } = props
 
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  const { variant, type } = useContext(CosDropdownContext)
+  const { variant, type, selectedItems } = useContext(CosDropdownContext)
 
   const isCheckbox = type === 'checkbox' || type === 'search-checkbox'
+
+  const isSelected = selectedItems.includes(item)
 
   const handleClick = () => !disabled && onClick()
 
   return isCheckbox ? (
     <div
-      ref={containerRef}
       className={twMerge(
-        item({ variant, isSelected: checked, isCheckbox, disabled }),
+        itemStyle({ variant, type, isSelected, isCheckbox, disabled }),
       )}
     >
       {/** TODO: The checkbox needs to be aligned with the design */}
       <CosCheckbox
         label={label}
         disabled={disabled}
-        checked={checked}
+        checked={isSelected}
         onChange={handleClick}
       />
     </div>
   ) : (
     <div
-      ref={containerRef}
       className={twMerge(
-        item({ variant, isSelected: checked, isCheckbox, disabled }),
+        itemStyle({ variant, type, isSelected, isCheckbox, disabled }),
       )}
       onClick={handleClick}
     >
@@ -49,9 +47,7 @@ export const CosDropdownItem = (props: CosDropdownItemProps) => {
         type="radio"
         className="peer hidden"
         disabled={disabled}
-        checked={checked}
-        onChange={(e) => e.stopPropagation()}
-        onClick={(e) => e.stopPropagation()}
+        checked={isSelected}
       />
       <span>{label}</span>
     </div>
