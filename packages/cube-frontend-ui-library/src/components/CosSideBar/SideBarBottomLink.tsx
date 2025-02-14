@@ -1,4 +1,4 @@
-import LinkIcon from '../CosIcon/monochrome/link.svg?react'
+import HyperLinkIcon from '../CosIcon/monochrome/hyperlink.svg?react'
 
 export type SideBarBottomLinkProps = {
   text: string
@@ -14,7 +14,7 @@ export const SideBarBottomLink = (props: SideBarBottomLinkProps) => {
       href={href}
     >
       {text}
-      <LinkIcon className="icon-sm invisible text-functional-text group-hover:visible" />
+      <HyperLinkIcon className="icon-sm invisible text-functional-text group-hover:visible" />
     </a>
   )
 }
