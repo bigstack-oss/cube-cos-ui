@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-export type NumberSpanProps = {
+export type CosNumberSpanProps = {
   number: number
   disabled?: boolean
 }
@@ -20,7 +20,7 @@ const numberSpan = cva(
   },
 )
 
-export const NumberSpan = (props: NumberSpanProps) => {
+export const CosNumberSpan = (props: CosNumberSpanProps) => {
   const { number, disabled } = props
 
   const text = number > 99 ? 'N' : number

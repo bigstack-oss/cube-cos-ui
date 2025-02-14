@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 import { createElement, MouseEvent } from 'react'
 import { twJoin, twMerge } from 'tailwind-merge'
 import { DotSpan } from './DotSpan'
-import { NumberSpan } from './NumberSpan'
+import { CosNumberSpan } from '../../internal/components/CosNumberSpan/CosNumberSpan'
 
 export type CosTabProps = {
   label: string
@@ -79,7 +79,7 @@ export const CosTab = (props: CosTabProps) => {
 
   const renderDecoration = () => {
     if (number !== undefined) {
-      return <NumberSpan number={number} disabled={disabled} />
+      return <CosNumberSpan number={number} disabled={disabled} />
     } else if (dot) {
       return <DotSpan disabled={disabled} />
     } else {
