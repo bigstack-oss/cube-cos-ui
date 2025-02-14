@@ -66,7 +66,7 @@ const computeEnabledItemCount = (menuChildren: ReactNode[]): number => {
       )
       return false
     }
-    const itemProps = child.props as CosDropdownItemProps
+    const itemProps = child.props as CosDropdownItemProps<unknown>
     return !itemProps.disabled
   })
 
