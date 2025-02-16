@@ -84,7 +84,7 @@ const Layout = (props: PropsWithChildren) => {
     <div className="h-svh min-w-full overflow-hidden bg-scene-background">
       <div className="flex h-svh flex-row">
         <CosSideBar {...sideBarProps} />
-        <div className="flex-1">
+        <div className="max-w-[calc(100svw_-_200px)] flex-1">
           <CosHeader quickAccesses={quickAccesses} onLogout={handleLogout} />
           <Content>{children}</Content>
         </div>
