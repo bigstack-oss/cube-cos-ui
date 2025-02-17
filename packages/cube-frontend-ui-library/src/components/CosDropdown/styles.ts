@@ -163,28 +163,6 @@ export const content = cva(
         bottom: '',
       },
     },
-    compoundVariants: [
-      {
-        variant: 'default',
-        verticalPlacement: 'top',
-        class: 'bottom-[calc(100%+8px)]',
-      },
-      {
-        variant: 'default',
-        verticalPlacement: 'bottom',
-        class: 'top-[calc(100%+8px)]',
-      },
-      {
-        variant: 'in-table',
-        verticalPlacement: 'top',
-        class: 'bottom-[calc(100%+8px)]',
-      },
-      {
-        variant: 'in-table',
-        verticalPlacement: 'bottom',
-        class: 'top-[calc(100%+8px)]',
-      },
-    ],
   },
 )
 
