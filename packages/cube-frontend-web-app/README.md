@@ -15,3 +15,7 @@ Therefore, in the local dev environment, we need to call the `getToken` API usin
 Copy the `.env.local.example` file to `.env.local` (which is git-ignored) and fill in all properties.
 
 **DO NOT** put the username and password in any other files.
+
+## How to Use COS API Request Hooks
+
+Please see [COS API Request Hooks](./docs/cos-api-request-hooks.md).

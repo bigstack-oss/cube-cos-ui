@@ -48,6 +48,7 @@ generate_api_sdk() {
     --skip-validate-spec \
     -i "$DOCKER_SWAGGER_PATH" \
     -g typescript-axios \
+    --additional-properties=useSingleRequestParameter=true \
     -o "$DOCKER_SDK_DIR"
 }
 

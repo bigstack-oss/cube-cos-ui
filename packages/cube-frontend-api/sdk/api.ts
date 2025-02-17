@@ -3707,34 +3707,116 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @summary Retrieve the abstracted events
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {GetAbstractedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-         * @param {number} [limit] The limit of the abstracted events to return (default is 10).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {EventsApiGetAbstractedEventsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAbstractedEvents(dataCenter: string, type: GetAbstractedEventsTypeEnum, limit?: number, watch?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<GetAbstractedEventsResponse> {
-            return localVarFp.getAbstractedEvents(dataCenter, type, limit, watch, options).then((request) => request(axios, basePath));
+        getAbstractedEvents(requestParameters: EventsApiGetAbstractedEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetAbstractedEventsResponse> {
+            return localVarFp.getAbstractedEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.limit, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Retrieve the list of events
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {GetEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {EventsApiGetEventsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEvents(dataCenter: string, type: GetEventsTypeEnum, start?: string, stop?: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
-            return localVarFp.getEvents(dataCenter, type, start, stop, pageNum, pageSize, watch, options).then((request) => request(axios, basePath));
+        getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
+            return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getAbstractedEvents operation in EventsApi.
+ * @export
+ * @interface EventsApiGetAbstractedEventsRequest
+ */
+export interface EventsApiGetAbstractedEventsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof EventsApiGetAbstractedEvents
+     */
+    readonly dataCenter: string
+
+    /**
+     * The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+     * @type {'start' | 'host' | 'instance'}
+     * @memberof EventsApiGetAbstractedEvents
+     */
+    readonly type: GetAbstractedEventsTypeEnum
+
+    /**
+     * The limit of the abstracted events to return (default is 10).
+     * @type {number}
+     * @memberof EventsApiGetAbstractedEvents
+     */
+    readonly limit?: number
+
+    /**
+     * The toggle to enable http chunked transfer for continues server push.
+     * @type {boolean}
+     * @memberof EventsApiGetAbstractedEvents
+     */
+    readonly watch?: boolean
+}
+
+/**
+ * Request parameters for getEvents operation in EventsApi.
+ * @export
+ * @interface EventsApiGetEventsRequest
+ */
+export interface EventsApiGetEventsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly dataCenter: string
+
+    /**
+     * The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+     * @type {'system' | 'host' | 'instance'}
+     * @memberof EventsApiGetEvents
+     */
+    readonly type: GetEventsTypeEnum
+
+    /**
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly stop?: string
+
+    /**
+     * The page number of the event chunking to fetch (default is 1).
+     * @type {number}
+     * @memberof EventsApiGetEvents
+     */
+    readonly pageNum?: number
+
+    /**
+     * The size per page of the events to return (default is unlimit).
+     * @type {number}
+     * @memberof EventsApiGetEvents
+     */
+    readonly pageSize?: number
+
+    /**
+     * The toggle to enable http chunked transfer for continues server push.
+     * @type {boolean}
+     * @memberof EventsApiGetEvents
+     */
+    readonly watch?: boolean
+}
 
 /**
  * EventsApi - object-oriented interface
@@ -3746,34 +3828,25 @@ export class EventsApi extends BaseAPI {
     /**
      * 
      * @summary Retrieve the abstracted events
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {GetAbstractedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-     * @param {number} [limit] The limit of the abstracted events to return (default is 10).
-     * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+     * @param {EventsApiGetAbstractedEventsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EventsApi
      */
-    public getAbstractedEvents(dataCenter: string, type: GetAbstractedEventsTypeEnum, limit?: number, watch?: boolean, options?: RawAxiosRequestConfig) {
-        return EventsApiFp(this.configuration).getAbstractedEvents(dataCenter, type, limit, watch, options).then((request) => request(this.axios, this.basePath));
+    public getAbstractedEvents(requestParameters: EventsApiGetAbstractedEventsRequest, options?: RawAxiosRequestConfig) {
+        return EventsApiFp(this.configuration).getAbstractedEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.limit, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Retrieve the list of events
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {GetEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-     * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
-     * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
-     * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-     * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
-     * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+     * @param {EventsApiGetEventsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EventsApi
      */
-    public getEvents(dataCenter: string, type: GetEventsTypeEnum, start?: string, stop?: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig) {
-        return EventsApiFp(this.configuration).getEvents(dataCenter, type, start, stop, pageNum, pageSize, watch, options).then((request) => request(this.axios, this.basePath));
+    public getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig) {
+        return EventsApiFp(this.configuration).getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4054,52 +4127,150 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @summary Repair the health for all modules
-         * @param {string} dataCenter The name of the data center to operate
+         * @param {HealthApiApiV1DatacentersDataCenterHealthsPatchRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DatacentersDataCenterHealthsPatch(dataCenter: string, options?: RawAxiosRequestConfig): AxiosPromise<PatchRepairResponse> {
-            return localVarFp.apiV1DatacentersDataCenterHealthsPatch(dataCenter, options).then((request) => request(axios, basePath));
+        apiV1DatacentersDataCenterHealthsPatch(requestParameters: HealthApiApiV1DatacentersDataCenterHealthsPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<PatchRepairResponse> {
+            return localVarFp.apiV1DatacentersDataCenterHealthsPatch(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Retrieve the health history of module
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {string} module The name of the module to retrieve health history, it could be \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
-         * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
-         * @param {number} [pageNum] The page number of the health history chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the health history to return (default is unlimit).
+         * @param {HealthApiGetHealthHistoryRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHealthHistory(dataCenter: string, module: string, start?: string, stop?: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): AxiosPromise<GetModuleHealthHistoryResponse> {
-            return localVarFp.getHealthHistory(dataCenter, module, start, stop, pageNum, pageSize, options).then((request) => request(axios, basePath));
+        getHealthHistory(requestParameters: HealthApiGetHealthHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetModuleHealthHistoryResponse> {
+            return localVarFp.getHealthHistory(requestParameters.dataCenter, requestParameters.module, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Retrieve the overall health status of all modules
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {HealthApiGetHealthsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHealths(dataCenter: string, watch?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<GetHealthsResponse> {
-            return localVarFp.getHealths(dataCenter, watch, options).then((request) => request(axios, basePath));
+        getHealths(requestParameters: HealthApiGetHealthsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetHealthsResponse> {
+            return localVarFp.getHealths(requestParameters.dataCenter, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Repair the unhealthy module
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {string} module The name of the module to repair. The module name is like \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
+         * @param {HealthApiRepairModuleHealthRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        repairModuleHealth(dataCenter: string, module: string, options?: RawAxiosRequestConfig): AxiosPromise<PatchModuleRepairResponse> {
-            return localVarFp.repairModuleHealth(dataCenter, module, options).then((request) => request(axios, basePath));
+        repairModuleHealth(requestParameters: HealthApiRepairModuleHealthRequest, options?: RawAxiosRequestConfig): AxiosPromise<PatchModuleRepairResponse> {
+            return localVarFp.repairModuleHealth(requestParameters.dataCenter, requestParameters.module, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for apiV1DatacentersDataCenterHealthsPatch operation in HealthApi.
+ * @export
+ * @interface HealthApiApiV1DatacentersDataCenterHealthsPatchRequest
+ */
+export interface HealthApiApiV1DatacentersDataCenterHealthsPatchRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof HealthApiApiV1DatacentersDataCenterHealthsPatch
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for getHealthHistory operation in HealthApi.
+ * @export
+ * @interface HealthApiGetHealthHistoryRequest
+ */
+export interface HealthApiGetHealthHistoryRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the module to retrieve health history, it could be \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
+     * @type {string}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly module: string
+
+    /**
+     * The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the health history to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly stop?: string
+
+    /**
+     * The page number of the health history chunking to fetch (default is 1).
+     * @type {number}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly pageNum?: number
+
+    /**
+     * The size per page of the health history to return (default is unlimit).
+     * @type {number}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly pageSize?: number
+}
+
+/**
+ * Request parameters for getHealths operation in HealthApi.
+ * @export
+ * @interface HealthApiGetHealthsRequest
+ */
+export interface HealthApiGetHealthsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof HealthApiGetHealths
+     */
+    readonly dataCenter: string
+
+    /**
+     * The toggle to enable http chunked transfer for continues server push.
+     * @type {boolean}
+     * @memberof HealthApiGetHealths
+     */
+    readonly watch?: boolean
+}
+
+/**
+ * Request parameters for repairModuleHealth operation in HealthApi.
+ * @export
+ * @interface HealthApiRepairModuleHealthRequest
+ */
+export interface HealthApiRepairModuleHealthRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof HealthApiRepairModuleHealth
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the module to repair. The module name is like \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
+     * @type {string}
+     * @memberof HealthApiRepairModuleHealth
+     */
+    readonly module: string
+}
 
 /**
  * HealthApi - object-oriented interface
@@ -4111,56 +4282,49 @@ export class HealthApi extends BaseAPI {
     /**
      * 
      * @summary Repair the health for all modules
-     * @param {string} dataCenter The name of the data center to operate
+     * @param {HealthApiApiV1DatacentersDataCenterHealthsPatchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HealthApi
      */
-    public apiV1DatacentersDataCenterHealthsPatch(dataCenter: string, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).apiV1DatacentersDataCenterHealthsPatch(dataCenter, options).then((request) => request(this.axios, this.basePath));
+    public apiV1DatacentersDataCenterHealthsPatch(requestParameters: HealthApiApiV1DatacentersDataCenterHealthsPatchRequest, options?: RawAxiosRequestConfig) {
+        return HealthApiFp(this.configuration).apiV1DatacentersDataCenterHealthsPatch(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Retrieve the health history of module
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {string} module The name of the module to retrieve health history, it could be \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
-     * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
-     * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
-     * @param {number} [pageNum] The page number of the health history chunking to fetch (default is 1).
-     * @param {number} [pageSize] The size per page of the health history to return (default is unlimit).
+     * @param {HealthApiGetHealthHistoryRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HealthApi
      */
-    public getHealthHistory(dataCenter: string, module: string, start?: string, stop?: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).getHealthHistory(dataCenter, module, start, stop, pageNum, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public getHealthHistory(requestParameters: HealthApiGetHealthHistoryRequest, options?: RawAxiosRequestConfig) {
+        return HealthApiFp(this.configuration).getHealthHistory(requestParameters.dataCenter, requestParameters.module, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Retrieve the overall health status of all modules
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+     * @param {HealthApiGetHealthsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HealthApi
      */
-    public getHealths(dataCenter: string, watch?: boolean, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).getHealths(dataCenter, watch, options).then((request) => request(this.axios, this.basePath));
+    public getHealths(requestParameters: HealthApiGetHealthsRequest, options?: RawAxiosRequestConfig) {
+        return HealthApiFp(this.configuration).getHealths(requestParameters.dataCenter, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Repair the unhealthy module
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {string} module The name of the module to repair. The module name is like \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
+     * @param {HealthApiRepairModuleHealthRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HealthApi
      */
-    public repairModuleHealth(dataCenter: string, module: string, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).repairModuleHealth(dataCenter, module, options).then((request) => request(this.axios, this.basePath));
+    public repairModuleHealth(requestParameters: HealthApiRepairModuleHealthRequest, options?: RawAxiosRequestConfig) {
+        return HealthApiFp(this.configuration).repairModuleHealth(requestParameters.dataCenter, requestParameters.module, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4242,15 +4406,29 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
         /**
          * 
          * @summary Retrieve the list of integrated applications
-         * @param {string} dataCenter The name of the data center to operate
+         * @param {IntegrationsApiGetIntegrationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getIntegrations(dataCenter: string, options?: RawAxiosRequestConfig): AxiosPromise<GetIntegrationsResponse> {
-            return localVarFp.getIntegrations(dataCenter, options).then((request) => request(axios, basePath));
+        getIntegrations(requestParameters: IntegrationsApiGetIntegrationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetIntegrationsResponse> {
+            return localVarFp.getIntegrations(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getIntegrations operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiGetIntegrationsRequest
+ */
+export interface IntegrationsApiGetIntegrationsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiGetIntegrations
+     */
+    readonly dataCenter: string
+}
 
 /**
  * IntegrationsApi - object-oriented interface
@@ -4262,13 +4440,13 @@ export class IntegrationsApi extends BaseAPI {
     /**
      * 
      * @summary Retrieve the list of integrated applications
-     * @param {string} dataCenter The name of the data center to operate
+     * @param {IntegrationsApiGetIntegrationsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof IntegrationsApi
      */
-    public getIntegrations(dataCenter: string, options?: RawAxiosRequestConfig) {
-        return IntegrationsApiFp(this.configuration).getIntegrations(dataCenter, options).then((request) => request(this.axios, this.basePath));
+    public getIntegrations(requestParameters: IntegrationsApiGetIntegrationsRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).getIntegrations(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4490,41 +4668,119 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
         /**
          * 
          * @summary Retrieve the list of licenses
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
+         * @param {LicensesApiGetLicensesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLicenses(dataCenter: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): AxiosPromise<GetLicensesResponse> {
-            return localVarFp.getLicenses(dataCenter, pageNum, pageSize, options).then((request) => request(axios, basePath));
+        getLicenses(requestParameters: LicensesApiGetLicensesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetLicensesResponse> {
+            return localVarFp.getLicenses(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Update licenses for the cluster
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {string} node The name of the node to operate
-         * @param {File} license License file (must have a .license extension)
+         * @param {LicensesApiImportClusterLicenseRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        importClusterLicense(dataCenter: string, node: string, license: File, options?: RawAxiosRequestConfig): AxiosPromise<PostLicenseResponse> {
-            return localVarFp.importClusterLicense(dataCenter, node, license, options).then((request) => request(axios, basePath));
+        importClusterLicense(requestParameters: LicensesApiImportClusterLicenseRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostLicenseResponse> {
+            return localVarFp.importClusterLicense(requestParameters.dataCenter, requestParameters.node, requestParameters.license, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Update licenses for specific node
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {string} node The name of the node to operate
-         * @param {File} license License file (must have a .license extension)
+         * @param {LicensesApiImportNodeLicenseRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        importNodeLicense(dataCenter: string, node: string, license: File, options?: RawAxiosRequestConfig): AxiosPromise<PostLicenseResponse> {
-            return localVarFp.importNodeLicense(dataCenter, node, license, options).then((request) => request(axios, basePath));
+        importNodeLicense(requestParameters: LicensesApiImportNodeLicenseRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostLicenseResponse> {
+            return localVarFp.importNodeLicense(requestParameters.dataCenter, requestParameters.node, requestParameters.license, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getLicenses operation in LicensesApi.
+ * @export
+ * @interface LicensesApiGetLicensesRequest
+ */
+export interface LicensesApiGetLicensesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof LicensesApiGetLicenses
+     */
+    readonly dataCenter: string
+
+    /**
+     * The page number of the event chunking to fetch (default is 1).
+     * @type {number}
+     * @memberof LicensesApiGetLicenses
+     */
+    readonly pageNum?: number
+
+    /**
+     * The size per page of the events to return (default is unlimit).
+     * @type {number}
+     * @memberof LicensesApiGetLicenses
+     */
+    readonly pageSize?: number
+}
+
+/**
+ * Request parameters for importClusterLicense operation in LicensesApi.
+ * @export
+ * @interface LicensesApiImportClusterLicenseRequest
+ */
+export interface LicensesApiImportClusterLicenseRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof LicensesApiImportClusterLicense
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node to operate
+     * @type {string}
+     * @memberof LicensesApiImportClusterLicense
+     */
+    readonly node: string
+
+    /**
+     * License file (must have a .license extension)
+     * @type {File}
+     * @memberof LicensesApiImportClusterLicense
+     */
+    readonly license: File
+}
+
+/**
+ * Request parameters for importNodeLicense operation in LicensesApi.
+ * @export
+ * @interface LicensesApiImportNodeLicenseRequest
+ */
+export interface LicensesApiImportNodeLicenseRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof LicensesApiImportNodeLicense
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node to operate
+     * @type {string}
+     * @memberof LicensesApiImportNodeLicense
+     */
+    readonly node: string
+
+    /**
+     * License file (must have a .license extension)
+     * @type {File}
+     * @memberof LicensesApiImportNodeLicense
+     */
+    readonly license: File
+}
 
 /**
  * LicensesApi - object-oriented interface
@@ -4536,43 +4792,37 @@ export class LicensesApi extends BaseAPI {
     /**
      * 
      * @summary Retrieve the list of licenses
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-     * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
+     * @param {LicensesApiGetLicensesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LicensesApi
      */
-    public getLicenses(dataCenter: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
-        return LicensesApiFp(this.configuration).getLicenses(dataCenter, pageNum, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public getLicenses(requestParameters: LicensesApiGetLicensesRequest, options?: RawAxiosRequestConfig) {
+        return LicensesApiFp(this.configuration).getLicenses(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Update licenses for the cluster
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {string} node The name of the node to operate
-     * @param {File} license License file (must have a .license extension)
+     * @param {LicensesApiImportClusterLicenseRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LicensesApi
      */
-    public importClusterLicense(dataCenter: string, node: string, license: File, options?: RawAxiosRequestConfig) {
-        return LicensesApiFp(this.configuration).importClusterLicense(dataCenter, node, license, options).then((request) => request(this.axios, this.basePath));
+    public importClusterLicense(requestParameters: LicensesApiImportClusterLicenseRequest, options?: RawAxiosRequestConfig) {
+        return LicensesApiFp(this.configuration).importClusterLicense(requestParameters.dataCenter, requestParameters.node, requestParameters.license, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Update licenses for specific node
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {string} node The name of the node to operate
-     * @param {File} license License file (must have a .license extension)
+     * @param {LicensesApiImportNodeLicenseRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LicensesApi
      */
-    public importNodeLicense(dataCenter: string, node: string, license: File, options?: RawAxiosRequestConfig) {
-        return LicensesApiFp(this.configuration).importNodeLicense(dataCenter, node, license, options).then((request) => request(this.axios, this.basePath));
+    public importNodeLicense(requestParameters: LicensesApiImportNodeLicenseRequest, options?: RawAxiosRequestConfig) {
+        return LicensesApiFp(this.configuration).importNodeLicense(requestParameters.dataCenter, requestParameters.node, requestParameters.license, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4829,30 +5079,88 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary Retrieve the various metrics with different view from hosts or vms
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {GetMetricByTypesMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
-         * @param {GetMetricByTypesViewTypeEnum} viewType The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
-         * @param {GetMetricByTypesEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
-         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {MetricsApiGetMetricByTypesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMetricByTypes(dataCenter: string, metricType: GetMetricByTypesMetricTypeEnum, viewType: GetMetricByTypesViewTypeEnum, entityType: GetMetricByTypesEntityTypeEnum, start?: string, stop?: string, options?: RawAxiosRequestConfig): AxiosPromise<GetMetricByTypes200Response> {
-            return localVarFp.getMetricByTypes(dataCenter, metricType, viewType, entityType, start, stop, options).then((request) => request(axios, basePath));
+        getMetricByTypes(requestParameters: MetricsApiGetMetricByTypesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMetricByTypes200Response> {
+            return localVarFp.getMetricByTypes(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.start, requestParameters.stop, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Retrieve the metrics of data center
-         * @param {string} dataCenter The name of the data center to operate
+         * @param {MetricsApiGetMetricsOverviewRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMetricsOverview(dataCenter: string, options?: RawAxiosRequestConfig): AxiosPromise<GetMetricsResponse> {
-            return localVarFp.getMetricsOverview(dataCenter, options).then((request) => request(axios, basePath));
+        getMetricsOverview(requestParameters: MetricsApiGetMetricsOverviewRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMetricsResponse> {
+            return localVarFp.getMetricsOverview(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getMetricByTypes operation in MetricsApi.
+ * @export
+ * @interface MetricsApiGetMetricByTypesRequest
+ */
+export interface MetricsApiGetMetricByTypesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof MetricsApiGetMetricByTypes
+     */
+    readonly dataCenter: string
+
+    /**
+     * The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+     * @type {'cpuUsage' | 'memoryUsage' | 'diskUsage' | 'diskBandwidth' | 'diskIops' | 'diskLatency' | 'diskReadIops' | 'diskWriteIops' | 'networkTrafficIn' | 'networkTrafficOut'}
+     * @memberof MetricsApiGetMetricByTypes
+     */
+    readonly metricType: GetMetricByTypesMetricTypeEnum
+
+    /**
+     * The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
+     * @type {'summary' | 'history' | 'rank'}
+     * @memberof MetricsApiGetMetricByTypes
+     */
+    readonly viewType: GetMetricByTypesViewTypeEnum
+
+    /**
+     * The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
+     * @type {'hosts' | 'vms'}
+     * @memberof MetricsApiGetMetricByTypes
+     */
+    readonly entityType: GetMetricByTypesEntityTypeEnum
+
+    /**
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof MetricsApiGetMetricByTypes
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof MetricsApiGetMetricByTypes
+     */
+    readonly stop?: string
+}
+
+/**
+ * Request parameters for getMetricsOverview operation in MetricsApi.
+ * @export
+ * @interface MetricsApiGetMetricsOverviewRequest
+ */
+export interface MetricsApiGetMetricsOverviewRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof MetricsApiGetMetricsOverview
+     */
+    readonly dataCenter: string
+}
 
 /**
  * MetricsApi - object-oriented interface
@@ -4864,30 +5172,25 @@ export class MetricsApi extends BaseAPI {
     /**
      * 
      * @summary Retrieve the various metrics with different view from hosts or vms
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {GetMetricByTypesMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
-     * @param {GetMetricByTypesViewTypeEnum} viewType The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
-     * @param {GetMetricByTypesEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
-     * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
-     * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @param {MetricsApiGetMetricByTypesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public getMetricByTypes(dataCenter: string, metricType: GetMetricByTypesMetricTypeEnum, viewType: GetMetricByTypesViewTypeEnum, entityType: GetMetricByTypesEntityTypeEnum, start?: string, stop?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).getMetricByTypes(dataCenter, metricType, viewType, entityType, start, stop, options).then((request) => request(this.axios, this.basePath));
+    public getMetricByTypes(requestParameters: MetricsApiGetMetricByTypesRequest, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).getMetricByTypes(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.start, requestParameters.stop, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Retrieve the metrics of data center
-     * @param {string} dataCenter The name of the data center to operate
+     * @param {MetricsApiGetMetricsOverviewRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public getMetricsOverview(dataCenter: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).getMetricsOverview(dataCenter, options).then((request) => request(this.axios, this.basePath));
+    public getMetricsOverview(requestParameters: MetricsApiGetMetricsOverviewRequest, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).getMetricsOverview(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5020,18 +5323,50 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         /**
          * 
          * @summary Retrieve the list of nodes
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {NodesApiGetNodesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNodes(dataCenter: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<GetNodesResponse> {
-            return localVarFp.getNodes(dataCenter, pageNum, pageSize, watch, options).then((request) => request(axios, basePath));
+        getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNodesResponse> {
+            return localVarFp.getNodes(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getNodes operation in NodesApi.
+ * @export
+ * @interface NodesApiGetNodesRequest
+ */
+export interface NodesApiGetNodesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiGetNodes
+     */
+    readonly dataCenter: string
+
+    /**
+     * The page number of the event chunking to fetch (default is 1).
+     * @type {number}
+     * @memberof NodesApiGetNodes
+     */
+    readonly pageNum?: number
+
+    /**
+     * The size per page of the events to return (default is unlimit).
+     * @type {number}
+     * @memberof NodesApiGetNodes
+     */
+    readonly pageSize?: number
+
+    /**
+     * The toggle to enable http chunked transfer for continues server push.
+     * @type {boolean}
+     * @memberof NodesApiGetNodes
+     */
+    readonly watch?: boolean
+}
 
 /**
  * NodesApi - object-oriented interface
@@ -5043,16 +5378,13 @@ export class NodesApi extends BaseAPI {
     /**
      * 
      * @summary Retrieve the list of nodes
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-     * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
-     * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+     * @param {NodesApiGetNodesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NodesApi
      */
-    public getNodes(dataCenter: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig) {
-        return NodesApiFp(this.configuration).getNodes(dataCenter, pageNum, pageSize, watch, options).then((request) => request(this.axios, this.basePath));
+    public getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5141,16 +5473,36 @@ export const TokensApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @summary Retrieve the time-limited token for the data center
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {GetTokensRequest} getTokensRequest The user name and password to generate the token
+         * @param {TokensApiGetTokenRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getToken(dataCenter: string, getTokensRequest: GetTokensRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetTokensResponse> {
-            return localVarFp.getToken(dataCenter, getTokensRequest, options).then((request) => request(axios, basePath));
+        getToken(requestParameters: TokensApiGetTokenRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetTokensResponse> {
+            return localVarFp.getToken(requestParameters.dataCenter, requestParameters.getTokensRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getToken operation in TokensApi.
+ * @export
+ * @interface TokensApiGetTokenRequest
+ */
+export interface TokensApiGetTokenRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TokensApiGetToken
+     */
+    readonly dataCenter: string
+
+    /**
+     * The user name and password to generate the token
+     * @type {GetTokensRequest}
+     * @memberof TokensApiGetToken
+     */
+    readonly getTokensRequest: GetTokensRequest
+}
 
 /**
  * TokensApi - object-oriented interface
@@ -5162,14 +5514,13 @@ export class TokensApi extends BaseAPI {
     /**
      * 
      * @summary Retrieve the time-limited token for the data center
-     * @param {string} dataCenter The name of the data center to operate
-     * @param {GetTokensRequest} getTokensRequest The user name and password to generate the token
+     * @param {TokensApiGetTokenRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TokensApi
      */
-    public getToken(dataCenter: string, getTokensRequest: GetTokensRequest, options?: RawAxiosRequestConfig) {
-        return TokensApiFp(this.configuration).getToken(dataCenter, getTokensRequest, options).then((request) => request(this.axios, this.basePath));
+    public getToken(requestParameters: TokensApiGetTokenRequest, options?: RawAxiosRequestConfig) {
+        return TokensApiFp(this.configuration).getToken(requestParameters.dataCenter, requestParameters.getTokensRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5251,15 +5602,29 @@ export const UserInfoApiFactory = function (configuration?: Configuration, baseP
         /**
          * 
          * @summary Retrieve the own user info
-         * @param {string} dataCenter The name of the data center to operate
+         * @param {UserInfoApiGetMeRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMe(dataCenter: string, options?: RawAxiosRequestConfig): AxiosPromise<GetMeResponse> {
-            return localVarFp.getMe(dataCenter, options).then((request) => request(axios, basePath));
+        getMe(requestParameters: UserInfoApiGetMeRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMeResponse> {
+            return localVarFp.getMe(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getMe operation in UserInfoApi.
+ * @export
+ * @interface UserInfoApiGetMeRequest
+ */
+export interface UserInfoApiGetMeRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof UserInfoApiGetMe
+     */
+    readonly dataCenter: string
+}
 
 /**
  * UserInfoApi - object-oriented interface
@@ -5271,13 +5636,13 @@ export class UserInfoApi extends BaseAPI {
     /**
      * 
      * @summary Retrieve the own user info
-     * @param {string} dataCenter The name of the data center to operate
+     * @param {UserInfoApiGetMeRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserInfoApi
      */
-    public getMe(dataCenter: string, options?: RawAxiosRequestConfig) {
-        return UserInfoApiFp(this.configuration).getMe(dataCenter, options).then((request) => request(this.axios, this.basePath));
+    public getMe(requestParameters: UserInfoApiGetMeRequest, options?: RawAxiosRequestConfig) {
+        return UserInfoApiFp(this.configuration).getMe(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

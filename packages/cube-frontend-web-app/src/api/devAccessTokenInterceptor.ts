@@ -21,7 +21,10 @@ const renewToken = async () => {
     VITE_DATA_CENTER: dataCenter,
   } = import.meta.env
 
-  const res = await tokenApi.getToken(dataCenter, { name, password })
+  const res = await tokenApi.getToken({
+    dataCenter,
+    getTokensRequest: { name, password },
+  })
 
   const { token: accessToken, expires } = res.data.data
   const accessTokenExpires = dayjs().add(expires.access, 'second').toISOString()

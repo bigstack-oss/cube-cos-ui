@@ -1,23 +1,25 @@
-import { GetMeResponseData } from '@cube-frontend/api'
-import { PropsWithChildren, useContext, useEffect, useState } from 'react'
+import { PropsWithChildren, useContext } from 'react'
 import { DataCenterContext } from './DataCenterContext'
 import { UserContext } from './UserContext'
 import { userInfoApi } from '../api/cosApi'
+import { useCosGetRequest } from '../hooks/useCosRequest/useCosGetRequest'
+import { UserInfoApiGetMeRequest } from '@cube-frontend/api'
 
 export const UserContextProvider = (props: PropsWithChildren) => {
   const { children } = props
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [userInfo, setInfo] = useState<GetMeResponseData | undefined>()
-
   const dataCenter = useContext(DataCenterContext)
 
-  useEffect(() => {
-    userInfoApi.getMe(dataCenter.name).then((dataCentersResponse) => {
-      setInfo(dataCentersResponse.data.data)
-      setIsLoading(false)
-    })
-  }, [dataCenter.name])
+  const { data: userInfo, isLoading } = useCosGetRequest(
+    userInfoApi.getMe,
+    () => {
+      if (!dataCenter.name) return null
+      const req: UserInfoApiGetMeRequest = {
+        dataCenter: dataCenter.name,
+      }
+      return req
+    },
+  )
 
   if (isLoading || !userInfo) {
     return null

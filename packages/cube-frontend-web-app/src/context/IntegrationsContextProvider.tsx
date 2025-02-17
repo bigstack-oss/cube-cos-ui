@@ -1,26 +1,25 @@
-import { PropsWithChildren, useContext, useEffect, useState } from 'react'
+import { PropsWithChildren, useContext } from 'react'
 import { DataCenterContext } from './DataCenterContext'
-import { GetIntegrationsResponse } from '@cube-frontend/api'
 import { IntegrationsContext } from './IntegrationsContext'
 import { integrationsApi } from '../api/cosApi'
+import { useCosGetRequest } from '../hooks/useCosRequest/useCosGetRequest'
+import { IntegrationsApiGetIntegrationsRequest } from '@cube-frontend/api'
 
 export const IntegrationsContextProvider = (props: PropsWithChildren) => {
   const { children } = props
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [integrations, setIntegrations] =
-    useState<GetIntegrationsResponse['data']>()
-
   const dataCenter = useContext(DataCenterContext)
 
-  useEffect(() => {
-    integrationsApi
-      .getIntegrations(dataCenter.name)
-      .then((dataCentersResponse) => {
-        setIntegrations(dataCentersResponse.data.data)
-        setIsLoading(false)
-      })
-  }, [dataCenter.name])
+  const { data: integrations, isLoading } = useCosGetRequest(
+    integrationsApi.getIntegrations,
+    () => {
+      if (!dataCenter.name) return null
+      const req: IntegrationsApiGetIntegrationsRequest = {
+        dataCenter: dataCenter.name,
+      }
+      return req
+    },
+  )
 
   if (isLoading || !integrations) {
     return null
