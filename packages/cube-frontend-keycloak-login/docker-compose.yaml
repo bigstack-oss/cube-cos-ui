@@ -10,6 +10,7 @@ services:
       # The new `KC_DB_USERNAME` and `KC_DB_PASSWORD` won't work.
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
+      LOGIN_GREETING:
     volumes:
       - ./keycloak/themes/cos-ui:/opt/jboss/keycloak/themes/cos-ui:ro
     restart: unless-stopped
