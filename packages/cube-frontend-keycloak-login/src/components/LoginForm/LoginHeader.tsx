@@ -10,9 +10,7 @@ export const LoginHeader = () => {
         Log in to the Data Center
       </h1>
       <p className="primary-body2 text-functional-text">
-        {loginGreeting.length > 0
-          ? loginGreeting
-          : 'Welcome to COS cloud service platform!'}
+        {loginGreeting || 'Welcome to COS cloud service platform!'}
       </p>
     </header>
   )

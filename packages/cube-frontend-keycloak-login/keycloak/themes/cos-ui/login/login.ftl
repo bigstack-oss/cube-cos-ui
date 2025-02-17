@@ -6,8 +6,7 @@
                 resourcesPath: '${url.resourcesPath}',
                 incorrectCredentials: ${messagesPerField.existsError('username','password')?c},
                 sessionTimedOut: <#if message?has_content && message.type == 'error' && message.summary?contains('timed out')>true<#else>false</#if>,
-                // Remove all `amp;` because the `actionUrl` retrieved from FreeMarker has `amp;` after every `&` character.
-                formActionUrl: '${url.loginAction}'.replace(/amp;/g, ''),
+                formActionUrl: '${url.loginAction?js_string?no_esc}',
                 authSelectedCredentials: <#if auth.selectedCredential?has_content>"${auth.selectedCredential}"<#else>undefined</#if>,
                 loginGreeting: '${properties.loginGreeting?js_string?no_esc}',
             }
