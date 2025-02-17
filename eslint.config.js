@@ -9,7 +9,12 @@ import importPlugin from 'eslint-plugin-import'
 
 export default tseslint.config(
   {
-    ignores: ['**/storybook-static', '**/dist', '**/keycloak/themes'],
+    ignores: [
+      '**/storybook-static',
+      '**/dist',
+      '**/keycloak/themes',
+      'packages/cube-frontend-api/sdk',
+    ],
   },
   {
     extends: [
