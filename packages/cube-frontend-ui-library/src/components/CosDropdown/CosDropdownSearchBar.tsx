@@ -2,12 +2,16 @@ import { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Search from '../../components/CosIcon/monochrome/search.svg?react'
 import { CosDropdownContext } from './context'
+import { search } from './styles'
 
 export const CosDropdownSearchBar = () => {
-  const { searchValue, onSearchChange } = useContext(CosDropdownContext)
+  const { type, variant, searchValue, onSearchChange } =
+    useContext(CosDropdownContext)
+
+  if (type === 'regular' || type === 'checkbox') return
 
   return (
-    <div className="relative flex items-center px-[22px] py-[5px]">
+    <div className={twMerge(search.container({ type, variant }))}>
       <input
         type="text"
         className={twMerge(
@@ -18,7 +22,7 @@ export const CosDropdownSearchBar = () => {
         value={searchValue}
         onChange={onSearchChange}
       />
-      <Search className="icon-md absolute right-[38px] shrink-0 text-functional-text" />
+      <Search className={twMerge(search.icon({ type, variant }))} />
     </div>
   )
 }
