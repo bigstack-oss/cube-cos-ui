@@ -15,5 +15,6 @@ interface Window {
     sessionTimedOut: boolean
     formActionUrl: string
     authSelectedCredentials: string | undefined
+    loginGreeting: string
   }
 }

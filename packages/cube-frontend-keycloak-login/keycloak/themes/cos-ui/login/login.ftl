@@ -9,6 +9,7 @@
                 // Remove all `amp;` because the `actionUrl` retrieved from FreeMarker has `amp;` after every `&` character.
                 formActionUrl: '${url.loginAction}'.replace(/amp;/g, ''),
                 authSelectedCredentials: <#if auth.selectedCredential?has_content>"${auth.selectedCredential}"<#else>undefined</#if>,
+                loginGreeting: '${properties.loginGreeting?js_string?no_esc}',
             }
         </script>
         <div id="kc-form-wrapper" style="height: 100%;"></div>
