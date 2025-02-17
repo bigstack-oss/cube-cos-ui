@@ -20,7 +20,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@cube-frontend/api": ["./packages/cube-frontend-api/src/index.ts"],
+      "@cube-frontend/api": ["./packages/cube-frontend-api/sdk/index.ts"],
       "@cube-frontend/utils": ["./packages/cube-frontend-utils/src/index.ts"],
       "@cube-frontend/ui-library": [
         "./packages/cube-frontend-ui-library/src/index.ts"

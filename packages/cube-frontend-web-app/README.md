@@ -1,50 +1,24 @@
-# React + TypeScript + Vite
+# COS UI Web APP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Development
 
-Currently, two official plugins are available:
+### How to use COS API Typescript SDK
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Please see [COS API Typescript SDK](../cube-frontend-api/README.md).
 
-## Expanding the ESLint configuration
+### How to Access Protected API
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+In the local dev environment, It's impossible to integrate our login flow since our Keycloak instance is in staging environment, After a successful login, it will only redirect to the staging COS UI.
 
-- Configure the top-level `parserOptions` property like this:
+Therefore, in the local dev environment, we need to call the `getToken` API using a username, password and data center to obtain an access token for accessing protected APIs.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Create a `.env.local`(which is git-ignored) and fill in the values:
+
+```sh
+VITE_API_SERVER=YOUR_API_SERVER
+VITE_USERNAME=YOUR_USERNAME
+VITE_PASSWORD=YOUR_PASSWORD
+VITE_DATA_CENTER=YOUR_DATA_CENTER
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+**DO NOT** put the username and password in any other files.

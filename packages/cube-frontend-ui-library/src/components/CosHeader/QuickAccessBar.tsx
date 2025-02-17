@@ -14,7 +14,7 @@ export const QuickAccessBar = (props: QuickAccessBarProps) => {
   return (
     <div className="flex flex-row items-center">
       {quickAccesses.map((quickAccess, index) => (
-        <a key={index} href={quickAccess.href}>
+        <a key={index} href={quickAccess.href} target="_blank">
           <CosButton
             size="md"
             type="ghost"
