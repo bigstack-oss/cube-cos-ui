@@ -144,6 +144,61 @@ export const dropdownLabel = cva('primary-body3 font-semibold', {
   },
 })
 
+export const search = {
+  container: cva('relative flex shrink-0 items-center', {
+    variants: {
+      variant: {
+        default: '',
+        'in-table': '',
+      },
+      type: {
+        search: '',
+        'search-checkbox': '',
+      },
+    },
+    compoundVariants: [
+      { variant: 'default', type: 'search', class: 'px-[24px] py-[10px]' },
+      {
+        variant: 'default',
+        type: 'search-checkbox',
+        class: 'px-[22px] py-[11px]',
+      },
+      { variant: 'in-table', type: 'search', class: 'px-[24px] py-[9px]' },
+      {
+        variant: 'in-table',
+        type: 'search-checkbox',
+        class: 'px-[16px] py-[9.5px]',
+      },
+    ],
+  }),
+  icon: cva('icon-md absolute shrink-0 text-functional-text', {
+    variants: {
+      variant: {
+        default: '',
+        'in-table': '',
+      },
+      type: {
+        search: '',
+        'search-checkbox': '',
+      },
+    },
+    compoundVariants: [
+      { variant: 'default', type: 'search', class: 'right-[40px]' },
+      {
+        variant: 'default',
+        type: 'search-checkbox',
+        class: 'right-[38px]',
+      },
+      { variant: 'in-table', type: 'search', class: 'right-[40px]' },
+      {
+        variant: 'in-table',
+        type: 'search-checkbox',
+        class: 'right-[32px]',
+      },
+    ],
+  }),
+}
+
 export const content = cva(
   [
     'absolute z-10 overflow-y-auto rounded-[5px] border bg-white py-2',

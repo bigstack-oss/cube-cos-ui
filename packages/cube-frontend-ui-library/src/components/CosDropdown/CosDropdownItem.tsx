@@ -14,13 +14,21 @@ export type CosDropdownItemProps<Item> = {
 export const CosDropdownItem = <Item,>(props: CosDropdownItemProps<Item>) => {
   const { children: label, disabled = false, item, onClick } = props
 
-  const { variant, type, selectedItems } = useContext(CosDropdownContext)
+  const { variant, type, selectedItems, onDropdownOpenChange } =
+    useContext(CosDropdownContext)
 
   const isCheckbox = type === 'checkbox' || type === 'search-checkbox'
 
   const isSelected = selectedItems.includes(item)
 
-  const handleClick = () => !disabled && onClick()
+  const handleClick = () => {
+    if (disabled) return
+
+    onClick()
+    if (type === 'regular' || type === 'search') {
+      onDropdownOpenChange()
+    }
+  }
 
   return isCheckbox ? (
     <div
@@ -43,13 +51,7 @@ export const CosDropdownItem = <Item,>(props: CosDropdownItemProps<Item>) => {
       )}
       onClick={handleClick}
     >
-      <input
-        type="radio"
-        className="peer hidden"
-        disabled={disabled}
-        checked={isSelected}
-      />
-      <span>{label}</span>
+      {label}
     </div>
   )
 }
