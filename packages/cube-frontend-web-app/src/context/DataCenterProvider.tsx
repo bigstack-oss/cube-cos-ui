@@ -1,22 +1,14 @@
-import { PropsWithChildren, useEffect, useState } from 'react'
-import { GetDataCentersResponse } from '@cube-frontend/api'
+import { PropsWithChildren } from 'react'
 import { DataCenterContext } from './DataCenterContext'
 import { dataCentersApi } from '../api/cosApi'
+import { useCosGetRequest } from '../hooks/useCosRequest/useCosGetRequest'
 
 export const DataCenterProvider = (props: PropsWithChildren) => {
   const { children } = props
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [dataCenters, setDataCenters] = useState<
-    GetDataCentersResponse['data'] | undefined
-  >()
-
-  useEffect(() => {
-    dataCentersApi.getDataCenters().then((dataCentersResponse) => {
-      setDataCenters(dataCentersResponse.data.data)
-      setIsLoading(false)
-    })
-  }, [])
+  const { data: dataCenters, isLoading } = useCosGetRequest(
+    dataCentersApi.getDataCenters,
+  )
 
   if (isLoading || !dataCenters) {
     return null
