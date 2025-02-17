@@ -19,6 +19,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
   const {
     dropdownOpen: isOpen,
     onDropdownOpenChange,
+    floatingProps,
     type,
     variant,
     selectedItems,
@@ -56,6 +57,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
 
   return (
     <button
+      ref={floatingProps.anchorRef}
       type="button"
       disabled={disabled}
       onClick={onDropdownOpenChange}

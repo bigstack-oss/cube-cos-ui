@@ -1,8 +1,13 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
-import { CosDropdownTrigger } from './CosDropdownTrigger'
-import { CosDropdownMenu } from './CosDropdownMenu'
+import { twMerge } from 'tailwind-merge'
+import { useFloating } from '../../internal/utils/floating/useFloating'
 import { CosDropdownItem } from './CosDropdownItem'
+import { CosDropdownMenu } from './CosDropdownMenu'
+import { CosDropdownSkeleton } from './CosDropdownSkeleton'
+import { CosDropdownTrigger } from './CosDropdownTrigger'
 import { CosDropdownContext } from './context'
+import { parseNodes } from './parseNodes'
+import { dropdownLabel } from './styles'
 import {
   CosDropdownType,
   CosDropdownVariant,
@@ -11,10 +16,6 @@ import {
   OnSearchChange,
   getOptionalProps,
 } from './utils'
-import { parseNodes } from './parseNodes'
-import { CosDropdownSkeleton } from './CosDropdownSkeleton'
-import { twMerge } from 'tailwind-merge'
-import { dropdownLabel } from './styles'
 
 export type CosDropdownProps<Item, Type extends CosDropdownType> = {
   type?: Type
@@ -64,6 +65,15 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
 
   const optionalProps = getOptionalProps(props)
 
+  const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
+    placement: 'bottom-left',
+    boundaryElement: document.body,
+    autoPlacement: true,
+    offsets: {
+      y: 8,
+    },
+  })
+
   const {
     triggerNode,
     menuNode,
@@ -102,6 +112,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
         // Internal control
         dropdownOpen,
         onDropdownOpenChange,
+        floatingProps,
         // Common props
         type,
         variant,
@@ -116,7 +127,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
         onSearchChange: optionalProps.onSearchChange,
       }}
     >
-      <div ref={dropdownRef} className="relative">
+      <div ref={dropdownRef}>
         {renderLabel()}
         {triggerNode}
         {menuNode}

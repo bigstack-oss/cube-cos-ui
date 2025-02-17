@@ -33,8 +33,8 @@ export type UseFloatingOptions<Anchor extends HTMLElement> = {
 )
 
 export const useFloating = <
-  Element extends HTMLElement = HTMLDivElement,
   Anchor extends HTMLElement = HTMLDivElement,
+  Element extends HTMLElement = HTMLDivElement,
 >(
   options: UseFloatingOptions<Anchor>,
 ): UseFloating<Anchor, Element> => {

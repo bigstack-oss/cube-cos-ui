@@ -14,6 +14,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
 
   const {
     dropdownOpen: isVisible,
+    floatingProps,
     variant,
     type,
     onAllCheckChange,
@@ -21,6 +22,8 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     itemCount,
     searchValue,
   } = useContext(CosDropdownContext)
+
+  const { elementRef, resolvedStyles } = floatingProps
 
   // TODO: Implement vertical placement with useFloating hook
   const verticalPlacement = 'bottom'
@@ -39,7 +42,9 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
 
   return (
     <div
+      ref={elementRef}
       className={twMerge(content({ isVisible, variant, verticalPlacement }))}
+      style={resolvedStyles?.floatingStyle}
     >
       {showSearchInput && <CosDropdownSearchBar />}
       {showAllCheckbox && (
