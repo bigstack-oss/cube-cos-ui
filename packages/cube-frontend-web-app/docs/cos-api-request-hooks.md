@@ -6,7 +6,7 @@ To make response handling (e.g., error message parsing) more consistent across t
 
 `useCosGetRequest` is designed for managing HTTP GET requests from our API server.
 
-### Requests Without Parameters
+### Get Requests Without Parameters
 
 ```ts
 const {
@@ -25,7 +25,7 @@ const myFunction = async () => {
 }
 ```
 
-### Requests With Parameters
+### Get Requests With Parameters
 
 ```ts
 const {
@@ -46,7 +46,7 @@ const {
 })
 ```
 
-#### Requests With Parameters and Axios Request Config
+#### Get Requests With Parameters and Axios Request Config
 
 ```ts
 const {
@@ -76,11 +76,44 @@ const {
 )
 ```
 
+## `UseCosStreamRequest`
+
+This hook is designed for real-time scenarios, such as Dashboards or Monitoring systems.
+
+Some COS APIs (which have the `watch` option in the request query) support the stream method to continuously push real-time data or send updates at regular intervals.
+
+![API with watch option](./images/api-with-watch-option.png)
+
+The `CosStreamRequest` hook automatically includes the query `?watch=true` in your request and handle response chunks correctly.
+
+### Stream Requests With Parameters
+
+```ts
+const {
+  // True before the first response chunk received.
+  isLoading,
+  // `data` is updated when the server pushes a new response chunk.
+  data: bars,
+  errorState,
+  // Ensure that `fooApi.getBar` supports the watch query option.
+} = useCosStreamRequest(fooApi.getBars, () => {
+  if (shouldNotFetch) {
+    // Returns `null` or `undefined` to prevent the hook from sending
+    // a request with nullish parameter.
+    return null
+  }
+  const req: GetBarsRequest = {
+    // ...
+  }
+  return req
+})
+```
+
 ## `useCosMutationRequest`
 
 `useCosMutationRequest` is designed for managing non-GET requests from our API server, such as POST, PUT, and DELETE.
 
-### Request Without Parameters
+### Mutation Request Without Parameters
 
 ```ts
 const {
@@ -102,7 +135,7 @@ const onClick = async () => {
 }
 ```
 
-### Request With Parameters and Axios Request Config
+### Mutation Request With Parameters and Axios Request Config
 
 ```ts
 const {

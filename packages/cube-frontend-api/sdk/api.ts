@@ -279,10 +279,29 @@ export interface GetCpuUsageRankOfHostsResponseDataInner {
     'usedPercent': number;
     /**
      * 
-     * @type {number}
+     * @type {Array<GetCpuUsageRankOfHostsResponseDataInnerHistoryInner>}
      * @memberof GetCpuUsageRankOfHostsResponseDataInner
      */
-    'freePercent': number;
+    'history': Array<GetCpuUsageRankOfHostsResponseDataInnerHistoryInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetCpuUsageRankOfHostsResponseDataInnerHistoryInner
+ */
+export interface GetCpuUsageRankOfHostsResponseDataInnerHistoryInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCpuUsageRankOfHostsResponseDataInnerHistoryInner
+     */
+    'time': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetCpuUsageRankOfHostsResponseDataInnerHistoryInner
+     */
+    'usedPercent': number;
 }
 /**
  * 
@@ -329,10 +348,10 @@ export interface GetCpuUsageSummaryOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {GetCpuUsageSummaryOfHostsResponseData}
+     * @type {GetMetricsResponseDataHostUsagesInnerUsageCpu}
      * @memberof GetCpuUsageSummaryOfHostsResponse
      */
-    'data': GetCpuUsageSummaryOfHostsResponseData;
+    'data': GetMetricsResponseDataHostUsagesInnerUsageCpu;
     /**
      * 
      * @type {string}
@@ -345,43 +364,6 @@ export interface GetCpuUsageSummaryOfHostsResponse {
      * @memberof GetCpuUsageSummaryOfHostsResponse
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface GetCpuUsageSummaryOfHostsResponseData
- */
-export interface GetCpuUsageSummaryOfHostsResponseData {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCpuUsageSummaryOfHostsResponseData
-     */
-    'totalCores': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCpuUsageSummaryOfHostsResponseData
-     */
-    'usedCores': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCpuUsageSummaryOfHostsResponseData
-     */
-    'usedPercent': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCpuUsageSummaryOfHostsResponseData
-     */
-    'freeCores': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCpuUsageSummaryOfHostsResponseData
-     */
-    'freePercent': number;
 }
 /**
  * 
@@ -475,6 +457,25 @@ export interface GetDataCentersResponseDataInner {
      * @memberof GetDataCentersResponseDataInner
      */
     'isLocal': boolean;
+    /**
+     * 
+     * @type {GetDataCentersResponseDataInnerAdditional}
+     * @memberof GetDataCentersResponseDataInner
+     */
+    'additional': GetDataCentersResponseDataInnerAdditional;
+}
+/**
+ * 
+ * @export
+ * @interface GetDataCentersResponseDataInnerAdditional
+ */
+export interface GetDataCentersResponseDataInnerAdditional {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetDataCentersResponseDataInnerAdditional
+     */
+    'helpUrl'?: string;
 }
 /**
  * 
@@ -681,7 +682,7 @@ export interface GetDiskLatencyHistoryOfHostsResponseDataReadInner {
      * @type {number}
      * @memberof GetDiskLatencyHistoryOfHostsResponseDataReadInner
      */
-    'ms': number;
+    'millisecond': number;
 }
 /**
  * 
@@ -743,19 +744,13 @@ export interface GetDiskReadIopsRankOfVmsResponseDataInner {
      * @type {number}
      * @memberof GetDiskReadIopsRankOfVmsResponseDataInner
      */
-    'usage': number;
+    'ops': number;
     /**
      * 
-     * @type {number}
+     * @type {Array<GetDiskIopsHistoryOfHostsResponseDataReadInner>}
      * @memberof GetDiskReadIopsRankOfVmsResponseDataInner
      */
-    'usedPercent': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDiskReadIopsRankOfVmsResponseDataInner
-     */
-    'freePercent': number;
+    'history': Array<GetDiskIopsHistoryOfHostsResponseDataReadInner>;
 }
 /**
  * 
@@ -1731,10 +1726,10 @@ export interface GetMemoryUsageSummaryOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {GetMemoryUsageSummaryOfHostsResponseData}
+     * @type {GetMetricsResponseDataHostUsagesInnerUsageMemory}
      * @memberof GetMemoryUsageSummaryOfHostsResponse
      */
-    'data': GetMemoryUsageSummaryOfHostsResponseData;
+    'data': GetMetricsResponseDataHostUsagesInnerUsageMemory;
     /**
      * 
      * @type {string}
@@ -1751,43 +1746,6 @@ export interface GetMemoryUsageSummaryOfHostsResponse {
 /**
  * 
  * @export
- * @interface GetMemoryUsageSummaryOfHostsResponseData
- */
-export interface GetMemoryUsageSummaryOfHostsResponseData {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMemoryUsageSummaryOfHostsResponseData
-     */
-    'totalMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMemoryUsageSummaryOfHostsResponseData
-     */
-    'usedMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMemoryUsageSummaryOfHostsResponseData
-     */
-    'usedPercent': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMemoryUsageSummaryOfHostsResponseData
-     */
-    'freeMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMemoryUsageSummaryOfHostsResponseData
-     */
-    'freePercent': number;
-}
-/**
- * 
- * @export
  * @interface GetMemoryUsageSummaryOfVmsResponse
  */
 export interface GetMemoryUsageSummaryOfVmsResponse {
@@ -1799,10 +1757,10 @@ export interface GetMemoryUsageSummaryOfVmsResponse {
     'code': number;
     /**
      * 
-     * @type {GetMemoryUsageSummaryOfHostsResponseData}
+     * @type {GetMetricsResponseDataHostUsagesInnerUsageMemory}
      * @memberof GetMemoryUsageSummaryOfVmsResponse
      */
-    'data': GetMemoryUsageSummaryOfHostsResponseData;
+    'data': GetMetricsResponseDataHostUsagesInnerUsageMemory;
     /**
      * 
      * @type {string}
@@ -2122,6 +2080,12 @@ export interface GetMetricsResponse {
 export interface GetMetricsResponseData {
     /**
      * 
+     * @type {GetMetricsResponseDataDataCenter}
+     * @memberof GetMetricsResponseData
+     */
+    'dataCenter': GetMetricsResponseDataDataCenter;
+    /**
+     * 
      * @type {GetMetricsResponseDataHost}
      * @memberof GetMetricsResponseData
      */
@@ -2132,6 +2096,112 @@ export interface GetMetricsResponseData {
      * @memberof GetMetricsResponseData
      */
     'vm': GetMetricsResponseDataVm;
+}
+/**
+ * 
+ * @export
+ * @interface GetMetricsResponseDataDataCenter
+ */
+export interface GetMetricsResponseDataDataCenter {
+    /**
+     * 
+     * @type {GetMetricsResponseDataDataCenterUsage}
+     * @memberof GetMetricsResponseDataDataCenter
+     */
+    'usage': GetMetricsResponseDataDataCenterUsage;
+}
+/**
+ * 
+ * @export
+ * @interface GetMetricsResponseDataDataCenterUsage
+ */
+export interface GetMetricsResponseDataDataCenterUsage {
+    /**
+     * 
+     * @type {GetMetricsResponseDataDataCenterUsageCpu}
+     * @memberof GetMetricsResponseDataDataCenterUsage
+     */
+    'cpu': GetMetricsResponseDataDataCenterUsageCpu;
+    /**
+     * 
+     * @type {GetMetricsResponseDataDataCenterUsageMemory}
+     * @memberof GetMetricsResponseDataDataCenterUsage
+     */
+    'memory': GetMetricsResponseDataDataCenterUsageMemory;
+}
+/**
+ * 
+ * @export
+ * @interface GetMetricsResponseDataDataCenterUsageCpu
+ */
+export interface GetMetricsResponseDataDataCenterUsageCpu {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageCpu
+     */
+    'totalCores': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageCpu
+     */
+    'usedCores': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageCpu
+     */
+    'usedPercent': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageCpu
+     */
+    'freeCores': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageCpu
+     */
+    'freePercent': number;
+}
+/**
+ * 
+ * @export
+ * @interface GetMetricsResponseDataDataCenterUsageMemory
+ */
+export interface GetMetricsResponseDataDataCenterUsageMemory {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageMemory
+     */
+    'totalMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageMemory
+     */
+    'usedMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageMemory
+     */
+    'usedPercent': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageMemory
+     */
+    'freeMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataDataCenterUsageMemory
+     */
+    'freePercent': number;
 }
 /**
  * 
@@ -2147,10 +2217,10 @@ export interface GetMetricsResponseDataHost {
     'role': GetMetricsResponseDataHostRole;
     /**
      * 
-     * @type {GetMetricsResponseDataHostUsage}
+     * @type {Array<GetMetricsResponseDataHostUsagesInner>}
      * @memberof GetMetricsResponseDataHost
      */
-    'usage': GetMetricsResponseDataHostUsage;
+    'usages': Array<GetMetricsResponseDataHostUsagesInner>;
 }
 /**
  * 
@@ -2192,136 +2262,124 @@ export interface GetMetricsResponseDataHostRole {
 /**
  * 
  * @export
- * @interface GetMetricsResponseDataHostUsage
+ * @interface GetMetricsResponseDataHostUsagesInner
  */
-export interface GetMetricsResponseDataHostUsage {
+export interface GetMetricsResponseDataHostUsagesInner {
     /**
      * 
-     * @type {GetMetricsResponseDataHostUsageVcpu}
-     * @memberof GetMetricsResponseDataHostUsage
+     * @type {string}
+     * @memberof GetMetricsResponseDataHostUsagesInner
      */
-    'vcpu': GetMetricsResponseDataHostUsageVcpu;
+    'role': string;
     /**
      * 
-     * @type {GetMetricsResponseDataHostUsageMemory}
-     * @memberof GetMetricsResponseDataHostUsage
+     * @type {string}
+     * @memberof GetMetricsResponseDataHostUsagesInner
      */
-    'memory': GetMetricsResponseDataHostUsageMemory;
+    'name': string;
     /**
      * 
-     * @type {GetMetricsResponseDataHostUsageStorage}
-     * @memberof GetMetricsResponseDataHostUsage
+     * @type {string}
+     * @memberof GetMetricsResponseDataHostUsagesInner
      */
-    'storage': GetMetricsResponseDataHostUsageStorage;
+    'address': string;
+    /**
+     * 
+     * @type {GetMetricsResponseDataHostUsagesInnerUsage}
+     * @memberof GetMetricsResponseDataHostUsagesInner
+     */
+    'usage': GetMetricsResponseDataHostUsagesInnerUsage;
 }
 /**
  * 
  * @export
- * @interface GetMetricsResponseDataHostUsageMemory
+ * @interface GetMetricsResponseDataHostUsagesInnerUsage
  */
-export interface GetMetricsResponseDataHostUsageMemory {
+export interface GetMetricsResponseDataHostUsagesInnerUsage {
     /**
      * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageMemory
+     * @type {GetMetricsResponseDataHostUsagesInnerUsageCpu}
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsage
      */
-    'totalMiB': number;
+    'cpu': GetMetricsResponseDataHostUsagesInnerUsageCpu;
     /**
      * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageMemory
+     * @type {GetMetricsResponseDataHostUsagesInnerUsageMemory}
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsage
      */
-    'usedMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageMemory
-     */
-    'usedPercent': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageMemory
-     */
-    'freeMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageMemory
-     */
-    'freePercent': number;
+    'memory': GetMetricsResponseDataHostUsagesInnerUsageMemory;
 }
 /**
  * 
  * @export
- * @interface GetMetricsResponseDataHostUsageStorage
+ * @interface GetMetricsResponseDataHostUsagesInnerUsageCpu
  */
-export interface GetMetricsResponseDataHostUsageStorage {
+export interface GetMetricsResponseDataHostUsagesInnerUsageCpu {
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageStorage
-     */
-    'totalMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageStorage
-     */
-    'usedMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageStorage
-     */
-    'usedPercent': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageStorage
-     */
-    'freeMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageStorage
-     */
-    'freePercent': number;
-}
-/**
- * 
- * @export
- * @interface GetMetricsResponseDataHostUsageVcpu
- */
-export interface GetMetricsResponseDataHostUsageVcpu {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageVcpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
      */
     'totalCores': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageVcpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
      */
     'usedCores': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageVcpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
      */
     'usedPercent': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageVcpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
      */
     'freeCores': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsageVcpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
+     */
+    'freePercent': number;
+}
+/**
+ * 
+ * @export
+ * @interface GetMetricsResponseDataHostUsagesInnerUsageMemory
+ */
+export interface GetMetricsResponseDataHostUsagesInnerUsageMemory {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     */
+    'totalMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     */
+    'usedMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     */
+    'usedPercent': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     */
+    'freeMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
      */
     'freePercent': number;
 }
@@ -2752,6 +2810,31 @@ export interface GetNetworkTrafficInRankOfHostsResponseDataInner {
      * @memberof GetNetworkTrafficInRankOfHostsResponseDataInner
      */
     'packets': number;
+    /**
+     * 
+     * @type {Array<GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner>}
+     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInner
+     */
+    'history': Array<GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner
+ */
+export interface GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner
+     */
+    'time': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner
+     */
+    'packets': number;
 }
 /**
  * 
@@ -2804,22 +2887,22 @@ export interface GetNetworkTrafficInRankOfVmsResponseDataInner {
     'name': string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof GetNetworkTrafficInRankOfVmsResponseDataInner
      */
-    'usage': number;
+    'device': string;
     /**
      * 
      * @type {number}
      * @memberof GetNetworkTrafficInRankOfVmsResponseDataInner
      */
-    'usedPercent': number;
+    'packets': number;
     /**
      * 
-     * @type {number}
+     * @type {Array<GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner>}
      * @memberof GetNetworkTrafficInRankOfVmsResponseDataInner
      */
-    'freePercent': number;
+    'history': Array<GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner>;
 }
 /**
  * 

@@ -1,6 +1,6 @@
 import { CosStatus, CosTag } from '@cube-frontend/ui-library'
 import { Meta, StoryObj } from '@storybook/react'
-import { CosProgressBar } from '../../../../internal/components/CosProgressBar/CosProgressBar'
+import { CosProgressBar } from '../../../../components/CosProgressBar/CosProgressBar'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import { CustomSortingRule } from './CustomSortingRule'
 import { mockNodes, NodeTable } from './utils'
