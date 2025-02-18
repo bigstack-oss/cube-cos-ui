@@ -31,7 +31,7 @@ const countries = [
   },
 ]
 
-type RadioButtonDropdownProps = {
+type RegularDropdownProps = {
   variant: CosDropdownVariant
   isDisabled: boolean
   hasDefaultValue: boolean
@@ -39,7 +39,7 @@ type RadioButtonDropdownProps = {
   label?: string
 }
 
-export const RadioButtonDropdown = (props: RadioButtonDropdownProps) => {
+export const RegularDropdown = (props: RegularDropdownProps) => {
   const { variant, isDisabled, hasDefaultValue, hasSearchbar, label } = props
 
   const [searchValue, setSearchValue] = useState('')
