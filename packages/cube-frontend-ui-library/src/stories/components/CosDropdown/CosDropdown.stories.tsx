@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
-import { DropdownBox } from './DropdownBox'
-import { RadioButtonDropdown } from './RadioButtonDropdown'
+import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CheckboxDropdown } from './CheckboxDropdown'
+import { DropdownBox } from './DropdownBox'
+import { RegularDropdown } from './RegularDropdown'
 
 const meta = {
   title: 'Molecules/Dropdown',
@@ -25,13 +25,13 @@ export const Default: StoryObj = {
             <p className="primary-body2 col-span-1">Checkbox with searchbar</p>
           </DropdownBox>
           <DropdownBox title="Master">
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               isDisabled={false}
               hasDefaultValue={false}
@@ -60,29 +60,29 @@ export const Default: StoryObj = {
           </DropdownBox>
           {/**
            * ========================================
-           * Default - Radio
+           * Default - Regular
            * ========================================
            */}
-          <DropdownBox title="Radio">
-            <RadioButtonDropdown
+          <DropdownBox title="Regular">
+            <RegularDropdown
               variant="default"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               isDisabled={false}
               hasDefaultValue={true}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               isDisabled={true}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               isDisabled={true}
               hasDefaultValue={true}
@@ -91,29 +91,29 @@ export const Default: StoryObj = {
           </DropdownBox>
           {/**
            * ========================================
-           * Default - Radio - with searchbar
+           * Default - Regular - with searchbar
            * ========================================
            */}
-          <DropdownBox title="Radio - with searchbar">
-            <RadioButtonDropdown
+          <DropdownBox title="Regular - with searchbar">
+            <RegularDropdown
               variant="default"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               isDisabled={false}
               hasDefaultValue={true}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               isDisabled={true}
               hasDefaultValue={false}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               isDisabled={true}
               hasDefaultValue={true}
@@ -192,32 +192,32 @@ export const Default: StoryObj = {
           </DropdownBox>
           {/**
            * ========================================
-           * Default - Radio
+           * Default - Regular
            * ========================================
            */}
-          <DropdownBox title="Radio">
-            <RadioButtonDropdown
+          <DropdownBox title="Regular">
+            <RegularDropdown
               variant="default"
               label="Label"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               label="Label"
               isDisabled={false}
               hasDefaultValue={true}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               label="Label"
               isDisabled={true}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               label="Label"
               isDisabled={true}
@@ -227,32 +227,32 @@ export const Default: StoryObj = {
           </DropdownBox>
           {/**
            * ========================================
-           * Default - Radio - with searchbar
+           * Default - Regular - with searchbar
            * ========================================
            */}
-          <DropdownBox title="Radio - with searchbar">
-            <RadioButtonDropdown
+          <DropdownBox title="Regular - with searchbar">
+            <RegularDropdown
               variant="default"
               label="Label"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               label="Label"
               isDisabled={false}
               hasDefaultValue={true}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               label="Label"
               isDisabled={true}
               hasDefaultValue={false}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="default"
               label="Label"
               isDisabled={true}
@@ -373,13 +373,13 @@ export const InTable: StoryObj = {
             <p className="primary-body2 col-span-1">Checkbox with searchbar</p>
           </DropdownBox>
           <DropdownBox title="Master">
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               isDisabled={false}
               hasDefaultValue={false}
@@ -408,29 +408,29 @@ export const InTable: StoryObj = {
           </DropdownBox>
           {/**
            * ========================================
-           * In Table - Radio
+           * In Table - Regular
            * ========================================
            */}
-          <DropdownBox title="Radio">
-            <RadioButtonDropdown
+          <DropdownBox title="Regular">
+            <RegularDropdown
               variant="in-table"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               isDisabled={false}
               hasDefaultValue={true}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               isDisabled={true}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               isDisabled={true}
               hasDefaultValue={true}
@@ -439,29 +439,29 @@ export const InTable: StoryObj = {
           </DropdownBox>
           {/**
            * ========================================
-           * In Table - Radio - with searchbar
+           * In Table - Regular - with searchbar
            * ========================================
            */}
-          <DropdownBox title="Radio - with searchbar">
-            <RadioButtonDropdown
+          <DropdownBox title="Regular - with searchbar">
+            <RegularDropdown
               variant="in-table"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               isDisabled={false}
               hasDefaultValue={true}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               isDisabled={true}
               hasDefaultValue={false}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               isDisabled={true}
               hasDefaultValue={true}
@@ -540,32 +540,32 @@ export const InTable: StoryObj = {
           </DropdownBox>
           {/**
            * ========================================
-           * In Table - Radio
+           * In Table - Regular
            * ========================================
            */}
-          <DropdownBox title="Radio">
-            <RadioButtonDropdown
+          <DropdownBox title="Regular">
+            <RegularDropdown
               variant="in-table"
               label="Label"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               label="Label"
               isDisabled={false}
               hasDefaultValue={true}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               label="Label"
               isDisabled={true}
               hasDefaultValue={false}
               hasSearchbar={false}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               label="Label"
               isDisabled={true}
@@ -575,32 +575,32 @@ export const InTable: StoryObj = {
           </DropdownBox>
           {/**
            * ========================================
-           * In Table - Radio - with searchbar
+           * In Table - Regular - with searchbar
            * ========================================
            */}
-          <DropdownBox title="Radio - with searchbar">
-            <RadioButtonDropdown
+          <DropdownBox title="Regular - with searchbar">
+            <RegularDropdown
               variant="in-table"
               label="Label"
               isDisabled={false}
               hasDefaultValue={false}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               label="Label"
               isDisabled={false}
               hasDefaultValue={true}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               label="Label"
               isDisabled={true}
               hasDefaultValue={false}
               hasSearchbar={true}
             />
-            <RadioButtonDropdown
+            <RegularDropdown
               variant="in-table"
               label="Label"
               isDisabled={true}
