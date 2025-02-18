@@ -80,7 +80,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
     enabledItemCount: itemCount,
   } = parseNodes(children)
 
-  const onDropdownOpenChange = () => {
+  const toggleDropdownOpen = () => {
     setDropdownOpen((prev) => !prev)
   }
 
@@ -111,7 +111,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
       value={{
         // Internal control
         dropdownOpen,
-        onDropdownOpenChange,
+        toggleDropdownOpen,
         floatingProps,
         // Common props
         type,

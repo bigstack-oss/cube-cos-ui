@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import { UseFloating } from '../../internal/utils/floating/useFloating'
 import {
   CosDropdownType,
   CosDropdownVariant,
@@ -6,12 +7,11 @@ import {
   OnClearClick,
   OnSearchChange,
 } from './utils'
-import { UseFloating } from '../../internal/utils/floating/useFloating'
 
 export type CosDropdownContextValue<Item> = {
   // Internal control
   dropdownOpen: boolean
-  onDropdownOpenChange: () => void
+  toggleDropdownOpen: () => void
   floatingProps: UseFloating<HTMLButtonElement, HTMLDivElement>
   // Common props
   type: CosDropdownType
@@ -32,7 +32,7 @@ export const CosDropdownContext = createContext<
 >({
   // Internal control
   dropdownOpen: false,
-  onDropdownOpenChange: () => {},
+  toggleDropdownOpen: () => {},
   floatingProps: undefined as unknown as UseFloating<
     HTMLButtonElement,
     HTMLDivElement

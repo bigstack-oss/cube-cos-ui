@@ -18,7 +18,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
 
   const {
     dropdownOpen: isOpen,
-    onDropdownOpenChange,
+    toggleDropdownOpen,
     floatingProps,
     type,
     variant,
@@ -60,7 +60,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
       ref={floatingProps.anchorRef}
       type="button"
       disabled={disabled}
-      onClick={onDropdownOpenChange}
+      onClick={toggleDropdownOpen}
       className={twMerge(
         trigger({
           variant,
