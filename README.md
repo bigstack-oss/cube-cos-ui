@@ -2,7 +2,7 @@
 
 ## License
 
-Copyright (c) 2025 [BigStack co., Itd](https://bigstack.co/)
+Copyright (c) 2025 [Bigstack co., ltd](https://bigstack.co/)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
