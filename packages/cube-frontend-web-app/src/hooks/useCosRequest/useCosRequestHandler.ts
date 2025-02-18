@@ -2,8 +2,9 @@ import { isAxiosError } from 'axios'
 import { useState } from 'react'
 import {
   CosApiError,
-  CosApiResponse,
+  CosApiRequest,
   CosRequestError,
+  getNativeError,
   isCosApiResponse,
 } from './cosRequestUtils'
 
@@ -20,19 +21,6 @@ export type UseCosRequestHandler<Data> = {
 
 export type UseCosRequestHandlerOptions = {
   defaultIsLoading: boolean
-}
-
-type CosApiRequest<T> = () => Promise<CosApiResponse<T>>
-
-const getNativeError = (error: unknown): Error => {
-  if (error instanceof Error) {
-    return error
-  }
-  try {
-    return new Error(JSON.stringify(error))
-  } catch {
-    return new Error(String(error))
-  }
 }
 
 export const INTERNAL_useCosRequestHandler = <Data>(

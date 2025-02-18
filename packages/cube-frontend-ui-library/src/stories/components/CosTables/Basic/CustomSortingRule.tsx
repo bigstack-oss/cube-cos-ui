@@ -3,7 +3,7 @@ import {
   CosStatus,
   CosTag,
 } from '@cube-frontend/ui-library'
-import { CosProgressBar } from '../../../../internal/components/CosProgressBar/CosProgressBar'
+import { CosProgressBar } from '../../../../components/CosProgressBar/CosProgressBar'
 import { mockNodes, NodeTable } from './utils'
 
 // Sorted in ascending order: running -> success -> error (descending is reversed).
