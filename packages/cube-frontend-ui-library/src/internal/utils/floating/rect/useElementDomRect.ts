@@ -8,23 +8,22 @@ export const useElementDomRect = (
 
   useEffect(() => {
     const syncRect = () => {
-      if (element === document.body) {
-        // TODO: When the boundary element is `document.body`, we need to use the
-        // viewport's rect with the current implementation. This is quite
-        // confusing, so this must be refactored in the future!
-        setRect(new DOMRect(0, 0, window.innerWidth, window.innerHeight))
-      } else {
-        setRect(element?.getBoundingClientRect())
-      }
+      setRect(element?.getBoundingClientRect())
     }
 
     const debouncedSync = debounce(syncRect, 100)
 
     syncRect()
 
+    // `getBoundingClientRect` returns a `DOMRect` with the element's size and
+    // position relative to the viewport.
+    // Therefore, we need to call it again to get the updated rect after
+    // scrolling and resizing.
+    window.addEventListener('scroll', debouncedSync)
     window.addEventListener('resize', debouncedSync)
 
     return () => {
+      window.removeEventListener('scroll', debouncedSync)
       window.removeEventListener('resize', debouncedSync)
     }
   }, [element])

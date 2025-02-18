@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useFloating } from '../../internal/utils/floating/useFloating'
 import { CosDropdownItem } from './CosDropdownItem'
@@ -59,20 +59,19 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
     children,
   } = props
 
-  const dropdownRef = useRef<HTMLDivElement | null>(null)
-
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const optionalProps = getOptionalProps(props)
 
   const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
     placement: 'bottom-left',
-    boundaryElement: document.body,
     autoPlacement: true,
     offsets: {
       y: 8,
     },
   })
+
+  const { anchorRef, elementRef } = floatingProps
 
   const {
     triggerNode,
@@ -84,12 +83,19 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
     setDropdownOpen((prev) => !prev)
   }
 
-  const handleClickOutside = useCallback((event: MouseEvent) => {
-    const target = event.target as Element
-    if (dropdownRef.current && !dropdownRef.current.contains(target)) {
-      setDropdownOpen(false)
-    }
-  }, [])
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+
+      const isTrigger = anchorRef.current?.contains(target)
+      const isMenu = elementRef.current?.contains(target)
+
+      if (!isTrigger && !isMenu) {
+        setDropdownOpen(false)
+      }
+    },
+    [anchorRef, elementRef],
+  )
 
   const renderLabel = () => {
     if (!label) return null
@@ -127,7 +133,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
         onSearchChange: optionalProps.onSearchChange,
       }}
     >
-      <div ref={dropdownRef}>
+      <div>
         {renderLabel()}
         {triggerNode}
         {menuNode}
