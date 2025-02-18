@@ -37,6 +37,7 @@ export const SideBarComboboxOption = (props: SideBarComboboxOptionProps) => {
   } = props
 
   return (
+    // TODO: change this to hyperlink.
     <div className={twMerge(sideBarOption({ isSelected }))} onClick={onClick}>
       <div className="flex items-center gap-x-3">
         <Icon className="icon-md" />

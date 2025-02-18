@@ -21,7 +21,8 @@
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-router": "^7.1.5"
   },
   "devDependencies": {
     "@types/react": "catalog:",

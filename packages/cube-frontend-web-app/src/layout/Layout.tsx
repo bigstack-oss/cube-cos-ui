@@ -1,63 +1,15 @@
-import { PropsWithChildren, useContext } from 'react'
-import {
-  CosSideBar,
-  CosSideBarProps,
-  CosHeader,
-} from '@cube-frontend/ui-library'
-import HomeIcon from '@cube-frontend/ui-library/icons/monochrome/home_01.svg?react'
-import NodeIcon from '@cube-frontend/ui-library/icons/monochrome/node.svg?react'
-import IntegrationsIcon from '@cube-frontend/ui-library/icons/monochrome/integration.svg?react'
-import MaintenanceIcon from '@cube-frontend/ui-library/icons/monochrome/maintenance.svg?react'
-import EventsIcon from '@cube-frontend/ui-library/icons/monochrome/event.svg?react'
-import SettingsIcon from '@cube-frontend/ui-library/icons/monochrome/settings.svg?react'
-import OpenStackIcon from '@cube-frontend/ui-library/icons/colored/openstack.svg?react'
+import { CosHeader, CosSideBar } from '@cube-frontend/ui-library'
 import CephIcon from '@cube-frontend/ui-library/icons/colored/ceph.svg?react'
 import KeycloakIcon from '@cube-frontend/ui-library/icons/colored/keyclock.svg?react'
+import OpenStackIcon from '@cube-frontend/ui-library/icons/colored/openstack.svg?react'
 import RancherIcon from '@cube-frontend/ui-library/icons/colored/rancher.svg?react'
-import Content from './Content'
-import { DataCenterContext } from '../context/DataCenterContext'
-import { UserContext } from '../context/UserContext'
-import { IntegrationsContext } from '../context/IntegrationsContext'
+import { PropsWithChildren, useContext } from 'react'
 import { logoutApi } from '../api/cosApi'
-
-const sideBarOptions = [
-  {
-    Icon: HomeIcon,
-    label: 'Home',
-    isSelected: true,
-    onClick: () => {},
-  },
-  {
-    Icon: NodeIcon,
-    label: 'Nodes',
-    isSelected: false,
-    onClick: () => {},
-  },
-  {
-    Icon: IntegrationsIcon,
-    label: 'Integrations',
-    isSelected: false,
-    onClick: () => {},
-  },
-  {
-    Icon: MaintenanceIcon,
-    label: 'Maintenance',
-    isSelected: false,
-    onClick: () => {},
-  },
-  {
-    Icon: EventsIcon,
-    label: 'Events',
-    isSelected: false,
-    onClick: () => {},
-  },
-  {
-    Icon: SettingsIcon,
-    label: 'Settings',
-    isSelected: false,
-    onClick: () => {},
-  },
-] satisfies CosSideBarProps['options']
+import { DataCenterContext } from '../context/DataCenterContext'
+import { IntegrationsContext } from '../context/IntegrationsContext'
+import { UserContext } from '../context/UserContext'
+import Content from './Content'
+import { useSidebarOptions } from './useSidebarOptions'
 
 const integrationIcons = {
   keycloak: KeycloakIcon,
@@ -68,6 +20,8 @@ const integrationIcons = {
 
 const Layout = (props: PropsWithChildren) => {
   const { children } = props
+
+  const sideBarOptions = useSidebarOptions()
 
   const handleLogout = () => {
     logoutApi.logout()
