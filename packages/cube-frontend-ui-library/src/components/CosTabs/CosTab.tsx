@@ -1,11 +1,11 @@
 import { cva } from 'class-variance-authority'
 import { createElement, MouseEvent } from 'react'
 import { twJoin, twMerge } from 'tailwind-merge'
-import { DotSpan } from './DotSpan'
 import { CosNumberSpan } from '../../internal/components/CosNumberSpan/CosNumberSpan'
+import { DotSpan } from './DotSpan'
 
 export type CosTabProps = {
-  label: string
+  children: string
   // TODO: Support query params if necessary.
   href?: string
   isActive: boolean
@@ -49,7 +49,7 @@ const tab = cva(
 
 export const CosTab = (props: CosTabProps) => {
   const {
-    label,
+    children,
     href,
     isActive,
     disabled = false,
@@ -66,14 +66,14 @@ export const CosTab = (props: CosTabProps) => {
 
   const renderLabel = () => (
     <span
-      data-label={label}
+      data-label={children}
       className={twJoin(
         'inline-flex flex-col items-center',
         // Use pseudo element to avoid slight layout shift caused by the font weight changes between inactive and active states.
         'before:secondary-body2 before:pointer-events-none before:invisible before:h-0 before:select-none before:font-semibold before:content-[attr(data-label)]',
       )}
     >
-      {label}
+      {children}
     </span>
   )
 
