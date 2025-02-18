@@ -17,13 +17,6 @@ export type CosTooltipProps = PropsWithClassName & {
    */
   placement?: Placement
   /**
-   * The boundary element for the tooltip. The tooltip will adjust its position
-   * to stay within this boundary if it overflows.
-   * TODO: This is currently not working correctly. Fix it when necessary.
-   * @default document.body
-   */
-  UNSAFE_boundaryElement?: HTMLElement | null
-  /**
    * The toggle (anchor) element.
    */
   children: ReactNode
@@ -34,12 +27,7 @@ export type CosTooltipProps = PropsWithClassName & {
   )
 
 export const CosTooltip = (props: CosTooltipProps) => {
-  const {
-    className,
-    placement = 'top-center',
-    UNSAFE_boundaryElement = document.body,
-    children: anchorElement,
-  } = props
+  const { className, placement = 'top-center', children: anchorElement } = props
 
   const hasHoverContent = 'hoverContent' in props
   const hasClickContent = 'clickContent' in props
@@ -91,7 +79,6 @@ export const CosTooltip = (props: CosTooltipProps) => {
             information={infoMap[visibilityState]!}
             placement={placement}
             anchorRef={anchorRef}
-            boundaryElement={UNSAFE_boundaryElement}
           />,
           document.body,
         )}

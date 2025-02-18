@@ -11,8 +11,8 @@ import {
 import { computeFloatingBoundary } from './computeFloatingBoundary'
 
 interface IFloatingRect {
-  fitByAutoPlacement: (boundaryRect: DOMRect) => this
-  fitByTranslate: (boundaryRect: DOMRect) => this
+  fitByAutoPlacement: () => this
+  fitByTranslate: () => this
   resolveStyles: () => ResolvedFloatingStyles
 }
 
@@ -29,8 +29,8 @@ export class FloatingRect implements IFloatingRect {
   private readonly _originalPlacement: Placement
   private readonly _offsets: Offsets | undefined = undefined
 
-  private _autoPlacementBoundaryDomRect: DOMRect | undefined = undefined
-  private _translateBoundaryDomRect: DOMRect | undefined = undefined
+  private _autoPlacement: boolean = false
+  private _translate: boolean = false
 
   constructor(
     anchorDomRect: DOMRect,
@@ -44,23 +44,23 @@ export class FloatingRect implements IFloatingRect {
     this._offsets = offsets
   }
 
-  fitByAutoPlacement(boundaryDomRect: DOMRect): this {
-    if (this._translateBoundaryDomRect) {
+  fitByAutoPlacement(): this {
+    if (this._translate) {
       throw new Error(
         'autoPlacement and translate cannot be used at the same time',
       )
     }
-    this._autoPlacementBoundaryDomRect = boundaryDomRect
+    this._autoPlacement = true
     return this
   }
 
-  fitByTranslate(boundaryRect: DOMRect): this {
-    if (this._autoPlacementBoundaryDomRect) {
+  fitByTranslate(): this {
+    if (this._autoPlacement) {
       throw new Error(
         'translate and autoPlacement cannot be used at the same time',
       )
     }
-    this._translateBoundaryDomRect = boundaryRect
+    this._translate = true
     return this
   }
 
@@ -79,31 +79,29 @@ export class FloatingRect implements IFloatingRect {
       y: 0,
     }
 
-    if (this._autoPlacementBoundaryDomRect) {
-      const overflowPx = this.computeOverflowPx(
-        floatingBoundary,
-        this._autoPlacementBoundaryDomRect,
-      )
+    if (this._autoPlacement) {
+      const overflowPx = this.computeOverflowPx(floatingBoundary)
+
       idealPlacement = computeIdealPlacement(
         this._originalPlacement,
         overflowPx,
       )
-      finalBoundary = computeFloatingBoundary(
-        this._anchorDomRect,
-        this._size,
-        idealPlacement,
-        this._offsets,
-      )
-    } else if (this._translateBoundaryDomRect) {
-      const overflowPx = this.computeOverflowPx(
-        floatingBoundary,
-        this._translateBoundaryDomRect,
-      )
+
+      if (idealPlacement !== this._originalPlacement) {
+        finalBoundary = computeFloatingBoundary(
+          this._anchorDomRect,
+          this._size,
+          idealPlacement,
+          this._offsets,
+        )
+      }
+    } else if (this._translate) {
+      const overflowPx = this.computeOverflowPx(floatingBoundary)
       translationOffsets = computeTranslate(this._originalPlacement, overflowPx)
     }
 
     const floatingStyle: FloatingStyle = {
-      // Convert relative position to absolute position.
+      // Convert the position from viewport-relative coordinates to document-relative coordinates.
       top: finalBoundary.top + window.scrollY,
       left: finalBoundary.left + window.scrollX,
       transform: `translate(${translationOffsets.x}px, ${translationOffsets.y}px)`,
@@ -116,15 +114,14 @@ export class FloatingRect implements IFloatingRect {
     }
   }
 
-  private computeOverflowPx(
-    floatingBoundary: XYBoundary,
-    boundaryDomRect: DOMRect,
-  ): XYBoundary {
+  private computeOverflowPx(floatingBoundary: XYBoundary): XYBoundary {
+    const { top, left } = floatingBoundary
+    const { innerWidth, innerHeight } = window
     return {
-      top: boundaryDomRect.top - floatingBoundary.top,
-      right: floatingBoundary.right - boundaryDomRect.right,
-      bottom: floatingBoundary.bottom - boundaryDomRect.bottom,
-      left: boundaryDomRect.left - floatingBoundary.left,
+      top: top < 0 ? Math.abs(top) : 0,
+      right: Math.max(floatingBoundary.right - innerWidth, 0),
+      bottom: Math.max(floatingBoundary.bottom - innerHeight, 0),
+      left: left < 0 ? Math.abs(left) : 0,
     }
   }
 }

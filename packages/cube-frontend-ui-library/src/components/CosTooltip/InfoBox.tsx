@@ -15,7 +15,6 @@ export type InfoBoxProps = {
   information: CosTooltipInformation
   placement: Placement
   anchorRef: RefObject<HTMLDivElement | null>
-  boundaryElement: HTMLElement | null
 }
 
 const container = cva('absolute flex min-w-[50px] max-w-[480px]', {
@@ -35,13 +34,11 @@ export const InfoBox = (props: InfoBoxProps) => {
     information: { title, subtext, message },
     placement,
     anchorRef,
-    boundaryElement,
   } = props
 
   const { elementRef, resolvedStyles } = useFloating({
     anchorRef,
     placement,
-    boundaryElement,
     offsets: {
       x: 14,
       y: 2,

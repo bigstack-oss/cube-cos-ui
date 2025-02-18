@@ -19,12 +19,6 @@ export type UseFloatingOptions<Anchor extends HTMLElement> = {
    */
   anchorRef?: RefObject<Anchor | null>
   placement: Placement
-  /**
-   * The boundary element for the floating element.
-   * When `autoPlacement` or `translate` is enabled, the floating element
-   * will adjust its position to stay within the boundary if it overflows.
-   */
-  boundaryElement: HTMLElement | null
   offsets?: Offsets
 } & (
   | NonNullable<unknown>
@@ -38,12 +32,7 @@ export const useFloating = <
 >(
   options: UseFloatingOptions<Anchor>,
 ): UseFloating<Anchor, Element> => {
-  const {
-    anchorRef: anchorRefOption,
-    placement,
-    boundaryElement,
-    offsets,
-  } = options
+  const { anchorRef: anchorRefOption, placement, offsets } = options
 
   const anchorRef = useRef<Anchor>(null)
   const elementRef = useRef<Element>(null)
@@ -52,13 +41,12 @@ export const useFloating = <
     anchorRefOption?.current ?? anchorRef.current,
   )
   const elementRect = useElementDomRect(elementRef.current)
-  const boundaryRect = useElementDomRect(boundaryElement)
 
   const autoPlacement = 'autoPlacement' in options
   const translate = 'translate' in options
 
   const resolvedStyles = useMemo<ResolvedFloatingStyles | undefined>(() => {
-    if (!anchorRect || !elementRect || !boundaryRect) {
+    if (!anchorRect || !elementRect) {
       return undefined
     }
 
@@ -73,21 +61,13 @@ export const useFloating = <
     )
 
     if (autoPlacement) {
-      floatingRect.fitByAutoPlacement(boundaryRect)
+      floatingRect.fitByAutoPlacement()
     } else if (translate) {
-      floatingRect.fitByTranslate(boundaryRect)
+      floatingRect.fitByTranslate()
     }
 
     return floatingRect.resolveStyles()
-  }, [
-    anchorRect,
-    elementRect,
-    boundaryRect,
-    placement,
-    offsets,
-    autoPlacement,
-    translate,
-  ])
+  }, [anchorRect, elementRect, placement, offsets, autoPlacement, translate])
 
   return {
     anchorRef,
