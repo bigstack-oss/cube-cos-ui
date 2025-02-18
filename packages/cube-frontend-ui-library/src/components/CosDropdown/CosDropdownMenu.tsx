@@ -1,4 +1,5 @@
 import { ReactNode, useContext, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
 import { CosCheckbox } from '../CosCheckbox/CosCheckbox'
 import { CosDropdownSearchBar } from './CosDropdownSearchBar'
@@ -40,7 +41,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     return selectedItems.length === itemCount
   }, [selectedItems.length, itemCount])
 
-  return (
+  return createPortal(
     <div
       ref={elementRef}
       className={twMerge(content({ isVisible, variant, verticalPlacement }))}
@@ -67,6 +68,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
         </div>
       )}
       {children}
-    </div>
+    </div>,
+    document.body,
   )
 }
