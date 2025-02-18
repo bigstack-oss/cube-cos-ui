@@ -221,50 +221,47 @@ export const content = cva(
   },
 )
 
-export const item = cva(
-  'flex items-center truncate whitespace-nowrap hover:bg-functional-hover-grey',
-  {
-    variants: {
-      variant: {
-        default: 'primary-body3',
-        'in-table': 'primary-body4',
-      },
-      type: {
-        regular: '',
-        checkbox: '',
-        search: '',
-        'search-checkbox': '',
-      },
-      isSelected: {
-        true: 'font-semibold',
-      },
-      isCheckbox: {
-        false: 'cursor-pointer',
-      },
-      disabled: {
-        true: 'cursor-default text-functional-disable-text hover:bg-white',
-      },
+export const item = cva('truncate hover:bg-functional-hover-grey', {
+  variants: {
+    variant: {
+      default: 'primary-body3',
+      'in-table': 'primary-body4',
     },
-    compoundVariants: [
-      { variant: 'default', type: 'regular', class: 'px-[24px] py-[10px]' },
-      { variant: 'default', type: 'checkbox', class: 'px-[22px] py-[11px]' },
-      { variant: 'default', type: 'search', class: 'px-[24px] py-[10px]' },
-      {
-        variant: 'default',
-        type: 'search-checkbox',
-        class: 'px-[22px] py-[11px]',
-      },
-      { variant: 'in-table', type: 'regular', class: 'px-[24px] py-[9px]' },
-      { variant: 'in-table', type: 'checkbox', class: 'px-[16px] py-[9.5px]' },
-      { variant: 'in-table', type: 'search', class: 'px-[24px] py-[9px]' },
-      {
-        variant: 'in-table',
-        type: 'search-checkbox',
-        class: 'px-[16px] py-[9.5px]',
-      },
-    ],
+    type: {
+      regular: '',
+      checkbox: '',
+      search: '',
+      'search-checkbox': '',
+    },
+    isSelected: {
+      true: 'font-semibold',
+    },
+    isCheckbox: {
+      false: 'cursor-pointer',
+    },
+    disabled: {
+      true: 'cursor-default text-functional-disable-text hover:bg-white',
+    },
   },
-)
+  compoundVariants: [
+    { variant: 'default', type: 'regular', class: 'px-[24px] py-[10px]' },
+    { variant: 'default', type: 'checkbox', class: 'px-[22px] py-[11px]' },
+    { variant: 'default', type: 'search', class: 'px-[24px] py-[10px]' },
+    {
+      variant: 'default',
+      type: 'search-checkbox',
+      class: 'px-[22px] py-[11px]',
+    },
+    { variant: 'in-table', type: 'regular', class: 'px-[24px] py-[9px]' },
+    { variant: 'in-table', type: 'checkbox', class: 'px-[16px] py-[9.5px]' },
+    { variant: 'in-table', type: 'search', class: 'px-[24px] py-[9px]' },
+    {
+      variant: 'in-table',
+      type: 'search-checkbox',
+      class: 'px-[16px] py-[9.5px]',
+    },
+  ],
+})
 
 export const skeleton = {
   container: cva('w-full', {
