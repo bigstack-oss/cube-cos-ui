@@ -207,15 +207,11 @@ export const content = cva(
   {
     variants: {
       isVisible: {
-        false: 'hidden',
+        false: 'invisible',
       },
       variant: {
         default: 'max-h-[442px] min-w-[116px] max-w-[360px]',
         'in-table': 'max-h-[390px] min-w-[80px] max-w-[240px]',
-      },
-      verticalPlacement: {
-        top: '',
-        bottom: '',
       },
     },
   },

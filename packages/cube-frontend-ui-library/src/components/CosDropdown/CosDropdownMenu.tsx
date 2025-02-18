@@ -26,16 +26,12 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
 
   const { elementRef, resolvedStyles } = floatingProps
 
-  // TODO: Implement vertical placement with useFloating hook
-  const verticalPlacement = 'bottom'
-
   const isCheckbox = type === 'checkbox' || type === 'search-checkbox'
 
   const showSearchInput = type === 'search' || type === 'search-checkbox'
 
   const showAllCheckbox =
-    (type === 'checkbox' || type === 'search-checkbox') &&
-    (!searchValue || searchValue == '')
+    (type === 'checkbox' || type === 'search-checkbox') && !searchValue
 
   const isAllChecked = useMemo(() => {
     return selectedItems.length === itemCount
@@ -44,7 +40,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
   return createPortal(
     <div
       ref={elementRef}
-      className={twMerge(content({ isVisible, variant, verticalPlacement }))}
+      className={twMerge(content({ isVisible, variant }))}
       style={resolvedStyles?.floatingStyle}
     >
       {showSearchInput && <CosDropdownSearchBar />}

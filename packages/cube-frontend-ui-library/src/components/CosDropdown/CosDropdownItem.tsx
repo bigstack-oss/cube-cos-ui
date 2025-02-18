@@ -14,7 +14,7 @@ export type CosDropdownItemProps<Item> = {
 export const CosDropdownItem = <Item,>(props: CosDropdownItemProps<Item>) => {
   const { children: label, disabled = false, item, onClick } = props
 
-  const { variant, type, selectedItems, onDropdownOpenChange } =
+  const { variant, type, selectedItems, toggleDropdownOpen } =
     useContext(CosDropdownContext)
 
   const isCheckbox = type === 'checkbox' || type === 'search-checkbox'
@@ -26,7 +26,7 @@ export const CosDropdownItem = <Item,>(props: CosDropdownItemProps<Item>) => {
 
     onClick()
     if (type === 'regular' || type === 'search') {
-      onDropdownOpenChange()
+      toggleDropdownOpen()
     }
   }
 
