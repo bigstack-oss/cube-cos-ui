@@ -1,11 +1,11 @@
 /**
- * In the local dev environment,
- * It's impossible to integrate our login flow since our Keycloak instance is in staging environment,
- * After a successful login, it will only redirect to the staging COS UI.
+ * In the local dev environment, it's impossible to integrate our login flow
+ * since our Keycloak instance is in staging environment. After a successful
+ * login, it will only redirect to the staging COS UI.
  *
  * Therefore, in the local dev environment,  we need to call the `getToken` API
- * using a username, password and data center to obtain an access token
- * for accessing protected APIs.
+ * using a username, password and data center to obtain an access token for
+ * accessing protected APIs.
  */
 import { InternalAxiosRequestConfig } from 'axios'
 import { tokenApi } from './cosTokenApi'
