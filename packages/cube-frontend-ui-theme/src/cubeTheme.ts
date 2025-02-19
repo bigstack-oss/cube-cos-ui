@@ -294,3 +294,11 @@ export type BackgroundColorClass = `bg-${FlattenedObjectKeys<
   // Excluded keys
   'DEFAULT'
 >}`
+
+export type FillColorClass = `fill-${FlattenedObjectKeys<
+  typeof cubeTheme.colors,
+  // Separator
+  '-',
+  // Excluded keys
+  'DEFAULT'
+>}`
