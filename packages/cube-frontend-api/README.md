@@ -10,6 +10,26 @@ Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) on you
 
 Use [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to ensure that the SDK is generated using the correct version of [cube-cos-openapi](https://github.com/bigstack-oss/cube-cos-openapi).
 
+### First-Time Setup
+
+1. **Set up your SSH Public Key**:  
+   Ensure you have configured your [SSH Public Key](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key) for authentication.
+
+2. **Initialize and update submodules**:  
+   Run the following command to clone and initialize all submodules:
+
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+### Updating Submodules
+
+For future updates (e.g., after switching to a different branch), run:
+
+```bash
+git submodule update --recursive
+```
+
 ## Validate COS OpenAPI
 
 You should validate the OpenAPI syntax before committing changes in `./cube-cos-openapi`:
