@@ -25,6 +25,7 @@ jq() {
 load_api_sdk_config() {
   OPEN_API_GENERATOR_IMAGE=$(jq -r '.openApiGeneratorImage' < "$API_SDK_CONFIG_PATH")
   OPEN_API_GENERATOR_VERSION=$(jq -r '.openApiGeneratorVersion' < "$API_SDK_CONFIG_PATH")
+  OPEN_API_GENERATOR_TEMPLATE_DIR=$(jq -r '.openApiGeneratorTemplateDirectory' < "$API_SDK_CONFIG_PATH")
   SWAGGER_PATH=$(jq -r '.swaggerPath' < "$API_SDK_CONFIG_PATH")
   SDK_DIR=$(jq -r '.sdkDir' < "$API_SDK_CONFIG_PATH")
 }
@@ -48,6 +49,7 @@ generate_api_sdk() {
     --skip-validate-spec \
     -i "$DOCKER_SWAGGER_PATH" \
     -g typescript-axios \
+    -t "$OPEN_API_GENERATOR_TEMPLATE_DIR" \
     --additional-properties=useSingleRequestParameter=true \
     -o "$DOCKER_SDK_DIR"
 }

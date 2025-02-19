@@ -1,6 +1,7 @@
 {
   "openApiGeneratorImage": "docker.io/openapitools/openapi-generator-cli",
   "openApiGeneratorVersion": "v7.11.0",
+  "openApiGeneratorTemplateDirectory": "templates/typescript-axios",
   "swaggerPath": "cube-cos-openapi/docs.yaml",
   "sdkDir": "sdk"
 }
