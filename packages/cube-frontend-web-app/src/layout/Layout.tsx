@@ -74,7 +74,7 @@ const Layout = (props: PropsWithChildren) => {
   }
 
   const dataCenter = useContext(DataCenterContext)
-  const username = useContext(UserContext)
+  const user = useContext(UserContext)
   const integrations = useContext(IntegrationsContext)
 
   const quickAccesses = integrations.map((integration) => {
@@ -91,7 +91,7 @@ const Layout = (props: PropsWithChildren) => {
       <div className="flex h-svh flex-row">
         <CosSideBar
           dataCenter={dataCenter}
-          username={username.name}
+          username={user.name}
           options={sideBarOptions}
         />
         <div className="max-w-[calc(100svw_-_200px)] flex-1">
