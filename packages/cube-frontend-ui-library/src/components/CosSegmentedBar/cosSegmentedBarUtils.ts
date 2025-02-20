@@ -2,7 +2,6 @@ import { FillColorClass } from '@cube-frontend/ui-theme'
 
 export type RectDimensions = {
   width: number
-  height: number
   left: number
 }
 
@@ -12,3 +11,5 @@ export type Segment = {
 }
 
 export type RoundedSide = 'none' | 'left' | 'right' | 'both'
+
+export const rectHeight = 9
