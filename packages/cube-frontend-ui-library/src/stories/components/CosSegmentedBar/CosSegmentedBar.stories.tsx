@@ -28,10 +28,16 @@ const SegmentedBarGallery = () => {
         </div>
       </StoryLayout.Section>
       <StoryLayout.Section title="Custom Width">
-        <CosSegmentedBar segments={vmSummarySegments} width={400} />
+        <div className="flex flex-col gap-y-6">
+          <CosSegmentedBar segments={vmSummarySegments} width={128} />
+          <div className="w-64">
+            <CosSegmentedBar segments={roleSummarySegments} />
+          </div>
+          <CosSegmentedBar segments={healthHistorySegments} width={384} />
+        </div>
       </StoryLayout.Section>
-      <StoryLayout.Section title="Custom Height">
-        <CosSegmentedBar segments={vmSummarySegments} height={20} />
+      <StoryLayout.Section title="Rounded">
+        <CosSegmentedBar segments={vmSummarySegments} rounded={true} />
       </StoryLayout.Section>
     </StoryLayout>
   )

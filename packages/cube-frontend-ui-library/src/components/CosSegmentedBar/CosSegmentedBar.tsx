@@ -1,5 +1,10 @@
 import { useMemo } from 'react'
-import { RectDimensions, RoundedSide, Segment } from './cosSegmentedBarUtils'
+import {
+  RectDimensions,
+  rectHeight,
+  RoundedSide,
+  Segment,
+} from './cosSegmentedBarUtils'
 import { SegmentedRect } from './SegmentedRect'
 import { useSegmentedBarWidth } from './useSegmentedBarWidth'
 
@@ -11,19 +16,17 @@ export type CosSegmentedBarProps = {
    */
   width?: number
   /**
-   * @default 8
+   * @default false
    */
-  height?: number
+  rounded?: boolean
   segments: Segment[]
 }
 
 export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
-  const { width, height = 8, segments } = props
+  const { width, rounded = false, segments } = props
 
   if (width !== undefined && width <= 0) {
     throw new Error('width must be greater than 0')
-  } else if (height <= 0) {
-    throw new Error('height must be greater than 0')
   }
 
   const { svgRef, barWidth } = useSegmentedBarWidth(width)
@@ -42,7 +45,6 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
 
       result.push({
         width,
-        height,
         left: accumulatedLeft,
       })
 
@@ -50,7 +52,7 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
     })
 
     return result
-  }, [segments, totalColCount, barWidth, height])
+  }, [segments, totalColCount, barWidth])
 
   const computeRoundedSide = (index: number): RoundedSide => {
     const isFirst = index === 0
@@ -69,14 +71,20 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
   }
 
   // Similar to `border-radius: 50%`.
-  const rectRadius = useMemo<number>(() => Math.ceil(height / 2), [height])
+  const rectRadius = useMemo<number>(() => {
+    if (rounded) {
+      return Math.ceil(rectHeight / 2)
+    } else {
+      return 0
+    }
+  }, [rounded])
 
   return (
     <svg
       ref={svgRef}
-      viewBox={`0 0 ${barWidth} ${height}`}
+      viewBox={`0 0 ${barWidth} ${rectHeight}`}
       width={barWidth}
-      height={height}
+      height={rectHeight}
     >
       {segments.map((segment, index) => (
         <SegmentedRect

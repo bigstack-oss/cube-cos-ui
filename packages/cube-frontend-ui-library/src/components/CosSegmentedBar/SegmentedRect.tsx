@@ -1,6 +1,6 @@
 import { FillColorClass } from '@cube-frontend/ui-theme'
 import { useId } from 'react'
-import { RectDimensions, RoundedSide } from './cosSegmentedBarUtils'
+import { RectDimensions, rectHeight, RoundedSide } from './cosSegmentedBarUtils'
 
 export type StatusRectProps = {
   color: FillColorClass
@@ -75,7 +75,7 @@ export const SegmentedRect = (props: StatusRectProps) => {
         id={cssCompatibleId}
         className={color}
         width={getWidth()}
-        height={dimensions.height}
+        height={rectHeight}
         x={getX()}
         rx={getRx()}
       />
