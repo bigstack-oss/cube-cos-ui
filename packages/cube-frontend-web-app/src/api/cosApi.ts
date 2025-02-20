@@ -14,7 +14,10 @@ import {
 import devAccessTokenInterceptor from './devAccessTokenInterceptor'
 import { config, validateStatus } from './utils'
 
-const cosApi = axios.create({ validateStatus })
+const cosApi = axios.create({
+  baseURL: '/',
+  validateStatus,
+})
 
 /**
  * Bind all methods of an API instance to the instance itself.
