@@ -129,7 +129,7 @@ export const useCosStreamRequest: UseCosStreamRequestHook = <
     abortControllerRef.current = null
   }, [])
 
-  const [param, setParam] = useState(getParam())
+  const [param, setParam] = useState(getParam)
 
   useEffect(() => {
     const newParam = getParam()
