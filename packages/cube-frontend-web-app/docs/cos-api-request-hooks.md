@@ -76,7 +76,7 @@ const {
 )
 ```
 
-## `UseCosStreamRequest`
+## `useCosStreamRequest`
 
 This hook is designed for real-time scenarios, such as Dashboards or Monitoring systems.
 
@@ -84,7 +84,7 @@ Some COS APIs (which have the `watch` option in the request query) support the s
 
 ![API with watch option](./images/api-with-watch-option.png)
 
-The `CosStreamRequest` hook automatically includes the query `?watch=true` in your request and handle response chunks correctly.
+The `useCosStreamRequest` hook automatically includes the query `?watch=true` in your request and handle response chunks correctly.
 
 ### Stream Requests With Parameters
 
