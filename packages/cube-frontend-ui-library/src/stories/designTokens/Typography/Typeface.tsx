@@ -1,5 +1,6 @@
 import { PropsWithClassName } from '@cube-frontend/utils'
 import classNames from 'classnames'
+import { CosHyperlink } from '../../../components/CosHyperlink/CosHyperlink'
 
 export type TypefaceProps = Required<PropsWithClassName> & {
   name: string
@@ -12,13 +13,9 @@ export const Typeface = (props: TypefaceProps) => {
   return (
     <div className="flex items-center">
       <h1 className={classNames('w-60', className)}>{name}</h1>
-      <a
-        className="primary-body1 hover:underline"
-        href={fontHref}
-        target="_blank"
-      >
+      <CosHyperlink variant="text-inline" href={fontHref} target="_blank">
         Download Link
-      </a>
+      </CosHyperlink>
     </div>
   )
 }

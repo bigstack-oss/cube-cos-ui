@@ -8,7 +8,7 @@ import {
 } from './mockSegments'
 
 const meta = {
-  title: 'Molecules/Segmented Bar',
+  title: 'Atoms/Segmented Bar',
 } satisfies Meta<typeof CosSegmentedBar>
 
 export default meta

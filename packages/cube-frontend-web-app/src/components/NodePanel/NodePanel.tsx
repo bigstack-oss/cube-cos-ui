@@ -8,6 +8,7 @@ import {
   CosProgressBar,
   CosStatus,
   CosTag,
+  CosToggle,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
 import { useContext, useState } from 'react'
@@ -27,11 +28,13 @@ export const NodePanel = () => {
   const dataCenter = useContext(DataCenterContext)
 
   const [pageSize, setPageSize] = useState(10)
+  const [isOn, setIsOn] = useState(true)
   const {
     data: nodesData,
     isLoading,
     errorState,
   } = useCosStreamRequest(nodesApi.getNodes, () => {
+    if (!isOn) return
     if (!dataCenter.name) return
 
     const req: NodesApiGetNodesRequest = {
@@ -45,6 +48,7 @@ export const NodePanel = () => {
 
   return (
     <CosPanel title="Nodes">
+      <CosToggle isOn={isOn} onChange={setIsOn} />
       {errorState && <div>{errorState.native.message}</div>}
       <NodeTable rows={nodesData?.nodes || []} isLoading={isLoading}>
         <NodeTable.Column
