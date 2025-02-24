@@ -3,6 +3,7 @@ import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CheckboxDropdown } from './CheckboxDropdown'
 import { DropdownBox } from './DropdownBox'
+
 import { RegularDropdown } from './RegularDropdown'
 
 const meta = {
