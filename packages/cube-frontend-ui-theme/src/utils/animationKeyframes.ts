@@ -10,7 +10,7 @@ const skeletonKeyframes = {
 
 const dotSpinner45Keyframes = {
   'cos-dot-spinner-45-vector-0': {
-    '0%, 100%': { opacity: '12' },
+    '0%, 100%': { opacity: '1' },
     '12.5%, 87.5%': { opacity: '0' },
   },
   'cos-dot-spinner-45-vector-1': {
