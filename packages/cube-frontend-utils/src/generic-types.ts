@@ -18,3 +18,5 @@ export type FlattenedObjectKeys<
 > = FlattenObjectKeysInternal<T, Separator, ExcludedKeys>
 
 export type ValueOfSet<T> = T extends Set<infer Value> ? Value : never
+
+export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
