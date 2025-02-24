@@ -24,7 +24,7 @@ export const Carousel = (props: CarouselProps) => {
   }
 
   const hasBufferSlides = assets.length > 1
-  const lastAsset = useMemo<Asset>(() => assets.slice(-1)[0], [assets])
+  const lastAsset = useMemo<Asset>(() => assets[assets.length - 1], [assets])
   const firstAsset = useMemo<Asset>(() => assets[0], [assets])
 
   const {
