@@ -15,8 +15,17 @@ export const useSegmentedBarWidth = (
 
   useEffect(() => {
     const syncParentWidth = () => {
-      const { width: parentWidth = 0 } =
-        svgRef.current?.parentElement?.getBoundingClientRect() ?? {}
+      let parentWidth = 0
+      const { parentElement } = svgRef.current ?? {}
+
+      if (parentElement) {
+        const { width, paddingLeft, paddingRight } =
+          getComputedStyle(parentElement)
+
+        parentWidth =
+          parseInt(width) - parseInt(paddingLeft) - parseInt(paddingRight)
+      }
+
       setParentWidth(parentWidth)
     }
 
