@@ -124,6 +124,7 @@ export const useCosStreamRequest: UseCosStreamRequestHook = <
   }, [])
 
   const unsubscribe = useCallback(() => {
+    setIsLoading(false)
     isFirstStreamResponseRef.current = true
     abortControllerRef.current?.abort()
     abortControllerRef.current = null
