@@ -50,6 +50,25 @@ const SegmentedBarGallery = () => {
       <StoryLayout.Section title="Hover Event">
         <HoverEventStory />
       </StoryLayout.Section>
+      <StoryLayout.Section title="Children Rendering">
+        <CosSegmentedBar
+          segments={healthHistorySegments}
+          childrenDimensions={{
+            height: 16,
+            marginTop: 4,
+          }}
+        >
+          {(barWidth) => (
+            <foreignObject width={barWidth} height={16}>
+              <div className="primary-body6 flex items-center justify-between text-functional-text-light">
+                <span>07:00 AM</span>
+                <span>12:34 PM</span>
+                <span>NOW</span>
+              </div>
+            </foreignObject>
+          )}
+        </CosSegmentedBar>
+      </StoryLayout.Section>
     </StoryLayout>
   )
 }
