@@ -1,4 +1,4 @@
-import { CosSkeleton } from '../../../internal/components/CosSkeleton/CosSkeleton'
+import { CosSkeleton } from '../../CosSkeleton/CosSkeleton'
 import { CosTableColumnSkeletonVariant } from './CosTableColumn'
 
 export type CosTableTdSkeletonProps = {

@@ -26,5 +26,9 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    test: {
+      include: ['**/*.test.ts'],
+      globals: true,
+    },
   }
 })

@@ -1,7 +1,7 @@
 import { CosButtonSize, CosButtonUsage } from './CosButton'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
-import { CosSkeleton } from '../../internal/components/CosSkeleton/CosSkeleton'
+import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 
 export type CosButtonSkeletonProps = {
   /**

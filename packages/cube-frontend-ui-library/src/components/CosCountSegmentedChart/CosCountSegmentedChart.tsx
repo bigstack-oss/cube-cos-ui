@@ -24,7 +24,15 @@ export const CosCountSegmentedChart = (props: CosCountSegmentedChartProps) => {
 
   return (
     <div className="flex flex-col gap-y-3">
-      <CosSegmentedBar rounded segments={segments} />
+      <CosSegmentedBar
+        rounded
+        /**
+         * TODO: This is a workaround. If the first or last segment has a count of 0,
+         * the SegmentedBar component will not be rounded.
+         * Therefore, we first filter out the segments with a count of 0.
+         * */
+        segments={segments.filter((s) => s.colCount > 0)}
+      />
       <div className="flex flex-row items-center justify-between gap-x-2">
         {overview && <CountInfo {...overview}></CountInfo>}
         {countInfos.map((segment) => (

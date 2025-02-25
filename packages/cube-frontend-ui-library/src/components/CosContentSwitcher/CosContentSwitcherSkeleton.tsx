@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { cva } from 'class-variance-authority'
 import { ContentSwitcherSize, CosContentSwitcherContext } from './utils'
 import { ClassValue } from 'class-variance-authority/types'
-import { CosSkeleton } from '../../internal/components/CosSkeleton/CosSkeleton'
+import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 
 const contentSwitcherSkeletonContainer = cva(
   [

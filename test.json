@@ -1,0 +1,79 @@
+{
+  "data": {
+    "nodes": [
+      {
+        "id": "7a18177c",
+        "dataCenter": "dell13",
+        "hostname": "dell13",
+        "role": "control-converged",
+        "protocol": "http",
+        "address": "10.32.10.113:8001",
+        "ip": "10.32.10.113",
+        "managementIP": "10.32.10.113",
+        "license": {
+          "type": "trial",
+          "hostname": "dell13",
+          "serial": "1N7L603",
+          "product": {
+            "name": "",
+            "features": null
+          },
+          "issue": {
+            "by": "Bigstack co., ltd.",
+            "to": "*",
+            "hardware": "*",
+            "date": "2025-02-04 09:54:45 UTC"
+          },
+          "quantity": {
+            "type": "",
+            "vcpu": 0
+          },
+          "serviceLevelAgreement": {
+            "uptime": 0,
+            "period": "",
+            "meanTimeBetweenFailure": "",
+            "meanTimeToRecovery": ""
+          },
+          "expiry": {
+            "date": "2025-04-05 09:54:45 UTC",
+            "days": 33
+          }
+        },
+        "status": "up",
+        "vcpu": {
+          "totalCores": 80,
+          "usedCores": 36,
+          "usedPercent": 45,
+          "freeCores": 44,
+          "freePercent": 55
+        },
+        "memory": {
+          "totalMiB": 257363,
+          "usedMiB": 108495,
+          "usedPercent": 42.1564,
+          "freeMiB": 148868,
+          "freePercent": 57.8435
+        },
+        "storage": {
+          "totalMiB": 4567040,
+          "usedMiB": 839680,
+          "usedPercent": 18.3856,
+          "freeMiB": 3727360,
+          "freePercent": 81.6143
+        },
+        "uptimeSeconds": 3371619.01,
+        "labels": {
+          "isGpuEnabled": "true"
+        }
+      }
+    ],
+    "page": {
+      "total": 1,
+      "number": 1,
+      "size": 5
+    }
+  },
+  "code": 200,
+  "status": "ok",
+  "msg": "fetch nodes successfully"
+}

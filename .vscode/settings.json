@@ -33,6 +33,7 @@
     "svgr",
     "Svgs",
     "tseslint",
+    "vcpu",
     "vite"
   ]
 }

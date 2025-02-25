@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge'
-import { CosSkeleton } from '../../internal/components/CosSkeleton/CosSkeleton'
+import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 import { CosDropdownVariant } from './utils'
 import { skeleton } from './styles'
 
