@@ -62,13 +62,21 @@ export const readStream = async <
 ) => {
   const reader = stream.getReader()
   const decoder = new TextDecoder()
+  let buffer = ''
 
   while (true) {
     const { done, value } = await reader.read()
     if (done) break
 
     const chunk = decoder.decode(value, { stream: true })
-    const chunkResponse = JSON.parse(chunk) as ChunkResponse
+    buffer += chunk
+
+    if (!chunk.endsWith('\n')) {
+      continue
+    }
+
+    const chunkResponse = JSON.parse(buffer) as ChunkResponse
+    buffer = ''
 
     if (!validateStatus(chunkResponse.code)) {
       // TODO: Handle CosAPI Error Status
