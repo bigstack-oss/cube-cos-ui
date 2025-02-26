@@ -1,6 +1,6 @@
 import {
-  Children,
   cloneElement,
+  Fragment,
   MouseEvent,
   ReactElement,
   Ref,
@@ -81,7 +81,9 @@ export const CosTooltip = (props: CosTooltipProps) => {
     anchorElement.props.onClick?.(e)
   }
 
-  Children.only(anchorElement)
+  if (anchorElement.type === Fragment) {
+    throw new Error('Fragment children is not supported in CosTooltip')
+  }
 
   const clonedAnchor = cloneElement(anchorElement, {
     ref: (element: HTMLElement) => {

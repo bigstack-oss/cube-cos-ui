@@ -2,7 +2,7 @@ import { FillColorClass } from '@cube-frontend/ui-theme'
 import { MouseEvent, Ref, useId } from 'react'
 import { RectDimensions, rectHeight, RoundedSide } from './cosSegmentedBarUtils'
 
-export type StatusRectProps = {
+export type SegmentedRectProps = {
   // The `ref` prop is required for `CosTooltip` to function correctly.
   ref?: Ref<SVGRectElement>
   color: FillColorClass
@@ -13,7 +13,7 @@ export type StatusRectProps = {
   onMouseLeave?: (e: MouseEvent<SVGRectElement>) => void
 }
 
-export const SegmentedRect = (props: StatusRectProps) => {
+export const SegmentedRect = (props: SegmentedRectProps) => {
   const {
     ref,
     color,
