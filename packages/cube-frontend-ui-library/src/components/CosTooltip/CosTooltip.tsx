@@ -1,75 +1,104 @@
-import { PropsWithClassName } from '@cube-frontend/utils'
-import { ReactNode, useRef, useState } from 'react'
+import {
+  Children,
+  cloneElement,
+  MouseEvent,
+  ReactElement,
+  Ref,
+  useRef,
+  useState,
+} from 'react'
 import { createPortal } from 'react-dom'
-import { twMerge } from 'tailwind-merge'
 import { Placement } from '../../internal/utils/floating/types'
 import { InfoBox } from './InfoBox'
 import {
   CosTooltipInformation,
+  InteractiveElementProps,
   VisibilityState,
-  WithClickContent,
-  WithHoverContent,
 } from './types'
 
-export type CosTooltipProps = PropsWithClassName & {
+export type CosTooltipProps = {
   /**
    * @default 'top-center'
    */
   placement?: Placement
+  hoverContent?: CosTooltipInformation
+  clickContent?: CosTooltipInformation
   /**
    * The toggle (anchor) element.
    */
-  children: ReactNode
-} & (
-    | WithHoverContent
-    | WithClickContent
-    | (WithHoverContent & WithClickContent)
-  )
+  children: ReactElement<InteractiveElementProps>
+}
+
+const assignRefValue = <T,>(ref: Ref<T> | undefined, element: T): void => {
+  if (!ref) {
+    return
+  }
+
+  if (typeof ref === 'function') {
+    ref(element)
+  } else {
+    ref.current = element
+  }
+}
 
 export const CosTooltip = (props: CosTooltipProps) => {
-  const { className, placement = 'top-center', children: anchorElement } = props
-
-  const hasHoverContent = 'hoverContent' in props
-  const hasClickContent = 'clickContent' in props
+  const {
+    placement = 'top-center',
+    hoverContent,
+    clickContent,
+    children: anchorElement,
+  } = props
 
   const [visibilityState, setVisibilityState] =
     useState<VisibilityState>(undefined)
 
-  const anchorRef = useRef<HTMLDivElement | null>(null)
+  const anchorRef = useRef<HTMLElement | null>(null)
 
   const infoMap: Record<
     NonNullable<VisibilityState>,
     CosTooltipInformation | undefined
   > = {
-    hover: hasHoverContent ? props.hoverContent : undefined,
-    click: hasClickContent ? props.clickContent : undefined,
+    hover: hoverContent,
+    click: clickContent,
   }
 
-  const onMouseEnter = () => {
-    if (hasHoverContent) {
+  const onMouseEnter = (e: MouseEvent<HTMLElement>) => {
+    if (hoverContent) {
       setVisibilityState('hover')
     }
+    anchorElement.props.onMouseEnter?.(e)
   }
 
-  const onMouseLeave = () => {
+  const onMouseLeave = (e: MouseEvent<HTMLElement>) => {
     setVisibilityState(undefined)
+    anchorElement.props.onMouseLeave?.(e)
   }
 
-  const onClick = () => {
-    if (hasClickContent) {
+  const onClick = (e: MouseEvent<HTMLElement>) => {
+    if (clickContent) {
       setVisibilityState('click')
     }
+    anchorElement.props.onClick?.(e)
   }
 
+  Children.only(anchorElement)
+
+  const clonedAnchor = cloneElement(anchorElement, {
+    ref: (element: HTMLElement) => {
+      const { ref: anchorRefProp } = anchorElement.props
+      // Assign the element to the existing `ref` prop on `anchorElement`.
+      assignRefValue(anchorRefProp, element)
+      // Assign the element to the internal `ref` used in `CosTooltip`.
+      anchorRef.current = element
+    },
+    onMouseEnter,
+    onMouseLeave,
+    onClick,
+  })
+
   return (
-    <div
-      ref={anchorRef}
-      className={twMerge('inline-flex', className)}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onClick={onClick}
-    >
-      {anchorElement}
+    <>
+      {clonedAnchor}
       {visibilityState !== undefined &&
         createPortal(
           <InfoBox
@@ -82,6 +111,6 @@ export const CosTooltip = (props: CosTooltipProps) => {
           />,
           document.body,
         )}
-    </div>
+    </>
   )
 }
