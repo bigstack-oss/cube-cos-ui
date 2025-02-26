@@ -1,4 +1,5 @@
-import { RefObject, useMemo, useRef } from 'react'
+import { RefObject, useContext, useMemo, useRef } from 'react'
+import { UseFloatingExternalContext } from './externalContext'
 import { FloatingRect, ResolvedFloatingStyles } from './rect/FloatingRect'
 import { useElementDomRect } from './rect/useElementDomRect'
 import { Offsets, Placement } from './types'
@@ -37,10 +38,13 @@ export const useFloating = <
   const anchorRef = useRef<Anchor>(null)
   const elementRef = useRef<Element>(null)
 
+  const { scrollableRootSelector } = useContext(UseFloatingExternalContext)
+
   const anchorRect = useElementDomRect(
-    anchorRefOption?.current ?? anchorRef.current,
+    anchorRefOption ?? anchorRef,
+    scrollableRootSelector,
   )
-  const elementRect = useElementDomRect(elementRef.current)
+  const elementRect = useElementDomRect(elementRef, scrollableRootSelector)
 
   const autoPlacement = 'autoPlacement' in options
   const translate = 'translate' in options
