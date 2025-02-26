@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { MouseEvent, useMemo } from 'react'
+import { CosTooltip } from '../CosTooltip/CosTooltip'
 import {
   RectDimensions,
   rectHeight,
@@ -20,10 +21,18 @@ export type CosSegmentedBarProps = {
    */
   rounded?: boolean
   segments: Segment[]
+  onMouseEnterSegment?: (index: number, e: MouseEvent<SVGRectElement>) => void
+  onMouseLeaveSegment?: (index: number, e: MouseEvent<SVGRectElement>) => void
 }
 
 export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
-  const { width, rounded = false, segments } = props
+  const {
+    width,
+    rounded = false,
+    segments,
+    onMouseEnterSegment,
+    onMouseLeaveSegment,
+  } = props
 
   if (width !== undefined && width <= 0) {
     throw new Error('width must be greater than 0')
@@ -87,13 +96,16 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
       height={rectHeight}
     >
       {segments.map((segment, index) => (
-        <SegmentedRect
-          key={index}
-          color={segment.color}
-          radius={rectRadius}
-          dimensions={rectDimensions[index]}
-          roundedSide={computeRoundedSide(index)}
-        />
+        <CosTooltip key={index} hoverContent={segment.hoverContent}>
+          <SegmentedRect
+            color={segment.color}
+            radius={rectRadius}
+            dimensions={rectDimensions[index]}
+            roundedSide={computeRoundedSide(index)}
+            onMouseEnter={(e) => onMouseEnterSegment?.(index, e)}
+            onMouseLeave={(e) => onMouseLeaveSegment?.(index, e)}
+          />
+        </CosTooltip>
       ))}
     </svg>
   )
