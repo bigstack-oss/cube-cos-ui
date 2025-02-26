@@ -1,8 +1,10 @@
 import { CosSegmentedBar } from '@cube-frontend/ui-library'
 import type { Meta, StoryObj } from '@storybook/react'
+import { MouseEvent, useState } from 'react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import {
   healthHistorySegments,
+  healthHistorySegmentsWithHoverContent,
   roleSummarySegments,
   vmSummarySegments,
 } from './mockSegments'
@@ -39,6 +41,60 @@ const SegmentedBarGallery = () => {
       <StoryLayout.Section title="Rounded">
         <CosSegmentedBar segments={vmSummarySegments} rounded={true} />
       </StoryLayout.Section>
+      <StoryLayout.Section title="Hover Tooltip">
+        <CosSegmentedBar
+          segments={healthHistorySegmentsWithHoverContent}
+          rounded={true}
+        />
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Hover Event">
+        <HoverEventStory />
+      </StoryLayout.Section>
     </StoryLayout>
+  )
+}
+
+const HoverEventStory = () => {
+  const [hoveredSegmentIndex, setHoveredSegmentIndex] = useState<
+    number | undefined
+  >(undefined)
+
+  const onMouseEnterSegment = (
+    index: number,
+    e: MouseEvent<SVGRectElement>,
+  ) => {
+    // eslint-disable-next-line no-console
+    console.log('Enter: ', {
+      index,
+      e,
+    })
+    setHoveredSegmentIndex(index)
+  }
+
+  const onMouseLeaveSegment = (
+    index: number,
+    e: MouseEvent<SVGRectElement>,
+  ) => {
+    // eslint-disable-next-line no-console
+    console.log('Leave: ', {
+      index,
+      e,
+    })
+    setHoveredSegmentIndex(undefined)
+  }
+
+  return (
+    <div className="flex flex-col gap-y-2">
+      <div className="primary-body3">
+        Hovered segment: {hoveredSegmentIndex}
+      </div>
+      <div className="primary-body3">See console for logs.</div>
+      <CosSegmentedBar
+        segments={healthHistorySegmentsWithHoverContent}
+        rounded={true}
+        onMouseEnterSegment={onMouseEnterSegment}
+        onMouseLeaveSegment={onMouseLeaveSegment}
+      />
+    </div>
   )
 }

@@ -14,7 +14,7 @@ import { useCaretStyle } from './useCaretStyle'
 export type InfoBoxProps = {
   information: CosTooltipInformation
   placement: Placement
-  anchorRef: RefObject<HTMLDivElement | null>
+  anchorRef: RefObject<HTMLElement | null>
 }
 
 const container = cva('absolute flex min-w-[50px] max-w-[480px]', {
@@ -75,8 +75,8 @@ export const InfoBox = (props: InfoBoxProps) => {
         onClick={onClick}
       >
         <div className="flex items-center justify-between gap-x-6 text-primary-200">
-          <div className="primary-body2 font-semibold">{title}</div>
-          <div className="primary-body4">{subtext}</div>
+          <div className="primary-body2 shrink-0 font-semibold">{title}</div>
+          <div className="primary-body4 shrink-0">{subtext}</div>
         </div>
         <p className="primary-body3 text-grey-0">{message}</p>
       </div>

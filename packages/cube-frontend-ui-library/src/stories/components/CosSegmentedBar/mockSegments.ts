@@ -60,3 +60,50 @@ export const healthHistorySegments: Segment[] = [
     colCount: 1,
   },
 ]
+
+export const healthHistorySegmentsWithHoverContent: Segment[] = [
+  {
+    color: 'fill-cosmos-secondary',
+    colCount: 21,
+    hoverContent: {
+      title: 'OK',
+      message: 'Feb 26, 07:00 - Feb 26, 11:00',
+    },
+  },
+  {
+    color: 'fill-status-negative',
+    colCount: 1,
+    hoverContent: {
+      title: 'NG',
+      subtext: '#00937442',
+      message: 'Feb 26, 11:00 - Feb 26, 11:15',
+    },
+  },
+  {
+    color: 'fill-cosmos-secondary',
+    colCount: 3,
+    hoverContent: {
+      title: 'Title A',
+      subtext: 'Subtext A',
+      message: 'Your message A',
+    },
+  },
+  {
+    color: 'fill-status-negative',
+    colCount: 4,
+    hoverContent: {
+      title: 'Title B',
+      subtext: 'Subtext B',
+      message: 'Your message B',
+    },
+  },
+  {
+    color: 'fill-cosmos-secondary',
+    colCount: 1,
+    hoverContent: {
+      title: 'Title C',
+      subtext: 'Subtext C',
+      message: 'Your message C',
+    },
+  },
+]
