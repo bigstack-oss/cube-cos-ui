@@ -19,7 +19,7 @@ export type CosRequestError = {
 }
 
 export type CosApiError = Pick<
-  CosApiResponse<unknown>['data'],
+  CosApiInnerResponse<unknown>,
   'code' | 'msg' | 'status'
 >
 
@@ -31,7 +31,12 @@ export const isCosApiResponse = (
   value: unknown,
 ): value is CosApiResponse<unknown> => {
   return (
-    isObject(value) && 'code' in value && 'msg' in value && 'status' in value
+    isObject(value) &&
+    'data' in value &&
+    isObject(value.data) &&
+    'code' in value.data &&
+    'msg' in value.data &&
+    'status' in value.data
   )
 }
 
