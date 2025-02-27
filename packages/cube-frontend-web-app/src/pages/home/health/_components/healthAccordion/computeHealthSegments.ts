@@ -56,7 +56,12 @@ export const computeHealthSegments = (
   }
 
   fillLeadingSegment(segments, startTimePoint, endTimePoint)
-  fillTrailingSegment(segments, startTimePoint, endTimePoint)
+  fillTrailingSegment(
+    segments,
+    history[history.length - 1],
+    startTimePoint,
+    endTimePoint,
+  )
 
   const mergedSegments = mergeSegments(segments)
   mergedSegments.forEach((segment) => {
@@ -153,15 +158,19 @@ const fillLeadingSegment = (
 }
 
 /**
- * Fill the gap after the last segment with a blank segment if necessary.
+ * Fill the gap after the last segment with the status of the last history entry if necessary.
  */
 const fillTrailingSegment = (
   segments: SegmentWithHealthInfo[],
+  lastHistoryEntry: HistoryEntry | undefined,
   startTimePoint: TimePoint,
   endTimePoint: TimePoint,
 ): void => {
   if (!segments.length) {
     throw new Error('segments count must be greater than 0')
+  } else if (!lastHistoryEntry) {
+    // The history is empty.
+    return
   }
 
   const lastSegment = segments[segments.length - 1]
@@ -179,7 +188,7 @@ const fillTrailingSegment = (
   segments.push(
     createSegment({
       colCount: gapMilliseconds / totalMilliseconds,
-      status: lastSegment.status,
+      status: lastHistoryEntry.status as HealthStatus,
       startDateTime: lastSegment.endDateTime,
       endDateTime: endTimePoint.dateTime,
     }),
