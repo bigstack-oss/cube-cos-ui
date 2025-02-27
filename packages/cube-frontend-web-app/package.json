@@ -18,6 +18,7 @@
     "@fontsource/urbanist": "catalog:",
     "@types/lodash": "^4.17.15",
     "axios": "^1.7.9",
+    "class-variance-authority": "catalog:",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "react": "catalog:",

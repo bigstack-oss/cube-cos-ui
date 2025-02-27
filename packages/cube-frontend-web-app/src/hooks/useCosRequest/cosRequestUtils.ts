@@ -19,7 +19,7 @@ export type CosRequestError = {
 }
 
 export type CosApiError = Pick<
-  CosApiResponse<unknown>['data'],
+  CosApiInnerResponse<unknown>,
   'code' | 'msg' | 'status'
 >
 
@@ -31,7 +31,12 @@ export const isCosApiResponse = (
   value: unknown,
 ): value is CosApiResponse<unknown> => {
   return (
-    isObject(value) && 'code' in value && 'msg' in value && 'status' in value
+    isObject(value) &&
+    'data' in value &&
+    isObject(value.data) &&
+    'code' in value.data &&
+    'msg' in value.data &&
+    'status' in value.data
   )
 }
 
@@ -62,18 +67,35 @@ export const readStream = async <
 ) => {
   const reader = stream.getReader()
   const decoder = new TextDecoder()
+  let buffer = ''
 
   while (true) {
     const { done, value } = await reader.read()
     if (done) break
 
     const chunk = decoder.decode(value, { stream: true })
-    const chunkResponse = JSON.parse(chunk) as ChunkResponse
+    buffer += chunk
+
+    if (!isValidJsonString(buffer)) {
+      continue
+    }
+
+    const chunkResponse = JSON.parse(buffer) as ChunkResponse
+    buffer = ''
 
     if (!validateStatus(chunkResponse.code)) {
       // TODO: Handle CosAPI Error Status
       throw new Error(chunkResponse.msg)
     }
     onChunk(chunkResponse)
+  }
+}
+
+const isValidJsonString = (value: string): boolean => {
+  try {
+    JSON.parse(value)
+    return true
+  } catch {
+    return false
   }
 }

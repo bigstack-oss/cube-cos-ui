@@ -1,6 +1,10 @@
-import { MouseEvent, useMemo } from 'react'
+import { PropsWithClassName } from '@cube-frontend/utils'
+import { MouseEvent, ReactNode, useMemo } from 'react'
 import { CosTooltip } from '../CosTooltip/CosTooltip'
 import {
+  ChildrenDimensions,
+  computeChildrenTransform,
+  computeSvgHeight,
   RectDimensions,
   rectHeight,
   RoundedSide,
@@ -9,7 +13,7 @@ import {
 import { SegmentedRect } from './SegmentedRect'
 import { useSegmentedBarWidth } from './useSegmentedBarWidth'
 
-export type CosSegmentedBarProps = {
+export type CosSegmentedBarProps = PropsWithClassName & {
   /**
    * By default, the  matches its parent's width.
    * Use this prop to set a fixed width if the parent's width is unknown
@@ -23,15 +27,29 @@ export type CosSegmentedBarProps = {
   segments: Segment[]
   onMouseEnterSegment?: (index: number, e: MouseEvent<SVGRectElement>) => void
   onMouseLeaveSegment?: (index: number, e: MouseEvent<SVGRectElement>) => void
-}
+} & WithChildrenProps
+
+type WithChildrenProps =
+  | {
+      childrenDimensions?: never
+      children?: never
+    }
+  | {
+      // TODO: find a more elegant way to measure children dimensions.
+      childrenDimensions: ChildrenDimensions
+      children: (barWidth: number) => ReactNode
+    }
 
 export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
   const {
+    className,
     width,
     rounded = false,
     segments,
     onMouseEnterSegment,
     onMouseLeaveSegment,
+    childrenDimensions,
+    children,
   } = props
 
   if (width !== undefined && width <= 0) {
@@ -88,12 +106,17 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
     }
   }, [rounded])
 
+  const svgHeight = computeSvgHeight(rectHeight, childrenDimensions)
+
+  const childrenContent = children?.(barWidth)
+
   return (
     <svg
       ref={svgRef}
-      viewBox={`0 0 ${barWidth} ${rectHeight}`}
+      className={className}
+      viewBox={`0 0 ${barWidth} ${svgHeight}`}
       width={barWidth}
-      height={rectHeight}
+      height={svgHeight}
     >
       {segments.map((segment, index) => (
         <CosTooltip key={index} hoverContent={segment.hoverContent}>
@@ -107,6 +130,17 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
           />
         </CosTooltip>
       ))}
+      {!!childrenContent && (
+        <g
+          width="100%"
+          transform={computeChildrenTransform(
+            rectHeight,
+            childrenDimensions?.marginTop,
+          )}
+        >
+          {childrenContent}
+        </g>
+      )}
     </svg>
   )
 }
