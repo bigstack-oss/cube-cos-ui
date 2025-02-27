@@ -76,7 +76,7 @@ export const readStream = async <
     const chunk = decoder.decode(value, { stream: true })
     buffer += chunk
 
-    if (!chunk.endsWith('\n')) {
+    if (!isValidJsonString(buffer)) {
       continue
     }
 
@@ -88,5 +88,14 @@ export const readStream = async <
       throw new Error(chunkResponse.msg)
     }
     onChunk(chunkResponse)
+  }
+}
+
+const isValidJsonString = (value: string): boolean => {
+  try {
+    JSON.parse(value)
+    return true
+  } catch {
+    return false
   }
 }
