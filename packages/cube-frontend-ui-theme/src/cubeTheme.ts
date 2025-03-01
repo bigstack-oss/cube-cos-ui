@@ -302,3 +302,11 @@ export type FillColorClass = `fill-${FlattenedObjectKeys<
   // Excluded keys
   'DEFAULT'
 >}`
+
+export type StrokeColorClass = `stroke-${FlattenedObjectKeys<
+  typeof cubeTheme.colors,
+  // Separator
+  '-',
+  // Excluded keys
+  'DEFAULT'
+>}`

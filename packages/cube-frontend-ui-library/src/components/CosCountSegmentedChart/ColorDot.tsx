@@ -2,11 +2,12 @@ import { FillColorClass } from '@cube-frontend/ui-theme'
 
 const SIZE = 6
 
-const radius = SIZE / 2
+const radius = Math.ceil(SIZE / 2)
 
 type ColorDotProps = {
   color: FillColorClass
 }
+
 export const ColorDot = (props: ColorDotProps) => {
   const { color } = props
 

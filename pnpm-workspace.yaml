@@ -3,6 +3,8 @@ packages:
 
 catalog:
   class-variance-authority: ^0.7.1
+  lodash: ^4.17.21
+  "@types/lodash": ^4.17.15
   react: ^19.0.0
   react-dom: ^19.0.0
   "@types/react": ^19.0.0
