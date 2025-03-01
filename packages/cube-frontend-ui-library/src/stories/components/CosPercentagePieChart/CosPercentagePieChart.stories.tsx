@@ -1,7 +1,7 @@
 import { CosCountSegmentedChart } from '../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
 import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
-import { CosPercentagePieChart } from '../../../components/CosPercentagePieChart.tsx/CosPercentagePieChart'
+import { CosPercentagePieChart } from '../../../components/CosPercentagePieChart/CosPercentagePieChart'
 import { twJoin } from 'tailwind-merge'
 
 const meta = {
