@@ -6,6 +6,9 @@ export type CosPercentageChartProps = {
   unit: string
   total: number
   used: number
+  /**
+   * @default 'stroke-cosmos-secondary'
+   */
   color?: StrokeColorClass
 }
 
@@ -15,7 +18,7 @@ export const CosPercentagePieChart = (props: CosPercentageChartProps) => {
   const percentage = Math.floor((used / total) * 100)
 
   return (
-    <div className="flex flex-col items-center gap-y-7">
+    <div className="flex flex-col items-center gap-y-4">
       <span className="primary-body2 w-full text-left font-medium text-functional-title">
         {title}
       </span>

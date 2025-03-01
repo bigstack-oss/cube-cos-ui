@@ -9,14 +9,14 @@ type PercentagePieProps = {
 const WIDTH = 144
 const STROKE_WIDTH = 8
 
+const halfWidth = WIDTH / 2
+const radius = (WIDTH - STROKE_WIDTH) / 2
+const circumference = 2 * Math.PI * radius
+
 export const PercentagePie = (props: PercentagePieProps) => {
   const { percentage, color } = props
 
   const svgPercentage = clamp(percentage, 0, 100)
-
-  const halfWidth = WIDTH / 2
-  const radius = (WIDTH - STROKE_WIDTH) / 2
-  const circumference = 2 * Math.PI * radius
   const offset = circumference - (svgPercentage / 100) * circumference
 
   return (
