@@ -25,7 +25,7 @@ export const CosCountSegmentedChart = (props: CosCountSegmentedChartProps) => {
   return (
     <div className="flex flex-col gap-y-3">
       <CosSegmentedBar rounded segments={segments} />
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row items-center justify-between gap-x-2">
         {overview && <CountInfo {...overview}></CountInfo>}
         {countInfos.map((segment) => (
           <CountInfo key={segment.name} {...segment} />
