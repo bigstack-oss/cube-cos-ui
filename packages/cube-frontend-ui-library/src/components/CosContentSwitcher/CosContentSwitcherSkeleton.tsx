@@ -7,8 +7,8 @@ import { CosSkeleton } from '../../internal/components/CosSkeleton/CosSkeleton'
 
 const contentSwitcherSkeletonContainer = cva(
   [
-    'secondary-body2 flex items-center justify-center',
-    'border-y border-functional-skeleton font-medium text-functional-text-light transition',
+    'flex items-center justify-center',
+    'border-y border-functional-skeleton',
     'first-of-type:rounded-l-[5px] first-of-type:border-l',
     'last-of-type:rounded-r-[5px] last-of-type:border-r',
   ],

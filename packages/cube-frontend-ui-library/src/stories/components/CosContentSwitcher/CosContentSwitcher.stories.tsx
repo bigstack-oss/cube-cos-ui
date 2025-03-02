@@ -33,31 +33,31 @@ const ContentSwitcherGallery = () => {
                   setActiveIndex(0)
                 }}
               >
-                Item
+                Item 1
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 isActive={activeIndex === 1}
                 onClick={() => setActiveIndex(1)}
               >
-                Item
+                Item 2
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 isActive={activeIndex === 2}
                 onClick={() => setActiveIndex(2)}
               >
-                Item
+                Item 3
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 isActive={activeIndex === 3}
                 onClick={() => setActiveIndex(3)}
               >
-                Item
+                Item 4
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 isActive={activeIndex === 4}
                 onClick={() => setActiveIndex(4)}
               >
-                Item
+                Item 5
               </CosContentSwitcher.Item>
             </CosContentSwitcher>
           </ContentSwitcherRow>
@@ -72,35 +72,35 @@ const ContentSwitcherGallery = () => {
                   setActiveIndex(0)
                 }}
               >
-                Item
+                Item 1
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 1}
                 onClick={() => setActiveIndex(1)}
               >
-                Item
+                Item 2
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 2}
                 onClick={() => setActiveIndex(2)}
               >
-                Item
+                Item 3
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 3}
                 onClick={() => setActiveIndex(3)}
               >
-                Item
+                Item 4
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 disabled
                 isActive={activeIndex === 4}
                 onClick={() => setActiveIndex(4)}
               >
-                Item
+                Item 5
               </CosContentSwitcher.Item>
             </CosContentSwitcher>
           </ContentSwitcherRow>
@@ -128,31 +128,31 @@ const ContentSwitcherGallery = () => {
                   setActiveIndex(0)
                 }}
               >
-                Item
+                Item 1
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 isActive={activeIndex === 1}
                 onClick={() => setActiveIndex(1)}
               >
-                Item
+                Item 2
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 isActive={activeIndex === 2}
                 onClick={() => setActiveIndex(2)}
               >
-                Item
+                Item 3
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 isActive={activeIndex === 3}
                 onClick={() => setActiveIndex(3)}
               >
-                Item
+                Item 4
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 isActive={activeIndex === 4}
                 onClick={() => setActiveIndex(4)}
               >
-                Item
+                Item 5
               </CosContentSwitcher.Item>
             </CosContentSwitcher>
           </ContentSwitcherRow>
@@ -167,35 +167,35 @@ const ContentSwitcherGallery = () => {
                   setActiveIndex(0)
                 }}
               >
-                Item
+                Item 1
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 1}
                 onClick={() => setActiveIndex(1)}
               >
-                Item
+                Item 2
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 2}
                 onClick={() => setActiveIndex(2)}
               >
-                Item
+                Item 3
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 3}
                 onClick={() => setActiveIndex(3)}
               >
-                Item
+                Item 4
               </CosContentSwitcher.Item>
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 4}
                 onClick={() => setActiveIndex(4)}
               >
-                Item
+                Item 5
               </CosContentSwitcher.Item>
             </CosContentSwitcher>
           </ContentSwitcherRow>

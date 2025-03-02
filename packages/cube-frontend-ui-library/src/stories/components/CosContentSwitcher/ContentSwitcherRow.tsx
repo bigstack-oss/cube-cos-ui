@@ -9,7 +9,7 @@ export const ContentSwitcherRow = (props: ContentSwitcherRowProps) => {
   return (
     <div className="flex items-center gap-x-8">
       <span className="primary-body2 w-[100px] font-semibold">{title}</span>
-      <div>{children}</div>
+      {children}
     </div>
   )
 }

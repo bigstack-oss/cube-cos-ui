@@ -5,6 +5,9 @@ import { CosContentSwitcherSkeleton } from './CosContentSwitcherSkeleton'
 import { ContentSwitcherSize, CosContentSwitcherContext } from './utils'
 
 export type CosContentSwitcherProps = PropsWithClassName & {
+  /**
+   * @default 'md'
+   */
   size?: ContentSwitcherSize
   children: React.ReactNode
 }
@@ -12,10 +15,7 @@ export type CosContentSwitcherProps = PropsWithClassName & {
 export const CosContentSwitcher = (props: CosContentSwitcherProps) => {
   const { className: classNameProp, children, size = 'md' } = props
 
-  const className = twMerge(
-    'flex w-fit items-stretch justify-center',
-    classNameProp,
-  )
+  const className = twMerge('flex w-fit', classNameProp)
 
   return (
     <CosContentSwitcherContext.Provider value={size}>

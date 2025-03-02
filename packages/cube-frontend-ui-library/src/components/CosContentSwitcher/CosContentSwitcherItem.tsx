@@ -14,19 +14,19 @@ export type ContentSwitcherItemProps = {
 const contentSwitcherItem = cva(
   [
     'flex items-center justify-center',
-    'border-y border-primary-200 font-medium text-functional-text-light transition',
+    'border-y border-primary-200 bg-grey-0 font-medium text-functional-text-light transition-colors',
     'first-of-type:rounded-l-[5px] first-of-type:border-l',
     'last-of-type:rounded-r-[5px] last-of-type:border-r',
   ],
   {
     variants: {
       size: {
-        sm: 'secondary-body5 min-w-[60px] max-w-[100px] px-[20px] py-[6px]',
-        md: 'secondary-body2 min-w-[100px] max-w-[200px] px-[36px] py-[7px]',
+        sm: 'secondary-body5 h-6 min-w-[64px] max-w-[80px] px-[19px] py-[6px]',
+        md: 'secondary-body2 h-8 min-w-[100px] max-w-[156px] px-[36px] py-[7px]',
       } satisfies Record<ContentSwitcherSize, ClassValue>,
       isActive: {
-        true: 'bg-primary-200 text-functional-text',
-        false: 'bg-grey-0',
+        true: '',
+        false: '',
       },
       disabled: {
         true: '',
@@ -35,12 +35,16 @@ const contentSwitcherItem = cva(
     },
     compoundVariants: [
       {
+        isActive: true,
+        disabled: false,
+        className: 'bg-primary-200 text-functional-text',
+      },
+      {
         isActive: false,
         disabled: false,
         className: 'hover:bg-functional-hover-secondary',
       },
       {
-        isActive: false,
         disabled: true,
         className: 'text-functional-disable-text',
       },
