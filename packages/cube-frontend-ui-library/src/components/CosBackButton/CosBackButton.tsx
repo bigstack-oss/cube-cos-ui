@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react'
 import { CosHyperlink } from '../CosHyperlink/CosHyperlink'
 import ChevronLeft from '../CosIcon/monochrome/chevron_left.svg?react'
 import { CosBackButtonSkeleton } from './CosBackButtonSkeleton'
@@ -6,9 +7,11 @@ export type CosBackButtonProps = {
   details?: string
   loading?: boolean
   href?: string
-  onClick?: () => void
+  onClick?: (e: MouseEvent<HTMLElement>) => void
   children: string
 }
+
+const noop = () => undefined
 
 export const CosBackButton = (props: CosBackButtonProps) => {
   const { details, loading = false, href, onClick, children } = props
@@ -36,6 +39,10 @@ export const CosBackButton = (props: CosBackButtonProps) => {
           size="md"
           variant="text-only"
           className="group-hover/back-button:text-functional-hover-primary"
+          // Render `<a>` as a descendant of another `<a>` will lead to an
+          // error in the console. Thus, we need to assign a `onClick` prop
+          // for `CosHyperlink` to be rendered as a `<div>`.
+          onClick={noop}
         >
           {children}
         </CosHyperlink>
