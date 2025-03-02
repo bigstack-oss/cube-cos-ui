@@ -7617,10 +7617,11 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {GetMetricByTypesEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMetricByTypes: async (dataCenter: string, metricType: GetMetricByTypesMetricTypeEnum, viewType: GetMetricByTypesViewTypeEnum, entityType: GetMetricByTypesEntityTypeEnum, start?: string, stop?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getMetricByTypes: async (dataCenter: string, metricType: GetMetricByTypesMetricTypeEnum, viewType: GetMetricByTypesViewTypeEnum, entityType: GetMetricByTypesEntityTypeEnum, start?: string, stop?: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getMetricByTypes', 'dataCenter', dataCenter)
             // verify required parameter 'metricType' is not null or undefined
@@ -7651,6 +7652,10 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (stop !== undefined) {
                 localVarQueryParameter['stop'] = stop;
+            }
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
             }
 
 
@@ -7722,11 +7727,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {GetMetricByTypesEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMetricByTypes(dataCenter: string, metricType: GetMetricByTypesMetricTypeEnum, viewType: GetMetricByTypesViewTypeEnum, entityType: GetMetricByTypesEntityTypeEnum, start?: string, stop?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMetricByTypes200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMetricByTypes(dataCenter, metricType, viewType, entityType, start, stop, options);
+        async getMetricByTypes(dataCenter: string, metricType: GetMetricByTypesMetricTypeEnum, viewType: GetMetricByTypesViewTypeEnum, entityType: GetMetricByTypesEntityTypeEnum, start?: string, stop?: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMetricByTypes200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMetricByTypes(dataCenter, metricType, viewType, entityType, start, stop, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.getMetricByTypes']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7763,7 +7769,7 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @throws {RequiredError}
          */
         getMetricByTypes(requestParameters: MetricsApiGetMetricByTypesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMetricByTypes200Response> {
-            return localVarFp.getMetricByTypes(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.start, requestParameters.stop, options).then((request) => request(axios, basePath));
+            return localVarFp.getMetricByTypes(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7825,6 +7831,13 @@ export interface MetricsApiGetMetricByTypesRequest {
      * @memberof MetricsApiGetMetricByTypes
      */
     readonly stop?: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof MetricsApiGetMetricByTypes
+     */
+    readonly watch?: boolean
 }
 
 /**
@@ -7864,7 +7877,7 @@ export class MetricsApi extends BaseAPI {
      * @memberof MetricsApi
      */
     public getMetricByTypes(requestParameters: MetricsApiGetMetricByTypesRequest, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).getMetricByTypes(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.start, requestParameters.stop, options).then((request) => request(this.axios, this.basePath));
+        return MetricsApiFp(this.configuration).getMetricByTypes(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

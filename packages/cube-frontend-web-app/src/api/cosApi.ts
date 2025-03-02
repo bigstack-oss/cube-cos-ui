@@ -10,6 +10,7 @@ import {
   IntegrationsApi,
   UserInfoApi,
   Configuration,
+  ServicesApi,
 } from '@cube-frontend/api'
 import devAccessTokenInterceptor from './devAccessTokenInterceptor'
 import { config, validateStatus } from './utils'
@@ -61,6 +62,7 @@ export const metricsApi = createApiInstance(MetricsApi)
 export const healthApi = createApiInstance(HealthApi)
 export const nodesApi = createApiInstance(NodesApi)
 export const eventsApi = createApiInstance(EventsApi)
+export const servicesApi = createApiInstance(ServicesApi)
 
 if (import.meta.env.DEV) {
   cosApi.interceptors.request.use(devAccessTokenInterceptor)
