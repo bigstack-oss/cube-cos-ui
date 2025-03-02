@@ -2,7 +2,7 @@ import { CosPanel } from '../../../components/CosPanel/CosPanel'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { PanelBlock } from './PanelBlock'
 import { CosCountSegmentedChart } from '../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
-import { CosPercentagePieChart } from '../../../components/CosPercentagePieChart.tsx/CosPercentagePieChart'
+import { CosPercentagePieChart } from '../../../components/CosPercentagePieChart/CosPercentagePieChart'
 import { noop } from 'lodash'
 import { events, EventTable, roleSummary, vmSummary } from './mockData'
 
@@ -21,20 +21,18 @@ export const UsageSection = () => {
               time="yyyy/mm/dd 00:00"
               hyperLinkProps={{ onClick: noop }}
             >
-              <CosPanel.Box>
-                <CosPanel.Item topic="VM Summary" subtext="73 Instances">
-                  <CosCountSegmentedChart
-                    overview={{ name: 'Total VM', count: vmTotalCount }}
-                    countInfos={vmSummary}
-                  />
-                </CosPanel.Item>
-                <CosPanel.Item topic="Role Summary" subtext="9 Roles">
-                  <CosCountSegmentedChart
-                    overview={{ name: 'Control-convergerd', count: 2 }}
-                    countInfos={roleSummary}
-                  />
-                </CosPanel.Item>
-              </CosPanel.Box>
+              <CosPanel.Item topic="VM Summary" subtext="73 Instances">
+                <CosCountSegmentedChart
+                  overview={{ name: 'Total VM', count: vmTotalCount }}
+                  countInfos={vmSummary}
+                />
+              </CosPanel.Item>
+              <CosPanel.Item topic="Role Summary" subtext="9 Roles">
+                <CosCountSegmentedChart
+                  overview={{ name: 'Control-convergerd', count: 2 }}
+                  countInfos={roleSummary}
+                />
+              </CosPanel.Item>
             </CosPanel>
 
             <CosPanel
@@ -42,46 +40,44 @@ export const UsageSection = () => {
               time="yyyy/mm/dd 00:00"
               hyperLinkProps={{ onClick: noop }}
             >
-              <CosPanel.Box>
-                <CosPanel.Row>
-                  <CosPanel.Col className="flex-1">
-                    <CosPanel.Item topic="VM Summary" subtext="73 Instances">
-                      <CosCountSegmentedChart
-                        overview={{ name: 'Total VM', count: vmTotalCount }}
-                        countInfos={vmSummary}
-                      />
-                    </CosPanel.Item>
-                    <CosPanel.Item topic="Role Summary" subtext="9 Roles">
-                      <CosCountSegmentedChart
-                        overview={{ name: 'Control-convergerd', count: 2 }}
-                        countInfos={roleSummary}
-                      />
-                    </CosPanel.Item>
-                  </CosPanel.Col>
-                  <CosPanel.Item>
-                    <div className="flex flex-row justify-between gap-x-7">
-                      <CosPercentagePieChart
-                        title="vCPU"
-                        unit="vCPU"
-                        total={144}
-                        used={28}
-                      />
-                      <CosPercentagePieChart
-                        title="Memory"
-                        unit="GB"
-                        total={755.1}
-                        used={124.4}
-                      />
-                      <CosPercentagePieChart
-                        title="Storage"
-                        unit="GB"
-                        total={24401.9}
-                        used={578.8}
-                      />
-                    </div>
+              <CosPanel.Row>
+                <CosPanel.Col>
+                  <CosPanel.Item topic="VM Summary" subtext="73 Instances">
+                    <CosCountSegmentedChart
+                      overview={{ name: 'Total VM', count: vmTotalCount }}
+                      countInfos={vmSummary}
+                    />
                   </CosPanel.Item>
-                </CosPanel.Row>
-              </CosPanel.Box>
+                  <CosPanel.Item topic="Role Summary" subtext="9 Roles">
+                    <CosCountSegmentedChart
+                      overview={{ name: 'Control-convergerd', count: 2 }}
+                      countInfos={roleSummary}
+                    />
+                  </CosPanel.Item>
+                </CosPanel.Col>
+                <CosPanel.Item>
+                  <div className="flex flex-row justify-between gap-x-7">
+                    <CosPercentagePieChart
+                      title="vCPU"
+                      unit="vCPU"
+                      total={144}
+                      used={28}
+                    />
+                    <CosPercentagePieChart
+                      title="Memory"
+                      unit="GB"
+                      total={755.1}
+                      used={124.4}
+                    />
+                    <CosPercentagePieChart
+                      title="Storage"
+                      unit="GB"
+                      total={24401.9}
+                      used={578.8}
+                    />
+                  </div>
+                </CosPanel.Item>
+              </CosPanel.Row>
             </CosPanel>
           </div>
         </PanelBlock>

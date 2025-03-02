@@ -8,7 +8,7 @@ export const CosPanelContentCol = (props: CosPanelContentColProps) => {
   const { className: classNameProp, children } = props
 
   const className = twMerge(
-    'flex flex-col border-functional-border-divider [&>*+*]:border-t',
+    'flex flex-1 flex-col border-functional-border-divider [&>*+*]:border-t',
     classNameProp,
   )
 

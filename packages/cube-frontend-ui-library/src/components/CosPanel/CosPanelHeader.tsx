@@ -12,6 +12,15 @@ export type CosPanelHeaderProps = {
   >
 }
 
+// TODO: Replace this with i18n.
+const pluralizeError = (count: number): string => {
+  let text = 'error'
+  if (count > 1) {
+    text += 's'
+  }
+  return `${count} ${text}`
+}
+
 export const CosPanelHeader = (props: CosPanelHeaderProps) => {
   const { title, errorCount = 0, time, hyperLinkProps } = props
 
@@ -21,15 +30,13 @@ export const CosPanelHeader = (props: CosPanelHeaderProps) => {
         <span className="secondary-body1 text-primary">{title}</span>
         {errorCount > 0 && (
           <div className="flex items-center gap-x-1 text-status-negative">
-            <WarningAltFilledIcon className="icon-lg" />
-            <span className="primary-body3">{errorCount} errors</span>
+            <WarningAltFilledIcon className="icon-md" />
+            <span className="primary-body3">{pluralizeError(errorCount)}</span>
           </div>
         )}
       </div>
-      <div className="flex gap-x-2.5">
+      <div className="flex items-center gap-x-2.5">
         {time && (
-          // TODO: Figma uses --Functional-Color-Text, but it's a CMP design token.
-          // We need to check with designers.
           <span className="secondary-body5 text-functional-text-light">
             {time}
           </span>

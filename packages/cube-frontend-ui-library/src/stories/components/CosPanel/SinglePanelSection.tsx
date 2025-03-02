@@ -14,15 +14,13 @@ export const SinglePanelSection = () => {
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Box>
-              <CosPanel.Item
-                topic="Topic Name"
-                subtext="Subtext"
-                button={<CosButton>Call to Action</CosButton>}
-              >
-                Content Text
-              </CosPanel.Item>
-            </CosPanel.Box>
+            <CosPanel.Item
+              topic="Topic Name"
+              subtext="Subtext"
+              button={<CosButton>Call to Action</CosButton>}
+            >
+              Content Text
+            </CosPanel.Item>
           </CosPanel>
         </PanelBlock>
 
@@ -30,18 +28,30 @@ export const SinglePanelSection = () => {
           <CosPanel
             title="Panel Title"
             time="yyyy/mm/dd 00:00"
+            errorCount={1}
+            hyperLinkProps={{ onClick: noop }}
+          >
+            <CosPanel.Item
+              topic="Topic Name"
+              subtext="Subtext"
+              button={<CosButton>Call to Action</CosButton>}
+            >
+              Content Text
+            </CosPanel.Item>
+          </CosPanel>
+          <CosPanel
+            title="Panel Title"
+            time="yyyy/mm/dd 00:00"
             errorCount={2}
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Box>
-              <CosPanel.Item
-                topic="Topic Name"
-                subtext="Subtext"
-                button={<CosButton>Call to Action</CosButton>}
-              >
-                Content Text
-              </CosPanel.Item>
-            </CosPanel.Box>
+            <CosPanel.Item
+              topic="Topic Name"
+              subtext="Subtext"
+              button={<CosButton>Call to Action</CosButton>}
+            >
+              Content Text
+            </CosPanel.Item>
           </CosPanel>
         </PanelBlock>
 
@@ -51,14 +61,12 @@ export const SinglePanelSection = () => {
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Box>
-              <CosPanel.Item topic="Topic Name" subtext="Subtext">
-                Content Text
-              </CosPanel.Item>
-              <CosPanel.Item topic="Topic Name" subtext="Subtext">
-                Content Text
-              </CosPanel.Item>
-            </CosPanel.Box>
+            <CosPanel.Item topic="Topic Name" subtext="Subtext">
+              Content Text
+            </CosPanel.Item>
+            <CosPanel.Item topic="Topic Name" subtext="Subtext">
+              Content Text
+            </CosPanel.Item>
           </CosPanel>
         </PanelBlock>
 
@@ -68,16 +76,14 @@ export const SinglePanelSection = () => {
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Box>
-              <CosPanel.Row className="[&>*]:flex-1">
-                <CosPanel.Item topic="Topic Name" subtext="Subtext">
-                  Content Text
-                </CosPanel.Item>
-                <CosPanel.Item topic="Topic Name" subtext="Subtext">
-                  Content Text
-                </CosPanel.Item>
-              </CosPanel.Row>
-            </CosPanel.Box>
+            <CosPanel.Row className="[&>*]:flex-1">
+              <CosPanel.Item topic="Topic Name" subtext="Subtext">
+                Content Text
+              </CosPanel.Item>
+              <CosPanel.Item topic="Topic Name" subtext="Subtext">
+                Content Text
+              </CosPanel.Item>
+            </CosPanel.Row>
           </CosPanel>
         </PanelBlock>
 
@@ -87,26 +93,24 @@ export const SinglePanelSection = () => {
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Box>
-              <CosPanel.Row>
-                <CosPanel.Col className="flex-1">
-                  <CosPanel.Item topic="Topic Name" subtext="Subtext">
-                    Content Text
-                  </CosPanel.Item>
-                  <CosPanel.Item topic="Topic Name" subtext="Subtext">
-                    Content Text
-                  </CosPanel.Item>
-                </CosPanel.Col>
-                <CosPanel.Item
-                  className="w-[460px]"
-                  topic="Topic Name"
-                  subtext="Subtext"
-                  button={<CosButton>Call to Action</CosButton>}
-                >
+            <CosPanel.Row>
+              <CosPanel.Col>
+                <CosPanel.Item topic="Topic Name" subtext="Subtext">
                   Content Text
                 </CosPanel.Item>
-              </CosPanel.Row>
-            </CosPanel.Box>
+                <CosPanel.Item topic="Topic Name" subtext="Subtext">
+                  Content Text
+                </CosPanel.Item>
+              </CosPanel.Col>
+              <CosPanel.Item
+                className="w-[460px]"
+                topic="Topic Name"
+                subtext="Subtext"
+                button={<CosButton>Call to Action</CosButton>}
+              >
+                Content Text
+              </CosPanel.Item>
+            </CosPanel.Row>
           </CosPanel>
         </PanelBlock>
 
@@ -115,23 +119,21 @@ export const SinglePanelSection = () => {
           time="yyyy/mm/dd 00:00"
           hyperLinkProps={{ onClick: noop }}
         >
-          <CosPanel.Box>
-            <CosPanel.Row className="[&>*]:flex-1">
-              <CosPanel.Item topic="Topic Name" subtext="Subtext">
-                Content Text
-              </CosPanel.Item>
-              <CosPanel.Item topic="Topic Name" subtext="Subtext">
-                Content Text
-              </CosPanel.Item>
-            </CosPanel.Row>
-            <CosPanel.Item
-              topic="Topic Name"
-              subtext="Subtext"
-              button={<CosButton>Call to Action</CosButton>}
-            >
+          <CosPanel.Row className="[&>*]:flex-1">
+            <CosPanel.Item topic="Topic Name" subtext="Subtext">
               Content Text
             </CosPanel.Item>
-          </CosPanel.Box>
+            <CosPanel.Item topic="Topic Name" subtext="Subtext">
+              Content Text
+            </CosPanel.Item>
+          </CosPanel.Row>
+          <CosPanel.Item
+            topic="Topic Name"
+            subtext="Subtext"
+            button={<CosButton>Call to Action</CosButton>}
+          >
+            Content Text
+          </CosPanel.Item>
         </CosPanel>
       </div>
     </StoryLayout.Section>

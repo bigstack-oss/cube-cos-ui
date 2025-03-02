@@ -13,30 +13,26 @@ export const MultiPanelSection = () => {
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Box>
-              <CosPanel.Item
-                topic="Topic Name"
-                subtext="Subtext"
-                button={<CosButton>Call to Action</CosButton>}
-              >
-                Content Text
-              </CosPanel.Item>
-            </CosPanel.Box>
+            <CosPanel.Item
+              topic="Topic Name"
+              subtext="Subtext"
+              button={<CosButton>Call to Action</CosButton>}
+            >
+              Content Text
+            </CosPanel.Item>
           </CosPanel>
           <CosPanel
             title="Panel Title"
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Box>
-              <CosPanel.Item
-                topic="Topic Name"
-                subtext="Subtext"
-                button={<CosButton>Call to Action</CosButton>}
-              >
-                Content Text
-              </CosPanel.Item>
-            </CosPanel.Box>
+            <CosPanel.Item
+              topic="Topic Name"
+              subtext="Subtext"
+              button={<CosButton>Call to Action</CosButton>}
+            >
+              Content Text
+            </CosPanel.Item>
           </CosPanel>
         </div>
 
@@ -45,15 +41,13 @@ export const MultiPanelSection = () => {
           time="yyyy/mm/dd 00:00"
           hyperLinkProps={{ onClick: noop }}
         >
-          <CosPanel.Box>
-            <CosPanel.Item
-              topic="Topic Name"
-              subtext="Subtext"
-              button={<CosButton>Call to Action</CosButton>}
-            >
-              Content Text
-            </CosPanel.Item>
-          </CosPanel.Box>
+          <CosPanel.Item
+            topic="Topic Name"
+            subtext="Subtext"
+            button={<CosButton>Call to Action</CosButton>}
+          >
+            Content Text
+          </CosPanel.Item>
         </CosPanel>
 
         <CosPanel
@@ -61,15 +55,13 @@ export const MultiPanelSection = () => {
           time="yyyy/mm/dd 00:00"
           hyperLinkProps={{ onClick: noop }}
         >
-          <CosPanel.Box>
-            <CosPanel.Item
-              topic="Topic Name"
-              subtext="Subtext"
-              button={<CosButton>Call to Action</CosButton>}
-            >
-              Content Text
-            </CosPanel.Item>
-          </CosPanel.Box>
+          <CosPanel.Item
+            topic="Topic Name"
+            subtext="Subtext"
+            button={<CosButton>Call to Action</CosButton>}
+          >
+            Content Text
+          </CosPanel.Item>
         </CosPanel>
       </div>
     </StoryLayout.Section>
