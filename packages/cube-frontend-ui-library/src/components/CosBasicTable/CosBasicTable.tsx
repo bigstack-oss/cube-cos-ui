@@ -1,6 +1,6 @@
 import { PropsWithChildren, useMemo } from 'react'
-import { twMerge } from 'tailwind-merge'
-import { CosTableRow } from './cosTableUtils'
+import { ClassNameValue, twMerge } from 'tailwind-merge'
+import { computeRowClassName, CosTableRow } from './cosTableUtils'
 import { CreateCosTableColumn } from './rendering/CosTableColumn'
 import { CosTableTd } from './rendering/CosTableTd'
 import { CosTableTh } from './rendering/CosTableTh'
@@ -21,6 +21,8 @@ export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
    * @default 5
    */
   skeletonRowCount?: number
+  rowClassName?: ((row: Row) => ClassNameValue) | ClassNameValue
+  onRowClick?: (row: Row) => void
 }>
 
 const CosBasicTable = <Row extends CosTableRow>(
@@ -32,6 +34,8 @@ const CosBasicTable = <Row extends CosTableRow>(
     defaultSortingState,
     isLoading,
     skeletonRowCount = 5,
+    rowClassName,
+    onRowClick,
   } = props
 
   const { columns, rowCompareFnMapRef } = useColumnPayloads<Row>(children)
@@ -68,7 +72,9 @@ const CosBasicTable = <Row extends CosTableRow>(
         className={twMerge(
           '[&>td]:hover:bg-functional-hover-grey',
           tdBorderRadiusClass,
+          computeRowClassName(rowClassName, row),
         )}
+        onClick={() => onRowClick?.(row)}
       >
         {columns.map((column, colIndex) => (
           <CosTableTd
