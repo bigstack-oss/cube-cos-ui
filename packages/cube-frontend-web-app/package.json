@@ -21,11 +21,13 @@
     "@types/lodash": "catalog:",
     "@types/pluralize": "catalog:",
     "axios": "^1.7.9",
+    "chart.js": "^4.4.8",
     "class-variance-authority": "catalog:",
     "dayjs": "catalog:",
     "lodash": "catalog:",
     "pluralize": "catalog:",
     "react": "catalog:",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "catalog:",
     "react-router": "^7.1.5",
     "vitest": "catalog:"

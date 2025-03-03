@@ -1,5 +1,5 @@
 import pluralize from 'pluralize'
 
-export const toUnitDisplay = (value: number, unit: string) => {
-  return `${value} ${pluralize(unit, value)}`
+export const toPluralizeDisplay = (value: number, word: string) => {
+  return `${value} ${pluralize(word, value)}`
 }
