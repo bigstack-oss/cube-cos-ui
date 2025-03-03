@@ -1,7 +1,7 @@
 import { baseLog, toFixedNumber } from './number'
 
 export const sizeUnits = [
-  'Bytes',
+  'bytes',
   'KiB',
   'MiB',
   'GiB',

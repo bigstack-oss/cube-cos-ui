@@ -12,3 +12,18 @@ export function toFixedNumber(num: number, digits: number) {
   const pow = Math.pow(10, digits)
   return Math.round(num * pow) / pow
 }
+
+// TODO: Add unit tests.
+export const toAbbreviation = (num: number) => {
+  const SI_SYMBOL = ['', 'k', 'M', 'G', 'T', 'P', 'E']
+  const tier = (Math.log10(num) / 3) | 0
+
+  if (tier === 0) return num
+
+  const suffix = SI_SYMBOL[tier]
+  const scale = Math.pow(10, tier * 3)
+
+  const scaled = num / scale
+
+  return scaled.toFixed(1) + suffix
+}
