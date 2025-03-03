@@ -2,7 +2,7 @@ import { CosCountSegmentedChart } from '../../../components/CosCountSegmentedCha
 import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { vmSummary, roleSummary } from './mockCountInfos'
-import { toUnitDisplay } from '@cube-frontend/utils'
+import { toPluralizeDisplay } from '@cube-frontend/utils'
 
 const meta = {
   title: 'Molecules/Chart/Count Segmented Chart',
@@ -25,7 +25,7 @@ const CountSegmentedChartGallery = () => {
         <div className="flex flex-col gap-y-6">
           <CosCountSegmentedChart
             title="VM Status"
-            subtext={toUnitDisplay(vmTotalCount, 'Instance')}
+            subtext={toPluralizeDisplay(vmTotalCount, 'Instance')}
             overview={{ name: 'Total VM', count: vmTotalCount }}
             countInfos={vmSummary}
           />
@@ -47,7 +47,7 @@ const CountSegmentedChartGallery = () => {
         <div className="flex flex-col gap-y-6">
           <CosCountSegmentedChart
             title="VM Status"
-            subtext={toUnitDisplay(vmTotalCount, 'Instance')}
+            subtext={toPluralizeDisplay(vmTotalCount, 'Instance')}
             isLoading={true}
             countInfos={[]}
           />

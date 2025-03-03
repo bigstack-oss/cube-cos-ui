@@ -5,7 +5,7 @@ import {
   CosDashboardPanel,
   CosPercentagePieChart,
 } from '@cube-frontend/ui-library'
-import { toUnitDisplay } from '@cube-frontend/utils'
+import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
@@ -47,7 +47,7 @@ const ChartPanel = () => {
         <CosDashboardPanel.Col className="flex-1">
           <CosDashboardPanel.Item
             topic="VM Summary"
-            subtext={toUnitDisplay(vmBarChart.count, 'Instance')}
+            subtext={toPluralizeDisplay(vmBarChart.count, 'Instance')}
             isSubtextLoading={isLoading}
           >
             <CosCountSegmentedChart
@@ -59,7 +59,7 @@ const ChartPanel = () => {
           </CosDashboardPanel.Item>
           <CosDashboardPanel.Item
             topic="Role Summary"
-            subtext={toUnitDisplay(roleBarChart.count, 'Role')}
+            subtext={toPluralizeDisplay(roleBarChart.count, 'Role')}
             isSubtextLoading={isLoading}
           >
             <CosCountSegmentedChart

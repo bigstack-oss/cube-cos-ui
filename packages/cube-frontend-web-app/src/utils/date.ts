@@ -1,4 +1,4 @@
-import { toUnitDisplay } from '@cube-frontend/utils'
+import { toPluralizeDisplay } from '@cube-frontend/utils'
 import dayjs, { Dayjs } from 'dayjs'
 
 export const formatEventTime = (date: string) => {
@@ -18,18 +18,22 @@ export const humanizeDuration = (durationSeconds: number) => {
 
   if (duration.asDays() >= 1) {
     const value = Math.floor(duration.asDays())
-    return toUnitDisplay(value, 'day')
+    return toPluralizeDisplay(value, 'day')
   }
 
   if (duration.asHours() >= 1) {
     const value = Math.floor(duration.asHours())
-    return toUnitDisplay(value, 'hour')
+    return toPluralizeDisplay(value, 'hour')
   }
 
   if (duration.asMinutes() >= 1) {
     const value = Math.floor(duration.asMinutes())
-    return toUnitDisplay(value, 'minute')
+    return toPluralizeDisplay(value, 'minute')
   }
 
   return durationSeconds
+}
+
+export const formatChartXAxisTime = (time: string) => {
+  return dayjs.respectTzOffset(time).format('HH:mm')
 }

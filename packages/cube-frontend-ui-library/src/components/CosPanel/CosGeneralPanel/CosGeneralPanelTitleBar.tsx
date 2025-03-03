@@ -1,8 +1,16 @@
 import React from 'react'
 import { CosSkeleton } from '../../CosSkeleton/CosSkeleton'
+import {
+  CosHyperlink,
+  CosHyperlinkProps,
+} from '../../CosHyperlink/CosHyperlink'
 
 export type CosGeneralPanelTitleBarProps = {
   title?: string
+  hyperLinkProps?: Pick<
+    CosHyperlinkProps,
+    'href' | 'disabled' | 'target' | 'onClick' | 'children'
+  >
   time?: string
   /**
    * @default false
@@ -14,7 +22,7 @@ export type CosGeneralPanelTitleBarProps = {
 export const CosGeneralPanelTitleBar = (
   props: CosGeneralPanelTitleBarProps,
 ) => {
-  const { title, time, isTimeLoading = false, dropdown } = props
+  const { title, hyperLinkProps, time, isTimeLoading = false, dropdown } = props
 
   const renderTime = () => {
     if (isTimeLoading) return <CosSkeleton className="h-[13px] w-[97px]" />
@@ -30,9 +38,14 @@ export const CosGeneralPanelTitleBar = (
       <span className="secondary-body1 text-functional-text-light">
         {title}
       </span>
-      <div className="flex items-end gap-x-2">
-        {renderTime()}
-        {dropdown}
+      <div className="flex items-end gap-x-3">
+        {hyperLinkProps && (
+          <CosHyperlink variant="text-inline" size="sm" {...hyperLinkProps} />
+        )}
+        <div className="flex items-end gap-x-2">
+          {renderTime()}
+          {dropdown}
+        </div>
       </div>
     </div>
   )

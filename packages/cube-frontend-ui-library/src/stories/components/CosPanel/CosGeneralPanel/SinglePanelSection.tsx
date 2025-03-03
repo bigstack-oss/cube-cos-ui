@@ -1,3 +1,4 @@
+import { noop } from 'lodash'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import {
   CosButton,
@@ -16,6 +17,7 @@ export const SinglePanelSection = () => {
             title="Panel Title"
             time="yyyy/mm/dd 00:00"
             dropdown={<PanelDropdown />}
+            hyperLinkProps={{ children: 'Call to action', onClick: noop }}
           />
           <CosGeneralPanel
             topic="Topic Name"
