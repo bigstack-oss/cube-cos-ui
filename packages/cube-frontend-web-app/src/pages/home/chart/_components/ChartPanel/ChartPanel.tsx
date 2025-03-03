@@ -6,7 +6,7 @@ import {
 } from '@cube-frontend/ui-library'
 import { toMetricsChart } from '../../../utils'
 import { useMemo } from 'react'
-import { toUnitDisplay } from '@cube-frontend/utils'
+import { toPluralizeDisplay } from '@cube-frontend/utils'
 
 export type ChartPanelProps = {
   metrics: GetMetricsResponseData
@@ -30,7 +30,7 @@ export const ChartPanel = (props: ChartPanelProps) => {
         <CosGeneralPanel topic="VM summary">
           <CosCountSegmentedChart
             title="VM Status"
-            subtext={toUnitDisplay(vmBarChart.count, 'Instance')}
+            subtext={toPluralizeDisplay(vmBarChart.count, 'Instance')}
             overview={{ name: 'Total VM', count: vmBarChart.count }}
             countInfos={vmBarChart.countInfos}
             isLoading={isLoading}
@@ -40,7 +40,7 @@ export const ChartPanel = (props: ChartPanelProps) => {
         <CosGeneralPanel topic="Role summary">
           <CosCountSegmentedChart
             title="Role Distribution"
-            subtext={toUnitDisplay(roleBarChart.count, 'Role')}
+            subtext={toPluralizeDisplay(roleBarChart.count, 'Role')}
             countInfos={roleBarChart.countInfos}
             isLoading={isLoading}
             skeletonCount={6}
