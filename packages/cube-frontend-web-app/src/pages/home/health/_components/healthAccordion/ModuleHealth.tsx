@@ -4,6 +4,7 @@ import {
   Segment,
 } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
+import { RouterLink } from '@cube-frontend/web-app/components/RouterLink/RouterLink'
 import { Dayjs } from 'dayjs'
 import { capitalize } from 'lodash'
 import { useMemo } from 'react'
@@ -23,6 +24,8 @@ export type ModuleHealthProps = {
 export const ModuleHealth = (props: ModuleHealthProps) => {
   const { name, history, timeRange, now } = props
 
+  const detailPageLink = useMemo<string>(() => `/home/health/${name}`, [name])
+
   const timePoints = useMemo<TimePoint[]>(
     () => createTimePointFns[timeRange](now),
     [timeRange, now],
@@ -35,13 +38,15 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
 
   return (
     <div className="border-t border-t-functional-border-divider px-12 py-7 pb-3">
-      <CosHyperlink
-        className="text-functional-text"
-        variant="icon-right"
-        Icon={ChevronRight}
-      >
-        {capitalize(name)}
-      </CosHyperlink>
+      <RouterLink href={detailPageLink}>
+        <CosHyperlink
+          className="text-functional-text"
+          variant="icon-right"
+          Icon={ChevronRight}
+        >
+          {capitalize(name)}
+        </CosHyperlink>
+      </RouterLink>
       <CosSegmentedBar
         className="mt-4"
         segments={healthSegments}
