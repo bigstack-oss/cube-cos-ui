@@ -26,6 +26,274 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface CreateEmailRecipient500Response
+ */
+export interface CreateEmailRecipient500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateEmailRecipient500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateEmailRecipient500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateEmailRecipient500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateSlackChannel500Response
+ */
+export interface CreateSlackChannel500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateSlackChannel500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSlackChannel500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSlackChannel500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteEmailRecipient500Response
+ */
+export interface DeleteEmailRecipient500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteEmailRecipient500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteEmailRecipient500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteEmailRecipient500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteEmailRecipientResponse
+ */
+export interface DeleteEmailRecipientResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteEmailRecipientResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteEmailRecipientResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteEmailRecipientResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteEmailSenderResponse
+ */
+export interface DeleteEmailSenderResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteEmailSenderResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteEmailSenderResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteEmailSenderResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteSlackChannel500Response
+ */
+export interface DeleteSlackChannel500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteSlackChannel500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSlackChannel500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSlackChannel500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteSlackChannelResponse
+ */
+export interface DeleteSlackChannelResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteSlackChannelResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSlackChannelResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSlackChannelResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DiskReadWriteHistory
+ */
+export interface DiskReadWriteHistory {
+    /**
+     * 
+     * @type {string}
+     * @memberof DiskReadWriteHistory
+     */
+    'unit': string;
+    /**
+     * 
+     * @type {Array<MetricRankRankInnerHistoryInner>}
+     * @memberof DiskReadWriteHistory
+     */
+    'read': Array<MetricRankRankInnerHistoryInner>;
+    /**
+     * 
+     * @type {Array<MetricRankRankInnerHistoryInner>}
+     * @memberof DiskReadWriteHistory
+     */
+    'write': Array<MetricRankRankInnerHistoryInner>;
+}
+/**
+ * 
+ * @export
+ * @interface EmailRecipient
+ */
+export interface EmailRecipient {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailRecipient
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailRecipient
+     */
+    'note': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EmailRecipient
+     */
+    'isTestable': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface EmailSender
+ */
+export interface EmailSender {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSender
+     */
+    'host': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmailSender
+     */
+    'port': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSender
+     */
+    'username': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSender
+     */
+    'password': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSender
+     */
+    'email': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EmailSender
+     */
+    'accessVerified': boolean;
+}
+/**
+ * 
+ * @export
  * @interface GetAbstractedEventsResponse
  */
 export interface GetAbstractedEventsResponse {
@@ -186,10 +454,10 @@ export interface GetCpuUsageRankOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetCpuUsageRankOfHostsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetCpuUsageRankOfHostsResponse
      */
-    'data': Array<GetCpuUsageRankOfHostsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -206,56 +474,6 @@ export interface GetCpuUsageRankOfHostsResponse {
 /**
  * 
  * @export
- * @interface GetCpuUsageRankOfHostsResponseDataInner
- */
-export interface GetCpuUsageRankOfHostsResponseDataInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCpuUsageRankOfHostsResponseDataInner
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCpuUsageRankOfHostsResponseDataInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCpuUsageRankOfHostsResponseDataInner
-     */
-    'usedPercent': number;
-    /**
-     * 
-     * @type {Array<GetCpuUsageRankOfHostsResponseDataInnerHistoryInner>}
-     * @memberof GetCpuUsageRankOfHostsResponseDataInner
-     */
-    'history': Array<GetCpuUsageRankOfHostsResponseDataInnerHistoryInner>;
-}
-/**
- * 
- * @export
- * @interface GetCpuUsageRankOfHostsResponseDataInnerHistoryInner
- */
-export interface GetCpuUsageRankOfHostsResponseDataInnerHistoryInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCpuUsageRankOfHostsResponseDataInnerHistoryInner
-     */
-    'time': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCpuUsageRankOfHostsResponseDataInnerHistoryInner
-     */
-    'usedPercent': number;
-}
-/**
- * 
- * @export
  * @interface GetCpuUsageRankOfVmsResponse
  */
 export interface GetCpuUsageRankOfVmsResponse {
@@ -267,10 +485,10 @@ export interface GetCpuUsageRankOfVmsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetCpuUsageRankOfHostsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetCpuUsageRankOfVmsResponse
      */
-    'data': Array<GetCpuUsageRankOfHostsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -312,6 +530,62 @@ export interface GetCpuUsageSummaryOfHostsResponse {
      * 
      * @type {string}
      * @memberof GetCpuUsageSummaryOfHostsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetDataCenter500Response
+ */
+export interface GetDataCenter500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetDataCenter500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetDataCenter500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetDataCenter500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetDataCenterResponse
+ */
+export interface GetDataCenterResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetDataCenterResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetDataCentersResponseDataInner}
+     * @memberof GetDataCenterResponse
+     */
+    'data': GetDataCentersResponseDataInner;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetDataCenterResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetDataCenterResponse
      */
     'status': string;
 }
@@ -409,6 +683,12 @@ export interface GetDataCentersResponseDataInner {
     'isLocal': boolean;
     /**
      * 
+     * @type {string}
+     * @memberof GetDataCentersResponseDataInner
+     */
+    'utcTimeZone': string;
+    /**
+     * 
      * @type {GetDataCentersResponseDataInnerAdditional}
      * @memberof GetDataCentersResponseDataInner
      */
@@ -425,7 +705,7 @@ export interface GetDataCentersResponseDataInnerAdditional {
      * @type {string}
      * @memberof GetDataCentersResponseDataInnerAdditional
      */
-    'helpUrl'?: string;
+    'helpUrl': string;
 }
 /**
  * 
@@ -441,10 +721,10 @@ export interface GetDiskBandwidthHistoryOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {GetDiskBandwidthHistoryOfHostsResponseData}
+     * @type {DiskReadWriteHistory}
      * @memberof GetDiskBandwidthHistoryOfHostsResponse
      */
-    'data': GetDiskBandwidthHistoryOfHostsResponseData;
+    'data': DiskReadWriteHistory;
     /**
      * 
      * @type {string}
@@ -457,44 +737,6 @@ export interface GetDiskBandwidthHistoryOfHostsResponse {
      * @memberof GetDiskBandwidthHistoryOfHostsResponse
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface GetDiskBandwidthHistoryOfHostsResponseData
- */
-export interface GetDiskBandwidthHistoryOfHostsResponseData {
-    /**
-     * 
-     * @type {Array<GetDiskBandwidthHistoryOfHostsResponseDataReadInner>}
-     * @memberof GetDiskBandwidthHistoryOfHostsResponseData
-     */
-    'read': Array<GetDiskBandwidthHistoryOfHostsResponseDataReadInner>;
-    /**
-     * 
-     * @type {Array<GetDiskBandwidthHistoryOfHostsResponseDataReadInner>}
-     * @memberof GetDiskBandwidthHistoryOfHostsResponseData
-     */
-    'write': Array<GetDiskBandwidthHistoryOfHostsResponseDataReadInner>;
-}
-/**
- * 
- * @export
- * @interface GetDiskBandwidthHistoryOfHostsResponseDataReadInner
- */
-export interface GetDiskBandwidthHistoryOfHostsResponseDataReadInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDiskBandwidthHistoryOfHostsResponseDataReadInner
-     */
-    'time': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDiskBandwidthHistoryOfHostsResponseDataReadInner
-     */
-    'bytes': number;
 }
 /**
  * 
@@ -510,10 +752,10 @@ export interface GetDiskIopsHistoryOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {GetDiskIopsHistoryOfHostsResponseData}
+     * @type {DiskReadWriteHistory}
      * @memberof GetDiskIopsHistoryOfHostsResponse
      */
-    'data': GetDiskIopsHistoryOfHostsResponseData;
+    'data': DiskReadWriteHistory;
     /**
      * 
      * @type {string}
@@ -526,44 +768,6 @@ export interface GetDiskIopsHistoryOfHostsResponse {
      * @memberof GetDiskIopsHistoryOfHostsResponse
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface GetDiskIopsHistoryOfHostsResponseData
- */
-export interface GetDiskIopsHistoryOfHostsResponseData {
-    /**
-     * 
-     * @type {Array<GetDiskIopsHistoryOfHostsResponseDataReadInner>}
-     * @memberof GetDiskIopsHistoryOfHostsResponseData
-     */
-    'read': Array<GetDiskIopsHistoryOfHostsResponseDataReadInner>;
-    /**
-     * 
-     * @type {Array<GetDiskIopsHistoryOfHostsResponseDataReadInner>}
-     * @memberof GetDiskIopsHistoryOfHostsResponseData
-     */
-    'write': Array<GetDiskIopsHistoryOfHostsResponseDataReadInner>;
-}
-/**
- * 
- * @export
- * @interface GetDiskIopsHistoryOfHostsResponseDataReadInner
- */
-export interface GetDiskIopsHistoryOfHostsResponseDataReadInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDiskIopsHistoryOfHostsResponseDataReadInner
-     */
-    'time': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDiskIopsHistoryOfHostsResponseDataReadInner
-     */
-    'ops': number;
 }
 /**
  * 
@@ -579,10 +783,10 @@ export interface GetDiskLatencyHistoryOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {GetDiskLatencyHistoryOfHostsResponseData}
+     * @type {DiskReadWriteHistory}
      * @memberof GetDiskLatencyHistoryOfHostsResponse
      */
-    'data': GetDiskLatencyHistoryOfHostsResponseData;
+    'data': DiskReadWriteHistory;
     /**
      * 
      * @type {string}
@@ -595,44 +799,6 @@ export interface GetDiskLatencyHistoryOfHostsResponse {
      * @memberof GetDiskLatencyHistoryOfHostsResponse
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface GetDiskLatencyHistoryOfHostsResponseData
- */
-export interface GetDiskLatencyHistoryOfHostsResponseData {
-    /**
-     * 
-     * @type {Array<GetDiskLatencyHistoryOfHostsResponseDataReadInner>}
-     * @memberof GetDiskLatencyHistoryOfHostsResponseData
-     */
-    'read': Array<GetDiskLatencyHistoryOfHostsResponseDataReadInner>;
-    /**
-     * 
-     * @type {Array<GetDiskLatencyHistoryOfHostsResponseDataReadInner>}
-     * @memberof GetDiskLatencyHistoryOfHostsResponseData
-     */
-    'write': Array<GetDiskLatencyHistoryOfHostsResponseDataReadInner>;
-}
-/**
- * 
- * @export
- * @interface GetDiskLatencyHistoryOfHostsResponseDataReadInner
- */
-export interface GetDiskLatencyHistoryOfHostsResponseDataReadInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDiskLatencyHistoryOfHostsResponseDataReadInner
-     */
-    'time': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDiskLatencyHistoryOfHostsResponseDataReadInner
-     */
-    'millisecond': number;
 }
 /**
  * 
@@ -648,10 +814,10 @@ export interface GetDiskReadIopsRankOfVmsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetDiskReadIopsRankOfVmsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetDiskReadIopsRankOfVmsResponse
      */
-    'data': Array<GetDiskReadIopsRankOfVmsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -668,43 +834,6 @@ export interface GetDiskReadIopsRankOfVmsResponse {
 /**
  * 
  * @export
- * @interface GetDiskReadIopsRankOfVmsResponseDataInner
- */
-export interface GetDiskReadIopsRankOfVmsResponseDataInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDiskReadIopsRankOfVmsResponseDataInner
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDiskReadIopsRankOfVmsResponseDataInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDiskReadIopsRankOfVmsResponseDataInner
-     */
-    'device': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDiskReadIopsRankOfVmsResponseDataInner
-     */
-    'ops': number;
-    /**
-     * 
-     * @type {Array<GetDiskIopsHistoryOfHostsResponseDataReadInner>}
-     * @memberof GetDiskReadIopsRankOfVmsResponseDataInner
-     */
-    'history': Array<GetDiskIopsHistoryOfHostsResponseDataReadInner>;
-}
-/**
- * 
- * @export
  * @interface GetDiskUsageRankOfHostsResponse
  */
 export interface GetDiskUsageRankOfHostsResponse {
@@ -716,10 +845,10 @@ export interface GetDiskUsageRankOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetCpuUsageRankOfHostsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetDiskUsageRankOfHostsResponse
      */
-    'data': Array<GetCpuUsageRankOfHostsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -747,10 +876,10 @@ export interface GetDiskWriteIopsRankOfVmsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetDiskReadIopsRankOfVmsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetDiskWriteIopsRankOfVmsResponse
      */
-    'data': Array<GetDiskReadIopsRankOfVmsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -763,6 +892,269 @@ export interface GetDiskWriteIopsRankOfVmsResponse {
      * @memberof GetDiskWriteIopsRankOfVmsResponse
      */
     'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetEmailRecipients500Response
+ */
+export interface GetEmailRecipients500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetEmailRecipients500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailRecipients500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailRecipients500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetEmailRecipientsResponse
+ */
+export interface GetEmailRecipientsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetEmailRecipientsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<EmailRecipient>}
+     * @memberof GetEmailRecipientsResponse
+     */
+    'data': Array<EmailRecipient>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailRecipientsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailRecipientsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetEmailSenders500Response
+ */
+export interface GetEmailSenders500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetEmailSenders500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailSenders500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailSenders500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetEmailSendersResponse
+ */
+export interface GetEmailSendersResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetEmailSendersResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetEmailSendersResponseData}
+     * @memberof GetEmailSendersResponse
+     */
+    'data': GetEmailSendersResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailSendersResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEmailSendersResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetEmailSendersResponseData
+ */
+export interface GetEmailSendersResponseData {
+    /**
+     * 
+     * @type {Array<EmailSender>}
+     * @memberof GetEmailSendersResponseData
+     */
+    'emailSenders'?: Array<EmailSender>;
+}
+/**
+ * 
+ * @export
+ * @interface GetEventFilterConditionResponse
+ */
+export interface GetEventFilterConditionResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetEventFilterConditionResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetEventFilterConditionResponseData}
+     * @memberof GetEventFilterConditionResponse
+     */
+    'data': GetEventFilterConditionResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEventFilterConditionResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEventFilterConditionResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetEventFilterConditionResponseData
+ */
+export interface GetEventFilterConditionResponseData {
+    /**
+     * 
+     * @type {GetEventFilterConditionResponseDataSystem}
+     * @memberof GetEventFilterConditionResponseData
+     */
+    'system': GetEventFilterConditionResponseDataSystem;
+    /**
+     * 
+     * @type {GetEventFilterConditionResponseDataInstance}
+     * @memberof GetEventFilterConditionResponseData
+     */
+    'instance': GetEventFilterConditionResponseDataInstance;
+    /**
+     * 
+     * @type {GetEventFilterConditionResponseDataHost}
+     * @memberof GetEventFilterConditionResponseData
+     */
+    'host': GetEventFilterConditionResponseDataHost;
+}
+/**
+ * 
+ * @export
+ * @interface GetEventFilterConditionResponseDataHost
+ */
+export interface GetEventFilterConditionResponseDataHost {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetEventFilterConditionResponseDataHost
+     */
+    'names': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetEventFilterConditionResponseDataHost
+     */
+    'categories': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface GetEventFilterConditionResponseDataInstance
+ */
+export interface GetEventFilterConditionResponseDataInstance {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetEventFilterConditionResponseDataInstance
+     */
+    'ids': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetEventFilterConditionResponseDataInstance
+     */
+    'categories': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface GetEventFilterConditionResponseDataSystem
+ */
+export interface GetEventFilterConditionResponseDataSystem {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetEventFilterConditionResponseDataSystem
+     */
+    'severities': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetEventFilterConditionResponseDataSystem
+     */
+    'categories': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface GetEventFilterConditions500Response
+ */
+export interface GetEventFilterConditions500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetEventFilterConditions500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEventFilterConditions500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetEventFilterConditions500Response
+     */
+    'status'?: string;
 }
 /**
  * 
@@ -1093,14 +1485,28 @@ export interface GetHealthsResponseDataOverallStatus {
      * @type {string}
      * @memberof GetHealthsResponseDataOverallStatus
      */
-    'current': string;
+    'current': GetHealthsResponseDataOverallStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetHealthsResponseDataOverallStatus
+     */
+    'isFixing': boolean;
     /**
      * 
      * @type {string}
      * @memberof GetHealthsResponseDataOverallStatus
      */
-    'description': string;
+    'description'?: string;
 }
+
+export const GetHealthsResponseDataOverallStatusCurrentEnum = {
+    Ok: 'ok',
+    Ng: 'ng'
+} as const;
+
+export type GetHealthsResponseDataOverallStatusCurrentEnum = typeof GetHealthsResponseDataOverallStatusCurrentEnum[keyof typeof GetHealthsResponseDataOverallStatusCurrentEnum];
+
 /**
  * 
  * @export
@@ -1162,8 +1568,16 @@ export interface GetHealthsResponseDataServicesInnerStatus {
      * @type {string}
      * @memberof GetHealthsResponseDataServicesInnerStatus
      */
-    'current': string;
+    'current': GetHealthsResponseDataServicesInnerStatusCurrentEnum;
 }
+
+export const GetHealthsResponseDataServicesInnerStatusCurrentEnum = {
+    Ok: 'ok',
+    Ng: 'ng'
+} as const;
+
+export type GetHealthsResponseDataServicesInnerStatusCurrentEnum = typeof GetHealthsResponseDataServicesInnerStatusCurrentEnum[keyof typeof GetHealthsResponseDataServicesInnerStatusCurrentEnum];
+
 /**
  * 
  * @export
@@ -1614,10 +2028,10 @@ export interface GetMemoryUsageRankOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetCpuUsageRankOfHostsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetMemoryUsageRankOfHostsResponse
      */
-    'data': Array<GetCpuUsageRankOfHostsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -1645,10 +2059,10 @@ export interface GetMemoryUsageRankOfVmsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetCpuUsageRankOfHostsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetMemoryUsageRankOfVmsResponse
      */
-    'data': Array<GetCpuUsageRankOfHostsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -1730,217 +2144,6 @@ export interface GetMemoryUsageSummaryOfVmsResponse {
  */
 export type GetMetricByTypes200Response = GetCpuUsageRankOfHostsResponse | GetCpuUsageRankOfVmsResponse | GetCpuUsageSummaryOfHostsResponse | GetDiskBandwidthHistoryOfHostsResponse | GetDiskIopsHistoryOfHostsResponse | GetDiskLatencyHistoryOfHostsResponse | GetDiskReadIopsRankOfVmsResponse | GetDiskUsageRankOfHostsResponse | GetDiskWriteIopsRankOfVmsResponse | GetMemoryUsageRankOfHostsResponse | GetMemoryUsageRankOfVmsResponse | GetMemoryUsageSummaryOfHostsResponse | GetMemoryUsageSummaryOfVmsResponse | GetNetworkTrafficInRankOfHostsResponse | GetNetworkTrafficInRankOfVmsResponse | GetNetworkTrafficOutRankOfHostsResponse | GetNetworkTrafficOutRankOfVmsResponse;
 
-/**
- * 
- * @export
- * @interface GetMetricByTypes200ResponseData
- */
-export interface GetMetricByTypes200ResponseData {
-    /**
-     * 
-     * @type {GetMetricByTypes200ResponseDataVm}
-     * @memberof GetMetricByTypes200ResponseData
-     */
-    'vm'?: GetMetricByTypes200ResponseDataVm;
-    /**
-     * 
-     * @type {GetMetricByTypes200ResponseDataRole}
-     * @memberof GetMetricByTypes200ResponseData
-     */
-    'role'?: GetMetricByTypes200ResponseDataRole;
-    /**
-     * 
-     * @type {GetMetricByTypes200ResponseDataMetrics}
-     * @memberof GetMetricByTypes200ResponseData
-     */
-    'metrics'?: GetMetricByTypes200ResponseDataMetrics;
-}
-/**
- * 
- * @export
- * @interface GetMetricByTypes200ResponseDataMetrics
- */
-export interface GetMetricByTypes200ResponseDataMetrics {
-    /**
-     * 
-     * @type {GetMetricByTypes200ResponseDataMetricsVcpu}
-     * @memberof GetMetricByTypes200ResponseDataMetrics
-     */
-    'vcpu'?: GetMetricByTypes200ResponseDataMetricsVcpu;
-    /**
-     * 
-     * @type {GetMetricByTypes200ResponseDataMetricsMemory}
-     * @memberof GetMetricByTypes200ResponseDataMetrics
-     */
-    'memory'?: GetMetricByTypes200ResponseDataMetricsMemory;
-    /**
-     * 
-     * @type {GetMetricByTypes200ResponseDataMetricsStorage}
-     * @memberof GetMetricByTypes200ResponseDataMetrics
-     */
-    'storage'?: GetMetricByTypes200ResponseDataMetricsStorage;
-}
-/**
- * 
- * @export
- * @interface GetMetricByTypes200ResponseDataMetricsMemory
- */
-export interface GetMetricByTypes200ResponseDataMetricsMemory {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsMemory
-     */
-    'totalMiB'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsMemory
-     */
-    'usedMiB'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsMemory
-     */
-    'freeMiB'?: number;
-}
-/**
- * 
- * @export
- * @interface GetMetricByTypes200ResponseDataMetricsStorage
- */
-export interface GetMetricByTypes200ResponseDataMetricsStorage {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsStorage
-     */
-    'totalMiB'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsStorage
-     */
-    'usedMiB'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsStorage
-     */
-    'freeMiB'?: number;
-}
-/**
- * 
- * @export
- * @interface GetMetricByTypes200ResponseDataMetricsVcpu
- */
-export interface GetMetricByTypes200ResponseDataMetricsVcpu {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsVcpu
-     */
-    'totalCores'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsVcpu
-     */
-    'usedCores'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataMetricsVcpu
-     */
-    'freeCores'?: number;
-}
-/**
- * 
- * @export
- * @interface GetMetricByTypes200ResponseDataRole
- */
-export interface GetMetricByTypes200ResponseDataRole {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataRole
-     */
-    'controlConverged'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataRole
-     */
-    'control'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataRole
-     */
-    'compute'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataRole
-     */
-    'storage'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataRole
-     */
-    'others'?: number;
-}
-/**
- * 
- * @export
- * @interface GetMetricByTypes200ResponseDataVm
- */
-export interface GetMetricByTypes200ResponseDataVm {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataVm
-     */
-    'total'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataVm
-     */
-    'running'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataVm
-     */
-    'stopped'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataVm
-     */
-    'paused'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataVm
-     */
-    'suspend'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataVm
-     */
-    'error'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricByTypes200ResponseDataVm
-     */
-    'unknown'?: number;
-}
 /**
  * 
  * @export
@@ -2180,34 +2383,40 @@ export interface GetMetricsResponseDataHost {
 export interface GetMetricsResponseDataHostRole {
     /**
      * 
-     * @type {number}
+     * @type {RoleUsage}
      * @memberof GetMetricsResponseDataHostRole
      */
-    'controlConverged': number;
+    'controlConverged': RoleUsage;
     /**
      * 
-     * @type {number}
+     * @type {RoleUsage}
      * @memberof GetMetricsResponseDataHostRole
      */
-    'control': number;
+    'control': RoleUsage;
     /**
      * 
-     * @type {number}
+     * @type {RoleUsage}
      * @memberof GetMetricsResponseDataHostRole
      */
-    'compute': number;
+    'compute': RoleUsage;
     /**
      * 
-     * @type {number}
+     * @type {RoleUsage}
      * @memberof GetMetricsResponseDataHostRole
      */
-    'storage': number;
+    'storage': RoleUsage;
     /**
      * 
-     * @type {number}
+     * @type {RoleUsage}
      * @memberof GetMetricsResponseDataHostRole
      */
-    'others': number;
+    'edgeCore': RoleUsage;
+    /**
+     * 
+     * @type {RoleUsage}
+     * @memberof GetMetricsResponseDataHostRole
+     */
+    'moderator': RoleUsage;
 }
 /**
  * 
@@ -2394,12 +2603,6 @@ export interface GetMetricsResponseDataVmStatus {
      * @memberof GetMetricsResponseDataVmStatus
      */
     'error': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMetricsResponseDataVmStatus
-     */
-    'unknown': number;
 }
 /**
  * 
@@ -2576,134 +2779,98 @@ export interface GetModuleHealthHistoryResponse {
 export interface GetModuleHealthHistoryResponseData {
     /**
      * 
-     * @type {GetModuleHealthHistoryResponseDataHealth}
-     * @memberof GetModuleHealthHistoryResponseData
-     */
-    'health': GetModuleHealthHistoryResponseDataHealth;
-    /**
-     * 
-     * @type {GetModuleHealthHistoryResponseDataPage}
-     * @memberof GetModuleHealthHistoryResponseData
-     */
-    'page': GetModuleHealthHistoryResponseDataPage;
-}
-/**
- * 
- * @export
- * @interface GetModuleHealthHistoryResponseDataHealth
- */
-export interface GetModuleHealthHistoryResponseDataHealth {
-    /**
-     * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealth
+     * @memberof GetModuleHealthHistoryResponseData
      */
     'category': string;
     /**
      * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealth
+     * @memberof GetModuleHealthHistoryResponseData
      */
-    'service': string;
+    'service'?: string;
     /**
      * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealth
+     * @memberof GetModuleHealthHistoryResponseData
      */
     'module': string;
     /**
      * 
-     * @type {Array<GetModuleHealthHistoryResponseDataHealthHistoryInner>}
-     * @memberof GetModuleHealthHistoryResponseDataHealth
+     * @type {Array<GetModuleHealthHistoryResponseDataHistoryInner>}
+     * @memberof GetModuleHealthHistoryResponseData
      */
-    'history': Array<GetModuleHealthHistoryResponseDataHealthHistoryInner>;
+    'history': Array<GetModuleHealthHistoryResponseDataHistoryInner>;
 }
 /**
  * 
  * @export
- * @interface GetModuleHealthHistoryResponseDataHealthHistoryInner
+ * @interface GetModuleHealthHistoryResponseDataHistoryInner
  */
-export interface GetModuleHealthHistoryResponseDataHealthHistoryInner {
+export interface GetModuleHealthHistoryResponseDataHistoryInner {
     /**
      * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealthHistoryInner
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
      */
     'time': string;
     /**
      * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealthHistoryInner
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
      */
-    'status': string;
+    'status': GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum;
     /**
      * 
-     * @type {GetModuleHealthHistoryResponseDataHealthHistoryInnerError}
-     * @memberof GetModuleHealthHistoryResponseDataHealthHistoryInner
+     * @type {GetModuleHealthHistoryResponseDataHistoryInnerError}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
      */
-    'error'?: GetModuleHealthHistoryResponseDataHealthHistoryInnerError;
+    'error'?: GetModuleHealthHistoryResponseDataHistoryInnerError;
 }
+
+export const GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum = {
+    Ok: 'ok',
+    Ng: 'ng'
+} as const;
+
+export type GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum = typeof GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum[keyof typeof GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum];
+
 /**
  * 
  * @export
- * @interface GetModuleHealthHistoryResponseDataHealthHistoryInnerError
+ * @interface GetModuleHealthHistoryResponseDataHistoryInnerError
  */
-export interface GetModuleHealthHistoryResponseDataHealthHistoryInnerError {
+export interface GetModuleHealthHistoryResponseDataHistoryInnerError {
     /**
      * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealthHistoryInnerError
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
      */
     'type'?: string;
     /**
      * 
      * @type {Array<string>}
-     * @memberof GetModuleHealthHistoryResponseDataHealthHistoryInnerError
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
      */
     'nodes'?: Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealthHistoryInnerError
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
      */
     'description'?: string;
     /**
      * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealthHistoryInnerError
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
      */
     'details'?: string;
     /**
      * 
      * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHealthHistoryInnerError
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
      */
     'log'?: string;
-}
-/**
- * 
- * @export
- * @interface GetModuleHealthHistoryResponseDataPage
- */
-export interface GetModuleHealthHistoryResponseDataPage {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetModuleHealthHistoryResponseDataPage
-     */
-    'total'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetModuleHealthHistoryResponseDataPage
-     */
-    'number'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetModuleHealthHistoryResponseDataPage
-     */
-    'size'?: number;
 }
 /**
  * 
@@ -2719,10 +2886,10 @@ export interface GetNetworkTrafficInRankOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetNetworkTrafficInRankOfHostsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetNetworkTrafficInRankOfHostsResponse
      */
-    'data': Array<GetNetworkTrafficInRankOfHostsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -2735,56 +2902,6 @@ export interface GetNetworkTrafficInRankOfHostsResponse {
      * @memberof GetNetworkTrafficInRankOfHostsResponse
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface GetNetworkTrafficInRankOfHostsResponseDataInner
- */
-export interface GetNetworkTrafficInRankOfHostsResponseDataInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInner
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInner
-     */
-    'packets': number;
-    /**
-     * 
-     * @type {Array<GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner>}
-     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInner
-     */
-    'history': Array<GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner>;
-}
-/**
- * 
- * @export
- * @interface GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner
- */
-export interface GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner
-     */
-    'time': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner
-     */
-    'packets': number;
 }
 /**
  * 
@@ -2800,10 +2917,10 @@ export interface GetNetworkTrafficInRankOfVmsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetNetworkTrafficInRankOfVmsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetNetworkTrafficInRankOfVmsResponse
      */
-    'data': Array<GetNetworkTrafficInRankOfVmsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -2820,43 +2937,6 @@ export interface GetNetworkTrafficInRankOfVmsResponse {
 /**
  * 
  * @export
- * @interface GetNetworkTrafficInRankOfVmsResponseDataInner
- */
-export interface GetNetworkTrafficInRankOfVmsResponseDataInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNetworkTrafficInRankOfVmsResponseDataInner
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNetworkTrafficInRankOfVmsResponseDataInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNetworkTrafficInRankOfVmsResponseDataInner
-     */
-    'device': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNetworkTrafficInRankOfVmsResponseDataInner
-     */
-    'packets': number;
-    /**
-     * 
-     * @type {Array<GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner>}
-     * @memberof GetNetworkTrafficInRankOfVmsResponseDataInner
-     */
-    'history': Array<GetNetworkTrafficInRankOfHostsResponseDataInnerHistoryInner>;
-}
-/**
- * 
- * @export
  * @interface GetNetworkTrafficOutRankOfHostsResponse
  */
 export interface GetNetworkTrafficOutRankOfHostsResponse {
@@ -2868,10 +2948,10 @@ export interface GetNetworkTrafficOutRankOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetNetworkTrafficInRankOfHostsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetNetworkTrafficOutRankOfHostsResponse
      */
-    'data': Array<GetNetworkTrafficInRankOfHostsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -2899,10 +2979,10 @@ export interface GetNetworkTrafficOutRankOfVmsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetNetworkTrafficInRankOfVmsResponseDataInner>}
+     * @type {MetricRank}
      * @memberof GetNetworkTrafficOutRankOfVmsResponse
      */
-    'data': Array<GetNetworkTrafficInRankOfVmsResponseDataInner>;
+    'data': MetricRank;
     /**
      * 
      * @type {string}
@@ -3105,7 +3185,7 @@ export interface GetNodesResponseDataNodesInnerLicense {
      * @type {GetLicensesResponseDataLicensesInnerExpiry}
      * @memberof GetNodesResponseDataNodesInnerLicense
      */
-    'expire': GetLicensesResponseDataLicensesInnerExpiry;
+    'expiry': GetLicensesResponseDataLicensesInnerExpiry;
 }
 /**
  * 
@@ -3206,6 +3286,500 @@ export interface GetNodesResponseDataNodesInnerVcpu {
      * @memberof GetNodesResponseDataNodesInnerVcpu
      */
     'freeCores': number;
+}
+/**
+ * 
+ * @export
+ * @interface GetRankedEventsResponse
+ */
+export interface GetRankedEventsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetRankedEventsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetRankedEventsResponseData}
+     * @memberof GetRankedEventsResponse
+     */
+    'data': GetRankedEventsResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetRankedEventsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetRankedEventsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetRankedEventsResponseData
+ */
+export interface GetRankedEventsResponseData {
+    /**
+     * 
+     * @type {Array<GetRankedEventsResponseDataEventsInner>}
+     * @memberof GetRankedEventsResponseData
+     */
+    'events': Array<GetRankedEventsResponseDataEventsInner>;
+    /**
+     * 
+     * @type {GetAbstractedEventsResponseDataLimit}
+     * @memberof GetRankedEventsResponseData
+     */
+    'limit': GetAbstractedEventsResponseDataLimit;
+}
+/**
+ * 
+ * @export
+ * @interface GetRankedEventsResponseDataEventsInner
+ */
+export interface GetRankedEventsResponseDataEventsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'percent': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'number': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'query': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetServiceHealthHistory400Response
+ */
+export interface GetServiceHealthHistory400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetServiceHealthHistory400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistory400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistory400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetServiceHealthHistoryResponse
+ */
+export interface GetServiceHealthHistoryResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetServiceHealthHistoryResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<GetServiceHealthHistoryResponseDataInner>}
+     * @memberof GetServiceHealthHistoryResponse
+     */
+    'data': Array<GetServiceHealthHistoryResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetServiceHealthHistoryResponseDataInner
+ */
+export interface GetServiceHealthHistoryResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInner
+     */
+    'category': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInner
+     */
+    'service': string;
+    /**
+     * 
+     * @type {Array<GetServiceHealthHistoryResponseDataInnerHistoryInner>}
+     * @memberof GetServiceHealthHistoryResponseDataInner
+     */
+    'history': Array<GetServiceHealthHistoryResponseDataInnerHistoryInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInner
+     */
+    'module': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetServiceHealthHistoryResponseDataInnerHistoryInner
+ */
+export interface GetServiceHealthHistoryResponseDataInnerHistoryInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInner
+     */
+    'time': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInner
+     */
+    'status': GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum;
+    /**
+     * 
+     * @type {GetServiceHealthHistoryResponseDataInnerHistoryInnerError}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInner
+     */
+    'error'?: GetServiceHealthHistoryResponseDataInnerHistoryInnerError;
+}
+
+export const GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum = {
+    Ok: 'ok',
+    Ng: 'ng'
+} as const;
+
+export type GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum = typeof GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum[keyof typeof GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface GetServiceHealthHistoryResponseDataInnerHistoryInnerError
+ */
+export interface GetServiceHealthHistoryResponseDataInnerHistoryInnerError {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInnerError
+     */
+    'type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInnerError
+     */
+    'reason'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInnerError
+     */
+    'nodes'?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInnerError
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInnerError
+     */
+    'details'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInnerError
+     */
+    'log'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetServices500Response
+ */
+export interface GetServices500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetServices500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServices500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServices500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetServicesResponse
+ */
+export interface GetServicesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetServicesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<GetServicesResponseDataInner>}
+     * @memberof GetServicesResponse
+     */
+    'data': Array<GetServicesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServicesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServicesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetServicesResponseDataInner
+ */
+export interface GetServicesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServicesResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServicesResponseDataInner
+     */
+    'category': string;
+    /**
+     * 
+     * @type {Array<GetMeResponseData>}
+     * @memberof GetServicesResponseDataInner
+     */
+    'modules': Array<GetMeResponseData>;
+}
+/**
+ * 
+ * @export
+ * @interface GetSettingResponse
+ */
+export interface GetSettingResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetSettingResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetSettingResponseData}
+     * @memberof GetSettingResponse
+     */
+    'data': GetSettingResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSettingResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSettingResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetSettingResponseData
+ */
+export interface GetSettingResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSettingResponseData
+     */
+    'titlePrefix': string;
+    /**
+     * 
+     * @type {GetSettingResponseDataEmail}
+     * @memberof GetSettingResponseData
+     */
+    'email': GetSettingResponseDataEmail;
+    /**
+     * 
+     * @type {GetSettingResponseDataSlack}
+     * @memberof GetSettingResponseData
+     */
+    'slack': GetSettingResponseDataSlack;
+}
+/**
+ * 
+ * @export
+ * @interface GetSettingResponseDataEmail
+ */
+export interface GetSettingResponseDataEmail {
+    /**
+     * 
+     * @type {Array<EmailSender>}
+     * @memberof GetSettingResponseDataEmail
+     */
+    'senders': Array<EmailSender>;
+    /**
+     * 
+     * @type {Array<EmailRecipient>}
+     * @memberof GetSettingResponseDataEmail
+     */
+    'recipients': Array<EmailRecipient>;
+}
+/**
+ * 
+ * @export
+ * @interface GetSettingResponseDataSlack
+ */
+export interface GetSettingResponseDataSlack {
+    /**
+     * 
+     * @type {SlackChannel}
+     * @memberof GetSettingResponseDataSlack
+     */
+    'channel'?: SlackChannel;
+}
+/**
+ * 
+ * @export
+ * @interface GetSettings500Response
+ */
+export interface GetSettings500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetSettings500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSettings500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSettings500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetSlackChannels500Response
+ */
+export interface GetSlackChannels500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetSlackChannels500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSlackChannels500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSlackChannels500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetSlackChannelsResponse
+ */
+export interface GetSlackChannelsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetSlackChannelsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<SlackChannel>}
+     * @memberof GetSlackChannelsResponse
+     */
+    'data': Array<SlackChannel>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSlackChannelsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSlackChannelsResponse
+     */
+    'status': string;
 }
 /**
  * 
@@ -3379,6 +3953,385 @@ export interface ImportClusterLicense500Response {
 /**
  * 
  * @export
+ * @interface ListTuningResponse
+ */
+export interface ListTuningResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListTuningResponse
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {Array<ListTuningResponseDataInner>}
+     * @memberof ListTuningResponse
+     */
+    'data'?: Array<ListTuningResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponse
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponse
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListTuningResponseDataInner
+ */
+export interface ListTuningResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataInner
+     */
+    'value': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ListTuningResponseDataInner
+     */
+    'hosts': Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataInner
+     */
+    'description': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListTuningResponseDataInner
+     */
+    'enabled': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListTuningResponseDataInner
+     */
+    'isModified': boolean;
+    /**
+     * 
+     * @type {ListTuningResponseDataInnerLimitation}
+     * @memberof ListTuningResponseDataInner
+     */
+    'limitation': ListTuningResponseDataInnerLimitation;
+}
+/**
+ * 
+ * @export
+ * @interface ListTuningResponseDataInnerLimitation
+ */
+export interface ListTuningResponseDataInnerLimitation {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataInnerLimitation
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ListTuningResponseDataInnerLimitationDefault}
+     * @memberof ListTuningResponseDataInnerLimitation
+     */
+    'default': ListTuningResponseDataInnerLimitationDefault;
+    /**
+     * 
+     * @type {ListTuningResponseDataInnerLimitationMin}
+     * @memberof ListTuningResponseDataInnerLimitation
+     */
+    'min': ListTuningResponseDataInnerLimitationMin;
+    /**
+     * 
+     * @type {ListTuningResponseDataInnerLimitationMin}
+     * @memberof ListTuningResponseDataInnerLimitation
+     */
+    'max': ListTuningResponseDataInnerLimitationMin;
+}
+/**
+ * @type ListTuningResponseDataInnerLimitationDefault
+ * @export
+ */
+export type ListTuningResponseDataInnerLimitationDefault = boolean | number | string;
+
+/**
+ * @type ListTuningResponseDataInnerLimitationMin
+ * @export
+ */
+export type ListTuningResponseDataInnerLimitationMin = number;
+
+/**
+ * 
+ * @export
+ * @interface ListTuningSpecResponse
+ */
+export interface ListTuningSpecResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListTuningSpecResponse
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {Array<ListTuningSpecResponseDataInner>}
+     * @memberof ListTuningSpecResponse
+     */
+    'data'?: Array<ListTuningSpecResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponse
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponse
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListTuningSpecResponseDataInner
+ */
+export interface ListTuningSpecResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponseDataInner
+     */
+    'description': string;
+    /**
+     * 
+     * @type {ListTuningSpecResponseDataInnerLimitation}
+     * @memberof ListTuningSpecResponseDataInner
+     */
+    'limitation': ListTuningSpecResponseDataInnerLimitation;
+    /**
+     * 
+     * @type {Array<ListTuningSpecResponseDataInnerRolesInner>}
+     * @memberof ListTuningSpecResponseDataInner
+     */
+    'roles': Array<ListTuningSpecResponseDataInnerRolesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ListTuningSpecResponseDataInnerLimitation
+ */
+export interface ListTuningSpecResponseDataInnerLimitation {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponseDataInnerLimitation
+     */
+    'type': string;
+    /**
+     * 
+     * @type {ListTuningResponseDataInnerLimitationDefault}
+     * @memberof ListTuningSpecResponseDataInnerLimitation
+     */
+    'default': ListTuningResponseDataInnerLimitationDefault;
+    /**
+     * 
+     * @type {ListTuningResponseDataInnerLimitationMin}
+     * @memberof ListTuningSpecResponseDataInnerLimitation
+     */
+    'min'?: ListTuningResponseDataInnerLimitationMin;
+    /**
+     * 
+     * @type {ListTuningResponseDataInnerLimitationMin}
+     * @memberof ListTuningSpecResponseDataInnerLimitation
+     */
+    'max'?: ListTuningResponseDataInnerLimitationMin;
+}
+/**
+ * 
+ * @export
+ * @interface ListTuningSpecResponseDataInnerRolesInner
+ */
+export interface ListTuningSpecResponseDataInnerRolesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponseDataInnerRolesInner
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {Array<ListTuningSpecResponseDataInnerRolesInnerHostsInner>}
+     * @memberof ListTuningSpecResponseDataInnerRolesInner
+     */
+    'hosts'?: Array<ListTuningSpecResponseDataInnerRolesInnerHostsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ListTuningSpecResponseDataInnerRolesInnerHostsInner
+ */
+export interface ListTuningSpecResponseDataInnerRolesInnerHostsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponseDataInnerRolesInnerHostsInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponseDataInnerRolesInnerHostsInner
+     */
+    'ip': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListTuningSpecs500Response
+ */
+export interface ListTuningSpecs500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListTuningSpecs500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecs500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecs500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListTunings500Response
+ */
+export interface ListTunings500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListTunings500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTunings500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTunings500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface MetricRank
+ */
+export interface MetricRank {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricRank
+     */
+    'unit': string;
+    /**
+     * 
+     * @type {Array<MetricRankRankInner>}
+     * @memberof MetricRank
+     */
+    'rank': Array<MetricRankRankInner>;
+}
+/**
+ * 
+ * @export
+ * @interface MetricRankRankInner
+ */
+export interface MetricRankRankInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricRankRankInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricRankRankInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricRankRankInner
+     */
+    'device'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricRankRankInner
+     */
+    'value': number;
+    /**
+     * 
+     * @type {Array<MetricRankRankInnerHistoryInner>}
+     * @memberof MetricRankRankInner
+     */
+    'history': Array<MetricRankRankInnerHistoryInner>;
+}
+/**
+ * 
+ * @export
+ * @interface MetricRankRankInnerHistoryInner
+ */
+export interface MetricRankRankInnerHistoryInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricRankRankInnerHistoryInner
+     */
+    'time': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricRankRankInnerHistoryInner
+     */
+    'value': number;
+}
+/**
+ * 
+ * @export
  * @interface PatchModuleRepairResponse
  */
 export interface PatchModuleRepairResponse {
@@ -3429,6 +4382,56 @@ export interface PatchRepairResponse {
 /**
  * 
  * @export
+ * @interface PostEmailRecipientResponse
+ */
+export interface PostEmailRecipientResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof PostEmailRecipientResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostEmailRecipientResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostEmailRecipientResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface PostEmailSenderResponse
+ */
+export interface PostEmailSenderResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof PostEmailSenderResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostEmailSenderResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostEmailSenderResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface PostLicenseResponse
  */
 export interface PostLicenseResponse {
@@ -3454,6 +4457,106 @@ export interface PostLicenseResponse {
      * 
      * @type {string}
      * @memberof PostLicenseResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface PostSlackChannelResponse
+ */
+export interface PostSlackChannelResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof PostSlackChannelResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostSlackChannelResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostSlackChannelResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface PutEmailRecipientResponse
+ */
+export interface PutEmailRecipientResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof PutEmailRecipientResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PutEmailRecipientResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PutEmailRecipientResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface PutEmailSenderResponse
+ */
+export interface PutEmailSenderResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof PutEmailSenderResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PutEmailSenderResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PutEmailSenderResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface PutSlackChannelResponse
+ */
+export interface PutSlackChannelResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof PutSlackChannelResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PutSlackChannelResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PutSlackChannelResponse
      */
     'status': string;
 }
@@ -3507,6 +4610,595 @@ export interface RepairAllModulesHealth500Response {
      */
     'status'?: string;
 }
+/**
+ * 
+ * @export
+ * @interface ResetTuning400Response
+ */
+export interface ResetTuning400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ResetTuning400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetTuning400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetTuning400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ResetTuning500Response
+ */
+export interface ResetTuning500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ResetTuning500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetTuning500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetTuning500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ResetTuningRequest
+ */
+export interface ResetTuningRequest {
+    /**
+     * 
+     * @type {Array<ResetTuningRequestRolesInner>}
+     * @memberof ResetTuningRequest
+     */
+    'roles': Array<ResetTuningRequestRolesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ResetTuningRequestRolesInner
+ */
+export interface ResetTuningRequestRolesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetTuningRequestRolesInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {Array<GetMeResponseData>}
+     * @memberof ResetTuningRequestRolesInner
+     */
+    'hosts': Array<GetMeResponseData>;
+}
+/**
+ * 
+ * @export
+ * @interface ResetTuningResponse
+ */
+export interface ResetTuningResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ResetTuningResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetTuningResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResetTuningResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface RoleUsage
+ */
+export interface RoleUsage {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsage
+     */
+    'count': number;
+    /**
+     * 
+     * @type {RoleUsageCpu}
+     * @memberof RoleUsage
+     */
+    'cpu': RoleUsageCpu;
+    /**
+     * 
+     * @type {RoleUsageMemory}
+     * @memberof RoleUsage
+     */
+    'memory': RoleUsageMemory;
+}
+/**
+ * 
+ * @export
+ * @interface RoleUsageCpu
+ */
+export interface RoleUsageCpu {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageCpu
+     */
+    'totalCores': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageCpu
+     */
+    'usedCores': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageCpu
+     */
+    'freeCores': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageCpu
+     */
+    'usedPercent': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageCpu
+     */
+    'freePercent': number;
+}
+/**
+ * 
+ * @export
+ * @interface RoleUsageMemory
+ */
+export interface RoleUsageMemory {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageMemory
+     */
+    'totalMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageMemory
+     */
+    'usedMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageMemory
+     */
+    'freeMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageMemory
+     */
+    'usedPercent': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoleUsageMemory
+     */
+    'freePercent': number;
+}
+/**
+ * 
+ * @export
+ * @interface SlackChannel
+ */
+export interface SlackChannel {
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannel
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannel
+     */
+    'url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannel
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface TitlePrefix
+ */
+export interface TitlePrefix {
+    /**
+     * 
+     * @type {string}
+     * @memberof TitlePrefix
+     */
+    'value': string;
+}
+/**
+ * 
+ * @export
+ * @interface TryEmailRecipient400Response
+ */
+export interface TryEmailRecipient400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof TryEmailRecipient400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailRecipient400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailRecipient400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TryEmailRecipient500Response
+ */
+export interface TryEmailRecipient500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof TryEmailRecipient500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailRecipient500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailRecipient500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TryEmailRecipientResponse
+ */
+export interface TryEmailRecipientResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof TryEmailRecipientResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailRecipientResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailRecipientResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface TryEmailSender
+ */
+export interface TryEmailSender {
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailSender
+     */
+    'email': string;
+}
+/**
+ * 
+ * @export
+ * @interface TryEmailSender500Response
+ */
+export interface TryEmailSender500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof TryEmailSender500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailSender500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailSender500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TryEmailSenderResponse
+ */
+export interface TryEmailSenderResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof TryEmailSenderResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailSenderResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TryEmailSenderResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface TrySlackChannel500Response
+ */
+export interface TrySlackChannel500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof TrySlackChannel500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TrySlackChannel500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TrySlackChannel500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TrySlackChannelResponse
+ */
+export interface TrySlackChannelResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof TrySlackChannelResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TrySlackChannelResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TrySlackChannelResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateEmailRecipient500Response
+ */
+export interface UpdateEmailRecipient500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateEmailRecipient500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateEmailRecipient500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateEmailRecipient500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTitlePrefix500Response
+ */
+export interface UpdateTitlePrefix500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTitlePrefix500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTitlePrefix500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTitlePrefix500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTitlePrefixResponse
+ */
+export interface UpdateTitlePrefixResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTitlePrefixResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTitlePrefixResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTitlePrefixResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTuningRequest
+ */
+export interface UpdateTuningRequest {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateTuningRequest
+     */
+    'value': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateTuningRequest
+     */
+    'enabled': boolean;
+    /**
+     * 
+     * @type {Array<UpdateTuningRequestRolesInner>}
+     * @memberof UpdateTuningRequest
+     */
+    'roles': Array<UpdateTuningRequestRolesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTuningRequestRolesInner
+ */
+export interface UpdateTuningRequestRolesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTuningRequestRolesInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {Array<UpdateTuningRequestRolesInnerHostsInner>}
+     * @memberof UpdateTuningRequestRolesInner
+     */
+    'hosts': Array<UpdateTuningRequestRolesInnerHostsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTuningRequestRolesInnerHostsInner
+ */
+export interface UpdateTuningRequestRolesInnerHostsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTuningRequestRolesInnerHostsInner
+     */
+    'name': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTuningResponse
+ */
+export interface UpdateTuningResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTuningResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTuningResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTuningResponse
+     */
+    'status': string;
+}
 
 /**
  * DataCentersApi - axios parameter creator
@@ -3514,6 +5206,40 @@ export interface RepairAllModulesHealth500Response {
  */
 export const DataCentersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Retrieve the data center info
+         * @summary Retrieve the data center info
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDataCenter: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getDataCenter', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Retrieve the list of data centers
          * @summary Retrieve the list of data centers
@@ -3555,6 +5281,19 @@ export const DataCentersApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DataCentersApiAxiosParamCreator(configuration)
     return {
         /**
+         * Retrieve the data center info
+         * @summary Retrieve the data center info
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDataCenter(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetDataCenterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDataCenter(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DataCentersApi.getDataCenter']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Retrieve the list of data centers
          * @summary Retrieve the list of data centers
          * @param {*} [options] Override http request option.
@@ -3577,6 +5316,16 @@ export const DataCentersApiFactory = function (configuration?: Configuration, ba
     const localVarFp = DataCentersApiFp(configuration)
     return {
         /**
+         * Retrieve the data center info
+         * @summary Retrieve the data center info
+         * @param {DataCentersApiGetDataCenterRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDataCenter(requestParameters: DataCentersApiGetDataCenterRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetDataCenterResponse> {
+            return localVarFp.getDataCenter(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieve the list of data centers
          * @summary Retrieve the list of data centers
          * @param {*} [options] Override http request option.
@@ -3589,12 +5338,38 @@ export const DataCentersApiFactory = function (configuration?: Configuration, ba
 };
 
 /**
+ * Request parameters for getDataCenter operation in DataCentersApi.
+ * @export
+ * @interface DataCentersApiGetDataCenterRequest
+ */
+export interface DataCentersApiGetDataCenterRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof DataCentersApiGetDataCenter
+     */
+    readonly dataCenter: string
+}
+
+/**
  * DataCentersApi - object-oriented interface
  * @export
  * @class DataCentersApi
  * @extends {BaseAPI}
  */
 export class DataCentersApi extends BaseAPI {
+    /**
+     * Retrieve the data center info
+     * @summary Retrieve the data center info
+     * @param {DataCentersApiGetDataCenterRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DataCentersApi
+     */
+    public getDataCenter(requestParameters: DataCentersApiGetDataCenterRequest, options?: RawAxiosRequestConfig) {
+        return DataCentersApiFp(this.configuration).getDataCenter(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Retrieve the list of data centers
      * @summary Retrieve the list of data centers
@@ -3621,7 +5396,7 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetAbstractedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
          * @param {number} [limit] The limit of the abstracted events to return (default is 10).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3668,18 +5443,74 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @summary Retrieve the event filter conditions
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetEventFilterConditionsPastEnum} [past] The past time of the filter conditions to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEventFilterConditions: async (dataCenter: string, past?: GetEventFilterConditionsPastEnum, start?: string, stop?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getEventFilterConditions', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/events/filterConditions`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (past !== undefined) {
+                localVarQueryParameter['past'] = past;
+            }
+
+            if (start !== undefined) {
+                localVarQueryParameter['start'] = start;
+            }
+
+            if (stop !== undefined) {
+                localVarQueryParameter['stop'] = stop;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the list of events
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+         * @param {string} [keyword] The keyword of the event to query.
+         * @param {string} [id] The id of the event to query.
+         * @param {string} [category] The category of the event to query.
+         * @param {string} [severity] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+         * @param {string} [host] The host of the event to query.
+         * @param {string} [instance] The instance of the event to query.
+         * @param {string} [past] The past time of the event to query, use the unit of \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix to specify the time range.
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
          * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEvents: async (dataCenter: string, type: GetEventsTypeEnum, start?: string, stop?: string, pageNum?: number, pageSize?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getEvents: async (dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, category?: string, severity?: string, host?: string, instance?: string, past?: string, start?: string, stop?: string, pageNum?: number, pageSize?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getEvents', 'dataCenter', dataCenter)
             // verify required parameter 'type' is not null or undefined
@@ -3699,6 +5530,34 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (type !== undefined) {
                 localVarQueryParameter['type'] = type;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (category !== undefined) {
+                localVarQueryParameter['category'] = category;
+            }
+
+            if (severity !== undefined) {
+                localVarQueryParameter['severity'] = severity;
+            }
+
+            if (host !== undefined) {
+                localVarQueryParameter['host'] = host;
+            }
+
+            if (instance !== undefined) {
+                localVarQueryParameter['instance'] = instance;
+            }
+
+            if (past !== undefined) {
+                localVarQueryParameter['past'] = past;
             }
 
             if (start !== undefined) {
@@ -3732,6 +5591,92 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Retrieve the ranked events
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetRankedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+         * @param {string} [category] The category of the event to query.
+         * @param {string} [severity] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+         * @param {string} [host] The host of the event to query.
+         * @param {string} [instance] The instance of the event to query.
+         * @param {GetRankedEventsPastEnum} [past] The past time of the event rank to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {number} [limit] The limit of the rank of event to return (default is 10).
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRankedEvents: async (dataCenter: string, type: GetRankedEventsTypeEnum, category?: string, severity?: string, host?: string, instance?: string, past?: GetRankedEventsPastEnum, start?: string, stop?: string, limit?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getRankedEvents', 'dataCenter', dataCenter)
+            // verify required parameter 'type' is not null or undefined
+            assertParamExists('getRankedEvents', 'type', type)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/events/rank`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (type !== undefined) {
+                localVarQueryParameter['type'] = type;
+            }
+
+            if (category !== undefined) {
+                localVarQueryParameter['category'] = category;
+            }
+
+            if (severity !== undefined) {
+                localVarQueryParameter['severity'] = severity;
+            }
+
+            if (host !== undefined) {
+                localVarQueryParameter['host'] = host;
+            }
+
+            if (instance !== undefined) {
+                localVarQueryParameter['instance'] = instance;
+            }
+
+            if (past !== undefined) {
+                localVarQueryParameter['past'] = past;
+            }
+
+            if (start !== undefined) {
+                localVarQueryParameter['start'] = start;
+            }
+
+            if (stop !== undefined) {
+                localVarQueryParameter['stop'] = stop;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -3748,7 +5693,7 @@ export const EventsApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetAbstractedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
          * @param {number} [limit] The limit of the abstracted events to return (default is 10).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3760,21 +5705,67 @@ export const EventsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Retrieve the event filter conditions
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetEventFilterConditionsPastEnum} [past] The past time of the filter conditions to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEventFilterConditions(dataCenter: string, past?: GetEventFilterConditionsPastEnum, start?: string, stop?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventFilterConditionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEventFilterConditions(dataCenter, past, start, stop, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['EventsApi.getEventFilterConditions']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the list of events
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+         * @param {string} [keyword] The keyword of the event to query.
+         * @param {string} [id] The id of the event to query.
+         * @param {string} [category] The category of the event to query.
+         * @param {string} [severity] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+         * @param {string} [host] The host of the event to query.
+         * @param {string} [instance] The instance of the event to query.
+         * @param {string} [past] The past time of the event to query, use the unit of \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix to specify the time range.
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
          * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEvents(dataCenter: string, type: GetEventsTypeEnum, start?: string, stop?: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEvents(dataCenter, type, start, stop, pageNum, pageSize, watch, options);
+        async getEvents(dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, category?: string, severity?: string, host?: string, instance?: string, past?: string, start?: string, stop?: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEvents(dataCenter, type, keyword, id, category, severity, host, instance, past, start, stop, pageNum, pageSize, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EventsApi.getEvents']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve the ranked events
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetRankedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+         * @param {string} [category] The category of the event to query.
+         * @param {string} [severity] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+         * @param {string} [host] The host of the event to query.
+         * @param {string} [instance] The instance of the event to query.
+         * @param {GetRankedEventsPastEnum} [past] The past time of the event rank to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {number} [limit] The limit of the rank of event to return (default is 10).
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRankedEvents(dataCenter: string, type: GetRankedEventsTypeEnum, category?: string, severity?: string, host?: string, instance?: string, past?: GetRankedEventsPastEnum, start?: string, stop?: string, limit?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetRankedEventsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRankedEvents(dataCenter, type, category, severity, host, instance, past, start, stop, limit, watch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['EventsApi.getRankedEvents']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -3799,13 +5790,33 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
+         * @summary Retrieve the event filter conditions
+         * @param {EventsApiGetEventFilterConditionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEventFilterConditions(requestParameters: EventsApiGetEventFilterConditionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEventFilterConditionResponse> {
+            return localVarFp.getEventFilterConditions(requestParameters.dataCenter, requestParameters.past, requestParameters.start, requestParameters.stop, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve the list of events
          * @param {EventsApiGetEventsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
-            return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the ranked events
+         * @param {EventsApiGetRankedEventsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRankedEvents(requestParameters: EventsApiGetRankedEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetRankedEventsResponse> {
+            return localVarFp.getRankedEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.limit, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3825,7 +5836,7 @@ export interface EventsApiGetAbstractedEventsRequest {
 
     /**
      * The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-     * @type {'start' | 'host' | 'instance'}
+     * @type {'system' | 'host' | 'instance'}
      * @memberof EventsApiGetAbstractedEvents
      */
     readonly type: GetAbstractedEventsTypeEnum
@@ -3838,11 +5849,46 @@ export interface EventsApiGetAbstractedEventsRequest {
     readonly limit?: number
 
     /**
-     * The toggle to enable http chunked transfer for continues server push.
+     * The toggle to enable http chunked transfer for continuous server push.
      * @type {boolean}
      * @memberof EventsApiGetAbstractedEvents
      */
     readonly watch?: boolean
+}
+
+/**
+ * Request parameters for getEventFilterConditions operation in EventsApi.
+ * @export
+ * @interface EventsApiGetEventFilterConditionsRequest
+ */
+export interface EventsApiGetEventFilterConditionsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof EventsApiGetEventFilterConditions
+     */
+    readonly dataCenter: string
+
+    /**
+     * The past time of the filter conditions to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+     * @type {'1h' | '24h' | '7d' | '14d'}
+     * @memberof EventsApiGetEventFilterConditions
+     */
+    readonly past?: GetEventFilterConditionsPastEnum
+
+    /**
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof EventsApiGetEventFilterConditions
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof EventsApiGetEventFilterConditions
+     */
+    readonly stop?: string
 }
 
 /**
@@ -3864,6 +5910,55 @@ export interface EventsApiGetEventsRequest {
      * @memberof EventsApiGetEvents
      */
     readonly type: GetEventsTypeEnum
+
+    /**
+     * The keyword of the event to query.
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly keyword?: string
+
+    /**
+     * The id of the event to query.
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly id?: string
+
+    /**
+     * The category of the event to query.
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly category?: string
+
+    /**
+     * The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly severity?: string
+
+    /**
+     * The host of the event to query.
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly host?: string
+
+    /**
+     * The instance of the event to query.
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly instance?: string
+
+    /**
+     * The past time of the event to query, use the unit of \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix to specify the time range.
+     * @type {string}
+     * @memberof EventsApiGetEvents
+     */
+    readonly past?: string
 
     /**
      * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
@@ -3894,9 +5989,93 @@ export interface EventsApiGetEventsRequest {
     readonly pageSize?: number
 
     /**
-     * The toggle to enable http chunked transfer for continues server push.
+     * The toggle to enable http chunked transfer for continuous server push.
      * @type {boolean}
      * @memberof EventsApiGetEvents
+     */
+    readonly watch?: boolean
+}
+
+/**
+ * Request parameters for getRankedEvents operation in EventsApi.
+ * @export
+ * @interface EventsApiGetRankedEventsRequest
+ */
+export interface EventsApiGetRankedEventsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly dataCenter: string
+
+    /**
+     * The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+     * @type {'system' | 'host' | 'instance'}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly type: GetRankedEventsTypeEnum
+
+    /**
+     * The category of the event to query.
+     * @type {string}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly category?: string
+
+    /**
+     * The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+     * @type {string}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly severity?: string
+
+    /**
+     * The host of the event to query.
+     * @type {string}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly host?: string
+
+    /**
+     * The instance of the event to query.
+     * @type {string}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly instance?: string
+
+    /**
+     * The past time of the event rank to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+     * @type {'1h' | '24h' | '7d' | '14d'}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly past?: GetRankedEventsPastEnum
+
+    /**
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly stop?: string
+
+    /**
+     * The limit of the rank of event to return (default is 10).
+     * @type {number}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly limit?: number
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof EventsApiGetRankedEvents
      */
     readonly watch?: boolean
 }
@@ -3922,6 +6101,18 @@ export class EventsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Retrieve the event filter conditions
+     * @param {EventsApiGetEventFilterConditionsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EventsApi
+     */
+    public getEventFilterConditions(requestParameters: EventsApiGetEventFilterConditionsRequest, options?: RawAxiosRequestConfig) {
+        return EventsApiFp(this.configuration).getEventFilterConditions(requestParameters.dataCenter, requestParameters.past, requestParameters.start, requestParameters.stop, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve the list of events
      * @param {EventsApiGetEventsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3929,7 +6120,19 @@ export class EventsApi extends BaseAPI {
      * @memberof EventsApi
      */
     public getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig) {
-        return EventsApiFp(this.configuration).getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return EventsApiFp(this.configuration).getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve the ranked events
+     * @param {EventsApiGetRankedEventsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EventsApi
+     */
+    public getRankedEvents(requestParameters: EventsApiGetRankedEventsRequest, options?: RawAxiosRequestConfig) {
+        return EventsApiFp(this.configuration).getRankedEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.limit, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -3937,11 +6140,21 @@ export class EventsApi extends BaseAPI {
  * @export
  */
 export const GetAbstractedEventsTypeEnum = {
-    Start: 'start',
+    System: 'system',
     Host: 'host',
     Instance: 'instance'
 } as const;
 export type GetAbstractedEventsTypeEnum = typeof GetAbstractedEventsTypeEnum[keyof typeof GetAbstractedEventsTypeEnum];
+/**
+ * @export
+ */
+export const GetEventFilterConditionsPastEnum = {
+    _1h: '1h',
+    _24h: '24h',
+    _7d: '7d',
+    _14d: '14d'
+} as const;
+export type GetEventFilterConditionsPastEnum = typeof GetEventFilterConditionsPastEnum[keyof typeof GetEventFilterConditionsPastEnum];
 /**
  * @export
  */
@@ -3951,6 +6164,25 @@ export const GetEventsTypeEnum = {
     Instance: 'instance'
 } as const;
 export type GetEventsTypeEnum = typeof GetEventsTypeEnum[keyof typeof GetEventsTypeEnum];
+/**
+ * @export
+ */
+export const GetRankedEventsTypeEnum = {
+    System: 'system',
+    Host: 'host',
+    Instance: 'instance'
+} as const;
+export type GetRankedEventsTypeEnum = typeof GetRankedEventsTypeEnum[keyof typeof GetRankedEventsTypeEnum];
+/**
+ * @export
+ */
+export const GetRankedEventsPastEnum = {
+    _1h: '1h',
+    _24h: '24h',
+    _7d: '7d',
+    _14d: '14d'
+} as const;
+export type GetRankedEventsPastEnum = typeof GetRankedEventsPastEnum[keyof typeof GetRankedEventsPastEnum];
 
 
 /**
@@ -3963,22 +6195,26 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary Retrieve the health history of module
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} module The name of the module to retrieve health history, it could be \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
+         * @param {GetHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+         * @param {GetHealthHistoryModuleTypeEnum} moduleType The name of the module to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
+         * @param {GetHealthHistoryPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
-         * @param {number} [pageNum] The page number of the health history chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the health history to return (default is unlimit).
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHealthHistory: async (dataCenter: string, module: string, start?: string, stop?: string, pageNum?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getHealthHistory: async (dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getHealthHistory', 'dataCenter', dataCenter)
-            // verify required parameter 'module' is not null or undefined
-            assertParamExists('getHealthHistory', 'module', module)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/healths/{module}/history`
+            // verify required parameter 'serviceType' is not null or undefined
+            assertParamExists('getHealthHistory', 'serviceType', serviceType)
+            // verify required parameter 'moduleType' is not null or undefined
+            assertParamExists('getHealthHistory', 'moduleType', moduleType)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/healths/services/{serviceType}/modules/{moduleType}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
-                .replace(`{${"module"}}`, encodeURIComponent(String(module)));
+                .replace(`{${"serviceType"}}`, encodeURIComponent(String(serviceType)))
+                .replace(`{${"moduleType"}}`, encodeURIComponent(String(moduleType)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3990,6 +6226,10 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            if (past !== undefined) {
+                localVarQueryParameter['past'] = past;
+            }
+
             if (start !== undefined) {
                 localVarQueryParameter['start'] = start;
             }
@@ -3998,12 +6238,8 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['stop'] = stop;
             }
 
-            if (pageNum !== undefined) {
-                localVarQueryParameter['pageNum'] = pageNum;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
             }
 
 
@@ -4021,7 +6257,7 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary Retrieve the overall health status of all modules
          * @param {string} dataCenter The name of the data center to operate
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -4030,6 +6266,49 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
             assertParamExists('getHealths', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/healths`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve the all modules health status from a service
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetServiceHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getServiceHealthHistory: async (dataCenter: string, serviceType: GetServiceHealthHistoryServiceTypeEnum, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getServiceHealthHistory', 'dataCenter', dataCenter)
+            // verify required parameter 'serviceType' is not null or undefined
+            assertParamExists('getServiceHealthHistory', 'serviceType', serviceType)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/healths/services/{serviceType}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"serviceType"}}`, encodeURIComponent(String(serviceType)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -4094,18 +6373,22 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary Repair the unhealthy module
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} module The name of the module to repair. The module name is like \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
+         * @param {RepairModuleHealthServiceTypeEnum} serviceType The name of the service which cover the module you tend to repair. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+         * @param {RepairModuleHealthModuleTypeEnum} moduleType The name of the module to repair. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        repairModuleHealth: async (dataCenter: string, module: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        repairModuleHealth: async (dataCenter: string, serviceType: RepairModuleHealthServiceTypeEnum, moduleType: RepairModuleHealthModuleTypeEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('repairModuleHealth', 'dataCenter', dataCenter)
-            // verify required parameter 'module' is not null or undefined
-            assertParamExists('repairModuleHealth', 'module', module)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/healths/{module}`
+            // verify required parameter 'serviceType' is not null or undefined
+            assertParamExists('repairModuleHealth', 'serviceType', serviceType)
+            // verify required parameter 'moduleType' is not null or undefined
+            assertParamExists('repairModuleHealth', 'moduleType', moduleType)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/healths/services/{serviceType}/modules/{moduleType}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
-                .replace(`{${"module"}}`, encodeURIComponent(String(module)));
+                .replace(`{${"serviceType"}}`, encodeURIComponent(String(serviceType)))
+                .replace(`{${"moduleType"}}`, encodeURIComponent(String(moduleType)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -4142,16 +6425,17 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * 
          * @summary Retrieve the health history of module
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} module The name of the module to retrieve health history, it could be \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
+         * @param {GetHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+         * @param {GetHealthHistoryModuleTypeEnum} moduleType The name of the module to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
+         * @param {GetHealthHistoryPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
-         * @param {number} [pageNum] The page number of the health history chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the health history to return (default is unlimit).
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getHealthHistory(dataCenter: string, module: string, start?: string, stop?: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetModuleHealthHistoryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getHealthHistory(dataCenter, module, start, stop, pageNum, pageSize, options);
+        async getHealthHistory(dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetModuleHealthHistoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHealthHistory(dataCenter, serviceType, moduleType, past, start, stop, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['HealthApi.getHealthHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4160,7 +6444,7 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * 
          * @summary Retrieve the overall health status of all modules
          * @param {string} dataCenter The name of the data center to operate
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -4168,6 +6452,21 @@ export const HealthApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getHealths(dataCenter, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['HealthApi.getHealths']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve the all modules health status from a service
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetServiceHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getServiceHealthHistory(dataCenter: string, serviceType: GetServiceHealthHistoryServiceTypeEnum, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetServiceHealthHistoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getServiceHealthHistory(dataCenter, serviceType, watch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['HealthApi.getServiceHealthHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -4187,12 +6486,13 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * 
          * @summary Repair the unhealthy module
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} module The name of the module to repair. The module name is like \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
+         * @param {RepairModuleHealthServiceTypeEnum} serviceType The name of the service which cover the module you tend to repair. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+         * @param {RepairModuleHealthModuleTypeEnum} moduleType The name of the module to repair. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async repairModuleHealth(dataCenter: string, module: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PatchModuleRepairResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.repairModuleHealth(dataCenter, module, options);
+        async repairModuleHealth(dataCenter: string, serviceType: RepairModuleHealthServiceTypeEnum, moduleType: RepairModuleHealthModuleTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PatchModuleRepairResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.repairModuleHealth(dataCenter, serviceType, moduleType, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['HealthApi.repairModuleHealth']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -4215,7 +6515,7 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getHealthHistory(requestParameters: HealthApiGetHealthHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetModuleHealthHistoryResponse> {
-            return localVarFp.getHealthHistory(requestParameters.dataCenter, requestParameters.module, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+            return localVarFp.getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4226,6 +6526,16 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
          */
         getHealths(requestParameters: HealthApiGetHealthsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetHealthsResponse> {
             return localVarFp.getHealths(requestParameters.dataCenter, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the all modules health status from a service
+         * @param {HealthApiGetServiceHealthHistoryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getServiceHealthHistory(requestParameters: HealthApiGetServiceHealthHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetServiceHealthHistoryResponse> {
+            return localVarFp.getServiceHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4245,7 +6555,7 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         repairModuleHealth(requestParameters: HealthApiRepairModuleHealthRequest, options?: RawAxiosRequestConfig): AxiosPromise<PatchModuleRepairResponse> {
-            return localVarFp.repairModuleHealth(requestParameters.dataCenter, requestParameters.module, options).then((request) => request(axios, basePath));
+            return localVarFp.repairModuleHealth(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4264,11 +6574,25 @@ export interface HealthApiGetHealthHistoryRequest {
     readonly dataCenter: string
 
     /**
-     * The name of the module to retrieve health history, it could be \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
-     * @type {string}
+     * The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'logAnalytics' | 'notifications'}
      * @memberof HealthApiGetHealthHistory
      */
-    readonly module: string
+    readonly serviceType: GetHealthHistoryServiceTypeEnum
+
+    /**
+     * The name of the module to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
+     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'haproxy' | 'httpd' | 'skyline' | 'lim' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly moduleType: GetHealthHistoryModuleTypeEnum
+
+    /**
+     * The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+     * @type {'1h' | '24h' | '7d' | '14d' | '30d'}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly past?: GetHealthHistoryPastEnum
 
     /**
      * The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
@@ -4285,18 +6609,11 @@ export interface HealthApiGetHealthHistoryRequest {
     readonly stop?: string
 
     /**
-     * The page number of the health history chunking to fetch (default is 1).
-     * @type {number}
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
      * @memberof HealthApiGetHealthHistory
      */
-    readonly pageNum?: number
-
-    /**
-     * The size per page of the health history to return (default is unlimit).
-     * @type {number}
-     * @memberof HealthApiGetHealthHistory
-     */
-    readonly pageSize?: number
+    readonly watch?: boolean
 }
 
 /**
@@ -4313,9 +6630,37 @@ export interface HealthApiGetHealthsRequest {
     readonly dataCenter: string
 
     /**
-     * The toggle to enable http chunked transfer for continues server push.
+     * The toggle to enable http chunked transfer for continuous server push.
      * @type {boolean}
      * @memberof HealthApiGetHealths
+     */
+    readonly watch?: boolean
+}
+
+/**
+ * Request parameters for getServiceHealthHistory operation in HealthApi.
+ * @export
+ * @interface HealthApiGetServiceHealthHistoryRequest
+ */
+export interface HealthApiGetServiceHealthHistoryRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof HealthApiGetServiceHealthHistory
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'logAnalytics' | 'notifications'}
+     * @memberof HealthApiGetServiceHealthHistory
+     */
+    readonly serviceType: GetServiceHealthHistoryServiceTypeEnum
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof HealthApiGetServiceHealthHistory
      */
     readonly watch?: boolean
 }
@@ -4348,11 +6693,18 @@ export interface HealthApiRepairModuleHealthRequest {
     readonly dataCenter: string
 
     /**
-     * The name of the module to repair. The module name is like \&#39;ceph_osd\&#39;, \&#39;nova\&#39;, and so on.
-     * @type {string}
+     * The name of the service which cover the module you tend to repair. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
+     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'logAnalytics' | 'notifications'}
      * @memberof HealthApiRepairModuleHealth
      */
-    readonly module: string
+    readonly serviceType: RepairModuleHealthServiceTypeEnum
+
+    /**
+     * The name of the module to repair. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
+     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'haproxy' | 'httpd' | 'skyline' | 'lim' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
+     * @memberof HealthApiRepairModuleHealth
+     */
+    readonly moduleType: RepairModuleHealthModuleTypeEnum
 }
 
 /**
@@ -4371,7 +6723,7 @@ export class HealthApi extends BaseAPI {
      * @memberof HealthApi
      */
     public getHealthHistory(requestParameters: HealthApiGetHealthHistoryRequest, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).getHealthHistory(requestParameters.dataCenter, requestParameters.module, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
+        return HealthApiFp(this.configuration).getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4384,6 +6736,18 @@ export class HealthApi extends BaseAPI {
      */
     public getHealths(requestParameters: HealthApiGetHealthsRequest, options?: RawAxiosRequestConfig) {
         return HealthApiFp(this.configuration).getHealths(requestParameters.dataCenter, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve the all modules health status from a service
+     * @param {HealthApiGetServiceHealthHistoryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HealthApi
+     */
+    public getServiceHealthHistory(requestParameters: HealthApiGetServiceHealthHistoryRequest, options?: RawAxiosRequestConfig) {
+        return HealthApiFp(this.configuration).getServiceHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4407,10 +6771,236 @@ export class HealthApi extends BaseAPI {
      * @memberof HealthApi
      */
     public repairModuleHealth(requestParameters: HealthApiRepairModuleHealthRequest, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).repairModuleHealth(requestParameters.dataCenter, requestParameters.module, options).then((request) => request(this.axios, this.basePath));
+        return HealthApiFp(this.configuration).repairModuleHealth(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
+/**
+ * @export
+ */
+export const GetHealthHistoryServiceTypeEnum = {
+    ClusterLink: 'clusterLink',
+    ClusterSys: 'clusterSys',
+    ClusterSettings: 'clusterSettings',
+    HaCluster: 'haCluster',
+    MsgQueue: 'msgQueue',
+    IaasDb: 'iaasDb',
+    VirtualIp: 'virtualIp',
+    Storage: 'storage',
+    ApiService: 'apiService',
+    SingleSignOn: 'singleSignOn',
+    Network: 'network',
+    Compute: 'compute',
+    BareMetal: 'bareMetal',
+    Image: 'image',
+    BlockStor: 'blockStor',
+    FileStor: 'fileStor',
+    ObjectStor: 'objectStor',
+    Orchestration: 'orchestration',
+    Lbaas: 'lbaas',
+    Dnsaas: 'dnsaas',
+    K8saas: 'k8saas',
+    InstanceHa: 'instanceHa',
+    BusinessLogic: 'businessLogic',
+    DataPipe: 'dataPipe',
+    Metrics: 'metrics',
+    LogAnalytics: 'logAnalytics',
+    Notifications: 'notifications'
+} as const;
+export type GetHealthHistoryServiceTypeEnum = typeof GetHealthHistoryServiceTypeEnum[keyof typeof GetHealthHistoryServiceTypeEnum];
+/**
+ * @export
+ */
+export const GetHealthHistoryModuleTypeEnum = {
+    Link: 'link',
+    Clock: 'clock',
+    Dns: 'dns',
+    Bootstrap: 'bootstrap',
+    License: 'license',
+    Etcd: 'etcd',
+    Nodelist: 'nodelist',
+    Hacluster: 'hacluster',
+    Rabbitmq: 'rabbitmq',
+    Mysql: 'mysql',
+    Mongodb: 'mongodb',
+    Vip: 'vip',
+    HaproxyHa: 'haproxy_ha',
+    Ceph: 'ceph',
+    CephMon: 'ceph_mon',
+    CephOsd: 'ceph_osd',
+    CephRgw: 'ceph_rgw',
+    CephMds: 'ceph_mds',
+    CephMgr: 'ceph_mgr',
+    RbdTarget: 'rbd_target',
+    Haproxy: 'haproxy',
+    Httpd: 'httpd',
+    Skyline: 'skyline',
+    Lim: 'lim',
+    Memcache: 'memcache',
+    K3s: 'k3s',
+    Keycloak: 'keycloak',
+    Neutron: 'neutron',
+    Nova: 'nova',
+    Cyborg: 'cyborg',
+    Ironic: 'ironic',
+    Glance: 'glance',
+    Cinder: 'cinder',
+    Manila: 'manila',
+    Swift: 'swift',
+    Heat: 'heat',
+    Octavia: 'octavia',
+    Designate: 'designate',
+    Rancher: 'rancher',
+    Masakari: 'masakari',
+    Zookeeper: 'zookeeper',
+    Kafka: 'kafka',
+    Monasca: 'monasca',
+    Telegraf: 'telegraf',
+    Grafana: 'grafana',
+    Filebeat: 'filebeat',
+    Auditbeat: 'auditbeat',
+    Logstash: 'logstash',
+    Opensearch: 'opensearch',
+    OpensearchDashboards: 'opensearch-dashboards',
+    Influxdb: 'influxdb',
+    Kapacitor: 'kapacitor'
+} as const;
+export type GetHealthHistoryModuleTypeEnum = typeof GetHealthHistoryModuleTypeEnum[keyof typeof GetHealthHistoryModuleTypeEnum];
+/**
+ * @export
+ */
+export const GetHealthHistoryPastEnum = {
+    _1h: '1h',
+    _24h: '24h',
+    _7d: '7d',
+    _14d: '14d',
+    _30d: '30d'
+} as const;
+export type GetHealthHistoryPastEnum = typeof GetHealthHistoryPastEnum[keyof typeof GetHealthHistoryPastEnum];
+/**
+ * @export
+ */
+export const GetServiceHealthHistoryServiceTypeEnum = {
+    ClusterLink: 'clusterLink',
+    ClusterSys: 'clusterSys',
+    ClusterSettings: 'clusterSettings',
+    HaCluster: 'haCluster',
+    MsgQueue: 'msgQueue',
+    IaasDb: 'iaasDb',
+    VirtualIp: 'virtualIp',
+    Storage: 'storage',
+    ApiService: 'apiService',
+    SingleSignOn: 'singleSignOn',
+    Network: 'network',
+    Compute: 'compute',
+    BareMetal: 'bareMetal',
+    Image: 'image',
+    BlockStor: 'blockStor',
+    FileStor: 'fileStor',
+    ObjectStor: 'objectStor',
+    Orchestration: 'orchestration',
+    Lbaas: 'lbaas',
+    Dnsaas: 'dnsaas',
+    K8saas: 'k8saas',
+    InstanceHa: 'instanceHa',
+    BusinessLogic: 'businessLogic',
+    DataPipe: 'dataPipe',
+    Metrics: 'metrics',
+    LogAnalytics: 'logAnalytics',
+    Notifications: 'notifications'
+} as const;
+export type GetServiceHealthHistoryServiceTypeEnum = typeof GetServiceHealthHistoryServiceTypeEnum[keyof typeof GetServiceHealthHistoryServiceTypeEnum];
+/**
+ * @export
+ */
+export const RepairModuleHealthServiceTypeEnum = {
+    ClusterLink: 'clusterLink',
+    ClusterSys: 'clusterSys',
+    ClusterSettings: 'clusterSettings',
+    HaCluster: 'haCluster',
+    MsgQueue: 'msgQueue',
+    IaasDb: 'iaasDb',
+    VirtualIp: 'virtualIp',
+    Storage: 'storage',
+    ApiService: 'apiService',
+    SingleSignOn: 'singleSignOn',
+    Network: 'network',
+    Compute: 'compute',
+    BareMetal: 'bareMetal',
+    Image: 'image',
+    BlockStor: 'blockStor',
+    FileStor: 'fileStor',
+    ObjectStor: 'objectStor',
+    Orchestration: 'orchestration',
+    Lbaas: 'lbaas',
+    Dnsaas: 'dnsaas',
+    K8saas: 'k8saas',
+    InstanceHa: 'instanceHa',
+    BusinessLogic: 'businessLogic',
+    DataPipe: 'dataPipe',
+    Metrics: 'metrics',
+    LogAnalytics: 'logAnalytics',
+    Notifications: 'notifications'
+} as const;
+export type RepairModuleHealthServiceTypeEnum = typeof RepairModuleHealthServiceTypeEnum[keyof typeof RepairModuleHealthServiceTypeEnum];
+/**
+ * @export
+ */
+export const RepairModuleHealthModuleTypeEnum = {
+    Link: 'link',
+    Clock: 'clock',
+    Dns: 'dns',
+    Bootstrap: 'bootstrap',
+    License: 'license',
+    Etcd: 'etcd',
+    Nodelist: 'nodelist',
+    Hacluster: 'hacluster',
+    Rabbitmq: 'rabbitmq',
+    Mysql: 'mysql',
+    Mongodb: 'mongodb',
+    Vip: 'vip',
+    HaproxyHa: 'haproxy_ha',
+    Ceph: 'ceph',
+    CephMon: 'ceph_mon',
+    CephOsd: 'ceph_osd',
+    CephRgw: 'ceph_rgw',
+    CephMds: 'ceph_mds',
+    CephMgr: 'ceph_mgr',
+    RbdTarget: 'rbd_target',
+    Haproxy: 'haproxy',
+    Httpd: 'httpd',
+    Skyline: 'skyline',
+    Lim: 'lim',
+    Memcache: 'memcache',
+    K3s: 'k3s',
+    Keycloak: 'keycloak',
+    Neutron: 'neutron',
+    Nova: 'nova',
+    Cyborg: 'cyborg',
+    Ironic: 'ironic',
+    Glance: 'glance',
+    Cinder: 'cinder',
+    Manila: 'manila',
+    Swift: 'swift',
+    Heat: 'heat',
+    Octavia: 'octavia',
+    Designate: 'designate',
+    Rancher: 'rancher',
+    Masakari: 'masakari',
+    Zookeeper: 'zookeeper',
+    Kafka: 'kafka',
+    Monasca: 'monasca',
+    Telegraf: 'telegraf',
+    Grafana: 'grafana',
+    Filebeat: 'filebeat',
+    Auditbeat: 'auditbeat',
+    Logstash: 'logstash',
+    Opensearch: 'opensearch',
+    OpensearchDashboards: 'opensearch-dashboards',
+    Influxdb: 'influxdb',
+    Kapacitor: 'kapacitor'
+} as const;
+export type RepairModuleHealthModuleTypeEnum = typeof RepairModuleHealthModuleTypeEnum[keyof typeof RepairModuleHealthModuleTypeEnum];
 
 
 /**
@@ -5078,10 +7668,11 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary Retrieve the metrics of data center
          * @param {string} dataCenter The name of the data center to operate
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMetricsOverview: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getMetricsOverview: async (dataCenter: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getMetricsOverview', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/metrics`
@@ -5096,6 +7687,10 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
 
 
     
@@ -5140,11 +7735,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Retrieve the metrics of data center
          * @param {string} dataCenter The name of the data center to operate
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMetricsOverview(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMetricsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMetricsOverview(dataCenter, options);
+        async getMetricsOverview(dataCenter: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMetricsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMetricsOverview(dataCenter, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.getMetricsOverview']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5177,7 +7773,7 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @throws {RequiredError}
          */
         getMetricsOverview(requestParameters: MetricsApiGetMetricsOverviewRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMetricsResponse> {
-            return localVarFp.getMetricsOverview(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+            return localVarFp.getMetricsOverview(requestParameters.dataCenter, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5243,6 +7839,13 @@ export interface MetricsApiGetMetricsOverviewRequest {
      * @memberof MetricsApiGetMetricsOverview
      */
     readonly dataCenter: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof MetricsApiGetMetricsOverview
+     */
+    readonly watch?: boolean
 }
 
 /**
@@ -5273,7 +7876,7 @@ export class MetricsApi extends BaseAPI {
      * @memberof MetricsApi
      */
     public getMetricsOverview(requestParameters: MetricsApiGetMetricsOverviewRequest, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).getMetricsOverview(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+        return MetricsApiFp(this.configuration).getMetricsOverview(requestParameters.dataCenter, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5324,7 +7927,7 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {string} dataCenter The name of the data center to operate
          * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
          * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5383,7 +7986,7 @@ export const NodesApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
          * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
-         * @param {boolean} [watch] The toggle to enable http chunked transfer for continues server push.
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5444,7 +8047,7 @@ export interface NodesApiGetNodesRequest {
     readonly pageSize?: number
 
     /**
-     * The toggle to enable http chunked transfer for continues server push.
+     * The toggle to enable http chunked transfer for continuous server push.
      * @type {boolean}
      * @memberof NodesApiGetNodes
      */
@@ -5468,6 +8071,1798 @@ export class NodesApi extends BaseAPI {
      */
     public getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * ServicesApi - axios parameter creator
+ * @export
+ */
+export const ServicesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Retrieve the list of services
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getServices: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getServices', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/services`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ServicesApi - functional programming interface
+ * @export
+ */
+export const ServicesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ServicesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Retrieve the list of services
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getServices(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetServicesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getServices(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ServicesApi.getServices']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * ServicesApi - factory interface
+ * @export
+ */
+export const ServicesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ServicesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Retrieve the list of services
+         * @param {ServicesApiGetServicesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getServices(requestParameters: ServicesApiGetServicesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetServicesResponse> {
+            return localVarFp.getServices(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for getServices operation in ServicesApi.
+ * @export
+ * @interface ServicesApiGetServicesRequest
+ */
+export interface ServicesApiGetServicesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof ServicesApiGetServices
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * ServicesApi - object-oriented interface
+ * @export
+ * @class ServicesApi
+ * @extends {BaseAPI}
+ */
+export class ServicesApi extends BaseAPI {
+    /**
+     * 
+     * @summary Retrieve the list of services
+     * @param {ServicesApiGetServicesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ServicesApi
+     */
+    public getServices(requestParameters: ServicesApiGetServicesRequest, options?: RawAxiosRequestConfig) {
+        return ServicesApiFp(this.configuration).getServices(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * SettingsApi - axios parameter creator
+ * @export
+ */
+export const SettingsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create an email recipient
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {EmailRecipient} emailRecipient 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmailRecipient: async (dataCenter: string, emailRecipient: EmailRecipient, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createEmailRecipient', 'dataCenter', dataCenter)
+            // verify required parameter 'emailRecipient' is not null or undefined
+            assertParamExists('createEmailRecipient', 'emailRecipient', emailRecipient)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/recipients`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(emailRecipient, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Create an email sender
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {EmailSender} emailSender 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmailSender: async (dataCenter: string, emailSender: EmailSender, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createEmailSender', 'dataCenter', dataCenter)
+            // verify required parameter 'emailSender' is not null or undefined
+            assertParamExists('createEmailSender', 'emailSender', emailSender)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/senders`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(emailSender, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Create a slack channel
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {SlackChannel} slackChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSlackChannel: async (dataCenter: string, slackChannel: SlackChannel, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createSlackChannel', 'dataCenter', dataCenter)
+            // verify required parameter 'slackChannel' is not null or undefined
+            assertParamExists('createSlackChannel', 'slackChannel', slackChannel)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/slack/channels`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(slackChannel, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete an email recipient
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} recipientEmail recipient email to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteEmailRecipient: async (dataCenter: string, recipientEmail: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteEmailRecipient', 'dataCenter', dataCenter)
+            // verify required parameter 'recipientEmail' is not null or undefined
+            assertParamExists('deleteEmailRecipient', 'recipientEmail', recipientEmail)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/recipients/{recipientEmail}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"recipientEmail"}}`, encodeURIComponent(String(recipientEmail)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete an email sender
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} senderHost The host of the email sender to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteEmailSender: async (dataCenter: string, senderHost: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteEmailSender', 'dataCenter', dataCenter)
+            // verify required parameter 'senderHost' is not null or undefined
+            assertParamExists('deleteEmailSender', 'senderHost', senderHost)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/senders/{senderHost}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"senderHost"}}`, encodeURIComponent(String(senderHost)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete a slack channel
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} channelName channel name to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSlackChannel: async (dataCenter: string, channelName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteSlackChannel', 'dataCenter', dataCenter)
+            // verify required parameter 'channelName' is not null or undefined
+            assertParamExists('deleteSlackChannel', 'channelName', channelName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/slack/channels/{channelName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"channelName"}}`, encodeURIComponent(String(channelName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve email recipients
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmailRecipients: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getEmailRecipients', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/recipients`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve email senders
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmailSenders: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getEmailSenders', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/senders`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve setting
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSettings: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getSettings', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve slack channels
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSlackChannels: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getSlackChannels', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/slack/channels`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Try an email recipient
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} recipientEmail recipient email to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tryEmailRecipient: async (dataCenter: string, recipientEmail: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('tryEmailRecipient', 'dataCenter', dataCenter)
+            // verify required parameter 'recipientEmail' is not null or undefined
+            assertParamExists('tryEmailRecipient', 'recipientEmail', recipientEmail)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/recipients/{recipientEmail}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"recipientEmail"}}`, encodeURIComponent(String(recipientEmail)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Try an email sender
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} senderHost The host of the email sender to operate
+         * @param {TryEmailSender} tryEmailSender 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tryEmailSender: async (dataCenter: string, senderHost: string, tryEmailSender: TryEmailSender, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('tryEmailSender', 'dataCenter', dataCenter)
+            // verify required parameter 'senderHost' is not null or undefined
+            assertParamExists('tryEmailSender', 'senderHost', senderHost)
+            // verify required parameter 'tryEmailSender' is not null or undefined
+            assertParamExists('tryEmailSender', 'tryEmailSender', tryEmailSender)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/senders/{senderHost}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"senderHost"}}`, encodeURIComponent(String(senderHost)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tryEmailSender, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Try a slack channel
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} channelName channel name to update
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        trySlackChannel: async (dataCenter: string, channelName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('trySlackChannel', 'dataCenter', dataCenter)
+            // verify required parameter 'channelName' is not null or undefined
+            assertParamExists('trySlackChannel', 'channelName', channelName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/slack/channels/{channelName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"channelName"}}`, encodeURIComponent(String(channelName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update an email recipient
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} recipientEmail recipient email to update
+         * @param {EmailRecipient} emailRecipient 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateEmailRecipient: async (dataCenter: string, recipientEmail: string, emailRecipient: EmailRecipient, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateEmailRecipient', 'dataCenter', dataCenter)
+            // verify required parameter 'recipientEmail' is not null or undefined
+            assertParamExists('updateEmailRecipient', 'recipientEmail', recipientEmail)
+            // verify required parameter 'emailRecipient' is not null or undefined
+            assertParamExists('updateEmailRecipient', 'emailRecipient', emailRecipient)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/recipients/{recipientEmail}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"recipientEmail"}}`, encodeURIComponent(String(recipientEmail)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(emailRecipient, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update an email sender
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} senderHost The host of the email sender to operate
+         * @param {EmailSender} emailSender 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateEmailSender: async (dataCenter: string, senderHost: string, emailSender: EmailSender, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateEmailSender', 'dataCenter', dataCenter)
+            // verify required parameter 'senderHost' is not null or undefined
+            assertParamExists('updateEmailSender', 'senderHost', senderHost)
+            // verify required parameter 'emailSender' is not null or undefined
+            assertParamExists('updateEmailSender', 'emailSender', emailSender)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/senders/{senderHost}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"senderHost"}}`, encodeURIComponent(String(senderHost)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(emailSender, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update a slack channel
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} channelName channel name to update
+         * @param {SlackChannel} slackChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSlackChannel: async (dataCenter: string, channelName: string, slackChannel: SlackChannel, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateSlackChannel', 'dataCenter', dataCenter)
+            // verify required parameter 'channelName' is not null or undefined
+            assertParamExists('updateSlackChannel', 'channelName', channelName)
+            // verify required parameter 'slackChannel' is not null or undefined
+            assertParamExists('updateSlackChannel', 'slackChannel', slackChannel)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/slack/channels/{channelName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"channelName"}}`, encodeURIComponent(String(channelName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(slackChannel, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update title prefix
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {TitlePrefix} titlePrefix 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTitlePrefix: async (dataCenter: string, titlePrefix: TitlePrefix, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateTitlePrefix', 'dataCenter', dataCenter)
+            // verify required parameter 'titlePrefix' is not null or undefined
+            assertParamExists('updateTitlePrefix', 'titlePrefix', titlePrefix)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/titlePrefix`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(titlePrefix, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SettingsApi - functional programming interface
+ * @export
+ */
+export const SettingsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SettingsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create an email recipient
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {EmailRecipient} emailRecipient 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createEmailRecipient(dataCenter: string, emailRecipient: EmailRecipient, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostEmailRecipientResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmailRecipient(dataCenter, emailRecipient, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.createEmailRecipient']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Create an email sender
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {EmailSender} emailSender 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createEmailSender(dataCenter: string, emailSender: EmailSender, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostEmailSenderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmailSender(dataCenter, emailSender, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.createEmailSender']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Create a slack channel
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {SlackChannel} slackChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createSlackChannel(dataCenter: string, slackChannel: SlackChannel, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostSlackChannelResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createSlackChannel(dataCenter, slackChannel, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.createSlackChannel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete an email recipient
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} recipientEmail recipient email to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteEmailRecipient(dataCenter: string, recipientEmail: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteEmailRecipientResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteEmailRecipient(dataCenter, recipientEmail, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.deleteEmailRecipient']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete an email sender
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} senderHost The host of the email sender to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteEmailSender(dataCenter: string, senderHost: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteEmailSenderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteEmailSender(dataCenter, senderHost, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.deleteEmailSender']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete a slack channel
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} channelName channel name to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteSlackChannel(dataCenter: string, channelName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteSlackChannelResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSlackChannel(dataCenter, channelName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.deleteSlackChannel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve email recipients
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmailRecipients(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEmailRecipientsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmailRecipients(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.getEmailRecipients']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve email senders
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmailSenders(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEmailSendersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmailSenders(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.getEmailSenders']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve setting
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSettings(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSettingResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSettings(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.getSettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve slack channels
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSlackChannels(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSlackChannelsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSlackChannels(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.getSlackChannels']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Try an email recipient
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} recipientEmail recipient email to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tryEmailRecipient(dataCenter: string, recipientEmail: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TryEmailRecipientResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tryEmailRecipient(dataCenter, recipientEmail, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.tryEmailRecipient']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Try an email sender
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} senderHost The host of the email sender to operate
+         * @param {TryEmailSender} tryEmailSender 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tryEmailSender(dataCenter: string, senderHost: string, tryEmailSender: TryEmailSender, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TryEmailSenderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tryEmailSender(dataCenter, senderHost, tryEmailSender, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.tryEmailSender']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Try a slack channel
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} channelName channel name to update
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async trySlackChannel(dataCenter: string, channelName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrySlackChannelResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.trySlackChannel(dataCenter, channelName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.trySlackChannel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update an email recipient
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} recipientEmail recipient email to update
+         * @param {EmailRecipient} emailRecipient 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateEmailRecipient(dataCenter: string, recipientEmail: string, emailRecipient: EmailRecipient, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutEmailRecipientResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateEmailRecipient(dataCenter, recipientEmail, emailRecipient, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateEmailRecipient']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update an email sender
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} senderHost The host of the email sender to operate
+         * @param {EmailSender} emailSender 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateEmailSender(dataCenter: string, senderHost: string, emailSender: EmailSender, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutEmailSenderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateEmailSender(dataCenter, senderHost, emailSender, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateEmailSender']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update a slack channel
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} channelName channel name to update
+         * @param {SlackChannel} slackChannel 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateSlackChannel(dataCenter: string, channelName: string, slackChannel: SlackChannel, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutSlackChannelResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSlackChannel(dataCenter, channelName, slackChannel, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateSlackChannel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update title prefix
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {TitlePrefix} titlePrefix 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateTitlePrefix(dataCenter: string, titlePrefix: TitlePrefix, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateTitlePrefixResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTitlePrefix(dataCenter, titlePrefix, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateTitlePrefix']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * SettingsApi - factory interface
+ * @export
+ */
+export const SettingsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SettingsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create an email recipient
+         * @param {SettingsApiCreateEmailRecipientRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmailRecipient(requestParameters: SettingsApiCreateEmailRecipientRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostEmailRecipientResponse> {
+            return localVarFp.createEmailRecipient(requestParameters.dataCenter, requestParameters.emailRecipient, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Create an email sender
+         * @param {SettingsApiCreateEmailSenderRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmailSender(requestParameters: SettingsApiCreateEmailSenderRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostEmailSenderResponse> {
+            return localVarFp.createEmailSender(requestParameters.dataCenter, requestParameters.emailSender, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Create a slack channel
+         * @param {SettingsApiCreateSlackChannelRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSlackChannel(requestParameters: SettingsApiCreateSlackChannelRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostSlackChannelResponse> {
+            return localVarFp.createSlackChannel(requestParameters.dataCenter, requestParameters.slackChannel, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete an email recipient
+         * @param {SettingsApiDeleteEmailRecipientRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteEmailRecipient(requestParameters: SettingsApiDeleteEmailRecipientRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteEmailRecipientResponse> {
+            return localVarFp.deleteEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete an email sender
+         * @param {SettingsApiDeleteEmailSenderRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteEmailSender(requestParameters: SettingsApiDeleteEmailSenderRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteEmailSenderResponse> {
+            return localVarFp.deleteEmailSender(requestParameters.dataCenter, requestParameters.senderHost, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete a slack channel
+         * @param {SettingsApiDeleteSlackChannelRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSlackChannel(requestParameters: SettingsApiDeleteSlackChannelRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteSlackChannelResponse> {
+            return localVarFp.deleteSlackChannel(requestParameters.dataCenter, requestParameters.channelName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve email recipients
+         * @param {SettingsApiGetEmailRecipientsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmailRecipients(requestParameters: SettingsApiGetEmailRecipientsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEmailRecipientsResponse> {
+            return localVarFp.getEmailRecipients(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve email senders
+         * @param {SettingsApiGetEmailSendersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmailSenders(requestParameters: SettingsApiGetEmailSendersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEmailSendersResponse> {
+            return localVarFp.getEmailSenders(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve setting
+         * @param {SettingsApiGetSettingsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSettings(requestParameters: SettingsApiGetSettingsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetSettingResponse> {
+            return localVarFp.getSettings(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve slack channels
+         * @param {SettingsApiGetSlackChannelsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSlackChannels(requestParameters: SettingsApiGetSlackChannelsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetSlackChannelsResponse> {
+            return localVarFp.getSlackChannels(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Try an email recipient
+         * @param {SettingsApiTryEmailRecipientRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tryEmailRecipient(requestParameters: SettingsApiTryEmailRecipientRequest, options?: RawAxiosRequestConfig): AxiosPromise<TryEmailRecipientResponse> {
+            return localVarFp.tryEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Try an email sender
+         * @param {SettingsApiTryEmailSenderRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tryEmailSender(requestParameters: SettingsApiTryEmailSenderRequest, options?: RawAxiosRequestConfig): AxiosPromise<TryEmailSenderResponse> {
+            return localVarFp.tryEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.tryEmailSender, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Try a slack channel
+         * @param {SettingsApiTrySlackChannelRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        trySlackChannel(requestParameters: SettingsApiTrySlackChannelRequest, options?: RawAxiosRequestConfig): AxiosPromise<TrySlackChannelResponse> {
+            return localVarFp.trySlackChannel(requestParameters.dataCenter, requestParameters.channelName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update an email recipient
+         * @param {SettingsApiUpdateEmailRecipientRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateEmailRecipient(requestParameters: SettingsApiUpdateEmailRecipientRequest, options?: RawAxiosRequestConfig): AxiosPromise<PutEmailRecipientResponse> {
+            return localVarFp.updateEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, requestParameters.emailRecipient, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update an email sender
+         * @param {SettingsApiUpdateEmailSenderRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateEmailSender(requestParameters: SettingsApiUpdateEmailSenderRequest, options?: RawAxiosRequestConfig): AxiosPromise<PutEmailSenderResponse> {
+            return localVarFp.updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSender, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update a slack channel
+         * @param {SettingsApiUpdateSlackChannelRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSlackChannel(requestParameters: SettingsApiUpdateSlackChannelRequest, options?: RawAxiosRequestConfig): AxiosPromise<PutSlackChannelResponse> {
+            return localVarFp.updateSlackChannel(requestParameters.dataCenter, requestParameters.channelName, requestParameters.slackChannel, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update title prefix
+         * @param {SettingsApiUpdateTitlePrefixRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTitlePrefix(requestParameters: SettingsApiUpdateTitlePrefixRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateTitlePrefixResponse> {
+            return localVarFp.updateTitlePrefix(requestParameters.dataCenter, requestParameters.titlePrefix, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for createEmailRecipient operation in SettingsApi.
+ * @export
+ * @interface SettingsApiCreateEmailRecipientRequest
+ */
+export interface SettingsApiCreateEmailRecipientRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiCreateEmailRecipient
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {EmailRecipient}
+     * @memberof SettingsApiCreateEmailRecipient
+     */
+    readonly emailRecipient: EmailRecipient
+}
+
+/**
+ * Request parameters for createEmailSender operation in SettingsApi.
+ * @export
+ * @interface SettingsApiCreateEmailSenderRequest
+ */
+export interface SettingsApiCreateEmailSenderRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiCreateEmailSender
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {EmailSender}
+     * @memberof SettingsApiCreateEmailSender
+     */
+    readonly emailSender: EmailSender
+}
+
+/**
+ * Request parameters for createSlackChannel operation in SettingsApi.
+ * @export
+ * @interface SettingsApiCreateSlackChannelRequest
+ */
+export interface SettingsApiCreateSlackChannelRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiCreateSlackChannel
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {SlackChannel}
+     * @memberof SettingsApiCreateSlackChannel
+     */
+    readonly slackChannel: SlackChannel
+}
+
+/**
+ * Request parameters for deleteEmailRecipient operation in SettingsApi.
+ * @export
+ * @interface SettingsApiDeleteEmailRecipientRequest
+ */
+export interface SettingsApiDeleteEmailRecipientRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiDeleteEmailRecipient
+     */
+    readonly dataCenter: string
+
+    /**
+     * recipient email to delete
+     * @type {string}
+     * @memberof SettingsApiDeleteEmailRecipient
+     */
+    readonly recipientEmail: string
+}
+
+/**
+ * Request parameters for deleteEmailSender operation in SettingsApi.
+ * @export
+ * @interface SettingsApiDeleteEmailSenderRequest
+ */
+export interface SettingsApiDeleteEmailSenderRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiDeleteEmailSender
+     */
+    readonly dataCenter: string
+
+    /**
+     * The host of the email sender to operate
+     * @type {string}
+     * @memberof SettingsApiDeleteEmailSender
+     */
+    readonly senderHost: string
+}
+
+/**
+ * Request parameters for deleteSlackChannel operation in SettingsApi.
+ * @export
+ * @interface SettingsApiDeleteSlackChannelRequest
+ */
+export interface SettingsApiDeleteSlackChannelRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiDeleteSlackChannel
+     */
+    readonly dataCenter: string
+
+    /**
+     * channel name to delete
+     * @type {string}
+     * @memberof SettingsApiDeleteSlackChannel
+     */
+    readonly channelName: string
+}
+
+/**
+ * Request parameters for getEmailRecipients operation in SettingsApi.
+ * @export
+ * @interface SettingsApiGetEmailRecipientsRequest
+ */
+export interface SettingsApiGetEmailRecipientsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiGetEmailRecipients
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for getEmailSenders operation in SettingsApi.
+ * @export
+ * @interface SettingsApiGetEmailSendersRequest
+ */
+export interface SettingsApiGetEmailSendersRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiGetEmailSenders
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for getSettings operation in SettingsApi.
+ * @export
+ * @interface SettingsApiGetSettingsRequest
+ */
+export interface SettingsApiGetSettingsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiGetSettings
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for getSlackChannels operation in SettingsApi.
+ * @export
+ * @interface SettingsApiGetSlackChannelsRequest
+ */
+export interface SettingsApiGetSlackChannelsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiGetSlackChannels
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for tryEmailRecipient operation in SettingsApi.
+ * @export
+ * @interface SettingsApiTryEmailRecipientRequest
+ */
+export interface SettingsApiTryEmailRecipientRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiTryEmailRecipient
+     */
+    readonly dataCenter: string
+
+    /**
+     * recipient email to operate
+     * @type {string}
+     * @memberof SettingsApiTryEmailRecipient
+     */
+    readonly recipientEmail: string
+}
+
+/**
+ * Request parameters for tryEmailSender operation in SettingsApi.
+ * @export
+ * @interface SettingsApiTryEmailSenderRequest
+ */
+export interface SettingsApiTryEmailSenderRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiTryEmailSender
+     */
+    readonly dataCenter: string
+
+    /**
+     * The host of the email sender to operate
+     * @type {string}
+     * @memberof SettingsApiTryEmailSender
+     */
+    readonly senderHost: string
+
+    /**
+     * 
+     * @type {TryEmailSender}
+     * @memberof SettingsApiTryEmailSender
+     */
+    readonly tryEmailSender: TryEmailSender
+}
+
+/**
+ * Request parameters for trySlackChannel operation in SettingsApi.
+ * @export
+ * @interface SettingsApiTrySlackChannelRequest
+ */
+export interface SettingsApiTrySlackChannelRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiTrySlackChannel
+     */
+    readonly dataCenter: string
+
+    /**
+     * channel name to update
+     * @type {string}
+     * @memberof SettingsApiTrySlackChannel
+     */
+    readonly channelName: string
+}
+
+/**
+ * Request parameters for updateEmailRecipient operation in SettingsApi.
+ * @export
+ * @interface SettingsApiUpdateEmailRecipientRequest
+ */
+export interface SettingsApiUpdateEmailRecipientRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiUpdateEmailRecipient
+     */
+    readonly dataCenter: string
+
+    /**
+     * recipient email to update
+     * @type {string}
+     * @memberof SettingsApiUpdateEmailRecipient
+     */
+    readonly recipientEmail: string
+
+    /**
+     * 
+     * @type {EmailRecipient}
+     * @memberof SettingsApiUpdateEmailRecipient
+     */
+    readonly emailRecipient: EmailRecipient
+}
+
+/**
+ * Request parameters for updateEmailSender operation in SettingsApi.
+ * @export
+ * @interface SettingsApiUpdateEmailSenderRequest
+ */
+export interface SettingsApiUpdateEmailSenderRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiUpdateEmailSender
+     */
+    readonly dataCenter: string
+
+    /**
+     * The host of the email sender to operate
+     * @type {string}
+     * @memberof SettingsApiUpdateEmailSender
+     */
+    readonly senderHost: string
+
+    /**
+     * 
+     * @type {EmailSender}
+     * @memberof SettingsApiUpdateEmailSender
+     */
+    readonly emailSender: EmailSender
+}
+
+/**
+ * Request parameters for updateSlackChannel operation in SettingsApi.
+ * @export
+ * @interface SettingsApiUpdateSlackChannelRequest
+ */
+export interface SettingsApiUpdateSlackChannelRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiUpdateSlackChannel
+     */
+    readonly dataCenter: string
+
+    /**
+     * channel name to update
+     * @type {string}
+     * @memberof SettingsApiUpdateSlackChannel
+     */
+    readonly channelName: string
+
+    /**
+     * 
+     * @type {SlackChannel}
+     * @memberof SettingsApiUpdateSlackChannel
+     */
+    readonly slackChannel: SlackChannel
+}
+
+/**
+ * Request parameters for updateTitlePrefix operation in SettingsApi.
+ * @export
+ * @interface SettingsApiUpdateTitlePrefixRequest
+ */
+export interface SettingsApiUpdateTitlePrefixRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SettingsApiUpdateTitlePrefix
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {TitlePrefix}
+     * @memberof SettingsApiUpdateTitlePrefix
+     */
+    readonly titlePrefix: TitlePrefix
+}
+
+/**
+ * SettingsApi - object-oriented interface
+ * @export
+ * @class SettingsApi
+ * @extends {BaseAPI}
+ */
+export class SettingsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create an email recipient
+     * @param {SettingsApiCreateEmailRecipientRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public createEmailRecipient(requestParameters: SettingsApiCreateEmailRecipientRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).createEmailRecipient(requestParameters.dataCenter, requestParameters.emailRecipient, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Create an email sender
+     * @param {SettingsApiCreateEmailSenderRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public createEmailSender(requestParameters: SettingsApiCreateEmailSenderRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).createEmailSender(requestParameters.dataCenter, requestParameters.emailSender, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Create a slack channel
+     * @param {SettingsApiCreateSlackChannelRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public createSlackChannel(requestParameters: SettingsApiCreateSlackChannelRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).createSlackChannel(requestParameters.dataCenter, requestParameters.slackChannel, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete an email recipient
+     * @param {SettingsApiDeleteEmailRecipientRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public deleteEmailRecipient(requestParameters: SettingsApiDeleteEmailRecipientRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).deleteEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete an email sender
+     * @param {SettingsApiDeleteEmailSenderRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public deleteEmailSender(requestParameters: SettingsApiDeleteEmailSenderRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).deleteEmailSender(requestParameters.dataCenter, requestParameters.senderHost, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete a slack channel
+     * @param {SettingsApiDeleteSlackChannelRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public deleteSlackChannel(requestParameters: SettingsApiDeleteSlackChannelRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).deleteSlackChannel(requestParameters.dataCenter, requestParameters.channelName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve email recipients
+     * @param {SettingsApiGetEmailRecipientsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public getEmailRecipients(requestParameters: SettingsApiGetEmailRecipientsRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).getEmailRecipients(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve email senders
+     * @param {SettingsApiGetEmailSendersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public getEmailSenders(requestParameters: SettingsApiGetEmailSendersRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).getEmailSenders(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve setting
+     * @param {SettingsApiGetSettingsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public getSettings(requestParameters: SettingsApiGetSettingsRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).getSettings(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve slack channels
+     * @param {SettingsApiGetSlackChannelsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public getSlackChannels(requestParameters: SettingsApiGetSlackChannelsRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).getSlackChannels(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Try an email recipient
+     * @param {SettingsApiTryEmailRecipientRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public tryEmailRecipient(requestParameters: SettingsApiTryEmailRecipientRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).tryEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Try an email sender
+     * @param {SettingsApiTryEmailSenderRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public tryEmailSender(requestParameters: SettingsApiTryEmailSenderRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).tryEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.tryEmailSender, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Try a slack channel
+     * @param {SettingsApiTrySlackChannelRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public trySlackChannel(requestParameters: SettingsApiTrySlackChannelRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).trySlackChannel(requestParameters.dataCenter, requestParameters.channelName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update an email recipient
+     * @param {SettingsApiUpdateEmailRecipientRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public updateEmailRecipient(requestParameters: SettingsApiUpdateEmailRecipientRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).updateEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, requestParameters.emailRecipient, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update an email sender
+     * @param {SettingsApiUpdateEmailSenderRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public updateEmailSender(requestParameters: SettingsApiUpdateEmailSenderRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSender, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update a slack channel
+     * @param {SettingsApiUpdateSlackChannelRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public updateSlackChannel(requestParameters: SettingsApiUpdateSlackChannelRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).updateSlackChannel(requestParameters.dataCenter, requestParameters.channelName, requestParameters.slackChannel, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update title prefix
+     * @param {SettingsApiUpdateTitlePrefixRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public updateTitlePrefix(requestParameters: SettingsApiUpdateTitlePrefixRequest, options?: RawAxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).updateTitlePrefix(requestParameters.dataCenter, requestParameters.titlePrefix, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5604,6 +9999,494 @@ export class TokensApi extends BaseAPI {
      */
     public getToken(requestParameters: TokensApiGetTokenRequest, options?: RawAxiosRequestConfig) {
         return TokensApiFp(this.configuration).getToken(requestParameters.dataCenter, requestParameters.getTokensRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * TuningsApi - axios parameter creator
+ * @export
+ */
+export const TuningsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Retrieve the list of tuning spec
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listTuningSpecs: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listTuningSpecs', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/specs`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve the list of tunings from a host or data center
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} [host] The name of the host to retrieve the tunings, can specify multiple hosts to retrieve the tunings, for example: host&#x3D;example-node-0&amp;host&#x3D;example-node-1
+         * @param {string} [keyword] The keyword to search the tunings
+         * @param {number} [pageNum] The page number of the tunings list
+         * @param {number} [pageSize] The page size of the tunings list
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listTunings: async (dataCenter: string, host?: string, keyword?: string, pageNum?: number, pageSize?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listTunings', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/parameters`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (host !== undefined) {
+                localVarQueryParameter['host'] = host;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Reset a specific tuning parameter
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} parameterName The name of the parameter to reset. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+         * @param {ResetTuningRequest} resetTuningRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resetTuning: async (dataCenter: string, parameterName: string, resetTuningRequest: ResetTuningRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('resetTuning', 'dataCenter', dataCenter)
+            // verify required parameter 'parameterName' is not null or undefined
+            assertParamExists('resetTuning', 'parameterName', parameterName)
+            // verify required parameter 'resetTuningRequest' is not null or undefined
+            assertParamExists('resetTuning', 'resetTuningRequest', resetTuningRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/parameters/{parameterName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"parameterName"}}`, encodeURIComponent(String(parameterName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resetTuningRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update value for a specific tuning parameter
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} parameterName The name of the parameter to update. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+         * @param {UpdateTuningRequest} updateTuningRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTuning: async (dataCenter: string, parameterName: string, updateTuningRequest: UpdateTuningRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateTuning', 'dataCenter', dataCenter)
+            // verify required parameter 'parameterName' is not null or undefined
+            assertParamExists('updateTuning', 'parameterName', parameterName)
+            // verify required parameter 'updateTuningRequest' is not null or undefined
+            assertParamExists('updateTuning', 'updateTuningRequest', updateTuningRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/parameters/{parameterName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"parameterName"}}`, encodeURIComponent(String(parameterName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateTuningRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TuningsApi - functional programming interface
+ * @export
+ */
+export const TuningsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TuningsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Retrieve the list of tuning spec
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listTuningSpecs(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTuningSpecResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listTuningSpecs(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TuningsApi.listTuningSpecs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve the list of tunings from a host or data center
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} [host] The name of the host to retrieve the tunings, can specify multiple hosts to retrieve the tunings, for example: host&#x3D;example-node-0&amp;host&#x3D;example-node-1
+         * @param {string} [keyword] The keyword to search the tunings
+         * @param {number} [pageNum] The page number of the tunings list
+         * @param {number} [pageSize] The page size of the tunings list
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listTunings(dataCenter: string, host?: string, keyword?: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTuningResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listTunings(dataCenter, host, keyword, pageNum, pageSize, watch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TuningsApi.listTunings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Reset a specific tuning parameter
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} parameterName The name of the parameter to reset. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+         * @param {ResetTuningRequest} resetTuningRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resetTuning(dataCenter: string, parameterName: string, resetTuningRequest: ResetTuningRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResetTuningResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resetTuning(dataCenter, parameterName, resetTuningRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TuningsApi.resetTuning']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update value for a specific tuning parameter
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} parameterName The name of the parameter to update. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+         * @param {UpdateTuningRequest} updateTuningRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateTuning(dataCenter: string, parameterName: string, updateTuningRequest: UpdateTuningRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateTuningResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTuning(dataCenter, parameterName, updateTuningRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TuningsApi.updateTuning']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TuningsApi - factory interface
+ * @export
+ */
+export const TuningsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TuningsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Retrieve the list of tuning spec
+         * @param {TuningsApiListTuningSpecsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listTuningSpecs(requestParameters: TuningsApiListTuningSpecsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListTuningSpecResponse> {
+            return localVarFp.listTuningSpecs(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the list of tunings from a host or data center
+         * @param {TuningsApiListTuningsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listTunings(requestParameters: TuningsApiListTuningsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListTuningResponse> {
+            return localVarFp.listTunings(requestParameters.dataCenter, requestParameters.host, requestParameters.keyword, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Reset a specific tuning parameter
+         * @param {TuningsApiResetTuningRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resetTuning(requestParameters: TuningsApiResetTuningRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResetTuningResponse> {
+            return localVarFp.resetTuning(requestParameters.dataCenter, requestParameters.parameterName, requestParameters.resetTuningRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update value for a specific tuning parameter
+         * @param {TuningsApiUpdateTuningRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTuning(requestParameters: TuningsApiUpdateTuningRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateTuningResponse> {
+            return localVarFp.updateTuning(requestParameters.dataCenter, requestParameters.parameterName, requestParameters.updateTuningRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for listTuningSpecs operation in TuningsApi.
+ * @export
+ * @interface TuningsApiListTuningSpecsRequest
+ */
+export interface TuningsApiListTuningSpecsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TuningsApiListTuningSpecs
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for listTunings operation in TuningsApi.
+ * @export
+ * @interface TuningsApiListTuningsRequest
+ */
+export interface TuningsApiListTuningsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TuningsApiListTunings
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the host to retrieve the tunings, can specify multiple hosts to retrieve the tunings, for example: host&#x3D;example-node-0&amp;host&#x3D;example-node-1
+     * @type {string}
+     * @memberof TuningsApiListTunings
+     */
+    readonly host?: string
+
+    /**
+     * The keyword to search the tunings
+     * @type {string}
+     * @memberof TuningsApiListTunings
+     */
+    readonly keyword?: string
+
+    /**
+     * The page number of the tunings list
+     * @type {number}
+     * @memberof TuningsApiListTunings
+     */
+    readonly pageNum?: number
+
+    /**
+     * The page size of the tunings list
+     * @type {number}
+     * @memberof TuningsApiListTunings
+     */
+    readonly pageSize?: number
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof TuningsApiListTunings
+     */
+    readonly watch?: boolean
+}
+
+/**
+ * Request parameters for resetTuning operation in TuningsApi.
+ * @export
+ * @interface TuningsApiResetTuningRequest
+ */
+export interface TuningsApiResetTuningRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TuningsApiResetTuning
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the parameter to reset. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+     * @type {string}
+     * @memberof TuningsApiResetTuning
+     */
+    readonly parameterName: string
+
+    /**
+     * 
+     * @type {ResetTuningRequest}
+     * @memberof TuningsApiResetTuning
+     */
+    readonly resetTuningRequest: ResetTuningRequest
+}
+
+/**
+ * Request parameters for updateTuning operation in TuningsApi.
+ * @export
+ * @interface TuningsApiUpdateTuningRequest
+ */
+export interface TuningsApiUpdateTuningRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TuningsApiUpdateTuning
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the parameter to update. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+     * @type {string}
+     * @memberof TuningsApiUpdateTuning
+     */
+    readonly parameterName: string
+
+    /**
+     * 
+     * @type {UpdateTuningRequest}
+     * @memberof TuningsApiUpdateTuning
+     */
+    readonly updateTuningRequest: UpdateTuningRequest
+}
+
+/**
+ * TuningsApi - object-oriented interface
+ * @export
+ * @class TuningsApi
+ * @extends {BaseAPI}
+ */
+export class TuningsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Retrieve the list of tuning spec
+     * @param {TuningsApiListTuningSpecsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TuningsApi
+     */
+    public listTuningSpecs(requestParameters: TuningsApiListTuningSpecsRequest, options?: RawAxiosRequestConfig) {
+        return TuningsApiFp(this.configuration).listTuningSpecs(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve the list of tunings from a host or data center
+     * @param {TuningsApiListTuningsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TuningsApi
+     */
+    public listTunings(requestParameters: TuningsApiListTuningsRequest, options?: RawAxiosRequestConfig) {
+        return TuningsApiFp(this.configuration).listTunings(requestParameters.dataCenter, requestParameters.host, requestParameters.keyword, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Reset a specific tuning parameter
+     * @param {TuningsApiResetTuningRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TuningsApi
+     */
+    public resetTuning(requestParameters: TuningsApiResetTuningRequest, options?: RawAxiosRequestConfig) {
+        return TuningsApiFp(this.configuration).resetTuning(requestParameters.dataCenter, requestParameters.parameterName, requestParameters.resetTuningRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update value for a specific tuning parameter
+     * @param {TuningsApiUpdateTuningRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TuningsApi
+     */
+    public updateTuning(requestParameters: TuningsApiUpdateTuningRequest, options?: RawAxiosRequestConfig) {
+        return TuningsApiFp(this.configuration).updateTuning(requestParameters.dataCenter, requestParameters.parameterName, requestParameters.updateTuningRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

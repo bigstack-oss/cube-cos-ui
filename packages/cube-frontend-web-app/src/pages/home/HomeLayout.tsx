@@ -1,13 +1,7 @@
 import { CosTabs } from '@cube-frontend/ui-library'
 import { MouseEvent } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router'
-
-const links = {
-  overview: '/home',
-  chart: '/home/chart',
-  health: '/home/health',
-  manage: '/home/manage',
-}
+import { links } from './links'
 
 export const HomeLayout = () => {
   const location = useLocation()

@@ -1,8 +1,8 @@
-import { CosCountSegmentedChart } from '../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
 import type { Meta, StoryObj } from '@storybook/react'
+import { twJoin } from 'tailwind-merge'
+import { CosCountSegmentedChart } from '../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosPercentagePieChart } from '../../../components/CosPercentagePieChart/CosPercentagePieChart'
-import { twJoin } from 'tailwind-merge'
 
 const meta = {
   title: 'Molecules/Chart/Percentage Pie Chart',
@@ -101,6 +101,58 @@ const PercentagePieChartGallery = () => {
             unit="GB"
             total={100}
             used={400}
+            color="stroke-chart-6"
+          />
+        </div>
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Skeleton">
+        <div className={rowClass}>
+          <CosPercentagePieChart
+            isLoading={true}
+            title="vCPU"
+            unit="vCPU"
+            total={0}
+            used={0}
+            color="stroke-chart-1"
+          />
+          <CosPercentagePieChart
+            isLoading={true}
+            title="vCPU"
+            unit="vCPU"
+            total={0}
+            used={0}
+            color="stroke-chart-2"
+          />
+          <CosPercentagePieChart
+            isLoading={true}
+            title="Memory"
+            unit="GB"
+            total={0}
+            used={0}
+            color="stroke-chart-3"
+          />
+          <CosPercentagePieChart
+            isLoading={true}
+            title="Memory"
+            unit="GB"
+            total={0}
+            used={0}
+            color="stroke-chart-4"
+          />
+          <CosPercentagePieChart
+            isLoading={true}
+            title="Storage"
+            unit="GB"
+            total={0}
+            used={0}
+            color="stroke-chart-5"
+          />
+          <CosPercentagePieChart
+            isLoading={true}
+            title="Storage"
+            unit="GB"
+            total={0}
+            used={0}
             color="stroke-chart-6"
           />
         </div>

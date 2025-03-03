@@ -12,9 +12,6 @@ import { useContext } from 'react'
 import { AvailableStatus, HealthStatusBadge } from './HealthStatusBadge'
 import { NgService } from './NgService'
 
-// TODO: Replace `isFixing` with backend data when the API is implemented.
-const isFixing = false
-
 export const HealthCheck = () => {
   const dataCenter = useContext(DataCenterContext)
 
@@ -54,13 +51,14 @@ export const HealthCheck = () => {
 
   const onRepairClick = async () => {
     try {
-      await repairHealth({
-        dataCenter: dataCenter.name,
-      })
+      await repairHealth({ dataCenter: dataCenter.name })
     } catch (error) {
       console.error('Repair data center health error: ', error)
     }
   }
+
+  const isRepairButtonLoading =
+    overallHealth?.overall.status.isFixing || isCallingRepairApi
 
   return (
     <div className="flex flex-col gap-y-4 rounded-[5px] bg-grey-0 px-8 py-6 shadow-[0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]">
@@ -77,7 +75,7 @@ export const HealthCheck = () => {
       {renderNgServices()}
       <CosButton
         className="self-start"
-        loading={isFixing || isCallingRepairApi}
+        loading={isRepairButtonLoading}
         disabled={isLoadingHealth}
         onClick={onRepairClick}
       >

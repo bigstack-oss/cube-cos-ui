@@ -1,4 +1,7 @@
-import { CosSegmentedBar } from '@cube-frontend/ui-library'
+import {
+  CosSegmentedBar,
+  CosSegmentedBarSkeleton,
+} from '@cube-frontend/ui-library'
 import type { Meta, StoryObj } from '@storybook/react'
 import { MouseEvent, useState } from 'react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
@@ -68,6 +71,9 @@ const SegmentedBarGallery = () => {
             </foreignObject>
           )}
         </CosSegmentedBar>
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Skeleton">
+        <CosSegmentedBarSkeleton />
       </StoryLayout.Section>
     </StoryLayout>
   )

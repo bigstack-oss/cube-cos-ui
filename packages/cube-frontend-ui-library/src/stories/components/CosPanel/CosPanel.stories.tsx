@@ -3,6 +3,7 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { MultiPanelSection } from './MultiPanelSection'
 import { SinglePanelSection } from './SinglePanelSection'
 import { UsageSection } from './UsageSection'
+import { SkeletonSection } from './SkeletonSection'
 
 const meta = {
   title: 'Organisms/Panel',
@@ -19,6 +20,7 @@ const PanelLayout = () => {
     <StoryLayout title="Panel" useSceneBgColor>
       <SinglePanelSection />
       <MultiPanelSection />
+      <SkeletonSection />
       <UsageSection />
     </StoryLayout>
   )

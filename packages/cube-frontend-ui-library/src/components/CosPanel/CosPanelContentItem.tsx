@@ -3,11 +3,16 @@ import { PropsWithClassName } from '@cube-frontend/utils'
 import { CosButtonProps } from '../CosButton/CosButton'
 import { twMerge } from 'tailwind-merge'
 import { basePanelBorderStyle } from './utils'
+import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 
 export type CosPanelContentItem = PropsWithChildren &
   PropsWithClassName & {
     topic?: string
     subtext?: string
+    /**
+     * @default false
+     */
+    isSubtextLoading?: boolean
     /**
      * CosPanel will override the button size and type for UI consistency.
      */
@@ -16,15 +21,14 @@ export type CosPanelContentItem = PropsWithChildren &
   }
 
 export const CosPanelContentItem = (props: CosPanelContentItem) => {
-  const { className: classNameProp, topic, subtext, button, children } = props
-
-  const renderFooter = () => {
-    if (!button) return null
-
-    const panelButton = cloneElement(button, { size: 'md', type: 'primary' })
-
-    return <div className="flex items-center justify-end">{panelButton}</div>
-  }
+  const {
+    className: classNameProp,
+    topic,
+    subtext,
+    isSubtextLoading = false,
+    button,
+    children,
+  } = props
 
   const className = twMerge(
     'flex flex-col gap-y-3 p-5',
@@ -32,8 +36,19 @@ export const CosPanelContentItem = (props: CosPanelContentItem) => {
     classNameProp,
   )
 
+  const renderSubtext = () => {
+    if (isSubtextLoading) {
+      return <CosSkeleton className="h-[18px] w-[79px]" />
+    }
+    if (!subtext) {
+      return null
+    }
+
+    return <span className="primary-body3 text-functional-text">{subtext}</span>
+  }
+
   const renderHeader = () => {
-    if (!topic && !subtext) return null
+    if (!topic && !subtext && !isSubtextLoading) return null
 
     return (
       <div className="flex items-center gap-x-3">
@@ -42,11 +57,17 @@ export const CosPanelContentItem = (props: CosPanelContentItem) => {
             {topic}
           </span>
         )}
-        {subtext && (
-          <span className="primary-body3 text-functional-text">{subtext}</span>
-        )}
+        {renderSubtext()}
       </div>
     )
+  }
+
+  const renderFooter = () => {
+    if (!button) return null
+
+    const panelButton = cloneElement(button, { size: 'md', type: 'primary' })
+
+    return <div className="flex items-center justify-end">{panelButton}</div>
   }
 
   return (

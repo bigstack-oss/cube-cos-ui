@@ -1,4 +1,4 @@
-import { CosSkeleton } from '../../internal/components/CosSkeleton/CosSkeleton'
+import { CosSkeleton } from '../../components/CosSkeleton/CosSkeleton'
 
 export const CosPaginationSkeleton = () => (
   <div className="flex items-center justify-between">

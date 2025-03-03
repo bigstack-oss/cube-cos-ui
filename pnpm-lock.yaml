@@ -15,6 +15,9 @@ catalogs:
     '@types/lodash':
       specifier: ^4.17.15
       version: 4.17.15
+    '@types/pluralize':
+      specifier: ^0.0.33
+      version: 0.0.33
     '@types/react':
       specifier: ^19.0.0
       version: 19.0.4
@@ -33,6 +36,9 @@ catalogs:
     lodash:
       specifier: ^4.17.21
       version: 4.17.21
+    pluralize:
+      specifier: ^8.0.0
+      version: 8.0.0
     postcss:
       specifier: ^8.4.49
       version: 8.4.49
@@ -214,6 +220,9 @@ importers:
       '@types/lodash':
         specifier: 'catalog:'
         version: 4.17.15
+      '@types/pluralize':
+        specifier: 'catalog:'
+        version: 0.0.33
       autoprefixer:
         specifier: 'catalog:'
         version: 10.4.20(postcss@8.4.49)
@@ -229,6 +238,9 @@ importers:
       lodash:
         specifier: 'catalog:'
         version: 4.17.21
+      pluralize:
+        specifier: 'catalog:'
+        version: 8.0.0
       postcss:
         specifier: 'catalog:'
         version: 8.4.49
@@ -306,6 +318,9 @@ importers:
       '@types/lodash':
         specifier: 'catalog:'
         version: 4.17.15
+      '@types/pluralize':
+        specifier: 'catalog:'
+        version: 0.0.33
       axios:
         specifier: ^1.7.9
         version: 1.7.9
@@ -318,6 +333,9 @@ importers:
       lodash:
         specifier: 'catalog:'
         version: 4.17.21
+      pluralize:
+        specifier: 'catalog:'
+        version: 8.0.0
       react:
         specifier: 'catalog:'
         version: 19.0.0
@@ -1282,6 +1300,9 @@ packages:
 
   '@types/node@22.10.5':
     resolution: {integrity: sha512-F8Q+SeGimwOo86fiovQh8qiXfFEh2/ocYv7tU5pJ3EXMSSxk1Joj5wefpFK2fHTf/N6HKGSxIDBT9f3gCxXPkQ==}
+
+  '@types/pluralize@0.0.33':
+    resolution: {integrity: sha512-JOqsl+ZoCpP4e8TDke9W79FDcSgPAR0l6pixx2JHkhnRjvShyYiAYw2LVsnA7K08Y6DeOnaU6ujmENO4os/cYg==}
 
   '@types/react-dom@19.0.2':
     resolution: {integrity: sha512-c1s+7TKFaDRRxr1TxccIX2u7sfCnc3RxkVyBIUA2lCpyqCF+QoAwQ/CBg7bsMdVwP120HEH143VQezKtef5nCg==}
@@ -2720,6 +2741,10 @@ packages:
   pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
+
+  pluralize@8.0.0:
+    resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
+    engines: {node: '>=4'}
 
   polished@4.3.1:
     resolution: {integrity: sha512-OBatVyC/N7SCW/FaDHrSd+vn0o5cS855TOmYi4OkdWUMSJCET/xip//ch8xGUvtr3i44X9LVyWwQlRMTN3pwSA==}
@@ -4443,6 +4468,8 @@ snapshots:
     dependencies:
       undici-types: 6.20.0
 
+  '@types/pluralize@0.0.33': {}
+
   '@types/react-dom@19.0.2(@types/react@19.0.4)':
     dependencies:
       '@types/react': 19.0.4
@@ -5991,6 +6018,8 @@ snapshots:
   pify@2.3.0: {}
 
   pirates@4.0.6: {}
+
+  pluralize@8.0.0: {}
 
   polished@4.3.1:
     dependencies:

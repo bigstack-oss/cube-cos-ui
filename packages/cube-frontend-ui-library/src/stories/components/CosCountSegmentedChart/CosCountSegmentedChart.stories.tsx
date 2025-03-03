@@ -38,6 +38,16 @@ const CountSegmentedChartGallery = () => {
           <CosCountSegmentedChart countInfos={roleSummary} />
         </div>
       </StoryLayout.Section>
+      <StoryLayout.Section title="Skeleton">
+        <div className="flex flex-col gap-y-6">
+          <CosCountSegmentedChart isLoading={true} countInfos={[]} />
+          <CosCountSegmentedChart
+            isLoading={true}
+            skeletonCount={3}
+            countInfos={[]}
+          />
+        </div>
+      </StoryLayout.Section>
     </StoryLayout>
   )
 }

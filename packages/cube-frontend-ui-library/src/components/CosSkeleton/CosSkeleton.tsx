@@ -1,10 +1,12 @@
 import { PropsWithClassName } from '@cube-frontend/utils'
 import { twMerge } from 'tailwind-merge'
 
-export type CosSkeletonProps = PropsWithClassName
+export type CosSkeletonProps = PropsWithClassName & {
+  style?: React.CSSProperties
+}
 
 export const CosSkeleton = (props: CosSkeletonProps) => {
-  const { className } = props
+  const { className, style } = props
 
   return (
     <div
@@ -12,6 +14,7 @@ export const CosSkeleton = (props: CosSkeletonProps) => {
         'cos-skeleton animate-cos-skeleton rounded-[5px]',
         className,
       )}
+      style={style}
     />
   )
 }
