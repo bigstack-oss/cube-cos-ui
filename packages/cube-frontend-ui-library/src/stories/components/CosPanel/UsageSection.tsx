@@ -89,6 +89,7 @@ export const UsageSection = () => {
             title="Events"
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
+            useContentWrapper={false}
           >
             <EventTable rows={events}>
               <EventTable.Column property="type" label="Type" />

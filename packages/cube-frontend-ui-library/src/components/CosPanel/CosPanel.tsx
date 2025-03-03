@@ -9,10 +9,20 @@ import { CosPanelContentItem } from './CosPanelContentItem'
 
 export type CosPanelProps = PropsWithChildren &
   PropsWithClassName &
-  CosPanelHeaderProps
+  CosPanelHeaderProps & {
+    /**
+     * @default true
+     */
+    useContentWrapper?: boolean
+  }
 
 export const CosPanel = (props: CosPanelProps) => {
-  const { className: classNameProp, children, ...restProps } = props
+  const {
+    className: classNameProp,
+    useContentWrapper = true,
+    children,
+    ...headerProps
+  } = props
 
   const className = twMerge(
     'flex w-full flex-col gap-y-3 rounded-[5px] bg-grey-0 p-4',
@@ -24,8 +34,12 @@ export const CosPanel = (props: CosPanelProps) => {
       className={className}
       style={{ boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)' }}
     >
-      <CosPanelHeader {...restProps} />
-      <CosPanelContentBox>{children}</CosPanelContentBox>
+      <CosPanelHeader {...headerProps} />
+      {useContentWrapper ? (
+        <CosPanelContentBox>{children}</CosPanelContentBox>
+      ) : (
+        children
+      )}
     </div>
   )
 }
