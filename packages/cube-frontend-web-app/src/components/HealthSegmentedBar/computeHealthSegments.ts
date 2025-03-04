@@ -105,7 +105,7 @@ const parseSegment = (
 
   return createSegment({
     colCount: overlappingMilliseconds / totalMilliseconds,
-    status: startHistoryEntry.status as HealthStatus,
+    status: startHistoryEntry.status,
     startDateTime: overlappingStart,
     endDateTime: overlappingEnd,
   })
@@ -194,7 +194,7 @@ const fillTrailingSegment = (
   segments.push(
     createSegment({
       colCount: gapMilliseconds / totalMilliseconds,
-      status: lastHistoryEntry.status as HealthStatus,
+      status: lastHistoryEntry.status,
       startDateTime: lastSegment.endDateTime,
       endDateTime: endTimePoint.dateTime,
     }),
