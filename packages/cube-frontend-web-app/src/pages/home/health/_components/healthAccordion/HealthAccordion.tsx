@@ -1,5 +1,5 @@
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
+import { useTimeFrame } from '@cube-frontend/web-app/hooks/useTimeFrame/useTimeFrame'
 import { useMemo, useState } from 'react'
 import { HealthAccordionItem } from './HealthAccordionItem'
 import {
@@ -7,13 +7,9 @@ import {
   ServiceCategory,
 } from './healthAccordionUtils'
 import { mockServices } from './mockHealth'
-import { useNow } from './useNow'
 
 export const HealthAccordion = () => {
-  const [selectedTimeRange, setSelectedTimeRange] =
-    useState<TimeRange>('last24Hours')
-
-  const now = useNow()
+  const { now, timeRange, onTimeRangeChange } = useTimeFrame()
 
   const categories = useMemo<ServiceCategory[]>(
     // TODO: Replace mock services with real API data once it's implemented.
@@ -40,8 +36,8 @@ export const HealthAccordion = () => {
           Details
         </span>
         <TimeRangeDropdown
-          selectedItem={selectedTimeRange}
-          onChange={setSelectedTimeRange}
+          selectedItem={timeRange}
+          onChange={onTimeRangeChange}
         />
       </div>
       {categories.map((category) => (
@@ -49,7 +45,7 @@ export const HealthAccordion = () => {
           key={category.name}
           category={category}
           isExpanded={expandedCategoryName === category.name}
-          timeRange={selectedTimeRange}
+          timeRange={timeRange}
           now={now}
           onExpand={() => onExpandedCategoryNameChange(category.name)}
         />
