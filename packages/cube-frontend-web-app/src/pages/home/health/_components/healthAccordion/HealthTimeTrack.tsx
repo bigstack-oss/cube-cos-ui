@@ -1,4 +1,4 @@
-import { TimePoint } from './createTimePointFns'
+import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 
 export type HealthTimeTrackProps = {
   width: number

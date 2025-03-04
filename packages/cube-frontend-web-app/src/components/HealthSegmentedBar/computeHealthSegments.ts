@@ -1,13 +1,19 @@
+import {
+  GetModuleHealthHistoryResponseDataHistoryInner,
+  GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum,
+} from '@cube-frontend/api'
 import { CosTooltipInformation, Segment } from '@cube-frontend/ui-library'
 import { FillColorClass } from '@cube-frontend/ui-theme'
 import dayjs, { Dayjs } from 'dayjs'
-import { HealthStatus } from '../../homeHealthUtils'
-import { TimePoint } from './createTimePointFns'
-import { ModuleHealthHistory } from './mockHealth'
+import { TimePoint } from './createTimePoints'
 
-type HistoryEntry = ModuleHealthHistory[number]
+type HistoryEntry = GetModuleHealthHistoryResponseDataHistoryInner
 
-type SegmentWithHealthInfo = Segment & HealthInfo
+export type HealthSegment = Segment & HealthInfo
+
+export type HealthStatus =
+  | GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum
+  | 'blank'
 
 type HealthInfo = {
   status: HealthStatus
@@ -31,12 +37,12 @@ const healthStatusColors: Record<HealthStatus, FillColorClass> = {
 export const computeHealthSegments = (
   history: HistoryEntry[],
   timePoints: TimePoint[],
-): SegmentWithHealthInfo[] => {
+): HealthSegment[] => {
   if (timePoints.length <= 1) {
     throw new Error('There should be more than 1 time points')
   }
 
-  const segments: SegmentWithHealthInfo[] = []
+  const segments: HealthSegment[] = []
 
   const [startTimePoint, endTimePoint] = [
     timePoints[0],
@@ -76,7 +82,7 @@ const parseSegment = (
   endHistoryEntry: HistoryEntry,
   startTimePoint: TimePoint,
   endTimePoint: TimePoint,
-): SegmentWithHealthInfo | undefined => {
+): HealthSegment | undefined => {
   const startHistoryTime = dayjs(startHistoryEntry.time)
   const endHistoryTime = dayjs(endHistoryEntry.time)
 
@@ -117,11 +123,11 @@ const checkIsOverlapping = (
  * Fill the gap before the first segment with a blank segment if necessary.
  */
 const fillLeadingSegment = (
-  segments: SegmentWithHealthInfo[],
+  segments: HealthSegment[],
   startTimePoint: TimePoint,
   endTimePoint: TimePoint,
 ): void => {
-  const firstSegment: SegmentWithHealthInfo | undefined = segments[0]
+  const firstSegment: HealthSegment | undefined = segments[0]
 
   if (!firstSegment) {
     // No segments exist, fill the entire bar with a blank segment.
@@ -161,7 +167,7 @@ const fillLeadingSegment = (
  * Fill the gap after the last segment with the status of the last history entry if necessary.
  */
 const fillTrailingSegment = (
-  segments: SegmentWithHealthInfo[],
+  segments: HealthSegment[],
   lastHistoryEntry: HistoryEntry | undefined,
   startTimePoint: TimePoint,
   endTimePoint: TimePoint,
@@ -195,11 +201,9 @@ const fillTrailingSegment = (
   )
 }
 
-type CreateSegmentOptions = Omit<SegmentWithHealthInfo, 'color'>
+type CreateSegmentOptions = Omit<HealthSegment, 'color'>
 
-const createSegment = (
-  options: CreateSegmentOptions,
-): SegmentWithHealthInfo => {
+const createSegment = (options: CreateSegmentOptions): HealthSegment => {
   const { colCount, hoverContent, status, startDateTime, endDateTime } = options
   return {
     color: healthStatusColors[status],
@@ -212,7 +216,7 @@ const createSegment = (
 }
 
 const createHoverContent = (
-  segment: SegmentWithHealthInfo,
+  segment: HealthSegment,
 ): CosTooltipInformation | undefined => {
   const { status, startDateTime, endDateTime } = segment
   if (status === 'blank') {
@@ -233,10 +237,8 @@ const createHoverContent = (
 /**
  * Reduces segments by merging adjacent segments with the same status.
  */
-const mergeSegments = (
-  segments: SegmentWithHealthInfo[],
-): SegmentWithHealthInfo[] => {
-  const mergedSegments: SegmentWithHealthInfo[] = [{ ...segments[0] }]
+const mergeSegments = (segments: HealthSegment[]): HealthSegment[] => {
+  const mergedSegments: HealthSegment[] = [{ ...segments[0] }]
 
   for (let i = 1; i < segments.length; i++) {
     const lastMergedSegment = mergedSegments[mergedSegments.length - 1]

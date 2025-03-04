@@ -1,16 +1,14 @@
-import {
-  CosHyperlink,
-  CosSegmentedBar,
-  Segment,
-} from '@cube-frontend/ui-library'
+import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
+import { CosHyperlink } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
+import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
+import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
 import { RouterLink } from '@cube-frontend/web-app/components/RouterLink/RouterLink'
 import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { Dayjs } from 'dayjs'
 import { capitalize } from 'lodash'
 import { useMemo } from 'react'
-import { computeHealthSegments } from './computeHealthSegments'
-import { createTimePointFns, TimePoint } from './createTimePointFns'
+import { timePointFns } from './healthAccordionUtils'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
 import { ModuleHealthHistory } from './mockHealth'
 
@@ -27,13 +25,8 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
   const detailPageLink = useMemo<string>(() => `/home/health/${name}`, [name])
 
   const timePoints = useMemo<TimePoint[]>(
-    () => createTimePointFns[timeRange](now),
+    () => timePointFns[timeRange](now),
     [timeRange, now],
-  )
-
-  const healthSegments = useMemo<Segment[]>(
-    () => computeHealthSegments(history, timePoints),
-    [history, timePoints],
   )
 
   return (
@@ -47,9 +40,11 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
           {capitalize(name)}
         </CosHyperlink>
       </RouterLink>
-      <CosSegmentedBar
+      <HealthSegmentedBar
         className="mt-4"
-        segments={healthSegments}
+        // TODO: Replace mock data with real API data.
+        history={history as GetModuleHealthHistoryResponseDataHistoryInner[]}
+        timePoints={timePoints}
         childrenDimensions={{
           height: timeTrackHeight,
           marginTop: 4,
@@ -58,7 +53,7 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
         {(barWidth) => (
           <HealthTimeTrack width={barWidth} timePoints={timePoints} />
         )}
-      </CosSegmentedBar>
+      </HealthSegmentedBar>
     </div>
   )
 }

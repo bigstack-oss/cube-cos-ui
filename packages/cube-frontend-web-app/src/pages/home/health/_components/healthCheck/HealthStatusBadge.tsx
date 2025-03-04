@@ -1,6 +1,6 @@
+import { HealthStatus } from '@cube-frontend/web-app/components/HealthSegmentedBar/computeHealthSegments'
 import { cva } from 'class-variance-authority'
 import { ClassValue } from 'class-variance-authority/types'
-import { HealthStatus } from '../../homeHealthUtils'
 
 export type HealthStatusBadgeProps = {
   status: AvailableStatus
