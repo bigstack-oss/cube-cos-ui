@@ -6,38 +6,55 @@ import { ClassValue } from 'class-variance-authority/types'
 import { CosSkeleton } from '../../internal/components/CosSkeleton/CosSkeleton'
 
 const contentSwitcherSkeletonContainer = cva(
-  [
-    'flex items-center justify-center',
-    'border-y border-functional-skeleton',
-    'first-of-type:rounded-l-[5px] first-of-type:border-l',
-    'last-of-type:rounded-r-[5px] last-of-type:border-r',
-  ],
+  ['flex items-center justify-center', 'border-y border-functional-skeleton'],
   {
     variants: {
+      variant: {
+        default:
+          'first-of-type:rounded-l-[5px] first-of-type:border-l last-of-type:rounded-r-[5px] last-of-type:border-r',
+        radius:
+          'first-of-type:rounded-l-full first-of-type:border-l last-of-type:rounded-r-full last-of-type:border-r',
+      },
       size: {
-        sm: 'h-[24px] w-[64px]',
-        md: 'h-[32px] w-[100px]',
+        sm: '',
+        md: '',
       } satisfies Record<ContentSwitcherSize, ClassValue>,
     },
+    compoundVariants: [
+      { variant: 'default', size: 'md', class: 'h-[32px] w-[100px]' },
+      { variant: 'default', size: 'sm', class: 'h-[24px] w-[64px]' },
+      { variant: 'radius', class: 'h-[34px] w-[100px]' },
+    ],
   },
 )
 
 const contentSwitcherSkeleton = cva(null, {
   variants: {
+    variant: {
+      default: '',
+      radius: '',
+    },
     size: {
-      sm: 'h-[13px] w-[39px]',
-      md: 'h-[17px] w-[60px]',
+      sm: '',
+      md: '',
     } satisfies Record<ContentSwitcherSize, ClassValue>,
   },
+  compoundVariants: [
+    { variant: 'default', size: 'md', class: 'h-[17px] w-[60px]' },
+    { variant: 'default', size: 'sm', class: 'h-[13px] w-[39px]' },
+    { variant: 'radius', class: 'h-[17px] w-[50px]' },
+  ],
 })
 
 export const CosContentSwitcherSkeleton = () => {
-  const size = useContext(CosContentSwitcherContext)
-  const className = twMerge(contentSwitcherSkeletonContainer({ size }))
+  const { size, variant } = useContext(CosContentSwitcherContext)
+  const className = twMerge(contentSwitcherSkeletonContainer({ variant, size }))
 
   return (
     <div className={className}>
-      <CosSkeleton className={twMerge(contentSwitcherSkeleton({ size }))} />
+      <CosSkeleton
+        className={twMerge(contentSwitcherSkeleton({ variant, size }))}
+      />
     </div>
   )
 }

@@ -19,13 +19,13 @@ const ContentSwitcherGallery = () => {
 
   return (
     <StoryLayout
-      title="Content Switcher Gallery"
+      title="Content Switcher"
       desc="Content Switchers allow users to compare and toggle between alternate views of similar or related content. Content that is grouped into tabs is part of the same bigger context but the content does not overlap."
     >
       <StoryLayout.Section title="Content Switcher">
         <div className="flex flex-col gap-y-8">
           <ContentSwitcherRow title="Default">
-            <CosContentSwitcher>
+            <CosContentSwitcher variant="default">
               <CosContentSwitcher.Item
                 isActive={activeIndex === 0}
                 onClick={(e) => {
@@ -63,7 +63,7 @@ const ContentSwitcherGallery = () => {
           </ContentSwitcherRow>
 
           <ContentSwitcherRow title="Disabled">
-            <CosContentSwitcher>
+            <CosContentSwitcher variant="default">
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 0}
@@ -106,7 +106,7 @@ const ContentSwitcherGallery = () => {
           </ContentSwitcherRow>
 
           <ContentSwitcherRow title="Loading">
-            <CosContentSwitcher>
+            <CosContentSwitcher variant="default">
               <CosContentSwitcher.Skeleton />
               <CosContentSwitcher.Skeleton />
               <CosContentSwitcher.Skeleton />
@@ -120,7 +120,7 @@ const ContentSwitcherGallery = () => {
       <StoryLayout.Section title="Content Switcher - Small">
         <div className="flex flex-col gap-y-8">
           <ContentSwitcherRow title="Default">
-            <CosContentSwitcher size="sm">
+            <CosContentSwitcher variant="default" size="sm">
               <CosContentSwitcher.Item
                 isActive={activeIndex === 0}
                 onClick={(e) => {
@@ -158,7 +158,7 @@ const ContentSwitcherGallery = () => {
           </ContentSwitcherRow>
 
           <ContentSwitcherRow title="Disabled">
-            <CosContentSwitcher size="sm">
+            <CosContentSwitcher variant="default" size="sm">
               <CosContentSwitcher.Item
                 disabled={true}
                 isActive={activeIndex === 0}
@@ -201,7 +201,102 @@ const ContentSwitcherGallery = () => {
           </ContentSwitcherRow>
 
           <ContentSwitcherRow title="Loading">
-            <CosContentSwitcher size="sm">
+            <CosContentSwitcher variant="default" size="sm">
+              <CosContentSwitcher.Skeleton />
+              <CosContentSwitcher.Skeleton />
+              <CosContentSwitcher.Skeleton />
+              <CosContentSwitcher.Skeleton />
+              <CosContentSwitcher.Skeleton />
+            </CosContentSwitcher>
+          </ContentSwitcherRow>
+        </div>
+      </StoryLayout.Section>
+
+      <StoryLayout.Section title="Content Switcher - Radius">
+        <div className="flex flex-col gap-y-8">
+          <ContentSwitcherRow title="Default">
+            <CosContentSwitcher variant="radius">
+              <CosContentSwitcher.Item
+                isActive={activeIndex === 0}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setActiveIndex(0)
+                }}
+              >
+                Item 1
+              </CosContentSwitcher.Item>
+              <CosContentSwitcher.Item
+                isActive={activeIndex === 1}
+                onClick={() => setActiveIndex(1)}
+              >
+                Item 2
+              </CosContentSwitcher.Item>
+              <CosContentSwitcher.Item
+                isActive={activeIndex === 2}
+                onClick={() => setActiveIndex(2)}
+              >
+                Item 3
+              </CosContentSwitcher.Item>
+              <CosContentSwitcher.Item
+                isActive={activeIndex === 3}
+                onClick={() => setActiveIndex(3)}
+              >
+                Item 4
+              </CosContentSwitcher.Item>
+              <CosContentSwitcher.Item
+                isActive={activeIndex === 4}
+                onClick={() => setActiveIndex(4)}
+              >
+                Item 5
+              </CosContentSwitcher.Item>
+            </CosContentSwitcher>
+          </ContentSwitcherRow>
+
+          <ContentSwitcherRow title="Disabled">
+            <CosContentSwitcher variant="radius">
+              <CosContentSwitcher.Item
+                disabled={true}
+                isActive={activeIndex === 0}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setActiveIndex(0)
+                }}
+              >
+                Item 1
+              </CosContentSwitcher.Item>
+              <CosContentSwitcher.Item
+                disabled={true}
+                isActive={activeIndex === 1}
+                onClick={() => setActiveIndex(1)}
+              >
+                Item 2
+              </CosContentSwitcher.Item>
+              <CosContentSwitcher.Item
+                disabled={true}
+                isActive={activeIndex === 2}
+                onClick={() => setActiveIndex(2)}
+              >
+                Item 3
+              </CosContentSwitcher.Item>
+              <CosContentSwitcher.Item
+                disabled={true}
+                isActive={activeIndex === 3}
+                onClick={() => setActiveIndex(3)}
+              >
+                Item 4
+              </CosContentSwitcher.Item>
+              <CosContentSwitcher.Item
+                disabled={true}
+                isActive={activeIndex === 4}
+                onClick={() => setActiveIndex(4)}
+              >
+                Item 5
+              </CosContentSwitcher.Item>
+            </CosContentSwitcher>
+          </ContentSwitcherRow>
+
+          <ContentSwitcherRow title="Loading">
+            <CosContentSwitcher variant="radius">
               <CosContentSwitcher.Skeleton />
               <CosContentSwitcher.Skeleton />
               <CosContentSwitcher.Skeleton />
