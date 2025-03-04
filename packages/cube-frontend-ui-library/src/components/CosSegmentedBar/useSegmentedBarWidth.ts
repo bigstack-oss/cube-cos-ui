@@ -1,4 +1,4 @@
-import { debounce } from '@cube-frontend/utils'
+import { throttle } from 'lodash'
 import { RefObject, useEffect, useRef, useState } from 'react'
 
 export type UseSegmentedBarWidth = {
@@ -18,12 +18,12 @@ export const useSegmentedBarWidth = (
       setParentWidth(entries[0]?.contentRect.width ?? 0)
     }
 
-    const debouncedSync = debounce(syncParentWidth, 10)
+    const throttledSync = throttle(syncParentWidth, 50)
 
     let observer: ResizeObserver | undefined = undefined
 
     if (customWidth === undefined && svgRef.current?.parentElement) {
-      observer = new ResizeObserver(debouncedSync)
+      observer = new ResizeObserver(throttledSync)
       observer.observe(svgRef.current.parentElement)
     }
 
