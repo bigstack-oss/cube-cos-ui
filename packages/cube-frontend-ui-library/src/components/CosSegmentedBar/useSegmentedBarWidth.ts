@@ -14,30 +14,21 @@ export const useSegmentedBarWidth = (
   const [parentWidth, setParentWidth] = useState(0)
 
   useEffect(() => {
-    const syncParentWidth = () => {
-      let parentWidth = 0
-      const { parentElement } = svgRef.current ?? {}
-
-      if (parentElement) {
-        const { width, paddingLeft, paddingRight } =
-          getComputedStyle(parentElement)
-
-        parentWidth =
-          parseInt(width) - parseInt(paddingLeft) - parseInt(paddingRight)
-      }
-
-      setParentWidth(parentWidth)
+    const syncParentWidth = (entries: ResizeObserverEntry[]) => {
+      setParentWidth(entries[0]?.contentRect.width ?? 0)
     }
 
-    const debouncedSync = debounce(syncParentWidth)
+    const debouncedSync = debounce(syncParentWidth, 10)
 
-    if (customWidth === undefined) {
-      syncParentWidth()
-      window.addEventListener('resize', debouncedSync)
+    let observer: ResizeObserver | undefined = undefined
+
+    if (customWidth === undefined && svgRef.current?.parentElement) {
+      observer = new ResizeObserver(debouncedSync)
+      observer.observe(svgRef.current.parentElement)
     }
 
     return () => {
-      window.removeEventListener('resize', debouncedSync)
+      observer?.disconnect()
     }
   }, [customWidth])
 
