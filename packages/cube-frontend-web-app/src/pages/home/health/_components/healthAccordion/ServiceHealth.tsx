@@ -1,7 +1,7 @@
+import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { Dayjs } from 'dayjs'
 import { upperFirst } from 'lodash'
 import { useMemo } from 'react'
-import { TimeRange } from './healthAccordionUtils'
 import {
   createMockServiceHealth,
   mockServices,

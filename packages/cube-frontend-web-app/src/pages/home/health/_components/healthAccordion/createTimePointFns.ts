@@ -1,5 +1,5 @@
+import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { Dayjs, ManipulateType } from 'dayjs'
-import { TimeRange } from './healthAccordionUtils'
 
 export type TimePoint = {
   dateTime: Dayjs

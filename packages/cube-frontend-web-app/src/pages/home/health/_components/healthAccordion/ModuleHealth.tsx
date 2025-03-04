@@ -5,12 +5,12 @@ import {
 } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { RouterLink } from '@cube-frontend/web-app/components/RouterLink/RouterLink'
+import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { Dayjs } from 'dayjs'
 import { capitalize } from 'lodash'
 import { useMemo } from 'react'
 import { computeHealthSegments } from './computeHealthSegments'
 import { createTimePointFns, TimePoint } from './createTimePointFns'
-import { TimeRange } from './healthAccordionUtils'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
 import { ModuleHealthHistory } from './mockHealth'
 

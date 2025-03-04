@@ -1,8 +1,9 @@
 import ChevronDown from '@cube-frontend/ui-library/icons/monochrome/chevron_down.svg?react'
+import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { cva } from 'class-variance-authority'
 import { Dayjs } from 'dayjs'
 import { capitalize } from 'lodash'
-import { ServiceCategory, TimeRange } from './healthAccordionUtils'
+import { ServiceCategory } from './healthAccordionUtils'
 import { ServiceHealth } from './ServiceHealth'
 
 export type HealthAccordionItemProps = {
