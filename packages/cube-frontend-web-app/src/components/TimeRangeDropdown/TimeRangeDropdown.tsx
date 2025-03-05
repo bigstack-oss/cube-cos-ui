@@ -3,6 +3,7 @@ import { TimeRange, timeRanges } from './timeRangeDropdownUtils'
 
 export type TimeRangeDropdownProps = {
   selectedItem: TimeRange
+  disabled?: boolean
   onChange: (timeRange: TimeRange) => void
 }
 
@@ -16,10 +17,10 @@ const timeRangeLabels: Record<TimeRange, string> = {
 }
 
 export const TimeRangeDropdown = (props: TimeRangeDropdownProps) => {
-  const { selectedItem, onChange } = props
+  const { selectedItem, disabled, onChange } = props
 
   return (
-    <CosDropdown selectedItems={[selectedItem]}>
+    <CosDropdown selectedItems={[selectedItem]} disabled={disabled}>
       <CosDropdown.Trigger>{timeRangeLabels[selectedItem]}</CosDropdown.Trigger>
       <CosDropdown.Menu>
         {timeRanges.map((timeRange) => (

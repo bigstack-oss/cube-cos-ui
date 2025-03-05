@@ -9,12 +9,14 @@ import { computeHealthSegments, HealthSegment } from './computeHealthSegments'
 import { TimePoint } from './createTimePoints'
 
 export type HealthSegmentedBarProps = PropsWithClassName & {
+  isLoading?: boolean
   history: GetModuleHealthHistoryResponseDataHistoryInner[]
   timePoints: TimePoint[]
 } & Pick<CosSegmentedBarProps, 'width' | 'childrenDimensions' | 'children'>
 
 export const HealthSegmentedBar = (props: HealthSegmentedBarProps) => {
   const {
+    isLoading,
     className,
     history,
     timePoints,
@@ -27,6 +29,10 @@ export const HealthSegmentedBar = (props: HealthSegmentedBarProps) => {
     () => computeHealthSegments(history, timePoints),
     [history, timePoints],
   )
+
+  if (isLoading) {
+    return 'TODO: Loading...'
+  }
 
   const commonSegmentedBarProps = {
     className,
