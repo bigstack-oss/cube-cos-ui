@@ -116,6 +116,7 @@ export const CosPagination = (props: CosPaginationProps) => {
         </CosPaginationItemButton>
         <CosPaginationGoToPageInput
           placeholder="Page"
+          variant="pagination"
           value={inputPage}
           onChange={(e) => setInputPage(e.target.value)}
           onKeyDown={handleKeyDown}

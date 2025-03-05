@@ -21,6 +21,7 @@ export const CosPaginationViewDropdown = (
         <CosDropdown
           variant="in-table"
           type="regular"
+          isPagination={true}
           selectedItems={[itemsPerPage]}
         >
           <CosDropdown.Trigger placeholder="Choose">

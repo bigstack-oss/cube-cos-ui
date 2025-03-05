@@ -4,7 +4,10 @@ import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import WarningFilled from '../CosIcon/monochrome/warning_filled.svg?react'
 
+export type CosTableInputVariant = 'regular' | 'pagination'
+
 export type CosTableInputProps = InputHTMLAttributes<HTMLInputElement> & {
+  variant?: CosTableInputVariant
   isLoading?: boolean
   errorMessage?: string | boolean
 }
@@ -19,6 +22,10 @@ const input = cva(
   ],
   {
     variants: {
+      variant: {
+        regular: '',
+        pagination: 'h-[28px]',
+      },
       isError: {
         true: 'border-status-negative hover:border-status-negative',
       },
@@ -36,6 +43,7 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
   (props: CosTableInputProps, ref) => {
     const {
       className,
+      variant = 'regular',
       isLoading = false,
       errorMessage,
       disabled,
@@ -69,7 +77,7 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
                 id={inputId}
                 ref={ref}
                 disabled={disabled}
-                className={twMerge(input({ isError, disabled }))}
+                className={twMerge(input({ variant, isError, disabled }))}
               />
             )}
             {renderErrorIcon()}

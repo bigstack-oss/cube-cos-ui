@@ -22,6 +22,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
     floatingProps,
     type,
     variant,
+    isPagination,
     selectedItems,
     disabled,
     onClearClick,
@@ -67,6 +68,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
           hasSearchbar,
           hasSelectedValue: isSelected,
           disabled,
+          isPagination,
         }),
       )}
     >

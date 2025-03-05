@@ -20,6 +20,7 @@ import {
 export type CosDropdownProps<Item, Type extends CosDropdownType> = {
   type?: Type
   variant?: CosDropdownVariant
+  isPagination?: boolean
   label?: string
   selectedItems: Item[]
   disabled?: boolean
@@ -52,6 +53,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
   const {
     type = 'regular',
     variant = 'default',
+    isPagination = false,
     label,
     selectedItems,
     disabled = false,
@@ -122,6 +124,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
         // Common props
         type,
         variant,
+        isPagination,
         selectedItems,
         itemCount,
         disabled,
