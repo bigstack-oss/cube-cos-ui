@@ -39,9 +39,15 @@ export const useElementDomRect = (
     scrollableRoot?.addEventListener('scroll', debouncedSync)
     scrollableRoot?.addEventListener('resize', debouncedSync)
 
+    // TODO: Find a better way to detect horizontal position change.
+    const intervalId = setInterval(() => {
+      syncRect()
+    }, 250)
+
     return () => {
       scrollableRoot?.removeEventListener('scroll', debouncedSync)
       scrollableRoot?.removeEventListener('resize', debouncedSync)
+      clearInterval(intervalId)
     }
   }, [elementRef, getScrollableRoot])
 
