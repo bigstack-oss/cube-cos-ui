@@ -1,7 +1,4 @@
-import {
-  GetModuleHealthHistoryResponseDataHistoryInner,
-  HealthApiGetHealthHistoryRequest,
-} from '@cube-frontend/api'
+import { HealthApiGetHealthHistoryRequest } from '@cube-frontend/api'
 import { CosStroke } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -9,7 +6,7 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { useTimeFrame } from '@cube-frontend/web-app/hooks/useTimeFrame/useTimeFrame'
 import { cva } from 'class-variance-authority'
-import { useContext, useMemo } from 'react'
+import { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { HistoryRow, widthTransitionClasses } from './healthDetailsUtils'
 import { HealthHistoryPanelHeader } from './HealthHistoryPanelHeader'
@@ -71,24 +68,6 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
     },
   )
 
-  // TODO: Remove `history` once the API returns the correct date string.
-  const history = useMemo<
-    GetModuleHealthHistoryResponseDataHistoryInner[] | undefined
-  >(() => {
-    if (!healthData?.history) {
-      return undefined
-    }
-    const clonedHistory = structuredClone(healthData.history ?? [])
-    clonedHistory.forEach((entry) => {
-      // Currently, the API returns date strings in `YYYY-MM-DDTHH:mm:ssZ`
-      // format, but they actually represent UTC+8 time.
-      // To avoid the JS Date object from applying the wrong offset, we need to
-      // replace `Z` (Zulu time, which is an alias of UTC+0) with `+08:00`.
-      entry.time = entry.time.replace('Z', '+08:00')
-    })
-    return clonedHistory
-  }, [healthData?.history])
-
   return (
     <div className={twMerge(container({ isDetailPanelOpen }))}>
       <HealthHistoryPanelHeader
@@ -99,13 +78,13 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
       />
       <HealthTimeBar
         isLoading={!healthData}
-        history={history}
+        history={healthData?.history}
         now={now}
         selectedTimeRange={timeRange}
       />
       <CosStroke type="dot" />
       <HealthHistoryTableSection
-        history={history}
+        history={healthData?.history}
         activeRow={activeHistoryRow}
         onRowClick={onHistoryRowClick}
       />
