@@ -21,7 +21,7 @@ export const RouterLink = (props: RouterLinkProps) => {
 
   return cloneElement(children, {
     href,
-    onClick: (e) => {
+    onClick: (e: MouseEvent) => {
       e.preventDefault()
       navigate(href)
     },
