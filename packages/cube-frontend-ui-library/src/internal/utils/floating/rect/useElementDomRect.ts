@@ -1,4 +1,4 @@
-import { debounce } from '@cube-frontend/utils'
+import { debounce } from 'lodash'
 import { RefObject, useCallback, useEffect, useState } from 'react'
 
 export const useElementDomRect = (
