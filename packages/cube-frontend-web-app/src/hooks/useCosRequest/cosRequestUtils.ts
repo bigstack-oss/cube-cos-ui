@@ -76,18 +76,47 @@ export const readStream = async <
     const chunk = decoder.decode(value, { stream: true })
     buffer += chunk
 
-    if (!isValidJsonString(buffer)) {
-      continue
+    const validChunks: string[] = []
+    // split the buffer using '}{', also tolerate newlines between '}' and '{'
+    const segments = buffer.split(/}[\r\n]*{/)
+    if (segments.length > 1) {
+      // add the removed '}' or '{' back
+      segments[0] += '}'
+
+      for (let i = 1; i < segments.length - 1; i++) {
+        segments[i] = '{' + segments[i] + '}'
+      }
+
+      const lastSegment = '{' + (segments.pop() ?? '')
+      if (/}[\r\n]*$/.test(lastSegment)) {
+        // if the last segment is also a valid JSON, clean up the buffer
+        segments.push(lastSegment)
+        buffer = ''
+      } else {
+        // if not, push the last segment to the buffer
+        buffer = lastSegment
+      }
+
+      segments.forEach((segment) => {
+        if (isValidJsonString(segment)) {
+          validChunks.push(segment)
+        }
+      })
+    } else if (isValidJsonString(buffer)) {
+      // buffer is a valid JSON
+      validChunks.push(buffer)
+      buffer = ''
     }
 
-    const chunkResponse = JSON.parse(buffer) as ChunkResponse
-    buffer = ''
+    validChunks.forEach((validChunk) => {
+      const chunkResponse = JSON.parse(validChunk) as ChunkResponse
 
-    if (!validateStatus(chunkResponse.code)) {
-      // TODO: Handle CosAPI Error Status
-      throw new Error(chunkResponse.msg)
-    }
-    onChunk(chunkResponse)
+      if (!validateStatus(chunkResponse.code)) {
+        // TODO: Handle CosAPI Error Status
+        throw new Error(chunkResponse.msg)
+      }
+      onChunk(chunkResponse)
+    })
   }
 }
 

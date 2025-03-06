@@ -16,3 +16,4 @@ catalog:
   "@fontsource/inter": "^5.1.0"
   "@fontsource/urbanist": "^5.1.1"
   "vite-plugin-svgr": "^4.3.0"
+  "vitest": "^3.0.7"

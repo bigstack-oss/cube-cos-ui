@@ -30,6 +30,7 @@
     "web-app:dev": "pnpm --filter @cube-frontend/web-app dev",
     "web-app:build": "pnpm --filter @cube-frontend/web-app build",
     "web-app:preview": "pnpm --filter @cube-frontend/web-app preview",
+    "web-app:test": "pnpm --filter @cube-frontend/web-app test",
     "prepare": "husky"
   },
   "devDependencies": {

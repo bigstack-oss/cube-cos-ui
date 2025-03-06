@@ -5,7 +5,7 @@ const POLLING_INTERVAL = 5000
 
 export const useNow = (): Dayjs => {
   const [now, setNow] = useState(() => dayjs(new Date()))
-  const intervalId = useRef<number | undefined>(undefined)
+  const intervalId = useRef<NodeJS.Timeout | undefined>(undefined)
 
   useEffect(() => {
     intervalId.current = setInterval(() => {
