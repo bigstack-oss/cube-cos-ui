@@ -287,6 +287,9 @@ importers:
 
   packages/cube-frontend-utils:
     dependencies:
+      dayjs:
+        specifier: 'catalog:'
+        version: 1.11.13
       react:
         specifier: 'catalog:'
         version: 19.0.0

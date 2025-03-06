@@ -3,6 +3,7 @@ packages:
 
 catalog:
   class-variance-authority: ^0.7.1
+  dayjs: ^1.11.13
   lodash: ^4.17.21
   '@types/lodash': ^4.17.15
   react: ^19.0.0

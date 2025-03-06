@@ -83,8 +83,8 @@ const parseSegment = (
   startTimePoint: TimePoint,
   endTimePoint: TimePoint,
 ): HealthSegment | undefined => {
-  const startHistoryTime = dayjs(startHistoryEntry.time)
-  const endHistoryTime = dayjs(endHistoryEntry.time)
+  const startHistoryTime = dayjs.respectTzOffset(startHistoryEntry.time)
+  const endHistoryTime = dayjs.respectTzOffset(endHistoryEntry.time)
 
   const isOverlapping = checkIsOverlapping(
     [startHistoryTime, endHistoryTime],

@@ -22,7 +22,10 @@ const UPDATE_INTERVAL = 5000
 export const useTimeFrame = (options?: UseTimeFrameOptions): UseTimeFrame => {
   const { defaultTimeRange = 'last24Hours' } = options ?? {}
 
-  const [now, setNow] = useState<Dayjs>(() => dayjs(new Date()))
+  const [now, setNow] = useState<Dayjs>(() =>
+    // TODO: Get '+08:00' from the DataCenterContext once the API doc is updated.
+    dayjs.addTzOffset(new Date().toISOString(), '+08:00'),
+  )
   const [timeRange, setTimeRange] = useState<TimeRange>(defaultTimeRange)
 
   const past = useMemo<Dayjs>(() => {
@@ -36,7 +39,8 @@ export const useTimeFrame = (options?: UseTimeFrameOptions): UseTimeFrame => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setNow(dayjs(new Date()))
+      // TODO: Get '+08:00' from the DataCenterContext once the API doc is updated.
+      setNow(dayjs.addTzOffset(new Date().toISOString(), '+08:00'))
     }, UPDATE_INTERVAL)
 
     return () => {

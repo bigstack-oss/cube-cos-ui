@@ -363,7 +363,11 @@ export const createMockServiceHealth = (now: Dayjs) => [
     module: 'link',
     history: [
       {
-        time: now.subtract(24, 'hours').subtract(2, 'minutes').toISOString(),
+        time: now
+          .subtract(24, 'hours')
+          .subtract(2, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -376,23 +380,43 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(23, 'hours').subtract(57, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(57, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(23, 'hours').subtract(52, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(52, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(23, 'hours').subtract(47, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(47, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(23, 'hours').subtract(42, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(42, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(23, 'hours').subtract(37, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(37, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -405,7 +429,11 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(23, 'hours').subtract(32, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(32, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -418,7 +446,11 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(23, 'hours').subtract(27, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(27, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -431,23 +463,35 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(23, 'hours').subtract(22, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(22, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(23, 'hours').subtract(17, 'minutes').toISOString(),
+        time: now
+          .subtract(23, 'hours')
+          .subtract(17, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(23, 'hours').toISOString(),
+        time: now.subtract(23, 'hours').toISOString().replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(22, 'hours').toISOString(),
+        time: now.subtract(22, 'hours').toISOString().replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(21, 'hours').subtract(30, 'minutes').toISOString(),
+        time: now
+          .subtract(21, 'hours')
+          .subtract(30, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -460,11 +504,19 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(21, 'hours').subtract(25, 'minutes').toISOString(),
+        time: now
+          .subtract(21, 'hours')
+          .subtract(25, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(21, 'hours').subtract(20, 'minutes').toISOString(),
+        time: now
+          .subtract(21, 'hours')
+          .subtract(20, 'minutes')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
     ],
@@ -475,7 +527,7 @@ export const createMockServiceHealth = (now: Dayjs) => [
     module: 'clock',
     history: [
       {
-        time: now.subtract(15, 'days').toISOString(),
+        time: now.subtract(15, 'days').toISOString().replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -488,11 +540,19 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(14, 'days').subtract(16, 'hours').toISOString(),
+        time: now
+          .subtract(14, 'days')
+          .subtract(16, 'hours')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(14, 'days').subtract(8, 'hours').toISOString(),
+        time: now
+          .subtract(14, 'days')
+          .subtract(8, 'hours')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
@@ -500,7 +560,8 @@ export const createMockServiceHealth = (now: Dayjs) => [
           .subtract(14, 'days')
           .subtract(7, 'hours')
           .subtract(55, 'minutes')
-          .toISOString(),
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
@@ -508,7 +569,8 @@ export const createMockServiceHealth = (now: Dayjs) => [
           .subtract(14, 'days')
           .subtract(7, 'hours')
           .subtract(50, 'minutes')
-          .toISOString(),
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
@@ -516,7 +578,8 @@ export const createMockServiceHealth = (now: Dayjs) => [
           .subtract(14, 'days')
           .subtract(7, 'hours')
           .subtract(45, 'minutes')
-          .toISOString(),
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -533,23 +596,36 @@ export const createMockServiceHealth = (now: Dayjs) => [
           .subtract(14, 'days')
           .subtract(7, 'hours')
           .subtract(20, 'minutes')
-          .toISOString(),
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(14, 'days').subtract(7, 'hours').toISOString(),
+        time: now
+          .subtract(14, 'days')
+          .subtract(7, 'hours')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(14, 'days').subtract(6, 'hours').toISOString(),
+        time: now
+          .subtract(14, 'days')
+          .subtract(6, 'hours')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(14, 'days').subtract(5, 'hours').toISOString(),
+        time: now
+          .subtract(14, 'days')
+          .subtract(5, 'hours')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(5, 'days').toISOString(),
+        time: now.subtract(5, 'days').toISOString().replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -562,11 +638,19 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(4, 'days').subtract(23, 'hours').toISOString(),
+        time: now
+          .subtract(4, 'days')
+          .subtract(23, 'hours')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(4, 'days').subtract(22, 'hours').toISOString(),
+        time: now
+          .subtract(4, 'days')
+          .subtract(22, 'hours')
+          .toISOString()
+          .replace('Z', '+08:00'),
         status: 'ok',
       },
     ],
@@ -577,15 +661,15 @@ export const createMockServiceHealth = (now: Dayjs) => [
     module: 'dns',
     history: [
       {
-        time: now.subtract(58, 'minutes').toISOString(),
+        time: now.subtract(58, 'minutes').toISOString().replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(52, 'minutes').toISOString(),
+        time: now.subtract(52, 'minutes').toISOString().replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(31, 'minutes').toISOString(),
+        time: now.subtract(31, 'minutes').toISOString().replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -598,7 +682,7 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(20, 'minutes').toISOString(),
+        time: now.subtract(20, 'minutes').toISOString().replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
@@ -611,11 +695,11 @@ export const createMockServiceHealth = (now: Dayjs) => [
         },
       },
       {
-        time: now.subtract(13, 'minutes').toISOString(),
+        time: now.subtract(13, 'minutes').toISOString().replace('Z', '+08:00'),
         status: 'ok',
       },
       {
-        time: now.subtract(3, 'minutes').toISOString(),
+        time: now.subtract(3, 'minutes').toISOString().replace('Z', '+08:00'),
         status: 'ng',
         error: {
           type: 'service down',
