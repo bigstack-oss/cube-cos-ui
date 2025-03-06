@@ -78,7 +78,7 @@ export const readStream = async <
 
     const validChunks: string[] = []
     // split the buffer using '}{', also tolerate newlines between '}' and '{'
-    const segments = buffer.split(/}[\r\n|\r|\n]*{/)
+    const segments = buffer.split(/}[\r\n]*{/)
     if (segments.length > 1) {
       // add the removed '}' or '{' back
       segments[0] += '}'
@@ -88,7 +88,7 @@ export const readStream = async <
       }
 
       const lastSegment = '{' + (segments.pop() ?? '')
-      if (/}[\r\n|\r|\n]*$/.test(lastSegment)) {
+      if (/}[\r\n]*$/.test(lastSegment)) {
         // if the last segment is also a valid JSON, clean up the buffer
         segments.push(lastSegment)
         buffer = ''
