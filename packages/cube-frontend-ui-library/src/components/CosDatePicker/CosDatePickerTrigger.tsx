@@ -23,7 +23,7 @@ export const CosDatePickerTrigger = () => {
       onClick={toggleCalendarOpen}
       className={twMerge(trigger({ isSelected, disabled }))}
     >
-      <CalendarIcon className="icon-md" />
+      <CalendarIcon className="icon-md shrink-0" />
       <span>{formatDateRange(startDate, endDate) ?? 'Time'}</span>
     </button>
   )

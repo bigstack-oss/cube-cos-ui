@@ -3,6 +3,7 @@ import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayou
 import { CosDatePicker } from '../../../components/CosDatePicker/CosDatePicker'
 import { useState } from 'react'
 import { DatePickerBox } from './DatePickerBox'
+import dayjs, { Dayjs } from 'dayjs'
 
 const meta = {
   title: 'Molecules/Date Picker',
@@ -13,25 +14,25 @@ export default meta
 export const Gallery: StoryObj = {
   args: {},
   render: function Render() {
-    const [startDate, setStartDate] = useState<Date>()
+    const [startDate, setStartDate] = useState<Dayjs>()
 
-    const [endDate, setEndDate] = useState<Date>()
+    const [endDate, setEndDate] = useState<Dayjs>()
 
-    const [startDateDefault, setStartDateDefault] = useState<Date | undefined>(
-      new Date('2025-03-25'),
+    const [startDateDefault, setStartDateDefault] = useState<Dayjs | undefined>(
+      dayjs('2025-03-25'),
     )
 
-    const [endDateDefault, setEndDateDefault] = useState<Date | undefined>(
-      new Date('2025-03-31'),
+    const [endDateDefault, setEndDateDefault] = useState<Dayjs | undefined>(
+      dayjs('2025-03-31'),
     )
 
-    const handleStartDate = (date?: Date) => setStartDate(date)
+    const handleStartDate = (date?: Dayjs) => setStartDate(date)
 
-    const handleStartDateDefault = (date?: Date) => setStartDateDefault(date)
+    const handleStartDateDefault = (date?: Dayjs) => setStartDateDefault(date)
 
-    const handleEndDate = (date?: Date) => setEndDate(date)
+    const handleEndDate = (date?: Dayjs) => setEndDate(date)
 
-    const handleEndDateDefault = (date?: Date) => setEndDateDefault(date)
+    const handleEndDateDefault = (date?: Dayjs) => setEndDateDefault(date)
 
     const handleApply = () => {}
 

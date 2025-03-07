@@ -1,17 +1,18 @@
 import { createContext } from 'react'
+import dayjs, { Dayjs } from 'dayjs'
 import { UseFloating } from '../../internal/utils/floating/useFloating'
 
 export type CosDatePickerContextValue = {
-  currentMonth: Date
+  currentMonth: Dayjs
   calendarOpen: boolean
   toggleCalendarOpen: () => void
   floatingProps: UseFloating<HTMLButtonElement, HTMLDivElement>
 
   triggerDisabled: boolean
   isSelected: boolean
-  startDate: Date | undefined
-  endDate: Date | undefined
-  onDateClick: (date: Date) => void
+  startDate: Dayjs | undefined
+  endDate: Dayjs | undefined
+  onDateClick: (date: Dayjs) => void
   onPreviousMonthClick: () => void
   onNextMonthClick: () => void
   onApplyClick: () => void
@@ -19,7 +20,7 @@ export type CosDatePickerContextValue = {
 }
 
 export const CosDatePickerContext = createContext<CosDatePickerContextValue>({
-  currentMonth: new Date(),
+  currentMonth: dayjs(new Date()),
   calendarOpen: false,
   toggleCalendarOpen: () => {},
   floatingProps: undefined as unknown as UseFloating<

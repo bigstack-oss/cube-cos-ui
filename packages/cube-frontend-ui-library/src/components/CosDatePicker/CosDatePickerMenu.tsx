@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { createPortal } from 'react-dom'
-import { format } from 'date-fns'
+import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import { CosButton } from '../CosButton/CosButton'
 import { CosDatePickerInput } from './CosDatePickerInput'
@@ -33,12 +33,12 @@ export const CosDatePickerMenu = () => {
       <div className="flex gap-4">
         <CosDatePickerInput
           type="start"
-          value={startDate ? format(startDate, 'yyyy/MM/dd') : ''}
+          value={startDate ? dayjs(startDate).format('YYYY/MM/DD') : ''}
           placeholder="Choose Start"
         />
         <CosDatePickerInput
           type="end"
-          value={endDate ? format(endDate, 'yyyy/MM/dd') : ''}
+          value={endDate ? dayjs(endDate).format('YYYY/MM/DD') : ''}
           placeholder="Choose End"
         />
       </div>

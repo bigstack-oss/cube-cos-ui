@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import dayjs, { Dayjs } from 'dayjs'
 
 export type DateButtonStatus =
   | 'unselected'
@@ -8,59 +8,45 @@ export type DateButtonStatus =
   | 'selected-range-between'
   | 'selected-range-end'
 
-export const formatDateRange = (startDate?: Date, endDate?: Date) => {
+export const formatDateRange = (startDate?: Dayjs, endDate?: Dayjs) => {
   if (startDate && endDate) {
-    return `${format(startDate, 'yyyy/MM/dd')} - ${format(endDate, 'yyyy/MM/dd')}`
+    return `${dayjs(startDate).format('YYYY/MM/DD')} - ${dayjs(endDate).format('YYYY/MM/DD')}`
   }
 
   if (startDate) {
-    return format(startDate, 'yyyy/MM/dd')
+    return dayjs(startDate).format('YYYY/MM/DD')
   }
 
   if (endDate) {
-    return format(endDate, 'yyyy/MM/dd')
+    return dayjs(endDate).format('YYYY/MM/DD')
   }
 
   return undefined
 }
 
 export const getDateButtonStatus = (
-  selectedDate: Date,
-  startDate?: Date,
-  endDate?: Date,
-): DateButtonStatus => {
-  const today = new Date()
+  selectedDate: Dayjs,
+  startDate?: Dayjs,
+  endDate?: Dayjs,
+) => {
+  const today = dayjs().startOf('day')
 
-  if (
-    !startDate &&
-    !endDate &&
-    today.toDateString() === selectedDate.toDateString()
-  )
-    return 'unselected-today'
-
-  const isSingleSelection =
-    startDate && endDate && startDate.toDateString() === endDate.toDateString()
-
-  if (
-    isSingleSelection &&
-    startDate.toDateString() === selectedDate.toDateString()
-  ) {
-    return 'selected-single'
-  }
-
-  if (startDate?.toDateString() === selectedDate.toDateString())
+  if (startDate && selectedDate.isSame(startDate, 'day')) {
     return 'selected-range-start'
-
-  if (endDate?.toDateString() === selectedDate.toDateString())
+  }
+  if (endDate && selectedDate.isSame(endDate, 'day')) {
     return 'selected-range-end'
-
+  }
   if (
     startDate &&
     endDate &&
-    selectedDate > startDate &&
-    selectedDate < endDate
-  )
+    selectedDate.isAfter(startDate) &&
+    selectedDate.isBefore(endDate)
+  ) {
     return 'selected-range-between'
-
+  }
+  if (selectedDate.isSame(today, 'day')) {
+    return 'unselected-today'
+  }
   return 'unselected'
 }

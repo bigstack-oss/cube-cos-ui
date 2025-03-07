@@ -1,17 +1,18 @@
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 import { twMerge } from 'tailwind-merge'
+import dayjs, { Dayjs } from 'dayjs'
 import ChevronLeft from '../CosIcon/monochrome/chevron_left.svg?react'
 import ChevronRight from '../CosIcon/monochrome/chevron_right.svg?react'
 import { getDateButtonStatus } from './utils'
 import { dayButton } from './styles'
 
 type CosDatePickerCalendarProps = {
-  currentMonth: Date
+  currentMonth: Dayjs
   onPreviousMonth: () => void
   onNextMonth: () => void
-  onSelectDay: (day: Date) => void
-  startDate?: Date
-  endDate?: Date
+  onSelectDay: (day: Dayjs) => void
+  startDate?: Dayjs
+  endDate?: Dayjs
 }
 
 export const CosDatePickerCalendar = (props: CosDatePickerCalendarProps) => {
@@ -24,17 +25,9 @@ export const CosDatePickerCalendar = (props: CosDatePickerCalendarProps) => {
     endDate,
   } = props
 
-  const monthStart = new Date(
-    currentMonth.getFullYear(),
-    currentMonth.getMonth(),
-    1,
-  )
+  const monthStart = new Date(currentMonth.year(), currentMonth.month(), 1)
 
-  const monthEnd = new Date(
-    currentMonth.getFullYear(),
-    currentMonth.getMonth() + 1,
-    0,
-  )
+  const monthEnd = new Date(currentMonth.year(), currentMonth.month() + 1, 0)
 
   const firstDate = new Date(monthStart)
 
@@ -65,7 +58,9 @@ export const CosDatePickerCalendar = (props: CosDatePickerCalendarProps) => {
         <div onClick={onPreviousMonth} className="cursor-pointer p-[10px]">
           <ChevronLeft className="icon-md text-functional-text" />
         </div>
-        <div className="secondary-h5">{format(currentMonth, 'MMMM yyyy')}</div>
+        <div className="secondary-h5">
+          {dayjs(currentMonth).format('MMMM YYYY')}
+        </div>
         <div onClick={onNextMonth} className="cursor-pointer p-[10px]">
           <ChevronRight className="icon-md text-functional-text" />
         </div>
@@ -85,11 +80,11 @@ export const CosDatePickerCalendar = (props: CosDatePickerCalendarProps) => {
             {week.map((day, dayIndex) => (
               <button
                 key={dayIndex}
-                onClick={() => onSelectDay(day)}
+                onClick={() => onSelectDay(dayjs(day))}
                 disabled={false}
                 className={twMerge(
                   dayButton({
-                    status: getDateButtonStatus(day, startDate, endDate),
+                    status: getDateButtonStatus(dayjs(day), startDate, endDate),
                     // TODO: apply disabled logic
                     disabled: false,
                   }),

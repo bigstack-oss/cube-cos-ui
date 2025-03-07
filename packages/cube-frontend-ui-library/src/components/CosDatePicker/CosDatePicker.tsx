@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import dayjs, { Dayjs } from 'dayjs'
 import { useFloating } from '../../internal/utils/floating/useFloating'
 import { CosDatePickerTrigger } from './CosDatePickerTrigger'
 import { CosDatePickerMenu } from './CosDatePickerMenu'
@@ -8,10 +9,10 @@ import { CosDatePickerContext } from './context'
 type CosDatePickerProps = {
   disabled?: boolean
   isLoading?: boolean
-  startDate?: Date
-  endDate?: Date
-  setStartDate: (date: Date | undefined) => void
-  setEndDate: (date: Date | undefined) => void
+  startDate?: Dayjs
+  endDate?: Dayjs
+  setStartDate: (date: Dayjs | undefined) => void
+  setEndDate: (date: Dayjs | undefined) => void
   onApplyClick?: () => void
   onCancelClick?: () => void
 }
@@ -30,9 +31,9 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
+  const [currentMonth, setCurrentMonth] = useState(() => dayjs(new Date()))
 
-  const handleDayClick = (date: Date) => {
+  const handleDayClick = (date: Dayjs) => {
     if (startDate && endDate) {
       setStartDate(date)
       setEndDate(undefined)
@@ -61,15 +62,11 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
   }
 
   const handlePreviousMonthClick = () => {
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1),
-    )
+    setCurrentMonth(currentMonth.subtract(1, 'month'))
   }
 
   const handleNextMonthClick = () => {
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1),
-    )
+    setCurrentMonth(currentMonth.add(1, 'month'))
   }
 
   const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
