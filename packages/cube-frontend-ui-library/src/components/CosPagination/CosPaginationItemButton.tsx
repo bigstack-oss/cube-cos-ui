@@ -4,7 +4,10 @@ import { twMerge } from 'tailwind-merge'
 import { CosPaginationItemWrap } from './CosPaginationItemWrap'
 
 const paginationItemButton = cva(
-  'flex size-7 shrink-0 items-center justify-center rounded-full transition-colors',
+  [
+    'flex size-7 shrink-0 items-center justify-center rounded-full',
+    'transition-colors duration-300 ease-in-out',
+  ],
   {
     variants: {
       isActive: {
