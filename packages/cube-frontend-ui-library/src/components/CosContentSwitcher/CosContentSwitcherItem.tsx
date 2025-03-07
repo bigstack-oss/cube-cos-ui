@@ -91,25 +91,27 @@ export const CosContentSwitcherItem = (props: ContentSwitcherItemProps) => {
 
   const { variant, size } = useContext(CosContentSwitcherContext)
 
-  const renderButton = () => {
-    const className =
-      variant === 'default'
-        ? twMerge(contentSwitcherItem.default({ size, isActive, disabled }))
-        : twMerge(contentSwitcherItem.radius({ isActive, disabled }))
+  const className =
+    variant === 'default'
+      ? twMerge(contentSwitcherItem.default({ size, isActive, disabled }))
+      : twMerge(contentSwitcherItem.radius({ isActive, disabled }))
 
-    return (
-      <button
-        type="button"
-        disabled={disabled}
-        className={className}
-        onClick={onClick}
-      >
-        {children}
-      </button>
-    )
+  const switcherButton = (
+    <button
+      type="button"
+      disabled={disabled}
+      className={className}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  )
+
+  if (variant === 'default') {
+    return switcherButton
   }
 
-  return variant === 'radius' ? (
+  return (
     <div
       className={twMerge([
         'box-border border-y border-secondary-200 p-[2px]',
@@ -117,9 +119,7 @@ export const CosContentSwitcherItem = (props: ContentSwitcherItemProps) => {
         'last-of-type:rounded-r-full last-of-type:border-r',
       ])}
     >
-      {renderButton()}
+      {switcherButton}
     </div>
-  ) : (
-    renderButton()
   )
 }

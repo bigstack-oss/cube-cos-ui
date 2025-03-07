@@ -30,11 +30,14 @@ export type CosContentSwitcherProps = PropsWithClassName & {
 export const CosContentSwitcher = (props: CosContentSwitcherProps) => {
   const { className: classNameProp, children, variant = 'default' } = props
 
-  const size =
-    variant === 'default'
-      ? ((props as Extract<CosContentSwitcherProps, { variant: 'default' }>)
-          .size ?? 'md')
-      : undefined
+  const getSize = () => {
+    if (props.variant === 'default') {
+      return props.size ?? 'md'
+    }
+    return undefined
+  }
+
+  const size = getSize()
 
   const className = twMerge('flex w-fit', classNameProp)
 
