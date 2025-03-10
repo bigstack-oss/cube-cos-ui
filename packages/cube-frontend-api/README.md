@@ -22,24 +22,21 @@ Use [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to ensu
    git submodule update --init --recursive
    ```
 
+### Update API TypeScript SDK Version
+
+Follow these steps to update the API version:
+
+1. Get the target commit hash from the `cube-cos-openapi` repository. For example, `d4151bd`.
+2. Navigate to the submodule directory (`cd packages/cube-frontend-api/cube-cos-openapi`) and run `git checkout d4151bd`. Replace `d4151bd` with your actual commit hash.
+3. After switching to the target commit, you'll see that the file `packages/cube-frontend-api/cube-cos-openapi.diff` has changed. Stage this file by running `git add .`.
+4. Run `pnpm api:generate` at the project root, and the API SDK should be generated based on the OpenAPI docs of the target branch.
+
 ### Updating Submodules
 
 For future updates (e.g., after switching to a different branch), run:
 
 ```bash
 git submodule update --recursive
-```
-
-## Validate COS OpenAPI
-
-You should validate the OpenAPI syntax before committing changes in `./cube-cos-openapi`:
-
-```sh
-# In `packages/cube-frontend-api` folder:
-pnpm run validate
-
-# In root folder:
-pnpm run api:validate
 ```
 
 ## Generate Typescript SDK
