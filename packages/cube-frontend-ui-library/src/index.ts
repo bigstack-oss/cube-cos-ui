@@ -24,6 +24,7 @@ export * from './components/CosInput/CosInput'
 export * from './components/CosInput/CosInputSkeleton'
 export * from './components/CosInput/CosPasswordInput'
 export * from './components/CosLoadingSpinner/CosLoadingSpinner'
+export * from './components/CosModal/CosModal'
 export * from './components/CosNagging/CosNagging'
 export * from './components/CosPagination/CosPagination'
 export {
