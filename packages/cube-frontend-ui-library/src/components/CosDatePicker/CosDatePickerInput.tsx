@@ -21,7 +21,6 @@ export const CosDatePickerInput = (props: CosDatePickerInputProps) => {
         value={value}
         placeholder={placeholder}
         readOnly
-        className=""
       />
     </div>
   )

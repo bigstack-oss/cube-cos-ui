@@ -1,8 +1,9 @@
-import { forwardRef, InputHTMLAttributes, useId } from 'react'
-import { CosTableInputSkeleton } from './CosTableInputSkeleton'
 import { cva } from 'class-variance-authority'
+import { forwardRef, InputHTMLAttributes, useId } from 'react'
 import { twMerge } from 'tailwind-merge'
 import WarningFilled from '../CosIcon/monochrome/warning_filled.svg?react'
+import { CosTooltip } from '../CosTooltip/CosTooltip'
+import { CosTableInputSkeleton } from './CosTableInputSkeleton'
 
 export type CosTableInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isLoading?: boolean
@@ -51,7 +52,13 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
       return (
         <div className="absolute right-0 flex size-4 shrink-0 translate-x-6 items-center justify-center overflow-hidden [&>*]:size-4">
           {isError && (
-            <WarningFilled className="icon-md text-status-negative" />
+            <CosTooltip
+              hoverContent={{
+                message: errorMessage?.toString(),
+              }}
+            >
+              <WarningFilled className="icon-md text-status-negative" />
+            </CosTooltip>
           )}
         </div>
       )
