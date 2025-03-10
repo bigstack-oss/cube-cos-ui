@@ -1,5 +1,5 @@
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
-import { useTimeFrame } from '@cube-frontend/web-app/hooks/useTimeFrame/useTimeFrame'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { useMemo, useState } from 'react'
 import { HealthAccordionItem } from './HealthAccordionItem'
 import {
@@ -9,7 +9,7 @@ import {
 import { mockServices } from './mockHealth'
 
 export const HealthAccordion = () => {
-  const { now, timeRange, onTimeRangeChange } = useTimeFrame()
+  const { now, timeRange, onTimeRangeChange } = useTimeRange()
 
   const categories = useMemo<ServiceCategory[]>(
     // TODO: Replace mock services with real API data once it's implemented.

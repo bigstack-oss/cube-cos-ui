@@ -1,3 +1,4 @@
+import { noop } from 'lodash'
 import { MouseEvent } from 'react'
 import { CosHyperlink } from '../CosHyperlink/CosHyperlink'
 import ChevronLeft from '../CosIcon/monochrome/chevron_left.svg?react'
@@ -10,8 +11,6 @@ export type CosBackButtonProps = {
   onClick?: (e: MouseEvent<HTMLElement>) => void
   children: string
 }
-
-const noop = () => undefined
 
 export const CosBackButton = (props: CosBackButtonProps) => {
   const { details, loading = false, href, onClick, children } = props

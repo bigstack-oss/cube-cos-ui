@@ -1,6 +1,10 @@
 import { PropsWithChildren, useMemo } from 'react'
-import { ClassNameValue, twMerge } from 'tailwind-merge'
-import { computeRowClassName, CosTableRow } from './cosTableUtils'
+import { twMerge } from 'tailwind-merge'
+import {
+  computeRowClassName,
+  CosTableRow,
+  RowClassNameProp,
+} from './cosTableUtils'
 import { CreateCosTableColumn } from './rendering/CosTableColumn'
 import { CosTableTd } from './rendering/CosTableTd'
 import { CosTableTh } from './rendering/CosTableTh'
@@ -21,7 +25,7 @@ export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
    * @default 5
    */
   skeletonRowCount?: number
-  rowClassName?: ((row: Row) => ClassNameValue) | ClassNameValue
+  rowClassName?: RowClassNameProp<Row>
   onRowClick?: (row: Row) => void
 }>
 

@@ -1,4 +1,5 @@
 import { Dayjs, ManipulateType } from 'dayjs'
+import { range } from 'lodash'
 
 export type TimePoint = {
   dateTime: Dayjs
@@ -20,7 +21,7 @@ export type CreateTimeOptions = {
 export const createTimePoints = (options: CreateTimeOptions): TimePoint[] => {
   const { now, iteration, value, unit, labelFormatters } = options
 
-  const timePoints: TimePoint[] = Array.from(Array(iteration).keys())
+  const timePoints: TimePoint[] = range(0, iteration)
     .map((_, index) => {
       const dateTime = now.add((index + 1) * value, unit)
       return {

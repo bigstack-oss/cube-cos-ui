@@ -1,10 +1,10 @@
 import { HealthApiGetHealthHistoryRequest } from '@cube-frontend/api'
 import { CosStroke } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
-import { useTimeFrame } from '@cube-frontend/web-app/hooks/useTimeFrame/useTimeFrame'
 import { cva } from 'class-variance-authority'
 import { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -50,9 +50,9 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
 
   const { name: dataCenter } = useContext(DataCenterContext)
 
-  const { now, past, timeRange, onTimeRangeChange } = useTimeFrame()
+  const { now, timeRange, past, onTimeRangeChange } = useTimeRange()
 
-  const { data: healthData } = useCosGetRequest(
+  const { data: healthData } = useCosStreamRequest(
     healthApi.getHealthHistory,
     (): HealthApiGetHealthHistoryRequest | undefined => {
       if (!module || !autoRefresh) {
@@ -62,8 +62,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
         dataCenter,
         serviceType: module.service,
         moduleType: module.name,
-        start: past.toISOString(),
-        stop: now.toISOString(),
+        past,
       }
     },
   )

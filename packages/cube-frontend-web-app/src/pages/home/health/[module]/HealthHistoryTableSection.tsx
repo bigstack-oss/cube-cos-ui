@@ -1,9 +1,13 @@
 import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
-import { GetCosBasicTable } from '@cube-frontend/ui-library'
+import {
+  CosPagination,
+  DEFAULT_ITEMS_PER_PAGE,
+  GetCosBasicTable,
+} from '@cube-frontend/ui-library'
 import { cva } from 'class-variance-authority'
 import dayjs from 'dayjs'
 import { upperCase } from 'lodash'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { HistoryRow, historyToTableRows } from './healthDetailsUtils'
 
 export type HealthHistoryTableSectionProps = {
@@ -28,18 +32,29 @@ export const HealthHistoryTableSection = (
 ) => {
   const { history, activeRow, onRowClick } = props
 
-  const rows = useMemo<HistoryRow[]>(() => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_ITEMS_PER_PAGE)
+
+  const pagedRows = useMemo<HistoryRow[]>(() => {
     // Reverse `history` because the entries are sorted by `time` in ascending
     // order from the API, but the history table needs them in descending order.
     const reversedHistory = [...(history ?? [])].reverse()
-    return historyToTableRows(reversedHistory)
-  }, [history])
+    const start = itemsPerPage * (currentPage - 1)
+    return historyToTableRows(reversedHistory).slice(
+      start,
+      start + itemsPerPage,
+    )
+  }, [history, currentPage, itemsPerPage])
+
+  const onPageChange = (page: number) => {
+    setCurrentPage(page)
+  }
 
   return (
     <div className="flex flex-col gap-y-2">
       <h6 className="primary-h5 text-functional-title">Health History</h6>
       <HistoryTable
-        rows={rows}
+        rows={pagedRows}
         isLoading={!history}
         skeletonRowCount={10}
         rowClassName={(row) =>
@@ -59,6 +74,14 @@ export const HealthHistoryTableSection = (
           {(error) => error?.description}
         </HistoryTable.Column>
       </HistoryTable>
+      <CosPagination
+        isLoading={!history}
+        totalItems={history?.length ?? 0}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        onPageChange={onPageChange}
+        onItemsPerPageChange={setItemsPerPage}
+      />
     </div>
   )
 }

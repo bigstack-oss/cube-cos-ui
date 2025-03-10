@@ -37,7 +37,7 @@ const addTzOffsetFn = (date: string, offset: string): dayjs.Dayjs => {
 
   const totalMinutes = hours * 60 + Math.sign(hours) * minutes
 
-  return dayjs(date).utc().add(totalMinutes, 'minutes')
+  return dayjs(date).utcOffset(totalMinutes)
 }
 
 declare module 'dayjs' {
