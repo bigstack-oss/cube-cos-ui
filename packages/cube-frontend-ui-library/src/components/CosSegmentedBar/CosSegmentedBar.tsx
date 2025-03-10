@@ -56,18 +56,27 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
     throw new Error('width must be greater than 0')
   }
 
+  /**
+   * To ensure that the left-most and right-most rounded sides are display correctly,
+   * we need to filter out segments with 0 cols.
+   */
+  const displaySegments = useMemo<Segment[]>(
+    () => segments.filter((segment) => segment.colCount > 0),
+    [segments],
+  )
+
   const { svgRef, barWidth } = useSegmentedBarWidth(width)
 
   const totalColCount = useMemo<number>(
-    () => segments.reduce((sum, segment) => sum + segment.colCount, 0),
-    [segments],
+    () => displaySegments.reduce((sum, segment) => sum + segment.colCount, 0),
+    [displaySegments],
   )
 
   const rectDimensions = useMemo<RectDimensions[]>(() => {
     const result: RectDimensions[] = []
     let accumulatedLeft = 0
 
-    segments.forEach((segment) => {
+    displaySegments.forEach((segment) => {
       const width = barWidth * (segment.colCount / totalColCount)
 
       result.push({
@@ -79,11 +88,11 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
     })
 
     return result
-  }, [segments, totalColCount, barWidth])
+  }, [displaySegments, totalColCount, barWidth])
 
   const computeRoundedSide = (index: number): RoundedSide => {
     const isFirst = index === 0
-    const isLast = index === segments.length - 1
+    const isLast = index === displaySegments.length - 1
 
     if (isFirst && isLast) {
       // There's only 1 segment.
@@ -118,7 +127,7 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
       width={barWidth}
       height={svgHeight}
     >
-      {segments.map((segment, index) => (
+      {displaySegments.map((segment, index) => (
         <CosTooltip key={index} hoverContent={segment.hoverContent}>
           <SegmentedRect
             color={segment.color}

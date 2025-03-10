@@ -2,6 +2,10 @@ import { Segment } from '@cube-frontend/ui-library'
 
 export const vmSummarySegments: Segment[] = [
   {
+    color: 'fill-chart-1',
+    colCount: 0,
+  },
+  {
     color: 'fill-chart-2',
     colCount: 51,
   },
@@ -20,6 +24,10 @@ export const vmSummarySegments: Segment[] = [
   {
     color: 'fill-status-negative',
     colCount: 1,
+  },
+  {
+    color: 'fill-chart-7',
+    colCount: 0,
   },
 ]
 
