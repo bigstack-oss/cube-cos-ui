@@ -13,11 +13,10 @@ catalog:
   tailwindcss: ^3.4.17
   tailwind-merge: ^2.6.0
   postcss: ^8.4.49
-  "pluralize": "^8.0.0"
-  "@types/pluralize": "^0.0.33"
+  'pluralize': '^8.0.0'
+  '@types/pluralize': '^0.0.33'
   autoprefixer: ^10.4.20
   '@fontsource/inter': '^5.1.0'
   '@fontsource/urbanist': '^5.1.1'
   'vite-plugin-svgr': '^4.3.0'
   'vitest': '^3.0.7'
-  'dayjs': '^1.11.13'
