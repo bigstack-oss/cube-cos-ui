@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosPagination } from '../../../components/CosPagination/CosPagination'
 import { useState } from 'react'
+import { DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 
 const meta = {
   title: 'Molecules/Pagination',
@@ -10,11 +11,13 @@ const meta = {
 
 export default meta
 
+const totalItems = 1203
+
 export const Default: StoryObj = {
   args: {},
   render: function Render() {
     const [currentPage, setCurrentPage] = useState(100)
-    const totalItems = 1203
+    const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_ITEMS_PER_PAGE)
 
     return (
       <StoryLayout
@@ -25,15 +28,19 @@ export const Default: StoryObj = {
           <CosPagination
             totalItems={totalItems}
             currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
             onPageChange={setCurrentPage}
+            onItemsPerPageChange={setItemsPerPage}
           />
         </StoryLayout.Section>
         <StoryLayout.Section title="Skeleton">
           <CosPagination
             isLoading={true}
             totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
+            onItemsPerPageChange={setItemsPerPage}
           />
         </StoryLayout.Section>
       </StoryLayout>

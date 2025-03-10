@@ -1,13 +1,14 @@
 import { CosDropdown } from '../CosDropdown/CosDropdown'
+import {
+  DEFAULT_ITEMS_PER_PAGE,
+  ItemsPerPage,
+  itemsPerPageOptions,
+} from './cosPaginationUtils'
 
 type CosPaginationViewDropdownProps = {
-  itemsPerPage?: number
-  onItemsPerPageChange: (num: number) => void
+  itemsPerPage: ItemsPerPage
+  onItemsPerPageChange: (num: ItemsPerPage) => void
 }
-
-const options = [10, 20, 30, 50, 100]
-
-export const DEFAULT_ITEMS_PER_PAGE = 10
 
 export const CosPaginationViewDropdown = (
   props: CosPaginationViewDropdownProps,
@@ -27,7 +28,7 @@ export const CosPaginationViewDropdown = (
             {itemsPerPage.toString()}
           </CosDropdown.Trigger>
           <CosDropdown.Menu>
-            {options.map((num) => (
+            {itemsPerPageOptions.map((num) => (
               <CosDropdown.Item
                 key={num}
                 item={num}

@@ -4,15 +4,13 @@ import ChevronLeftEnd from '../../components/CosIcon/monochrome/chevron_left_end
 import ChevronRight from '../../components/CosIcon/monochrome/chevron_right.svg?react'
 import ChevronRightEnd from '../../components/CosIcon/monochrome/chevron_right_end.svg?react'
 import { CosPaginationAmount } from './CosPaginationAmount'
-import {
-  CosPaginationViewDropdown,
-  DEFAULT_ITEMS_PER_PAGE,
-} from './CosPaginationViewDropdown'
 import { CosPaginationGoToPageInput } from './CosPaginationGoToPageInput'
-import { CosPaginationItemWrap } from './CosPaginationItemWrap'
 import { CosPaginationItemButton } from './CosPaginationItemButton'
-import { getPageNumbers } from './utils'
+import { CosPaginationItemWrap } from './CosPaginationItemWrap'
 import { CosPaginationSkeleton } from './CosPaginationSkeleton'
+import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from './cosPaginationUtils'
+import { CosPaginationViewDropdown } from './CosPaginationViewDropdown'
+import { getPageNumbers } from './utils'
 
 export type CosPaginationProps = {
   isLoading?: boolean
@@ -21,16 +19,26 @@ export type CosPaginationProps = {
    * The current page is 1-indexed
    * i.e., the first page is 1, not 0
    */
-  currentPage?: number
+  currentPage: number
+  /**
+   * @default 10
+   */
+  itemsPerPage: ItemsPerPage
   onPageChange?: (page: number) => void
+  onItemsPerPageChange?: (itemsPerPage: ItemsPerPage) => void
 }
 
 export const CosPagination = (props: CosPaginationProps) => {
-  const { isLoading = false, totalItems, currentPage = 1, onPageChange } = props
+  const {
+    isLoading = false,
+    totalItems,
+    currentPage = 1,
+    itemsPerPage = DEFAULT_ITEMS_PER_PAGE,
+    onPageChange,
+    onItemsPerPageChange,
+  } = props
 
   const [inputPage, setInputPage] = useState('')
-
-  const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_ITEMS_PER_PAGE)
 
   const totalPages = Math.ceil(totalItems / itemsPerPage)
 
@@ -54,8 +62,8 @@ export const CosPagination = (props: CosPaginationProps) => {
     }
   }
 
-  const handleItemsPerPageChange = (num: number) => {
-    setItemsPerPage(num)
+  const handleItemsPerPageChange = (num: ItemsPerPage) => {
+    onItemsPerPageChange?.(num)
     handlePageChange(1)
   }
 

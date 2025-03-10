@@ -25,6 +25,11 @@ export * from './components/CosInput/CosInputSkeleton'
 export * from './components/CosInput/CosPasswordInput'
 export * from './components/CosLoadingSpinner/CosLoadingSpinner'
 export * from './components/CosNagging/CosNagging'
+export * from './components/CosPagination/CosPagination'
+export {
+  DEFAULT_ITEMS_PER_PAGE,
+  type ItemsPerPage,
+} from './components/CosPagination/cosPaginationUtils'
 export * from './components/CosPanel/CosPanel'
 export * from './components/CosPercentagePieChart/CosPercentagePieChart'
 export * from './components/CosProgressBar/CosProgressBar'
