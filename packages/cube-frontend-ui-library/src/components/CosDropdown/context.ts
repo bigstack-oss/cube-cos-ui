@@ -16,7 +16,6 @@ export type CosDropdownContextValue<Item> = {
   // Common props
   type: CosDropdownType
   variant: CosDropdownVariant
-  isPagination: boolean
   selectedItems: Item[]
   itemCount: number
   disabled: boolean
@@ -41,7 +40,6 @@ export const CosDropdownContext = createContext<
   // Common props
   type: 'regular',
   variant: 'default',
-  isPagination: false,
   selectedItems: [],
   itemCount: 0,
   disabled: false,

@@ -143,28 +143,29 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
     }
 
     return (
-      <div className={className}>
-        <div className="min-w-[202px] space-y-[6px]">
-          {renderLabel()}
-          <div className="relative flex items-center">
-            {isLoading ? (
-              <CosInputSkeleton type="input" />
-            ) : (
-              <>
-                <input
-                  {...restProps}
-                  id={inputId}
-                  ref={ref}
-                  disabled={disabled}
-                  className={twMerge(input({ isError, disabled, hasIcon }))}
-                  required={required}
-                />
-                {renderIcon()}
-              </>
-            )}
-          </div>
-          {renderFooterMessage()}
+      <div className="min-w-[202px] space-y-[6px]">
+        {renderLabel()}
+        <div className="relative flex items-center">
+          {isLoading ? (
+            <CosInputSkeleton type="input" />
+          ) : (
+            <>
+              <input
+                {...restProps}
+                id={inputId}
+                ref={ref}
+                disabled={disabled}
+                className={twMerge(
+                  input({ isError, disabled, hasIcon }),
+                  className,
+                )}
+                required={required}
+              />
+              {renderIcon()}
+            </>
+          )}
         </div>
+        {renderFooterMessage()}
       </div>
     )
   },

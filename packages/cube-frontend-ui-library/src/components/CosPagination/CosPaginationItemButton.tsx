@@ -36,10 +36,7 @@ const paginationItemButton = cva(
   },
 )
 
-type ItemButtonType = 'number' | 'icon'
-
 type CosPaginationItemButtonProps = {
-  type: ItemButtonType
   children: ReactNode
   onClick: () => void
 } & (
@@ -73,6 +70,7 @@ export const CosPaginationItemButton = (
   return (
     <CosPaginationItemWrap>
       <button
+        type="button"
         className={twMerge(paginationItemButton({ isActive, disabled }))}
         onClick={onClick}
         disabled={disabled}

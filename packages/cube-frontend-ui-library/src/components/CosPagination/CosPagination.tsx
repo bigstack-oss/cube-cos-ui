@@ -17,17 +17,16 @@ import { CosPaginationSkeleton } from './CosPaginationSkeleton'
 export type CosPaginationProps = {
   isLoading?: boolean
   totalItems: number
+  /**
+   * The current page is 1-indexed
+   * i.e., the first page is 1, not 0
+   */
   currentPage?: number
   onPageChange?: (page: number) => void
 }
 
 export const CosPagination = (props: CosPaginationProps) => {
-  const {
-    isLoading = false,
-    totalItems,
-    currentPage = 1,
-    onPageChange = () => {},
-  } = props
+  const { isLoading = false, totalItems, currentPage = 1, onPageChange } = props
 
   const [inputPage, setInputPage] = useState('')
 
@@ -37,14 +36,14 @@ export const CosPagination = (props: CosPaginationProps) => {
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      onPageChange(page)
+      onPageChange?.(page)
     }
   }
 
   const handleGoToPage = () => {
     const page = parseInt(inputPage)
     if (!isNaN(page) && page >= 1 && page <= totalPages) {
-      onPageChange(page)
+      onPageChange?.(page)
       setInputPage('')
     }
   }
@@ -116,7 +115,6 @@ export const CosPagination = (props: CosPaginationProps) => {
         </CosPaginationItemButton>
         <CosPaginationGoToPageInput
           placeholder="Page"
-          variant="pagination"
           value={inputPage}
           onChange={(e) => setInputPage(e.target.value)}
           onKeyDown={handleKeyDown}

@@ -1,4 +1,4 @@
-import CosDropdown from '../CosDropdown/CosDropdown'
+import { CosDropdown } from '../CosDropdown/CosDropdown'
 
 type CosPaginationViewDropdownProps = {
   itemsPerPage?: number
@@ -21,10 +21,9 @@ export const CosPaginationViewDropdown = (
         <CosDropdown
           variant="in-table"
           type="regular"
-          isPagination={true}
           selectedItems={[itemsPerPage]}
         >
-          <CosDropdown.Trigger placeholder="Choose">
+          <CosDropdown.Trigger placeholder="Choose" className="h-7">
             {itemsPerPage.toString()}
           </CosDropdown.Trigger>
           <CosDropdown.Menu>

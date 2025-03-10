@@ -4,17 +4,14 @@ import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import WarningFilled from '../CosIcon/monochrome/warning_filled.svg?react'
 
-export type CosTableInputVariant = 'regular' | 'pagination'
-
 export type CosTableInputProps = InputHTMLAttributes<HTMLInputElement> & {
-  variant?: CosTableInputVariant
   isLoading?: boolean
   errorMessage?: string | boolean
 }
 
 const input = cva(
   [
-    'primary-body3 w-full truncate rounded-[6px] px-3 py-2 outline-none',
+    'primary-body3 size-full truncate rounded-[6px] px-3 py-2 outline-none',
     'bg-grey-0',
     'text-functional-text placeholder:text-functional-border-darker',
     'border border-functional-border-divider',
@@ -22,10 +19,6 @@ const input = cva(
   ],
   {
     variants: {
-      variant: {
-        regular: '',
-        pagination: 'h-[28px]',
-      },
       isError: {
         true: 'border-status-negative hover:border-status-negative',
       },
@@ -43,7 +36,6 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
   (props: CosTableInputProps, ref) => {
     const {
       className,
-      variant = 'regular',
       isLoading = false,
       errorMessage,
       disabled,
@@ -66,22 +58,20 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
     }
 
     return (
-      <div className={className}>
-        <div className="min-w-[59px] max-w-[344px] space-y-[6px]">
-          <div className="relative flex items-center">
-            {isLoading ? (
-              <CosTableInputSkeleton />
-            ) : (
-              <input
-                {...restProps}
-                id={inputId}
-                ref={ref}
-                disabled={disabled}
-                className={twMerge(input({ variant, isError, disabled }))}
-              />
-            )}
-            {renderErrorIcon()}
-          </div>
+      <div className="min-w-[59px] max-w-[344px] space-y-[6px]">
+        <div className="relative flex items-center">
+          {isLoading ? (
+            <CosTableInputSkeleton />
+          ) : (
+            <input
+              {...restProps}
+              id={inputId}
+              ref={ref}
+              disabled={disabled}
+              className={twMerge(input({ isError, disabled }), className)}
+            />
+          )}
+          {renderErrorIcon()}
         </div>
       </div>
     )

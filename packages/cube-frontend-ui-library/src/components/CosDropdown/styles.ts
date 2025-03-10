@@ -20,10 +20,6 @@ export const trigger = cva(
         true: '',
         false: '',
       },
-      isPagination: {
-        true: 'h-7',
-        false: '',
-      },
     },
     compoundVariants: [
       // Default Dropdown

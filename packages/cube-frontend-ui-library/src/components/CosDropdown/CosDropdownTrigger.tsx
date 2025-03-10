@@ -14,7 +14,7 @@ export type CosDropdownTriggerProps = Omit<
 }
 
 export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
-  const { children, placeholder } = props
+  const { children, placeholder, className } = props
 
   const {
     dropdownOpen: isOpen,
@@ -22,7 +22,6 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
     floatingProps,
     type,
     variant,
-    isPagination,
     selectedItems,
     disabled,
     onClearClick,
@@ -68,8 +67,8 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
           hasSearchbar,
           hasSelectedValue: isSelected,
           disabled,
-          isPagination,
         }),
+        className,
       )}
     >
       <span className="w-full truncate text-left">{displayText}</span>
