@@ -31,6 +31,7 @@ export const FunctionBar = (props: FunctionBarProps) => {
           type="ghost"
           usage="icon-only"
           Icon={button.Icon}
+          onClick={button.onClick}
         />
       ))}
     </div>
