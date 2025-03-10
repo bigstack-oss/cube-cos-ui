@@ -1,10 +1,12 @@
-// import { format } from 'date-fns'
+import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import dayjs, { Dayjs } from 'dayjs'
 import ChevronLeft from '../CosIcon/monochrome/chevron_left.svg?react'
 import ChevronRight from '../CosIcon/monochrome/chevron_right.svg?react'
-import { getDateButtonStatus } from './utils'
+import { computeCalendarWeeks, getDateButtonStatus } from './utils'
 import { dayButton } from './styles'
+
+const weekTitles = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
 type CosDatePickerCalendarProps = {
   currentMonth: Dayjs
@@ -37,20 +39,10 @@ export const CosDatePickerCalendar = (props: CosDatePickerCalendarProps) => {
 
   lastDate.setDate(lastDate.getDate() + (6 - lastDate.getDay()))
 
-  const weeks: Date[][] = []
-
-  let days: Date[] = []
-
-  const day = new Date(firstDate)
-
-  while (day <= lastDate) {
-    for (let i = 0; i < 7; i++) {
-      days.push(new Date(day))
-      day.setDate(day.getDate() + 1)
-    }
-    weeks.push(days)
-    days = []
-  }
+  const weeks = useMemo(
+    () => computeCalendarWeeks(currentMonth.startOf('month')),
+    [currentMonth],
+  )
 
   return (
     <div className="flex flex-col gap-[15px]">
@@ -66,31 +58,36 @@ export const CosDatePickerCalendar = (props: CosDatePickerCalendarProps) => {
         </div>
       </div>
       <div className="grid grid-cols-7 items-center text-center">
-        <div className="primary-body3 w-10 text-functional-text-light">S</div>
-        <div className="primary-body3 w-10 text-functional-text-light">M</div>
-        <div className="primary-body3 w-10 text-functional-text-light">T</div>
-        <div className="primary-body3 w-10 text-functional-text-light">W</div>
-        <div className="primary-body3 w-10 text-functional-text-light">T</div>
-        <div className="primary-body3 w-10 text-functional-text-light">F</div>
-        <div className="primary-body3 w-10 text-functional-text-light">S</div>
+        {weekTitles.map((title, index) => (
+          <div
+            key={`${title}-${index}`}
+            className="primary-body3 w-10 text-functional-text-light"
+          >
+            {title}
+          </div>
+        ))}
       </div>
       <div className="flex flex-col gap-y-1">
         {weeks.map((week, weekIndex) => (
           <div key={weekIndex} className="grid grid-cols-7 gap-0">
-            {week.map((day, dayIndex) => (
+            {week.map((date, dayIndex) => (
               <button
                 key={dayIndex}
-                onClick={() => onSelectDay(dayjs(day))}
+                onClick={() => onSelectDay(dayjs(date))}
                 disabled={false}
                 className={twMerge(
                   dayButton({
-                    status: getDateButtonStatus(dayjs(day), startDate, endDate),
+                    status: getDateButtonStatus(
+                      dayjs(date),
+                      startDate,
+                      endDate,
+                    ),
                     // TODO: apply disabled logic
                     disabled: false,
                   }),
                 )}
               >
-                {day.getDate()}
+                {date.getDate()}
               </button>
             ))}
           </div>

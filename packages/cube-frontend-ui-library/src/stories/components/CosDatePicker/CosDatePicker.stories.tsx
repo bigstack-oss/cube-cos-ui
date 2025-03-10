@@ -14,10 +14,16 @@ export default meta
 export const Gallery: StoryObj = {
   args: {},
   render: function Render() {
-    const [startDate, setStartDate] = useState<Dayjs>()
+    /**
+     * Demo dates (with no default value)
+     */
+    const [startDate, setStartDate] = useState<Dayjs | undefined>()
 
-    const [endDate, setEndDate] = useState<Dayjs>()
+    const [endDate, setEndDate] = useState<Dayjs | undefined>()
 
+    /**
+     * Demo dates (with default value)
+     */
     const [startDateDefault, setStartDateDefault] = useState<Dayjs | undefined>(
       dayjs('2025-03-25'),
     )
@@ -26,13 +32,22 @@ export const Gallery: StoryObj = {
       dayjs('2025-03-31'),
     )
 
-    const handleStartDate = (date?: Dayjs) => setStartDate(date)
+    /**
+     * Demo function to handle dates change (with no default value)
+     */
+    const handleStartDateChange = (date: Dayjs | undefined) =>
+      setStartDate(date)
 
-    const handleStartDateDefault = (date?: Dayjs) => setStartDateDefault(date)
+    const handleEndDateChange = (date: Dayjs | undefined) => setEndDate(date)
 
-    const handleEndDate = (date?: Dayjs) => setEndDate(date)
+    /**
+     * Demo function to handle dates change (with default value)
+     */
+    const handleStartDateDefaultChange = (date: Dayjs | undefined) =>
+      setStartDateDefault(date)
 
-    const handleEndDateDefault = (date?: Dayjs) => setEndDateDefault(date)
+    const handleEndDateDefaultChange = (date: Dayjs | undefined) =>
+      setEndDateDefault(date)
 
     const handleApply = () => {}
 
@@ -44,9 +59,9 @@ export const Gallery: StoryObj = {
           <DatePickerBox title="Master">
             <CosDatePicker
               startDate={startDate}
-              setStartDate={handleStartDate}
+              setStartDate={handleStartDateChange}
               endDate={endDate}
-              setEndDate={handleEndDate}
+              setEndDate={handleEndDateChange}
               onApplyClick={handleApply}
               onCancelClick={handleCancel}
             />
@@ -54,11 +69,33 @@ export const Gallery: StoryObj = {
           <DatePickerBox title="Selected">
             <CosDatePicker
               startDate={startDateDefault}
-              setStartDate={handleStartDateDefault}
+              setStartDate={handleStartDateDefaultChange}
               endDate={endDateDefault}
-              setEndDate={handleEndDateDefault}
+              setEndDate={handleEndDateDefaultChange}
               onApplyClick={handleApply}
               onCancelClick={handleCancel}
+            />
+          </DatePickerBox>
+          <DatePickerBox title="Disabled">
+            <CosDatePicker
+              startDate={undefined}
+              setStartDate={() => {}}
+              endDate={undefined}
+              setEndDate={() => {}}
+              onApplyClick={handleApply}
+              onCancelClick={handleCancel}
+              disabled={true}
+            />
+          </DatePickerBox>
+          <DatePickerBox title="Disabled (selected)">
+            <CosDatePicker
+              startDate={dayjs('2025-03-25')}
+              setStartDate={() => {}}
+              endDate={undefined}
+              setEndDate={() => {}}
+              onApplyClick={handleApply}
+              onCancelClick={handleCancel}
+              disabled={true}
             />
           </DatePickerBox>
         </StoryLayout.Section>
@@ -66,9 +103,9 @@ export const Gallery: StoryObj = {
           <DatePickerBox title="Master">
             <CosDatePicker
               startDate={startDate}
-              setStartDate={handleStartDate}
+              setStartDate={handleStartDateChange}
               endDate={endDate}
-              setEndDate={handleEndDate}
+              setEndDate={handleEndDateChange}
               onApplyClick={handleApply}
               onCancelClick={handleCancel}
               isLoading={true}

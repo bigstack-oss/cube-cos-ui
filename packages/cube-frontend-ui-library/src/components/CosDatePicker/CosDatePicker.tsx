@@ -9,8 +9,8 @@ import { CosDatePickerContext } from './context'
 type CosDatePickerProps = {
   disabled?: boolean
   isLoading?: boolean
-  startDate?: Dayjs
-  endDate?: Dayjs
+  startDate: Dayjs | undefined
+  endDate: Dayjs | undefined
   setStartDate: (date: Dayjs | undefined) => void
   setEndDate: (date: Dayjs | undefined) => void
   onApplyClick?: () => void
@@ -120,10 +120,10 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
         onCancelClick: handleCancel,
       }}
     >
-      <div>
+      <>
         <CosDatePickerTrigger />
         <CosDatePickerMenu />
-      </div>
+      </>
     </CosDatePickerContext.Provider>
   )
 }

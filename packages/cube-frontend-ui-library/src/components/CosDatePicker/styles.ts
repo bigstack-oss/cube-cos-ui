@@ -1,4 +1,6 @@
 import { cva } from 'class-variance-authority'
+import { ClassValue } from 'class-variance-authority/types'
+import { DateButtonStatus } from './utils'
 
 export const trigger = cva(
   [
@@ -8,6 +10,10 @@ export const trigger = cva(
   {
     variants: {
       isSelected: {
+        true: '',
+        false: '',
+      },
+      isOpen: {
         true: '',
         false: '',
       },
@@ -24,15 +30,22 @@ export const trigger = cva(
           'border-blue-700 bg-grey-0 text-blue-700 hover:border-blue-600 hover:text-blue-600',
       },
       {
+        isSelected: false,
+        disabled: true,
+        class: 'border-blue-200 text-functional-disable-text',
+      },
+      {
         isSelected: true,
         disabled: false,
         class:
           'border-blue-700 bg-secondary-50 text-blue-850 hover:bg-secondary-100',
       },
       {
-        isSelected: false,
-        disabled: true,
-        class: 'border-blue-200 text-functional-disable-text',
+        isSelected: true,
+        isOpen: true,
+        disabled: false,
+        class:
+          'border-blue-700 bg-secondary-100 text-blue-850 hover:bg-secondary-100',
       },
       {
         isSelected: true,
@@ -73,7 +86,7 @@ export const dayButton = cva(
           'bg-secondary-100 font-semibold text-blue-700 hover:bg-blue-800 hover:text-white',
         'selected-range-end':
           'rounded-r-[5px] bg-secondary-100 font-semibold text-blue-700 hover:bg-blue-800 hover:text-white',
-      },
+      } satisfies Record<DateButtonStatus, ClassValue>,
       disabled: {
         true: 'text-functional-disable-text hover:bg-white',
       },

@@ -20,7 +20,7 @@
     "@types/lodash": "catalog:",
     "axios": "^1.7.9",
     "class-variance-authority": "catalog:",
-    "dayjs": "^1.11.13",
+    "dayjs": "catalog:",
     "lodash": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",

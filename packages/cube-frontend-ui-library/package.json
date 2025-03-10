@@ -25,7 +25,7 @@
     "autoprefixer": "catalog:",
     "class-variance-authority": "catalog:",
     "classnames": "^2.5.1",
-    "dayjs": "^1.11.13",
+    "dayjs": "catalog:",
     "lodash": "catalog:",
     "postcss": "catalog:",
     "prop-types": "^15.8.1",
