@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import { BaseAPI } from '@cube-frontend/api/sdk/base'
 import {
   NodesApi,
@@ -18,6 +18,24 @@ import { config, validateStatus } from './utils'
 const cosApi = axios.create({
   baseURL: '/',
   validateStatus,
+})
+
+type UnauthorizedResponse = {
+  code?: string
+  msg?: string
+  status?: string
+}
+
+// redirect to perform SAML auth if HTTP status code 401 is received
+cosApi.interceptors.response.use((response: AxiosResponse): AxiosResponse => {
+  if (response.status === 401) {
+    const redirectUrl = (response.data as UnauthorizedResponse)?.msg ?? ''
+    if (redirectUrl !== '') {
+      window.location.replace(redirectUrl)
+    }
+  }
+
+  return response
 })
 
 /**

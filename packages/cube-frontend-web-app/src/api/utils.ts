@@ -3,6 +3,6 @@ import { Configuration } from '@cube-frontend/api'
 export const config = new Configuration({ basePath: '.' })
 
 export const validateStatus = (status: number) => {
-  if (status >= 200 && status <= 300) return true
+  if ((status >= 200 && status <= 300) || status === 401) return true
   return false
 }
