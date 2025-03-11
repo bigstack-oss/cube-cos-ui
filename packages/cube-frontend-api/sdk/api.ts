@@ -516,10 +516,10 @@ export interface GetCpuUsageSummaryOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {GetMetricsResponseDataHostUsagesInnerUsageCpu}
+     * @type {GetMetricsResponseDataHostUsagesInnerCpu}
      * @memberof GetCpuUsageSummaryOfHostsResponse
      */
-    'data': GetMetricsResponseDataHostUsagesInnerUsageCpu;
+    'data': GetMetricsResponseDataHostUsagesInnerCpu;
     /**
      * 
      * @type {string}
@@ -2090,10 +2090,10 @@ export interface GetMemoryUsageSummaryOfHostsResponse {
     'code': number;
     /**
      * 
-     * @type {GetMetricsResponseDataHostUsagesInnerUsageMemory}
+     * @type {GetMetricsResponseDataHostUsagesInnerMemory}
      * @memberof GetMemoryUsageSummaryOfHostsResponse
      */
-    'data': GetMetricsResponseDataHostUsagesInnerUsageMemory;
+    'data': GetMetricsResponseDataHostUsagesInnerMemory;
     /**
      * 
      * @type {string}
@@ -2121,10 +2121,10 @@ export interface GetMemoryUsageSummaryOfVmsResponse {
     'code': number;
     /**
      * 
-     * @type {GetMetricsResponseDataHostUsagesInnerUsageMemory}
+     * @type {GetMetricsResponseDataHostUsagesInnerMemory}
      * @memberof GetMemoryUsageSummaryOfVmsResponse
      */
-    'data': GetMetricsResponseDataHostUsagesInnerUsageMemory;
+    'data': GetMetricsResponseDataHostUsagesInnerMemory;
     /**
      * 
      * @type {string}
@@ -2444,101 +2444,88 @@ export interface GetMetricsResponseDataHostUsagesInner {
     'address': string;
     /**
      * 
-     * @type {GetMetricsResponseDataHostUsagesInnerUsage}
+     * @type {GetMetricsResponseDataHostUsagesInnerCpu}
      * @memberof GetMetricsResponseDataHostUsagesInner
      */
-    'usage': GetMetricsResponseDataHostUsagesInnerUsage;
+    'cpu': GetMetricsResponseDataHostUsagesInnerCpu;
+    /**
+     * 
+     * @type {GetMetricsResponseDataHostUsagesInnerMemory}
+     * @memberof GetMetricsResponseDataHostUsagesInner
+     */
+    'memory': GetMetricsResponseDataHostUsagesInnerMemory;
 }
 /**
  * 
  * @export
- * @interface GetMetricsResponseDataHostUsagesInnerUsage
+ * @interface GetMetricsResponseDataHostUsagesInnerCpu
  */
-export interface GetMetricsResponseDataHostUsagesInnerUsage {
-    /**
-     * 
-     * @type {GetMetricsResponseDataHostUsagesInnerUsageCpu}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsage
-     */
-    'cpu': GetMetricsResponseDataHostUsagesInnerUsageCpu;
-    /**
-     * 
-     * @type {GetMetricsResponseDataHostUsagesInnerUsageMemory}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsage
-     */
-    'memory': GetMetricsResponseDataHostUsagesInnerUsageMemory;
-}
-/**
- * 
- * @export
- * @interface GetMetricsResponseDataHostUsagesInnerUsageCpu
- */
-export interface GetMetricsResponseDataHostUsagesInnerUsageCpu {
+export interface GetMetricsResponseDataHostUsagesInnerCpu {
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerCpu
      */
     'totalCores': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerCpu
      */
     'usedCores': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerCpu
      */
     'usedPercent': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerCpu
      */
     'freeCores': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageCpu
+     * @memberof GetMetricsResponseDataHostUsagesInnerCpu
      */
     'freePercent': number;
 }
 /**
  * 
  * @export
- * @interface GetMetricsResponseDataHostUsagesInnerUsageMemory
+ * @interface GetMetricsResponseDataHostUsagesInnerMemory
  */
-export interface GetMetricsResponseDataHostUsagesInnerUsageMemory {
+export interface GetMetricsResponseDataHostUsagesInnerMemory {
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     * @memberof GetMetricsResponseDataHostUsagesInnerMemory
      */
     'totalMiB': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     * @memberof GetMetricsResponseDataHostUsagesInnerMemory
      */
     'usedMiB': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     * @memberof GetMetricsResponseDataHostUsagesInnerMemory
      */
     'usedPercent': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     * @memberof GetMetricsResponseDataHostUsagesInnerMemory
      */
     'freeMiB': number;
     /**
      * 
      * @type {number}
-     * @memberof GetMetricsResponseDataHostUsagesInnerUsageMemory
+     * @memberof GetMetricsResponseDataHostUsagesInnerMemory
      */
     'freePercent': number;
 }
@@ -6298,10 +6285,13 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetServiceHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
+         * @param {GetServiceHealthHistoryPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getServiceHealthHistory: async (dataCenter: string, serviceType: GetServiceHealthHistoryServiceTypeEnum, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getServiceHealthHistory: async (dataCenter: string, serviceType: GetServiceHealthHistoryServiceTypeEnum, watch?: boolean, start?: string, stop?: string, past?: GetServiceHealthHistoryPastEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getServiceHealthHistory', 'dataCenter', dataCenter)
             // verify required parameter 'serviceType' is not null or undefined
@@ -6322,6 +6312,18 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (watch !== undefined) {
                 localVarQueryParameter['watch'] = watch;
+            }
+
+            if (start !== undefined) {
+                localVarQueryParameter['start'] = start;
+            }
+
+            if (stop !== undefined) {
+                localVarQueryParameter['stop'] = stop;
+            }
+
+            if (past !== undefined) {
+                localVarQueryParameter['past'] = past;
             }
 
 
@@ -6460,11 +6462,14 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetServiceHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
+         * @param {GetServiceHealthHistoryPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getServiceHealthHistory(dataCenter: string, serviceType: GetServiceHealthHistoryServiceTypeEnum, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetServiceHealthHistoryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getServiceHealthHistory(dataCenter, serviceType, watch, options);
+        async getServiceHealthHistory(dataCenter: string, serviceType: GetServiceHealthHistoryServiceTypeEnum, watch?: boolean, start?: string, stop?: string, past?: GetServiceHealthHistoryPastEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetServiceHealthHistoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getServiceHealthHistory(dataCenter, serviceType, watch, start, stop, past, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['HealthApi.getServiceHealthHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6535,7 +6540,7 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getServiceHealthHistory(requestParameters: HealthApiGetServiceHealthHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetServiceHealthHistoryResponse> {
-            return localVarFp.getServiceHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getServiceHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.watch, requestParameters.start, requestParameters.stop, requestParameters.past, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6663,6 +6668,27 @@ export interface HealthApiGetServiceHealthHistoryRequest {
      * @memberof HealthApiGetServiceHealthHistory
      */
     readonly watch?: boolean
+
+    /**
+     * The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof HealthApiGetServiceHealthHistory
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the health history to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof HealthApiGetServiceHealthHistory
+     */
+    readonly stop?: string
+
+    /**
+     * The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+     * @type {'1h' | '24h' | '7d' | '14d' | '30d'}
+     * @memberof HealthApiGetServiceHealthHistory
+     */
+    readonly past?: GetServiceHealthHistoryPastEnum
 }
 
 /**
@@ -6747,7 +6773,7 @@ export class HealthApi extends BaseAPI {
      * @memberof HealthApi
      */
     public getServiceHealthHistory(requestParameters: HealthApiGetServiceHealthHistoryRequest, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).getServiceHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return HealthApiFp(this.configuration).getServiceHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.watch, requestParameters.start, requestParameters.stop, requestParameters.past, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6910,6 +6936,17 @@ export const GetServiceHealthHistoryServiceTypeEnum = {
     Notifications: 'notifications'
 } as const;
 export type GetServiceHealthHistoryServiceTypeEnum = typeof GetServiceHealthHistoryServiceTypeEnum[keyof typeof GetServiceHealthHistoryServiceTypeEnum];
+/**
+ * @export
+ */
+export const GetServiceHealthHistoryPastEnum = {
+    _1h: '1h',
+    _24h: '24h',
+    _7d: '7d',
+    _14d: '14d',
+    _30d: '30d'
+} as const;
+export type GetServiceHealthHistoryPastEnum = typeof GetServiceHealthHistoryPastEnum[keyof typeof GetServiceHealthHistoryPastEnum];
 /**
  * @export
  */
