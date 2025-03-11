@@ -1,11 +1,10 @@
 import { CosBackButton, CosToggle } from '@cube-frontend/ui-library'
-import { RouterLink } from '@cube-frontend/web-app/components/RouterLink/RouterLink'
 import {
   ModuleMetadata,
   useServices,
 } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { useMemo, useState } from 'react'
-import { Navigate, useParams } from 'react-router'
+import { Link, Navigate, useParams } from 'react-router'
 import { HealthDetails } from './HealthDetails'
 
 export const HealthDetailsPage = () => {
@@ -35,11 +34,11 @@ export const HealthDetailsPage = () => {
   return (
     <div className="mt-4 flex flex-col gap-y-3">
       <div className="flex items-center justify-between">
-        <RouterLink href="/home/health">
+        <Link to="/home/health">
           <CosBackButton details={`${moduleName} Details`} loading={!module}>
             {module?.service ?? ''}
           </CosBackButton>
-        </RouterLink>
+        </Link>
         <CosToggle
           label="Auto-Refresh"
           isOn={autoRefresh}

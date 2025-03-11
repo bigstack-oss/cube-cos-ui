@@ -3,11 +3,11 @@ import { CosHyperlink } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
-import { RouterLink } from '@cube-frontend/web-app/components/RouterLink/RouterLink'
 import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { Dayjs } from 'dayjs'
 import { capitalize } from 'lodash'
 import { useMemo } from 'react'
+import { Link } from 'react-router'
 import { timePointFns } from './healthAccordionUtils'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
 import { ModuleHealthHistory } from './mockHealth'
@@ -31,7 +31,7 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
 
   return (
     <div className="border-t border-t-functional-border-divider px-12 py-7 pb-3">
-      <RouterLink href={detailPageLink}>
+      <Link to={detailPageLink}>
         <CosHyperlink
           className="text-functional-text"
           variant="icon-right"
@@ -39,7 +39,7 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
         >
           {capitalize(name)}
         </CosHyperlink>
-      </RouterLink>
+      </Link>
       <HealthSegmentedBar
         className="mt-4"
         // TODO: Replace mock data with real API data.

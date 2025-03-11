@@ -1,6 +1,5 @@
 import { CosTabs } from '@cube-frontend/ui-library'
-import { RouterLink } from '@cube-frontend/web-app/components/RouterLink/RouterLink'
-import { Outlet, useLocation } from 'react-router'
+import { Link, Outlet, useLocation } from 'react-router'
 import { links } from './links'
 
 export const HomeLayout = () => {
@@ -9,38 +8,26 @@ export const HomeLayout = () => {
   return (
     <div>
       <CosTabs>
-        <RouterLink href={links.overview}>
-          <CosTabs.Tab
-            href={links.overview}
-            isActive={location.pathname === links.overview}
-          >
+        <Link to={links.overview}>
+          <CosTabs.Tab isActive={location.pathname === links.overview}>
             Overview
           </CosTabs.Tab>
-        </RouterLink>
-        <RouterLink href={links.chart}>
-          <CosTabs.Tab
-            href={links.chart}
-            isActive={location.pathname === links.chart}
-          >
+        </Link>
+        <Link to={links.chart}>
+          <CosTabs.Tab isActive={location.pathname === links.chart}>
             Chart
           </CosTabs.Tab>
-        </RouterLink>
-        <RouterLink href={links.health}>
-          <CosTabs.Tab
-            href={links.health}
-            isActive={location.pathname.startsWith(links.health)}
-          >
+        </Link>
+        <Link to={links.health}>
+          <CosTabs.Tab isActive={location.pathname.startsWith(links.health)}>
             Health
           </CosTabs.Tab>
-        </RouterLink>
-        <RouterLink href={links.manage}>
-          <CosTabs.Tab
-            href={links.manage}
-            isActive={location.pathname === links.manage}
-          >
+        </Link>
+        <Link to={links.manage}>
+          <CosTabs.Tab isActive={location.pathname === links.manage}>
             Manage
           </CosTabs.Tab>
-        </RouterLink>
+        </Link>
       </CosTabs>
       <Outlet />
     </div>
