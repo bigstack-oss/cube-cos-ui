@@ -7,6 +7,7 @@ import { HistoryRow, widthTransitionClasses } from './healthDetailsUtils'
 import { HealthHistoryPanelHeader } from './HealthHistoryPanelHeader'
 import { HealthHistoryTableSection } from './HealthHistoryTableSection'
 import { HealthTimeBar } from './HealthTimeBar'
+import { HealthTimeBarSkeleton } from './HealthTimeBarSkeleton'
 import { useModuleHealthHistory } from './useModuleHealthHistory'
 
 export type HealthHistoryPanelProps = {
@@ -60,11 +61,15 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
         onTimeRangeChange={onTimeRangeChange}
         onToggleDetailPanel={onToggleDetailPanel}
       />
-      <HealthTimeBar
-        history={history}
-        now={now}
-        selectedTimeRange={timeRange}
-      />
+      {!history ? (
+        <HealthTimeBarSkeleton />
+      ) : (
+        <HealthTimeBar
+          history={history}
+          now={now}
+          selectedTimeRange={timeRange}
+        />
+      )}
       <CosStroke type="dot" />
       <HealthHistoryTableSection
         // Use `key` to reset the `currentPage` state in pagination

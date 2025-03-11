@@ -1,5 +1,5 @@
 import { HealthApiRepairModuleHealthRequest } from '@cube-frontend/api'
-import { CosButton } from '@cube-frontend/ui-library'
+import { CosButton, CosSkeleton } from '@cube-frontend/ui-library'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
@@ -51,7 +51,7 @@ export const HealthHistoryPanelHeader = (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-x-3">
         <span className="primary-h4 text-functional-text">
-          {module?.name ?? 'TODO: Skeleton text'}
+          {!module ? <CosSkeleton className="h-6 w-16" /> : module.name}
         </span>
         <CosButton
           loading={isCallingRepairApi}
