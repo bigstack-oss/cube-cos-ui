@@ -83,6 +83,9 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
       />
       <CosStroke type="dot" />
       <HealthHistoryTableSection
+        // Use `key` to reset the `currentPage` state in pagination
+        // when `timeRange` changes.
+        key={timeRange}
         history={healthData?.history}
         activeRow={activeHistoryRow}
         onRowClick={onHistoryRowClick}

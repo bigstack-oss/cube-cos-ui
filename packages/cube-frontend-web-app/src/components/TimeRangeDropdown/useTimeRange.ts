@@ -1,6 +1,7 @@
 import { GetHealthHistoryPastEnum } from '@cube-frontend/api'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import dayjs, { Dayjs } from 'dayjs'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { TimeRange } from './timeRangeDropdownUtils'
 
 export type UseTimeRange = {
@@ -19,19 +20,25 @@ const timeRangePastMap: Record<TimeRange, GetHealthHistoryPastEnum> = {
 }
 
 export const useTimeRange = (): UseTimeRange => {
+  const { utcTimeZone } = useContext(DataCenterContext)
+
+  const getNow = useCallback(() => {
+    return dayjs.addTzOffset(new Date().toISOString(), utcTimeZone)
+  }, [utcTimeZone])
+
   const [timeRange, setTimeRange] = useState<TimeRange>('last24Hours')
 
-  const [now, setNow] = useState(() => dayjs(new Date()))
+  const [now, setNow] = useState(getNow)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setNow(dayjs(new Date()))
+      setNow(getNow)
     }, 5000)
 
     return () => {
       clearInterval(intervalId)
     }
-  }, [])
+  }, [getNow])
 
   const past = useMemo<GetHealthHistoryPastEnum>(
     () => timeRangePastMap[timeRange],
