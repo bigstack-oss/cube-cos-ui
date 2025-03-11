@@ -23,7 +23,7 @@ export const useTimeRange = (): UseTimeRange => {
   const { utcTimeZone } = useContext(DataCenterContext)
 
   const getNow = useCallback(() => {
-    return dayjs.addTzOffset(new Date().toISOString(), utcTimeZone)
+    return dayjs.utc().utcOffset(utcTimeZone)
   }, [utcTimeZone])
 
   const [timeRange, setTimeRange] = useState<TimeRange>('last24Hours')

@@ -4,7 +4,6 @@ import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
 
 const TZ_OFFSET_REGEX_TRAILING = /[+-]\d{2}:\d{2}$/
-const TZ_OFFSET_REGEX_FULL = /^[+-]\d{2}:\d{2}$/
 
 export const respectTz: PluginFunc = (
   _option: unknown,
@@ -17,50 +16,27 @@ export const respectTz: PluginFunc = (
       console.warn(`Missing timezone offset in date ${date}`)
       return dayjs(date)
     }
-    return addTzOffsetFn(date, match[0])
+    return dayjs(date).utcOffset(match[0])
   }
-
-  dayjsFactory.addTzOffset = (date: string, offset: string): dayjs.Dayjs => {
-    if (!TZ_OFFSET_REGEX_FULL.test(offset)) {
-      throw new Error(
-        `Timezone offset must match ${TZ_OFFSET_REGEX_FULL.source} regular expression`,
-      )
-    }
-    return addTzOffsetFn(date, offset)
-  }
-}
-
-const addTzOffsetFn = (date: string, offset: string): dayjs.Dayjs => {
-  const [hours, minutes] = offset
-    .split(':')
-    .map((string) => parseInt(string, 10))
-
-  const totalMinutes = hours * 60 + Math.sign(hours) * minutes
-
-  return dayjs(date).utcOffset(totalMinutes)
 }
 
 declare module 'dayjs' {
   /**
-   * By default, Dayjs interprets dates using the local timezone, even if a
-   * timezone offset is presented in the date string.
+   * By default, Dayjs interprets dates in the local timezone, even if the date
+   * string includes a timezone offset.
    *
-   * For example, on a system/browser with UTC+8, `dayjs('2025-03-05T12:34:56+03:00').format('HH:mm')`
-   * would return `17:34` instead of `12:34`.
+   * For example, on a system/browser set to UTC+8, calling
+   * `dayjs('2025-03-05T12:34:56+03:00').format('HH:mm')` would return `17:34`
+   * instead of `12:34`, since Dayjs converts the time to the local timezone.
    *
-   * To ensure dates are displayed in COS's system timezone, we need to adjust the
-   * time based on the provided timezone offset.
+   * To keep the displayed time consistent with the timezone presented in the date
+   * string, we need to adjust the time based on the provided offset.
    *
-   * @param date A date string with timezone offset. For example, `2025-03-05T12:34:56+03:00`.
+   * With `dayjs.respectTzOffset('2025-03-05T12:34:56+03:00').format('HH:mm')`,
+   * the result would correctly be `12:34`.
    *
-   * @returns A Dayjs instance with the time adjusted according to the provided
-   * timezone offset.
+   * @param date A date string with a timezone offset, e.g., `2025-03-05T12:34:56+03:00`.
+   * @returns A Dayjs instance with the time adjusted according to the given timezone offset.
    */
   export function respectTzOffset(date: string): Dayjs
-  /**
-   * @param offset For example, `-03:30`, `+08:00`.
-   * @returns A Dayjs instance with the time adjusted according to the provided
-   * timezone offset.
-   */
-  export function addTzOffset(date: string, offset: string): Dayjs
 }
