@@ -14,6 +14,9 @@ import { getPageNumbers } from './utils'
 
 export type CosPaginationProps = {
   isLoading?: boolean
+  /**
+   * The total number of items
+   */
   totalItems: number
   /**
    * The current page is 1-indexed
