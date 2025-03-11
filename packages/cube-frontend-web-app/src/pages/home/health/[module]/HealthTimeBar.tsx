@@ -7,7 +7,6 @@ import { useMemo } from 'react'
 import { timePointFns } from './healthDetailsUtils'
 
 export type HealthTimeBarProps = {
-  isLoading: boolean
   history: GetModuleHealthHistoryResponseDataHistoryInner[] | undefined
   now: Dayjs
   selectedTimeRange: TimeRange
@@ -16,7 +15,7 @@ export type HealthTimeBarProps = {
 const TIME_TRACK_HEIGHT = 32
 
 export const HealthTimeBar = (props: HealthTimeBarProps) => {
-  const { isLoading, history, now, selectedTimeRange } = props
+  const { history, now, selectedTimeRange } = props
 
   const timePoints = useMemo<TimePoint[]>(
     () => timePointFns[selectedTimeRange](now),
@@ -25,7 +24,7 @@ export const HealthTimeBar = (props: HealthTimeBarProps) => {
 
   return (
     <HealthSegmentedBar
-      isLoading={isLoading}
+      isLoading={!history}
       history={history ?? []}
       timePoints={timePoints}
       childrenDimensions={{

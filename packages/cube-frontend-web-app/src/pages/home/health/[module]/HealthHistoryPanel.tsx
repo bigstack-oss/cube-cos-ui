@@ -1,17 +1,13 @@
-import { HealthApiGetHealthHistoryRequest } from '@cube-frontend/api'
 import { CosStroke } from '@cube-frontend/ui-library'
-import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { cva } from 'class-variance-authority'
-import { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { HistoryRow, widthTransitionClasses } from './healthDetailsUtils'
 import { HealthHistoryPanelHeader } from './HealthHistoryPanelHeader'
 import { HealthHistoryTableSection } from './HealthHistoryTableSection'
 import { HealthTimeBar } from './HealthTimeBar'
+import { useModuleHealthHistory } from './useModuleHealthHistory'
 
 export type HealthHistoryPanelProps = {
   module: ModuleMetadata | undefined
@@ -48,24 +44,13 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
     onHistoryRowClick,
   } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
-
   const { now, timeRange, past, onTimeRangeChange } = useTimeRange()
 
-  const { data: healthData } = useCosStreamRequest(
-    healthApi.getHealthHistory,
-    (): HealthApiGetHealthHistoryRequest | undefined => {
-      if (!module || !autoRefresh) {
-        return undefined
-      }
-      return {
-        dataCenter,
-        serviceType: module.service,
-        moduleType: module.name,
-        past,
-      }
-    },
-  )
+  const history = useModuleHealthHistory({
+    module,
+    past,
+    autoRefresh,
+  })
 
   return (
     <div className={twMerge(container({ isDetailPanelOpen }))}>
@@ -76,8 +61,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
         onToggleDetailPanel={onToggleDetailPanel}
       />
       <HealthTimeBar
-        isLoading={!healthData}
-        history={healthData?.history}
+        history={history}
         now={now}
         selectedTimeRange={timeRange}
       />
@@ -86,7 +70,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
         // Use `key` to reset the `currentPage` state in pagination
         // when `timeRange` changes.
         key={timeRange}
-        history={healthData?.history}
+        history={history}
         activeRow={activeHistoryRow}
         onRowClick={onHistoryRowClick}
       />

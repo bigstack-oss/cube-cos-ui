@@ -3,6 +3,7 @@ import {
   ModuleMetadata,
   useServices,
 } from '@cube-frontend/web-app/hooks/useServices/useServices'
+import { noop } from 'lodash'
 import { useMemo, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
 import { HealthDetails } from './HealthDetails'
@@ -35,7 +36,12 @@ export const HealthDetailsPage = () => {
     <div className="mt-4 flex flex-col gap-y-3">
       <div className="flex items-center justify-between">
         <Link to="/home/health">
-          <CosBackButton details={`${moduleName} Details`} loading={!module}>
+          <CosBackButton
+            details={`${moduleName} Details`}
+            loading={!module}
+            // Assign noop because `CosBackButton` requires either `href` or `onClick` prop to be presented.
+            onClick={noop}
+          >
             {module?.service ?? ''}
           </CosBackButton>
         </Link>
