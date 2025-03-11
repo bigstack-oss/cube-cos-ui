@@ -1,3 +1,4 @@
+import { GetHealthHistoryPastEnum } from '@cube-frontend/api'
 import ChevronDown from '@cube-frontend/ui-library/icons/monochrome/chevron_down.svg?react'
 import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { cva } from 'class-variance-authority'
@@ -11,6 +12,7 @@ export type HealthAccordionItemProps = {
   isExpanded: boolean
   timeRange: TimeRange
   now: Dayjs
+  past: GetHealthHistoryPastEnum
   onExpand: () => void
 }
 
@@ -41,7 +43,7 @@ const chevron = cva(
 )
 
 export const HealthAccordionItem = (props: HealthAccordionItemProps) => {
-  const { category, isExpanded, timeRange, now, onExpand } = props
+  const { category, isExpanded, timeRange, now, past, onExpand } = props
 
   return (
     <div className={container({ isExpanded })}>
@@ -56,14 +58,16 @@ export const HealthAccordionItem = (props: HealthAccordionItemProps) => {
           <ChevronDown className={chevron({ isExpanded })} />
         </span>
       </div>
-      {category.services.map((service) => (
-        <ServiceHealth
-          key={service.name}
-          service={service}
-          timeRange={timeRange}
-          now={now}
-        />
-      ))}
+      {isExpanded &&
+        category.services.map((service) => (
+          <ServiceHealth
+            key={service.name}
+            service={service}
+            timeRange={timeRange}
+            now={now}
+            past={past}
+          />
+        ))}
     </div>
   )
 }

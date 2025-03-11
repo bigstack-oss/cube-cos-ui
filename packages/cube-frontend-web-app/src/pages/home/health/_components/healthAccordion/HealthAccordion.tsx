@@ -1,25 +1,34 @@
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
-import { useMemo, useState } from 'react'
+import { useServices } from '@cube-frontend/web-app/hooks/useServices/useServices'
+import { range } from 'lodash'
+import { useEffect, useMemo, useState } from 'react'
 import { HealthAccordionItem } from './HealthAccordionItem'
+import { HealthAccordionItemSkeleton } from './HealthAccordionItemSkeleton'
 import {
   groupServicesByCategory,
   ServiceCategory,
 } from './healthAccordionUtils'
-import { mockServices } from './mockHealth'
 
 export const HealthAccordion = () => {
-  const { now, timeRange, onTimeRangeChange } = useTimeRange()
+  const { now, timeRange, past, onTimeRangeChange } = useTimeRange()
+
+  const { services, isLoadingServices } = useServices()
 
   const categories = useMemo<ServiceCategory[]>(
-    // TODO: Replace mock services with real API data once it's implemented.
-    () => groupServicesByCategory(mockServices),
-    [],
+    () => groupServicesByCategory(services),
+    [services],
   )
 
   const [expandedCategoryName, setExpandedCategoryName] = useState<
     string | undefined
-  >(categories[0]?.name)
+  >()
+
+  useEffect(() => {
+    if (categories.length) {
+      setExpandedCategoryName(categories[0].name)
+    }
+  }, [categories])
 
   const onExpandedCategoryNameChange = (categoryName: string) => {
     if (categoryName === expandedCategoryName) {
@@ -37,19 +46,25 @@ export const HealthAccordion = () => {
         </span>
         <TimeRangeDropdown
           selectedItem={timeRange}
+          disabled={isLoadingServices}
           onChange={onTimeRangeChange}
         />
       </div>
-      {categories.map((category) => (
-        <HealthAccordionItem
-          key={category.name}
-          category={category}
-          isExpanded={expandedCategoryName === category.name}
-          timeRange={timeRange}
-          now={now}
-          onExpand={() => onExpandedCategoryNameChange(category.name)}
-        />
-      ))}
+      {isLoadingServices
+        ? range(0, 3).map((index) => (
+            <HealthAccordionItemSkeleton key={index} />
+          ))
+        : categories.map((category) => (
+            <HealthAccordionItem
+              key={category.name}
+              category={category}
+              isExpanded={expandedCategoryName === category.name}
+              timeRange={timeRange}
+              now={now}
+              past={past}
+              onExpand={() => onExpandedCategoryNameChange(category.name)}
+            />
+          ))}
     </div>
   )
 }

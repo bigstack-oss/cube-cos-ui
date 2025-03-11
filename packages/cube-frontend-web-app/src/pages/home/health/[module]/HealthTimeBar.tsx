@@ -24,7 +24,6 @@ export const HealthTimeBar = (props: HealthTimeBarProps) => {
 
   return (
     <HealthSegmentedBar
-      isLoading={!history}
       history={history ?? []}
       timePoints={timePoints}
       childrenDimensions={{

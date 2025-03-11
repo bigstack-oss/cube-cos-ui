@@ -1,4 +1,7 @@
-import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
+import {
+  GetHealthHistoryModuleTypeEnum,
+  GetServiceHealthHistoryResponseDataInnerHistoryInner,
+} from '@cube-frontend/api'
 import { CosHyperlink } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
@@ -9,20 +12,24 @@ import { capitalize, noop } from 'lodash'
 import { useMemo } from 'react'
 import { Link } from 'react-router'
 import { timePointFns } from './healthAccordionUtils'
+import { HealthBarSkeleton } from './HealthBarSkeleton'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
-import { ModuleHealthHistory } from './mockHealth'
 
 export type ModuleHealthProps = {
-  name: string
-  history: ModuleHealthHistory
+  moduleName: GetHealthHistoryModuleTypeEnum
+  isLoading: boolean
+  history: GetServiceHealthHistoryResponseDataInnerHistoryInner[]
   timeRange: TimeRange
   now: Dayjs
 }
 
 export const ModuleHealth = (props: ModuleHealthProps) => {
-  const { name, history, timeRange, now } = props
+  const { moduleName, isLoading, history, timeRange, now } = props
 
-  const detailPageLink = useMemo<string>(() => `/home/health/${name}`, [name])
+  const detailPageLink = useMemo<string>(
+    () => `/home/health/${moduleName}`,
+    [moduleName],
+  )
 
   const timePoints = useMemo<TimePoint[]>(
     () => timePointFns[timeRange](now),
@@ -39,23 +46,26 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
           // Assign noop because `CosHyperlink` requires either `href` or `onClick` prop to be presented.
           onClick={noop}
         >
-          {capitalize(name)}
+          {capitalize(moduleName)}
         </CosHyperlink>
       </Link>
-      <HealthSegmentedBar
-        className="mt-4"
-        // TODO: Replace mock data with real API data.
-        history={history as GetModuleHealthHistoryResponseDataHistoryInner[]}
-        timePoints={timePoints}
-        childrenDimensions={{
-          height: timeTrackHeight,
-          marginTop: 4,
-        }}
-      >
-        {(barWidth) => (
-          <HealthTimeTrack width={barWidth} timePoints={timePoints} />
-        )}
-      </HealthSegmentedBar>
+      {isLoading ? (
+        <HealthBarSkeleton />
+      ) : (
+        <HealthSegmentedBar
+          className="mt-4"
+          history={history}
+          timePoints={timePoints}
+          childrenDimensions={{
+            height: timeTrackHeight,
+            marginTop: 4,
+          }}
+        >
+          {(barWidth) => (
+            <HealthTimeTrack width={barWidth} timePoints={timePoints} />
+          )}
+        </HealthSegmentedBar>
+      )}
     </div>
   )
 }

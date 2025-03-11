@@ -1,9 +1,9 @@
-import { GetHealthsResponseData } from '@cube-frontend/api'
+import { GetHealthsResponseDataServicesInner } from '@cube-frontend/api'
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
 import { capitalize } from 'lodash'
 
 export type NgServiceProps = {
-  service: GetHealthsResponseData['services'][number]
+  service: GetHealthsResponseDataServicesInner
 }
 
 export const NgService = (props: NgServiceProps) => {
