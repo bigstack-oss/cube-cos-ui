@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios'
+import axios, { AxiosInstance } from 'axios'
 import { BaseAPI } from '@cube-frontend/api/sdk/base'
 import {
   NodesApi,
@@ -13,29 +13,12 @@ import {
   ServicesApi,
 } from '@cube-frontend/api'
 import devAccessTokenInterceptor from './devAccessTokenInterceptor'
+import { samlAuthErrorInterceptor } from './samlAuthErrorInterceptor'
 import { config, validateStatus } from './utils'
 
 const cosApi = axios.create({
   baseURL: '/',
   validateStatus,
-})
-
-type UnauthorizedResponse = {
-  code?: string
-  msg?: string
-  status?: string
-}
-
-// redirect to perform SAML auth if HTTP status code 401 is received
-cosApi.interceptors.response.use((response: AxiosResponse): AxiosResponse => {
-  if (response.status === 401) {
-    const redirectUrl = (response.data as UnauthorizedResponse)?.msg ?? ''
-    if (redirectUrl !== '') {
-      window.location.replace(redirectUrl)
-    }
-  }
-
-  return response
 })
 
 /**
@@ -81,6 +64,8 @@ export const healthApi = createApiInstance(HealthApi)
 export const nodesApi = createApiInstance(NodesApi)
 export const eventsApi = createApiInstance(EventsApi)
 export const servicesApi = createApiInstance(ServicesApi)
+
+cosApi.interceptors.response.use(undefined, samlAuthErrorInterceptor)
 
 if (import.meta.env.DEV) {
   cosApi.interceptors.request.use(devAccessTokenInterceptor)
