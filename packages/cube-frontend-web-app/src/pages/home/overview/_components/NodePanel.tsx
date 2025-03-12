@@ -34,8 +34,6 @@ export const NodePanel = () => {
   const { data: nodesData, isLoading } = useCosStreamRequest(
     nodesApi.getNodes,
     () => {
-      if (!dataCenter.name) return
-
       return {
         dataCenter: dataCenter.name,
         pageNum: 1,

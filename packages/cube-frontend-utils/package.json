@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@types/pluralize": "catalog:",
     "dayjs": "catalog:",
+    "pluralize": "catalog:",
     "react": "catalog:"
   },
   "devDependencies": {

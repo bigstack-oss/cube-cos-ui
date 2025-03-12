@@ -42,8 +42,6 @@ export const EventPanel = () => {
   const { data: eventsData, isLoading } = useCosStreamRequest(
     eventsApi.getAbstractedEvents,
     () => {
-      if (!dataCenter.name) return null
-
       return {
         dataCenter: dataCenter.name,
         type: eventType,

@@ -21,8 +21,6 @@ const HealthPanel = () => {
   const { data: healths, isLoading } = useCosStreamRequest(
     healthApi.getHealths,
     () => {
-      if (!dataCenter.name) return
-
       return {
         dataCenter: dataCenter.name,
       } satisfies HealthApiGetHealthsRequest
