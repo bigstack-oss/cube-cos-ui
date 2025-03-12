@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { CosApiInnerResponse, readStream } from './cosRequestUtils'
 
 // Helper function to create a readable stream from chunks
@@ -16,6 +16,12 @@ const createStream = (chunks: string[]): ReadableStream => {
 }
 
 describe('readStream', () => {
+  let abortController: AbortController
+
+  beforeEach(() => {
+    abortController = new AbortController()
+  })
+
   test('parses a single COS API response without leftover data', async () => {
     const onChunk = vi.fn()
 
@@ -23,7 +29,6 @@ describe('readStream', () => {
       '{"code":200,"msg":"abc","status":"ok","data":{"id":1}}\r',
     ])
 
-    const abortController = new AbortController()
     await readStream<CosApiInnerResponse<unknown>>(
       stream,
       abortController.signal,
@@ -46,7 +51,6 @@ describe('readStream', () => {
       '{"code":200,"msg":"abc","status":"ok","data":{"id":1}}\n{"co',
     ])
 
-    const abortController = new AbortController()
     await readStream<CosApiInnerResponse<unknown>>(
       stream,
       abortController.signal,
@@ -71,7 +75,6 @@ describe('readStream', () => {
       '"code":200,"msg":"lorem ipsum 4","status":"ok","data":{"value":"{{{{{{{}}}"}}\n',
     ])
 
-    const abortController = new AbortController()
     await readStream<CosApiInnerResponse<unknown>>(
       stream,
       abortController.signal,
@@ -121,7 +124,6 @@ describe('readStream', () => {
     ])
 
     await expect(async () => {
-      const abortController = new AbortController()
       await readStream<CosApiInnerResponse<unknown>>(
         stream,
         abortController.signal,
@@ -135,7 +137,6 @@ describe('readStream', () => {
   test('handles an empty stream without errors', async () => {
     const onChunk = vi.fn()
     const stream = createStream([])
-    const abortController = new AbortController()
     await readStream<CosApiInnerResponse<unknown>>(
       stream,
       abortController.signal,
