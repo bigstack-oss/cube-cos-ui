@@ -1,8 +1,8 @@
-import { CosPanel } from '../../../components/CosPanel/CosPanel'
-import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
-import { PanelBlock } from './PanelBlock'
-import { CosCountSegmentedChart } from '../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
-import { CosPercentagePieChart } from '../../../components/CosPercentagePieChart/CosPercentagePieChart'
+import { CosDashboardPanel } from '../../../../components/CosPanel/CosDashboardPanel/CosDashboardPanel'
+import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
+import { PanelBlock } from '../PanelBlock'
+import { CosCountSegmentedChart } from '../../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
+import { CosPercentagePieChart } from '../../../../components/CosPercentagePieChart/CosPercentagePieChart'
 import { noop } from 'lodash'
 import { events, EventTable, roleSummary, vmSummary } from './mockData'
 
@@ -16,46 +16,52 @@ export const UsageSection = () => {
       <div className="flex flex-col gap-y-10">
         <PanelBlock title="Chart">
           <div className="flex flex-col gap-y-6">
-            <CosPanel
+            <CosDashboardPanel
               title="Chart"
               time="yyyy/mm/dd 00:00"
               hyperLinkProps={{ onClick: noop }}
             >
-              <CosPanel.Item topic="VM Summary" subtext="73 Instances">
+              <CosDashboardPanel.Item topic="VM Summary" subtext="73 Instances">
                 <CosCountSegmentedChart
                   overview={{ name: 'Total VM', count: vmTotalCount }}
                   countInfos={vmSummary}
                 />
-              </CosPanel.Item>
-              <CosPanel.Item topic="Role Summary" subtext="9 Roles">
+              </CosDashboardPanel.Item>
+              <CosDashboardPanel.Item topic="Role Summary" subtext="9 Roles">
                 <CosCountSegmentedChart
                   overview={{ name: 'Control-convergerd', count: 2 }}
                   countInfos={roleSummary}
                 />
-              </CosPanel.Item>
-            </CosPanel>
+              </CosDashboardPanel.Item>
+            </CosDashboardPanel>
 
-            <CosPanel
+            <CosDashboardPanel
               title="Chart"
               time="yyyy/mm/dd 00:00"
               hyperLinkProps={{ onClick: noop }}
             >
-              <CosPanel.Row>
-                <CosPanel.Col>
-                  <CosPanel.Item topic="VM Summary" subtext="73 Instances">
+              <CosDashboardPanel.Row>
+                <CosDashboardPanel.Col>
+                  <CosDashboardPanel.Item
+                    topic="VM Summary"
+                    subtext="73 Instances"
+                  >
                     <CosCountSegmentedChart
                       overview={{ name: 'Total VM', count: vmTotalCount }}
                       countInfos={vmSummary}
                     />
-                  </CosPanel.Item>
-                  <CosPanel.Item topic="Role Summary" subtext="9 Roles">
+                  </CosDashboardPanel.Item>
+                  <CosDashboardPanel.Item
+                    topic="Role Summary"
+                    subtext="9 Roles"
+                  >
                     <CosCountSegmentedChart
                       overview={{ name: 'Control-convergerd', count: 2 }}
                       countInfos={roleSummary}
                     />
-                  </CosPanel.Item>
-                </CosPanel.Col>
-                <CosPanel.Item>
+                  </CosDashboardPanel.Item>
+                </CosDashboardPanel.Col>
+                <CosDashboardPanel.Item>
                   <div className="flex flex-row justify-between gap-x-7">
                     <CosPercentagePieChart
                       title="vCPU"
@@ -76,16 +82,16 @@ export const UsageSection = () => {
                       used={578.8}
                     />
                   </div>
-                </CosPanel.Item>
-              </CosPanel.Row>
-            </CosPanel>
+                </CosDashboardPanel.Item>
+              </CosDashboardPanel.Row>
+            </CosDashboardPanel>
           </div>
         </PanelBlock>
 
         {/* TODO: Add health status according to the design guidelines. */}
 
         <PanelBlock title="Table">
-          <CosPanel
+          <CosDashboardPanel
             title="Events"
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
@@ -105,7 +111,7 @@ export const UsageSection = () => {
               <EventTable.Column property="metadata" label="Metadata" />
               <EventTable.Column property="time" label="Time" />
             </EventTable>
-          </CosPanel>
+          </CosDashboardPanel>
         </PanelBlock>
       </div>
     </StoryLayout.Section>

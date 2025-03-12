@@ -4,7 +4,7 @@ import {
   NodesApiGetNodesRequest,
 } from '@cube-frontend/api'
 import {
-  CosPanel,
+  CosDashboardPanel,
   CosProgressBar,
   CosStatus,
   CosTag,
@@ -47,7 +47,7 @@ export const NodePanel = () => {
   const updateTime = useUpdateTime(nodesData, isLoading)
 
   return (
-    <CosPanel
+    <CosDashboardPanel
       title="Nodes"
       time={updateTime}
       hyperLinkProps={{ href: '/nodes' }}
@@ -137,6 +137,6 @@ export const NodePanel = () => {
           {(status) => <CosStatus status={status} />}
         </NodeTable.Column>
       </NodeTable>
-    </CosPanel>
+    </CosDashboardPanel>
   )
 }

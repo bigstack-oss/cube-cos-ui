@@ -2,13 +2,15 @@ import { PropsWithChildren } from 'react'
 import { PropsWithClassName } from '@cube-frontend/utils'
 import { twMerge } from 'tailwind-merge'
 
-type CosPanelContentColProps = PropsWithChildren & PropsWithClassName
+type CosDashboardPanelContentRowProps = PropsWithChildren & PropsWithClassName
 
-export const CosPanelContentCol = (props: CosPanelContentColProps) => {
+export const CosDashboardPanelContentRow = (
+  props: CosDashboardPanelContentRowProps,
+) => {
   const { className: classNameProp, children } = props
 
   const className = twMerge(
-    'flex flex-1 flex-col border-functional-border-divider [&>*+*]:border-t',
+    'flex flex-row border-functional-border-divider [&>*+*]:border-l',
     classNameProp,
   )
 

@@ -6,7 +6,7 @@ import {
 } from '@cube-frontend/api'
 import {
   CosContentSwitcher,
-  CosPanel,
+  CosDashboardPanel,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
 import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
@@ -59,7 +59,7 @@ export const EventPanel = () => {
   const updateTime = useUpdateTime(eventsData, isLoading)
 
   return (
-    <CosPanel
+    <CosDashboardPanel
       title="Events"
       time={updateTime}
       hyperLinkProps={{ href: '/events' }}
@@ -105,6 +105,6 @@ export const EventPanel = () => {
           </EventTable.Column>
         </EventTable>
       </div>
-    </CosPanel>
+    </CosDashboardPanel>
   )
 }

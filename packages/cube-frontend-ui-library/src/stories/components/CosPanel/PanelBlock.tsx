@@ -9,7 +9,7 @@ export const PanelBlock = (props: PanelBlockProps) => {
   return (
     <div className="flex flex-col gap-y-3">
       <span className="primary-body2 font-bold">{title}</span>
-      {children}
+      <div>{children}</div>
     </div>
   )
 }

@@ -1,68 +1,68 @@
 import { noop } from 'lodash'
-import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
-import { CosPanel } from '../../../components/CosPanel/CosPanel'
-import { CosButton } from '../../../components/CosButton/CosButton'
+import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
+import { CosDashboardPanel } from '../../../../components/CosPanel/CosDashboardPanel/CosDashboardPanel'
+import { CosButton } from '../../../../components/CosButton/CosButton'
 
 export const MultiPanelSection = () => {
   return (
     <StoryLayout.Section title="Layout - Multi-Panel">
       <div className="flex flex-col gap-y-3">
         <div className="flex gap-x-3">
-          <CosPanel
+          <CosDashboardPanel
             title="Panel Title"
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Item
+            <CosDashboardPanel.Item
               topic="Topic Name"
               subtext="Subtext"
               button={<CosButton>Call to Action</CosButton>}
             >
               Content Text
-            </CosPanel.Item>
-          </CosPanel>
-          <CosPanel
+            </CosDashboardPanel.Item>
+          </CosDashboardPanel>
+          <CosDashboardPanel
             title="Panel Title"
             time="yyyy/mm/dd 00:00"
             hyperLinkProps={{ onClick: noop }}
           >
-            <CosPanel.Item
+            <CosDashboardPanel.Item
               topic="Topic Name"
               subtext="Subtext"
               button={<CosButton>Call to Action</CosButton>}
             >
               Content Text
-            </CosPanel.Item>
-          </CosPanel>
+            </CosDashboardPanel.Item>
+          </CosDashboardPanel>
         </div>
 
-        <CosPanel
+        <CosDashboardPanel
           title="Panel Title"
           time="yyyy/mm/dd 00:00"
           hyperLinkProps={{ onClick: noop }}
         >
-          <CosPanel.Item
+          <CosDashboardPanel.Item
             topic="Topic Name"
             subtext="Subtext"
             button={<CosButton>Call to Action</CosButton>}
           >
             Content Text
-          </CosPanel.Item>
-        </CosPanel>
+          </CosDashboardPanel.Item>
+        </CosDashboardPanel>
 
-        <CosPanel
+        <CosDashboardPanel
           title="Panel Title"
           time="yyyy/mm/dd 00:00"
           hyperLinkProps={{ onClick: noop }}
         >
-          <CosPanel.Item
+          <CosDashboardPanel.Item
             topic="Topic Name"
             subtext="Subtext"
             button={<CosButton>Call to Action</CosButton>}
           >
             Content Text
-          </CosPanel.Item>
-        </CosPanel>
+          </CosDashboardPanel.Item>
+        </CosDashboardPanel>
       </div>
     </StoryLayout.Section>
   )

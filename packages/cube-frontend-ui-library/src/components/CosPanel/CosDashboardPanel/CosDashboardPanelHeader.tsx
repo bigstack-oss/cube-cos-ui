@@ -1,10 +1,13 @@
 import pluralize from 'pluralize'
-import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
-import { CosHyperlink, CosHyperlinkProps } from '../CosHyperlink/CosHyperlink'
-import ChevronRightIcon from '../CosIcon/monochrome/chevron_right.svg?react'
-import WarningAltFilledIcon from '../CosIcon/monochrome/warning_alt_filled.svg?react'
+import { CosSkeleton } from '../../CosSkeleton/CosSkeleton'
+import {
+  CosHyperlink,
+  CosHyperlinkProps,
+} from '../../CosHyperlink/CosHyperlink'
+import ChevronRightIcon from '../..//CosIcon/monochrome/chevron_right.svg?react'
+import WarningAltFilledIcon from '../../CosIcon/monochrome/warning_alt_filled.svg?react'
 
-export type CosPanelHeaderProps = {
+export type CosDashboardPanelHeaderProps = {
   title: string
   errorCount?: number
   time?: string | null
@@ -23,7 +26,9 @@ const pluralizeError = (count: number): string => {
   return `${count} ${pluralize('error', count)}`
 }
 
-export const CosPanelHeader = (props: CosPanelHeaderProps) => {
+export const CosDashboardPanelHeader = (
+  props: CosDashboardPanelHeaderProps,
+) => {
   const {
     title,
     errorCount = 0,

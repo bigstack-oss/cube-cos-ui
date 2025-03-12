@@ -31,7 +31,9 @@ export {
   DEFAULT_ITEMS_PER_PAGE,
   type ItemsPerPage,
 } from './components/CosPagination/cosPaginationUtils'
-export * from './components/CosPanel/CosPanel'
+export * from './components/CosPanel/CosDashboardPanel/CosDashboardPanel'
+export * from './components/CosPanel/CosGeneralPanel/CosGeneralPanel'
+export * from './components/CosPanel/CosGeneralPanel/CosGeneralPanelTitleBar'
 export * from './components/CosPercentagePieChart/CosPercentagePieChart'
 export * from './components/CosProgressBar/CosProgressBar'
 export * from './components/CosRadioButton/CosRadioButton'

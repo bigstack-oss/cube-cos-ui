@@ -3,7 +3,7 @@ import {
   HealthApiGetHealthsRequest,
   HealthApiRepairAllModulesHealthRequest,
 } from '@cube-frontend/api'
-import { CosPanel } from '@cube-frontend/ui-library'
+import { CosDashboardPanel } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
@@ -56,7 +56,7 @@ const HealthPanel = () => {
     healths?.overall.status.isFixing || isCallingRepairApi
 
   return (
-    <CosPanel
+    <CosDashboardPanel
       title="Health"
       time={updateTime}
       errorCount={errorCount}
@@ -70,7 +70,7 @@ const HealthPanel = () => {
         isRepairButtonLoading={isRepairButtonLoading}
       />
       <HealthStatus isLoading={isLoading} categories={categories} />
-    </CosPanel>
+    </CosDashboardPanel>
   )
 }
 
