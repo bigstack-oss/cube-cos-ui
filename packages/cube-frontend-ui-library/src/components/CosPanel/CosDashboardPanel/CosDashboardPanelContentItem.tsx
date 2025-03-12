@@ -1,11 +1,11 @@
 import { cloneElement, PropsWithChildren } from 'react'
 import { PropsWithClassName } from '@cube-frontend/utils'
-import { CosButtonProps } from '../CosButton/CosButton'
+import { CosButtonProps } from '../../CosButton/CosButton'
 import { twMerge } from 'tailwind-merge'
-import { basePanelBorderStyle } from './utils'
-import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
+import { baseDashboardPanelBorderStyle } from './utils'
+import { CosSkeleton } from '../../CosSkeleton/CosSkeleton'
 
-export type CosPanelContentItem = PropsWithChildren &
+export type CosDashboardPanelContentItemProps = PropsWithChildren &
   PropsWithClassName & {
     topic?: string
     subtext?: string
@@ -20,7 +20,9 @@ export type CosPanelContentItem = PropsWithChildren &
     children: React.ReactNode
   }
 
-export const CosPanelContentItem = (props: CosPanelContentItem) => {
+export const CosDashboardPanelContentItem = (
+  props: CosDashboardPanelContentItemProps,
+) => {
   const {
     className: classNameProp,
     topic,
@@ -32,7 +34,7 @@ export const CosPanelContentItem = (props: CosPanelContentItem) => {
 
   const className = twMerge(
     'flex flex-col gap-y-3 p-5',
-    basePanelBorderStyle,
+    baseDashboardPanelBorderStyle,
     classNameProp,
   )
 

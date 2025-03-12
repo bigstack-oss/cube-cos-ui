@@ -1,9 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
-import { MultiPanelSection } from './MultiPanelSection'
-import { SinglePanelSection } from './SinglePanelSection'
-import { UsageSection } from './UsageSection'
-import { SkeletonSection } from './SkeletonSection'
+import { DashboardPanelLayout } from './CosDashboardPanel/DashboardPanelLayout'
+import { GeneralPanelLayout } from './CosGeneralPanel/GeneralPanelLayout'
 
 const meta = {
   title: 'Organisms/Panel',
@@ -11,17 +8,9 @@ const meta = {
 
 export default meta
 
-export const Layout: StoryObj = {
-  render: () => <PanelLayout />,
+export const DashboardPanel: StoryObj = {
+  render: () => <DashboardPanelLayout />,
 }
-
-const PanelLayout = () => {
-  return (
-    <StoryLayout title="Panel" useSceneBgColor>
-      <SinglePanelSection />
-      <MultiPanelSection />
-      <SkeletonSection />
-      <UsageSection />
-    </StoryLayout>
-  )
+export const GeneralPanel: StoryObj = {
+  render: () => <GeneralPanelLayout />,
 }

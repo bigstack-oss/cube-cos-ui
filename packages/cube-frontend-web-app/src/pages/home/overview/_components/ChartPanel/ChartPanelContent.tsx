@@ -2,7 +2,7 @@ import { GetMetricsResponseData, RoleUsage } from '@cube-frontend/api'
 import {
   CosCountSegmentedChart,
   CosCountSegmentedChartCountInfo,
-  CosPanel,
+  CosDashboardPanel,
   CosPercentagePieChart,
 } from '@cube-frontend/ui-library'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
@@ -103,9 +103,9 @@ export const ChartPanelContent = (props: ChartPanelContentProps) => {
   })
 
   return (
-    <CosPanel.Row>
-      <CosPanel.Col className="flex-1">
-        <CosPanel.Item
+    <CosDashboardPanel.Row>
+      <CosDashboardPanel.Col className="flex-1">
+        <CosDashboardPanel.Item
           topic="VM Summary"
           subtext={`${vmTotalCount} Instances`}
           isSubtextLoading={isLoading}
@@ -116,8 +116,8 @@ export const ChartPanelContent = (props: ChartPanelContentProps) => {
             overview={{ name: 'Total VM', count: vmTotalCount }}
             countInfos={vmSummary}
           />
-        </CosPanel.Item>
-        <CosPanel.Item
+        </CosDashboardPanel.Item>
+        <CosDashboardPanel.Item
           topic="Role Summary"
           subtext={`${totalRoles} Roles`}
           isSubtextLoading={isLoading}
@@ -127,9 +127,9 @@ export const ChartPanelContent = (props: ChartPanelContentProps) => {
             skeletonCount={4}
             countInfos={roleSummary}
           />
-        </CosPanel.Item>
-      </CosPanel.Col>
-      <CosPanel.Item topic="VM allocation">
+        </CosDashboardPanel.Item>
+      </CosDashboardPanel.Col>
+      <CosDashboardPanel.Item topic="VM allocation">
         <div className="flex flex-row justify-between gap-x-7">
           <CosPercentagePieChart
             title="vCPU"
@@ -153,7 +153,7 @@ export const ChartPanelContent = (props: ChartPanelContentProps) => {
             isLoading={isLoading}
           />
         </div>
-      </CosPanel.Item>
-    </CosPanel.Row>
+      </CosDashboardPanel.Item>
+    </CosDashboardPanel.Row>
   )
 }

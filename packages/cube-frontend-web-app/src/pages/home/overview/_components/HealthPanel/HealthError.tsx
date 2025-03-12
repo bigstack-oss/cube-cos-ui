@@ -3,7 +3,7 @@ import { GetHealthsResponseDataServicesInner } from '@cube-frontend/api'
 import {
   CosButton,
   CosButtonSkeleton,
-  CosPanel,
+  CosDashboardPanel,
   CosSkeleton,
 } from '@cube-frontend/ui-library'
 import WarningFilledIcon from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
@@ -78,13 +78,13 @@ export const HealthError = (props: HealthErrorProps) => {
   }
 
   return (
-    <CosPanel.Item topic="Error">
+    <CosDashboardPanel.Item topic="Error">
       <div className="flex items-center justify-between gap-x-5">
         <div className="flex flex-1 flex-col gap-y-2">
           {renderErrorServices()}
         </div>
         {renderRepairButton()}
       </div>
-    </CosPanel.Item>
+    </CosDashboardPanel.Item>
   )
 }

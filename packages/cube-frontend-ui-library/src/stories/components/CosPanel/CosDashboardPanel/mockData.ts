@@ -1,5 +1,5 @@
-import { GetCosBasicTable } from '../../../components/CosBasicTable/CosBasicTable'
-import { CosCountSegmentedChartCountInfo } from '../../../components/CosCountSegmentedChart/utils'
+import { GetCosBasicTable } from '../../../../components/CosBasicTable/CosBasicTable'
+import { CosCountSegmentedChartCountInfo } from '../../../../components/CosCountSegmentedChart/utils'
 
 export type Event = {
   id: string

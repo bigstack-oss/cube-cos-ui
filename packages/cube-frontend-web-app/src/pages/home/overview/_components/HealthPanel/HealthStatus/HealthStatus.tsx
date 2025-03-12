@@ -1,5 +1,5 @@
 import { GetHealthsResponseDataServicesInner } from '@cube-frontend/api'
-import { CosPanel } from '@cube-frontend/ui-library'
+import { CosDashboardPanel } from '@cube-frontend/ui-library'
 import { HealthStatusSkeleton } from './HealthStatusSkeleton'
 import { HealthStatusContent } from './HealthStatusContent'
 
@@ -12,12 +12,12 @@ export const HealthStatus = (props: HealthStatusProps) => {
   const { isLoading, categories } = props
 
   return (
-    <CosPanel.Item topic="Status">
+    <CosDashboardPanel.Item topic="Status">
       {isLoading ? (
         <HealthStatusSkeleton />
       ) : (
         <HealthStatusContent categories={categories} />
       )}
-    </CosPanel.Item>
+    </CosDashboardPanel.Item>
   )
 }
