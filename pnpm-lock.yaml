@@ -42,12 +42,6 @@ catalogs:
     postcss:
       specifier: ^8.4.49
       version: 8.4.49
-    react:
-      specifier: ^19.0.0
-      version: 19.0.0
-    react-dom:
-      specifier: ^19.0.0
-      version: 19.0.0
     tailwind-merge:
       specifier: ^2.6.0
       version: 2.6.0
