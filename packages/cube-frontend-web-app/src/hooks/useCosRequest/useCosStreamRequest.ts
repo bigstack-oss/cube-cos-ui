@@ -76,6 +76,7 @@ export const useCosStreamRequest: UseCosStreamRequestHook = <
 
       readStream<CosApiInnerResponse<Data>>(
         response.data as unknown as ReadableStream,
+        abortControllerRef.current.signal,
         (chunkRes) => {
           if (isFirstStreamResponseRef.current) {
             isFirstStreamResponseRef.current = false

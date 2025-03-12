@@ -23,7 +23,12 @@ describe('readStream', () => {
       '{"code":200,"msg":"abc","status":"ok","data":{"id":1}}\r',
     ])
 
-    await readStream<CosApiInnerResponse<unknown>>(stream, onChunk)
+    const abortController = new AbortController()
+    await readStream<CosApiInnerResponse<unknown>>(
+      stream,
+      abortController.signal,
+      onChunk,
+    )
 
     expect(onChunk).toHaveBeenCalledTimes(1)
     expect(onChunk).toHaveBeenCalledWith({
@@ -41,7 +46,12 @@ describe('readStream', () => {
       '{"code":200,"msg":"abc","status":"ok","data":{"id":1}}\n{"co',
     ])
 
-    await readStream<CosApiInnerResponse<unknown>>(stream, onChunk)
+    const abortController = new AbortController()
+    await readStream<CosApiInnerResponse<unknown>>(
+      stream,
+      abortController.signal,
+      onChunk,
+    )
 
     expect(onChunk).toHaveBeenCalledTimes(1)
     expect(onChunk).toHaveBeenCalledWith({
@@ -61,7 +71,12 @@ describe('readStream', () => {
       '"code":200,"msg":"lorem ipsum 4","status":"ok","data":{"value":"{{{{{{{}}}"}}\n',
     ])
 
-    await readStream<CosApiInnerResponse<unknown>>(stream, onChunk)
+    const abortController = new AbortController()
+    await readStream<CosApiInnerResponse<unknown>>(
+      stream,
+      abortController.signal,
+      onChunk,
+    )
 
     expect(onChunk).toHaveBeenCalledTimes(4)
 
@@ -105,9 +120,14 @@ describe('readStream', () => {
       '{"code":500,"msg":"Internal Server Error","status":"not ok"}',
     ])
 
-    await expect(() =>
-      readStream<CosApiInnerResponse<unknown>>(stream, onChunk),
-    ).rejects.toThrow('Internal Server Error')
+    await expect(async () => {
+      const abortController = new AbortController()
+      await readStream<CosApiInnerResponse<unknown>>(
+        stream,
+        abortController.signal,
+        onChunk,
+      )
+    }).rejects.toThrow('Internal Server Error')
 
     expect(onChunk).not.toHaveBeenCalled()
   })
@@ -115,7 +135,12 @@ describe('readStream', () => {
   test('handles an empty stream without errors', async () => {
     const onChunk = vi.fn()
     const stream = createStream([])
-    await readStream<CosApiInnerResponse<unknown>>(stream, onChunk)
+    const abortController = new AbortController()
+    await readStream<CosApiInnerResponse<unknown>>(
+      stream,
+      abortController.signal,
+      onChunk,
+    )
     expect(onChunk).not.toHaveBeenCalled()
   })
 })

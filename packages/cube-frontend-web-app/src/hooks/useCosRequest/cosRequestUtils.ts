@@ -63,9 +63,13 @@ export const readStream = async <
   ChunkResponse extends CosApiInnerResponse<unknown>,
 >(
   stream: ReadableStream,
+  abortSignal: AbortSignal,
   onChunk: (chunkResponse: ChunkResponse) => void,
 ) => {
   const reader = stream.getReader()
+  abortSignal.onabort = () => {
+    reader.cancel()
+  }
   const decoder = new TextDecoder()
   let buffer = ''
 
