@@ -16,6 +16,10 @@ export type CosCountSegmentedChartOverview = Pick<
 >
 
 export type CosCountSegmentedChartProps = {
+  title?: string
+  subtext?: string
+  overview?: CosCountSegmentedChartOverview
+  countInfos: CosCountSegmentedChartCountInfo[]
   /**
    * @default false
    */
@@ -24,22 +28,49 @@ export type CosCountSegmentedChartProps = {
    * @default 5
    */
   skeletonCount?: number
-  overview?: CosCountSegmentedChartOverview
-  countInfos: CosCountSegmentedChartCountInfo[]
 }
 
 export const CosCountSegmentedChart = (props: CosCountSegmentedChartProps) => {
-  const { isLoading, skeletonCount = 5, overview, countInfos } = props
+  const {
+    title,
+    subtext,
+    overview,
+    countInfos,
+    isLoading,
+    skeletonCount = 5,
+  } = props
 
   const segments = useMemo<Segment[]>(
     () => countInfos.map(mapToSegment),
     [countInfos],
   )
 
+  const renderSubtext = () => {
+    if (subtext === undefined) return null
+    if (isLoading) return <CosSkeleton className="h-[18px] w-[48px]" />
+
+    return <span className="primary-body3 text-functional-text">{subtext}</span>
+  }
+
+  const renderHeader = () => {
+    if (!title && !subtext) return null
+    return (
+      <div className="flex items-center gap-x-3">
+        <span className="primary-body2 font-medium text-functional-title">
+          {title}
+        </span>
+        {renderSubtext()}
+      </div>
+    )
+  }
+
   if (isLoading) {
     return (
       <div className={containerClass}>
-        <CosSegmentedBarSkeleton />
+        <div className="flex flex-col gap-y-2">
+          {renderHeader()}
+          <CosSegmentedBarSkeleton />
+        </div>
         <div className="flex flex-row items-center justify-between gap-x-[60px]">
           {range(skeletonCount).map((index) => (
             <div
@@ -57,16 +88,10 @@ export const CosCountSegmentedChart = (props: CosCountSegmentedChartProps) => {
 
   return (
     <div className={containerClass}>
-      <CosSegmentedBar
-        rounded
-        /**
-         * TODO: This is a workaround. If the first or last segment has a count of 0,
-         * the SegmentedBar component will not be rounded.
-         * Therefore, we first filter out the segments with a count of 0.
-         * */
-        // segments={segments.filter((s) => s.colCount > 0)}
-        segments={segments}
-      />
+      <div className="flex flex-col gap-y-2">
+        {renderHeader()}
+        <CosSegmentedBar rounded segments={segments} />
+      </div>
       <div className="flex flex-row items-center justify-between gap-x-2">
         {overview && <CountInfo {...overview}></CountInfo>}
         {countInfos.map((segment) => (

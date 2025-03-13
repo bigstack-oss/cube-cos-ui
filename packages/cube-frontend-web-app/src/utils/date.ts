@@ -1,5 +1,5 @@
+import { toUnitDisplay } from '@cube-frontend/utils'
 import dayjs, { Dayjs } from 'dayjs'
-import { toUnitDisplay } from './string'
 
 export const formatEventTime = (date: string) => {
   return dayjs(date).format('YYYY/MM/DD HH:mm')

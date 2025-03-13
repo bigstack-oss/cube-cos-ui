@@ -13,7 +13,7 @@ export const CountInfo = (props: CountInfoProps) => {
         {color && <ColorDot color={color} />}
         <span className="primary-body5 text-functional-text-light">{name}</span>
       </div>
-      <span className="primary-body2 self-end text-functional-text">
+      <span className="primary-body1 self-end font-semibold text-functional-text">
         {count}
       </span>
     </div>
