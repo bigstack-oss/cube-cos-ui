@@ -95,6 +95,7 @@ export const NodePanel = () => {
         >
           {(cpu) => (
             <CosProgressBar
+              className="min-w-[90px]"
               color="bg-chart-1"
               progress={toPercentage(cpu.usedCores, cpu.totalCores)}
             />
@@ -107,6 +108,7 @@ export const NodePanel = () => {
         >
           {(memory) => (
             <CosProgressBar
+              className="min-w-[90px]"
               color="bg-chart-2"
               progress={toPercentage(memory.usedMiB, memory.totalMiB)}
             />
@@ -119,6 +121,7 @@ export const NodePanel = () => {
         >
           {(storage) => (
             <CosProgressBar
+              className="min-w-[90px]"
               color="bg-chart-3"
               progress={toPercentage(storage.usedMiB, storage.totalMiB)}
             />

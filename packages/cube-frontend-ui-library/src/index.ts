@@ -1,5 +1,6 @@
 export * from './components/CosBackButton/CosBackButton'
 export * from './components/CosBackButton/CosBackButtonSkeleton'
+export * from './components/CosProgressBarChart/CosProgressBarChart'
 export * from './components/CosBasicTable/CosBasicTable'
 export * from './components/CosBasicTable/rendering/CosTableTdSkeleton'
 export type {

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 
 const meta = {
-  title: 'Molecules/Chart/Progress Bar',
+  title: 'Atoms/Progress Bar',
 } satisfies Meta
 
 export default meta
@@ -16,12 +16,33 @@ const ProgressBarGallery = () => {
   return (
     <StoryLayout title="Progress Bar">
       <StoryLayout.Section title="Progress">
-        <div className="flex items-center gap-x-4">
-          <CosProgressBar progress={0} color="bg-chart-1" />
-          <CosProgressBar progress={1} color="bg-chart-1" />
-          <CosProgressBar progress={50} color="bg-chart-2" />
-          <CosProgressBar progress={99} color="bg-chart-3" />
-          <CosProgressBar progress={100} color="bg-chart-4" />
+        <div className="flex flex-col gap-y-4">
+          <CosProgressBar
+            className="w-[90px]"
+            progress={50}
+            color="bg-chart-1"
+          />
+          <CosProgressBar progress={50} color="bg-chart-1" />
+          <div className="flex items-center gap-x-4">
+            <CosProgressBar progress={0} color="bg-chart-1" />
+            <CosProgressBar progress={1} color="bg-chart-1" />
+            <CosProgressBar progress={50} color="bg-chart-2" />
+            <CosProgressBar progress={99} color="bg-chart-3" />
+            <CosProgressBar progress={100} color="bg-chart-4" />
+          </div>
+        </div>
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Skeleton">
+        <div className="flex flex-col gap-y-4">
+          <CosProgressBar.Skeleton className="w-[90px]" />
+          <CosProgressBar.Skeleton />
+          <div className="flex items-center gap-x-4">
+            <CosProgressBar.Skeleton />
+            <CosProgressBar.Skeleton />
+            <CosProgressBar.Skeleton />
+            <CosProgressBar.Skeleton />
+            <CosProgressBar.Skeleton />
+          </div>
         </div>
       </StoryLayout.Section>
     </StoryLayout>
