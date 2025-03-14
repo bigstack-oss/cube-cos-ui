@@ -83,14 +83,11 @@ export const StorageChart = (props: StorageChartProps) => {
               y: {
                 border: { display: false },
                 ticks: {
-                  // sampleSize: 1024,
+                  stepSize: (1024 * 1024) / 16,
                   callback(tickValue, index, ticks) {
                     const { value: formattedValue, unit: formattedUnit } =
                       formatter(tickValue, unit)
-
                     console.log(tickValue)
-
-                    // if (tickValue % 1024 === 0)
                     return `${formattedValue} ${formattedUnit}`
                   },
                 },
