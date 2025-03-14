@@ -1,4 +1,9 @@
-import { PropsWithChildren, useMemo } from 'react'
+import {
+  ComponentProps,
+  ComponentType,
+  PropsWithChildren,
+  useMemo,
+} from 'react'
 import { twMerge } from 'tailwind-merge'
 import {
   computeRowClassName,
@@ -127,7 +132,17 @@ const CosBasicTable = <Row extends CosTableRow>(
 CosBasicTable.Column = CreateCosTableColumn()
 
 type CosBasicTableWithColumn<Row extends CosTableRow> =
-  typeof CosBasicTable<Row> & {
+  // Use `ComponentType` with `ComponentProps` on `CosBasicTable<Row>` to
+  // exclude the `Column` property added via `CosBasicTable.Column = CreateCosTableColumn()`.
+  // `Omit` doesn't work here because it would prevent the return type from
+  // being a valid JSX element.
+  //
+  // This ensures TypeScript can correctly infer the `row` type in column render functions
+  // when no explicit column properties are provided (e.g., `<MyTable.Column>{(_, row) => ...}</MyTable.Column>`).
+  //
+  // Without this adjustment, TS would infer the row as`CosTableRow` instead of
+  // the generic type specified by the user.
+  ComponentType<ComponentProps<typeof CosBasicTable<Row>>> & {
     Column: ReturnType<typeof CreateCosTableColumn<Row>>
   }
 

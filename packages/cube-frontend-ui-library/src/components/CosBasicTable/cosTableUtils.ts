@@ -10,7 +10,7 @@ export const COS_TABLE_COLUMN_SYMBOL = Symbol('CosTableColumn')
 
 export const isCosTableColumn = <Row extends CosTableRow>(
   node: ReactNode,
-): node is ReactElement<CosTableColumnProps<Row>> => {
+): node is ReactElement<CosTableColumnProps<Row, keyof Row | never>> => {
   if (!isValidElement(node)) {
     return false
   }

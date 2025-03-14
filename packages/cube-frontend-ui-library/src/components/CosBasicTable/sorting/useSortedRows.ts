@@ -1,5 +1,6 @@
 import { RefObject, useEffect, useMemo, useState } from 'react'
 import { CosTableRow } from '../cosTableUtils'
+import { CosTableColumnProps } from '../rendering/CosTableColumn'
 import { ascendingCompare, descendingCompare } from './sortingCompareFunctions'
 import {
   computeNextSortDirection,
@@ -7,7 +8,6 @@ import {
   SortDirection,
   SortingState,
 } from './sortingUtils'
-import { CosTableColumnProps } from '../rendering/CosTableColumn'
 
 export type UseSortedRows<Row extends CosTableRow> = {
   sortedRows: Row[]
@@ -17,7 +17,7 @@ export type UseSortedRows<Row extends CosTableRow> = {
 
 export const useSortedRows = <Row extends CosTableRow>(
   rows: Row[],
-  columns: CosTableColumnProps<Row>[],
+  columns: CosTableColumnProps<Row, keyof Row | never>[],
   defaultSortingState: SortingState<Row> | undefined,
   rowCompareFnMapRef: RefObject<RowCompareFnMap<Row>>,
 ): UseSortedRows<Row> => {

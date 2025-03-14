@@ -15,7 +15,7 @@ export type CosTableColumnSkeletonVariant =
 
 export type CosTableColumnProps<
   Row extends CosTableRow,
-  Property extends keyof Row = keyof Row,
+  Property extends keyof Row | never,
 > = {
   label?: string
   property?: Property
@@ -24,10 +24,16 @@ export type CosTableColumnProps<
   /**
    * Function that determines whether the two elements are sorted.
    */
-  sortingCompareFnMap?: ColumnCompareFnMap<Row[Property]>
+  sortingCompareFnMap?: Property extends keyof Row
+    ? ColumnCompareFnMap<Row[Property]>
+    : never
   children?:
     | ReactNode
-    | ((propertyValue: Row[Property], row: Row, rowIndex: number) => ReactNode)
+    | ((
+        propertyValue: Property extends keyof Row ? Row[Property] : undefined,
+        row: Row,
+        rowIndex: number,
+      ) => ReactNode)
   /**
    * @default 'regular'
    */
@@ -36,12 +42,12 @@ export type CosTableColumnProps<
 
 // Wrapper function to help TypeScript correctly infer the type of `Row[Property]`.
 export const CreateCosTableColumn = <Row extends CosTableRow>() => {
-  type ColumnProps<Property extends keyof Row> = CosTableColumnProps<
+  type ColumnProps<Property extends keyof Row | never> = CosTableColumnProps<
     Row,
     Property
   >
 
-  const CosTableColumn = <Property extends keyof Row>(
+  const CosTableColumn = <Property extends keyof Row | never = never>(
     _props: ColumnProps<Property>,
   ) => {
     // The column component defines the schema for a table column, including its

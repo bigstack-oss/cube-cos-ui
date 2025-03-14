@@ -5,7 +5,7 @@ import { CosTableColumnProps } from './CosTableColumn'
 import { SortingArrow } from './SortingArrow'
 
 export type CosTableThProps<Row extends CosTableRow> = {
-  column: CosTableColumnProps<Row>
+  column: CosTableColumnProps<Row, keyof Row | never>
   sortingState: SortingState<Row> | undefined
   onSortClick: () => void
   isTableEmpty?: boolean

@@ -6,19 +6,21 @@ import {
   useRef,
   useState,
 } from 'react'
-import { CosTableColumnProps } from './rendering/CosTableColumn'
 import { CosTableRow, isCosTableColumn } from './cosTableUtils'
+import { CosTableColumnProps } from './rendering/CosTableColumn'
 import { RowCompareFnMap } from './sorting/sortingUtils'
 
 export type ColumnPayloads<Row extends CosTableRow> = {
-  columns: CosTableColumnProps<Row>[]
+  columns: CosTableColumnProps<Row, keyof Row | never>[]
   rowCompareFnMapRef: RefObject<RowCompareFnMap<Row>>
 }
 
 export const useColumnPayloads = <Row extends CosTableRow>(
   children: ReactNode,
 ): ColumnPayloads<Row> => {
-  const [columns, setColumns] = useState<CosTableColumnProps<Row>[]>([])
+  const [columns, setColumns] = useState<
+    CosTableColumnProps<Row, keyof Row | never>[]
+  >([])
   const rowCompareFnMapRef = useRef<RowCompareFnMap<Row>>({})
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export const useColumnPayloads = <Row extends CosTableRow>(
     const nextRowCompareFnMap: RowCompareFnMap<Row> = {}
 
     Children.toArray(children).forEach((child) => {
-      if (!isCosTableColumn(child)) {
+      if (!isCosTableColumn<Row>(child)) {
         console.warn(
           'The children of CosTable can only be CosTableColumn, but found: ',
           child,
@@ -34,7 +36,10 @@ export const useColumnPayloads = <Row extends CosTableRow>(
         return
       }
 
-      const columnProps = child.props as CosTableColumnProps<Row>
+      const columnProps = child.props as CosTableColumnProps<
+        Row,
+        keyof Row | never
+      >
       nextColumns.push(columnProps)
 
       const { property, sortingCompareFnMap } = columnProps

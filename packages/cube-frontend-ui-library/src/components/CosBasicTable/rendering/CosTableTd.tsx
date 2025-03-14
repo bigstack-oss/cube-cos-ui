@@ -6,7 +6,7 @@ import { CosTableTdSkeleton } from './CosTableTdSkeleton'
 export type CosTableTdProps<Row extends CosTableRow> = {
   row?: Row
   rowIndex: number
-  column: CosTableColumnProps<Row>
+  column: CosTableColumnProps<Row, keyof Row | never>
   isLoading?: boolean
 }
 
@@ -40,7 +40,13 @@ export const CosTableTd = <Row extends CosTableRow>(
     const propertyValue = property ? row[property] : undefined
 
     if (typeof children === 'function') {
-      return children(propertyValue!, row, rowIndex)
+      return children(
+        propertyValue as typeof property extends keyof Row
+          ? Row[keyof Row]
+          : undefined,
+        row,
+        rowIndex,
+      )
     } else if (children) {
       return children
     }
