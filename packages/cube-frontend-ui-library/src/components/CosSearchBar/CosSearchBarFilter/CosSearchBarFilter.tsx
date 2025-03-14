@@ -18,8 +18,8 @@ import { FilterDropdownItem } from './FilterDropdownItem'
 
 const input = cva(
   [
-    'primary-body2 w-full truncate rounded-[5px] bg-grey-100',
-    'box-border border border-grey-100 py-[7px] pl-4',
+    'primary-body2 h-[34px] w-full truncate rounded-[5px] bg-grey-100',
+    'border border-grey-100 py-[7px] pl-4',
     'text-functional-text placeholder:text-functional-text-light',
     'outline-none hover:border-functional-hover-primary focus:border-functional-hover-primary',
   ],
@@ -67,7 +67,7 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
 
   const inputId = restProps.id || defaultId
 
-  const hasInputValue = !!value && value !== ''
+  const hasInputValue = value !== ''
 
   useEffect(() => {
     if (hasInputValue) {
@@ -118,7 +118,7 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
     <span className="absolute right-4 flex items-center gap-[6px]">
       {hasInputValue && (
         <Clear
-          className="icon-md text-functional-text-light"
+          className="icon-md cursor-pointer text-functional-text-light"
           onClick={handleClearClick}
         />
       )}
