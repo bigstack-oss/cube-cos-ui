@@ -57,11 +57,12 @@ const CosBasicTable = <Row extends CosTableRow>(
   }, [skeletonRowCount])
 
   const renderSkeletonRows = () => {
-    return skeletonIndexes.map((index) => (
-      <tr key={index} className={tdBorderRadiusClass}>
+    return skeletonIndexes.map((rowIndex) => (
+      <tr key={rowIndex} className={tdBorderRadiusClass}>
         {columns.map((column, colIndex) => (
           <CosTableTd
             key={column.property?.toString() ?? colIndex}
+            rowIndex={rowIndex}
             column={column}
             isLoading={isLoading}
           />
@@ -79,7 +80,7 @@ const CosBasicTable = <Row extends CosTableRow>(
   const renderDataRows = () => {
     if (sortedRows.length === 0) return renderEmptyRow()
 
-    return sortedRows.map((row) => (
+    return sortedRows.map((row, rowIndex) => (
       <tr
         key={row.id}
         className={twMerge(
@@ -93,6 +94,7 @@ const CosBasicTable = <Row extends CosTableRow>(
           <CosTableTd
             key={column.property?.toString() ?? colIndex}
             row={row}
+            rowIndex={rowIndex}
             column={column}
           />
         ))}
@@ -133,5 +135,5 @@ type CosBasicTableWithColumn<Row extends CosTableRow> =
 export const GetCosBasicTable = <
   Row extends CosTableRow,
 >(): CosBasicTableWithColumn<Row> => {
-  return CosBasicTable as CosBasicTableWithColumn<Row>
+  return CosBasicTable as unknown as CosBasicTableWithColumn<Row>
 }

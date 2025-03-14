@@ -5,6 +5,7 @@ import { CosTableTdSkeleton } from './CosTableTdSkeleton'
 
 export type CosTableTdProps<Row extends CosTableRow> = {
   row?: Row
+  rowIndex: number
   column: CosTableColumnProps<Row>
   isLoading?: boolean
 }
@@ -27,7 +28,7 @@ const td = cva(
 export const CosTableTd = <Row extends CosTableRow>(
   props: CosTableTdProps<Row>,
 ) => {
-  const { row, column, isLoading } = props
+  const { row, rowIndex, column, isLoading } = props
 
   const renderContent = () => {
     if (!row) {
@@ -39,7 +40,7 @@ export const CosTableTd = <Row extends CosTableRow>(
     const propertyValue = property ? row[property] : undefined
 
     if (typeof children === 'function') {
-      return children(propertyValue!, row)
+      return children(propertyValue!, row, rowIndex)
     } else if (children) {
       return children
     }

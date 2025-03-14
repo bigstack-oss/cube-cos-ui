@@ -25,7 +25,9 @@ export type CosTableColumnProps<
    * Function that determines whether the two elements are sorted.
    */
   sortingCompareFnMap?: ColumnCompareFnMap<Row[Property]>
-  children?: ReactNode | ((propertyValue: Row[Property], row: Row) => ReactNode)
+  children?:
+    | ReactNode
+    | ((propertyValue: Row[Property], row: Row, rowIndex: number) => ReactNode)
   /**
    * @default 'regular'
    */
