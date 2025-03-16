@@ -3,7 +3,7 @@
 ## Env
 
 ```bash
-VERSION=$(node -p -e "require('./packages/cube-frontend-web-app/package.json').version")
+VERSION=$(node -p "require('./packages/cube-frontend-web-app/package.json').version")
 BUILD_NUMBER=$(git rev-parse --short HEAD)
 ```
 
