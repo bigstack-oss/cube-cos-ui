@@ -1,4 +1,4 @@
-# Build RPM
+# Build & Deploy RPM
 
 ## Env
 
@@ -89,10 +89,30 @@ rpmlint ~/rpmbuild/SPECS/cube-cos-ui.spec
 rpmbuild -bb --nodeps --define "version $VERSION" --define "build_number $BUILD_NUMBER" ~/rpmbuild/SPECS/cube-cos-ui.spec
 ```
 
-### Upload
+### Output
 
-- upload the rpm under ~/rpmbuild/RPMS/x86_64
+- built rpm would be under ~/rpmbuild/RPMS/x86_64
 
 ```bash
 ls -ahl ~/rpmbuild/RPMS/x86_64/cube-cos-ui-$VERSION-1.el9.$BUILD_NUMBER.x86_64.rpm
+```
+
+## Deploy RPM
+
+1. Send the built rpm to a running CubeCOS
+
+```bash
+scp "<path of rpm>" "<user>@<cubecos>:<path to place rpm>"
+```
+
+2. Install the rpm and start the service
+
+```bash
+dnf install "<path to cube-cos-ui rpm>"
+```
+
+3. Clean up
+
+```bash
+dnf remove cube-cos-ui
 ```
