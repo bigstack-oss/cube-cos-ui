@@ -133,7 +133,17 @@ podman load -i /usr/share/cube/login/keycloak-image.tar
 podman push --tls-verify=false localhost:5080/bigstack/keycloak:17.0.1-legacy
 ```
 
-3. Clean up
+6. Force helm to pull the new image
+
+/opt/keycloak/chart-values.yaml
+
+```diff
+image:
+  repository: localhost:5080/bigstack/keycloak
++  pullPolicy: Always
+```
+
+7. Clean up
 
 ```bash
 dnf remove cube-cos-login
