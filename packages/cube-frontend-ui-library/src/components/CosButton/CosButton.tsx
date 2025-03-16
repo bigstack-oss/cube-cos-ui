@@ -1,17 +1,20 @@
-import { ButtonHTMLAttributes } from 'react'
-import { IconSize, SvgComponent } from '../CosIcon/CosIcon'
 import { cva } from 'class-variance-authority'
+import { ClassValue } from 'class-variance-authority/types'
+import { omit } from 'lodash'
+import { ButtonHTMLAttributes, JSX } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { PropsWithClassName } from '@cube-frontend/utils'
+import { IconSize, SvgComponent } from '../CosIcon/CosIcon'
 import { getIconSizeClass } from '../CosIcon/utils'
 import { CosLoadingSpinner } from '../CosLoadingSpinner/CosLoadingSpinner'
-import { ClassValue } from 'class-variance-authority/types'
 
 export type CosButtonType = 'primary' | 'secondary' | 'ghost' | 'warning'
 
 export type CosButtonSize = 'sm' | 'md' | 'lg'
 
-export type CosButtonProps = PropsWithClassName & {
+export type CosButtonProps = Omit<
+  JSX.IntrinsicElements['button'],
+  'type' | 'onClick' | 'children'
+> & {
   htmlType?: ButtonHTMLAttributes<HTMLButtonElement>['type']
   /**
    * @default "primary"
@@ -146,6 +149,7 @@ export const CosButton = (props: CosButtonProps) => {
     disabled: disabledProp = false,
     onClick,
     className,
+    ...restProps
   } = props
 
   const disabled = disabledProp || loading
@@ -197,6 +201,7 @@ export const CosButton = (props: CosButtonProps) => {
       className={twMerge(button({ type, size, usage }), className)}
       disabled={disabled}
       onClick={onClick}
+      {...omit(restProps, 'Icon')}
     >
       {renderButtonContent()}
     </button>
