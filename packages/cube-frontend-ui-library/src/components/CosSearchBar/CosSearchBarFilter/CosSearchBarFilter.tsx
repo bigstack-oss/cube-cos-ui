@@ -1,7 +1,7 @@
 import {
+  DetailedHTMLProps,
   InputHTMLAttributes,
   ReactElement,
-  RefObject,
   useCallback,
   useEffect,
   useId,
@@ -33,8 +33,10 @@ const input = cva(
   },
 )
 
-export type CosSearchBarFilterProps = InputHTMLAttributes<HTMLInputElement> & {
-  ref?: RefObject<HTMLInputElement>
+export type CosSearchBarFilterProps = DetailedHTMLProps<
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> & {
   isLoading?: boolean
   onInputClear?: () => void
   showDropdown?: boolean
