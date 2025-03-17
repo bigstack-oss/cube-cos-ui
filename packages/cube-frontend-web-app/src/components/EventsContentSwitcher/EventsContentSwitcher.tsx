@@ -1,25 +1,24 @@
+import { upperFirst } from 'lodash'
+import { GetEventsTypeEnum } from '@cube-frontend/api'
 import { CosContentSwitcher } from '@cube-frontend/ui-library'
-import { toUpperCaseFirstLetter } from '@cube-frontend/utils'
 
-type EventsContentSwitcherProps<T extends string> = {
-  tabOptions: Record<string, T>
-  selectedTab: T
-  handleTabChange: (tab: T) => void
+type EventsContentSwitcherProps = {
+  activeTab: GetEventsTypeEnum
+  onEventsTypeChange: (type: GetEventsTypeEnum) => void
 }
 
-export const EventsContentSwitcher = <T extends string>(
-  props: EventsContentSwitcherProps<T>,
-) => {
-  const { tabOptions, selectedTab, handleTabChange } = props
+export const EventsContentSwitcher = (props: EventsContentSwitcherProps) => {
+  const { activeTab, onEventsTypeChange: handleTabChange } = props
+
   return (
-    <CosContentSwitcher variant="radius">
-      {Object.values(tabOptions).map((option) => (
+    <CosContentSwitcher variant="radius" className="rounded-full bg-white">
+      {Object.values(GetEventsTypeEnum).map((tab) => (
         <CosContentSwitcher.Item
-          key={option}
-          isActive={selectedTab === option}
-          onClick={() => handleTabChange(option)}
+          key={tab}
+          isActive={tab === activeTab}
+          onClick={() => handleTabChange(tab)}
         >
-          {toUpperCaseFirstLetter(option)}
+          {upperFirst(tab)}
         </CosContentSwitcher.Item>
       ))}
     </CosContentSwitcher>

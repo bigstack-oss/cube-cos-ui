@@ -57,31 +57,3 @@ export const mapFilterToFilterKey = (key: string): string => {
 
   return filterKey
 }
-
-export const isValidEventsType = (type: string | null): boolean => {
-  return Object.values(GetEventsTypeEnum).includes(
-    type as unknown as GetEventsTypeEnum,
-  )
-}
-
-export const getEventsType = (
-  searchParams: URLSearchParams,
-): GetEventsTypeEnum => {
-  const urlEventsType = searchParams.get('eventsType')
-
-  if (urlEventsType && isValidEventsType(urlEventsType)) {
-    return urlEventsType as GetEventsTypeEnum
-  } else {
-    return GetEventsTypeEnum.System
-  }
-}
-
-export const getEventsFilter = (searchParams: URLSearchParams) => {
-  const filter = Object.fromEntries(searchParams)
-  const isFilterEmpty = isEmpty(searchParams.delete('eventsType'))
-
-  return {
-    eventsFilter: filter,
-    isEventsFilterEmpty: isFilterEmpty,
-  }
-}

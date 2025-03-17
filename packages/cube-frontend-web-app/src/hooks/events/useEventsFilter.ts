@@ -11,7 +11,7 @@ import {
 } from '@cube-frontend/api'
 
 export type UseEventsFilter = {
-  isLoading: boolean
+  isEventsFilterLoading: boolean
   getEventsFilter: (
     type: GetEventsTypeEnum,
   ) =>
@@ -36,7 +36,7 @@ export const useEventsFilter = (): UseEventsFilter => {
   const getEventsFilter = (type: GetEventsTypeEnum) => data?.[type]
 
   return {
-    isLoading,
+    isEventsFilterLoading: isLoading,
     getEventsFilter,
   }
 }
