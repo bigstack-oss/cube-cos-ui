@@ -31,8 +31,7 @@
     "react-dom": "catalog:",
     "react-router": "^7.1.5",
     "vitest": "catalog:",
-    "zod": "^3.24.2",
-    "zustand": "^5.0.3"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/react": "catalog:",
