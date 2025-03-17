@@ -10,7 +10,7 @@ import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import Cancel from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { CosSearchBarFilter } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useFilterStore } from '@cube-frontend/web-app/stores/EventsFilterStore'
+import { useEventsFilterStore } from '@cube-frontend/web-app/stores/events'
 import { FilterDropdown } from './FilterDropdown'
 import { FilterDatePicker } from './FilterDatePicker'
 import { getEventsFilterOptions, getFilterKey } from './utils'
@@ -25,7 +25,7 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { filters, setFilter, resetFilter } = useFilterStore()
+  const { filters, setFilter, resetFilter } = useEventsFilterStore()
 
   const dataCenter = useContext(DataCenterContext)
 

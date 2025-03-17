@@ -6,7 +6,7 @@ import { EventsTableFilter } from './EventsTableFilter'
 import { EventsTableSelection } from './EventsTableSelection'
 import { useContext, useState } from 'react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useFilterStore } from '@cube-frontend/web-app/stores/EventsFilterStore'
+import { useEventsFilterStore } from '@cube-frontend/web-app/stores/events'
 import {
   CosPagination,
   DEFAULT_ITEMS_PER_PAGE,
@@ -24,7 +24,7 @@ export const EventsTabContent = (props: EventsTabContentProps) => {
 
   const dataCenter = useContext(DataCenterContext)
 
-  const { filters } = useFilterStore()
+  const { filters } = useEventsFilterStore()
 
   const [currentPage, setCurrentPage] = useState(1)
 
