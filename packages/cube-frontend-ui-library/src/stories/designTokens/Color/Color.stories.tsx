@@ -91,6 +91,7 @@ export const Color: StoryObj = {
             />
             <ColorBox colorName="Negative" bgClassName="bg-status-negative" />
             <ColorBox colorName="Warning" bgClassName="bg-status-warning" />
+            <ColorBox colorName="Paused" bgClassName="bg-status-paused" />
             <ColorBox
               colorName="Neutral/ Active"
               bgClassName="bg-status-neutral"

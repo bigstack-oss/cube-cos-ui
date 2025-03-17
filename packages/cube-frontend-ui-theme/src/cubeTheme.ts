@@ -163,6 +163,7 @@ export const cubeTheme = {
       'positive-text': '#00BE90',
       negative: '#FF5D5D',
       warning: '#F9C300',
+      paused: '#FF9920',
       neutral: '#4C68F9',
     },
     chart: {

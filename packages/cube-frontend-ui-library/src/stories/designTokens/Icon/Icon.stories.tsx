@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { fn } from '@storybook/test'
 import { twMerge } from 'tailwind-merge'
 import { CosIconFrame } from '../../../components/CosIcon/CosIcon'
-import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
-import { coloredIcons, monochromeIcons, renderSizeRow } from './utils'
 import Home01 from '../../../components/CosIcon/monochrome/home_01.svg?react'
 import Warning from '../../../components/CosIcon/monochrome/warning.svg?react'
+import { CosIconText } from '../../../components/CosIconText/CosIconText'
+import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { IconGallery } from './IconGallery'
-import { fn } from '@storybook/test'
+import { coloredIcons, monochromeIcons, renderSizeRow } from './utils'
 
 const meta = {
   title: 'Design Tokens/Icon',
@@ -169,4 +170,25 @@ export const Size: Story = {
       </StoryLayout>
     )
   },
+}
+
+export const Text: Story = {
+  render: () => (
+    <StoryLayout title="Text">
+      <StoryLayout.Section title="Master">
+        <div className="flex items-center gap-x-3">
+          <CosIconText type="primary">new</CosIconText>
+          <CosIconText type="warning">warning</CosIconText>
+          <CosIconText type="warning">expiring</CosIconText>
+          <CosIconText type="error">expired</CosIconText>
+          <CosIconText type="error">error</CosIconText>
+          <CosIconText type="error">NG</CosIconText>
+          <CosIconText type="functional">non-reserved</CosIconText>
+          <CosIconText type="secondary">reserved</CosIconText>
+          <CosIconText type="positive">OK</CosIconText>
+          <CosIconText type="primary-outline">Admin</CosIconText>
+        </div>
+      </StoryLayout.Section>
+    </StoryLayout>
+  ),
 }
