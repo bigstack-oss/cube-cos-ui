@@ -8,7 +8,7 @@ export type CosTableThProps<Row extends CosTableRow> = {
   column: CosTableColumnProps<Row>
   sortingState: SortingState<Row> | undefined
   onSortClick: () => void
-  isEmpty?: boolean
+  isTableEmpty?: boolean
 }
 
 const th = cva(
@@ -19,7 +19,7 @@ const th = cva(
   ],
   {
     variants: {
-      isEmpty: {
+      isTableEmpty: {
         true: 'first-of-type:rounded-l-[5px] last-of-type:rounded-r-[5px]',
         false: 'first-of-type:rounded-tl-[5px] last-of-type:rounded-tr-[5px]',
       },
@@ -30,10 +30,10 @@ const th = cva(
 export const CosTableTh = <Row extends CosTableRow>(
   props: CosTableThProps<Row>,
 ) => {
-  const { column, sortingState, onSortClick, isEmpty = false } = props
+  const { column, sortingState, onSortClick, isTableEmpty = false } = props
 
   return (
-    <th className={th({ isEmpty })}>
+    <th className={th({ isTableEmpty })}>
       <span className="flex items-center gap-x-2 whitespace-nowrap">
         {column.label}
         {column.isSortable && column.property && (

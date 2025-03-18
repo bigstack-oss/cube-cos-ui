@@ -111,7 +111,7 @@ const CosBasicTable = <Row extends CosTableRow>(
                 column={column}
                 sortingState={sortingState}
                 onSortClick={() => onSortDirectionChange(column.property!)}
-                isEmpty={sortedRows.length === 0}
+                isTableEmpty={sortedRows.length === 0}
               />
             ))}
           </tr>
