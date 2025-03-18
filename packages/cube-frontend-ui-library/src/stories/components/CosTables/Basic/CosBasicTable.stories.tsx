@@ -27,6 +27,9 @@ export const Gallery: StoryObj = {
       <StoryLayout.Section title="Custom Sorting Rule">
         <CustomSortingRule />
       </StoryLayout.Section>
+      <StoryLayout.Section title="No Result">
+        <NoResult />
+      </StoryLayout.Section>
       <StoryLayout.Section title="Skeleton">
         <Skeleton />
       </StoryLayout.Section>
@@ -149,6 +152,20 @@ const SortableWithDefaultState = () => (
     <NodeTable.Column label="Status" property="status">
       {(status) => <CosStatus status={status} />}
     </NodeTable.Column>
+  </NodeTable>
+)
+
+const NoResult = () => (
+  <NodeTable rows={[]} isLoading={false}>
+    <NodeTable.Column label="Hostname" />
+    <NodeTable.Column label="Management IP" />
+    <NodeTable.Column label="Role" />
+    <NodeTable.Column label="License Expire" />
+    <NodeTable.Column label="CPU" />
+    <NodeTable.Column label="RAM" />
+    <NodeTable.Column label="Partition" />
+    <NodeTable.Column label="Running" />
+    <NodeTable.Column label="Status" />
   </NodeTable>
 )
 

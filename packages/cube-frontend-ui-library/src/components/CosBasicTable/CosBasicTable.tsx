@@ -7,6 +7,7 @@ import {
 } from './cosTableUtils'
 import { CreateCosTableColumn } from './rendering/CosTableColumn'
 import { CosTableTd } from './rendering/CosTableTd'
+import { CosTableTdEmpty } from './rendering/CosTableTdEmpty'
 import { CosTableTh } from './rendering/CosTableTh'
 import { SortingState } from './sorting/sortingUtils'
 import { useSortedRows } from './sorting/useSortedRows'
@@ -69,7 +70,15 @@ const CosBasicTable = <Row extends CosTableRow>(
     ))
   }
 
+  const renderEmptyRow = () => (
+    <tr>
+      <CosTableTdEmpty length={columns.length} />
+    </tr>
+  )
+
   const renderDataRows = () => {
+    if (sortedRows.length === 0) return renderEmptyRow()
+
     return sortedRows.map((row) => (
       <tr
         key={row.id}
@@ -102,6 +111,7 @@ const CosBasicTable = <Row extends CosTableRow>(
                 column={column}
                 sortingState={sortingState}
                 onSortClick={() => onSortDirectionChange(column.property!)}
+                isEmpty={sortedRows.length === 0}
               />
             ))}
           </tr>
