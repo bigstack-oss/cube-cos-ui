@@ -10,7 +10,6 @@ import {
   CosTableRow,
   RowClassNameProp,
 } from './cosTableUtils'
-import { CosTableTdNoResult } from './rendering/CosTableTdNoResult'
 import { CreateCosTableColumn } from './rendering/CosTableColumn'
 import { CosTableTd } from './rendering/CosTableTd'
 import { CosTableTdEmpty } from './rendering/CosTableTdEmpty'
@@ -57,8 +56,6 @@ const CosBasicTable = <Row extends CosTableRow>(
     defaultSortingState,
     rowCompareFnMapRef,
   )
-
-  const isNoResult = sortedRows.length === 0
 
   const skeletonIndexes = useMemo<number[]>(() => {
     return Array.from(Array(skeletonRowCount).keys()).map((_, index) => index)
