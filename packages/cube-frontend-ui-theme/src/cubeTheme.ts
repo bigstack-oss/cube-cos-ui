@@ -168,7 +168,7 @@ export const cubeTheme = {
     },
     chart: {
       1: '#57E2E2',
-      2: '#4C68F9',
+      2: '#647DFF',
       3: '#58CFFF',
       4: '#FACE30',
       5: '#147EA8',
