@@ -5,6 +5,9 @@ import { twJoin, twMerge } from 'tailwind-merge'
 type CosStrokeType = 'regular' | 'dot'
 
 export type CosStrokeProps = PropsWithClassName & {
+  /**
+   * @default 'regular'
+   */
   type?: CosStrokeType
   color?: BorderColorClass
 }
