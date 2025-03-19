@@ -141,7 +141,7 @@ const getIconSizeByButtonSize = (size: CosButtonSize) => {
 
 export const CosButton = (props: CosButtonProps) => {
   const {
-    htmlType,
+    htmlType = 'button',
     type = 'primary',
     size = 'md',
     usage = 'text-only',
