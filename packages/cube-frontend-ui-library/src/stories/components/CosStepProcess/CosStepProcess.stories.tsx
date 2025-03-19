@@ -25,24 +25,24 @@ export const Gallery: StoryObj = {
         <StoryLayout.Section title="Step Process">
           <StepProcessGrid title="Default">
             <CosStepProcess isLoading={false}>
-              {steps.map((step, index) => (
+              {steps.map((step) => (
                 <CosStepProcess.Item
+                  key={`default-${step.label}`}
                   serialNumber={step.serialNumber}
                   label={step.label}
                   isActive={false}
-                  isLastItem={index + 1 === steps.length}
                 />
               ))}
             </CosStepProcess>
           </StepProcessGrid>
           <StepProcessGrid title="Active">
             <CosStepProcess isLoading={false}>
-              {steps.map((step, index) => (
+              {steps.map((step) => (
                 <CosStepProcess.Item
+                  key={`active-${step.label}`}
                   serialNumber={step.serialNumber}
                   label={step.label}
                   isActive={true}
-                  isLastItem={index + 1 === steps.length}
                 />
               ))}
             </CosStepProcess>
@@ -51,36 +51,36 @@ export const Gallery: StoryObj = {
         <StoryLayout.Section title="Layout">
           <StepProcessGrid title="Current Head">
             <CosStepProcess isLoading={false}>
-              {steps.map((step, index) => (
+              {steps.map((step) => (
                 <CosStepProcess.Item
+                  key={`current-head-${step.label}`}
                   serialNumber={step.serialNumber}
                   label={step.label}
                   isActive={step === steps[0]}
-                  isLastItem={index + 1 === steps.length}
                 />
               ))}
             </CosStepProcess>
           </StepProcessGrid>
           <StepProcessGrid title="Current Middle">
             <CosStepProcess isLoading={false}>
-              {steps.map((step, index) => (
+              {steps.map((step) => (
                 <CosStepProcess.Item
+                  key={`current-middle-${step.label}`}
                   serialNumber={step.serialNumber}
                   label={step.label}
                   isActive={step === steps[2]}
-                  isLastItem={index + 1 === steps.length}
                 />
               ))}
             </CosStepProcess>
           </StepProcessGrid>
           <StepProcessGrid title="Current Final">
             <CosStepProcess isLoading={false}>
-              {steps.map((step, index) => (
+              {steps.map((step) => (
                 <CosStepProcess.Item
+                  key={`current-final-${step.label}`}
                   serialNumber={step.serialNumber}
                   label={step.label}
                   isActive={step === steps[4]}
-                  isLastItem={index + 1 === steps.length}
                 />
               ))}
             </CosStepProcess>
