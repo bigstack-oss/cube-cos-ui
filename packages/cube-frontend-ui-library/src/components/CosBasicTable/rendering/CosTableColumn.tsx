@@ -17,6 +17,7 @@ export type CosTableColumnProps<
   Row extends CosTableRow,
   Property extends keyof Row | never,
 > = {
+  // Allow to be component
   label?: string
   property?: Property
   emphasize?: boolean

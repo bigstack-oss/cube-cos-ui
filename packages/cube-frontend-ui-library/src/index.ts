@@ -1,7 +1,10 @@
 export * from './components/CosBackButton/CosBackButton'
 export * from './components/CosBackButton/CosBackButtonSkeleton'
 export * from './components/CosProgressBarChart/CosProgressBarChart'
-export * from './components/CosBasicTable/CosBasicTable'
+export {
+  type CosBasicTableProps,
+  GetCosBasicTable,
+} from './components/CosBasicTable/CosBasicTable'
 export type { CosTableRow } from './components/CosBasicTable/cosTableUtils'
 export * from './components/CosBasicTable/rendering/CosTableTdSkeleton'
 export type {
@@ -47,8 +50,10 @@ export { type Segment } from './components/CosSegmentedBar/cosSegmentedBarUtils'
 export * from './components/CosSideBar/CosSideBar'
 export { type SideBarComboboxOptionProps } from './components/CosSideBar/SideBarComboboxOption'
 export * from './components/CosSkeleton/CosSkeleton'
+export * from './components/CosStackCard/CosStackCard'
 export * from './components/CosStatus/CosStatus'
 export * from './components/CosStatus/CosStatusSkeleton'
+export * from './components/CosStepProcess/CosStepProcess'
 export * from './components/CosStroke/CosStroke'
 export * from './components/CosTableInput/CosTableInput'
 export * from './components/CosTableInput/CosTableInputSkeleton'

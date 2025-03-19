@@ -33,9 +33,9 @@ export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   skeletonRowCount?: number
   rowClassName?: RowClassNameProp<Row>
   onRowClick?: (row: Row) => void
-}>
+}> & {}
 
-const CosBasicTable = <Row extends CosTableRow>(
+export const CosBasicTable = <Row extends CosTableRow>(
   props: CosBasicTableProps<Row>,
 ) => {
   const {
@@ -112,6 +112,7 @@ const CosBasicTable = <Row extends CosTableRow>(
       <table className="w-full border-separate border-spacing-0">
         <thead>
           <tr>
+            {/*  */}
             {columns.map((column, index) => (
               <CosTableTh
                 key={column.property?.toString() ?? index}
