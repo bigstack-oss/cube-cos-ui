@@ -112,6 +112,7 @@ export const CosBasicTable = <Row extends CosTableRow>(
       <table className="w-full border-separate border-spacing-0">
         <thead>
           <tr>
+            {/*  */}
             {columns.map((column, index) => (
               <CosTableTh
                 key={`${column.property?.toString() ?? ''}-${index}`}
