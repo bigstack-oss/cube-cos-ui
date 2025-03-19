@@ -76,6 +76,100 @@ export interface CreateSlackChannel500Response {
 /**
  * 
  * @export
+ * @interface CreateSupportFiles400Response
+ */
+export interface CreateSupportFiles400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateSupportFiles400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSupportFiles400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSupportFiles400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateSupportFiles500Response
+ */
+export interface CreateSupportFiles500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateSupportFiles500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSupportFiles500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSupportFiles500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateSupportFilesRequest
+ */
+export interface CreateSupportFilesRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSupportFilesRequest
+     */
+    'description': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateSupportFilesRequest
+     */
+    'hosts': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface CreateSupportFilesResponse
+ */
+export interface CreateSupportFilesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateSupportFilesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSupportFilesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSupportFilesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteEmailRecipient500Response
  */
 export interface DeleteEmailRecipient500Response {
@@ -226,70 +320,189 @@ export interface DiskReadWriteHistory {
 /**
  * 
  * @export
- * @interface EmailRecipient
+ * @interface EmailRecipientPostRequest
  */
-export interface EmailRecipient {
+export interface EmailRecipientPostRequest {
     /**
      * 
      * @type {string}
-     * @memberof EmailRecipient
+     * @memberof EmailRecipientPostRequest
      */
-    'email': string;
+    'address': string;
     /**
      * 
      * @type {string}
-     * @memberof EmailRecipient
+     * @memberof EmailRecipientPostRequest
      */
     'note': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmailRecipient
-     */
-    'isTestable': boolean;
 }
 /**
  * 
  * @export
- * @interface EmailSender
+ * @interface EmailRecipientPutRequest
  */
-export interface EmailSender {
+export interface EmailRecipientPutRequest {
     /**
      * 
      * @type {string}
-     * @memberof EmailSender
+     * @memberof EmailRecipientPutRequest
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailRecipientPutRequest
+     */
+    'note'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EmailRecipientResponse
+ */
+export interface EmailRecipientResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailRecipientResponse
+     */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailRecipientResponse
+     */
+    'note': string;
+}
+/**
+ * 
+ * @export
+ * @interface EmailSenderPostRequest
+ */
+export interface EmailSenderPostRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPostRequest
      */
     'host': string;
     /**
      * 
      * @type {number}
-     * @memberof EmailSender
+     * @memberof EmailSenderPostRequest
      */
     'port': number;
     /**
      * 
      * @type {string}
-     * @memberof EmailSender
+     * @memberof EmailSenderPostRequest
      */
     'username': string;
     /**
      * 
      * @type {string}
-     * @memberof EmailSender
+     * @memberof EmailSenderPostRequest
      */
     'password': string;
     /**
      * 
      * @type {string}
-     * @memberof EmailSender
+     * @memberof EmailSenderPostRequest
+     */
+    'email': string;
+}
+/**
+ * 
+ * @export
+ * @interface EmailSenderPutRequest
+ */
+export interface EmailSenderPutRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPutRequest
+     */
+    'host'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmailSenderPutRequest
+     */
+    'port'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPutRequest
+     */
+    'username'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPutRequest
+     */
+    'password'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPutRequest
+     */
+    'email'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EmailSenderResponse
+ */
+export interface EmailSenderResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderResponse
+     */
+    'host': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmailSenderResponse
+     */
+    'port': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderResponse
+     */
+    'username': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderResponse
      */
     'email': string;
     /**
      * 
      * @type {boolean}
-     * @memberof EmailSender
+     * @memberof EmailSenderResponse
      */
     'accessVerified': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface EnableOrDisableTuningRequest
+ */
+export interface EnableOrDisableTuningRequest {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EnableOrDisableTuningRequest
+     */
+    'enable': boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof EnableOrDisableTuningRequest
+     */
+    'hosts': Array<string>;
 }
 /**
  * 
@@ -932,10 +1145,10 @@ export interface GetEmailRecipientsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<EmailRecipient>}
+     * @type {Array<EmailRecipientResponse>}
      * @memberof GetEmailRecipientsResponse
      */
-    'data': Array<EmailRecipient>;
+    'data': Array<EmailRecipientResponse>;
     /**
      * 
      * @type {string}
@@ -1013,10 +1226,10 @@ export interface GetEmailSendersResponse {
 export interface GetEmailSendersResponseData {
     /**
      * 
-     * @type {Array<EmailSender>}
+     * @type {Array<EmailSenderResponse>}
      * @memberof GetEmailSendersResponseData
      */
-    'emailSenders'?: Array<EmailSender>;
+    'emailSenders'?: Array<EmailSenderResponse>;
 }
 /**
  * 
@@ -1251,10 +1464,10 @@ export interface GetEventsResponseData {
     'events': Array<GetEventsResponseDataEventsInner>;
     /**
      * 
-     * @type {GetEventsResponseDataPage}
+     * @type {Page}
      * @memberof GetEventsResponseData
      */
-    'page': GetEventsResponseDataPage;
+    'page': Page;
 }
 /**
  * 
@@ -1339,27 +1552,196 @@ export interface GetEventsResponseDataEventsInnerMetadata {
 /**
  * 
  * @export
- * @interface GetEventsResponseDataPage
+ * @interface GetGrafanaDashboardLinkResponse
  */
-export interface GetEventsResponseDataPage {
+export interface GetGrafanaDashboardLinkResponse {
     /**
      * 
      * @type {number}
-     * @memberof GetEventsResponseDataPage
+     * @memberof GetGrafanaDashboardLinkResponse
      */
-    'total': number;
+    'code': number;
+    /**
+     * 
+     * @type {GetGrafanaDashboardLinkResponseData}
+     * @memberof GetGrafanaDashboardLinkResponse
+     */
+    'data': GetGrafanaDashboardLinkResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaDashboardLinkResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaDashboardLinkResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGrafanaDashboardLinkResponseData
+ */
+export interface GetGrafanaDashboardLinkResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaDashboardLinkResponseData
+     */
+    'link': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGrafanaHosts500Response
+ */
+export interface GetGrafanaHosts500Response {
     /**
      * 
      * @type {number}
-     * @memberof GetEventsResponseDataPage
+     * @memberof GetGrafanaHosts500Response
      */
-    'number': number;
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaHosts500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaHosts500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGrafanaInstances500Response
+ */
+export interface GetGrafanaInstances500Response {
     /**
      * 
      * @type {number}
-     * @memberof GetEventsResponseDataPage
+     * @memberof GetGrafanaInstances500Response
      */
-    'size': number;
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaInstances500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaInstances500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGrafanaNetworks500Response
+ */
+export interface GetGrafanaNetworks500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGrafanaNetworks500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaNetworks500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaNetworks500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGrafanaStorages500Response
+ */
+export interface GetGrafanaStorages500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGrafanaStorages500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaStorages500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaStorages500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGrafanaTopHosts500Response
+ */
+export interface GetGrafanaTopHosts500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGrafanaTopHosts500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaTopHosts500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaTopHosts500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGrafanaTopInstances500Response
+ */
+export interface GetGrafanaTopInstances500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGrafanaTopInstances500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaTopInstances500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaTopInstances500Response
+     */
+    'status'?: string;
 }
 /**
  * 
@@ -1741,10 +2123,10 @@ export interface GetLicensesResponseData {
     'licenses'?: Array<GetLicensesResponseDataLicensesInner>;
     /**
      * 
-     * @type {GetLicensesResponseDataPage}
+     * @type {Page}
      * @memberof GetLicensesResponseData
      */
-    'page'?: GetLicensesResponseDataPage;
+    'page'?: Page;
 }
 /**
  * 
@@ -1919,31 +2301,6 @@ export interface GetLicensesResponseDataLicensesInnerServiceLevelAgreement {
      * @memberof GetLicensesResponseDataLicensesInnerServiceLevelAgreement
      */
     'meanTimeToRecovery': string;
-}
-/**
- * 
- * @export
- * @interface GetLicensesResponseDataPage
- */
-export interface GetLicensesResponseDataPage {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetLicensesResponseDataPage
-     */
-    'total': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetLicensesResponseDataPage
-     */
-    'number': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetLicensesResponseDataPage
-     */
-    'size': number;
 }
 /**
  * 
@@ -2986,6 +3343,62 @@ export interface GetNetworkTrafficOutRankOfVmsResponse {
 /**
  * 
  * @export
+ * @interface GetNode500Response
+ */
+export interface GetNode500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetNode500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNode500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNode500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetNodeResponse
+ */
+export interface GetNodeResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetNodeResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Node}
+     * @memberof GetNodeResponse
+     */
+    'data': Node;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNodeResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNodeResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface GetNodesResponse
  */
 export interface GetNodesResponse {
@@ -3022,257 +3435,16 @@ export interface GetNodesResponse {
 export interface GetNodesResponseData {
     /**
      * 
-     * @type {Array<GetNodesResponseDataNodesInner>}
+     * @type {Array<Node>}
      * @memberof GetNodesResponseData
      */
-    'nodes': Array<GetNodesResponseDataNodesInner>;
+    'nodes': Array<Node>;
     /**
      * 
-     * @type {GetEventsResponseDataPage}
+     * @type {Page}
      * @memberof GetNodesResponseData
      */
-    'page': GetEventsResponseDataPage;
-}
-/**
- * 
- * @export
- * @interface GetNodesResponseDataNodesInner
- */
-export interface GetNodesResponseDataNodesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'hostname': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'role': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'address': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'managementIP': string;
-    /**
-     * 
-     * @type {GetNodesResponseDataNodesInnerLicense}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'license': GetNodesResponseDataNodesInnerLicense;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'status': string;
-    /**
-     * 
-     * @type {GetNodesResponseDataNodesInnerVcpu}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'vcpu': GetNodesResponseDataNodesInnerVcpu;
-    /**
-     * 
-     * @type {GetNodesResponseDataNodesInnerMemory}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'memory': GetNodesResponseDataNodesInnerMemory;
-    /**
-     * 
-     * @type {GetNodesResponseDataNodesInnerMemory}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'storage': GetNodesResponseDataNodesInnerMemory;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'uptimeSeconds': number;
-    /**
-     * 
-     * @type {GetNodesResponseDataNodesInnerLabels}
-     * @memberof GetNodesResponseDataNodesInner
-     */
-    'labels': GetNodesResponseDataNodesInnerLabels;
-}
-/**
- * 
- * @export
- * @interface GetNodesResponseDataNodesInnerLabels
- */
-export interface GetNodesResponseDataNodesInnerLabels {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInnerLabels
-     */
-    'isGpuEnabled': string;
-}
-/**
- * 
- * @export
- * @interface GetNodesResponseDataNodesInnerLicense
- */
-export interface GetNodesResponseDataNodesInnerLicense {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInnerLicense
-     */
-    'status': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInnerLicense
-     */
-    'hostname': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInnerLicense
-     */
-    'serial': string;
-    /**
-     * 
-     * @type {GetNodesResponseDataNodesInnerLicenseProduct}
-     * @memberof GetNodesResponseDataNodesInnerLicense
-     */
-    'product': GetNodesResponseDataNodesInnerLicenseProduct;
-    /**
-     * 
-     * @type {GetLicensesResponseDataLicensesInnerIssue}
-     * @memberof GetNodesResponseDataNodesInnerLicense
-     */
-    'issue': GetLicensesResponseDataLicensesInnerIssue;
-    /**
-     * 
-     * @type {GetNodesResponseDataNodesInnerLicenseServiceLevelAgreement}
-     * @memberof GetNodesResponseDataNodesInnerLicense
-     */
-    'serviceLevelAgreement': GetNodesResponseDataNodesInnerLicenseServiceLevelAgreement;
-    /**
-     * 
-     * @type {GetLicensesResponseDataLicensesInnerExpiry}
-     * @memberof GetNodesResponseDataNodesInnerLicense
-     */
-    'expiry': GetLicensesResponseDataLicensesInnerExpiry;
-}
-/**
- * 
- * @export
- * @interface GetNodesResponseDataNodesInnerLicenseProduct
- */
-export interface GetNodesResponseDataNodesInnerLicenseProduct {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInnerLicenseProduct
-     */
-    'name': string;
-    /**
-     * 
-     * @type {GetMeResponseData}
-     * @memberof GetNodesResponseDataNodesInnerLicenseProduct
-     */
-    'features': GetMeResponseData;
-}
-/**
- * 
- * @export
- * @interface GetNodesResponseDataNodesInnerLicenseServiceLevelAgreement
- */
-export interface GetNodesResponseDataNodesInnerLicenseServiceLevelAgreement {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodesResponseDataNodesInnerLicenseServiceLevelAgreement
-     */
-    'uptime': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInnerLicenseServiceLevelAgreement
-     */
-    'period': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInnerLicenseServiceLevelAgreement
-     */
-    'meanTimeBetweenFailure': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodesResponseDataNodesInnerLicenseServiceLevelAgreement
-     */
-    'meanTimeToRepair': string;
-}
-/**
- * 
- * @export
- * @interface GetNodesResponseDataNodesInnerMemory
- */
-export interface GetNodesResponseDataNodesInnerMemory {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodesResponseDataNodesInnerMemory
-     */
-    'totalMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodesResponseDataNodesInnerMemory
-     */
-    'usedMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodesResponseDataNodesInnerMemory
-     */
-    'freeMiB': number;
-}
-/**
- * 
- * @export
- * @interface GetNodesResponseDataNodesInnerVcpu
- */
-export interface GetNodesResponseDataNodesInnerVcpu {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodesResponseDataNodesInnerVcpu
-     */
-    'totalCores': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodesResponseDataNodesInnerVcpu
-     */
-    'usedCores': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodesResponseDataNodesInnerVcpu
-     */
-    'freeCores': number;
+    'page': Page;
 }
 /**
  * 
@@ -3663,16 +3835,16 @@ export interface GetSettingResponseData {
 export interface GetSettingResponseDataEmail {
     /**
      * 
-     * @type {Array<EmailSender>}
+     * @type {Array<EmailSenderResponse>}
      * @memberof GetSettingResponseDataEmail
      */
-    'senders': Array<EmailSender>;
+    'senders': Array<EmailSenderResponse>;
     /**
      * 
-     * @type {Array<EmailRecipient>}
+     * @type {Array<EmailRecipientResponse>}
      * @memberof GetSettingResponseDataEmail
      */
-    'recipients': Array<EmailRecipient>;
+    'recipients': Array<EmailRecipientResponse>;
 }
 /**
  * 
@@ -3682,10 +3854,10 @@ export interface GetSettingResponseDataEmail {
 export interface GetSettingResponseDataSlack {
     /**
      * 
-     * @type {SlackChannel}
+     * @type {Array<SlackChannelPostRequest>}
      * @memberof GetSettingResponseDataSlack
      */
-    'channel'?: SlackChannel;
+    'channels'?: Array<SlackChannelPostRequest>;
 }
 /**
  * 
@@ -3751,10 +3923,10 @@ export interface GetSlackChannelsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<SlackChannel>}
+     * @type {Array<SlackChannelGetResponse>}
      * @memberof GetSlackChannelsResponse
      */
-    'data': Array<SlackChannel>;
+    'data': Array<SlackChannelGetResponse>;
     /**
      * 
      * @type {string}
@@ -3767,6 +3939,81 @@ export interface GetSlackChannelsResponse {
      * @memberof GetSlackChannelsResponse
      */
     'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetSupportFiles500Response
+ */
+export interface GetSupportFiles500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetSupportFiles500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSupportFiles500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSupportFiles500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetSupportFilesResponse
+ */
+export interface GetSupportFilesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetSupportFilesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetSupportFilesResponseData}
+     * @memberof GetSupportFilesResponse
+     */
+    'data': GetSupportFilesResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSupportFilesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSupportFilesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetSupportFilesResponseData
+ */
+export interface GetSupportFilesResponseData {
+    /**
+     * 
+     * @type {Array<SupportFileSet>}
+     * @memberof GetSupportFilesResponseData
+     */
+    'supportFileSet': Array<SupportFileSet>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof GetSupportFilesResponseData
+     */
+    'page': Page;
 }
 /**
  * 
@@ -3915,6 +4162,336 @@ export interface GetTokensResponseDataExpires {
 /**
  * 
  * @export
+ * @interface GetTriggerResponse
+ */
+export interface GetTriggerResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetTriggerResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetTriggerResponseData}
+     * @memberof GetTriggerResponse
+     */
+    'data': GetTriggerResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerResponseData
+ */
+export interface GetTriggerResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerResponseData
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerResponseData
+     */
+    'description': string;
+    /**
+     * 
+     * @type {GetTriggersResponseDataInnerAttributes}
+     * @memberof GetTriggerResponseData
+     */
+    'attributes': GetTriggersResponseDataInnerAttributes;
+    /**
+     * 
+     * @type {GetTriggerResponseDataResponse}
+     * @memberof GetTriggerResponseData
+     */
+    'response': GetTriggerResponseDataResponse;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetTriggerResponseData
+     */
+    'enabled': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerResponseDataResponse
+ */
+export interface GetTriggerResponseDataResponse {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'types': Array<string>;
+    /**
+     * 
+     * @type {Array<GetTriggersResponseDataInnerResponseSlacksInner>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'slacks': Array<GetTriggersResponseDataInnerResponseSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerResponseDataResponseEmailsInner>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'emails': Array<GetTriggerResponseDataResponseEmailsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerResponseDataResponseEmailsInner
+ */
+export interface GetTriggerResponseDataResponseEmailsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerResponseDataResponseEmailsInner
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerResponseDataResponseEmailsInner
+     */
+    'note': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggers500Response
+ */
+export interface GetTriggers500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetTriggers500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggers500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggers500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponse
+ */
+export interface GetTriggersResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetTriggersResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<GetTriggersResponseDataInner>}
+     * @memberof GetTriggersResponse
+     */
+    'data': Array<GetTriggersResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponseDataInner
+ */
+export interface GetTriggersResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInner
+     */
+    'description': string;
+    /**
+     * 
+     * @type {GetTriggersResponseDataInnerAttributes}
+     * @memberof GetTriggersResponseDataInner
+     */
+    'attributes': GetTriggersResponseDataInnerAttributes;
+    /**
+     * 
+     * @type {GetTriggersResponseDataInnerResponse}
+     * @memberof GetTriggersResponseDataInner
+     */
+    'response': GetTriggersResponseDataInnerResponse;
+    /**
+     * 
+     * @type {GetTriggersResponseDataInnerStatus}
+     * @memberof GetTriggersResponseDataInner
+     */
+    'status': GetTriggersResponseDataInnerStatus;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetTriggersResponseDataInner
+     */
+    'enabled': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponseDataInnerAttributes
+ */
+export interface GetTriggersResponseDataInnerAttributes {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerAttributes
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerAttributes
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerAttributes
+     */
+    'value': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetTriggersResponseDataInnerAttributes
+     */
+    'enabled': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponseDataInnerResponse
+ */
+export interface GetTriggersResponseDataInnerResponse {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggersResponseDataInnerResponse
+     */
+    'types': Array<string>;
+    /**
+     * 
+     * @type {Array<GetTriggersResponseDataInnerResponseSlacksInner>}
+     * @memberof GetTriggersResponseDataInnerResponse
+     */
+    'slacks': Array<GetTriggersResponseDataInnerResponseSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggersResponseDataInnerResponseEmailsInner>}
+     * @memberof GetTriggersResponseDataInnerResponse
+     */
+    'emails': Array<GetTriggersResponseDataInnerResponseEmailsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponseDataInnerResponseEmailsInner
+ */
+export interface GetTriggersResponseDataInnerResponseEmailsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
+     */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
+     */
+    'note': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponseDataInnerResponseSlacksInner
+ */
+export interface GetTriggersResponseDataInnerResponseSlacksInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
+     */
+    'url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponseDataInnerStatus
+ */
+export interface GetTriggersResponseDataInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggersResponseDataInnerStatus
+     */
+    'current'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetTriggersResponseDataInnerStatus
+     */
+    'isUpdating': boolean;
+}
+/**
+ * 
+ * @export
  * @interface ImportClusterLicense500Response
  */
 export interface ImportClusterLicense500Response {
@@ -3948,118 +4525,168 @@ export interface ListTuningResponse {
      * @type {number}
      * @memberof ListTuningResponse
      */
-    'code'?: number;
+    'code': number;
     /**
      * 
-     * @type {Array<ListTuningResponseDataInner>}
+     * @type {ListTuningResponseData}
      * @memberof ListTuningResponse
      */
-    'data'?: Array<ListTuningResponseDataInner>;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListTuningResponse
-     */
-    'msg'?: string;
+    'data': ListTuningResponseData;
     /**
      * 
      * @type {string}
      * @memberof ListTuningResponse
      */
-    'status'?: string;
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponse
+     */
+    'status': string;
 }
 /**
  * 
  * @export
- * @interface ListTuningResponseDataInner
+ * @interface ListTuningResponseData
  */
-export interface ListTuningResponseDataInner {
+export interface ListTuningResponseData {
+    /**
+     * 
+     * @type {Array<ListTuningResponseDataTuningsInner>}
+     * @memberof ListTuningResponseData
+     */
+    'tunings': Array<ListTuningResponseDataTuningsInner>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof ListTuningResponseData
+     */
+    'page': Page;
+}
+/**
+ * 
+ * @export
+ * @interface ListTuningResponseDataTuningsInner
+ */
+export interface ListTuningResponseDataTuningsInner {
     /**
      * 
      * @type {string}
-     * @memberof ListTuningResponseDataInner
+     * @memberof ListTuningResponseDataTuningsInner
      */
     'name': string;
     /**
      * 
      * @type {string}
-     * @memberof ListTuningResponseDataInner
+     * @memberof ListTuningResponseDataTuningsInner
      */
     'value': string;
     /**
      * 
      * @type {Array<string>}
-     * @memberof ListTuningResponseDataInner
+     * @memberof ListTuningResponseDataTuningsInner
      */
     'hosts': Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof ListTuningResponseDataInner
+     * @memberof ListTuningResponseDataTuningsInner
      */
     'description': string;
     /**
      * 
      * @type {boolean}
-     * @memberof ListTuningResponseDataInner
+     * @memberof ListTuningResponseDataTuningsInner
      */
     'enabled': boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof ListTuningResponseDataInner
+     * @memberof ListTuningResponseDataTuningsInner
      */
     'isModified': boolean;
     /**
      * 
-     * @type {ListTuningResponseDataInnerLimitation}
-     * @memberof ListTuningResponseDataInner
+     * @type {ListTuningResponseDataTuningsInnerLimitation}
+     * @memberof ListTuningResponseDataTuningsInner
      */
-    'limitation': ListTuningResponseDataInnerLimitation;
+    'limitation': ListTuningResponseDataTuningsInnerLimitation;
+    /**
+     * 
+     * @type {ListTuningResponseDataTuningsInnerStatus}
+     * @memberof ListTuningResponseDataTuningsInner
+     */
+    'status': ListTuningResponseDataTuningsInnerStatus;
 }
 /**
  * 
  * @export
- * @interface ListTuningResponseDataInnerLimitation
+ * @interface ListTuningResponseDataTuningsInnerLimitation
  */
-export interface ListTuningResponseDataInnerLimitation {
+export interface ListTuningResponseDataTuningsInnerLimitation {
     /**
      * 
      * @type {string}
-     * @memberof ListTuningResponseDataInnerLimitation
+     * @memberof ListTuningResponseDataTuningsInnerLimitation
      */
     'type': string;
     /**
      * 
-     * @type {ListTuningResponseDataInnerLimitationDefault}
-     * @memberof ListTuningResponseDataInnerLimitation
+     * @type {ListTuningResponseDataTuningsInnerLimitationDefault}
+     * @memberof ListTuningResponseDataTuningsInnerLimitation
      */
-    'default': ListTuningResponseDataInnerLimitationDefault;
+    'default': ListTuningResponseDataTuningsInnerLimitationDefault;
     /**
      * 
-     * @type {ListTuningResponseDataInnerLimitationMin}
-     * @memberof ListTuningResponseDataInnerLimitation
+     * @type {ListTuningResponseDataTuningsInnerLimitationMin}
+     * @memberof ListTuningResponseDataTuningsInnerLimitation
      */
-    'min': ListTuningResponseDataInnerLimitationMin;
+    'min': ListTuningResponseDataTuningsInnerLimitationMin;
     /**
      * 
-     * @type {ListTuningResponseDataInnerLimitationMin}
-     * @memberof ListTuningResponseDataInnerLimitation
+     * @type {ListTuningResponseDataTuningsInnerLimitationMin}
+     * @memberof ListTuningResponseDataTuningsInnerLimitation
      */
-    'max': ListTuningResponseDataInnerLimitationMin;
+    'max': ListTuningResponseDataTuningsInnerLimitationMin;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataTuningsInnerLimitation
+     */
+    'regex'?: string;
 }
 /**
- * @type ListTuningResponseDataInnerLimitationDefault
+ * @type ListTuningResponseDataTuningsInnerLimitationDefault
  * @export
  */
-export type ListTuningResponseDataInnerLimitationDefault = boolean | number | string;
+export type ListTuningResponseDataTuningsInnerLimitationDefault = boolean | number | string;
 
 /**
- * @type ListTuningResponseDataInnerLimitationMin
+ * @type ListTuningResponseDataTuningsInnerLimitationMin
  * @export
  */
-export type ListTuningResponseDataInnerLimitationMin = number;
+export type ListTuningResponseDataTuningsInnerLimitationMin = number;
 
+/**
+ * 
+ * @export
+ * @interface ListTuningResponseDataTuningsInnerStatus
+ */
+export interface ListTuningResponseDataTuningsInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataTuningsInnerStatus
+     */
+    'updatedAt'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListTuningResponseDataTuningsInnerStatus
+     */
+    'isUpdating': boolean;
+}
 /**
  * 
  * @export
@@ -4071,25 +4698,25 @@ export interface ListTuningSpecResponse {
      * @type {number}
      * @memberof ListTuningSpecResponse
      */
-    'code'?: number;
+    'code': number;
     /**
      * 
      * @type {Array<ListTuningSpecResponseDataInner>}
      * @memberof ListTuningSpecResponse
      */
-    'data'?: Array<ListTuningSpecResponseDataInner>;
+    'data': Array<ListTuningSpecResponseDataInner>;
     /**
      * 
      * @type {string}
      * @memberof ListTuningSpecResponse
      */
-    'msg'?: string;
+    'msg': string;
     /**
      * 
      * @type {string}
      * @memberof ListTuningSpecResponse
      */
-    'status'?: string;
+    'status': string;
 }
 /**
  * 
@@ -4136,22 +4763,28 @@ export interface ListTuningSpecResponseDataInnerLimitation {
     'type': string;
     /**
      * 
-     * @type {ListTuningResponseDataInnerLimitationDefault}
+     * @type {ListTuningResponseDataTuningsInnerLimitationDefault}
      * @memberof ListTuningSpecResponseDataInnerLimitation
      */
-    'default': ListTuningResponseDataInnerLimitationDefault;
+    'default': ListTuningResponseDataTuningsInnerLimitationDefault;
     /**
      * 
-     * @type {ListTuningResponseDataInnerLimitationMin}
+     * @type {ListTuningResponseDataTuningsInnerLimitationMin}
      * @memberof ListTuningSpecResponseDataInnerLimitation
      */
-    'min'?: ListTuningResponseDataInnerLimitationMin;
+    'min'?: ListTuningResponseDataTuningsInnerLimitationMin;
     /**
      * 
-     * @type {ListTuningResponseDataInnerLimitationMin}
+     * @type {ListTuningResponseDataTuningsInnerLimitationMin}
      * @memberof ListTuningSpecResponseDataInnerLimitation
      */
-    'max'?: ListTuningResponseDataInnerLimitationMin;
+    'max'?: ListTuningResponseDataTuningsInnerLimitationMin;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningSpecResponseDataInnerLimitation
+     */
+    'regex'?: string;
 }
 /**
  * 
@@ -4164,13 +4797,13 @@ export interface ListTuningSpecResponseDataInnerRolesInner {
      * @type {string}
      * @memberof ListTuningSpecResponseDataInnerRolesInner
      */
-    'name'?: string;
+    'name': string;
     /**
      * 
      * @type {Array<ListTuningSpecResponseDataInnerRolesInnerHostsInner>}
      * @memberof ListTuningSpecResponseDataInnerRolesInner
      */
-    'hosts'?: Array<ListTuningSpecResponseDataInnerRolesInnerHostsInner>;
+    'hosts': Array<ListTuningSpecResponseDataInnerRolesInnerHostsInner>;
 }
 /**
  * 
@@ -4315,6 +4948,393 @@ export interface MetricRankRankInnerHistoryInner {
      * @memberof MetricRankRankInnerHistoryInner
      */
     'value': number;
+}
+/**
+ * 
+ * @export
+ * @interface Node
+ */
+export interface Node {
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'dataCenter': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'hostname': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'role': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'protocol': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'ip': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'managementIP': string;
+    /**
+     * 
+     * @type {NodeLicense}
+     * @memberof Node
+     */
+    'license': NodeLicense;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'status': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'cpuSpec': string;
+    /**
+     * 
+     * @type {Array<NodeNetworkInterfacesInner>}
+     * @memberof Node
+     */
+    'networkInterfaces': Array<NodeNetworkInterfacesInner>;
+    /**
+     * 
+     * @type {Array<NodeBlockDevicesInner>}
+     * @memberof Node
+     */
+    'blockDevices': Array<NodeBlockDevicesInner>;
+    /**
+     * 
+     * @type {GetMetricsResponseDataHostUsagesInnerCpu}
+     * @memberof Node
+     */
+    'vcpu': GetMetricsResponseDataHostUsagesInnerCpu;
+    /**
+     * 
+     * @type {NodeMemory}
+     * @memberof Node
+     */
+    'memory': NodeMemory;
+    /**
+     * 
+     * @type {NodeMemory}
+     * @memberof Node
+     */
+    'storage': NodeMemory;
+    /**
+     * 
+     * @type {number}
+     * @memberof Node
+     */
+    'uptimeSeconds': number;
+    /**
+     * 
+     * @type {object}
+     * @memberof Node
+     */
+    'labels': object;
+}
+/**
+ * 
+ * @export
+ * @interface NodeBlockDevicesInner
+ */
+export interface NodeBlockDevicesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeBlockDevicesInner
+     */
+    'device': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeBlockDevicesInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof NodeBlockDevicesInner
+     */
+    'sizeMiB': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeBlockDevicesInner
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface NodeLicense
+ */
+export interface NodeLicense {
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicense
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicense
+     */
+    'hostname': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicense
+     */
+    'serial': string;
+    /**
+     * 
+     * @type {GetLicensesResponseDataLicensesInnerProduct}
+     * @memberof NodeLicense
+     */
+    'product': GetLicensesResponseDataLicensesInnerProduct;
+    /**
+     * 
+     * @type {NodeLicenseIssue}
+     * @memberof NodeLicense
+     */
+    'issue': NodeLicenseIssue;
+    /**
+     * 
+     * @type {GetLicensesResponseDataLicensesInnerQuantity}
+     * @memberof NodeLicense
+     */
+    'quantity': GetLicensesResponseDataLicensesInnerQuantity;
+    /**
+     * 
+     * @type {NodeLicenseServiceLevelAgreement}
+     * @memberof NodeLicense
+     */
+    'serviceLevelAgreement': NodeLicenseServiceLevelAgreement;
+    /**
+     * 
+     * @type {NodeLicenseExpiry}
+     * @memberof NodeLicense
+     */
+    'expiry': NodeLicenseExpiry;
+}
+/**
+ * 
+ * @export
+ * @interface NodeLicenseExpiry
+ */
+export interface NodeLicenseExpiry {
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicenseExpiry
+     */
+    'date': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof NodeLicenseExpiry
+     */
+    'days': number;
+}
+/**
+ * 
+ * @export
+ * @interface NodeLicenseIssue
+ */
+export interface NodeLicenseIssue {
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicenseIssue
+     */
+    'by': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicenseIssue
+     */
+    'to': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicenseIssue
+     */
+    'hardware': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicenseIssue
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface NodeLicenseServiceLevelAgreement
+ */
+export interface NodeLicenseServiceLevelAgreement {
+    /**
+     * 
+     * @type {number}
+     * @memberof NodeLicenseServiceLevelAgreement
+     */
+    'uptime': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicenseServiceLevelAgreement
+     */
+    'period': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicenseServiceLevelAgreement
+     */
+    'meanTimeBetweenFailure': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicenseServiceLevelAgreement
+     */
+    'meanTimeToRecovery'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface NodeMemory
+ */
+export interface NodeMemory {
+    /**
+     * 
+     * @type {number}
+     * @memberof NodeMemory
+     */
+    'totalMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof NodeMemory
+     */
+    'usedMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof NodeMemory
+     */
+    'usedPercent': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof NodeMemory
+     */
+    'freeMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof NodeMemory
+     */
+    'freePercent': number;
+}
+/**
+ * 
+ * @export
+ * @interface NodeNetworkInterfacesInner
+ */
+export interface NodeNetworkInterfacesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeNetworkInterfacesInner
+     */
+    'label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeNetworkInterfacesInner
+     */
+    'busIdSlaves': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeNetworkInterfacesInner
+     */
+    'driver': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeNetworkInterfacesInner
+     */
+    'state': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeNetworkInterfacesInner
+     */
+    'speed': string;
+}
+/**
+ * 
+ * @export
+ * @interface Page
+ */
+export interface Page {
+    /**
+     * 
+     * @type {number}
+     * @memberof Page
+     */
+    'total': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Page
+     */
+    'number': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Page
+     */
+    'size': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Page
+     */
+    'totalItemCount': number;
 }
 /**
  * 
@@ -4600,84 +5620,15 @@ export interface RepairAllModulesHealth500Response {
 /**
  * 
  * @export
- * @interface ResetTuning400Response
- */
-export interface ResetTuning400Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof ResetTuning400Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ResetTuning400Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ResetTuning400Response
-     */
-    'status'?: string;
-}
-/**
- * 
- * @export
- * @interface ResetTuning500Response
- */
-export interface ResetTuning500Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof ResetTuning500Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ResetTuning500Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ResetTuning500Response
-     */
-    'status'?: string;
-}
-/**
- * 
- * @export
  * @interface ResetTuningRequest
  */
 export interface ResetTuningRequest {
     /**
      * 
-     * @type {Array<ResetTuningRequestRolesInner>}
+     * @type {Array<string>}
      * @memberof ResetTuningRequest
      */
-    'roles': Array<ResetTuningRequestRolesInner>;
-}
-/**
- * 
- * @export
- * @interface ResetTuningRequestRolesInner
- */
-export interface ResetTuningRequestRolesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof ResetTuningRequestRolesInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {Array<GetMeResponseData>}
-     * @memberof ResetTuningRequestRolesInner
-     */
-    'hosts': Array<GetMeResponseData>;
+    'hosts': Array<string>;
 }
 /**
  * 
@@ -4806,27 +5757,207 @@ export interface RoleUsageMemory {
 /**
  * 
  * @export
- * @interface SlackChannel
+ * @interface SlackChannelGetResponse
  */
-export interface SlackChannel {
+export interface SlackChannelGetResponse {
     /**
      * 
      * @type {string}
-     * @memberof SlackChannel
+     * @memberof SlackChannelGetResponse
      */
     'name': string;
     /**
      * 
      * @type {string}
-     * @memberof SlackChannel
+     * @memberof SlackChannelGetResponse
      */
     'url': string;
     /**
      * 
      * @type {string}
-     * @memberof SlackChannel
+     * @memberof SlackChannelGetResponse
      */
     'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface SlackChannelPostRequest
+ */
+export interface SlackChannelPostRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannelPostRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannelPostRequest
+     */
+    'url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannelPostRequest
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface SlackChannelPutRequest
+ */
+export interface SlackChannelPutRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannelPutRequest
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannelPutRequest
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlackChannelPutRequest
+     */
+    'description'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SupportFile
+ */
+export interface SupportFile {
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFile
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SupportFile
+     */
+    'sizeMiB': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFile
+     */
+    'group': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFile
+     */
+    'description': string;
+    /**
+     * 
+     * @type {SupportFileSource}
+     * @memberof SupportFile
+     */
+    'source': SupportFileSource;
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFile
+     */
+    'url': string;
+    /**
+     * 
+     * @type {SupportFileSetStatus}
+     * @memberof SupportFile
+     */
+    'status': SupportFileSetStatus;
+}
+/**
+ * 
+ * @export
+ * @interface SupportFileSet
+ */
+export interface SupportFileSet {
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFileSet
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFileSet
+     */
+    'description': string;
+    /**
+     * 
+     * @type {Array<SupportFile>}
+     * @memberof SupportFileSet
+     */
+    'files': Array<SupportFile>;
+    /**
+     * 
+     * @type {number}
+     * @memberof SupportFileSet
+     */
+    'sizeMiB': number;
+    /**
+     * 
+     * @type {SupportFileSetStatus}
+     * @memberof SupportFileSet
+     */
+    'status': SupportFileSetStatus;
+}
+/**
+ * 
+ * @export
+ * @interface SupportFileSetStatus
+ */
+export interface SupportFileSetStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFileSetStatus
+     */
+    'current': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFileSetStatus
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SupportFileSetStatus
+     */
+    'isCreating': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface SupportFileSource
+ */
+export interface SupportFileSource {
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFileSource
+     */
+    'role': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SupportFileSource
+     */
+    'host': string;
 }
 /**
  * 
@@ -5107,60 +6238,223 @@ export interface UpdateTitlePrefixResponse {
 /**
  * 
  * @export
+ * @interface UpdateTrigger400Response
+ */
+export interface UpdateTrigger400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTrigger400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTrigger400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTrigger400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTrigger500Response
+ */
+export interface UpdateTrigger500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTrigger500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTrigger500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTrigger500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTriggerRequest
+ */
+export interface UpdateTriggerRequest {
+    /**
+     * 
+     * @type {Array<GetTriggersResponseDataInnerAttributes>}
+     * @memberof UpdateTriggerRequest
+     */
+    'attributes': Array<GetTriggersResponseDataInnerAttributes>;
+    /**
+     * 
+     * @type {UpdateTriggerRequestResponse}
+     * @memberof UpdateTriggerRequest
+     */
+    'response': UpdateTriggerRequestResponse;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateTriggerRequest
+     */
+    'enabled': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTriggerRequestResponse
+ */
+export interface UpdateTriggerRequestResponse {
+    /**
+     * 
+     * @type {Array<UpdateTriggerRequestResponseSlacksInner>}
+     * @memberof UpdateTriggerRequestResponse
+     */
+    'slacks': Array<UpdateTriggerRequestResponseSlacksInner>;
+    /**
+     * 
+     * @type {Array<UpdateTriggerRequestResponseEmailsInner>}
+     * @memberof UpdateTriggerRequestResponse
+     */
+    'emails': Array<UpdateTriggerRequestResponseEmailsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTriggerRequestResponseEmailsInner
+ */
+export interface UpdateTriggerRequestResponseEmailsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTriggerRequestResponseEmailsInner
+     */
+    'address': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTriggerRequestResponseSlacksInner
+ */
+export interface UpdateTriggerRequestResponseSlacksInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTriggerRequestResponseSlacksInner
+     */
+    'url': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTriggerResponse
+ */
+export interface UpdateTriggerResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTriggerResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTriggerResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTriggerResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTuning400Response
+ */
+export interface UpdateTuning400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTuning400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTuning400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTuning400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTuning500Response
+ */
+export interface UpdateTuning500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateTuning500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTuning500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTuning500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface UpdateTuningRequest
  */
 export interface UpdateTuningRequest {
     /**
      * 
-     * @type {boolean}
+     * @type {UpdateTuningRequestValue}
      * @memberof UpdateTuningRequest
      */
-    'value': boolean;
+    'value': UpdateTuningRequestValue;
     /**
      * 
-     * @type {boolean}
+     * @type {Array<string>}
      * @memberof UpdateTuningRequest
      */
-    'enabled': boolean;
-    /**
-     * 
-     * @type {Array<UpdateTuningRequestRolesInner>}
-     * @memberof UpdateTuningRequest
-     */
-    'roles': Array<UpdateTuningRequestRolesInner>;
+    'hosts': Array<string>;
 }
 /**
- * 
+ * @type UpdateTuningRequestValue
  * @export
- * @interface UpdateTuningRequestRolesInner
  */
-export interface UpdateTuningRequestRolesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTuningRequestRolesInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {Array<UpdateTuningRequestRolesInnerHostsInner>}
-     * @memberof UpdateTuningRequestRolesInner
-     */
-    'hosts': Array<UpdateTuningRequestRolesInnerHostsInner>;
-}
-/**
- * 
- * @export
- * @interface UpdateTuningRequestRolesInnerHostsInner
- */
-export interface UpdateTuningRequestRolesInnerHostsInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTuningRequestRolesInnerHostsInner
-     */
-    'name': string;
-}
+export type UpdateTuningRequestValue = boolean | number | string;
+
 /**
  * 
  * @export
@@ -5491,13 +6785,13 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} [past] The past time of the event to query, use the unit of \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix to specify the time range.
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEvents: async (dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, category?: string, severity?: string, host?: string, instance?: string, past?: string, start?: string, stop?: string, pageNum?: number, pageSize?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getEvents: async (dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, category?: string, severity?: string, host?: string, instance?: string, past?: string, start?: string, stop?: string, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getEvents', 'dataCenter', dataCenter)
             // verify required parameter 'type' is not null or undefined
@@ -5555,12 +6849,12 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['stop'] = stop;
             }
 
-            if (pageNum !== undefined) {
-                localVarQueryParameter['pageNum'] = pageNum;
-            }
-
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
             }
 
             if (watch !== undefined) {
@@ -5720,14 +7014,14 @@ export const EventsApiFp = function(configuration?: Configuration) {
          * @param {string} [past] The past time of the event to query, use the unit of \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix to specify the time range.
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEvents(dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, category?: string, severity?: string, host?: string, instance?: string, past?: string, start?: string, stop?: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEvents(dataCenter, type, keyword, id, category, severity, host, instance, past, start, stop, pageNum, pageSize, watch, options);
+        async getEvents(dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, category?: string, severity?: string, host?: string, instance?: string, past?: string, start?: string, stop?: string, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEvents(dataCenter, type, keyword, id, category, severity, host, instance, past, start, stop, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EventsApi.getEvents']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5793,7 +7087,7 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
-            return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5962,18 +7256,18 @@ export interface EventsApiGetEventsRequest {
     readonly stop?: string
 
     /**
-     * The page number of the event chunking to fetch (default is 1).
-     * @type {number}
-     * @memberof EventsApiGetEvents
-     */
-    readonly pageNum?: number
-
-    /**
-     * The size per page of the events to return (default is unlimit).
+     * The number of items per page (default is unlimit).
      * @type {number}
      * @memberof EventsApiGetEvents
      */
     readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof EventsApiGetEvents
+     */
+    readonly pageNum?: number
 
     /**
      * The toggle to enable http chunked transfer for continuous server push.
@@ -6107,7 +7401,7 @@ export class EventsApi extends BaseAPI {
      * @memberof EventsApi
      */
     public getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig) {
-        return EventsApiFp(this.configuration).getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return EventsApiFp(this.configuration).getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6170,6 +7464,567 @@ export const GetRankedEventsPastEnum = {
     _14d: '14d'
 } as const;
 export type GetRankedEventsPastEnum = typeof GetRankedEventsPastEnum[keyof typeof GetRankedEventsPastEnum];
+
+
+/**
+ * GrafanaApi - axios parameter creator
+ * @export
+ */
+export const GrafanaApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Get Grafana hosts dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} hostname The hostname of the host to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaHosts: async (dataCenter: string, hostname: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaHosts', 'dataCenter', dataCenter)
+            // verify required parameter 'hostname' is not null or undefined
+            assertParamExists('getGrafanaHosts', 'hostname', hostname)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/hosts/{hostname}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"hostname"}}`, encodeURIComponent(String(hostname)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Grafana instances dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} instanceId The instance ID of the instance to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaInstances: async (dataCenter: string, instanceId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaInstances', 'dataCenter', dataCenter)
+            // verify required parameter 'instanceId' is not null or undefined
+            assertParamExists('getGrafanaInstances', 'instanceId', instanceId)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/instances/{instanceId}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"instanceId"}}`, encodeURIComponent(String(instanceId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Grafana networks dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaNetworks: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaNetworks', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/networks`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Grafana storages dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaStorages: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaStorages', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/storages`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Grafana top hosts dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaTopHosts: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaTopHosts', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/topHosts`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Grafana top instances dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaTopInstances: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaTopInstances', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/topInstances`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * GrafanaApi - functional programming interface
+ * @export
+ */
+export const GrafanaApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = GrafanaApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Get Grafana hosts dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} hostname The hostname of the host to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaHosts(dataCenter: string, hostname: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaHosts(dataCenter, hostname, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaHosts']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get Grafana instances dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} instanceId The instance ID of the instance to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaInstances(dataCenter: string, instanceId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaInstances(dataCenter, instanceId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaInstances']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get Grafana networks dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaNetworks(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaNetworks(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaNetworks']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get Grafana storages dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaStorages(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaStorages(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaStorages']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get Grafana top hosts dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaTopHosts(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaTopHosts(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaTopHosts']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get Grafana top instances dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaTopInstances(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaTopInstances(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaTopInstances']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * GrafanaApi - factory interface
+ * @export
+ */
+export const GrafanaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = GrafanaApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Get Grafana hosts dashboard
+         * @param {GrafanaApiGetGrafanaHostsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaHosts(requestParameters: GrafanaApiGetGrafanaHostsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaHosts(requestParameters.dataCenter, requestParameters.hostname, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Grafana instances dashboard
+         * @param {GrafanaApiGetGrafanaInstancesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaInstances(requestParameters: GrafanaApiGetGrafanaInstancesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaInstances(requestParameters.dataCenter, requestParameters.instanceId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Grafana networks dashboard
+         * @param {GrafanaApiGetGrafanaNetworksRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaNetworks(requestParameters: GrafanaApiGetGrafanaNetworksRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaNetworks(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Grafana storages dashboard
+         * @param {GrafanaApiGetGrafanaStoragesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaStorages(requestParameters: GrafanaApiGetGrafanaStoragesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaStorages(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Grafana top hosts dashboard
+         * @param {GrafanaApiGetGrafanaTopHostsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaTopHosts(requestParameters: GrafanaApiGetGrafanaTopHostsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaTopHosts(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Grafana top instances dashboard
+         * @param {GrafanaApiGetGrafanaTopInstancesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaTopInstances(requestParameters: GrafanaApiGetGrafanaTopInstancesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaTopInstances(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for getGrafanaHosts operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaHostsRequest
+ */
+export interface GrafanaApiGetGrafanaHostsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaHosts
+     */
+    readonly dataCenter: string
+
+    /**
+     * The hostname of the host to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaHosts
+     */
+    readonly hostname: string
+}
+
+/**
+ * Request parameters for getGrafanaInstances operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaInstancesRequest
+ */
+export interface GrafanaApiGetGrafanaInstancesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaInstances
+     */
+    readonly dataCenter: string
+
+    /**
+     * The instance ID of the instance to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaInstances
+     */
+    readonly instanceId: string
+}
+
+/**
+ * Request parameters for getGrafanaNetworks operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaNetworksRequest
+ */
+export interface GrafanaApiGetGrafanaNetworksRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaNetworks
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for getGrafanaStorages operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaStoragesRequest
+ */
+export interface GrafanaApiGetGrafanaStoragesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaStorages
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for getGrafanaTopHosts operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaTopHostsRequest
+ */
+export interface GrafanaApiGetGrafanaTopHostsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaTopHosts
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for getGrafanaTopInstances operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaTopInstancesRequest
+ */
+export interface GrafanaApiGetGrafanaTopInstancesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaTopInstances
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * GrafanaApi - object-oriented interface
+ * @export
+ * @class GrafanaApi
+ * @extends {BaseAPI}
+ */
+export class GrafanaApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get Grafana hosts dashboard
+     * @param {GrafanaApiGetGrafanaHostsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaHosts(requestParameters: GrafanaApiGetGrafanaHostsRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaHosts(requestParameters.dataCenter, requestParameters.hostname, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Grafana instances dashboard
+     * @param {GrafanaApiGetGrafanaInstancesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaInstances(requestParameters: GrafanaApiGetGrafanaInstancesRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaInstances(requestParameters.dataCenter, requestParameters.instanceId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Grafana networks dashboard
+     * @param {GrafanaApiGetGrafanaNetworksRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaNetworks(requestParameters: GrafanaApiGetGrafanaNetworksRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaNetworks(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Grafana storages dashboard
+     * @param {GrafanaApiGetGrafanaStoragesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaStorages(requestParameters: GrafanaApiGetGrafanaStoragesRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaStorages(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Grafana top hosts dashboard
+     * @param {GrafanaApiGetGrafanaTopHostsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaTopHosts(requestParameters: GrafanaApiGetGrafanaTopHostsRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaTopHosts(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Grafana top instances dashboard
+     * @param {GrafanaApiGetGrafanaTopInstancesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaTopInstances(requestParameters: GrafanaApiGetGrafanaTopInstancesRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaTopInstances(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 /**
@@ -7172,12 +9027,12 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Retrieve the list of licenses
          * @param {string} dataCenter The name of the data center to operate
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLicenses: async (dataCenter: string, pageNum?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getLicenses: async (dataCenter: string, pageSize?: number, pageNum?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getLicenses', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses`
@@ -7193,12 +9048,12 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (pageNum !== undefined) {
-                localVarQueryParameter['pageNum'] = pageNum;
-            }
-
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
             }
 
 
@@ -7216,21 +9071,17 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Update licenses for the cluster
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} node The name of the node to operate
          * @param {File} license License file (must have a .license extension)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        importClusterLicense: async (dataCenter: string, node: string, license: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        importClusterLicense: async (dataCenter: string, license: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('importClusterLicense', 'dataCenter', dataCenter)
-            // verify required parameter 'node' is not null or undefined
-            assertParamExists('importClusterLicense', 'node', node)
             // verify required parameter 'license' is not null or undefined
             assertParamExists('importClusterLicense', 'license', license)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses`
-                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
-                .replace(`{${"node"}}`, encodeURIComponent(String(node)));
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7324,13 +9175,13 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * 
          * @summary Retrieve the list of licenses
          * @param {string} dataCenter The name of the data center to operate
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLicenses(dataCenter: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicensesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenses(dataCenter, pageNum, pageSize, options);
+        async getLicenses(dataCenter: string, pageSize?: number, pageNum?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicensesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenses(dataCenter, pageSize, pageNum, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LicensesApi.getLicenses']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7339,13 +9190,12 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * 
          * @summary Update licenses for the cluster
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} node The name of the node to operate
          * @param {File} license License file (must have a .license extension)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async importClusterLicense(dataCenter: string, node: string, license: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostLicenseResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.importClusterLicense(dataCenter, node, license, options);
+        async importClusterLicense(dataCenter: string, license: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostLicenseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.importClusterLicense(dataCenter, license, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LicensesApi.importClusterLicense']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7383,7 +9233,7 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         getLicenses(requestParameters: LicensesApiGetLicensesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetLicensesResponse> {
-            return localVarFp.getLicenses(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+            return localVarFp.getLicenses(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7393,7 +9243,7 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         importClusterLicense(requestParameters: LicensesApiImportClusterLicenseRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostLicenseResponse> {
-            return localVarFp.importClusterLicense(requestParameters.dataCenter, requestParameters.node, requestParameters.license, options).then((request) => request(axios, basePath));
+            return localVarFp.importClusterLicense(requestParameters.dataCenter, requestParameters.license, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7422,18 +9272,18 @@ export interface LicensesApiGetLicensesRequest {
     readonly dataCenter: string
 
     /**
-     * The page number of the event chunking to fetch (default is 1).
-     * @type {number}
-     * @memberof LicensesApiGetLicenses
-     */
-    readonly pageNum?: number
-
-    /**
-     * The size per page of the events to return (default is unlimit).
+     * The number of items per page (default is unlimit).
      * @type {number}
      * @memberof LicensesApiGetLicenses
      */
     readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof LicensesApiGetLicenses
+     */
+    readonly pageNum?: number
 }
 
 /**
@@ -7448,13 +9298,6 @@ export interface LicensesApiImportClusterLicenseRequest {
      * @memberof LicensesApiImportClusterLicense
      */
     readonly dataCenter: string
-
-    /**
-     * The name of the node to operate
-     * @type {string}
-     * @memberof LicensesApiImportClusterLicense
-     */
-    readonly node: string
 
     /**
      * License file (must have a .license extension)
@@ -7508,7 +9351,7 @@ export class LicensesApi extends BaseAPI {
      * @memberof LicensesApi
      */
     public getLicenses(requestParameters: LicensesApiGetLicensesRequest, options?: RawAxiosRequestConfig) {
-        return LicensesApiFp(this.configuration).getLicenses(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
+        return LicensesApiFp(this.configuration).getLicenses(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7520,7 +9363,7 @@ export class LicensesApi extends BaseAPI {
      * @memberof LicensesApi
      */
     public importClusterLicense(requestParameters: LicensesApiImportClusterLicenseRequest, options?: RawAxiosRequestConfig) {
-        return LicensesApiFp(this.configuration).importClusterLicense(requestParameters.dataCenter, requestParameters.node, requestParameters.license, options).then((request) => request(this.axios, this.basePath));
+        return LicensesApiFp(this.configuration).importClusterLicense(requestParameters.dataCenter, requestParameters.license, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7973,15 +9816,58 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
-         * @summary Retrieve the list of nodes
+         * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
+         * @param {string} nodeName The name of the node
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNodes: async (dataCenter: string, pageNum?: number, pageSize?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNode: async (dataCenter: string, nodeName: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getNode', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('getNode', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve the list of nodes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNodes: async (dataCenter: string, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getNodes', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes`
@@ -7997,12 +9883,12 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (pageNum !== undefined) {
-                localVarQueryParameter['pageNum'] = pageNum;
-            }
-
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
             }
 
             if (watch !== undefined) {
@@ -8032,16 +9918,31 @@ export const NodesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Retrieve the list of nodes
+         * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
-         * @param {number} [pageNum] The page number of the event chunking to fetch (default is 1).
-         * @param {number} [pageSize] The size per page of the events to return (default is unlimit).
+         * @param {string} nodeName The name of the node
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNodes(dataCenter: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(dataCenter, pageNum, pageSize, watch, options);
+        async getNode(dataCenter: string, nodeName: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNode(dataCenter, nodeName, watch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.getNode']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve the list of nodes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getNodes(dataCenter: string, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(dataCenter, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodesApi.getNodes']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8058,16 +9959,54 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * 
+         * @summary Retrieve the node details
+         * @param {NodesApiGetNodeRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNode(requestParameters: NodesApiGetNodeRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNodeResponse> {
+            return localVarFp.getNode(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve the list of nodes
          * @param {NodesApiGetNodesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNodesResponse> {
-            return localVarFp.getNodes(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getNodes(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getNode operation in NodesApi.
+ * @export
+ * @interface NodesApiGetNodeRequest
+ */
+export interface NodesApiGetNodeRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiGetNode
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiGetNode
+     */
+    readonly nodeName: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof NodesApiGetNode
+     */
+    readonly watch?: boolean
+}
 
 /**
  * Request parameters for getNodes operation in NodesApi.
@@ -8083,18 +10022,18 @@ export interface NodesApiGetNodesRequest {
     readonly dataCenter: string
 
     /**
-     * The page number of the event chunking to fetch (default is 1).
-     * @type {number}
-     * @memberof NodesApiGetNodes
-     */
-    readonly pageNum?: number
-
-    /**
-     * The size per page of the events to return (default is unlimit).
+     * The number of items per page (default is unlimit).
      * @type {number}
      * @memberof NodesApiGetNodes
      */
     readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof NodesApiGetNodes
+     */
+    readonly pageNum?: number
 
     /**
      * The toggle to enable http chunked transfer for continuous server push.
@@ -8113,6 +10052,18 @@ export interface NodesApiGetNodesRequest {
 export class NodesApi extends BaseAPI {
     /**
      * 
+     * @summary Retrieve the node details
+     * @param {NodesApiGetNodeRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public getNode(requestParameters: NodesApiGetNodeRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).getNode(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve the list of nodes
      * @param {NodesApiGetNodesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -8120,7 +10071,7 @@ export class NodesApi extends BaseAPI {
      * @memberof NodesApi
      */
     public getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig) {
-        return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8258,15 +10209,15 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Create an email recipient
          * @param {string} dataCenter The name of the data center to operate
-         * @param {EmailRecipient} emailRecipient 
+         * @param {EmailRecipientPostRequest} emailRecipientPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createEmailRecipient: async (dataCenter: string, emailRecipient: EmailRecipient, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createEmailRecipient: async (dataCenter: string, emailRecipientPostRequest: EmailRecipientPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('createEmailRecipient', 'dataCenter', dataCenter)
-            // verify required parameter 'emailRecipient' is not null or undefined
-            assertParamExists('createEmailRecipient', 'emailRecipient', emailRecipient)
+            // verify required parameter 'emailRecipientPostRequest' is not null or undefined
+            assertParamExists('createEmailRecipient', 'emailRecipientPostRequest', emailRecipientPostRequest)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/recipients`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -8287,7 +10238,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(emailRecipient, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(emailRecipientPostRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8298,15 +10249,15 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Create an email sender
          * @param {string} dataCenter The name of the data center to operate
-         * @param {EmailSender} emailSender 
+         * @param {EmailSenderPostRequest} emailSenderPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createEmailSender: async (dataCenter: string, emailSender: EmailSender, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createEmailSender: async (dataCenter: string, emailSenderPostRequest: EmailSenderPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('createEmailSender', 'dataCenter', dataCenter)
-            // verify required parameter 'emailSender' is not null or undefined
-            assertParamExists('createEmailSender', 'emailSender', emailSender)
+            // verify required parameter 'emailSenderPostRequest' is not null or undefined
+            assertParamExists('createEmailSender', 'emailSenderPostRequest', emailSenderPostRequest)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/senders`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -8327,7 +10278,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(emailSender, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(emailSenderPostRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8338,15 +10289,15 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Create a slack channel
          * @param {string} dataCenter The name of the data center to operate
-         * @param {SlackChannel} slackChannel 
+         * @param {SlackChannelPostRequest} slackChannelPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createSlackChannel: async (dataCenter: string, slackChannel: SlackChannel, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createSlackChannel: async (dataCenter: string, slackChannelPostRequest: SlackChannelPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('createSlackChannel', 'dataCenter', dataCenter)
-            // verify required parameter 'slackChannel' is not null or undefined
-            assertParamExists('createSlackChannel', 'slackChannel', slackChannel)
+            // verify required parameter 'slackChannelPostRequest' is not null or undefined
+            assertParamExists('createSlackChannel', 'slackChannelPostRequest', slackChannelPostRequest)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/slack/channels`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -8367,7 +10318,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(slackChannel, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(slackChannelPostRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8749,17 +10700,17 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Update an email recipient
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} recipientEmail recipient email to update
-         * @param {EmailRecipient} emailRecipient 
+         * @param {EmailRecipientPutRequest} emailRecipientPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateEmailRecipient: async (dataCenter: string, recipientEmail: string, emailRecipient: EmailRecipient, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateEmailRecipient: async (dataCenter: string, recipientEmail: string, emailRecipientPutRequest: EmailRecipientPutRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('updateEmailRecipient', 'dataCenter', dataCenter)
             // verify required parameter 'recipientEmail' is not null or undefined
             assertParamExists('updateEmailRecipient', 'recipientEmail', recipientEmail)
-            // verify required parameter 'emailRecipient' is not null or undefined
-            assertParamExists('updateEmailRecipient', 'emailRecipient', emailRecipient)
+            // verify required parameter 'emailRecipientPutRequest' is not null or undefined
+            assertParamExists('updateEmailRecipient', 'emailRecipientPutRequest', emailRecipientPutRequest)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/recipients/{recipientEmail}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"recipientEmail"}}`, encodeURIComponent(String(recipientEmail)));
@@ -8781,7 +10732,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(emailRecipient, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(emailRecipientPutRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8793,17 +10744,17 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Update an email sender
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} senderHost The host of the email sender to operate
-         * @param {EmailSender} emailSender 
+         * @param {EmailSenderPutRequest} emailSenderPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateEmailSender: async (dataCenter: string, senderHost: string, emailSender: EmailSender, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateEmailSender: async (dataCenter: string, senderHost: string, emailSenderPutRequest: EmailSenderPutRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('updateEmailSender', 'dataCenter', dataCenter)
             // verify required parameter 'senderHost' is not null or undefined
             assertParamExists('updateEmailSender', 'senderHost', senderHost)
-            // verify required parameter 'emailSender' is not null or undefined
-            assertParamExists('updateEmailSender', 'emailSender', emailSender)
+            // verify required parameter 'emailSenderPutRequest' is not null or undefined
+            assertParamExists('updateEmailSender', 'emailSenderPutRequest', emailSenderPutRequest)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/senders/{senderHost}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"senderHost"}}`, encodeURIComponent(String(senderHost)));
@@ -8814,7 +10765,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8825,7 +10776,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(emailSender, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(emailSenderPutRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8837,17 +10788,17 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Update a slack channel
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} channelName channel name to update
-         * @param {SlackChannel} slackChannel 
+         * @param {SlackChannelPutRequest} slackChannelPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSlackChannel: async (dataCenter: string, channelName: string, slackChannel: SlackChannel, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateSlackChannel: async (dataCenter: string, channelName: string, slackChannelPutRequest: SlackChannelPutRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('updateSlackChannel', 'dataCenter', dataCenter)
             // verify required parameter 'channelName' is not null or undefined
             assertParamExists('updateSlackChannel', 'channelName', channelName)
-            // verify required parameter 'slackChannel' is not null or undefined
-            assertParamExists('updateSlackChannel', 'slackChannel', slackChannel)
+            // verify required parameter 'slackChannelPutRequest' is not null or undefined
+            assertParamExists('updateSlackChannel', 'slackChannelPutRequest', slackChannelPutRequest)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/slack/channels/{channelName}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"channelName"}}`, encodeURIComponent(String(channelName)));
@@ -8869,7 +10820,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(slackChannel, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(slackChannelPutRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8930,12 +10881,12 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Create an email recipient
          * @param {string} dataCenter The name of the data center to operate
-         * @param {EmailRecipient} emailRecipient 
+         * @param {EmailRecipientPostRequest} emailRecipientPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createEmailRecipient(dataCenter: string, emailRecipient: EmailRecipient, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostEmailRecipientResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmailRecipient(dataCenter, emailRecipient, options);
+        async createEmailRecipient(dataCenter: string, emailRecipientPostRequest: EmailRecipientPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostEmailRecipientResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmailRecipient(dataCenter, emailRecipientPostRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SettingsApi.createEmailRecipient']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8944,12 +10895,12 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Create an email sender
          * @param {string} dataCenter The name of the data center to operate
-         * @param {EmailSender} emailSender 
+         * @param {EmailSenderPostRequest} emailSenderPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createEmailSender(dataCenter: string, emailSender: EmailSender, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostEmailSenderResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmailSender(dataCenter, emailSender, options);
+        async createEmailSender(dataCenter: string, emailSenderPostRequest: EmailSenderPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostEmailSenderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmailSender(dataCenter, emailSenderPostRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SettingsApi.createEmailSender']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8958,12 +10909,12 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Create a slack channel
          * @param {string} dataCenter The name of the data center to operate
-         * @param {SlackChannel} slackChannel 
+         * @param {SlackChannelPostRequest} slackChannelPostRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createSlackChannel(dataCenter: string, slackChannel: SlackChannel, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostSlackChannelResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createSlackChannel(dataCenter, slackChannel, options);
+        async createSlackChannel(dataCenter: string, slackChannelPostRequest: SlackChannelPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostSlackChannelResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createSlackChannel(dataCenter, slackChannelPostRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SettingsApi.createSlackChannel']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9110,12 +11061,12 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * @summary Update an email recipient
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} recipientEmail recipient email to update
-         * @param {EmailRecipient} emailRecipient 
+         * @param {EmailRecipientPutRequest} emailRecipientPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateEmailRecipient(dataCenter: string, recipientEmail: string, emailRecipient: EmailRecipient, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutEmailRecipientResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateEmailRecipient(dataCenter, recipientEmail, emailRecipient, options);
+        async updateEmailRecipient(dataCenter: string, recipientEmail: string, emailRecipientPutRequest: EmailRecipientPutRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutEmailRecipientResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateEmailRecipient(dataCenter, recipientEmail, emailRecipientPutRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateEmailRecipient']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9125,12 +11076,12 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * @summary Update an email sender
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} senderHost The host of the email sender to operate
-         * @param {EmailSender} emailSender 
+         * @param {EmailSenderPutRequest} emailSenderPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateEmailSender(dataCenter: string, senderHost: string, emailSender: EmailSender, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutEmailSenderResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateEmailSender(dataCenter, senderHost, emailSender, options);
+        async updateEmailSender(dataCenter: string, senderHost: string, emailSenderPutRequest: EmailSenderPutRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutEmailSenderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateEmailSender(dataCenter, senderHost, emailSenderPutRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateEmailSender']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9140,12 +11091,12 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * @summary Update a slack channel
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} channelName channel name to update
-         * @param {SlackChannel} slackChannel 
+         * @param {SlackChannelPutRequest} slackChannelPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateSlackChannel(dataCenter: string, channelName: string, slackChannel: SlackChannel, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutSlackChannelResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSlackChannel(dataCenter, channelName, slackChannel, options);
+        async updateSlackChannel(dataCenter: string, channelName: string, slackChannelPutRequest: SlackChannelPutRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutSlackChannelResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSlackChannel(dataCenter, channelName, slackChannelPutRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateSlackChannel']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9182,7 +11133,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         createEmailRecipient(requestParameters: SettingsApiCreateEmailRecipientRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostEmailRecipientResponse> {
-            return localVarFp.createEmailRecipient(requestParameters.dataCenter, requestParameters.emailRecipient, options).then((request) => request(axios, basePath));
+            return localVarFp.createEmailRecipient(requestParameters.dataCenter, requestParameters.emailRecipientPostRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9192,7 +11143,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         createEmailSender(requestParameters: SettingsApiCreateEmailSenderRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostEmailSenderResponse> {
-            return localVarFp.createEmailSender(requestParameters.dataCenter, requestParameters.emailSender, options).then((request) => request(axios, basePath));
+            return localVarFp.createEmailSender(requestParameters.dataCenter, requestParameters.emailSenderPostRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9202,7 +11153,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         createSlackChannel(requestParameters: SettingsApiCreateSlackChannelRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostSlackChannelResponse> {
-            return localVarFp.createSlackChannel(requestParameters.dataCenter, requestParameters.slackChannel, options).then((request) => request(axios, basePath));
+            return localVarFp.createSlackChannel(requestParameters.dataCenter, requestParameters.slackChannelPostRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9312,7 +11263,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         updateEmailRecipient(requestParameters: SettingsApiUpdateEmailRecipientRequest, options?: RawAxiosRequestConfig): AxiosPromise<PutEmailRecipientResponse> {
-            return localVarFp.updateEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, requestParameters.emailRecipient, options).then((request) => request(axios, basePath));
+            return localVarFp.updateEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, requestParameters.emailRecipientPutRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9322,7 +11273,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         updateEmailSender(requestParameters: SettingsApiUpdateEmailSenderRequest, options?: RawAxiosRequestConfig): AxiosPromise<PutEmailSenderResponse> {
-            return localVarFp.updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSender, options).then((request) => request(axios, basePath));
+            return localVarFp.updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSenderPutRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9332,7 +11283,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         updateSlackChannel(requestParameters: SettingsApiUpdateSlackChannelRequest, options?: RawAxiosRequestConfig): AxiosPromise<PutSlackChannelResponse> {
-            return localVarFp.updateSlackChannel(requestParameters.dataCenter, requestParameters.channelName, requestParameters.slackChannel, options).then((request) => request(axios, basePath));
+            return localVarFp.updateSlackChannel(requestParameters.dataCenter, requestParameters.channelName, requestParameters.slackChannelPutRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9362,10 +11313,10 @@ export interface SettingsApiCreateEmailRecipientRequest {
 
     /**
      * 
-     * @type {EmailRecipient}
+     * @type {EmailRecipientPostRequest}
      * @memberof SettingsApiCreateEmailRecipient
      */
-    readonly emailRecipient: EmailRecipient
+    readonly emailRecipientPostRequest: EmailRecipientPostRequest
 }
 
 /**
@@ -9383,10 +11334,10 @@ export interface SettingsApiCreateEmailSenderRequest {
 
     /**
      * 
-     * @type {EmailSender}
+     * @type {EmailSenderPostRequest}
      * @memberof SettingsApiCreateEmailSender
      */
-    readonly emailSender: EmailSender
+    readonly emailSenderPostRequest: EmailSenderPostRequest
 }
 
 /**
@@ -9404,10 +11355,10 @@ export interface SettingsApiCreateSlackChannelRequest {
 
     /**
      * 
-     * @type {SlackChannel}
+     * @type {SlackChannelPostRequest}
      * @memberof SettingsApiCreateSlackChannel
      */
-    readonly slackChannel: SlackChannel
+    readonly slackChannelPostRequest: SlackChannelPostRequest
 }
 
 /**
@@ -9621,10 +11572,10 @@ export interface SettingsApiUpdateEmailRecipientRequest {
 
     /**
      * 
-     * @type {EmailRecipient}
+     * @type {EmailRecipientPutRequest}
      * @memberof SettingsApiUpdateEmailRecipient
      */
-    readonly emailRecipient: EmailRecipient
+    readonly emailRecipientPutRequest: EmailRecipientPutRequest
 }
 
 /**
@@ -9649,10 +11600,10 @@ export interface SettingsApiUpdateEmailSenderRequest {
 
     /**
      * 
-     * @type {EmailSender}
+     * @type {EmailSenderPutRequest}
      * @memberof SettingsApiUpdateEmailSender
      */
-    readonly emailSender: EmailSender
+    readonly emailSenderPutRequest: EmailSenderPutRequest
 }
 
 /**
@@ -9677,10 +11628,10 @@ export interface SettingsApiUpdateSlackChannelRequest {
 
     /**
      * 
-     * @type {SlackChannel}
+     * @type {SlackChannelPutRequest}
      * @memberof SettingsApiUpdateSlackChannel
      */
-    readonly slackChannel: SlackChannel
+    readonly slackChannelPutRequest: SlackChannelPutRequest
 }
 
 /**
@@ -9720,7 +11671,7 @@ export class SettingsApi extends BaseAPI {
      * @memberof SettingsApi
      */
     public createEmailRecipient(requestParameters: SettingsApiCreateEmailRecipientRequest, options?: RawAxiosRequestConfig) {
-        return SettingsApiFp(this.configuration).createEmailRecipient(requestParameters.dataCenter, requestParameters.emailRecipient, options).then((request) => request(this.axios, this.basePath));
+        return SettingsApiFp(this.configuration).createEmailRecipient(requestParameters.dataCenter, requestParameters.emailRecipientPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9732,7 +11683,7 @@ export class SettingsApi extends BaseAPI {
      * @memberof SettingsApi
      */
     public createEmailSender(requestParameters: SettingsApiCreateEmailSenderRequest, options?: RawAxiosRequestConfig) {
-        return SettingsApiFp(this.configuration).createEmailSender(requestParameters.dataCenter, requestParameters.emailSender, options).then((request) => request(this.axios, this.basePath));
+        return SettingsApiFp(this.configuration).createEmailSender(requestParameters.dataCenter, requestParameters.emailSenderPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9744,7 +11695,7 @@ export class SettingsApi extends BaseAPI {
      * @memberof SettingsApi
      */
     public createSlackChannel(requestParameters: SettingsApiCreateSlackChannelRequest, options?: RawAxiosRequestConfig) {
-        return SettingsApiFp(this.configuration).createSlackChannel(requestParameters.dataCenter, requestParameters.slackChannel, options).then((request) => request(this.axios, this.basePath));
+        return SettingsApiFp(this.configuration).createSlackChannel(requestParameters.dataCenter, requestParameters.slackChannelPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9876,7 +11827,7 @@ export class SettingsApi extends BaseAPI {
      * @memberof SettingsApi
      */
     public updateEmailRecipient(requestParameters: SettingsApiUpdateEmailRecipientRequest, options?: RawAxiosRequestConfig) {
-        return SettingsApiFp(this.configuration).updateEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, requestParameters.emailRecipient, options).then((request) => request(this.axios, this.basePath));
+        return SettingsApiFp(this.configuration).updateEmailRecipient(requestParameters.dataCenter, requestParameters.recipientEmail, requestParameters.emailRecipientPutRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9888,7 +11839,7 @@ export class SettingsApi extends BaseAPI {
      * @memberof SettingsApi
      */
     public updateEmailSender(requestParameters: SettingsApiUpdateEmailSenderRequest, options?: RawAxiosRequestConfig) {
-        return SettingsApiFp(this.configuration).updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSender, options).then((request) => request(this.axios, this.basePath));
+        return SettingsApiFp(this.configuration).updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSenderPutRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9900,7 +11851,7 @@ export class SettingsApi extends BaseAPI {
      * @memberof SettingsApi
      */
     public updateSlackChannel(requestParameters: SettingsApiUpdateSlackChannelRequest, options?: RawAxiosRequestConfig) {
-        return SettingsApiFp(this.configuration).updateSlackChannel(requestParameters.dataCenter, requestParameters.channelName, requestParameters.slackChannel, options).then((request) => request(this.axios, this.basePath));
+        return SettingsApiFp(this.configuration).updateSlackChannel(requestParameters.dataCenter, requestParameters.channelName, requestParameters.slackChannelPutRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9913,6 +11864,277 @@ export class SettingsApi extends BaseAPI {
      */
     public updateTitlePrefix(requestParameters: SettingsApiUpdateTitlePrefixRequest, options?: RawAxiosRequestConfig) {
         return SettingsApiFp(this.configuration).updateTitlePrefix(requestParameters.dataCenter, requestParameters.titlePrefix, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * SupportFilesApi - axios parameter creator
+ * @export
+ */
+export const SupportFilesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create one or more support files
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {CreateSupportFilesRequest} createSupportFilesRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSupportFiles: async (dataCenter: string, createSupportFilesRequest: CreateSupportFilesRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createSupportFiles', 'dataCenter', dataCenter)
+            // verify required parameter 'createSupportFilesRequest' is not null or undefined
+            assertParamExists('createSupportFiles', 'createSupportFilesRequest', createSupportFilesRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/supportFiles`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createSupportFilesRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve all support files
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSupportFiles: async (dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getSupportFiles', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/supportFiles`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SupportFilesApi - functional programming interface
+ * @export
+ */
+export const SupportFilesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SupportFilesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create one or more support files
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {CreateSupportFilesRequest} createSupportFilesRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createSupportFiles(dataCenter: string, createSupportFilesRequest: CreateSupportFilesRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateSupportFilesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createSupportFiles(dataCenter, createSupportFilesRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SupportFilesApi.createSupportFiles']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve all support files
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSupportFiles(dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSupportFilesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportFiles(dataCenter, watch, pageSize, pageNum, keyword, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SupportFilesApi.getSupportFiles']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * SupportFilesApi - factory interface
+ * @export
+ */
+export const SupportFilesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SupportFilesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create one or more support files
+         * @param {SupportFilesApiCreateSupportFilesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSupportFiles(requestParameters: SupportFilesApiCreateSupportFilesRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateSupportFilesResponse> {
+            return localVarFp.createSupportFiles(requestParameters.dataCenter, requestParameters.createSupportFilesRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve all support files
+         * @param {SupportFilesApiGetSupportFilesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSupportFiles(requestParameters: SupportFilesApiGetSupportFilesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetSupportFilesResponse> {
+            return localVarFp.getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for createSupportFiles operation in SupportFilesApi.
+ * @export
+ * @interface SupportFilesApiCreateSupportFilesRequest
+ */
+export interface SupportFilesApiCreateSupportFilesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SupportFilesApiCreateSupportFiles
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {CreateSupportFilesRequest}
+     * @memberof SupportFilesApiCreateSupportFiles
+     */
+    readonly createSupportFilesRequest: CreateSupportFilesRequest
+}
+
+/**
+ * Request parameters for getSupportFiles operation in SupportFilesApi.
+ * @export
+ * @interface SupportFilesApiGetSupportFilesRequest
+ */
+export interface SupportFilesApiGetSupportFilesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly dataCenter: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly watch?: boolean
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly pageNum?: number
+
+    /**
+     * The keyword to search, can be any string
+     * @type {string}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly keyword?: string
+}
+
+/**
+ * SupportFilesApi - object-oriented interface
+ * @export
+ * @class SupportFilesApi
+ * @extends {BaseAPI}
+ */
+export class SupportFilesApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create one or more support files
+     * @param {SupportFilesApiCreateSupportFilesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SupportFilesApi
+     */
+    public createSupportFiles(requestParameters: SupportFilesApiCreateSupportFilesRequest, options?: RawAxiosRequestConfig) {
+        return SupportFilesApiFp(this.configuration).createSupportFiles(requestParameters.dataCenter, requestParameters.createSupportFilesRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve all support files
+     * @param {SupportFilesApiGetSupportFilesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SupportFilesApi
+     */
+    public getSupportFiles(requestParameters: SupportFilesApiGetSupportFilesRequest, options?: RawAxiosRequestConfig) {
+        return SupportFilesApiFp(this.configuration).getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -10055,11 +12277,381 @@ export class TokensApi extends BaseAPI {
 
 
 /**
+ * TriggersApi - axios parameter creator
+ * @export
+ */
+export const TriggersApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Retrieve a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrigger: async (dataCenter: string, triggerName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getTrigger', 'dataCenter', dataCenter)
+            // verify required parameter 'triggerName' is not null or undefined
+            assertParamExists('getTrigger', 'triggerName', triggerName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/{triggerName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"triggerName"}}`, encodeURIComponent(String(triggerName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve all triggers
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTriggers: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getTriggers', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to operate
+         * @param {UpdateTriggerRequest} updateTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTrigger: async (dataCenter: string, triggerName: string, updateTriggerRequest: UpdateTriggerRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateTrigger', 'dataCenter', dataCenter)
+            // verify required parameter 'triggerName' is not null or undefined
+            assertParamExists('updateTrigger', 'triggerName', triggerName)
+            // verify required parameter 'updateTriggerRequest' is not null or undefined
+            assertParamExists('updateTrigger', 'updateTriggerRequest', updateTriggerRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/{triggerName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"triggerName"}}`, encodeURIComponent(String(triggerName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateTriggerRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TriggersApi - functional programming interface
+ * @export
+ */
+export const TriggersApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TriggersApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Retrieve a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTrigger(dataCenter: string, triggerName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTriggerResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrigger(dataCenter, triggerName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.getTrigger']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve all triggers
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTriggers(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTriggersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTriggers(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.getTriggers']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to operate
+         * @param {UpdateTriggerRequest} updateTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateTrigger(dataCenter: string, triggerName: string, updateTriggerRequest: UpdateTriggerRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateTriggerResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTrigger(dataCenter, triggerName, updateTriggerRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.updateTrigger']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TriggersApi - factory interface
+ * @export
+ */
+export const TriggersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TriggersApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Retrieve a specific trigger
+         * @param {TriggersApiGetTriggerRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrigger(requestParameters: TriggersApiGetTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetTriggerResponse> {
+            return localVarFp.getTrigger(requestParameters.dataCenter, requestParameters.triggerName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve all triggers
+         * @param {TriggersApiGetTriggersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTriggers(requestParameters: TriggersApiGetTriggersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetTriggersResponse> {
+            return localVarFp.getTriggers(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update a specific trigger
+         * @param {TriggersApiUpdateTriggerRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTrigger(requestParameters: TriggersApiUpdateTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateTriggerResponse> {
+            return localVarFp.updateTrigger(requestParameters.dataCenter, requestParameters.triggerName, requestParameters.updateTriggerRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for getTrigger operation in TriggersApi.
+ * @export
+ * @interface TriggersApiGetTriggerRequest
+ */
+export interface TriggersApiGetTriggerRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiGetTrigger
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the trigger to operate
+     * @type {string}
+     * @memberof TriggersApiGetTrigger
+     */
+    readonly triggerName: string
+}
+
+/**
+ * Request parameters for getTriggers operation in TriggersApi.
+ * @export
+ * @interface TriggersApiGetTriggersRequest
+ */
+export interface TriggersApiGetTriggersRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiGetTriggers
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for updateTrigger operation in TriggersApi.
+ * @export
+ * @interface TriggersApiUpdateTriggerRequest
+ */
+export interface TriggersApiUpdateTriggerRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiUpdateTrigger
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the trigger to operate
+     * @type {string}
+     * @memberof TriggersApiUpdateTrigger
+     */
+    readonly triggerName: string
+
+    /**
+     * 
+     * @type {UpdateTriggerRequest}
+     * @memberof TriggersApiUpdateTrigger
+     */
+    readonly updateTriggerRequest: UpdateTriggerRequest
+}
+
+/**
+ * TriggersApi - object-oriented interface
+ * @export
+ * @class TriggersApi
+ * @extends {BaseAPI}
+ */
+export class TriggersApi extends BaseAPI {
+    /**
+     * 
+     * @summary Retrieve a specific trigger
+     * @param {TriggersApiGetTriggerRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public getTrigger(requestParameters: TriggersApiGetTriggerRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).getTrigger(requestParameters.dataCenter, requestParameters.triggerName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve all triggers
+     * @param {TriggersApiGetTriggersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public getTriggers(requestParameters: TriggersApiGetTriggersRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).getTriggers(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update a specific trigger
+     * @param {TriggersApiUpdateTriggerRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public updateTrigger(requestParameters: TriggersApiUpdateTriggerRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).updateTrigger(requestParameters.dataCenter, requestParameters.triggerName, requestParameters.updateTriggerRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * TuningsApi - axios parameter creator
  * @export
  */
 export const TuningsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary Enable or disable a specific tuning parameter
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} parameterName The name of the parameter to update. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+         * @param {EnableOrDisableTuningRequest} enableOrDisableTuningRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        enableOrDisableTuning: async (dataCenter: string, parameterName: string, enableOrDisableTuningRequest: EnableOrDisableTuningRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('enableOrDisableTuning', 'dataCenter', dataCenter)
+            // verify required parameter 'parameterName' is not null or undefined
+            assertParamExists('enableOrDisableTuning', 'parameterName', parameterName)
+            // verify required parameter 'enableOrDisableTuningRequest' is not null or undefined
+            assertParamExists('enableOrDisableTuning', 'enableOrDisableTuningRequest', enableOrDisableTuningRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/parameters/{parameterName}/enable`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"parameterName"}}`, encodeURIComponent(String(parameterName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(enableOrDisableTuningRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Retrieve the list of tuning spec
@@ -10100,13 +12692,14 @@ export const TuningsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [host] The name of the host to retrieve the tunings, can specify multiple hosts to retrieve the tunings, for example: host&#x3D;example-node-0&amp;host&#x3D;example-node-1
          * @param {string} [keyword] The keyword to search the tunings
-         * @param {number} [pageNum] The page number of the tunings list
-         * @param {number} [pageSize] The page size of the tunings list
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {boolean} [modified] The flag to filter the modified tunings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listTunings: async (dataCenter: string, host?: string, keyword?: string, pageNum?: number, pageSize?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listTunings: async (dataCenter: string, host?: string, keyword?: string, pageSize?: number, pageNum?: number, watch?: boolean, modified?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('listTunings', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/parameters`
@@ -10130,16 +12723,20 @@ export const TuningsApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['keyword'] = keyword;
             }
 
-            if (pageNum !== undefined) {
-                localVarQueryParameter['pageNum'] = pageNum;
-            }
-
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
             }
 
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
             if (watch !== undefined) {
                 localVarQueryParameter['watch'] = watch;
+            }
+
+            if (modified !== undefined) {
+                localVarQueryParameter['modified'] = modified;
             }
 
 
@@ -10169,7 +12766,7 @@ export const TuningsApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('resetTuning', 'parameterName', parameterName)
             // verify required parameter 'resetTuningRequest' is not null or undefined
             assertParamExists('resetTuning', 'resetTuningRequest', resetTuningRequest)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/parameters/{parameterName}`
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/parameters/{parameterName}/reset`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"parameterName"}}`, encodeURIComponent(String(parameterName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -10179,7 +12776,7 @@ export const TuningsApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -10253,6 +12850,21 @@ export const TuningsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Enable or disable a specific tuning parameter
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} parameterName The name of the parameter to update. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+         * @param {EnableOrDisableTuningRequest} enableOrDisableTuningRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async enableOrDisableTuning(dataCenter: string, parameterName: string, enableOrDisableTuningRequest: EnableOrDisableTuningRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateTuningResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.enableOrDisableTuning(dataCenter, parameterName, enableOrDisableTuningRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TuningsApi.enableOrDisableTuning']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the list of tuning spec
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
@@ -10270,14 +12882,15 @@ export const TuningsApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [host] The name of the host to retrieve the tunings, can specify multiple hosts to retrieve the tunings, for example: host&#x3D;example-node-0&amp;host&#x3D;example-node-1
          * @param {string} [keyword] The keyword to search the tunings
-         * @param {number} [pageNum] The page number of the tunings list
-         * @param {number} [pageSize] The page size of the tunings list
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {boolean} [modified] The flag to filter the modified tunings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listTunings(dataCenter: string, host?: string, keyword?: string, pageNum?: number, pageSize?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTuningResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listTunings(dataCenter, host, keyword, pageNum, pageSize, watch, options);
+        async listTunings(dataCenter: string, host?: string, keyword?: string, pageSize?: number, pageNum?: number, watch?: boolean, modified?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTuningResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listTunings(dataCenter, host, keyword, pageSize, pageNum, watch, modified, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TuningsApi.listTunings']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -10324,6 +12937,16 @@ export const TuningsApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
+         * @summary Enable or disable a specific tuning parameter
+         * @param {TuningsApiEnableOrDisableTuningRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        enableOrDisableTuning(requestParameters: TuningsApiEnableOrDisableTuningRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateTuningResponse> {
+            return localVarFp.enableOrDisableTuning(requestParameters.dataCenter, requestParameters.parameterName, requestParameters.enableOrDisableTuningRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve the list of tuning spec
          * @param {TuningsApiListTuningSpecsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -10340,7 +12963,7 @@ export const TuningsApiFactory = function (configuration?: Configuration, basePa
          * @throws {RequiredError}
          */
         listTunings(requestParameters: TuningsApiListTuningsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListTuningResponse> {
-            return localVarFp.listTunings(requestParameters.dataCenter, requestParameters.host, requestParameters.keyword, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.listTunings(requestParameters.dataCenter, requestParameters.host, requestParameters.keyword, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, requestParameters.modified, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10364,6 +12987,34 @@ export const TuningsApiFactory = function (configuration?: Configuration, basePa
         },
     };
 };
+
+/**
+ * Request parameters for enableOrDisableTuning operation in TuningsApi.
+ * @export
+ * @interface TuningsApiEnableOrDisableTuningRequest
+ */
+export interface TuningsApiEnableOrDisableTuningRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TuningsApiEnableOrDisableTuning
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the parameter to update. use GET /api/v1/datacenters/{dataCenter}/tunings/specs to get the list of parameters
+     * @type {string}
+     * @memberof TuningsApiEnableOrDisableTuning
+     */
+    readonly parameterName: string
+
+    /**
+     * 
+     * @type {EnableOrDisableTuningRequest}
+     * @memberof TuningsApiEnableOrDisableTuning
+     */
+    readonly enableOrDisableTuningRequest: EnableOrDisableTuningRequest
+}
 
 /**
  * Request parameters for listTuningSpecs operation in TuningsApi.
@@ -10407,18 +13058,18 @@ export interface TuningsApiListTuningsRequest {
     readonly keyword?: string
 
     /**
-     * The page number of the tunings list
-     * @type {number}
-     * @memberof TuningsApiListTunings
-     */
-    readonly pageNum?: number
-
-    /**
-     * The page size of the tunings list
+     * The number of items per page (default is unlimit).
      * @type {number}
      * @memberof TuningsApiListTunings
      */
     readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof TuningsApiListTunings
+     */
+    readonly pageNum?: number
 
     /**
      * The toggle to enable http chunked transfer for continuous server push.
@@ -10426,6 +13077,13 @@ export interface TuningsApiListTuningsRequest {
      * @memberof TuningsApiListTunings
      */
     readonly watch?: boolean
+
+    /**
+     * The flag to filter the modified tunings
+     * @type {boolean}
+     * @memberof TuningsApiListTunings
+     */
+    readonly modified?: boolean
 }
 
 /**
@@ -10493,6 +13151,18 @@ export interface TuningsApiUpdateTuningRequest {
 export class TuningsApi extends BaseAPI {
     /**
      * 
+     * @summary Enable or disable a specific tuning parameter
+     * @param {TuningsApiEnableOrDisableTuningRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TuningsApi
+     */
+    public enableOrDisableTuning(requestParameters: TuningsApiEnableOrDisableTuningRequest, options?: RawAxiosRequestConfig) {
+        return TuningsApiFp(this.configuration).enableOrDisableTuning(requestParameters.dataCenter, requestParameters.parameterName, requestParameters.enableOrDisableTuningRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve the list of tuning spec
      * @param {TuningsApiListTuningSpecsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -10512,7 +13182,7 @@ export class TuningsApi extends BaseAPI {
      * @memberof TuningsApi
      */
     public listTunings(requestParameters: TuningsApiListTuningsRequest, options?: RawAxiosRequestConfig) {
-        return TuningsApiFp(this.configuration).listTunings(requestParameters.dataCenter, requestParameters.host, requestParameters.keyword, requestParameters.pageNum, requestParameters.pageSize, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return TuningsApiFp(this.configuration).listTunings(requestParameters.dataCenter, requestParameters.host, requestParameters.keyword, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, requestParameters.modified, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

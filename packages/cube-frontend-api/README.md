@@ -28,7 +28,7 @@ Follow these steps to update the API version:
 
 1. Get the target commit hash from the `cube-cos-openapi` repository. For example, `d4151bd`.
 2. Navigate to the submodule directory (`cd packages/cube-frontend-api/cube-cos-openapi`) and run `git checkout d4151bd`. Replace `d4151bd` with your actual commit hash.
-3. After switching to the target commit, you'll see that the file `packages/cube-frontend-api/cube-cos-openapi.diff` has changed. Stage this file by running `git add .`.
+3. After switching to the target commit, you'll see that the file `packages/cube-frontend-api/cube-cos-openapi.diff` has changed. You should **commit this change to the remote**.
 4. Run `pnpm api:generate` at the project root, and the API SDK should be generated based on the OpenAPI docs of the target branch.
 
 ### Updating Submodules
