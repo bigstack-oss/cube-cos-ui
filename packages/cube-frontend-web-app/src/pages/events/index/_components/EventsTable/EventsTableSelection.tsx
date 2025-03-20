@@ -1,12 +1,7 @@
-import { useContext, useMemo, useState, useEffect } from 'react'
+import { useContext, useMemo, useEffect } from 'react'
 import { GetEventsResponseData } from '@cube-frontend/api'
-import {
-  CosPagination,
-  DEFAULT_ITEMS_PER_PAGE,
-  GetCosBasicTable,
-} from '@cube-frontend/ui-library'
+import { CosPagination, GetCosBasicTable } from '@cube-frontend/ui-library'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
-import { useEvents } from './useEvents'
 import { EventsFilterTableContext } from './context'
 
 type EventResponse = GetEventsResponseData['events'][number]
@@ -38,17 +33,15 @@ const mapToEventTable = (e: EventResponse, index: number): EventTableType => ({
 })
 
 export const EventsTableSelection = () => {
-  const { eventsType } = useContext(EventsFilterTableContext)
-
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_ITEMS_PER_PAGE)
-
-  const { events, isEventsLoading, pagination } = useEvents({
-    eventsType,
-    pageSize: itemsPerPage,
-    pageNum: currentPage,
-  })
+  const {
+    currentPage,
+    setCurrentPage,
+    itemsPerPage,
+    setItemsPerPage,
+    events,
+    pagination,
+    isEventsLoading,
+  } = useContext(EventsFilterTableContext)
 
   const rows = useMemo<EventTableType[]>(() => {
     return events?.map(mapToEventTable) || []
@@ -59,8 +52,8 @@ export const EventsTableSelection = () => {
   }
 
   useEffect(() => {
-    setCurrentPage(1)
-  }, [eventsType])
+    setCurrentPage(pagination?.number ?? 1)
+  }, [pagination, setCurrentPage])
 
   return (
     <div className="flex flex-col gap-6">

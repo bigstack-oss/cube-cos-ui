@@ -26,8 +26,15 @@ export const mapFilterToRequestParams = (filter: Record<string, string>) => {
     {} as Record<string, string>,
   )
 
+  /**
+   * Check if start and stop are the same and modify the times
+   * - start => "YYYY-MM-DD 00:00:00"
+   * - stop  => "YYYY-MM-DD 23:59:59"
+   */
   if (result['start'] && result['stop'] && result['start'] === result['stop']) {
-    delete result['stop']
+    const sameDay = dayjs(result['start'])
+    result['start'] = sameDay.startOf('day').toISOString()
+    result['stop'] = sameDay.endOf('day').toISOString()
   }
 
   return result

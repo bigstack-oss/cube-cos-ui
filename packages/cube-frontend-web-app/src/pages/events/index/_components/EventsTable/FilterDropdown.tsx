@@ -31,7 +31,7 @@ export const FilterDropdown = (props: FilterDropdownProps) => {
     onDropdownChange({ [filterKey]: null })
   }
 
-  const renderOptions = (options: string[]) => {
+  const renderOptions = () => {
     return options.map((option) => {
       if (
         searchValue &&
@@ -66,7 +66,7 @@ export const FilterDropdown = (props: FilterDropdownProps) => {
       <CosDropdown.Trigger placeholder={toUpperCaseFirstLetter(filterKey)}>
         {selectedItem?.[0] ?? undefined}
       </CosDropdown.Trigger>
-      <CosDropdown.Menu>{renderOptions(options)}</CosDropdown.Menu>
+      <CosDropdown.Menu>{renderOptions()}</CosDropdown.Menu>
     </CosDropdown>
   )
 }

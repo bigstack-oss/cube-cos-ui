@@ -57,7 +57,6 @@ export const useEventsFilter = (): UseEventsFilter => {
   }
 
   return {
-    // TODO: Check the returned default value
     eventsFilter: data,
     isEventsFilterLoading: isLoading,
     handleFilterChange,

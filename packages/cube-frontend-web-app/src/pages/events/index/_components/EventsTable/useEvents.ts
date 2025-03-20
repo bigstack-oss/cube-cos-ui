@@ -52,7 +52,6 @@ export const useEvents = (options: UseEventsOptions): UseEvents => {
   )
 
   return {
-    // TODO: Check the returned default value
     events: data?.events ?? [],
     pagination: data?.page ?? ({} as Page),
     isEventsLoading: isLoading,
