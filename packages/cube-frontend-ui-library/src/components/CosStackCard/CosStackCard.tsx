@@ -6,6 +6,7 @@ const style = twMerge([
   'border-l-[5px] border-l-cosmos-secondary',
   'border-r border-r-functional-border-divider',
   'border-y border-y-functional-border-divider',
+  'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
 ])
 
 type CosStackCardProps = PropsWithChildren<{
