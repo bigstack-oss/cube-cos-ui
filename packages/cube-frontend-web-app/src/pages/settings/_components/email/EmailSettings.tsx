@@ -23,7 +23,11 @@ export const EmailSettings = (props: EmailSettingsProps) => {
 
   return (
     <div className="flex flex-col gap-y-6">
-      <EmailRecipients hasVerifiedSender={hasVerifiedSender} />
+      <EmailRecipients
+        isLoading={isLoading}
+        initialRecipients={initialData?.recipients}
+        hasVerifiedSender={hasVerifiedSender}
+      />
       <EmailSenders
         isLoading={isLoading}
         rows={emailSenderRows}

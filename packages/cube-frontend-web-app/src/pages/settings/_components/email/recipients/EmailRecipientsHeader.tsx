@@ -1,13 +1,28 @@
-import { CosButton, CosTooltip } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosTooltip,
+  CosTooltipInformation,
+} from '@cube-frontend/ui-library'
 import InformationCircleFilled from '@cube-frontend/ui-library/icons/monochrome/information_circle_filled.svg?react'
 import Plus from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
 
 export type EmailRecipientsHeaderProps = {
+  isCountLimitReached: boolean
+  isRowsLoading: boolean
   onAddButtonClick: () => void
 }
 
 export const EmailRecipientsHeader = (props: EmailRecipientsHeaderProps) => {
-  const { onAddButtonClick } = props
+  const { isCountLimitReached, isRowsLoading, onAddButtonClick } = props
+
+  const getAddButtonHoverInfo = (): CosTooltipInformation | undefined => {
+    if (!isCountLimitReached) {
+      return undefined
+    }
+    return {
+      message: 'You have reached the limit of 10 email recipients.',
+    }
+  }
 
   return (
     <div className="flex items-center justify-between">
@@ -22,15 +37,22 @@ export const EmailRecipientsHeader = (props: EmailRecipientsHeaderProps) => {
           <InformationCircleFilled className="icon-md text-functional-border-divider" />
         </CosTooltip>
       </div>
-      <CosButton
-        type="secondary"
-        usage="icon-left"
-        Icon={Plus}
-        size="sm"
-        onClick={onAddButtonClick}
-      >
-        Add Email Recipient
-      </CosButton>
+      <CosTooltip hoverContent={getAddButtonHoverInfo()}>
+        {/* Wrap the button with a <span> because the hover event doesn't work
+        when the button is disabled, but we still need it for the tooltip. */}
+        <span>
+          <CosButton
+            type="secondary"
+            usage="icon-left"
+            Icon={Plus}
+            size="sm"
+            disabled={isCountLimitReached || isRowsLoading}
+            onClick={onAddButtonClick}
+          >
+            Add Email Recipient
+          </CosButton>
+        </span>
+      </CosTooltip>
     </div>
   )
 }
