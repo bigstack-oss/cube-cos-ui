@@ -1,5 +1,5 @@
-import { GetEventsTypeEnum } from '@cube-frontend/api'
 import { createContext } from 'react'
+import { GetEventsTypeEnum } from '@cube-frontend/api'
 
 export type EventsFilterTableContextValue = {
   eventsType: GetEventsTypeEnum

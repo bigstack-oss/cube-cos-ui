@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useMemo, useState, useEffect } from 'react'
 import { GetEventsResponseData } from '@cube-frontend/api'
 import {
   CosPagination,
@@ -58,8 +58,12 @@ export const EventsTableSelection = () => {
     setCurrentPage(page)
   }
 
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [eventsType])
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-6">
       <EventTable rows={rows} isLoading={isEventsLoading}>
         <EventTable.Column
           label={EventTableColumn.severity.label}

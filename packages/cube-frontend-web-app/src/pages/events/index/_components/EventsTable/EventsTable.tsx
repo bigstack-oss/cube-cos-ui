@@ -29,8 +29,11 @@ export const EventsTable = () => {
 
     setSearchParams(newParams)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [eventsType])
+    /**
+     * `searchParams` is included in the dependency array to make sure -
+     * this effect runs whenever the query parameters change.
+     */
+  }, [eventsType, getFilters, searchParams, setSearchParams])
 
   const handleEventsTypeChange = (tab: GetEventsTypeEnum) => {
     const newParams = new URLSearchParams()
@@ -42,7 +45,7 @@ export const EventsTable = () => {
   return (
     <div className="flex flex-col gap-6 bg-white px-6 py-4">
       <div>
-        <h5 className="secondary-h5">Event Filter Table</h5>
+        <h5 className="secondary-h5">Events</h5>
       </div>
       <EventsFilterTableContext.Provider
         value={{ eventsType, handleEventsTypeChange }}

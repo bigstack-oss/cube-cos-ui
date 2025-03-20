@@ -15,6 +15,11 @@ type CosDatePickerProps = {
   setEndDate: (date: Dayjs | undefined) => void
   onApplyClick?: () => void
   onCancelClick?: () => void
+  /**
+   * `onOutsideClickClose` triggered only when the date picker is closed by clicking outside.
+   * This will not be triggered when closing via "Apply" or "Cancel" buttons.
+   */
+  onOutsideClickClose?: () => void
 }
 
 export const CosDatePicker = (props: CosDatePickerProps) => {
@@ -27,9 +32,12 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
     setEndDate,
     onApplyClick,
     onCancelClick,
+    onOutsideClickClose,
   } = props
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+
+  const [isClosedByOutsideClick, setIsClosedByOutsideClick] = useState(false)
 
   const [currentMonth, setCurrentMonth] = useState(() => dayjs(new Date()))
 
@@ -71,7 +79,7 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
 
   const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
     placement: 'bottom-left',
-    // autoPlacement: true,
+    autoPlacement: true,
     offsets: {
       y: 8,
     },
@@ -87,6 +95,7 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
       const isMenu = elementRef.current?.contains(target)
 
       if (!isTrigger && !isMenu) {
+        setIsClosedByOutsideClick(true)
         setIsCalendarOpen(false)
       }
     },
@@ -99,6 +108,22 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [handleClickOutside])
+
+  useEffect(() => {
+    /**
+     *  Handle the case where the date picker is closed by clicking outside
+     *  And reset the flag after handling
+     */
+    if (!isCalendarOpen && isClosedByOutsideClick) {
+      onOutsideClickClose?.()
+      setIsClosedByOutsideClick(false)
+    }
+  }, [
+    isCalendarOpen,
+    onOutsideClickClose,
+    isClosedByOutsideClick,
+    setIsClosedByOutsideClick,
+  ])
 
   if (isLoading) return <CosDatePickerSkeleton />
 

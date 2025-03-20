@@ -1,56 +1,49 @@
-import {
-  GetEventsTypeEnum,
-  EventsApiGetEventsRequest,
-} from '@cube-frontend/api'
+import dayjs from 'dayjs'
 
-export type DropdownOptions = Record<string, string[]>
-
-export const getFullEventRequestParams = (
-  eventType: GetEventsTypeEnum,
-  filters: Record<string, Record<string, string>>,
-  baseRequestParams: EventsApiGetEventsRequest,
-): EventsApiGetEventsRequest => {
-  if (!filters[eventType]) {
-    throw new Error(`Invalid filter key: ${eventType}`)
-  }
-
-  const newRequestParams: Record<string, unknown> = {}
-
-  for (const [key, value] of Object.entries(filters[eventType])) {
-    if (Array.isArray(value) && value.length > 0) {
-      newRequestParams[key] = value
-    }
-  }
-
-  return {
-    ...baseRequestParams,
-    ...newRequestParams,
-  } satisfies EventsApiGetEventsRequest
+const eventsRequestKeyMapping: Record<string, string> = {
+  startDate: 'start',
+  endDate: 'stop',
+  category: 'category',
+  severity: 'severity',
+  keyword: 'keyword',
+  name: 'host',
+  id: 'instance',
 }
 
-export const getFilterKey = (key: string): string => {
-  let filterKey: string
+export const mapFilterToRequestParams = (filter: Record<string, string>) => {
+  const result = Object.entries(filter).reduce(
+    (acc, [key, value]) => {
+      if (value && key in eventsRequestKeyMapping) {
+        const mappedKey =
+          eventsRequestKeyMapping[key as keyof typeof eventsRequestKeyMapping]
+        acc[mappedKey] =
+          mappedKey === 'start' || mappedKey === 'stop'
+            ? dayjs(value).toISOString()
+            : value
+      }
+      return acc
+    },
+    {} as Record<string, string>,
+  )
 
-  switch (key) {
-    case 'severities':
-      filterKey = 'severity'
-      break
+  if (result['start'] && result['stop'] && result['start'] === result['stop']) {
+    delete result['stop']
+  }
 
-    case 'categories':
-      filterKey = 'category'
-      break
+  return result
+}
 
-    case 'ids':
-      filterKey = 'id'
-      break
+const filterKeyMapping: Record<string, string> = {
+  severities: 'severity',
+  categories: 'category',
+  ids: 'id',
+  names: 'name',
+}
 
-    case 'names':
-      filterKey = 'name'
-      break
-
-    default:
-      console.warn('Not a valid filter key')
-      filterKey = ''
+export const mapFilterToFilterKey = (key: string): string => {
+  const filterKey = filterKeyMapping[key] || ''
+  if (!filterKey) {
+    console.warn('Not a valid filter key')
   }
 
   return filterKey

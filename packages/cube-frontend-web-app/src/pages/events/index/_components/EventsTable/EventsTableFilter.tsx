@@ -6,7 +6,7 @@ import { FilterDropdown } from './FilterDropdown'
 import { FilterDatePicker } from './FilterDatePicker'
 import { useEventsFilter } from './useEventsFilter'
 import { EventsFilterTableContext } from './context'
-import { getFilterKey } from './utils'
+import { mapFilterToFilterKey } from './utils'
 
 export const EventsTableFilter = () => {
   const { filters } = useEventsFilterStore()
@@ -34,7 +34,7 @@ export const EventsTableFilter = () => {
       {eventsFilter &&
         eventsFilter[eventsType] &&
         Object.entries(eventsFilter[eventsType]).map(([key, options]) => {
-          const filterKey = getFilterKey(key)
+          const filterKey = mapFilterToFilterKey(key)
           return (
             <FilterDropdown
               key={key}
@@ -54,7 +54,7 @@ export const EventsTableFilter = () => {
       />
       <div className="h-[34px] border-l border-functional-border-divider"></div>
       <Cancel
-        className="icon-md m-[10px] cursor-pointer text-functional-text-light"
+        className="icon-md m-[10px] shrink-0 cursor-pointer text-functional-text-light"
         onClick={handleFilterReset}
       />
     </div>
