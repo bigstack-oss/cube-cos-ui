@@ -1,5 +1,5 @@
 import { isAxiosError } from 'axios'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   CosApiError,
   CosApiRequest,
@@ -17,6 +17,7 @@ export type UseCosRequestHandler<Data> = {
   data: Data | undefined
   errorState: CosRequestError | undefined
   oversee: (request: CosApiRequest<Data>) => Promise<Data>
+  clearError: () => void
 }
 
 export type UseCosRequestHandlerOptions = {
@@ -43,8 +44,8 @@ export const INTERNAL_useCosRequestHandler = <Data>(
       setHasResponseBeenReceived(true)
       return response.data.data
     } catch (error) {
-      if (isAxiosError(error) && isCosApiResponse(error.response?.data)) {
-        const cosApiResponse = error.response.data
+      if (isAxiosError(error) && isCosApiResponse(error.response)) {
+        const cosApiResponse = error.response
 
         const apiError: CosApiError = {
           code: cosApiResponse.data.code,
@@ -75,11 +76,16 @@ export const INTERNAL_useCosRequestHandler = <Data>(
     }
   }
 
+  const clearError = useCallback((): void => {
+    setErrorState(undefined)
+  }, [])
+
   return {
     isLoading,
     hasResponseBeenReceived,
     data,
     errorState,
     oversee,
+    clearError,
   }
 }
