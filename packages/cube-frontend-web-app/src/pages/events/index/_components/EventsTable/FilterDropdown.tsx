@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react'
+import { upperFirst } from 'lodash'
 import { CosDropdown } from '@cube-frontend/ui-library'
-import { toUpperCaseFirstLetter } from '@cube-frontend/utils'
 
 type FilterDropdownProps = {
   isLoading: boolean
@@ -31,7 +31,7 @@ export const FilterDropdown = (props: FilterDropdownProps) => {
     onDropdownChange({ [filterKey]: null })
   }
 
-  const renderOptions = (options: string[]) => {
+  const renderOptions = () => {
     return options.map((option) => {
       if (
         searchValue &&
@@ -63,10 +63,10 @@ export const FilterDropdown = (props: FilterDropdownProps) => {
       disabled={false}
       isLoading={isLoading}
     >
-      <CosDropdown.Trigger placeholder={toUpperCaseFirstLetter(filterKey)}>
+      <CosDropdown.Trigger placeholder={upperFirst(filterKey)}>
         {selectedItem?.[0] ?? undefined}
       </CosDropdown.Trigger>
-      <CosDropdown.Menu>{renderOptions(options)}</CosDropdown.Menu>
+      <CosDropdown.Menu>{renderOptions()}</CosDropdown.Menu>
     </CosDropdown>
   )
 }

@@ -1,13 +1,11 @@
-import { useContext, useMemo, useState, useEffect } from 'react'
-import { GetEventsResponseData } from '@cube-frontend/api'
+import { useMemo, useEffect } from 'react'
 import {
-  CosPagination,
-  DEFAULT_ITEMS_PER_PAGE,
-  GetCosBasicTable,
-} from '@cube-frontend/ui-library'
+  GetEventsResponseData,
+  GetEventsResponseDataEventsInner,
+  Page,
+} from '@cube-frontend/api'
+import { CosPagination, GetCosBasicTable } from '@cube-frontend/ui-library'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
-import { useEvents } from './useEvents'
-import { EventsFilterTableContext } from './context'
 
 type EventResponse = GetEventsResponseData['events'][number]
 
@@ -37,18 +35,28 @@ const mapToEventTable = (e: EventResponse, index: number): EventTableType => ({
   eventId: e.id,
 })
 
-export const EventsTableSelection = () => {
-  const { eventsType } = useContext(EventsFilterTableContext)
+type ItemsPerPage = 10 | 20 | 30 | 50 | 100
 
-  const [currentPage, setCurrentPage] = useState(1)
+type EventsTableSelectionProps = {
+  currentPage: number
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+  itemsPerPage: ItemsPerPage
+  setItemsPerPage: React.Dispatch<React.SetStateAction<ItemsPerPage>>
+  events: GetEventsResponseDataEventsInner[] | undefined
+  pagination: Page | undefined
+  isEventsLoading: boolean
+}
 
-  const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_ITEMS_PER_PAGE)
-
-  const { events, isEventsLoading, pagination } = useEvents({
-    eventsType,
-    pageSize: itemsPerPage,
-    pageNum: currentPage,
-  })
+export const EventsTableSelection = (props: EventsTableSelectionProps) => {
+  const {
+    currentPage,
+    setCurrentPage,
+    itemsPerPage,
+    setItemsPerPage,
+    events,
+    pagination,
+    isEventsLoading,
+  } = props
 
   const rows = useMemo<EventTableType[]>(() => {
     return events?.map(mapToEventTable) || []
@@ -59,8 +67,8 @@ export const EventsTableSelection = () => {
   }
 
   useEffect(() => {
-    setCurrentPage(1)
-  }, [eventsType])
+    setCurrentPage(pagination?.number ?? 1)
+  }, [pagination, setCurrentPage])
 
   return (
     <div className="flex flex-col gap-6">

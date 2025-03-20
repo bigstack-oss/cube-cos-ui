@@ -1,46 +1,63 @@
 import { create } from 'zustand'
+import { GetEventsTypeEnum } from '@cube-frontend/api'
 
 type EventsFilterState = {
-  filters: Record<string, Record<string, string>>
-  setFilter: (tab: string, key: string, value: string) => void
-  clearFilter: (tab: string, key: string) => void
-  resetFilter: (tab: string) => void
-  getFilters: (tab: string) => Record<string, string>
+  eventsType: GetEventsTypeEnum
+  eventsFilters: Record<GetEventsTypeEnum, Record<string, string>>
+  setEventsType: (type: GetEventsTypeEnum) => void
+  setEventsFilter: (key: string, value: string) => void
+  clearEventsFilter: (key: string) => void
+  resetEventsFilter: () => void
+  getEventsFilter: () => Record<string, string>
+  isCurrentFilterEmpty: boolean
 }
 
 export const useEventsFilterStore = create<EventsFilterState>((set, get) => ({
-  filters: {
-    system: {},
-    host: {},
-    instance: {},
+  eventsType: GetEventsTypeEnum.System,
+  eventsFilters: {
+    [GetEventsTypeEnum.System]: {},
+    [GetEventsTypeEnum.Host]: {},
+    [GetEventsTypeEnum.Instance]: {},
   },
-  setFilter: (tab, key, value) =>
-    set((state) => ({
-      filters: {
-        ...state.filters,
-        [tab]: {
-          ...state.filters[tab],
+  setEventsType: (type) => set({ eventsType: type }),
+  setEventsFilter: (key, value) =>
+    set((state) => {
+      const updatedFilters = {
+        ...state.eventsFilters,
+        [state.eventsType]: {
+          ...state.eventsFilters[state.eventsType],
           [key]: value,
         },
-      },
-    })),
-  clearFilter: (tab, key) =>
-    set((state) => {
-      const newFilters = { ...state.filters[tab] }
-      delete newFilters[key]
+      }
       return {
-        filters: {
-          ...state.filters,
-          [tab]: newFilters,
-        },
+        eventsFilters: updatedFilters,
+        isCurrentFilterEmpty:
+          Object.keys(updatedFilters[state.eventsType]).length === 0,
       }
     }),
-  resetFilter: (tab) =>
-    set((state) => ({
-      filters: {
-        ...state.filters,
-        [tab]: {},
-      },
-    })),
-  getFilters: (tab) => get().filters[tab] || {},
+  clearEventsFilter: (key) =>
+    set((state) => {
+      const newFilters = { ...state.eventsFilters[state.eventsType] }
+      delete newFilters[key]
+      return {
+        eventsFilters: {
+          ...state.eventsFilters,
+          [state.eventsType]: newFilters,
+        },
+        isCurrentFilterEmpty: Object.keys(newFilters).length === 0,
+      }
+    }),
+  resetEventsFilter: () =>
+    set((state) => {
+      const updatedFilters = {
+        ...state.eventsFilters,
+        [state.eventsType]: {},
+      }
+      return {
+        eventsFilters: updatedFilters,
+        isCurrentFilterEmpty: true,
+      }
+    }),
+  getEventsFilter: () => get().eventsFilters[get().eventsType] || {},
+  isCurrentFilterEmpty: true,
 }))
