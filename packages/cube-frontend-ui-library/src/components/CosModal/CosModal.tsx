@@ -1,7 +1,7 @@
 import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { CosButton } from '../CosButton/CosButton'
+import { CosButton, CosButtonProps } from '../CosButton/CosButton'
 import { backdrop, modal } from './cosModalStyles'
 import { useCloseModalWithEsc } from './useCloseModalWithEsc'
 
@@ -17,6 +17,7 @@ export type CosModalProps = {
    * @default 'Action'
    */
   actionText?: string
+  actionButtonProps?: Pick<CosButtonProps, 'loading' | 'disabled'>
   onActionClick: () => void
   onCloseClick: () => void
 }
@@ -30,6 +31,7 @@ export const CosModal = (props: CosModalProps) => {
     isOpen,
     title,
     actionText = 'Action',
+    actionButtonProps,
     onActionClick,
     onCloseClick,
   } = props
@@ -60,7 +62,12 @@ export const CosModal = (props: CosModalProps) => {
         </div>
         <div className="flex-1 overflow-auto p-7">{children}</div>
         <div className="flex items-center justify-end gap-x-2.5 border-t border-functional-border-divider px-7 py-4">
-          <CosButton usage="text-only" size="lg" onClick={onActionClick}>
+          <CosButton
+            usage="text-only"
+            size="lg"
+            onClick={onActionClick}
+            {...actionButtonProps}
+          >
             {actionText}
           </CosButton>
           <CosButton

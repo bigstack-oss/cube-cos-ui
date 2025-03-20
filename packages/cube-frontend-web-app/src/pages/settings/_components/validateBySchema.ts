@@ -1,4 +1,4 @@
-import { ZodObject, ZodTypeAny } from 'zod'
+import { ZodEffects, ZodObject, ZodTypeAny } from 'zod'
 
 type Shape<T> = {
   [key in keyof T]: ZodTypeAny
@@ -13,16 +13,23 @@ export type ErrorRecord<T> = {
 }
 
 export const validateBySchema = <T>(
-  schema: ZodObject<Shape<T>>,
+  schema: ZodEffects<ZodObject<Shape<T>>> | ZodObject<Shape<T>>,
   data: T,
 ): ErrorRecord<T> => {
   const errorRecord: ErrorRecord<T> = {}
-  const shape = schema.shape
+
+  let shape: Shape<T>
+  if (schema instanceof ZodEffects) {
+    shape = schema._def.schema.shape
+  } else {
+    shape = schema.shape
+  }
+
+  // Use `schema.safeParse` instead of `shape[key].safeParse` for `refine` to work.
+  const errors = schema.safeParse(data).error?.flatten()
 
   for (const key in shape) {
-    const value = data[key]
-    const rule = shape[key]
-    const error = rule.safeParse(value).error?.issues[0]?.message
+    const error = errors?.fieldErrors[key]?.[0]
     if (error) {
       errorRecord[key] = error
     }

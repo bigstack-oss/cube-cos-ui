@@ -4,10 +4,10 @@ import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useContext } from 'react'
+import { EmailSettings } from './_components/email/EmailSettings'
+import { SlackChannels } from './_components/SlackChannels/SlackChannels'
 import { ManageContact } from './ManageContact'
 import { SettingsSection } from './SettingsSection'
-import { SlackChannels } from './_components/SlackChannels/SlackChannels'
-import { EmailSettings } from './_components/email/EmailSettings'
 
 export const SettingsPage = () => {
   const { name: dataCenter } = useContext(DataCenterContext)
