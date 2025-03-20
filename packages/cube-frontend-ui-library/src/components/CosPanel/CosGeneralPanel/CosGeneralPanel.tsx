@@ -4,6 +4,11 @@ import { twMerge } from 'tailwind-merge'
 import { CosButtonProps } from '../../CosButton/CosButton'
 import { CosDropdownProps } from '../../CosDropdown/CosDropdown'
 import { CosDropdownType } from '../../CosDropdown/utils'
+import {
+  CosGeneralPanelTitleBar,
+  CosGeneralPanelTitleBarProps,
+} from './CosGeneralPanelTitleBar'
+import { CosGeneralPanelContainer } from './CosGeneralPanelContainer'
 
 export type CosGeneralPanelContentProps = PropsWithChildren &
   PropsWithClassName & {
@@ -12,6 +17,7 @@ export type CosGeneralPanelContentProps = PropsWithChildren &
     icon?: React.ReactNode
     dropdown?: React.ReactElement<CosDropdownProps<unknown, CosDropdownType>>
     subtext?: string
+    titleBarProps?: CosGeneralPanelTitleBarProps
   }
 
 export const CosGeneralPanel = (props: CosGeneralPanelContentProps) => {
@@ -23,6 +29,7 @@ export const CosGeneralPanel = (props: CosGeneralPanelContentProps) => {
     icon,
     dropdown,
     subtext,
+    titleBarProps,
   } = props
 
   const panelButton = button
@@ -53,18 +60,26 @@ export const CosGeneralPanel = (props: CosGeneralPanelContentProps) => {
   }
 
   return (
-    <div
-      className={twMerge(
-        'flex flex-col gap-y-4 rounded-[5px] bg-grey-0 p-6',
-        classNameProps,
-      )}
-      style={{ boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)' }}
-    >
-      {renderHeader()}
-      {subtext && (
-        <span className="primary-body3 text-functional-text">{subtext}</span>
-      )}
-      <div className="primary-body5 text-functional-text-light">{children}</div>
-    </div>
+    <CosGeneralPanelContainer>
+      {titleBarProps && <CosGeneralPanelTitleBar {...titleBarProps} />}
+      <div
+        className={twMerge(
+          'flex h-full flex-col gap-y-4 rounded-[5px] bg-grey-0 p-6',
+          classNameProps,
+        )}
+        style={{ boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)' }}
+      >
+        {renderHeader()}
+        {subtext && (
+          <span className="primary-body3 text-functional-text">{subtext}</span>
+        )}
+        <div className="primary-body5 text-functional-text-light">
+          {children}
+        </div>
+      </div>
+    </CosGeneralPanelContainer>
   )
 }
+
+CosGeneralPanel.Container = CosGeneralPanelContainer
+CosGeneralPanel.TitleBar = CosGeneralPanelTitleBar

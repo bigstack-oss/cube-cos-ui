@@ -1,10 +1,6 @@
 import { noop } from 'lodash'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
-import {
-  CosButton,
-  CosGeneralPanel,
-  CosGeneralPanelTitleBar,
-} from '@cube-frontend/ui-library'
+import { CosButton, CosGeneralPanel } from '@cube-frontend/ui-library'
 import { PanelBlock } from '../PanelBlock'
 import { PanelDropdown, PanelIcon } from './MockComponents'
 
@@ -13,47 +9,49 @@ export const SinglePanelSection = () => {
     <StoryLayout.Section title="Layout - Single Panel">
       <div className="flex flex-col gap-y-10">
         <PanelBlock title="Master">
-          <CosGeneralPanelTitleBar
-            title="Panel Title"
-            time="yyyy/mm/dd 00:00"
-            dropdown={<PanelDropdown />}
-            hyperLinkProps={{ children: 'Call to action', onClick: noop }}
-          />
           <CosGeneralPanel
             topic="Topic Name"
             button={<CosButton>Call to Action</CosButton>}
             icon={<PanelIcon />}
             dropdown={<PanelDropdown />}
             subtext="Subtext"
+            titleBarProps={{
+              title: 'Panel Title',
+              time: 'yyyy/mm/dd 00:00',
+              dropdown: <PanelDropdown />,
+              hyperLinkProps: { children: 'Call to action', onClick: noop },
+            }}
           >
             Content Text
           </CosGeneralPanel>
         </PanelBlock>
 
         <PanelBlock title="Title Bar Without Time">
-          <CosGeneralPanelTitleBar
-            title="Panel Title"
-            dropdown={<PanelDropdown />}
-          />
           <CosGeneralPanel
             topic="Topic Name"
             button={<CosButton>Call to Action</CosButton>}
             icon={<PanelIcon />}
             dropdown={<PanelDropdown />}
             subtext="Subtext"
+            titleBarProps={{
+              title: 'Panel Title',
+              dropdown: <PanelDropdown />,
+            }}
           >
             Content Text
           </CosGeneralPanel>
         </PanelBlock>
 
         <PanelBlock title="Title Bar Without Dropdown">
-          <CosGeneralPanelTitleBar title="Panel Title" />
           <CosGeneralPanel
             topic="Topic Name"
             button={<CosButton>Call to Action</CosButton>}
             icon={<PanelIcon />}
             dropdown={<PanelDropdown />}
             subtext="Subtext"
+            titleBarProps={{
+              title: 'Panel Title',
+            }}
           >
             Content Text
           </CosGeneralPanel>
@@ -79,11 +77,6 @@ export const SinglePanelSection = () => {
         </PanelBlock>
 
         <PanelBlock title="Multiple Dropdown">
-          <CosGeneralPanelTitleBar
-            title="Panel Title"
-            time="yyyy/mm/dd 00:00"
-            dropdown={<PanelDropdown />}
-          />
           <CosGeneralPanel
             topic="Topic Name"
             button={<CosButton>Call to Action</CosButton>}
@@ -95,6 +88,11 @@ export const SinglePanelSection = () => {
               </div>
             }
             subtext="Subtext"
+            titleBarProps={{
+              title: 'Panel Title',
+              time: 'yyyy/mm/dd 00:00',
+              dropdown: <PanelDropdown />,
+            }}
           >
             Content Text
           </CosGeneralPanel>

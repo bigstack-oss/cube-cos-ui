@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import { noop } from 'lodash'
 import { MetricsApiGetMetricsOverviewRequest } from '@cube-frontend/api'
-import { CosGeneralPanelTitleBar } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -12,6 +11,7 @@ import { RankingPanels } from './_components/RankingPanels/RankingPanels'
 import { StoragePanels } from './_components/StoragePanels/StoragePanels'
 import { defaultMetrics } from '../overview/_components/ChartPanel/utils'
 import { CHART_PAGE_POLLING_INTERVAL } from './_components/utils'
+import { CosGeneralPanel } from '@cube-frontend/ui-library'
 
 export const HomeChartPage = () => {
   const dataCenter = useContext(DataCenterContext)
@@ -37,7 +37,7 @@ export const HomeChartPage = () => {
       <ChartPanel metrics={metrics} isLoading={showMetricsLoading} />
       <StoragePanels />
       <RankingPanels />
-      <CosGeneralPanelTitleBar
+      <CosGeneralPanel.TitleBar
         title="Network"
         hyperLinkProps={{
           children: 'More network on Grafana',

@@ -34,7 +34,7 @@ export const CosGeneralPanelTitleBar = (
   }
 
   return (
-    <div className="mb-3 flex items-end justify-between">
+    <div className="flex items-end justify-between">
       <span className="secondary-body1 text-functional-text-light">
         {title}
       </span>

@@ -1,13 +1,13 @@
 import { noop } from 'lodash'
-import { CosGeneralPanelTitleBar } from '@cube-frontend/ui-library'
 import { StorageBandwidthPanel } from './StorageBandwidthPanel'
 import { StorageIopsPanel } from './StorageIopsPanel'
 import { StorageLatencyPanel } from './StorageLatencyPanel'
+import { CosGeneralPanel } from '@cube-frontend/ui-library'
 
 export const StoragePanels = () => {
   return (
-    <div>
-      <CosGeneralPanelTitleBar
+    <CosGeneralPanel.Container>
+      <CosGeneralPanel.TitleBar
         title="Storage"
         hyperLinkProps={{
           children: 'More storage on Grafana',
@@ -15,11 +15,11 @@ export const StoragePanels = () => {
           onClick: noop,
         }}
       />
-      <div className="flex gap-x-4">
+      <div className="flex items-stretch gap-x-4 [&>*]:flex-1">
         <StorageBandwidthPanel />
         <StorageIopsPanel />
         <StorageLatencyPanel />
       </div>
-    </div>
+    </CosGeneralPanel.Container>
   )
 }

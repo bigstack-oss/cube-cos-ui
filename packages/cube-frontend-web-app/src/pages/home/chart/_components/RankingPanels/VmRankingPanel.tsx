@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import { noop } from 'lodash'
 import { GetMetricByTypesMetricTypeEnum } from '@cube-frontend/api'
-import {
-  CosDropdown,
-  CosGeneralPanel,
-  CosGeneralPanelTitleBar,
-} from '@cube-frontend/ui-library'
+import { CosDropdown, CosGeneralPanel } from '@cube-frontend/ui-library'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
 import { useMetricsParams } from '../StoragePanels/useMetricsParams'
@@ -74,8 +70,8 @@ export const VmRankingPanel = () => {
   const showLoading = !hasResponseBeenReceived && isLoading
 
   return (
-    <div className="flex flex-1 flex-col">
-      <CosGeneralPanelTitleBar
+    <CosGeneralPanel.Container className="flex-1">
+      <CosGeneralPanel.TitleBar
         title="Instance"
         hyperLinkProps={{
           children: 'More instance on Grafana',
@@ -105,6 +101,6 @@ export const VmRankingPanel = () => {
       >
         <RankingChart ranking={ranking} isLoading={showLoading} />
       </CosGeneralPanel>
-    </div>
+    </CosGeneralPanel.Container>
   )
 }
