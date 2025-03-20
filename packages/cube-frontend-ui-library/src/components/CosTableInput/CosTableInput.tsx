@@ -12,7 +12,7 @@ export type CosTableInputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 const input = cva(
   [
-    'primary-body3 size-full truncate rounded-[6px] px-3 py-2 outline-none',
+    'primary-body3 h-full min-w-[35px] max-w-[320px] grow truncate rounded-[6px] px-3 py-2 outline-none',
     'bg-grey-0',
     'text-functional-text placeholder:text-functional-border-darker',
     'border border-functional-border-divider',
@@ -50,7 +50,7 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
 
     const renderErrorIcon = () => {
       return (
-        <div className="absolute right-0 flex size-4 shrink-0 translate-x-6 items-center justify-center overflow-hidden [&>*]:size-4">
+        <div className="flex size-4 shrink-0 items-center justify-center">
           {isError && (
             <CosTooltip
               hoverContent={{
@@ -65,21 +65,19 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
     }
 
     return (
-      <div className="min-w-[59px] max-w-[344px] space-y-[6px]">
-        <div className="relative flex items-center">
-          {isLoading ? (
-            <CosTableInputSkeleton />
-          ) : (
-            <input
-              {...restProps}
-              id={inputId}
-              ref={ref}
-              disabled={disabled}
-              className={twMerge(input({ isError, disabled }), className)}
-            />
-          )}
-          {renderErrorIcon()}
-        </div>
+      <div className="flex items-center gap-x-2">
+        {isLoading ? (
+          <CosTableInputSkeleton />
+        ) : (
+          <input
+            {...restProps}
+            id={inputId}
+            ref={ref}
+            disabled={disabled}
+            className={twMerge(input({ isError, disabled }), className)}
+          />
+        )}
+        {renderErrorIcon()}
       </div>
     )
   },
