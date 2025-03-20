@@ -9,6 +9,8 @@ import {
 import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { useEventsFilterStore } from '@cube-frontend/web-app/stores/events'
+import { mapFilterToRequestParams } from './utils'
 
 export type UseEventsOptions = {
   eventsType: GetEventsTypeEnum
@@ -28,12 +30,19 @@ export const useEvents = (options: UseEventsOptions): UseEvents => {
 
   const { name: dataCenter } = useContext(DataCenterContext)
 
+  const { getFilters } = useEventsFilterStore()
+
   const { data, isLoading, getResource } = useCosGetRequest(
     eventsApi.getEvents,
     () => {
       if (!dataCenter) return null
 
+      const filter = getFilters(eventsType)
+
+      const requestParams = mapFilterToRequestParams(filter)
+
       return {
+        ...requestParams,
         dataCenter: dataCenter,
         type: eventsType,
         pageSize,

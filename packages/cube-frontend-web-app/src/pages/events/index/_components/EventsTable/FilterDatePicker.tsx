@@ -45,6 +45,25 @@ export const FilterDatePicker = (props: FilterDatePickerProps) => {
     })
   }
 
+  const handleOutsideClickClose = () => {
+    if (!startDate) return
+
+    if (startDate && !endDate) {
+      setEndDate(startDate)
+      onDatePickerChange({
+        startDate: startDate.format('YYYY-MM-DD'),
+        endDate: startDate.format('YYYY-MM-DD'),
+      })
+    }
+
+    if (startDate && endDate) {
+      onDatePickerChange({
+        startDate: startDate.format('YYYY-MM-DD'),
+        endDate: endDate.format('YYYY-MM-DD'),
+      })
+    }
+  }
+
   return (
     <CosDatePicker
       isLoading={isLoading}
@@ -54,6 +73,7 @@ export const FilterDatePicker = (props: FilterDatePickerProps) => {
       setEndDate={setEndDate}
       onApplyClick={handleApplyClick}
       onCancelClick={handleCancelClick}
+      onOutsideClickClose={handleOutsideClickClose}
     />
   )
 }
