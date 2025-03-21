@@ -37,8 +37,6 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
-  const [isClosedByOutsideClick, setIsClosedByOutsideClick] = useState(false)
-
   const [currentMonth, setCurrentMonth] = useState(() => dayjs(new Date()))
 
   const handleDayClick = (date: Dayjs) => {
@@ -95,11 +93,11 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
       const isMenu = elementRef.current?.contains(target)
 
       if (!isTrigger && !isMenu) {
-        setIsClosedByOutsideClick(true)
+        onOutsideClickClose?.()
         setIsCalendarOpen(false)
       }
     },
-    [anchorRef, elementRef],
+    [anchorRef, elementRef, onOutsideClickClose],
   )
 
   useEffect(() => {
@@ -108,22 +106,6 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [handleClickOutside])
-
-  useEffect(() => {
-    /**
-     *  Handle the case where the date picker is closed by clicking outside
-     *  And reset the flag after handling
-     */
-    if (!isCalendarOpen && isClosedByOutsideClick) {
-      onOutsideClickClose?.()
-      setIsClosedByOutsideClick(false)
-    }
-  }, [
-    isCalendarOpen,
-    onOutsideClickClose,
-    isClosedByOutsideClick,
-    setIsClosedByOutsideClick,
-  ])
 
   if (isLoading) return <CosDatePickerSkeleton />
 

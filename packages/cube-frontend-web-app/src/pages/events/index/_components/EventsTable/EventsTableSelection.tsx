@@ -1,10 +1,14 @@
-import { useMemo, useEffect } from 'react'
+import { useMemo } from 'react'
 import {
   GetEventsResponseData,
   GetEventsResponseDataEventsInner,
   Page,
 } from '@cube-frontend/api'
-import { CosPagination, GetCosBasicTable } from '@cube-frontend/ui-library'
+import {
+  CosPagination,
+  GetCosBasicTable,
+  ItemsPerPage,
+} from '@cube-frontend/ui-library'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
 
 type EventResponse = GetEventsResponseData['events'][number]
@@ -35,8 +39,6 @@ const mapToEventTable = (e: EventResponse, index: number): EventTableType => ({
   eventId: e.id,
 })
 
-type ItemsPerPage = 10 | 20 | 30 | 50 | 100
-
 type EventsTableSelectionProps = {
   currentPage: number
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
@@ -65,10 +67,6 @@ export const EventsTableSelection = (props: EventsTableSelectionProps) => {
   const handleCurrentPageChange = (page: number) => {
     setCurrentPage(page)
   }
-
-  useEffect(() => {
-    setCurrentPage(pagination?.number ?? 1)
-  }, [pagination, setCurrentPage])
 
   return (
     <div className="flex flex-col gap-6">

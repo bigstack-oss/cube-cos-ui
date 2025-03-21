@@ -10,7 +10,7 @@ import { CosPaginationItemWrap } from './CosPaginationItemWrap'
 import { CosPaginationSkeleton } from './CosPaginationSkeleton'
 import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from './cosPaginationUtils'
 import { CosPaginationViewDropdown } from './CosPaginationViewDropdown'
-import { getPageNumbers } from './utils'
+import { getPageNumbers } from './getPageNumbers'
 
 export type CosPaginationProps = {
   isLoading?: boolean

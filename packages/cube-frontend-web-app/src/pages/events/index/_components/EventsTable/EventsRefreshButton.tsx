@@ -3,15 +3,15 @@ import { GetEventsResponseData } from '@cube-frontend/api'
 import ArrowRefresh from '@cube-frontend/ui-library/icons/monochrome/arrow_refresh_02.svg?react'
 
 type EventsRefreshButtonProps = {
-  onEventsMutate: (() => Promise<GetEventsResponseData>) | undefined
+  onEventsRefresh: (() => Promise<GetEventsResponseData>) | undefined
   isEventsLoading: boolean
 }
 
 export const EventsRefreshButton = (props: EventsRefreshButtonProps) => {
-  const { onEventsMutate, isEventsLoading } = props
+  const { onEventsRefresh, isEventsLoading } = props
 
   const handleEventsRefresh = () => {
-    onEventsMutate?.()
+    onEventsRefresh?.()
   }
 
   return (

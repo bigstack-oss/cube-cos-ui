@@ -1,15 +1,14 @@
 import { upperFirst } from 'lodash'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
 import { CosContentSwitcher } from '@cube-frontend/ui-library'
-import { useEventsFilterStore } from '@cube-frontend/web-app/stores/events'
 
 type EventsContentSwitcherProps = {
-  onEventsTypeChange: (tab: GetEventsTypeEnum) => void
+  activeTab: GetEventsTypeEnum
+  onEventsTypeChange: (type: GetEventsTypeEnum) => void
 }
 
 export const EventsContentSwitcher = (props: EventsContentSwitcherProps) => {
-  const { onEventsTypeChange: handleTabChange } = props
-  const { eventsType: activeTab } = useEventsFilterStore()
+  const { activeTab, onEventsTypeChange: handleTabChange } = props
 
   return (
     <CosContentSwitcher variant="radius">
