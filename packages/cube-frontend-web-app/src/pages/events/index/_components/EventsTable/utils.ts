@@ -1,14 +1,16 @@
+import { EventsApiGetEventsRequest } from '@cube-frontend/api'
 import dayjs from 'dayjs'
 
-const eventsRequestKeyMapping: Record<string, string> = {
-  startDate: 'start',
-  endDate: 'stop',
-  category: 'category',
-  severity: 'severity',
-  keyword: 'keyword',
-  name: 'host',
-  id: 'instance',
-}
+const eventsRequestKeyMapping: Record<string, keyof EventsApiGetEventsRequest> =
+  {
+    startDate: 'start',
+    endDate: 'stop',
+    category: 'category',
+    severity: 'severity',
+    keyword: 'keyword',
+    name: 'host',
+    id: 'instance',
+  }
 
 export const mapFilterToRequestParams = (filter: Record<string, string>) => {
   const result = Object.entries(filter).reduce(

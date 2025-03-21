@@ -8,7 +8,6 @@ import {
   EventsApiGetEventFilterConditionsRequest,
   GetEventFilterConditionResponseData,
 } from '@cube-frontend/api'
-import { EventsFilterTableContext } from './context'
 
 export type UseEventsFilter = {
   eventsFilter: GetEventFilterConditionResponseData | undefined
@@ -20,11 +19,10 @@ export type UseEventsFilter = {
 export const useEventsFilter = (): UseEventsFilter => {
   const { name: dataCenter } = useContext(DataCenterContext)
 
-  const { eventsType } = useContext(EventsFilterTableContext)
-
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { setFilter, resetFilter } = useEventsFilterStore()
+  const { eventsType, setEventsFilter, resetEventsFilter } =
+    useEventsFilterStore()
 
   const { data, isLoading } = useCosGetRequest(
     eventsApi.getEventFilterConditions,
@@ -38,7 +36,7 @@ export const useEventsFilter = (): UseEventsFilter => {
   const handleFilterChange = (updates: Record<string, string | null>) => {
     const newParams = new URLSearchParams(searchParams)
     Object.entries(updates).forEach(([key, value]) => {
-      setFilter(eventsType, key, value ?? '')
+      setEventsFilter(key, value ?? '')
       if (value) {
         newParams.set(key, value)
       } else {
@@ -49,7 +47,7 @@ export const useEventsFilter = (): UseEventsFilter => {
   }
 
   const handleFilterReset = () => {
-    resetFilter(eventsType)
+    resetEventsFilter()
 
     const newParams = new URLSearchParams()
     newParams.set('eventType', eventsType)

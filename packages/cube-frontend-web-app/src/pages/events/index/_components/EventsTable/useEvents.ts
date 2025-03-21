@@ -30,14 +30,14 @@ export const useEvents = (options: UseEventsOptions): UseEvents => {
 
   const { name: dataCenter } = useContext(DataCenterContext)
 
-  const { getFilters } = useEventsFilterStore()
+  const { getEventsFilter } = useEventsFilterStore()
 
   const { data, isLoading, getResource } = useCosGetRequest(
     eventsApi.getEvents,
     () => {
       if (!dataCenter) return null
 
-      const filter = getFilters(eventsType)
+      const filter = getEventsFilter()
 
       const requestParams = mapFilterToRequestParams(filter)
 
