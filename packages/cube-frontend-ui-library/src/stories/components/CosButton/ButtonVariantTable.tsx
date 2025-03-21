@@ -18,6 +18,7 @@ const VariantHeaderRow = () => {
       <TypeText>Secondary</TypeText>
       <TypeText>Ghost</TypeText>
       <TypeText>Warning</TypeText>
+      <TypeText>Light</TypeText>
     </>
   )
 }
@@ -30,7 +31,7 @@ export const ButtonVariantTable = (props: ButtonVariantTableProps) => {
   const { buttonText } = props
 
   return (
-    <div className="grid grid-cols-[repeat(5,auto)] grid-rows-[100px_repeat(auto)] gap-14">
+    <div className="grid grid-cols-[repeat(6,auto)] grid-rows-[100px_repeat(auto)] gap-14">
       <VariantHeaderRow />
       <ButtonSizeRow
         sizeText="MD"

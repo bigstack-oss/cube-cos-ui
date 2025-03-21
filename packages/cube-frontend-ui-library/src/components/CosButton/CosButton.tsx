@@ -7,7 +7,12 @@ import { IconSize, SvgComponent } from '../CosIcon/CosIcon'
 import { getIconSizeClass } from '../CosIcon/utils'
 import { CosLoadingSpinner } from '../CosLoadingSpinner/CosLoadingSpinner'
 
-export type CosButtonType = 'primary' | 'secondary' | 'ghost' | 'warning'
+export type CosButtonType =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'warning'
+  | 'light'
 
 export type CosButtonSize = 'sm' | 'md' | 'lg'
 
@@ -80,6 +85,11 @@ const button = cva(
           'hover:bg-status-negative hover:text-grey-0',
           'disabled:border-red-100 disabled:bg-transparent disabled:text-red-100',
         ],
+        light: [
+          'bg-secondary text-dark-400',
+          'hover:bg-secondary',
+          'disabled:bg-secondary-50 disabled:text-functional-disable-text',
+        ],
       },
       size: {
         sm: 'secondary-body3 h-[26px] px-3 py-[5px]',
@@ -113,6 +123,7 @@ const loadingSpinner = cva(undefined, {
       secondary: 'text-functional-disable-text',
       ghost: 'text-functional-disable-text',
       warning: 'text-red-100',
+      light: 'text-functional-disable-text',
     },
   },
 })

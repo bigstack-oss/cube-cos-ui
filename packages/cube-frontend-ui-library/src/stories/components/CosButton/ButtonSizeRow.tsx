@@ -52,6 +52,13 @@ export const ButtonSizeRow = (props: ButtonSizeRowProps) => {
         type="warning"
         buttonText={buttonText}
       />
+      <ButtonTypeSizeTable
+        showUsageHeader={showUsageHeader}
+        showState={false}
+        size={size}
+        type="light"
+        buttonText={buttonText}
+      />
     </>
   )
 }

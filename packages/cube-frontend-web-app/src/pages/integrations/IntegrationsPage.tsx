@@ -1,4 +1,5 @@
 import { useContext, useMemo } from 'react'
+import { uniqueId } from 'lodash'
 import { GetIntegrationsResponseDataInner } from '@cube-frontend/api'
 import {
   CosButton,
@@ -9,7 +10,6 @@ import {
 import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { uniqueId } from 'lodash'
 
 type IntegrationRow = CosTableRow & GetIntegrationsResponseDataInner
 
@@ -41,7 +41,11 @@ export const IntegrationsPage = () => {
         <IntegrationTable rows={rows} isLoading={isLoading}>
           <IntegrationTable.Column property="url" fitContent={true}>
             {(url) => (
-              <CosButton size="sm" onClick={handleConnectButtonClick(url)}>
+              <CosButton
+                type="light"
+                size="sm"
+                onClick={handleConnectButtonClick(url)}
+              >
                 Connect
               </CosButton>
             )}
@@ -73,7 +77,7 @@ export const IntegrationsPage = () => {
                  * TODO: In Phase 1, all integrations are `Built-in`.
                  * Should discuss the `Non-Built-in` wording with the team in Phase 2.
                  */}
-                {isBuiltIn ? 'Built-in' : 'Non-Built-in'}
+                {isBuiltIn ? 'Built in' : 'Non Built in'}
               </span>
             )}
           </IntegrationTable.Column>
