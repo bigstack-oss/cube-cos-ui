@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react'
-import { uniqueId } from 'lodash'
+import { capitalize, uniqueId } from 'lodash'
 import { GetIntegrationsResponseDataInner } from '@cube-frontend/api'
 import {
   CosButton,
@@ -30,10 +30,6 @@ export const IntegrationsPage = () => {
 
   const rows = useMemo(() => data?.map(integrationToRow) || [], [data])
 
-  const handleConnectButtonClick = (url: string) => () => {
-    window.open(url, '_blank')
-  }
-
   return (
     <CosGeneralPanel topic="Integrations">
       <div className="flex flex-col gap-y-2 pt-2">
@@ -41,20 +37,20 @@ export const IntegrationsPage = () => {
         <IntegrationTable rows={rows} isLoading={isLoading}>
           <IntegrationTable.Column property="url" fitContent={true}>
             {(url) => (
-              <CosButton
-                type="light"
-                size="sm"
-                onClick={handleConnectButtonClick(url)}
-              >
-                Connect
-              </CosButton>
+              <a target="_blank" href={url}>
+                <CosButton type="light" size="sm">
+                  Connect
+                </CosButton>
+              </a>
             )}
           </IntegrationTable.Column>
           <IntegrationTable.Column
             label="Integration"
             property="name"
             emphasize={true}
-          />
+          >
+            {capitalize}
+          </IntegrationTable.Column>
           <IntegrationTable.Column
             label="Shown on header"
             property="isHeaderShortcutEnabled"
