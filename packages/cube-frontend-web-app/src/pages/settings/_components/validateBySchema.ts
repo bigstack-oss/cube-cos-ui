@@ -24,7 +24,7 @@ export const validateBySchema = <T>(
     const rule = shape[key]
     const error = rule.safeParse(value).error?.issues[0]?.message
     if (error) {
-      errorRecord[key as keyof T] = error
+      errorRecord[key] = error
     }
   }
 
