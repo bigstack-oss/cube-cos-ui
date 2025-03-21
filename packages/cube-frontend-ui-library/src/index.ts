@@ -1,6 +1,5 @@
 export * from './components/CosBackButton/CosBackButton'
 export * from './components/CosBackButton/CosBackButtonSkeleton'
-export * from './components/CosProgressBarChart/CosProgressBarChart'
 export * from './components/CosBasicTable/CosBasicTable'
 export type { CosTableRow } from './components/CosBasicTable/cosTableUtils'
 export * from './components/CosBasicTable/rendering/CosTableTdSkeleton'
@@ -33,11 +32,13 @@ export {
   DEFAULT_ITEMS_PER_PAGE,
   type ItemsPerPage,
 } from './components/CosPagination/cosPaginationUtils'
+export * from './components/CosPagination/useCosPagination'
 export * from './components/CosPanel/CosDashboardPanel/CosDashboardPanel'
 export * from './components/CosPanel/CosGeneralPanel/CosGeneralPanel'
 export * from './components/CosPanel/CosGeneralPanel/CosGeneralPanelTitleBar'
 export * from './components/CosPercentagePieChart/CosPercentagePieChart'
 export * from './components/CosProgressBar/CosProgressBar'
+export * from './components/CosProgressBarChart/CosProgressBarChart'
 export * from './components/CosRadioButton/CosRadioButton'
 export * from './components/CosRadioButton/CosRadioButtonGroup'
 export * from './components/CosRadioButton/CosRadioButtonSkeleton'
