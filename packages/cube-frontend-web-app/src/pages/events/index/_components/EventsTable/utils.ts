@@ -1,3 +1,4 @@
+import { EventsApiGetEventsRequest } from '@cube-frontend/api'
 import dayjs from 'dayjs'
 import { EventsApiGetEventsRequest } from '@cube-frontend/api'
 
