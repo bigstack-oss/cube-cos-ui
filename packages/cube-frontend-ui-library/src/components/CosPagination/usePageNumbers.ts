@@ -5,13 +5,9 @@ type GetPageNumbersProps = {
 
 export type PageNumbers = 'ellipsis' | number
 
-export const DEFAULT_ITEMS_PER_PAGE_OPTIONS = [10, 20, 30, 50, 100]
-
-export const DEFAULT_ITEMS_PER_PAGE = 10
-
 const MAX_DISPLAY_PAGE = 7
 
-export const getPageNumbers = (props: GetPageNumbersProps): PageNumbers[] => {
+export const usePageNumbers = (props: GetPageNumbersProps): PageNumbers[] => {
   const { totalPages, currentPage } = props
 
   const pageNumbers: PageNumbers[] = []

@@ -10,7 +10,7 @@ import { CosPaginationItemWrap } from './CosPaginationItemWrap'
 import { CosPaginationSkeleton } from './CosPaginationSkeleton'
 import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from './cosPaginationUtils'
 import { CosPaginationViewDropdown } from './CosPaginationViewDropdown'
-import { getPageNumbers } from './utils'
+import { usePageNumbers } from './usePageNumbers'
 
 export type CosPaginationProps = {
   isLoading?: boolean
@@ -72,7 +72,7 @@ export const CosPagination = (props: CosPaginationProps) => {
     handlePageChange(1)
   }
 
-  const pageNumbers = getPageNumbers({ totalPages, currentPage })
+  const pageNumbers = usePageNumbers({ totalPages, currentPage })
 
   if (isLoading) return <CosPaginationSkeleton />
 

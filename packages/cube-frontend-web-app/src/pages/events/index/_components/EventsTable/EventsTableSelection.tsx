@@ -4,7 +4,11 @@ import {
   GetEventsResponseDataEventsInner,
   Page,
 } from '@cube-frontend/api'
-import { CosPagination, GetCosBasicTable } from '@cube-frontend/ui-library'
+import {
+  CosPagination,
+  GetCosBasicTable,
+  ItemsPerPage,
+} from '@cube-frontend/ui-library'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
 
 type EventResponse = GetEventsResponseData['events'][number]
@@ -34,8 +38,6 @@ const mapToEventTable = (e: EventResponse, index: number): EventTableType => ({
   id: String(index),
   eventId: e.id,
 })
-
-type ItemsPerPage = 10 | 20 | 30 | 50 | 100
 
 type EventsTableSelectionProps = {
   currentPage: number
