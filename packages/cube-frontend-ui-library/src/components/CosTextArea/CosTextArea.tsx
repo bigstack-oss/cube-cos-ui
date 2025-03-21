@@ -1,8 +1,8 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { CosTextAreaSkeleton } from './CosTextAreaSkeleton'
-import { useTextAreaOverflow } from './useTextAreaOverflow'
+import { assignRefValue, normalizeValue } from './cosTextAreaUtils'
 
 const textarea = cva(
   [
@@ -16,10 +16,6 @@ const textarea = cva(
     variants: {
       isError: {
         true: 'border-status-negative hover:border-status-negative',
-      },
-      isFocused: {
-        true: 'overflow-auto',
-        false: 'overflow-hidden',
       },
       disabled: {
         true: [
@@ -44,6 +40,7 @@ export type CosTextAreaProps = React.DetailedHTMLProps<
 export const CosTextArea = (props: CosTextAreaProps) => {
   const {
     id: textAreaId,
+    ref,
     className,
     disabled,
     value: valueProps,
@@ -52,18 +49,47 @@ export const CosTextArea = (props: CosTextAreaProps) => {
     maxLength,
     isLoading,
     errorMessage,
+    ...restProps
   } = props
 
-  const {
-    formattedValue,
-    displayValue,
-    textareaRef,
-    mirrorRef,
-    isFocused,
-    setIsFocused,
-  } = useTextAreaOverflow({ valueProps, maxLength })
+  /**
+   * To turn the value from props into string
+   */
+  const normalizedValue = normalizeValue(valueProps)
 
-  const [charCount, setCharCount] = useState(formattedValue.length)
+  const [charCount, setCharCount] = useState(normalizedValue.length)
+
+  const [isFocused, setIsFocused] = useState(false)
+
+  const [visibleRowsCount, setVisibleRowsCount] = useState(0)
+
+  const localRef = useRef<HTMLTextAreaElement | null>(null)
+
+  /**
+   * Calculate visible rows
+   * and update `visibleRowsCount` when the textarea resizes.
+   */
+  useEffect(() => {
+    const textarea = localRef.current
+
+    let observer: ResizeObserver | undefined = undefined
+
+    if (textarea) {
+      observer = new ResizeObserver((entries) => {
+        const { lineHeight } = getComputedStyle(textarea)
+        const lineHeightPx = parseInt(lineHeight)
+        const textareaHeight = entries[0]?.contentBoxSize[0]?.blockSize ?? 0
+        setVisibleRowsCount(
+          Math.ceil((textareaHeight + textarea.scrollTop) / lineHeightPx),
+        )
+      })
+      observer.observe(textarea)
+    }
+
+    return () => {
+      observer?.disconnect()
+    }
+  }, [])
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value
@@ -88,27 +114,39 @@ export const CosTextArea = (props: CosTextAreaProps) => {
           {charCount}/{maxLength}
         </div>
       </div>
-      {/**
-       * Mirror div is set for calculation of the displayed texts
-       * When textarea is not focused, displays text according to the textarea  size
-       */}
-      <div
-        ref={mirrorRef}
-        className="pointer-events-none absolute left-0 top-0 w-full whitespace-pre-wrap break-words opacity-0"
-      ></div>
       <textarea
-        {...props}
-        ref={textareaRef}
-        value={isFocused ? valueProps : displayValue}
+        {...restProps}
+        ref={(element) => {
+          /**
+           * Assign the textarea element to the external `ref` passed to `CosTextArea` (if any),
+           * allowing parent components to access the textarea's reference.
+           */
+          assignRefValue(ref, element)
+          /**
+           * Assign the textarea element to the internal `localRef`,
+           * which is used for local operations such as calculating visible rows.
+           */
+          assignRefValue(localRef, element)
+        }}
+        value={valueProps}
         onChange={handleChange}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={twMerge(
-          textarea({ isError: !!errorMessage, isFocused, disabled }),
+          textarea({ isError: !!errorMessage, disabled }),
           className,
         )}
+        style={
+          isFocused
+            ? undefined
+            : {
+                overflow: 'hidden',
+                display: '-webkit-box',
+                WebkitBoxOrient: 'vertical',
+                WebkitLineClamp: visibleRowsCount,
+              }
+        }
       />
-
       {errorMessage && (
         <p className="primary-body4 text-status-negative">{errorMessage}</p>
       )}

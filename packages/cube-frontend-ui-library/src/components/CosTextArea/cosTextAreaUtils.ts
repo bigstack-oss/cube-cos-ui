@@ -1,3 +1,5 @@
+import { Ref } from 'react'
+
 export const normalizeValue = (
   value: string | number | readonly string[] | undefined,
 ): string => {
@@ -8,4 +10,19 @@ export const normalizeValue = (
   if (Array.isArray(value)) return value.join('')
 
   return ''
+}
+
+export const assignRefValue = <T>(
+  ref: Ref<T> | undefined,
+  element: T,
+): void => {
+  if (!ref) {
+    return
+  }
+
+  if (typeof ref === 'function') {
+    ref(element)
+  } else {
+    ref.current = element
+  }
 }
