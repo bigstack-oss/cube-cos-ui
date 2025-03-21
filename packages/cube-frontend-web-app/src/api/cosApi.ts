@@ -12,6 +12,7 @@ import {
   Configuration,
   ServicesApi,
   SettingsApi,
+  TuningsApi,
 } from '@cube-frontend/api'
 import devAccessTokenInterceptor from './devAccessTokenInterceptor'
 import { samlAuthErrorInterceptor } from './samlAuthErrorInterceptor'
@@ -66,6 +67,7 @@ export const nodesApi = createApiInstance(NodesApi)
 export const eventsApi = createApiInstance(EventsApi)
 export const servicesApi = createApiInstance(ServicesApi)
 export const settingsApi = createApiInstance(SettingsApi)
+export const tuningsApi = createApiInstance(TuningsApi)
 
 cosApi.interceptors.response.use(undefined, samlAuthErrorInterceptor)
 
