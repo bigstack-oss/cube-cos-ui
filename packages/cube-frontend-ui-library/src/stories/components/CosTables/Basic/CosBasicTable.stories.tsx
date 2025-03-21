@@ -27,6 +27,9 @@ export const Gallery: StoryObj = {
       <StoryLayout.Section title="Custom Sorting Rule">
         <CustomSortingRule />
       </StoryLayout.Section>
+      <StoryLayout.Section title="Fit Content">
+        <FitContent />
+      </StoryLayout.Section>
       <StoryLayout.Section title="No Result">
         <NoResult />
       </StoryLayout.Section>
@@ -52,14 +55,30 @@ const Default = () => (
       {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
     </NodeTable.Column>
     <NodeTable.Column label="CPU" property="cpu">
-      {(cpu) => <CosProgressBar color="bg-chart-1" progress={cpu} />}
+      {(cpu) => (
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-1"
+          progress={cpu}
+        />
+      )}
     </NodeTable.Column>
     <NodeTable.Column label="RAM" property="ram">
-      {(ram) => <CosProgressBar color="bg-chart-2" progress={ram} />}
+      {(ram) => (
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-2"
+          progress={ram}
+        />
+      )}
     </NodeTable.Column>
     <NodeTable.Column label="Partition" property="partition">
       {(partition) => (
-        <CosProgressBar color="bg-chart-3" progress={partition} />
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-3"
+          progress={partition}
+        />
       )}
     </NodeTable.Column>
     <NodeTable.Column label="Running" property="running">
@@ -91,14 +110,30 @@ const Sortable = () => (
       {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
     </NodeTable.Column>
     <NodeTable.Column label="CPU" property="cpu">
-      {(cpu) => <CosProgressBar color="bg-chart-1" progress={cpu} />}
+      {(cpu) => (
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-1"
+          progress={cpu}
+        />
+      )}
     </NodeTable.Column>
     <NodeTable.Column label="RAM" property="ram" isSortable={true}>
-      {(ram) => <CosProgressBar color="bg-chart-2" progress={ram} />}
+      {(ram) => (
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-2"
+          progress={ram}
+        />
+      )}
     </NodeTable.Column>
     <NodeTable.Column label="Partition" property="partition">
       {(partition) => (
-        <CosProgressBar color="bg-chart-3" progress={partition} />
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-3"
+          progress={partition}
+        />
       )}
     </NodeTable.Column>
     <NodeTable.Column label="Running" property="running">
@@ -136,14 +171,30 @@ const SortableWithDefaultState = () => (
       {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
     </NodeTable.Column>
     <NodeTable.Column label="CPU" property="cpu">
-      {(cpu) => <CosProgressBar color="bg-chart-1" progress={cpu} />}
+      {(cpu) => (
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-1"
+          progress={cpu}
+        />
+      )}
     </NodeTable.Column>
     <NodeTable.Column label="RAM" property="ram" isSortable={true}>
-      {(ram) => <CosProgressBar color="bg-chart-2" progress={ram} />}
+      {(ram) => (
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-2"
+          progress={ram}
+        />
+      )}
     </NodeTable.Column>
     <NodeTable.Column label="Partition" property="partition">
       {(partition) => (
-        <CosProgressBar color="bg-chart-3" progress={partition} />
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-3"
+          progress={partition}
+        />
       )}
     </NodeTable.Column>
     <NodeTable.Column label="Running" property="running">
@@ -154,6 +205,71 @@ const SortableWithDefaultState = () => (
     </NodeTable.Column>
   </NodeTable>
 )
+
+const FitContent = () => {
+  return (
+    <NodeTable rows={mockNodes}>
+      <NodeTable.Column
+        label="Hostname"
+        property="hostname"
+        emphasize={true}
+        fitContent={true}
+      />
+      <NodeTable.Column
+        label="Management IP"
+        property="managementIp"
+        fitContent={true}
+      />
+      <NodeTable.Column label="Role" property="role">
+        {(role) => (
+          <CosTag color="blue" variant="filled">
+            {role}
+          </CosTag>
+        )}
+      </NodeTable.Column>
+      <NodeTable.Column label="License Expire" property="licenseExpire">
+        {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
+      </NodeTable.Column>
+      <NodeTable.Column label="CPU" property="cpu">
+        {(cpu) => (
+          <CosProgressBar
+            className="min-w-[90px]"
+            color="bg-chart-1"
+            progress={cpu}
+          />
+        )}
+      </NodeTable.Column>
+      <NodeTable.Column label="RAM" property="ram">
+        {(ram) => (
+          <CosProgressBar
+            className="min-w-[90px]"
+            color="bg-chart-2"
+            progress={ram}
+          />
+        )}
+      </NodeTable.Column>
+      <NodeTable.Column label="Partition" property="partition">
+        {(partition) => (
+          <CosProgressBar
+            className="min-w-[90px]"
+            color="bg-chart-3"
+            progress={partition}
+          />
+        )}
+      </NodeTable.Column>
+      <NodeTable.Column label="Running" property="running" fitContent={true}>
+        {(running) => (
+          <span className="text-nowrap">
+            {running.toLocaleString('en-US')} days
+          </span>
+        )}
+      </NodeTable.Column>
+      <NodeTable.Column label="Status" property="status" fitContent={true}>
+        {(status) => <CosStatus status={status} />}
+      </NodeTable.Column>
+    </NodeTable>
+  )
+}
 
 const NoResult = () => (
   <NodeTable rows={[]} isLoading={false}>

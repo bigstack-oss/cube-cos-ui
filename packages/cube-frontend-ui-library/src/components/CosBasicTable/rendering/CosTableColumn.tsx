@@ -20,6 +20,7 @@ export type CosTableColumnProps<
   label?: string
   property?: Property
   emphasize?: boolean
+  fitContent?: boolean
   isSortable?: boolean
   /**
    * Function that determines whether the two elements are sorted.

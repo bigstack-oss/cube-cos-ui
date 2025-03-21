@@ -6,6 +6,7 @@ import { HomeManagePage } from './pages/home/manage/HomeManagePage'
 import { HomeOverviewPage } from './pages/home/overview/HomeOverviewPage'
 import { HealthDetailsPage } from './pages/home/health/[module]/HealthDetailsPage'
 import { SettingsPage } from './pages/settings/SettingsPage'
+import { IntegrationsPage } from './pages/integrations/IntegrationsPage'
 
 export const CosRoutes = () => {
   return (
@@ -23,6 +24,7 @@ export const CosRoutes = () => {
         <Route path="/home/manage" element={<HomeManagePage />} />
       </Route>
       <Route path="/settings" element={<SettingsPage />} />
+      <Route path="/integrations" element={<IntegrationsPage />} />
       <Route path="*" element={<div>TODO: Not Found Page</div>} />
     </Routes>
   )

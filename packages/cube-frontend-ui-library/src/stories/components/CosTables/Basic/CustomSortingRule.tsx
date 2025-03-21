@@ -37,14 +37,30 @@ export const CustomSortingRule = () => (
       {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
     </NodeTable.Column>
     <NodeTable.Column label="CPU" property="cpu">
-      {(cpu) => <CosProgressBar color="bg-chart-1" progress={cpu} />}
+      {(cpu) => (
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-1"
+          progress={cpu}
+        />
+      )}
     </NodeTable.Column>
     <NodeTable.Column label="RAM" property="ram">
-      {(ram) => <CosProgressBar color="bg-chart-2" progress={ram} />}
+      {(ram) => (
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-2"
+          progress={ram}
+        />
+      )}
     </NodeTable.Column>
     <NodeTable.Column label="Partition" property="partition">
       {(partition) => (
-        <CosProgressBar color="bg-chart-3" progress={partition} />
+        <CosProgressBar
+          className="min-w-[90px]"
+          color="bg-chart-3"
+          progress={partition}
+        />
       )}
     </NodeTable.Column>
     <NodeTable.Column label="Running" property="running">

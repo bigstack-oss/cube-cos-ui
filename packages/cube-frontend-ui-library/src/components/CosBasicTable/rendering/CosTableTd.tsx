@@ -21,6 +21,14 @@ const td = cva(
       emphasize: {
         true: 'font-semibold',
       },
+      fitContent: {
+        /**
+         * Workaround:
+         * `w-0` is used to prevent the table cell from expanding.
+         * `w-fit` doesn't work when target element is a table cell.
+         **/
+        true: 'w-0',
+      },
     },
   },
 )
@@ -58,6 +66,7 @@ export const CosTableTd = <Row extends CosTableRow>(
     <td
       className={td({
         emphasize: column.emphasize,
+        fitContent: column.fitContent,
       })}
     >
       {isLoading ? (
