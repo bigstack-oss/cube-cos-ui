@@ -10,10 +10,13 @@ import { CosPaginationItemWrap } from './CosPaginationItemWrap'
 import { CosPaginationSkeleton } from './CosPaginationSkeleton'
 import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from './cosPaginationUtils'
 import { CosPaginationViewDropdown } from './CosPaginationViewDropdown'
-import { getPageNumbers } from './utils'
+import { usePageNumbers } from './usePageNumbers'
 
 export type CosPaginationProps = {
   isLoading?: boolean
+  /**
+   * The total number of items
+   */
   totalItems: number
   /**
    * The current page is 1-indexed
@@ -42,6 +45,8 @@ export const CosPagination = (props: CosPaginationProps) => {
 
   const totalPages = Math.ceil(totalItems / itemsPerPage)
 
+  const isEmpty = totalItems === 0
+
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       onPageChange?.(page)
@@ -67,7 +72,7 @@ export const CosPagination = (props: CosPaginationProps) => {
     handlePageChange(1)
   }
 
-  const pageNumbers = getPageNumbers({ totalPages, currentPage })
+  const pageNumbers = usePageNumbers({ totalPages, currentPage })
 
   if (isLoading) return <CosPaginationSkeleton />
 
@@ -77,14 +82,14 @@ export const CosPagination = (props: CosPaginationProps) => {
       <div className="flex items-center">
         <CosPaginationItemButton
           type="icon"
-          disabled={currentPage === 1}
+          disabled={isEmpty || currentPage === 1}
           onClick={() => handlePageChange(1)}
         >
           <ChevronLeftEnd className="icon-md" />
         </CosPaginationItemButton>
         <CosPaginationItemButton
           type="icon"
-          disabled={currentPage === 1}
+          disabled={isEmpty || currentPage === 1}
           onClick={() => handlePageChange(currentPage - 1)}
         >
           <ChevronLeft className="icon-md" />
@@ -109,14 +114,14 @@ export const CosPagination = (props: CosPaginationProps) => {
         })}
         <CosPaginationItemButton
           type="icon"
-          disabled={currentPage === totalPages}
+          disabled={isEmpty || currentPage === totalPages}
           onClick={() => handlePageChange(currentPage + 1)}
         >
           <ChevronRight className="icon-md" />
         </CosPaginationItemButton>
         <CosPaginationItemButton
           type="icon"
-          disabled={currentPage === totalPages}
+          disabled={isEmpty || currentPage === totalPages}
           onClick={() => handlePageChange(totalPages)}
         >
           <ChevronRightEnd className="icon-md" />
@@ -127,6 +132,7 @@ export const CosPagination = (props: CosPaginationProps) => {
           onChange={(e) => setInputPage(e.target.value)}
           onKeyDown={handleKeyDown}
           onBlur={handleGoToPage}
+          disabled={isEmpty}
         />
       </div>
       <CosPaginationViewDropdown

@@ -5,8 +5,8 @@ export const trigger = cva(
   {
     variants: {
       variant: {
-        default: 'min-w-[116px] max-w-[360px] px-4 py-[10px]',
-        'in-table': 'min-w-[80px] max-w-[240px] px-3 py-2',
+        default: 'h-[38px] min-w-[116px] max-w-[360px] px-4 py-[10px]',
+        'in-table': 'h-[34px] min-w-[80px] max-w-[240px] px-3 py-2',
       },
       hasSearchbar: {
         true: '',
