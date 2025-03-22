@@ -1,6 +1,6 @@
 import { Ref } from 'react'
 
-export const normalizeValue = (
+const normalizeValue = (
   value: string | number | readonly string[] | undefined,
 ): string => {
   if (typeof value === 'string') return value
@@ -10,6 +10,13 @@ export const normalizeValue = (
   if (Array.isArray(value)) return value.join('')
 
   return ''
+}
+
+export const calculateValueLength = (
+  value: string | number | readonly string[] | undefined,
+): number => {
+  const normalizedValue = normalizeValue(value)
+  return normalizedValue.length
 }
 
 export const assignRefValue = <T>(

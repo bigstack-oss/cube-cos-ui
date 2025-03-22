@@ -1,8 +1,9 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { CosTextAreaSkeleton } from './CosTextAreaSkeleton'
-import { assignRefValue, normalizeValue } from './cosTextAreaUtils'
+import { assignRefValue, calculateValueLength } from './cosTextAreaUtils'
+import { useVisibleRowsCount } from './useVisibleRowsCount'
 
 const textarea = cva(
   [
@@ -52,49 +53,24 @@ export const CosTextArea = (props: CosTextAreaProps) => {
     ...restProps
   } = props
 
-  /**
-   * To turn the value from props into string
-   */
-  const normalizedValue = normalizeValue(valueProps)
-
-  const [charCount, setCharCount] = useState(normalizedValue.length)
+  const [charCount, setCharCount] = useState(() =>
+    calculateValueLength(valueProps),
+  )
 
   const [isFocused, setIsFocused] = useState(false)
 
-  const [visibleRowsCount, setVisibleRowsCount] = useState(0)
-
-  const localRef = useRef<HTMLTextAreaElement | null>(null)
-
-  /**
-   * Calculate visible rows
-   * and update `visibleRowsCount` when the textarea resizes.
-   */
   useEffect(() => {
-    const textarea = localRef.current
+    setCharCount(calculateValueLength(valueProps))
+  }, [valueProps])
 
-    let observer: ResizeObserver | undefined = undefined
-
-    if (textarea) {
-      observer = new ResizeObserver((entries) => {
-        const { lineHeight } = getComputedStyle(textarea)
-        const lineHeightPx = parseInt(lineHeight)
-        const textareaHeight = entries[0]?.contentBoxSize[0]?.blockSize ?? 0
-        setVisibleRowsCount(
-          Math.ceil((textareaHeight + textarea.scrollTop) / lineHeightPx),
-        )
-      })
-      observer.observe(textarea)
-    }
-
-    return () => {
-      observer?.disconnect()
-    }
-  }, [])
+  const { textareaRef: localRef, visibleRowsCount } = useVisibleRowsCount()
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value
-    setCharCount(newValue.length)
-    onChange?.(e)
+    if (newValue.length <= maxLength) {
+      setCharCount(newValue.length)
+      onChange?.(e)
+    }
   }
 
   if (isLoading) {
