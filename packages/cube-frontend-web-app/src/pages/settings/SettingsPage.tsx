@@ -21,7 +21,10 @@ export const SettingsPage = () => {
 
   return (
     <div className="flex flex-col gap-y-3">
-      <ManageContact />
+      <ManageContact
+        isLoading={isLoading}
+        initialTitlePrefix={settingsData?.titlePrefix}
+      />
       <SettingsSection className="py-6">
         <SlackChannels
           isLoading={isLoading}
