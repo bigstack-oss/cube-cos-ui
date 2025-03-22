@@ -38,9 +38,10 @@ export const useEmailSenderRows = (
     setRows((prevRows) => {
       const nextRows = [...prevRows]
       const targetRow = nextRows.find((row) => row.id === id)
-      if (targetRow) {
-        Object.assign(targetRow, payload)
+      if (!targetRow) {
+        return prevRows
       }
+      Object.assign(targetRow, payload)
       return nextRows
     })
   }

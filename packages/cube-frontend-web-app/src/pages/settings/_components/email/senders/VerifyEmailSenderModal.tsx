@@ -22,7 +22,7 @@ type VerifyEmailSenderModalProps = {
   onClose: () => void
 }
 
-const emailSchema = z.string().email('Invalid email').optional()
+const emailSchema = z.string().email()
 
 export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
   const { isOpen, toBeVerifiedRow, onSenderVerified, onClose } = props
@@ -49,8 +49,8 @@ export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
     }
   }, [isOpen, clearError])
 
-  const inputError = useMemo<string | undefined>(
-    () => emailSchema.safeParse(sendTo).error?.issues[0].message,
+  const isEmailValid = useMemo<boolean>(
+    () => emailSchema.safeParse(sendTo).success,
     [sendTo],
   )
 
@@ -79,7 +79,7 @@ export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
   }
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'Enter' && sendTo && !inputError) {
+    if (e.key === 'Enter' && isEmailValid) {
       onActionClick()
     }
   }
@@ -92,7 +92,7 @@ export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
       actionText="Send"
       actionButtonProps={{
         loading: isTrying,
-        disabled: !sendTo || !!inputError,
+        disabled: !isEmailValid,
       }}
       onActionClick={onActionClick}
       onCloseClick={onClose}
