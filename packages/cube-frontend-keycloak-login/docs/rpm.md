@@ -118,7 +118,8 @@ skopeo delete --tls-verify=false --creds "username:password" docker://localhost:
 ```
 
 ```bash
-docker exec -it "<docker registry container id>" shrm -r /var/lib/registry/docker/registry/v2/repositories/bigstack/keycloak
+docker exec -it "<docker registry container id>" sh
+rm -r /var/lib/registry/docker/registry/v2/repositories/bigstack/keycloak
 ```
 
 4. Import the image

@@ -14,7 +14,7 @@ The UI for CubeCOS.
 
 %prep
 rm -rf ./*
-cp ../SOURCES/"cube-cos-ui-%{version}.tar.gz" .
+cp %{_topdir}/SOURCES/"cube-cos-ui-%{version}.tar.gz" .
 tar -xzf "cube-cos-ui-%{version}.tar.gz"
 rm "cube-cos-ui-%{version}.tar.gz"
 mv ./source/* .

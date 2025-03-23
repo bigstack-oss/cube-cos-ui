@@ -14,7 +14,7 @@ The Login for CubeCOS.
 
 %prep
 rm -rf ./*
-cp ../SOURCES/"cube-cos-login-%{version}.tar.gz" .
+cp %{_topdir}/SOURCES/"cube-cos-login-%{version}.tar.gz" .
 tar -xzf "cube-cos-login-%{version}.tar.gz"
 rm "cube-cos-login-%{version}.tar.gz"
 mv ./source/* .
