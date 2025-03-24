@@ -29,10 +29,10 @@ rm -rf ./keycloak/themes/cos-ui/login/resources
 cp -r ./dist/resources ./keycloak/themes/cos-ui/login
 ctr=$(buildah from quay.io/keycloak/keycloak:%{keycloak_version})
 buildah copy $ctr ./keycloak/themes/ /opt/jboss/keycloak/themes/
-buildah commit $ctr localhost:5080/bigstack/keycloak:%{keycloak_version}
+buildah commit $ctr localhost:5080/bigstack/keycloak:%{version}
 buildah rm $ctr
 cd -
-podman save localhost:5080/bigstack/keycloak:%{keycloak_version} -o keycloak-image.tar
+podman save localhost:5080/bigstack/keycloak:%{version} -o keycloak-image.tar
 
 %install
 rm -rf $RPM_BUILD_ROOT
