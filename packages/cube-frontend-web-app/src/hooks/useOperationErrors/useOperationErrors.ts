@@ -13,7 +13,7 @@ type OperationError = {
 }
 
 const getNewId = (): string => {
-  return uniqueId('tuningOperationError')
+  return uniqueId('operationError')
 }
 
 const MAX_ERROR_COUNT = 5

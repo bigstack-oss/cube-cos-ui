@@ -1,10 +1,9 @@
 import { Page, TuningsApiListTuningsRequest } from '@cube-frontend/api'
 import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { isCosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
-import { isAxiosError } from 'axios'
+import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { TuningRow, tuningToRow } from './tuningsUtils'
 import { ListTuningsQuery } from './useListTuningsQuery'
@@ -16,15 +15,6 @@ type UseTuningRows = {
   page: Page | undefined
   onToggleChange: (rowId: string, enabled: boolean) => Promise<void>
   resetTuning: (rowId: string) => Promise<void>
-}
-
-const parseErrorMessage = (error: unknown): string | undefined => {
-  if (isAxiosError(error) && isCosApiResponse(error.response)) {
-    return error.response.data?.msg
-  } else if (error instanceof Error) {
-    return error.message
-  }
-  return undefined
 }
 
 export const useTuningRows = (

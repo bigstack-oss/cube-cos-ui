@@ -20,7 +20,7 @@ import { TuningsFilter } from './TuningsFilter'
 import { joinHostNames, maxHostsDisplayCount, TuningRow } from './tuningsUtils'
 import { useResetTuningModal } from './uesResetTuningModal'
 import { useListTuningsQuery } from './useListTuningsQuery'
-import { useOperationErrors } from './useOperationErrors'
+import { useOperationErrors } from '@cube-frontend/web-app/hooks/useOperationErrors/useOperationErrors'
 import { useTuningHostsModal } from './useTuningHostsModal'
 import { useTuningRows } from './useTuningRows'
 
