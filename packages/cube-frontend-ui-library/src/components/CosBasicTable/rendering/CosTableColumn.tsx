@@ -1,5 +1,9 @@
 import { ReactNode } from 'react'
-import { COS_TABLE_COLUMN_SYMBOL, CosTableRow } from '../cosTableUtils'
+import {
+  ColumnEmphasizeProp,
+  COS_TABLE_COLUMN_SYMBOL,
+  CosTableRow,
+} from '../cosTableUtils'
 import { ColumnCompareFnMap } from '../sorting/sortingUtils'
 
 export type CosTableColumnSkeletonVariant =
@@ -19,7 +23,7 @@ export type CosTableColumnProps<
 > = {
   label?: string
   property?: Property
-  emphasize?: boolean
+  emphasize?: ColumnEmphasizeProp<Row>
   fitContent?: boolean
   isSortable?: boolean
   /**

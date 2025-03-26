@@ -21,6 +21,10 @@ export type RowClassNameProp<Row extends CosTableRow> =
   | ClassNameValue
   | ((row: Row) => ClassNameValue)
 
+export type ColumnEmphasizeProp<Row extends CosTableRow> =
+  | boolean
+  | ((row: Row) => boolean)
+
 export const computeRowClassName = <Row extends CosTableRow>(
   prop: RowClassNameProp<Row> | undefined,
   row: Row,

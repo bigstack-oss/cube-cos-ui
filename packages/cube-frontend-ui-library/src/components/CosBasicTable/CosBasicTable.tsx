@@ -66,7 +66,7 @@ const CosBasicTable = <Row extends CosTableRow>(
       <tr key={rowIndex} className={tdBorderRadiusClass}>
         {columns.map((column, colIndex) => (
           <CosTableTd
-            key={column.property?.toString() ?? colIndex}
+            key={`${column.property?.toString() ?? ''}-${colIndex}`}
             rowIndex={rowIndex}
             column={column}
             isLoading={isLoading}
@@ -97,7 +97,7 @@ const CosBasicTable = <Row extends CosTableRow>(
       >
         {columns.map((column, colIndex) => (
           <CosTableTd
-            key={column.property?.toString() ?? colIndex}
+            key={`${column.property?.toString() ?? ''}-${colIndex}`}
             row={row}
             rowIndex={rowIndex}
             column={column}
@@ -114,7 +114,7 @@ const CosBasicTable = <Row extends CosTableRow>(
           <tr>
             {columns.map((column, index) => (
               <CosTableTh
-                key={column.property?.toString() ?? index}
+                key={`${column.property?.toString() ?? ''}-${index}`}
                 column={column}
                 sortingState={sortingState}
                 onSortClick={() => onSortDirectionChange(column.property!)}

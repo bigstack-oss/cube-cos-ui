@@ -38,6 +38,17 @@ export const CosTableTd = <Row extends CosTableRow>(
 ) => {
   const { row, rowIndex, column, isLoading } = props
 
+  const getEmphasize = (): boolean | undefined => {
+    const { emphasize } = column
+    if (emphasize === undefined || !row) {
+      return undefined
+    }
+    if (typeof emphasize === 'function') {
+      return emphasize(row)
+    }
+    return emphasize
+  }
+
   const renderContent = () => {
     if (!row) {
       return undefined
@@ -65,7 +76,7 @@ export const CosTableTd = <Row extends CosTableRow>(
   return (
     <td
       className={td({
-        emphasize: column.emphasize,
+        emphasize: getEmphasize(),
         fitContent: column.fitContent,
       })}
     >
