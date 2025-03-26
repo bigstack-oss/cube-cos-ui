@@ -13,7 +13,7 @@ export const EventsLayout = () => {
   const location = useLocation()
 
   return (
-    <div>
+    <div className="flex flex-col gap-y-4 px-2 py-1">
       <CosTabs>
         <Link to={links.events}>
           <CosTabs.Tab isActive={location.pathname === links.events}>

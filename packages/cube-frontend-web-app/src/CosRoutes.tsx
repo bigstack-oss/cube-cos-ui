@@ -31,6 +31,9 @@ export const CosRoutes = () => {
         <Route path="/home/health/:module" element={<HealthDetailsPage />} />
         <Route path="/home/manage" element={<HomeManagePage />} />
       </Route>
+      <Route path="/events" element={<EventsLayout />}>
+        <Route path="/events/tunings" element={<EventsTuningsPage />} />
+      </Route>
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/integrations" element={<IntegrationsPage />} />
       <Route path={CosRoutesEnum.EVENTS_PAGE} element={<EventsLayout />}>
