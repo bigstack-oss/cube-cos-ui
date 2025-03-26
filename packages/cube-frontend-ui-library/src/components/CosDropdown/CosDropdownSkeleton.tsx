@@ -1,3 +1,4 @@
+import { PropsWithClassName } from '@cube-frontend/utils'
 import { twMerge } from 'tailwind-merge'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 import { CosDropdownVariant } from './utils'
@@ -5,7 +6,7 @@ import { skeleton } from './styles'
 
 type DropdownInputSkeletonProps = { variant: CosDropdownVariant }
 
-type CosDropdownSkeletonProps = {
+type CosDropdownSkeletonProps = PropsWithClassName & {
   variant?: CosDropdownVariant
   hasLabel?: boolean
 }
@@ -18,10 +19,10 @@ const DropdownInputSkeleton = (props: DropdownInputSkeletonProps) => {
 }
 
 export const CosDropdownSkeleton = (props: CosDropdownSkeletonProps) => {
-  const { variant = 'default', hasLabel = false } = props
+  const { className, variant = 'default', hasLabel = false } = props
 
   return (
-    <div className={twMerge(skeleton.container({ variant }))}>
+    <div className={twMerge(skeleton.container({ variant }), className)}>
       {hasLabel && <DropdownLabelSkeleton />}
       <DropdownInputSkeleton variant={variant} />
     </div>

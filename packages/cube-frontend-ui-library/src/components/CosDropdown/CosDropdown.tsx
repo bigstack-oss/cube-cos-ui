@@ -24,6 +24,7 @@ export type CosDropdownProps<Item, Type extends CosDropdownType> = {
   selectedItems: Item[]
   disabled?: boolean
   isLoading?: boolean
+  skeletonClassName?: string
   children: ReactNode
 } & CheckboxDropdownProps<Type> &
   SearchDropdownProps<Type>
@@ -56,6 +57,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
     selectedItems,
     disabled = false,
     isLoading = false,
+    skeletonClassName,
     children,
   } = props
 
@@ -109,8 +111,15 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
     }
   }, [handleClickOutside])
 
-  if (isLoading)
-    return <CosDropdownSkeleton variant={variant} hasLabel={!!label} />
+  if (isLoading) {
+    return (
+      <CosDropdownSkeleton
+        className={skeletonClassName}
+        variant={variant}
+        hasLabel={!!label}
+      />
+    )
+  }
 
   return (
     <CosDropdownContext.Provider
