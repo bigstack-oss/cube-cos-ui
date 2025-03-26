@@ -1,39 +1,62 @@
 import { useContext, useState } from 'react'
-import {
-  GetLicensesResponseDataLicensesInner,
-  LicensesApiGetLicensesRequest,
-} from '@cube-frontend/api'
+import { LicensesApiGetLicensesRequest } from '@cube-frontend/api'
 import {
   CosButton,
   CosGeneralPanel,
+  CosPagination,
   CosStroke,
-  CosTableRow,
-  GetCosBasicTable,
+  DEFAULT_ITEMS_PER_PAGE,
 } from '@cube-frontend/ui-library'
-import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
+import WarningFilledIcon from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
+import UploadIcon from '@cube-frontend/ui-library/icons/monochrome/upload.svg?react'
 import { licenseApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { HardwareSerialNumberModal } from './_components/HardwareSerialNumberModal'
-
-type LicenseRow = GetLicensesResponseDataLicensesInner & CosTableRow
-
-const LicenseTable = GetCosBasicTable<LicenseRow>()
+import { LicenseFilters } from './_components/LicenseFilters/LicenseFilters'
+import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
+import { HardwareSerialNumberModal } from './_components/HardwareSerialNumberModal/HardwareSerialNumberModal'
+import { ProductItem } from './_components/LicenseFilters/ProductFilter'
+import { LicenseType } from './_components/LicenseFilters/TypeFilter'
+import { LicenseStatus } from './_components/LicenseFilters/StatusFilter'
+import { LicenseRow, LicenseTable } from './_components/LicenseTable'
 
 export const MaintenanceLicensePage = () => {
   const { name: dataCenter } = useContext(DataCenterContext)
+
+  const [searchKeyword, setSearchKeyword] = useState<string>('')
+  const [selectedProducts, setSelectedProducts] = useState<ProductItem[]>([])
+  const [selectedLicenseTypes, setSelectedLicenseTypes] = useState<
+    LicenseType[]
+  >([])
+  const [selectedLicenseStatuses, setSelectedLicenseStatuses] = useState<
+    LicenseStatus[]
+  >([])
+  const [pageNum, setPageNum] = useState(1)
+  const [pageSize, setPageSize] = useState(DEFAULT_ITEMS_PER_PAGE)
 
   const { data: licenseData, isLoading } = useCosGetRequest(
     licenseApi.getLicenses,
     () => {
       return {
         dataCenter,
-        // TODO: handle pagination
+        pageNum,
+        pageSize,
+        keyword: debouncedSearchKeyword,
+        // TODO: add products, licenseTypes and licenseStatuses to the openAPI.
+        // @ts-expect-error: the API not supported yet.
+        products: selectedProducts.map((product) => product.name),
+        licenseTypes: selectedLicenseTypes,
+        licenseStatuses: selectedLicenseStatuses,
       } satisfies LicensesApiGetLicensesRequest
     },
   )
 
-  const handleButtonClick = () => {
+  const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
+    searchKeyword,
+    300,
+  )
+
+  const handleImportLicenseButtonClick = () => {
     // TODO
   }
 
@@ -43,6 +66,11 @@ export const MaintenanceLicensePage = () => {
       id: license.serial,
     })) || []
 
+  const handleSearchKeywordClear = () => {
+    setSearchKeyword('')
+    setDebounceSearchKeyword('')
+  }
+
   const [isHardwareSerialModalOpen, setIsHardwareSerialModalOpen] =
     useState(false)
 
@@ -51,39 +79,53 @@ export const MaintenanceLicensePage = () => {
       <CosGeneralPanel topic="License">
         <div className="flex flex-col gap-y-6 pt-2">
           <div className="flex items-center gap-x-4">
-            <CosButton>Import License</CosButton>
+            <CosButton
+              usage="icon-left"
+              Icon={UploadIcon}
+              onClick={handleImportLicenseButtonClick}
+            >
+              Import License
+            </CosButton>
             <div className="flex gap-x-2">
-              <WarningFilled
-                className="icon-md-sm text-status-negative"
-                onClick={handleButtonClick}
-              />
+              <WarningFilledIcon className="icon-md-sm text-status-negative" />
               <span className="primary-body4 text-functional-text">
                 Invalid files.
               </span>
             </div>
-            <CosButton onClick={() => setIsHardwareSerialModalOpen(true)}>
-              Get hardware serials
-            </CosButton>
           </div>
           <CosStroke type="dot" />
-          <div>
-            <LicenseTable rows={rows} isLoading={isLoading}>
-              <LicenseTable.Column label="Product" property="product">
-                {(product) => product.name}
-              </LicenseTable.Column>
-              <LicenseTable.Column label="License name" property="hostname" />
-              <LicenseTable.Column label="Hosts" property="hostname">
-                {/* {(hostname) => hostname.join(', ')} */}
-              </LicenseTable.Column>
-              <LicenseTable.Column label="Issue date" property="License Name" />
-              <LicenseTable.Column
-                label="Expire date"
-                property="License Name"
+          <div className="flex flex-col gap-y-2">
+            <h5 className="primary-h5 text-functional-text">License</h5>
+            <div className="flex items-center justify-between">
+              <LicenseFilters
+                searchKeyword={searchKeyword}
+                handleSearchKeywordChange={setSearchKeyword}
+                handleSearchKeywordClear={handleSearchKeywordClear}
+                selectedProducts={selectedProducts}
+                handleProductsSelect={setSelectedProducts}
+                selectedLicenseStatuses={selectedLicenseStatuses}
+                handleLicenseStatusesSelect={setSelectedLicenseStatuses}
+                selectedLicenseTypes={selectedLicenseTypes}
+                handleLicenseTypesSelect={setSelectedLicenseTypes}
               />
-              <LicenseTable.Column label="Expired" property="License Name" />
-              <LicenseTable.Column label="Type" property="type" />
-            </LicenseTable>
+              <CosButton onClick={() => setIsHardwareSerialModalOpen(true)}>
+                Get hardware serials
+              </CosButton>
+            </div>
+            <LicenseTable
+              rows={rows}
+              isLoading={isLoading}
+              skeletonRowCount={pageSize}
+            />
           </div>
+          <CosPagination
+            isLoading={isLoading}
+            totalItems={licenseData?.page?.totalItemCount ?? 0}
+            currentPage={pageNum}
+            itemsPerPage={pageSize}
+            onPageChange={setPageNum}
+            onItemsPerPageChange={setPageSize}
+          />
         </div>
       </CosGeneralPanel>
       <HardwareSerialNumberModal
