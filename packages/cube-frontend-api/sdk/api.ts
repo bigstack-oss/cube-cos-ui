@@ -488,6 +488,19 @@ export interface EmailSenderResponse {
 /**
  * 
  * @export
+ * @interface EnableOrDisableTriggerRequest
+ */
+export interface EnableOrDisableTriggerRequest {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EnableOrDisableTriggerRequest
+     */
+    'enable': boolean;
+}
+/**
+ * 
+ * @export
  * @interface EnableOrDisableTuningRequest
  */
 export interface EnableOrDisableTuningRequest {
@@ -5302,6 +5315,12 @@ export interface Node {
      * @type {string}
      * @memberof Node
      */
+    'serialNumber': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
     'dataCenter': string;
     /**
      * 
@@ -5469,10 +5488,10 @@ export interface NodeLicense {
     'issue': NodeLicenseIssue;
     /**
      * 
-     * @type {NodeLicenseQuantity}
+     * @type {GetLicensesResponseDataLicensesInnerQuantity}
      * @memberof NodeLicense
      */
-    'quantity': NodeLicenseQuantity;
+    'quantity': GetLicensesResponseDataLicensesInnerQuantity;
     /**
      * 
      * @type {NodeLicenseServiceLevelAgreement}
@@ -5554,25 +5573,6 @@ export interface NodeLicenseProduct {
      * @memberof NodeLicenseProduct
      */
     'features': object;
-}
-/**
- * 
- * @export
- * @interface NodeLicenseQuantity
- */
-export interface NodeLicenseQuantity {
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseQuantity
-     */
-    'type': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof NodeLicenseQuantity
-     */
-    'vcpu': number;
 }
 /**
  * 
@@ -5822,12 +5822,6 @@ export interface PostLicenseResponse {
      * @memberof PostLicenseResponse
      */
     'code': number;
-    /**
-     * 
-     * @type {object}
-     * @memberof PostLicenseResponse
-     */
-    'data'?: object;
     /**
      * 
      * @type {string}
@@ -6870,6 +6864,195 @@ export interface UpdateTuningResponse {
      */
     'status': string;
 }
+/**
+ * 
+ * @export
+ * @interface VerifyLicense500Response
+ */
+export interface VerifyLicense500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyLicense500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicense500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicense500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyLicenseResponse
+ */
+export interface VerifyLicenseResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyLicenseResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VerifyLicenseResponseData}
+     * @memberof VerifyLicenseResponse
+     */
+    'data': VerifyLicenseResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyLicenseResponseData
+ */
+export interface VerifyLicenseResponseData {
+    /**
+     * 
+     * @type {VerifyLicenseResponseDataLicense}
+     * @memberof VerifyLicenseResponseData
+     */
+    'license': VerifyLicenseResponseDataLicense;
+    /**
+     * 
+     * @type {Array<VerifyLicenseResponseDataEffectNodesInner>}
+     * @memberof VerifyLicenseResponseData
+     */
+    'effectNodes': Array<VerifyLicenseResponseDataEffectNodesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyLicenseResponseDataEffectNodesInner
+ */
+export interface VerifyLicenseResponseDataEffectNodesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponseDataEffectNodesInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponseDataEffectNodesInner
+     */
+    'role': string;
+    /**
+     * 
+     * @type {GetLicensesResponseDataLicensesInnerExpiry}
+     * @memberof VerifyLicenseResponseDataEffectNodesInner
+     */
+    'expiry': GetLicensesResponseDataLicensesInnerExpiry;
+    /**
+     * 
+     * @type {VerifyLicenseResponseDataLicenseStatus}
+     * @memberof VerifyLicenseResponseDataEffectNodesInner
+     */
+    'status': VerifyLicenseResponseDataLicenseStatus;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyLicenseResponseDataLicense
+ */
+export interface VerifyLicenseResponseDataLicense {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponseDataLicense
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponseDataLicense
+     */
+    'type': string;
+    /**
+     * 
+     * @type {GetLicensesResponseDataLicensesInnerProduct}
+     * @memberof VerifyLicenseResponseDataLicense
+     */
+    'product': GetLicensesResponseDataLicensesInnerProduct;
+    /**
+     * 
+     * @type {GetLicensesResponseDataLicensesInnerIssue}
+     * @memberof VerifyLicenseResponseDataLicense
+     */
+    'issue': GetLicensesResponseDataLicensesInnerIssue;
+    /**
+     * 
+     * @type {GetLicensesResponseDataLicensesInnerQuantity}
+     * @memberof VerifyLicenseResponseDataLicense
+     */
+    'quantity': GetLicensesResponseDataLicensesInnerQuantity;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponseDataLicense
+     */
+    'serviceLevelAgreement': string;
+    /**
+     * 
+     * @type {GetLicensesResponseDataLicensesInnerExpiry}
+     * @memberof VerifyLicenseResponseDataLicense
+     */
+    'expiry': GetLicensesResponseDataLicensesInnerExpiry;
+    /**
+     * 
+     * @type {VerifyLicenseResponseDataLicenseStatus}
+     * @memberof VerifyLicenseResponseDataLicense
+     */
+    'status': VerifyLicenseResponseDataLicenseStatus;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyLicenseResponseDataLicenseStatus
+ */
+export interface VerifyLicenseResponseDataLicenseStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponseDataLicenseStatus
+     */
+    'current': VerifyLicenseResponseDataLicenseStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof VerifyLicenseResponseDataLicenseStatus
+     */
+    'isExpiring': boolean;
+}
+
+export const VerifyLicenseResponseDataLicenseStatusCurrentEnum = {
+    Ok: 'ok',
+    Expiring: 'expiring',
+    Expired: 'expired'
+} as const;
+
+export type VerifyLicenseResponseDataLicenseStatusCurrentEnum = typeof VerifyLicenseResponseDataLicenseStatusCurrentEnum[keyof typeof VerifyLicenseResponseDataLicenseStatusCurrentEnum];
+
 
 /**
  * DataCentersApi - axios parameter creator
@@ -9418,6 +9601,8 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Retrieve the list of licenses
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
+         * @param {GetLicensesProductEnum} [product] The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
+         * @param {GetLicensesLicenseStatusEnum} [licenseStatus] The status of the host
          * @param {GetLicensesTypeEnum} [type] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -9425,7 +9610,7 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLicenses: async (dataCenter: string, keyword?: string, type?: GetLicensesTypeEnum, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getLicenses: async (dataCenter: string, keyword?: string, product?: GetLicensesProductEnum, licenseStatus?: GetLicensesLicenseStatusEnum, type?: GetLicensesTypeEnum, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getLicenses', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses`
@@ -9443,6 +9628,14 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
 
             if (keyword !== undefined) {
                 localVarQueryParameter['keyword'] = keyword;
+            }
+
+            if (product !== undefined) {
+                localVarQueryParameter['product'] = product;
+            }
+
+            if (licenseStatus !== undefined) {
+                localVarQueryParameter['licenseStatus'] = licenseStatus;
             }
 
             if (type !== undefined) {
@@ -9474,7 +9667,7 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary Update licenses for the cluster
+         * @summary Import licenses for the cluster
          * @param {string} dataCenter The name of the data center to operate
          * @param {File} license License file (must have a .license extension)
          * @param {*} [options] Override http request option.
@@ -9521,21 +9714,66 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Update licenses for specific node
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} node The name of the node to operate
+         * @param {string} hostname The hostname of the host to operate
          * @param {File} license License file (must have a .license extension)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        importNodeLicense: async (dataCenter: string, node: string, license: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        importNodeLicense: async (dataCenter: string, hostname: string, license: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('importNodeLicense', 'dataCenter', dataCenter)
-            // verify required parameter 'node' is not null or undefined
-            assertParamExists('importNodeLicense', 'node', node)
+            // verify required parameter 'hostname' is not null or undefined
+            assertParamExists('importNodeLicense', 'hostname', hostname)
             // verify required parameter 'license' is not null or undefined
             assertParamExists('importNodeLicense', 'license', license)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{node}/licenses`
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses/hosts/{hostname}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
-                .replace(`{${"node"}}`, encodeURIComponent(String(node)));
+                .replace(`{${"hostname"}}`, encodeURIComponent(String(hostname)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+
+            if (license !== undefined) { 
+                localVarFormParams.append('license', license as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Verify the license
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} license License file (must have a .license extension)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyLicense: async (dataCenter: string, license: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('verifyLicense', 'dataCenter', dataCenter)
+            // verify required parameter 'license' is not null or undefined
+            assertParamExists('verifyLicense', 'license', license)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses/verify`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9581,6 +9819,8 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * @summary Retrieve the list of licenses
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
+         * @param {GetLicensesProductEnum} [product] The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
+         * @param {GetLicensesLicenseStatusEnum} [licenseStatus] The status of the host
          * @param {GetLicensesTypeEnum} [type] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -9588,15 +9828,15 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLicenses(dataCenter: string, keyword?: string, type?: GetLicensesTypeEnum, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicensesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenses(dataCenter, keyword, type, pageSize, pageNum, watch, options);
+        async getLicenses(dataCenter: string, keyword?: string, product?: GetLicensesProductEnum, licenseStatus?: GetLicensesLicenseStatusEnum, type?: GetLicensesTypeEnum, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicensesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenses(dataCenter, keyword, product, licenseStatus, type, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LicensesApi.getLicenses']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @summary Update licenses for the cluster
+         * @summary Import licenses for the cluster
          * @param {string} dataCenter The name of the data center to operate
          * @param {File} license License file (must have a .license extension)
          * @param {*} [options] Override http request option.
@@ -9612,15 +9852,29 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * 
          * @summary Update licenses for specific node
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} node The name of the node to operate
+         * @param {string} hostname The hostname of the host to operate
          * @param {File} license License file (must have a .license extension)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async importNodeLicense(dataCenter: string, node: string, license: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostLicenseResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.importNodeLicense(dataCenter, node, license, options);
+        async importNodeLicense(dataCenter: string, hostname: string, license: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostLicenseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.importNodeLicense(dataCenter, hostname, license, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LicensesApi.importNodeLicense']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Verify the license
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} license License file (must have a .license extension)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async verifyLicense(dataCenter: string, license: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostLicenseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyLicense(dataCenter, license, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LicensesApi.verifyLicense']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -9641,11 +9895,11 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         getLicenses(requestParameters: LicensesApiGetLicensesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetLicensesResponse> {
-            return localVarFp.getLicenses(requestParameters.dataCenter, requestParameters.keyword, requestParameters.type, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getLicenses(requestParameters.dataCenter, requestParameters.keyword, requestParameters.product, requestParameters.licenseStatus, requestParameters.type, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary Update licenses for the cluster
+         * @summary Import licenses for the cluster
          * @param {LicensesApiImportClusterLicenseRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -9661,7 +9915,17 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         importNodeLicense(requestParameters: LicensesApiImportNodeLicenseRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostLicenseResponse> {
-            return localVarFp.importNodeLicense(requestParameters.dataCenter, requestParameters.node, requestParameters.license, options).then((request) => request(axios, basePath));
+            return localVarFp.importNodeLicense(requestParameters.dataCenter, requestParameters.hostname, requestParameters.license, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Verify the license
+         * @param {LicensesApiVerifyLicenseRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyLicense(requestParameters: LicensesApiVerifyLicenseRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostLicenseResponse> {
+            return localVarFp.verifyLicense(requestParameters.dataCenter, requestParameters.license, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9685,6 +9949,20 @@ export interface LicensesApiGetLicensesRequest {
      * @memberof LicensesApiGetLicenses
      */
     readonly keyword?: string
+
+    /**
+     * The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
+     * @type {'CubeCOS' | 'CubeCMP'}
+     * @memberof LicensesApiGetLicenses
+     */
+    readonly product?: GetLicensesProductEnum
+
+    /**
+     * The status of the host
+     * @type {'ok' | 'expiring' | 'expired' | 'error'}
+     * @memberof LicensesApiGetLicenses
+     */
+    readonly licenseStatus?: GetLicensesLicenseStatusEnum
 
     /**
      * The type of the license to query, click \&#39;try it out\&#39; to see a few options.
@@ -9750,16 +10028,37 @@ export interface LicensesApiImportNodeLicenseRequest {
     readonly dataCenter: string
 
     /**
-     * The name of the node to operate
+     * The hostname of the host to operate
      * @type {string}
      * @memberof LicensesApiImportNodeLicense
      */
-    readonly node: string
+    readonly hostname: string
 
     /**
      * License file (must have a .license extension)
      * @type {File}
      * @memberof LicensesApiImportNodeLicense
+     */
+    readonly license: File
+}
+
+/**
+ * Request parameters for verifyLicense operation in LicensesApi.
+ * @export
+ * @interface LicensesApiVerifyLicenseRequest
+ */
+export interface LicensesApiVerifyLicenseRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof LicensesApiVerifyLicense
+     */
+    readonly dataCenter: string
+
+    /**
+     * License file (must have a .license extension)
+     * @type {File}
+     * @memberof LicensesApiVerifyLicense
      */
     readonly license: File
 }
@@ -9780,12 +10079,12 @@ export class LicensesApi extends BaseAPI {
      * @memberof LicensesApi
      */
     public getLicenses(requestParameters: LicensesApiGetLicensesRequest, options?: RawAxiosRequestConfig) {
-        return LicensesApiFp(this.configuration).getLicenses(requestParameters.dataCenter, requestParameters.keyword, requestParameters.type, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return LicensesApiFp(this.configuration).getLicenses(requestParameters.dataCenter, requestParameters.keyword, requestParameters.product, requestParameters.licenseStatus, requestParameters.type, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary Update licenses for the cluster
+     * @summary Import licenses for the cluster
      * @param {LicensesApiImportClusterLicenseRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -9804,10 +10103,40 @@ export class LicensesApi extends BaseAPI {
      * @memberof LicensesApi
      */
     public importNodeLicense(requestParameters: LicensesApiImportNodeLicenseRequest, options?: RawAxiosRequestConfig) {
-        return LicensesApiFp(this.configuration).importNodeLicense(requestParameters.dataCenter, requestParameters.node, requestParameters.license, options).then((request) => request(this.axios, this.basePath));
+        return LicensesApiFp(this.configuration).importNodeLicense(requestParameters.dataCenter, requestParameters.hostname, requestParameters.license, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Verify the license
+     * @param {LicensesApiVerifyLicenseRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LicensesApi
+     */
+    public verifyLicense(requestParameters: LicensesApiVerifyLicenseRequest, options?: RawAxiosRequestConfig) {
+        return LicensesApiFp(this.configuration).verifyLicense(requestParameters.dataCenter, requestParameters.license, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
+/**
+ * @export
+ */
+export const GetLicensesProductEnum = {
+    CubeCos: 'CubeCOS',
+    CubeCmp: 'CubeCMP'
+} as const;
+export type GetLicensesProductEnum = typeof GetLicensesProductEnum[keyof typeof GetLicensesProductEnum];
+/**
+ * @export
+ */
+export const GetLicensesLicenseStatusEnum = {
+    Ok: 'ok',
+    Expiring: 'expiring',
+    Expired: 'expired',
+    Error: 'error'
+} as const;
+export type GetLicensesLicenseStatusEnum = typeof GetLicensesLicenseStatusEnum[keyof typeof GetLicensesLicenseStatusEnum];
 /**
  * @export
  */
@@ -10526,13 +10855,17 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
          * 
          * @summary Retrieve the list of nodes
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {GetNodesProductEnum} [product] The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
+         * @param {GetNodesRoleEnum} [role] The role of the host
+         * @param {GetNodesLicenseStatusEnum} [licenseStatus] The status of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNodes: async (dataCenter: string, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNodes: async (dataCenter: string, keyword?: string, product?: GetNodesProductEnum, role?: GetNodesRoleEnum, licenseStatus?: GetNodesLicenseStatusEnum, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getNodes', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes`
@@ -10547,6 +10880,22 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+            if (product !== undefined) {
+                localVarQueryParameter['product'] = product;
+            }
+
+            if (role !== undefined) {
+                localVarQueryParameter['role'] = role;
+            }
+
+            if (licenseStatus !== undefined) {
+                localVarQueryParameter['licenseStatus'] = licenseStatus;
+            }
 
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
@@ -10600,14 +10949,18 @@ export const NodesApiFp = function(configuration?: Configuration) {
          * 
          * @summary Retrieve the list of nodes
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {GetNodesProductEnum} [product] The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
+         * @param {GetNodesRoleEnum} [role] The role of the host
+         * @param {GetNodesLicenseStatusEnum} [licenseStatus] The status of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNodes(dataCenter: string, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(dataCenter, pageSize, pageNum, watch, options);
+        async getNodes(dataCenter: string, keyword?: string, product?: GetNodesProductEnum, role?: GetNodesRoleEnum, licenseStatus?: GetNodesLicenseStatusEnum, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(dataCenter, keyword, product, role, licenseStatus, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodesApi.getNodes']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -10640,7 +10993,7 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
          * @throws {RequiredError}
          */
         getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNodesResponse> {
-            return localVarFp.getNodes(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getNodes(requestParameters.dataCenter, requestParameters.keyword, requestParameters.product, requestParameters.role, requestParameters.licenseStatus, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -10685,6 +11038,34 @@ export interface NodesApiGetNodesRequest {
      * @memberof NodesApiGetNodes
      */
     readonly dataCenter: string
+
+    /**
+     * The keyword to search, can be any string
+     * @type {string}
+     * @memberof NodesApiGetNodes
+     */
+    readonly keyword?: string
+
+    /**
+     * The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
+     * @type {'CubeCOS' | 'CubeCMP'}
+     * @memberof NodesApiGetNodes
+     */
+    readonly product?: GetNodesProductEnum
+
+    /**
+     * The role of the host
+     * @type {'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'}
+     * @memberof NodesApiGetNodes
+     */
+    readonly role?: GetNodesRoleEnum
+
+    /**
+     * The status of the host
+     * @type {'ok' | 'expiring' | 'expired' | 'error'}
+     * @memberof NodesApiGetNodes
+     */
+    readonly licenseStatus?: GetNodesLicenseStatusEnum
 
     /**
      * The number of items per page (default is unlimit).
@@ -10736,10 +11117,40 @@ export class NodesApi extends BaseAPI {
      * @memberof NodesApi
      */
     public getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig) {
-        return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.keyword, requestParameters.product, requestParameters.role, requestParameters.licenseStatus, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
+/**
+ * @export
+ */
+export const GetNodesProductEnum = {
+    CubeCos: 'CubeCOS',
+    CubeCmp: 'CubeCMP'
+} as const;
+export type GetNodesProductEnum = typeof GetNodesProductEnum[keyof typeof GetNodesProductEnum];
+/**
+ * @export
+ */
+export const GetNodesRoleEnum = {
+    ControlConverged: 'control-converged',
+    Control: 'control',
+    Compute: 'compute',
+    Storage: 'storage',
+    EdgeCore: 'edge-core',
+    Moderator: 'moderator'
+} as const;
+export type GetNodesRoleEnum = typeof GetNodesRoleEnum[keyof typeof GetNodesRoleEnum];
+/**
+ * @export
+ */
+export const GetNodesLicenseStatusEnum = {
+    Ok: 'ok',
+    Expiring: 'expiring',
+    Expired: 'expired',
+    Error: 'error'
+} as const;
+export type GetNodesLicenseStatusEnum = typeof GetNodesLicenseStatusEnum[keyof typeof GetNodesLicenseStatusEnum];
 
 
 /**
@@ -12626,10 +13037,13 @@ export const SupportFilesApiAxiosParamCreator = function (configuration?: Config
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {string} [keyword] The keyword to search, can be any string
+         * @param {GetSupportFilesRoleEnum} [role] The role of the host
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSupportFiles: async (dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getSupportFiles: async (dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, role?: GetSupportFilesRoleEnum, start?: string, stop?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getSupportFiles', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/supportFiles`
@@ -12659,6 +13073,18 @@ export const SupportFilesApiAxiosParamCreator = function (configuration?: Config
 
             if (keyword !== undefined) {
                 localVarQueryParameter['keyword'] = keyword;
+            }
+
+            if (role !== undefined) {
+                localVarQueryParameter['role'] = role;
+            }
+
+            if (start !== undefined) {
+                localVarQueryParameter['start'] = start;
+            }
+
+            if (stop !== undefined) {
+                localVarQueryParameter['stop'] = stop;
             }
 
 
@@ -12718,11 +13144,14 @@ export const SupportFilesApiFp = function(configuration?: Configuration) {
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {string} [keyword] The keyword to search, can be any string
+         * @param {GetSupportFilesRoleEnum} [role] The role of the host
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSupportFiles(dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSupportFilesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportFiles(dataCenter, watch, pageSize, pageNum, keyword, options);
+        async getSupportFiles(dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, role?: GetSupportFilesRoleEnum, start?: string, stop?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSupportFilesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportFiles(dataCenter, watch, pageSize, pageNum, keyword, role, start, stop, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SupportFilesApi.getSupportFiles']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -12765,7 +13194,7 @@ export const SupportFilesApiFactory = function (configuration?: Configuration, b
          * @throws {RequiredError}
          */
         getSupportFiles(requestParameters: SupportFilesApiGetSupportFilesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetSupportFilesResponse> {
-            return localVarFp.getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
+            return localVarFp.getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, requestParameters.role, requestParameters.start, requestParameters.stop, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -12852,6 +13281,27 @@ export interface SupportFilesApiGetSupportFilesRequest {
      * @memberof SupportFilesApiGetSupportFiles
      */
     readonly keyword?: string
+
+    /**
+     * The role of the host
+     * @type {'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly role?: GetSupportFilesRoleEnum
+
+    /**
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly stop?: string
 }
 
 /**
@@ -12894,10 +13344,22 @@ export class SupportFilesApi extends BaseAPI {
      * @memberof SupportFilesApi
      */
     public getSupportFiles(requestParameters: SupportFilesApiGetSupportFilesRequest, options?: RawAxiosRequestConfig) {
-        return SupportFilesApiFp(this.configuration).getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
+        return SupportFilesApiFp(this.configuration).getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, requestParameters.role, requestParameters.start, requestParameters.stop, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
+/**
+ * @export
+ */
+export const GetSupportFilesRoleEnum = {
+    ControlConverged: 'control-converged',
+    Control: 'control',
+    Compute: 'compute',
+    Storage: 'storage',
+    EdgeCore: 'edge-core',
+    Moderator: 'moderator'
+} as const;
+export type GetSupportFilesRoleEnum = typeof GetSupportFilesRoleEnum[keyof typeof GetSupportFilesRoleEnum];
 
 
 /**
@@ -13044,6 +13506,50 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @summary Enable or disable a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to update.
+         * @param {EnableOrDisableTriggerRequest} enableOrDisableTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        enableOrDisableTrigger: async (dataCenter: string, triggerName: string, enableOrDisableTriggerRequest: EnableOrDisableTriggerRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('enableOrDisableTrigger', 'dataCenter', dataCenter)
+            // verify required parameter 'triggerName' is not null or undefined
+            assertParamExists('enableOrDisableTrigger', 'triggerName', triggerName)
+            // verify required parameter 'enableOrDisableTriggerRequest' is not null or undefined
+            assertParamExists('enableOrDisableTrigger', 'enableOrDisableTriggerRequest', enableOrDisableTriggerRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/{triggerName}/enable`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"triggerName"}}`, encodeURIComponent(String(triggerName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(enableOrDisableTriggerRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve a specific trigger
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} triggerName The name of the trigger to operate
@@ -13170,6 +13676,21 @@ export const TriggersApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Enable or disable a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to update.
+         * @param {EnableOrDisableTriggerRequest} enableOrDisableTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async enableOrDisableTrigger(dataCenter: string, triggerName: string, enableOrDisableTriggerRequest: EnableOrDisableTriggerRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateTriggerResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.enableOrDisableTrigger(dataCenter, triggerName, enableOrDisableTriggerRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.enableOrDisableTrigger']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve a specific trigger
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} triggerName The name of the trigger to operate
@@ -13222,6 +13743,16 @@ export const TriggersApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
+         * @summary Enable or disable a specific trigger
+         * @param {TriggersApiEnableOrDisableTriggerRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        enableOrDisableTrigger(requestParameters: TriggersApiEnableOrDisableTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateTriggerResponse> {
+            return localVarFp.enableOrDisableTrigger(requestParameters.dataCenter, requestParameters.triggerName, requestParameters.enableOrDisableTriggerRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve a specific trigger
          * @param {TriggersApiGetTriggerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -13252,6 +13783,34 @@ export const TriggersApiFactory = function (configuration?: Configuration, baseP
         },
     };
 };
+
+/**
+ * Request parameters for enableOrDisableTrigger operation in TriggersApi.
+ * @export
+ * @interface TriggersApiEnableOrDisableTriggerRequest
+ */
+export interface TriggersApiEnableOrDisableTriggerRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiEnableOrDisableTrigger
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the trigger to update.
+     * @type {string}
+     * @memberof TriggersApiEnableOrDisableTrigger
+     */
+    readonly triggerName: string
+
+    /**
+     * 
+     * @type {EnableOrDisableTriggerRequest}
+     * @memberof TriggersApiEnableOrDisableTrigger
+     */
+    readonly enableOrDisableTriggerRequest: EnableOrDisableTriggerRequest
+}
 
 /**
  * Request parameters for getTrigger operation in TriggersApi.
@@ -13323,6 +13882,18 @@ export interface TriggersApiUpdateTriggerRequest {
  * @extends {BaseAPI}
  */
 export class TriggersApi extends BaseAPI {
+    /**
+     * 
+     * @summary Enable or disable a specific trigger
+     * @param {TriggersApiEnableOrDisableTriggerRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public enableOrDisableTrigger(requestParameters: TriggersApiEnableOrDisableTriggerRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).enableOrDisableTrigger(requestParameters.dataCenter, requestParameters.triggerName, requestParameters.enableOrDisableTriggerRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Retrieve a specific trigger

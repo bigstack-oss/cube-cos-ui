@@ -17,7 +17,12 @@ import { EventsTuningsPage } from './pages/events/tunings/EventsTuningsPage'
 import { CreateTuningsPage } from './pages/events/tunings/create/CreateTuningsPage'
 import { EditTuningsPage } from './pages/events/tunings/edit/EditTuningsPage'
 import { EventsChartPage } from './pages/events/chart/EventsChartPage'
+import { MaintenanceLayout } from './pages/maintenance/MaintenanceLayout'
+import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/MaintenanceSupportFilesPage'
+import { MaintenanceLicensePage } from './pages/maintenance/license/MaintenanceLicensePage'
+import { NodeListPage } from './pages/node/NodeListPage'
 
+// TODO: extract all links to CosRoutesEnum.
 export const CosRoutes = () => {
   return (
     <Routes>
@@ -33,6 +38,7 @@ export const CosRoutes = () => {
         <Route path="/home/health/:module" element={<HealthDetailsPage />} />
         <Route path="/home/manage" element={<HomeManagePage />} />
       </Route>
+      <Route path="/nodes" element={<NodeListPage />} />
       <Route path="/events" element={<EventsLayout />}>
         <Route path="/events/tunings" element={<EventsTuningsPage />} />
       </Route>
@@ -42,6 +48,16 @@ export const CosRoutes = () => {
       <Route path="/events/tunings/edit" element={<EditTuningsPage />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/integrations" element={<IntegrationsPage />} />
+      <Route path="/maintenance" element={<MaintenanceLayout />}>
+        <Route
+          path="/maintenance/support-files"
+          element={<MaintenanceSupportFilesPage />}
+        />
+        <Route
+          path="/maintenance/license"
+          element={<MaintenanceLicensePage />}
+        />
+      </Route>
       <Route path={CosRoutesEnum.EVENTS_PAGE} element={<EventsLayout />}>
         <Route
           path={CosRoutesEnum.EVENTS_PAGE}
@@ -61,6 +77,7 @@ export const CosRoutes = () => {
           element={<EventsChartPage />}
         />
       </Route>
+      <Route path="/settings" element={<SettingsPage />} />
       <Route path="*" element={<div>TODO: Not Found Page</div>} />
     </Routes>
   )

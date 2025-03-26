@@ -2,7 +2,11 @@ import { toPluralizeDisplay } from '@cube-frontend/utils'
 import dayjs, { Dayjs } from 'dayjs'
 
 export const formatEventTime = (date: string) => {
-  return dayjs(date).format('YYYY/MM/DD HH:mm')
+  return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm')
+}
+
+export const formatSupportFilesTimestamp = (date: string) => {
+  return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm:ss')
 }
 
 export const formatPanelUpdateTime = (date: Dayjs) => {
@@ -10,7 +14,7 @@ export const formatPanelUpdateTime = (date: Dayjs) => {
 }
 
 export const toLicenseDateDisplay = (date: string) => {
-  return dayjs(date).format('YYYY/MM/DD')
+  return dayjs.respectTzOffset(date).format('YYYY/MM/DD')
 }
 
 export const humanizeDuration = (durationSeconds: number) => {
