@@ -31,6 +31,7 @@ export const toMetricsChart = (metrics: GetMetricsResponseData) => {
     },
   ]
 
+  // TODO: define roles enum in the openAPI.
   const roleCountInfos: CosCountSegmentedChartCountInfo[] = [
     {
       name: 'Control-converged',

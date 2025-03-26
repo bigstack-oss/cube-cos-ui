@@ -35,7 +35,7 @@ export const useSidebarOptions = (): SideBarComboboxOptionProps[] => {
       Icon: MaintenanceIcon,
       label: 'Maintenance',
       isSelected: pathname.startsWith('/maintenance'),
-      onClick: () => navigate('/maintenance'),
+      onClick: () => navigate('/maintenance/support-files'),
     },
     {
       Icon: EventsIcon,

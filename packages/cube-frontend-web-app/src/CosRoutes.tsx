@@ -15,6 +15,10 @@ import { EventsIndexPage } from './pages/events/index/EventsIndexPage'
 import { EventsTriggersPage } from './pages/events/triggers/EventsTriggersPage'
 import { EventsTuningsPage } from './pages/events/tunings/EventsTuningsPage'
 import { EventsChartPage } from './pages/events/chart/EventsChartPage'
+import { MaintenanceLayout } from './pages/maintenance/MaintenanceLayout'
+import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/MaintenanceSupportFilesPage'
+import { MaintenanceLicensePage } from './pages/maintenance/license/MaintenanceLicensePage'
+import { NodeListPage } from './pages/node/NodeListPage'
 
 export const CosRoutes = () => {
   return (
@@ -52,6 +56,18 @@ export const CosRoutes = () => {
           element={<EventsChartPage />}
         />
       </Route>
+
+      <Route path="/maintenance" element={<MaintenanceLayout />}>
+        <Route
+          path="/maintenance/support-files"
+          element={<MaintenanceSupportFilesPage />}
+        />
+        <Route
+          path="/maintenance/license"
+          element={<MaintenanceLicensePage />}
+        />
+      </Route>
+      <Route path="/nodes" element={<NodeListPage />} />
       <Route path="*" element={<div>TODO: Not Found Page</div>} />
     </Routes>
   )

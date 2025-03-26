@@ -10,7 +10,7 @@ export const formatPanelUpdateTime = (date: Dayjs) => {
 }
 
 export const toLicenseDateDisplay = (date: string) => {
-  return dayjs(date).format('YYYY/MM/DD')
+  return dayjs.respectTzOffset(date).format('YYYY/MM/DD')
 }
 
 export const humanizeDuration = (durationSeconds: number) => {
