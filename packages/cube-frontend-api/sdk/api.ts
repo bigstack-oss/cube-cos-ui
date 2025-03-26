@@ -656,6 +656,37 @@ export interface GetAbstractedEventsResponseDataLimit {
 /**
  * 
  * @export
+ * @interface GetCpuUsageHistoryOfHostResponse
+ */
+export interface GetCpuUsageHistoryOfHostResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetCpuUsageHistoryOfHostResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {TimeValuePair}
+     * @memberof GetCpuUsageHistoryOfHostResponse
+     */
+    'data': TimeValuePair;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCpuUsageHistoryOfHostResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCpuUsageHistoryOfHostResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface GetCpuUsageRankOfHostsResponse
  */
 export interface GetCpuUsageRankOfHostsResponse {
@@ -2595,6 +2626,37 @@ export interface GetMeResponseData {
 /**
  * 
  * @export
+ * @interface GetMemoryUsageHistoryOfHostResponse
+ */
+export interface GetMemoryUsageHistoryOfHostResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMemoryUsageHistoryOfHostResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {TimeValuePair}
+     * @memberof GetMemoryUsageHistoryOfHostResponse
+     */
+    'data': TimeValuePair;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetMemoryUsageHistoryOfHostResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetMemoryUsageHistoryOfHostResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface GetMemoryUsageRankOfHostsResponse
  */
 export interface GetMemoryUsageRankOfHostsResponse {
@@ -2715,6 +2777,37 @@ export interface GetMemoryUsageSummaryOfVmsResponse {
      * @memberof GetMemoryUsageSummaryOfVmsResponse
      */
     'status': string;
+}
+/**
+ * @type GetMetricByHostOrVm200Response
+ * @export
+ */
+export type GetMetricByHostOrVm200Response = GetCpuUsageHistoryOfHostResponse | GetMemoryUsageHistoryOfHostResponse;
+
+/**
+ * 
+ * @export
+ * @interface GetMetricByHostOrVm500Response
+ */
+export interface GetMetricByHostOrVm500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetMetricByHostOrVm500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetMetricByHostOrVm500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetMetricByHostOrVm500Response
+     */
+    'status'?: string;
 }
 /**
  * @type GetMetricByTypes200Response
@@ -4792,10 +4885,10 @@ export interface ListTuningResponseDataTuningsInner {
     'value': string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ListTuningResponseDataTuningsInnerHostsInner>}
      * @memberof ListTuningResponseDataTuningsInner
      */
-    'hosts': Array<string>;
+    'hosts': Array<ListTuningResponseDataTuningsInnerHostsInner>;
     /**
      * 
      * @type {string}
@@ -4830,15 +4923,40 @@ export interface ListTuningResponseDataTuningsInner {
 /**
  * 
  * @export
+ * @interface ListTuningResponseDataTuningsInnerHostsInner
+ */
+export interface ListTuningResponseDataTuningsInnerHostsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataTuningsInnerHostsInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataTuningsInnerHostsInner
+     */
+    'role': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataTuningsInnerHostsInner
+     */
+    'ip': string;
+}
+/**
+ * 
+ * @export
  * @interface ListTuningResponseDataTuningsInnerLimitation
  */
 export interface ListTuningResponseDataTuningsInnerLimitation {
     /**
      * 
-     * @type {string}
+     * @type {TuningLimitationType}
      * @memberof ListTuningResponseDataTuningsInnerLimitation
      */
-    'type': string;
+    'type': TuningLimitationType;
     /**
      * 
      * @type {ListTuningResponseDataTuningsInnerLimitationDefault}
@@ -4864,6 +4982,8 @@ export interface ListTuningResponseDataTuningsInnerLimitation {
      */
     'regex'?: string;
 }
+
+
 /**
  * @type ListTuningResponseDataTuningsInnerLimitationDefault
  * @export
@@ -4887,7 +5007,13 @@ export interface ListTuningResponseDataTuningsInnerStatus {
      * @type {string}
      * @memberof ListTuningResponseDataTuningsInnerStatus
      */
-    'updatedAt'?: string;
+    'current': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListTuningResponseDataTuningsInnerStatus
+     */
+    'updatedAt': string;
     /**
      * 
      * @type {boolean}
@@ -4965,10 +5091,10 @@ export interface ListTuningSpecResponseDataInner {
 export interface ListTuningSpecResponseDataInnerLimitation {
     /**
      * 
-     * @type {string}
+     * @type {TuningLimitationType}
      * @memberof ListTuningSpecResponseDataInnerLimitation
      */
-    'type': string;
+    'type': TuningLimitationType;
     /**
      * 
      * @type {ListTuningResponseDataTuningsInnerLimitationDefault}
@@ -4994,6 +5120,8 @@ export interface ListTuningSpecResponseDataInnerLimitation {
      */
     'regex'?: string;
 }
+
+
 /**
  * 
  * @export
@@ -6189,6 +6317,25 @@ export interface SupportFileSetStatus {
 /**
  * 
  * @export
+ * @interface TimeValuePair
+ */
+export interface TimeValuePair {
+    /**
+     * 
+     * @type {string}
+     * @memberof TimeValuePair
+     */
+    'time': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimeValuePair
+     */
+    'value': number;
+}
+/**
+ * 
+ * @export
  * @interface TitlePrefix
  */
 export interface TitlePrefix {
@@ -6387,6 +6534,21 @@ export interface TrySlackChannelResponse {
      */
     'status': string;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const TuningLimitationType = {
+    String: 'string',
+    Int: 'int',
+    Bool: 'bool'
+} as const;
+
+export type TuningLimitationType = typeof TuningLimitationType[keyof typeof TuningLimitationType];
+
+
 /**
  * 
  * @export
@@ -8267,8 +8429,8 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {GetHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
          * @param {GetHealthHistoryModuleTypeEnum} moduleType The name of the module to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
          * @param {GetHealthHistoryPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
-         * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8367,8 +8529,8 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetServiceHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
-         * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {GetServiceHealthHistoryPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8512,8 +8674,8 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * @param {GetHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
          * @param {GetHealthHistoryModuleTypeEnum} moduleType The name of the module to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
          * @param {GetHealthHistoryPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
-         * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8544,8 +8706,8 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetServiceHealthHistoryServiceTypeEnum} serviceType The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
-         * @param {string} [start] The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the health history to query, the value should be in RFC3339 format (default is now).
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {GetServiceHealthHistoryPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8682,14 +8844,14 @@ export interface HealthApiGetHealthHistoryRequest {
     readonly past?: GetHealthHistoryPastEnum
 
     /**
-     * The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
      * @type {string}
      * @memberof HealthApiGetHealthHistory
      */
     readonly start?: string
 
     /**
-     * The end time of the health history to query, the value should be in RFC3339 format (default is now).
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
      * @type {string}
      * @memberof HealthApiGetHealthHistory
      */
@@ -8752,14 +8914,14 @@ export interface HealthApiGetServiceHealthHistoryRequest {
     readonly watch?: boolean
 
     /**
-     * The start time of the health history to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
      * @type {string}
      * @memberof HealthApiGetServiceHealthHistory
      */
     readonly start?: string
 
     /**
-     * The end time of the health history to query, the value should be in RFC3339 format (default is now).
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
      * @type {string}
      * @memberof HealthApiGetServiceHealthHistory
      */
@@ -9766,6 +9928,76 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
+         * @summary Retrieve the various metrics with different view from single host or single vm
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetMetricByHostOrVmMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+         * @param {GetMetricByHostOrVmViewTypeEnum} viewType The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
+         * @param {GetMetricByHostOrVmEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
+         * @param {string} entityIdOrName The id or name of the entity to query
+         * @param {GetMetricByHostOrVmPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMetricByHostOrVm: async (dataCenter: string, metricType: GetMetricByHostOrVmMetricTypeEnum, viewType: GetMetricByHostOrVmViewTypeEnum, entityType: GetMetricByHostOrVmEntityTypeEnum, entityIdOrName: string, past?: GetMetricByHostOrVmPastEnum, start?: string, stop?: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getMetricByHostOrVm', 'dataCenter', dataCenter)
+            // verify required parameter 'metricType' is not null or undefined
+            assertParamExists('getMetricByHostOrVm', 'metricType', metricType)
+            // verify required parameter 'viewType' is not null or undefined
+            assertParamExists('getMetricByHostOrVm', 'viewType', viewType)
+            // verify required parameter 'entityType' is not null or undefined
+            assertParamExists('getMetricByHostOrVm', 'entityType', entityType)
+            // verify required parameter 'entityIdOrName' is not null or undefined
+            assertParamExists('getMetricByHostOrVm', 'entityIdOrName', entityIdOrName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/metrics/{metricType}/{viewType}/{entityType}/{entityId or Name}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"metricType"}}`, encodeURIComponent(String(metricType)))
+                .replace(`{${"viewType"}}`, encodeURIComponent(String(viewType)))
+                .replace(`{${"entityType"}}`, encodeURIComponent(String(entityType)))
+                .replace(`{${"entityId or Name"}}`, encodeURIComponent(String(entityIdOrName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (past !== undefined) {
+                localVarQueryParameter['past'] = past;
+            }
+
+            if (start !== undefined) {
+                localVarQueryParameter['start'] = start;
+            }
+
+            if (stop !== undefined) {
+                localVarQueryParameter['stop'] = stop;
+            }
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the various metrics with different view from hosts or vms
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetMetricByTypesMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
@@ -9876,6 +10108,27 @@ export const MetricsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Retrieve the various metrics with different view from single host or single vm
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetMetricByHostOrVmMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+         * @param {GetMetricByHostOrVmViewTypeEnum} viewType The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
+         * @param {GetMetricByHostOrVmEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
+         * @param {string} entityIdOrName The id or name of the entity to query
+         * @param {GetMetricByHostOrVmPastEnum} [past] The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMetricByHostOrVm(dataCenter: string, metricType: GetMetricByHostOrVmMetricTypeEnum, viewType: GetMetricByHostOrVmViewTypeEnum, entityType: GetMetricByHostOrVmEntityTypeEnum, entityIdOrName: string, past?: GetMetricByHostOrVmPastEnum, start?: string, stop?: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMetricByHostOrVm200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMetricByHostOrVm(dataCenter, metricType, viewType, entityType, entityIdOrName, past, start, stop, watch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.getMetricByHostOrVm']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the various metrics with different view from hosts or vms
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetMetricByTypesMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
@@ -9919,6 +10172,16 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
+         * @summary Retrieve the various metrics with different view from single host or single vm
+         * @param {MetricsApiGetMetricByHostOrVmRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMetricByHostOrVm(requestParameters: MetricsApiGetMetricByHostOrVmRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMetricByHostOrVm200Response> {
+            return localVarFp.getMetricByHostOrVm(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.entityIdOrName, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve the various metrics with different view from hosts or vms
          * @param {MetricsApiGetMetricByTypesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -9939,6 +10202,76 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
         },
     };
 };
+
+/**
+ * Request parameters for getMetricByHostOrVm operation in MetricsApi.
+ * @export
+ * @interface MetricsApiGetMetricByHostOrVmRequest
+ */
+export interface MetricsApiGetMetricByHostOrVmRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly dataCenter: string
+
+    /**
+     * The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+     * @type {'cpuUsage' | 'memoryUsage' | 'diskUsage' | 'diskBandwidth' | 'diskIops' | 'diskLatency' | 'diskReadIops' | 'diskWriteIops' | 'networkTrafficIn' | 'networkTrafficOut'}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly metricType: GetMetricByHostOrVmMetricTypeEnum
+
+    /**
+     * The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
+     * @type {'summary' | 'history' | 'rank'}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly viewType: GetMetricByHostOrVmViewTypeEnum
+
+    /**
+     * The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
+     * @type {'hosts' | 'vms'}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly entityType: GetMetricByHostOrVmEntityTypeEnum
+
+    /**
+     * The id or name of the entity to query
+     * @type {string}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly entityIdOrName: string
+
+    /**
+     * The past time of the health history to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+     * @type {'1h' | '24h' | '7d' | '14d'}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly past?: GetMetricByHostOrVmPastEnum
+
+    /**
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly stop?: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof MetricsApiGetMetricByHostOrVm
+     */
+    readonly watch?: boolean
+}
 
 /**
  * Request parameters for getMetricByTypes operation in MetricsApi.
@@ -10026,6 +10359,18 @@ export interface MetricsApiGetMetricsOverviewRequest {
 export class MetricsApi extends BaseAPI {
     /**
      * 
+     * @summary Retrieve the various metrics with different view from single host or single vm
+     * @param {MetricsApiGetMetricByHostOrVmRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public getMetricByHostOrVm(requestParameters: MetricsApiGetMetricByHostOrVmRequest, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).getMetricByHostOrVm(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.entityIdOrName, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve the various metrics with different view from hosts or vms
      * @param {MetricsApiGetMetricByTypesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -10049,6 +10394,49 @@ export class MetricsApi extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const GetMetricByHostOrVmMetricTypeEnum = {
+    CpuUsage: 'cpuUsage',
+    MemoryUsage: 'memoryUsage',
+    DiskUsage: 'diskUsage',
+    DiskBandwidth: 'diskBandwidth',
+    DiskIops: 'diskIops',
+    DiskLatency: 'diskLatency',
+    DiskReadIops: 'diskReadIops',
+    DiskWriteIops: 'diskWriteIops',
+    NetworkTrafficIn: 'networkTrafficIn',
+    NetworkTrafficOut: 'networkTrafficOut'
+} as const;
+export type GetMetricByHostOrVmMetricTypeEnum = typeof GetMetricByHostOrVmMetricTypeEnum[keyof typeof GetMetricByHostOrVmMetricTypeEnum];
+/**
+ * @export
+ */
+export const GetMetricByHostOrVmViewTypeEnum = {
+    Summary: 'summary',
+    History: 'history',
+    Rank: 'rank'
+} as const;
+export type GetMetricByHostOrVmViewTypeEnum = typeof GetMetricByHostOrVmViewTypeEnum[keyof typeof GetMetricByHostOrVmViewTypeEnum];
+/**
+ * @export
+ */
+export const GetMetricByHostOrVmEntityTypeEnum = {
+    Hosts: 'hosts',
+    Vms: 'vms'
+} as const;
+export type GetMetricByHostOrVmEntityTypeEnum = typeof GetMetricByHostOrVmEntityTypeEnum[keyof typeof GetMetricByHostOrVmEntityTypeEnum];
+/**
+ * @export
+ */
+export const GetMetricByHostOrVmPastEnum = {
+    _1h: '1h',
+    _24h: '24h',
+    _7d: '7d',
+    _14d: '14d'
+} as const;
+export type GetMetricByHostOrVmPastEnum = typeof GetMetricByHostOrVmPastEnum[keyof typeof GetMetricByHostOrVmPastEnum];
 /**
  * @export
  */
@@ -13062,7 +13450,7 @@ export const TuningsApiAxiosParamCreator = function (configuration?: Configurati
          * @summary Retrieve the list of tunings from a host or data center
          * @param {string} dataCenter The name of the data center to operate
          * @param {Array<string>} [host] The name of the host to retrieve the tunings, can specify multiple hosts to retrieve the tunings, for example: host&#x3D;example-node-0&amp;host&#x3D;example-node-1
-         * @param {string} [keyword] The keyword to search the tunings
+         * @param {string} [keyword] The keyword to search, can be any string
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
@@ -13252,7 +13640,7 @@ export const TuningsApiFp = function(configuration?: Configuration) {
          * @summary Retrieve the list of tunings from a host or data center
          * @param {string} dataCenter The name of the data center to operate
          * @param {Array<string>} [host] The name of the host to retrieve the tunings, can specify multiple hosts to retrieve the tunings, for example: host&#x3D;example-node-0&amp;host&#x3D;example-node-1
-         * @param {string} [keyword] The keyword to search the tunings
+         * @param {string} [keyword] The keyword to search, can be any string
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
@@ -13422,7 +13810,7 @@ export interface TuningsApiListTuningsRequest {
     readonly host?: Array<string>
 
     /**
-     * The keyword to search the tunings
+     * The keyword to search, can be any string
      * @type {string}
      * @memberof TuningsApiListTunings
      */
