@@ -6543,6 +6543,7 @@ export interface TrySlackChannelResponse {
 export const TuningLimitationType = {
     String: 'string',
     Int: 'int',
+    Float: 'float',
     Bool: 'bool'
 } as const;
 
