@@ -87,7 +87,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           BUILD=$(ls ~/rpmbuild/RPMS/x86_64/ | cut -d" " -f1)
+          mv "~/rpmbuild/RPMS/x86_64/$BUILD" ./
           gh release create "cube-cos-login-$VERSION-dev-$BUILD_NUMBER" \
             --repo="$GITHUB_REPOSITORY" \
             --generate-notes \
-            "~/rpmbuild/RPMS/x86_64/$BUILD"
+            "./$BUILD"
