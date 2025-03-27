@@ -1,9 +1,7 @@
 name: Build cube-cos-login RPM
 
 on:
-  push:
-    branches:
-      - "**"
+  workflow_dispatch:
 
 jobs:
   build:
