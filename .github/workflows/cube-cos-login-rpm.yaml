@@ -83,6 +83,8 @@ jobs:
           rpmbuild -bb --nodeps --define "version $VERSION" --define "build_number $BUILD_NUMBER" --define "keycloak_version $KEYCLOAK_VERSION" ~/rpmbuild/SPECS/cube-cos-login.spec
 
       - name: Create a Release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           BUILD=$(ls ~/rpmbuild/RPMS/x86_64/ | cut -d" " -f1)
           gh release create "cube-cos-login-$VERSION-dev-$BUILD_NUMBER" \
