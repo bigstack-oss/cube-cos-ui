@@ -86,4 +86,8 @@ jobs:
 
       - name: Create a Release
         run: |
-          ls -ahl ~/rpmbuild/RPMS/x86_64
+          BUILD=$(ls ~/rpmbuild/RPMS/x86_64/ | cut -d" " -f1)
+          gh release create "cube-cos-ui-$VERSION-dev-$BUILD_NUMBER" \
+            --repo="$GITHUB_REPOSITORY" \
+            --generate-notes \
+            "~/rpmbuild/RPMS/x86_64/$BUILD"
