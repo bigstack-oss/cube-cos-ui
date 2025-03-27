@@ -1,0 +1,87 @@
+name: Build cube-cos-login RPM
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pulling from Github
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install RPM Build Tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm
+          rpm --version
+
+      - name: Set ENV
+        run: |
+          echo "VERSION=$(node -p \"require('./packages/cube-frontend-keycloak-login/package.json').version\")" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "KEYCLOAK_VERSION=$(head -n 1 ./packages/cube-frontend-keycloak-login/KEYCLOAK_VERSION)" >> $GITHUB_ENV
+
+      - name: Create RPM Build Directory
+        run: |
+          rm -rf ~/rpmbuild
+          pushd ~
+          mkdir rpmbuild
+          cd rpmbuild
+          mkdir BUILD RPMS SOURCES SPECS SRPMS
+          popd
+
+      - name: Prepare Source Tarball
+        run: |
+          mkdir ~/source
+          mkdir -p ~/source/packages/cube-frontend-ui-library
+          pushd ./packages/cube-frontend-ui-library
+          cp -r ./src package.json postcss.config.js tailwind.config.js tsconfig.json vite.config.ts ~/source/packages/cube-frontend-ui-library
+          popd
+          mkdir -p ~/source/packages/cube-frontend-ui-theme
+          pushd ./packages/cube-frontend-ui-theme
+          cp -r ./src package.json tsconfig.json ~/source/packages/cube-frontend-ui-theme
+          popd
+          mkdir -p ~/source/packages/cube-frontend-utils
+          pushd ./packages/cube-frontend-utils
+          cp -r ./src package.json tsconfig.json ~/source/packages/cube-frontend-utils
+          popd
+          mkdir -p ~/source/packages/cube-frontend-keycloak-login
+          pushd ./packages/cube-frontend-keycloak-login
+          cp -r ./public ./rollup-plugins ./src index.html package.json postcss.config.js tailwind.config.js tsconfig.app.json tsconfig.json tsconfig.node.json vite.config.ts ~/source/packages/cube-frontend-keycloak-login
+          popd
+          mkdir -p ~/source/packages/cube-frontend-keycloak-login/keycloak
+          pushd ./packages/cube-frontend-keycloak-login/keycloak
+          cp -r ./themes ~/source/packages/cube-frontend-keycloak-login/keycloak
+          popd
+          cp -r LICENSE package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ~/source
+          pushd ~
+          tar -cvzf "cube-cos-login-${VERSION}.tar.gz" source
+          mv "cube-cos-login-${VERSION}.tar.gz" ~/rpmbuild/SOURCES
+          rm -r source/
+          popd
+
+      - name: Copy SPEC File
+        run: |
+          cp ./packages/cube-frontend-keycloak-login/cube-cos-login.spec ~/rpmbuild/SPECS
+
+      - name: Build RPM
+        run: |
+          rpmbuild -bb --nodeps --define "version $VERSION" --define "build_number $BUILD_NUMBER" --define "keycloak_version $KEYCLOAK_VERSION" ~/rpmbuild/SPECS/cube-cos-login.spec
+
+      - name: Create a Release
+        run: |
+          ls -ahl ~/rpmbuild/RPMS/x86_64
