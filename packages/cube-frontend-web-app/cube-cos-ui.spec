@@ -21,7 +21,6 @@ mv ./source/* .
 rmdir source
 
 %build
-npm list -g pnpm
 pnpm install
 cd ./packages/cube-frontend-web-app
 pnpm run build
