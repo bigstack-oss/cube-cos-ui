@@ -9,7 +9,7 @@ import { IconActionButton } from '@cube-frontend/web-app/pages/settings/_compone
 import { cva } from 'class-variance-authority'
 import { useMemo } from 'react'
 import { Link } from 'react-router'
-import { TuningRow } from '../tuningsUtils'
+import { TuningRow } from '../../tuningsUtils'
 
 export type ActionCellProps = {
   row: TuningRow
