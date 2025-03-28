@@ -14,7 +14,7 @@ import {
 import Plus from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
 import dayjs from 'dayjs'
 import { Link } from 'react-router'
-import { ActionCell } from './tableCells/ActionCell'
+import { ActionCell } from './_components/tableCells/ActionCell'
 import { TuningsFilter } from './TuningsFilter'
 import { joinHostNames, maxHostsDisplayCount, TuningRow } from './tuningsUtils'
 import { useResetTuningModal } from './uesResetTuningModal'
