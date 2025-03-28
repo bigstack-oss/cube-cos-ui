@@ -1,6 +1,9 @@
 name: Build cube-cos-ui RPM
 
 on:
+  push:
+    branches:
+      - "**"
   workflow_dispatch:
 
 jobs:
@@ -68,7 +71,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           BUILD=$(ls ~/rpmbuild/RPMS/x86_64/ | cut -d" " -f1)
-          gh release create "cube-cos-ui-$VERSION-dev-$BUILD_NUMBER" \
+          # gh release create "cube-cos-ui-$VERSION-dev-$BUILD_NUMBER" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --generate-notes \
