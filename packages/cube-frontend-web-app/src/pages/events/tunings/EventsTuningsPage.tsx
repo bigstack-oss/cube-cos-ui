@@ -28,6 +28,7 @@ export const EventsTuningsPage = () => {
   const {
     query,
     onKeywordChange,
+    onKeywordClear,
     onModifyStatusItemClick,
     onNodeItemClick,
     onNodesAllCheckChange,
@@ -111,15 +112,20 @@ export const EventsTuningsPage = () => {
       <TuningsFilter
         query={query}
         onKeywordChange={onKeywordChange}
+        onKeywordClear={onKeywordClear}
         onModifyStatusItemClick={onModifyStatusItemClick}
         onNodeItemClick={onNodeItemClick}
         onNodesAllCheckChange={onNodesAllCheckChange}
       />
       <TuningTable isLoading={isLoading} rows={rows}>
-        <TuningTable.Column property="name" label="Name (Keys)">
+        <TuningTable.Column
+          property="name"
+          label="Name (Keys)"
+          emphasize={true}
+        >
           {(name, row) => (
             <div className="flex gap-x-2">
-              <span className="font-semibold">{name}</span>
+              <span>{name}</span>
               {row.status.isUpdating && (
                 <CosLoadingSpinner className="ml-2" variant="dot45" />
               )}

@@ -1,6 +1,5 @@
 import { Node } from '@cube-frontend/api'
-import { CosDropdown, CosInput } from '@cube-frontend/ui-library'
-import Search from '@cube-frontend/ui-library/icons/monochrome/search.svg?react'
+import { CosDropdown, CosSearchBarFilter } from '@cube-frontend/ui-library'
 import { ChangeEvent } from 'react'
 import { HostDropdown } from './HostDropdown'
 import { ListTuningsQuery } from './useListTuningsQuery'
@@ -10,6 +9,7 @@ const modifyStatuses = [undefined, true, false] as const
 type TuningsFilterProps = {
   query: ListTuningsQuery
   onKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onKeywordClear: () => void
   onModifyStatusItemClick: (modified: boolean | undefined) => void
   onNodeItemClick: (node: Node) => void
   onNodesAllCheckChange: (nodes: Node[]) => void
@@ -36,6 +36,7 @@ export const TuningsFilter = (props: TuningsFilterProps) => {
   const {
     query,
     onKeywordChange,
+    onKeywordClear,
     onModifyStatusItemClick,
     onNodeItemClick,
     onNodesAllCheckChange: onNodesAllCheckChangeProp,
@@ -43,12 +44,12 @@ export const TuningsFilter = (props: TuningsFilterProps) => {
 
   return (
     <div className="flex items-center gap-x-2">
-      <CosInput
-        className="h-[34px] bg-grey-100"
+      <CosSearchBarFilter
         placeholder="Search"
         value={query.keyword}
-        trailingIcon={<Search className="icon-sm text-functional-text" />}
+        showDropdown={false}
         onChange={onKeywordChange}
+        onInputClear={onKeywordClear}
       />
       <CosDropdown selectedItems={query.selectedModified}>
         <CosDropdown.Trigger

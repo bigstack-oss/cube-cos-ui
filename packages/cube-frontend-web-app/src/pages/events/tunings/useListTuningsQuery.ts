@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from 'react'
 type UseListTuningsQuery = {
   query: ListTuningsQuery
   onKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onKeywordClear: () => void
   onModifyStatusItemClick: (value: boolean | undefined) => void
   onNodeItemClick: (node: Node) => void
   onNodesAllCheckChange: (nodes: Node[]) => void
@@ -34,6 +35,14 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
     setQuery((prev) => ({
       ...prev,
       keyword: value,
+      currentPage: 1,
+    }))
+  }
+
+  const onKeywordClear = (): void => {
+    setQuery((prev) => ({
+      ...prev,
+      keyword: '',
       currentPage: 1,
     }))
   }
@@ -85,6 +94,7 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
   return {
     query,
     onKeywordChange,
+    onKeywordClear,
     onModifyStatusItemClick,
     onNodeItemClick,
     onNodesAllCheckChange,
