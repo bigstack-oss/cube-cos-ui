@@ -9,7 +9,6 @@ import {
   GetEventFilterConditionResponseDataSystem,
   GetEventsTypeEnum,
 } from '@cube-frontend/api'
-import { getEventsType } from './utils'
 
 export type UseEventsFilter = {
   isLoading: boolean
