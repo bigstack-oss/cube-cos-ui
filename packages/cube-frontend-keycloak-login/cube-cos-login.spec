@@ -18,6 +18,7 @@ cp %{_topdir}/SOURCES/"cube-cos-login-%{version}.tar.gz" .
 tar -xzf "cube-cos-login-%{version}.tar.gz"
 rm "cube-cos-login-%{version}.tar.gz"
 mv ./source/* .
+mv ./source/.[!.]* .
 rmdir source
 
 %build

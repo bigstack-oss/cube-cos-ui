@@ -46,27 +46,11 @@ popd
 
 ```bash
 mkdir ~/source
-mkdir -p ~/source/packages/cube-frontend-ui-library
-pushd ./packages/cube-frontend-ui-library
-cp -r ./src package.json postcss.config.js tailwind.config.js tsconfig.json vite.config.ts ~/source/packages/cube-frontend-ui-library
+cp -r ./.git/ ~/source/
+pushd ~/source
+git checkout .
+sudo rm -r ./.git/
 popd
-mkdir -p ~/source/packages/cube-frontend-ui-theme
-pushd ./packages/cube-frontend-ui-theme
-cp -r ./src package.json tsconfig.json ~/source/packages/cube-frontend-ui-theme
-popd
-mkdir -p ~/source/packages/cube-frontend-utils
-pushd ./packages/cube-frontend-utils
-cp -r ./src package.json tsconfig.json ~/source/packages/cube-frontend-utils
-popd
-mkdir -p ~/source/packages/cube-frontend-keycloak-login
-pushd ./packages/cube-frontend-keycloak-login
-cp -r ./public ./rollup-plugins ./src index.html package.json postcss.config.js tailwind.config.js tsconfig.app.json tsconfig.json tsconfig.node.json vite.config.ts ~/source/packages/cube-frontend-keycloak-login
-popd
-mkdir -p ~/source/packages/cube-frontend-keycloak-login/keycloak
-pushd ./packages/cube-frontend-keycloak-login/keycloak
-cp -r ./themes ~/source/packages/cube-frontend-keycloak-login/keycloak
-popd
-cp -r LICENSE package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ~/source
 pushd ~
 tar -cvzf "cube-cos-login-${VERSION}.tar.gz" source
 mv "cube-cos-login-${VERSION}.tar.gz" ~/rpmbuild/SOURCES

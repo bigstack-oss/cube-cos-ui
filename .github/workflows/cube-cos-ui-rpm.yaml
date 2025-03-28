@@ -44,30 +44,11 @@ jobs:
       - name: Prepare Source Tarball
         run: |
           mkdir ~/source
-          mkdir -p ~/source/packages/cube-frontend-api
-          pushd ./packages/cube-frontend-api
-          cp -r package.json tsconfig.json ~/source/packages/cube-frontend-api
-          mkdir -p ~/source/packages/cube-frontend-api/sdk
-          cd ./sdk
-          cp api.ts base.ts common.ts configuration.ts index.ts ~/source/packages/cube-frontend-api/sdk
+          cp -r ./.git/ ~/source/
+          pushd ~/source
+          git checkout .
+          sudo rm -r ./.git/
           popd
-          mkdir -p ~/source/packages/cube-frontend-ui-library
-          pushd ./packages/cube-frontend-ui-library
-          cp -r ./src package.json postcss.config.js tailwind.config.js tsconfig.json vite.config.ts ~/source/packages/cube-frontend-ui-library
-          popd
-          mkdir -p ~/source/packages/cube-frontend-ui-theme
-          pushd ./packages/cube-frontend-ui-theme
-          cp -r ./src package.json tsconfig.json ~/source/packages/cube-frontend-ui-theme
-          popd
-          mkdir -p ~/source/packages/cube-frontend-utils
-          pushd ./packages/cube-frontend-utils
-          cp -r ./src package.json tsconfig.json ~/source/packages/cube-frontend-utils
-          popd
-          mkdir -p ~/source/packages/cube-frontend-web-app
-          pushd ./packages/cube-frontend-web-app
-          cp -r ./public ./src index.html package.json postcss.config.js tailwind.config.js tsconfig.app.json tsconfig.json tsconfig.node.json vite.config.ts ~/source/packages/cube-frontend-web-app
-          popd
-          cp -r LICENSE package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ~/source
           pushd ~
           tar -cvzf "cube-cos-ui-${VERSION}.tar.gz" source
           mv "cube-cos-ui-${VERSION}.tar.gz" ~/rpmbuild/SOURCES

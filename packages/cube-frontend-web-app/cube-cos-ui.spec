@@ -18,6 +18,7 @@ cp %{_topdir}/SOURCES/"cube-cos-ui-%{version}.tar.gz" .
 tar -xzf "cube-cos-ui-%{version}.tar.gz"
 rm "cube-cos-ui-%{version}.tar.gz"
 mv ./source/* .
+mv ./source/.[!.]* .
 rmdir source
 
 %build
