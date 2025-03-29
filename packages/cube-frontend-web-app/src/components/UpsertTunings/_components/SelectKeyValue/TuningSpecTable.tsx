@@ -52,7 +52,7 @@ export const TuningSpecTable = (props: TuningSpecTableProps) => {
         {(limitation) => limitation.default.toString()}
       </SpecTable.Column>
       <SpecTable.Column label="Limitation" property="limitation">
-        {formatLimitation}
+        {(limitation) => formatLimitation(limitation)}
       </SpecTable.Column>
       <SpecTable.Column label="Description" property="description" />
     </SpecTable>

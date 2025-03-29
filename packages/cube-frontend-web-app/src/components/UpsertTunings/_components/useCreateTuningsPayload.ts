@@ -1,28 +1,19 @@
-import {
-  ListTuningResponseDataTuningsInnerLimitationDefault,
-  ListTuningSpecResponseDataInner,
-} from '@cube-frontend/api'
+import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { ChangeEvent, useMemo, useState } from 'react'
-import { HostWithRole } from './createTuningsUtils'
+import { HostWithRole, UpsertTuningsPayload } from '../upsertTuningsUtils'
 
 type UseCreateTuningsPayload = {
-  payload: CreateTuningsPayload
+  payload: UpsertTuningsPayload
   selectedSpec: ListTuningSpecResponseDataInner | undefined
   onSpecSelect: (spec: ListTuningSpecResponseDataInner) => void
   onValueChange: (e: ChangeEvent<HTMLInputElement> | boolean) => void
   onHostsChange: (hosts: HostWithRole[]) => void
 }
 
-export type CreateTuningsPayload = {
-  selectedSpecName: string | undefined
-  value: ListTuningResponseDataTuningsInnerLimitationDefault | undefined
-  selectedHosts: HostWithRole[]
-}
-
 export const useCreateTuningsPayload = (
   specs: ListTuningSpecResponseDataInner[] | undefined,
 ): UseCreateTuningsPayload => {
-  const [payload, setPayload] = useState<CreateTuningsPayload>(() => ({
+  const [payload, setPayload] = useState<UpsertTuningsPayload>(() => ({
     selectedSpecName: undefined,
     value: undefined,
     selectedHosts: [],

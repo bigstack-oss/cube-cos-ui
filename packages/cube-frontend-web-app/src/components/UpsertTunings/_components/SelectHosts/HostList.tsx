@@ -1,7 +1,7 @@
 import { CosCheckbox } from '@cube-frontend/ui-library'
 import { range, unionBy } from 'lodash'
 import { ChangeEvent } from 'react'
-import { HostWithRole } from '../../createTuningsUtils'
+import { HostWithRole } from '../../upsertTuningsUtils'
 
 type HostListProps = {
   isLoading: boolean

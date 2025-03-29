@@ -1,32 +1,27 @@
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router'
+import { UpsertTuningsStep } from '../upsertTuningsUtils'
 
 type UseStepParam = {
-  step: CreateTuningsStep
+  step: UpsertTuningsStep
   goToSelectHosts: () => void
   goToPublish: () => void
 }
 
-export enum CreateTuningsStep {
-  SelectKeyValue = 'keyValue',
-  SelectHosts = 'selectHosts',
-  Publish = 'publish',
-}
-
 const STEP_PARAM_KEY = 'step'
 
-const availableSteps = new Set(Object.values(CreateTuningsStep))
+const availableSteps = new Set(Object.values(UpsertTuningsStep))
 
 export const useStepParam = (): UseStepParam => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const step = useMemo<CreateTuningsStep>(() => {
+  const step = useMemo<UpsertTuningsStep>(() => {
     const stepParam = searchParams.get(
       STEP_PARAM_KEY,
-    ) as CreateTuningsStep | null
+    ) as UpsertTuningsStep | null
 
     if (!stepParam || !availableSteps.has(stepParam)) {
-      return CreateTuningsStep.SelectKeyValue
+      return UpsertTuningsStep.KeyValue
     }
 
     return stepParam
@@ -35,14 +30,14 @@ export const useStepParam = (): UseStepParam => {
   const goToSelectHosts = () => {
     setSearchParams((prev) => ({
       ...prev,
-      [STEP_PARAM_KEY]: CreateTuningsStep.SelectHosts,
+      [STEP_PARAM_KEY]: UpsertTuningsStep.SelectHosts,
     }))
   }
 
   const goToPublish = () => {
     setSearchParams((prev) => ({
       ...prev,
-      [STEP_PARAM_KEY]: CreateTuningsStep.Publish,
+      [STEP_PARAM_KEY]: UpsertTuningsStep.Publish,
     }))
   }
 

@@ -6,10 +6,16 @@ import {
 import ArrowRotateLeft from '@cube-frontend/ui-library/icons/monochrome/arrow_rotate_left_01.svg?react'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import { IconActionButton } from '@cube-frontend/web-app/components/IconActionButton/IconActionButton'
+import {
+  EditTuningsDefaultData,
+  useEditTuningsStore,
+} from '@cube-frontend/web-app/stores/editTuningsStore'
 import { cva } from 'class-variance-authority'
 import { useMemo } from 'react'
 import { Link } from 'react-router'
 import { TuningRow } from '../../tuningsUtils'
+
+const { setDefaultData } = useEditTuningsStore.getState()
 
 export type ActionCellProps = {
   row: TuningRow
@@ -26,6 +32,19 @@ const iconButton = cva('icon-md', {
     },
   },
 })
+
+const computeEditDefaultData = (row: TuningRow): EditTuningsDefaultData => {
+  if (row.isModified) {
+    return {
+      specName: row.name,
+      value: row.value,
+      hosts: row.hosts.map((host) => host.name),
+    }
+  }
+  return {
+    specName: row.name,
+  }
+}
 
 export const ActionCell = (props: ActionCellProps) => {
   const { row, saveSpaceForResetButton, onToggleChange, onResetClick } = props
@@ -48,12 +67,17 @@ export const ActionCell = (props: ActionCellProps) => {
     const iconElement = (
       <Edit className={iconButton({ disabled: isUpdating })} />
     )
+
     if (isUpdating) {
       return iconElement
     }
-    const queryString = `?hosts=${row.hosts.map((host) => encodeURIComponent(host.name)).join(',')}`
+
+    const onEditClick = (): void => {
+      setDefaultData(computeEditDefaultData(row))
+    }
+
     return (
-      <Link to={`/events/tunings/${row.name}${queryString}`}>
+      <Link to="/events/tunings/edit" onClick={onEditClick}>
         {iconElement}
       </Link>
     )

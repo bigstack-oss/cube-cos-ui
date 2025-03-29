@@ -1,7 +1,7 @@
 import { Node } from '@cube-frontend/api'
 import { isIPv4 } from '@cube-frontend/web-app/utils/ip'
 import { NodeRoleEnum } from '@cube-frontend/web-app/utils/node'
-import { HostWithRole } from '../../createTuningsUtils'
+import { HostWithRole } from '../../upsertTuningsUtils'
 import { HostFilterValue } from './useHostFilter'
 
 const filterByKeyword = (hosts: Node[], keyword: string): Node[] => {

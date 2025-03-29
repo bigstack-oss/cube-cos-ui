@@ -15,6 +15,7 @@ import { EventsIndexPage } from './pages/events/index/EventsIndexPage'
 import { EventsTriggersPage } from './pages/events/triggers/EventsTriggersPage'
 import { EventsTuningsPage } from './pages/events/tunings/EventsTuningsPage'
 import { CreateTuningsPage } from './pages/events/tunings/create/CreateTuningsPage'
+import { EditTuningsPage } from './pages/events/tunings/edit/EditTuningsPage'
 import { EventsChartPage } from './pages/events/chart/EventsChartPage'
 
 export const CosRoutes = () => {
@@ -35,9 +36,10 @@ export const CosRoutes = () => {
       <Route path="/events" element={<EventsLayout />}>
         <Route path="/events/tunings" element={<EventsTuningsPage />} />
       </Route>
-      {/* The Create tunings route is placed outside of EventsLayout because
-        the shared tabs should not be displayed on the Create tunings page. */}
+      {/* Create & edit tunings route are placed outside of EventsLayout because
+        the shared tabs should not be displayed on those pages. */}
       <Route path="/events/tunings/create" element={<CreateTuningsPage />} />
+      <Route path="/events/tunings/edit" element={<EditTuningsPage />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/integrations" element={<IntegrationsPage />} />
       <Route path={CosRoutesEnum.EVENTS_PAGE} element={<EventsLayout />}>

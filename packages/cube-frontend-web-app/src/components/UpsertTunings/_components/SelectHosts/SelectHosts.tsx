@@ -2,8 +2,7 @@ import { Node } from '@cube-frontend/api'
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { useMemo } from 'react'
-import { HostWithRole } from '../../createTuningsUtils'
-import { CreateTuningsPayload } from '../../useCreateTuningsPayload'
+import { HostWithRole, UpsertTuningsPayload } from '../../upsertTuningsUtils'
 import { Board } from '../Board'
 import { SpecEntry } from '../SpecEntry'
 import { filterHosts } from './filterHosts'
@@ -13,7 +12,7 @@ import { useHostFilter } from './useHostFilter'
 
 type SelectHostsProps = {
   isLoading: boolean
-  payload: CreateTuningsPayload
+  payload: UpsertTuningsPayload
   hosts: Node[] | undefined
   onChange: (hosts: HostWithRole[]) => void
   onNextClick: () => void

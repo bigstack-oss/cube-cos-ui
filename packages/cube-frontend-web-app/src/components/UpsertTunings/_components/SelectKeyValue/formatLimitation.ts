@@ -4,20 +4,35 @@ import {
   TuningLimitationType,
 } from '@cube-frontend/api'
 
+type FormatLimitationOptions = {
+  /**
+   * @default false
+   */
+  showDefault?: boolean
+}
+
 export const formatLimitation = (
   limitation: ListTuningSpecResponseDataInnerLimitation,
+  options: FormatLimitationOptions = {},
 ): string => {
   const formatFn = formatFnMap[limitation.type]
-  return formatFn(limitation)
+  return formatFn(limitation, options)
 }
 
 type FormatFn = (
   limitation: ListTuningSpecResponseDataInnerLimitation,
+  options: FormatLimitationOptions,
 ) => string
 
-const formatStringLimitation: FormatFn = (limitation) => {
-  const { regex } = limitation
+const formatStringLimitation: FormatFn = (limitation, options) => {
+  // Rename `default` because it's a reserved word in TS.
+  const { default: defaultValue, regex } = limitation
+  const { showDefault = false } = options
   return formatEntries([
+    {
+      label: 'Default',
+      value: showDefault ? defaultValue : undefined,
+    },
     {
       label: 'Regex',
       value: regex,
@@ -25,9 +40,15 @@ const formatStringLimitation: FormatFn = (limitation) => {
   ])
 }
 
-const formatNumberLimitation: FormatFn = (limitation) => {
-  const { min, max } = limitation
+const formatNumberLimitation: FormatFn = (limitation, options) => {
+  // Rename `default` because it's a reserved word in TS.
+  const { default: defaultValue, min, max } = limitation
+  const { showDefault = false } = options
   return formatEntries([
+    {
+      label: 'Default',
+      value: showDefault ? defaultValue : undefined,
+    },
     {
       label: 'Min',
       value: min,
