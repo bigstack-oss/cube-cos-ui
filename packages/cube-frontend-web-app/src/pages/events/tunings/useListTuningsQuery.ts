@@ -1,6 +1,8 @@
 import { Node } from '@cube-frontend/api'
-import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from '@cube-frontend/ui-library'
-import { ChangeEvent, useState } from 'react'
+import { ItemsPerPage } from '@cube-frontend/ui-library'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router'
+import { queryToSearchParams, searchParamsToQuery } from './tuningsUtils'
 
 type UseListTuningsQuery = {
   query: ListTuningsQuery
@@ -22,13 +24,22 @@ export type ListTuningsQuery = {
 }
 
 export const useListTuningsQuery = (): UseListTuningsQuery => {
-  const [query, setQuery] = useState<ListTuningsQuery>(() => ({
-    keyword: '',
-    selectedModified: [undefined],
-    hosts: [],
-    currentPage: 1,
-    itemsPerPage: DEFAULT_ITEMS_PER_PAGE,
-  }))
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const [query, setQuery] = useState<ListTuningsQuery>(() =>
+    searchParamsToQuery(searchParams),
+  )
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const nextSearchParams = queryToSearchParams(query)
+      setSearchParams(nextSearchParams, { replace: true })
+    }, 250)
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [query, setSearchParams])
 
   const onKeywordChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target

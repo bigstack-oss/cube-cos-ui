@@ -68,15 +68,15 @@ export const HostDropdown = (props: HostDropdownProps) => {
     <CosDropdown
       type="search-checkbox"
       isLoading={isLoading}
-      skeletonClassName="w-32"
+      skeletonClassName="w-36"
       selectedItems={selectedHosts}
       searchValue={searchValue}
       onAllCheckChange={onAllCheckChange}
       onSearchChange={onSearchChange}
       onClearClick={onClearClick}
     >
-      <CosDropdown.Trigger className="h-[34px] w-32" placeholder="Hosts">
-        {selectedHosts.join(',')}
+      <CosDropdown.Trigger className="h-[34px] w-36" placeholder="Hosts">
+        {selectedHosts.length ? 'Hosts' : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
         {matchedHosts.map((node) => (
