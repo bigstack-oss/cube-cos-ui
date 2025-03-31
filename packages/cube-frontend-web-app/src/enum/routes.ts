@@ -11,6 +11,7 @@ export enum Routes {
   EVENTS_INDEX_INSTANCE = '/events/instance',
 
   EVENTS_TRIGGERS_PAGE = '/events/triggers',
+  EVENTS_TRIGGERS_CREATE_PAGE = '/events/triggers/create',
   EVENTS_TUNINGS_PAGE = '/events/tunings',
   EVENTS_CHART_PAGE = '/events/chart',
 }
