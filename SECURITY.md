@@ -2,7 +2,7 @@
 
 This Bigstack Open Source Project adheres to the [Bigstack co. Itd Vulnerability Reporting Policy](https://www.bigstack.co/trust-center/security).
 
-Version: 10 Feb 2025
+Version: 31 Mar 2025
 
 ## How To Report a Vulnerability
 
@@ -12,8 +12,8 @@ If you think you have found a vulnerability in this repository, please report it
 
 Instead, report it using one of the following ways:
 
-- Report a [vulnerability](https://github.com/bigstack-oss/<repository-name>/security/advisories) directly via private vulnerability reporting on GitHub
-- Contact the [Bigstack Security Team](mailto:security@bigstack.co) via email
+- Report a [vulnerability](https://github.com/bigstack-oss/cube-cos-ui/security/advisories/new) directly via private vulnerability reporting on GitHub
+- Contact [Bigstack Security Team](mailto:security@bigstack.co) via email
 
 Please include as much of the information listed below as you can to help us better understand and resolve the issue:
 
@@ -31,9 +31,9 @@ This information will help us triage your report more quickly.
 
 ## Supported Versions
 
-This policy applies to all open source projects developed, maintained, or hosted by Bigsatck.
+This policy applies to all open source projects developed, maintained, or hosted by Bigstack.
 
-For supported versions please refer to the [product lifecycle matrix](https://docs.bigstack.co/docs/intro/product_lifecycle/).
+For supported versions please refer to the [product lifecycle matrix](https://docs.bigstack.co/docs/cubecos/intro/product_lifecycle).
 
 ## Thank You
 
