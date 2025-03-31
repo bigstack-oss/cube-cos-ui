@@ -13,6 +13,7 @@ import { IntegrationsPage } from './pages/integrations/IntegrationsPage'
 import { EventsLayout } from './pages/events/EventsLayout'
 import { EventsIndexPage } from './pages/events/index/EventsIndexPage'
 import { EventsTriggersPage } from './pages/events/triggers/EventsTriggersPage'
+import { TriggersCreatePage } from './pages/events/triggers/[create]/TriggersCreatePage'
 import { EventsTuningsPage } from './pages/events/tunings/EventsTuningsPage'
 import { CreateTuningsPage } from './pages/events/tunings/create/CreateTuningsPage'
 import { EditTuningsPage } from './pages/events/tunings/edit/EditTuningsPage'
@@ -80,6 +81,10 @@ export const CosRoutes = () => {
         />
       </Route>
       <Route path="/settings" element={<SettingsPage />} />
+      <Route
+        path={CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}
+        element={<TriggersCreatePage />}
+      />
       <Route path="*" element={<div>TODO: Not Found Page</div>} />
     </Routes>
   )

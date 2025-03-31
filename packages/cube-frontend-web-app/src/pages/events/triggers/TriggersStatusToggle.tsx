@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CosToggle } from '@cube-frontend/ui-library'
-import { TriggerRow } from './triggersUtils'
+import { TriggerRow } from './utils'
 
 type TriggersStatusToggleProps = {
   row: TriggerRow

@@ -8,7 +8,7 @@ import { useOperationErrors } from '@cube-frontend/web-app/hooks/useOperationErr
 import { useTriggerRows } from './useTriggerRows'
 import { TriggersStatusToggle } from './TriggersStatusToggle'
 import { TriggersActionCell } from './TriggersActionCell'
-import { getTriggerResponse, TriggerRow } from './triggersUtils'
+import { getTriggerResponse, TriggerRow } from './utils'
 
 const TriggersTable = GetCosBasicTable<TriggerRow>()
 

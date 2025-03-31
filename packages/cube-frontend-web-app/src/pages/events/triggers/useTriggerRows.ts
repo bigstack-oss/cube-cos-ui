@@ -6,7 +6,7 @@ import { TriggersApiGetTriggersRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { mapToTriggerTableRows, TriggerRow } from './triggersUtils'
+import { mapToTriggerTableRows, TriggerRow } from './utils'
 
 export type UseTriggerRowsOptions = {
   onOperationErrorOccur: (errorMessage: string) => void

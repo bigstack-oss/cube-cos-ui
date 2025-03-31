@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import EditIcon from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import DeleteIcon from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
-import { TriggerRow } from './triggersUtils'
+import { TriggerRow } from './utils'
 
 const button = cva('icon-md text-functional-text', {
   variants: {
