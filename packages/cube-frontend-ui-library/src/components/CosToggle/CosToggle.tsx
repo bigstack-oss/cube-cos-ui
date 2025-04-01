@@ -1,7 +1,8 @@
+import { PropsWithClassName } from '@cube-frontend/utils'
 import { twMerge } from 'tailwind-merge'
 import { labelCva, thumb, track } from './styles'
 
-export type CosToggleProps = {
+export type CosToggleProps = PropsWithClassName & {
   isOn: boolean
   label?: string
   disabled?: boolean
@@ -9,7 +10,7 @@ export type CosToggleProps = {
 }
 
 export const CosToggle = (props: CosToggleProps) => {
-  const { isOn, label, disabled = false, onChange } = props
+  const { className, isOn, label, disabled = false, onChange } = props
 
   const toggleIsOn = () => {
     onChange?.(!isOn)
@@ -22,7 +23,7 @@ export const CosToggle = (props: CosToggleProps) => {
   }
 
   return (
-    <div className="flex items-center gap-x-[6px]">
+    <div className={twMerge('flex items-center gap-x-[6px]', className)}>
       <button
         type="button"
         className={twMerge(track({ isOn, disabled }))}
