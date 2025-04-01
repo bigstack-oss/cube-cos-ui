@@ -88,3 +88,4 @@ export { UseFloatingExternalContextProvider } from './internal/utils/floating/ex
 export * from './components/CosStepProcess/CosStepProcess'
 export * from './components/CosStepProcess/CosStepProcessItem'
 export * from './components/CosSearchBar/CosSearchBarFilter/CosSearchBarFilter'
+export * from './components/CosOverflowMenu/CosOverflowMenu'
