@@ -1,5 +1,3 @@
-import { Ref } from 'react'
-
 const normalizeValue = (
   value: string | number | readonly string[] | undefined,
 ): string => {
@@ -17,19 +15,4 @@ export const calculateValueLength = (
 ): number => {
   const normalizedValue = normalizeValue(value)
   return normalizedValue.length
-}
-
-export const assignRefValue = <T>(
-  ref: Ref<T> | undefined,
-  element: T,
-): void => {
-  if (!ref) {
-    return
-  }
-
-  if (typeof ref === 'function') {
-    ref(element)
-  } else {
-    ref.current = element
-  }
 }

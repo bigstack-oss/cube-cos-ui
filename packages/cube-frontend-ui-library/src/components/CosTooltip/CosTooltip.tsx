@@ -1,9 +1,9 @@
+import { assignRefValue } from '@cube-frontend/utils'
 import {
   cloneElement,
   Fragment,
   MouseEvent,
   ReactElement,
-  Ref,
   useRef,
   useState,
 } from 'react'
@@ -27,18 +27,6 @@ export type CosTooltipProps = {
    * The toggle (anchor) element.
    */
   children: ReactElement<InteractiveElementProps>
-}
-
-const assignRefValue = <T,>(ref: Ref<T> | undefined, element: T): void => {
-  if (!ref) {
-    return
-  }
-
-  if (typeof ref === 'function') {
-    ref(element)
-  } else {
-    ref.current = element
-  }
 }
 
 export const CosTooltip = (props: CosTooltipProps) => {
@@ -91,7 +79,7 @@ export const CosTooltip = (props: CosTooltipProps) => {
       // Assign the element to the existing `ref` prop on `anchorElement`.
       assignRefValue(anchorRefProp, element)
       // Assign the element to the internal `ref` used in `CosTooltip`.
-      anchorRef.current = element
+      assignRefValue(anchorRef, element)
     },
     onMouseEnter,
     onMouseLeave,

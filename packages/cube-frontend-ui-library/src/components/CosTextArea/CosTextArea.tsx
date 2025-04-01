@@ -2,8 +2,9 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { CosTextAreaSkeleton } from './CosTextAreaSkeleton'
-import { assignRefValue, calculateValueLength } from './cosTextAreaUtils'
+import { calculateValueLength } from './cosTextAreaUtils'
 import { useVisibleRowsCount } from './useVisibleRowsCount'
+import { assignRefValue } from '@cube-frontend/utils'
 
 const textarea = cva(
   [
