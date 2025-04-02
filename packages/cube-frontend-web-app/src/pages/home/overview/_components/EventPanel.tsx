@@ -11,9 +11,11 @@ import {
 } from '@cube-frontend/ui-library'
 import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
+import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
 
 const HOME_PAGE_EVENT_ROW_LIMIT = 5
 
@@ -39,16 +41,21 @@ export const EventPanel = () => {
   const [eventType, setEventType] =
     useState<GetAbstractedEventsTypeEnum>('system')
 
-  const { data: eventsData, isLoading } = useCosStreamRequest(
-    eventsApi.getAbstractedEvents,
-    () => {
-      return {
-        dataCenter: dataCenter.name,
-        type: eventType,
-        limit: HOME_PAGE_EVENT_ROW_LIMIT,
-      } satisfies EventsApiGetAbstractedEventsRequest
-    },
-  )
+  const {
+    data: eventsData,
+    hasResponseBeenReceived,
+    getResource: getAbstractedEvents,
+  } = useCosGetRequest(eventsApi.getAbstractedEvents, () => {
+    return {
+      dataCenter: dataCenter.name,
+      type: eventType,
+      limit: HOME_PAGE_EVENT_ROW_LIMIT,
+    } satisfies EventsApiGetAbstractedEventsRequest
+  })
+
+  const isLoading = !hasResponseBeenReceived
+
+  useInterval(getAbstractedEvents, HOME_OVERVIEW_PAGE_POLLING_INTERVAL)
 
   const rows = useMemo<TableEvent[]>(() => {
     return eventsData?.events.map(mapToTableEvent) || []

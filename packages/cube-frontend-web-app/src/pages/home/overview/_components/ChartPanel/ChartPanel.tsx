@@ -9,22 +9,29 @@ import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
-import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { links } from '../../../links'
 import { toMetricsChart } from '../../../utils'
 import { defaultMetrics } from './utils'
+import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 
 const ChartPanel = () => {
   const dataCenter = useContext(DataCenterContext)
 
-  const { data: metrics = defaultMetrics, isLoading } = useCosStreamRequest(
-    metricsApi.getMetricsOverview,
-    () => {
-      return {
-        dataCenter: dataCenter.name,
-      } satisfies MetricsApiGetMetricsOverviewRequest
-    },
-  )
+  const {
+    data: metrics = defaultMetrics,
+    hasResponseBeenReceived,
+    getResource: getMetricsOverview,
+  } = useCosGetRequest(metricsApi.getMetricsOverview, () => {
+    return {
+      dataCenter: dataCenter.name,
+    } satisfies MetricsApiGetMetricsOverviewRequest
+  })
+
+  const isLoading = !hasResponseBeenReceived
+
+  useInterval(getMetricsOverview, HOME_OVERVIEW_PAGE_POLLING_INTERVAL)
 
   const {
     vmBarChart,

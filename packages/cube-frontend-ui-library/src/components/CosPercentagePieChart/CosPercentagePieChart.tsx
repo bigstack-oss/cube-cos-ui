@@ -28,7 +28,8 @@ export const CosPercentagePieChart = (props: CosPercentageChartProps) => {
     isLoading = false,
   } = props
 
-  const percentage = Math.floor((used / total) * 100)
+  // Default to 0 to avoid NaN when total is 0.
+  const percentage = Math.floor((used / total) * 100) || 0
 
   return (
     <div className="flex flex-col items-center gap-y-4">

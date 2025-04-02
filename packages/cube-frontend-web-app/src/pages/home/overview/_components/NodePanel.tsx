@@ -15,13 +15,15 @@ import CopyIcon from '@cube-frontend/ui-library/icons/monochrome/copy.svg?react'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
-import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import {
   humanizeDuration,
   toLicenseDateDisplay,
 } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
 import { toPercentage } from '@cube-frontend/web-app/utils/number'
+import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
 
 const HOME_PAGE_NODE_ROW_LIMIT = 5
 
@@ -31,16 +33,21 @@ export const NodeTable =
 export const NodePanel = () => {
   const dataCenter = useContext(DataCenterContext)
 
-  const { data: nodesData, isLoading } = useCosStreamRequest(
-    nodesApi.getNodes,
-    () => {
-      return {
-        dataCenter: dataCenter.name,
-        pageNum: 1,
-        pageSize: HOME_PAGE_NODE_ROW_LIMIT,
-      } satisfies NodesApiGetNodesRequest
-    },
-  )
+  const {
+    data: nodesData,
+    hasResponseBeenReceived,
+    getResource: getNodes,
+  } = useCosGetRequest(nodesApi.getNodes, () => {
+    return {
+      dataCenter: dataCenter.name,
+      pageNum: 1,
+      pageSize: HOME_PAGE_NODE_ROW_LIMIT,
+    } satisfies NodesApiGetNodesRequest
+  })
+
+  const isLoading = !hasResponseBeenReceived
+
+  useInterval(getNodes, HOME_OVERVIEW_PAGE_POLLING_INTERVAL)
 
   const updateTime = useUpdateTime(nodesData, isLoading)
 
