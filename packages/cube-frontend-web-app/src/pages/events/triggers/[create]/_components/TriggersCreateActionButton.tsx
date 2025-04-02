@@ -9,32 +9,46 @@ export const TriggersCreateActionButton = () => {
   const {
     activeStep,
     setActiveStep,
+    isTemplateLoading,
+    selectedTemplateName,
     isTriggerLoading,
     enabled,
     attributes,
-    selectedTemplate,
     selectedEmails,
     selectedSlacks,
   } = useContext(TriggersCreateContext)
 
-  const { isUpdateLoading, handleTriggerUpdate, errorState } = useUpdateTrigger(
-    { enabled, attributes, selectedTemplate, selectedEmails, selectedSlacks },
-  )
-
-  const isLastStep = activeStep.serialNumber === 4
-
   const { isValid, errorMessage } = isFormValueValid(
     activeStep,
-    selectedTemplate,
+    selectedTemplateName,
     selectedEmails,
     selectedSlacks,
   )
 
+  const { isUpdateLoading, handleTriggerUpdate, errorState } = useUpdateTrigger(
+    {
+      isValid,
+      enabled,
+      attributes,
+      selectedTemplateName,
+      selectedEmails,
+      selectedSlacks,
+    },
+  )
+
+  const isLastStep = activeStep.serialNumber === 4
+
+  const isLoading = isTemplateLoading || isTriggerLoading
+
   const renderErrorMessage = () => {
-    const message =
-      errorMessage || errorState?.api?.msg || errorState?.native?.message
-    if (isTriggerLoading || !message) return null
-    return <div className="primary-body3 text-status-negative">{message}</div>
+    if (errorMessage || errorState?.api?.msg || errorState?.native?.message)
+      return (
+        <div className="primary-body3 text-status-negative">
+          {errorMessage || errorState?.api?.msg || errorState?.native?.message}
+        </div>
+      )
+
+    return null
   }
 
   const handleGoToNextStep = () => {
@@ -54,7 +68,7 @@ export const TriggersCreateActionButton = () => {
         size="md"
         type="primary"
         loading={isUpdateLoading}
-        disabled={!isValid || isTriggerLoading}
+        disabled={!!errorState}
         onClick={handleTriggerUpdate}
       >
         Update
@@ -70,7 +84,7 @@ export const TriggersCreateActionButton = () => {
         type="primary"
         usage="icon-right"
         Icon={ChevronRight}
-        loading={isTriggerLoading}
+        loading={isLoading}
         disabled={!isValid}
         onClick={handleGoToNextStep}
       >

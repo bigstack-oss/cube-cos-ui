@@ -36,6 +36,7 @@ export const ResponseEmailTable = () => {
         rows={emailRows}
         selectedRowIds={selectedEmails}
         onCheckChange={handleEmailSelect}
+        showHeaderCheckbox={true}
         onAllCheckChange={handleEmailSelectAll}
       >
         {/**

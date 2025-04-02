@@ -12,13 +12,10 @@ type UseTriggerCreateFormOption = {
 
 type UseTriggerCreateForm = {
   enabled: boolean
-  selectedTemplate: string | undefined
   attributes: GetTriggersResponseDataInnerAttributes[]
   selectedEmails: string[]
   selectedSlacks: string[]
   description: string
-  handleTemplateSelect: (id: string) => void
-  handleTemplateSelectAll: () => void
   handleEmailSelect: (id: string) => void
   handleEmailSelectAll: () => void
   handleSlackSelect: (id: string) => void
@@ -34,7 +31,6 @@ export const useTriggerCreateForm = (
   /**
    * Form States
    */
-  const [selectedTemplate, setSelectedTemplate] = useState<string>()
   const [selectedEmails, setSelectedEmails] = useState<string[]>([])
   const [selectedSlacks, setSelectedSlacks] = useState<string[]>([])
   const [description, setDescription] = useState<string>('')
@@ -62,22 +58,11 @@ export const useTriggerCreateForm = (
    */
   useEffect(() => {
     if (!isTriggerLoading && trigger) {
-      setSelectedTemplate(trigger.name)
       setSelectedEmails(allEmails.length > 0 ? [allEmails[0]] : [])
       setSelectedSlacks(allSlacks.length > 0 ? [allSlacks[0]] : [])
       setDescription(trigger.description)
     }
   }, [trigger, isTriggerLoading, allEmails, allSlacks])
-
-  const handleTemplateSelect = (id: string) => {
-    setSelectedTemplate(id)
-  }
-
-  /**
-   * By default, only one template is displayed and multiple selections are not expected,
-   * so the `handleTemplateSelectAll` has no effect here and it will always checked.
-   */
-  const handleTemplateSelectAll = () => {}
 
   const handleEmailSelect = (id: string) => {
     setSelectedEmails((prev) =>
@@ -113,13 +98,10 @@ export const useTriggerCreateForm = (
 
   return {
     enabled,
-    selectedTemplate,
     attributes,
     selectedEmails,
     selectedSlacks,
     description,
-    handleTemplateSelect,
-    handleTemplateSelectAll,
     handleEmailSelect,
     handleEmailSelectAll,
     handleSlackSelect,

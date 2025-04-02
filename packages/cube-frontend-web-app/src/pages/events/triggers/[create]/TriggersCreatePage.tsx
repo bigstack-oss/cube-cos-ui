@@ -5,47 +5,63 @@ import { TriggersCreateSteps } from './_components/TriggersCreateSteps'
 import { TriggersCreateForm } from './_components/TriggersCreateForm'
 import { useTrigger } from './_components/useTrigger'
 import { useTriggerCreateForm } from './_components/useCreateTriggerForm'
-import { TriggersCreateContext } from './_components/context'
+import { useTemplateTable } from './_components/useTemplateTable'
 import { TriggersCreateStep, triggersCreateSteps } from './_components/utils'
+import { TriggersCreateContext } from './_components/context'
 
 export const TriggersCreatePage = () => {
   const [activeStep, setActiveStep] = useState<TriggersCreateStep>(
     triggersCreateSteps[0],
   )
 
-  const { trigger, isTriggerLoading } = useTrigger()
+  const {
+    dataCenter,
+    isTemplateLoading,
+    templateRows,
+    disabledRowsId,
+    selectedTemplateName,
+    handleTemplateSelect,
+  } = useTemplateTable()
+
+  const { isTriggerLoading, trigger } = useTrigger({
+    dataCenter,
+    selectedTemplateName,
+  })
 
   const {
     enabled,
-    selectedTemplate,
     attributes,
     selectedEmails,
     selectedSlacks,
     description,
-    handleTemplateSelect,
-    handleTemplateSelectAll,
     handleEmailSelect,
     handleEmailSelectAll,
     handleSlackSelect,
     handleSlackSelectAll,
     handleDescriptionChange,
-  } = useTriggerCreateForm({ trigger, isTriggerLoading })
+  } = useTriggerCreateForm({ isTriggerLoading, trigger })
 
   return (
     <TriggersCreateContext.Provider
       value={{
+        // Step Params
         activeStep,
         setActiveStep,
+        // Template Table
+        isTemplateLoading,
+        templateRows,
+        disabledRowsId,
+        selectedTemplateName,
+        handleTemplateSelect,
+        // The Rest Form Fields
         trigger,
         isTriggerLoading,
         enabled,
-        selectedTemplate,
         attributes,
         selectedEmails,
         selectedSlacks,
         description,
-        handleTemplateSelect,
-        handleTemplateSelectAll,
+        // Form Field Handlers
         handleEmailSelect,
         handleEmailSelectAll,
         handleSlackSelect,

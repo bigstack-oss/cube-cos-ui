@@ -35,6 +35,7 @@ export const ResponseSlackTable = () => {
         rows={slackRows}
         selectedRowIds={selectedSlacks}
         onCheckChange={handleSlackSelect}
+        showHeaderCheckbox={true}
         onAllCheckChange={handleSlackSelectAll}
       >
         <SlackTable.Column label="Slack channels" property="name" />

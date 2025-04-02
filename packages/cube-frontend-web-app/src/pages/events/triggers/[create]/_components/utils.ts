@@ -40,15 +40,15 @@ export const groupAttributeByName = (
  */
 export const isFormValueValid = (
   activeStep: TriggersCreateStep,
-  selectedTemplate: string | undefined,
+  selectedTemplateName: string | null,
   selectedEmails: string[],
   selectedSlacks: string[],
 ): { isValid: boolean; errorMessage?: string } => {
   switch (activeStep.label) {
     case 'Select Template':
       return {
-        isValid: Boolean(selectedTemplate),
-        errorMessage: selectedTemplate
+        isValid: Boolean(selectedTemplateName),
+        errorMessage: selectedTemplateName
           ? undefined
           : 'A template must be selected.',
       }

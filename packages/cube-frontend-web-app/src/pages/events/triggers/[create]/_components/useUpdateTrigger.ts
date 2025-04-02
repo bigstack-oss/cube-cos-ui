@@ -15,9 +15,10 @@ import {
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 
 type UseUpdateTriggerOption = {
+  isValid: boolean
   enabled: boolean
   attributes: GetTriggersResponseDataInnerAttributes[]
-  selectedTemplate: string | undefined
+  selectedTemplateName: string | null
   selectedEmails: string[]
   selectedSlacks: string[]
 }
@@ -32,9 +33,10 @@ export const useUpdateTrigger = (
   option: UseUpdateTriggerOption,
 ): UseUpdateTrigger => {
   const {
+    isValid,
     enabled,
     attributes,
-    selectedTemplate,
+    selectedTemplateName,
     selectedEmails,
     selectedSlacks,
   } = option
@@ -58,10 +60,11 @@ export const useUpdateTrigger = (
     clearError()
 
     try {
-      if (!dataCenter || !selectedTemplate) return
+      if (!dataCenter || !selectedTemplateName || !isValid) return
+
       await updateTrigger({
         dataCenter,
-        triggerName: selectedTemplate,
+        triggerName: selectedTemplateName,
         updateTriggerRequest: {
           attributes: attributes.map(
             ({ name, type, value, enabled }) =>
