@@ -4,6 +4,7 @@ import {
   PropsWithChildren,
   useMemo,
 } from 'react'
+import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import {
   computeRowClassName,
@@ -22,6 +23,20 @@ const tdBorderRadiusClass = twMerge(
   '[&:last-of-type>td:first-of-type]:rounded-bl-[5px]',
   '[&:last-of-type>td:last-of-type]:rounded-br-[5px]',
 )
+
+const tableRow = cva(['[&>td]:hover:bg-functional-hover-grey'], {
+  variants: {
+    isChecked: {
+      true: '[&>td]:bg-functional-hover-secondary [&>td]:hover:bg-[#ECF1FF]',
+    },
+    isDisabled: {
+      true: [
+        '[&>td]:bg-white [&>td]:hover:bg-white',
+        '[&>td]:text-functional-disable-text',
+      ],
+    },
+  },
+})
 
 export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   rows: Row[]
@@ -89,9 +104,9 @@ export const CosBasicTable = <Row extends CosTableRow>(
       <tr
         key={row.id}
         className={twMerge(
-          '[&>td]:hover:bg-functional-hover-grey',
           tdBorderRadiusClass,
           computeRowClassName(rowClassName, row),
+          tableRow({ isChecked: !!row.checked, isDisabled: !!row.disabled }),
         )}
         onClick={() => onRowClick?.(row)}
       >
@@ -112,7 +127,6 @@ export const CosBasicTable = <Row extends CosTableRow>(
       <table className="w-full border-separate border-spacing-0">
         <thead>
           <tr>
-            {/*  */}
             {columns.map((column, index) => (
               <CosTableTh
                 key={`${column.property?.toString() ?? ''}-${index}`}

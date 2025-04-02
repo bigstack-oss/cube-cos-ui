@@ -4,6 +4,8 @@ import { CosTableColumnProps } from './rendering/CosTableColumn'
 
 export type CosTableRow = {
   id: string
+  checked?: boolean
+  disabled?: boolean
 }
 
 export type CosBatchActionTableRow = CosTableRow & {
