@@ -9,6 +9,7 @@
                 formActionUrl: '${url.loginAction?js_string?no_esc}',
                 authSelectedCredentials: <#if auth.selectedCredential?has_content>"${auth.selectedCredential}"<#else>undefined</#if>,
                 loginGreeting: '${properties.loginGreeting?js_string?no_esc}',
+                isRememberMeEnabled: <#if realm.rememberMe && !usernameHidden??>true<#else>false</#if>
             }
         </script>
         <div id="kc-form-wrapper" style="height: 100%;"></div>

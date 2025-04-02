@@ -7,7 +7,8 @@ import {
 import { useMemo } from 'react'
 
 export const LoginFields = () => {
-  const { incorrectCredentials, sessionTimedOut } = window.keycloakLoginContext
+  const { incorrectCredentials, sessionTimedOut, isRememberMeEnabled } =
+    window.keycloakLoginContext
 
   const naggingMessage = useMemo<string | undefined>(() => {
     if (sessionTimedOut) {
@@ -43,12 +44,14 @@ export const LoginFields = () => {
         autoComplete="off"
         tabIndex={0}
       />
-      <CosCheckbox
-        name="rememberMe"
-        label="Remember username"
-        defaultChecked={true}
-        tabIndex={0}
-      />
+      {isRememberMeEnabled && (
+        <CosCheckbox
+          name="rememberMe"
+          label="Remember username"
+          defaultChecked={true}
+          tabIndex={0}
+        />
+      )}
     </div>
   )
 }

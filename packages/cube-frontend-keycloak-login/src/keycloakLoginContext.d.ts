@@ -16,5 +16,6 @@ interface Window {
     formActionUrl: string
     authSelectedCredentials: string | undefined
     loginGreeting: string
+    isRememberMeEnabled: boolean
   }
 }
