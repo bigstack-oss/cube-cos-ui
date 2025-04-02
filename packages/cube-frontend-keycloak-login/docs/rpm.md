@@ -115,7 +115,7 @@ podman load -i /usr/share/cube/login/keycloak-image.tar
 5. Push the image to the local private registry
 
 ```bash
-podman push --tls-verify=false localhost:5080/bigstack/keycloak:17.0.1-legacy
+podman push --tls-verify=false localhost:5080/bigstack/keycloak:17.1.0
 ```
 
 6. Force helm to pull the new image

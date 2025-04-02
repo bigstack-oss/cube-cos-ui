@@ -86,7 +86,7 @@ ls -ahl ~/rpmbuild/RPMS/x86_64/cube-cos-ui-$VERSION-1.el9.$BUILD_NUMBER.x86_64.r
 scp "<path of rpm>" "<user>@<cubecos>:<path to place rpm>"
 ```
 
-2. Install the rpm and start the service
+2. Install the rpm
 
 ```bash
 dnf install "<path to cube-cos-ui rpm>"
