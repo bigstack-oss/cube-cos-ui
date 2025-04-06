@@ -10,6 +10,8 @@ import { IntegrationsContext } from '../context/IntegrationsContext'
 import { UserContext } from '../context/UserContext'
 import Content from './Content'
 import { useSidebarOptions } from './useSidebarOptions'
+import { Link } from 'react-router'
+import { useSidebarBottomLinks } from './useSidebarBottomLinks'
 
 const integrationIcons = {
   keycloak: KeycloakIcon,
@@ -22,6 +24,8 @@ const Layout = (props: PropsWithChildren) => {
   const { children } = props
 
   const sideBarOptions = useSidebarOptions()
+
+  const sideBarBottomLinks = useSidebarBottomLinks()
 
   const handleLogout = () => {
     logoutApi.logout()
@@ -44,9 +48,11 @@ const Layout = (props: PropsWithChildren) => {
     <div className="h-svh min-w-full overflow-hidden bg-scene-background">
       <div className="flex h-svh flex-row">
         <CosSideBar
+          LogoContainer={<Link to="/home"></Link>}
           dataCenter={dataCenter}
           username={user.name}
           options={sideBarOptions}
+          links={sideBarBottomLinks}
         />
         <div className="max-w-[calc(100svw_-_200px)] flex-1">
           <CosHeader quickAccesses={quickAccesses} onLogout={handleLogout} />

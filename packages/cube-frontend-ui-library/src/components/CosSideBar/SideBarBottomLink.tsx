@@ -12,6 +12,7 @@ export const SideBarBottomLink = (props: SideBarBottomLinkProps) => {
     <a
       className="group primary-body5 flex h-[21px] cursor-pointer items-center justify-between px-[22px] text-functional-text"
       href={href}
+      target="_blank"
     >
       {text}
       <HyperLinkIcon className="icon-sm invisible text-functional-text group-hover:visible" />
