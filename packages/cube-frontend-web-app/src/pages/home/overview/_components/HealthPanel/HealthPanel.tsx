@@ -68,12 +68,14 @@ const HealthPanel = () => {
       hyperLinkProps={{ href: links.health }}
       isTimeLoading={isLoading}
     >
-      <HealthError
-        isLoading={isLoading}
-        errorServices={errorServices}
-        onRepair={handleRepair}
-        isRepairButtonLoading={isRepairButtonLoading}
-      />
+      {(isLoading || errorServices.length > 0) && (
+        <HealthError
+          isLoading={isLoading}
+          errorServices={errorServices}
+          onRepair={handleRepair}
+          isRepairButtonLoading={isRepairButtonLoading}
+        />
+      )}
       <HealthStatus isLoading={isLoading} categories={categories} />
     </CosDashboardPanel>
   )
