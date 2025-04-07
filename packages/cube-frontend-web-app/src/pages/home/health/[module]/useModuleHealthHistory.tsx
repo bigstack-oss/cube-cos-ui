@@ -6,9 +6,10 @@ import {
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
+import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { useContext } from 'react'
+import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../homeHealthPageUtils'
 
 export type UseModuleHealthHistoryOptions = {
   module: ModuleMetadata | undefined
@@ -35,15 +36,22 @@ export const useModuleHealthHistory = (
     }
   }
 
-  const { data: streamResponse } = useCosStreamRequest(
-    healthApi.getHealthHistory,
-    (): HealthApiGetHealthHistoryRequest | undefined => {
-      if (!shouldUseStreamData) {
-        return undefined
-      }
-      return getRequestParams()
-    },
-  )
+  const { data: streamResponse, getResource: getHealthHistory } =
+    useCosGetRequest(
+      healthApi.getHealthHistory,
+      (): HealthApiGetHealthHistoryRequest | undefined => {
+        if (!shouldUseStreamData) {
+          return undefined
+        }
+        return getRequestParams()
+      },
+    )
+
+  useInterval(() => {
+    if (module && shouldUseStreamData) {
+      getHealthHistory()
+    }
+  }, HOME_HEALTH_PAGE_POLLING_INTERVAL)
 
   const { data: manualFetchResponse } = useCosGetRequest(
     healthApi.getHealthHistory,
@@ -55,7 +63,7 @@ export const useModuleHealthHistory = (
     },
   )
 
-  // Use stream data is `autoFetch` is true. Otherwise, use manual fetch data.
+  // Use stream data if `autoFetch` is true. Otherwise, use manual fetch data.
   const response = shouldUseStreamData ? streamResponse : manualFetchResponse
 
   return response?.history

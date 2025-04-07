@@ -6,23 +6,30 @@ import { CosButton, CosLoadingSpinner } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
+import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
 import { useContext } from 'react'
+import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../../homeHealthPageUtils'
 import { AvailableStatus, HealthStatusBadge } from './HealthStatusBadge'
 import { NgService } from './NgService'
 
 export const HealthCheck = () => {
   const dataCenter = useContext(DataCenterContext)
 
-  const { isLoading: isLoadingHealth, data: overallHealth } =
-    useCosStreamRequest(
-      healthApi.getHealths,
-      () =>
-        ({
-          dataCenter: dataCenter.name,
-        }) satisfies HealthApiGetHealthsRequest,
-    )
+  const {
+    isLoading: isLoadingHealth,
+    data: overallHealth,
+    getResource: getHealths,
+  } = useCosGetRequest(
+    healthApi.getHealths,
+    () =>
+      ({
+        dataCenter: dataCenter.name,
+      }) satisfies HealthApiGetHealthsRequest,
+  )
+
+  useInterval(getHealths, HOME_HEALTH_PAGE_POLLING_INTERVAL)
 
   const { isLoading: isCallingRepairApi, mutateResource: repairHealth } =
     useCosMutationRequest(

@@ -9,10 +9,12 @@ import {
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
 import { Dayjs } from 'dayjs'
 import { upperFirst } from 'lodash'
 import { useContext, useMemo } from 'react'
+import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../../homeHealthPageUtils'
 import { ModuleHealth } from './ModuleHealth'
 import { useIsVisible } from './useIsVisible'
 
@@ -30,7 +32,11 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
 
   const { elementRef, isVisible } = useIsVisible<HTMLDivElement>()
 
-  const { data: moduleHealths, isLoading } = useCosStreamRequest(
+  const {
+    data: moduleHealths,
+    isLoading,
+    getResource: getServiceHealthHistory,
+  } = useCosGetRequest(
     healthApi.getServiceHealthHistory,
     (): HealthApiGetServiceHealthHistoryRequest | undefined => {
       // Don't send the request when the container is not visible to avoid
@@ -45,6 +51,12 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
       }
     },
   )
+
+  useInterval(() => {
+    if (isVisible) {
+      getServiceHealthHistory()
+    }
+  }, HOME_HEALTH_PAGE_POLLING_INTERVAL)
 
   const moduleHistoriesMap = useMemo<
     Map<
