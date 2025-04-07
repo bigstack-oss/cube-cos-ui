@@ -15,6 +15,19 @@ export type RankingItemProps = {
 export const RankingItem = (props: RankingItemProps) => {
   const { rankingItem, unit, isBlur, onMouseEnter, onMouseLeave } = props
 
+  const getName = () => {
+    const { name, device } = rankingItem
+    if (device) {
+      return (
+        <span>
+          <span className="break-all">{name}</span>
+          <span className="ml-1 text-functional-text-light">{`(${device})`}</span>
+        </span>
+      )
+    }
+    return name
+  }
+
   const abbreviationUnit = toUnitAbbreviation(unit)
 
   return (
@@ -25,7 +38,7 @@ export const RankingItem = (props: RankingItemProps) => {
       )}
     >
       <span className="primary-body3 w-[140px] text-functional-text">
-        {rankingItem.name}
+        {getName()}
       </span>
       <div className="flex h-[36px] flex-1 items-center gap-x-1.5">
         <span className="primary-body5 w-[48px]">
