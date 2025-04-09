@@ -7,7 +7,7 @@ type PieChartLabelProps = {
   isBlur: boolean
   onMouseEnter: () => void
   onMouseLeave: () => void
-  onClick: () => void
+  redirectUrl: string
 }
 
 export const PieChartLabel = (props: PieChartLabelProps) => {
@@ -18,18 +18,18 @@ export const PieChartLabel = (props: PieChartLabelProps) => {
     isBlur,
     onMouseEnter,
     onMouseLeave,
-    onClick,
+    redirectUrl,
   } = props
 
   return (
-    <div
+    <a
       className={twMerge(
         'grid h-[30px] w-[143px] cursor-pointer grid-cols-3 items-center gap-2 px-2 py-[6px]',
         isBlur && 'opacity-30',
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={onClick}
+      href={redirectUrl}
     >
       <div className="col-span-2 flex items-center gap-1">
         <div
@@ -41,6 +41,6 @@ export const PieChartLabel = (props: PieChartLabelProps) => {
         <p className="primary-body5">{eventId}</p>
       </div>
       <p className="primary-body3 col-span-1 text-right">{`${percentage.toFixed(1)}%`}</p>
-    </div>
+    </a>
   )
 }

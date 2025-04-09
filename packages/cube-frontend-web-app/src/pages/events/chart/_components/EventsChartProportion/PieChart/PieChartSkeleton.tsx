@@ -9,7 +9,7 @@ export const PieChartSkeleton = () => {
         {range(24).map((i) => (
           <div
             key={i}
-            className="grid h-[30px] w-[143px] cursor-pointer grid-cols-3 items-center gap-2 px-2 py-[6px]"
+            className="grid h-[30px] w-[143px] grid-cols-3 items-center gap-2 px-2 py-[6px]"
           >
             <div className="col-span-2 flex items-center gap-1">
               <CosSkeleton className="size-[6px] rounded-full" />

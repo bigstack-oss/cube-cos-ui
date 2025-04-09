@@ -42,12 +42,15 @@ export const getChartData = (
   }
 }
 
+/**
+ * Plugin to draw the value of each bar on top of it
+ */
 export const drawValuePlugin: Plugin<'bar'> = {
   id: 'drawValuePlugin',
   afterDraw: (chart) => {
     const ctx = chart.ctx
     ctx.font = '11px Inter'
-    ctx.fillStyle = '#3F4453'
+    ctx.fillStyle = cubeTheme.colors.functional.text
     ctx.textAlign = 'center'
 
     chart.data.datasets.forEach((dataset, i) => {
@@ -113,6 +116,13 @@ export const getChartOptions = (
         handleClick(selectedId)
       } else {
         console.warn('No available data')
+      }
+    },
+    onHover: (_, elements: ActiveElement[], chart) => {
+      if (elements.length > 0) {
+        chart.canvas.style.setProperty('cursor', 'pointer')
+      } else {
+        chart.canvas.style.removeProperty('cursor')
       }
     },
   }

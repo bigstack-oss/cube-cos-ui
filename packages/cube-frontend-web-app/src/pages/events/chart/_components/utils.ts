@@ -31,6 +31,9 @@ export const mapToDropdownFilterValues = (
     console.warn('Not a valid filter key')
   }
 
+  /**
+   * The current implementation is not yet compatible with i18n.
+   */
   const dropdownFilterLabel = upperFirst(dropdownFilterKey) ?? ''
 
   const queryKey = chartType + dropdownFilterLabel

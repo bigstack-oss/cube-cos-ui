@@ -75,7 +75,7 @@ export const PieChart = (props: PieChartProps) => {
               isBlur={!!targetEventKey && targetEventKey !== id}
               onMouseEnter={() => handleMouseEnter(id)}
               onMouseLeave={handleMouseLeave}
-              onClick={handleClick}
+              redirectUrl={getRedirectQuery(chartType, id)}
             />
           )
         })}

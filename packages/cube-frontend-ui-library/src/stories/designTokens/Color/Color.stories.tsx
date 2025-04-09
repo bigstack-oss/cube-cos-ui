@@ -111,6 +111,28 @@ export const Color: StoryObj = {
             <ColorBox colorName="8" bgClassName="bg-chart-8" />
             <ColorBox colorName="9" bgClassName="bg-chart-9" />
             <ColorBox colorName="10" bgClassName="bg-chart-10" />
+            <ColorBox colorName="11" bgClassName="bg-chart-11" />
+            <ColorBox colorName="12" bgClassName="bg-chart-12" />
+            <ColorBox colorName="13" bgClassName="bg-chart-13" />
+            <ColorBox colorName="14" bgClassName="bg-chart-14" />
+            <ColorBox colorName="15" bgClassName="bg-chart-15" />
+            <ColorBox colorName="16" bgClassName="bg-chart-16" />
+            <ColorBox colorName="17" bgClassName="bg-chart-17" />
+            <ColorBox colorName="18" bgClassName="bg-chart-18" />
+            <ColorBox colorName="19" bgClassName="bg-chart-19" />
+            <ColorBox colorName="20" bgClassName="bg-chart-20" />
+            <ColorBox colorName="21" bgClassName="bg-chart-21" />
+            <ColorBox colorName="22" bgClassName="bg-chart-22" />
+            <ColorBox colorName="23" bgClassName="bg-chart-23" />
+            <ColorBox colorName="24" bgClassName="bg-chart-24" />
+            <ColorBox colorName="25" bgClassName="bg-chart-25" />
+            <ColorBox colorName="26" bgClassName="bg-chart-26" />
+            <ColorBox colorName="27" bgClassName="bg-chart-27" />
+            <ColorBox colorName="28" bgClassName="bg-chart-28" />
+            <ColorBox colorName="29" bgClassName="bg-chart-29" />
+            <ColorBox colorName="30" bgClassName="bg-chart-30" />
+            <ColorBox colorName="31" bgClassName="bg-chart-31" />
+            <ColorBox colorName="32" bgClassName="bg-chart-32" />
           </ColorPaletteRow>
         </div>
       </StoryLayout.Section>

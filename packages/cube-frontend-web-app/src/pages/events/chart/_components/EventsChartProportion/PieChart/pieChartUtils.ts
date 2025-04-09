@@ -3,30 +3,30 @@ import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
 import { GetRankedEventsResponseDataEventsInner } from '@cube-frontend/api'
 
 export const chartColors = [
-  '#57E2E2',
-  '#647DFF',
-  '#58CFFF',
-  '#FACE30',
-  '#147EA8',
-  '#FF9A9A',
-  '#989DC1',
-  '#00D5A2',
-  '#3049CE',
-  '#3CB6B6',
-  '#FFB56A',
-  '#827CFF',
-  '#C29868',
-  '#1D95C5',
-  '#B4C0FD',
-  '#DA7BBA',
-  '#84D3D3',
-  '#6A7EE3',
-  '#81DBFF',
-  '#EAEA24',
-  '#57A5EE',
-  '#F4788B',
-  '#6D79BA',
-  '#62CFB5',
+  cubeTheme.colors.chart[1],
+  cubeTheme.colors.chart[2],
+  cubeTheme.colors.chart[3],
+  cubeTheme.colors.chart[4],
+  cubeTheme.colors.chart[5],
+  cubeTheme.colors.chart[6],
+  cubeTheme.colors.chart[7],
+  cubeTheme.colors.chart[8],
+  cubeTheme.colors.chart[9],
+  cubeTheme.colors.chart[10],
+  cubeTheme.colors.chart[11],
+  cubeTheme.colors.chart[12],
+  cubeTheme.colors.chart[13],
+  cubeTheme.colors.chart[14],
+  cubeTheme.colors.chart[15],
+  cubeTheme.colors.chart[16],
+  cubeTheme.colors.chart[17],
+  cubeTheme.colors.chart[18],
+  cubeTheme.colors.chart[19],
+  cubeTheme.colors.chart[20],
+  cubeTheme.colors.chart[21],
+  cubeTheme.colors.chart[22],
+  cubeTheme.colors.chart[23],
+  cubeTheme.colors.chart[24],
 ]
 
 const convertHexToRGBA = (hexCode: string) => {
@@ -152,7 +152,7 @@ export const getChartOptions = (
         console.warn('No available data')
       }
     },
-    onHover: (_, elements: ActiveElement[]) => {
+    onHover: (_, elements: ActiveElement[], chart) => {
       if (!chartData) {
         console.warn('No available data')
         return
@@ -166,8 +166,10 @@ export const getChartOptions = (
         const index = elements[0].index
         const hoveredId = chartData.items[index]?.id
         setTargetEventKey(hoveredId)
+        chart.canvas.style.setProperty('cursor', 'pointer')
       } else {
         setTargetEventKey(undefined)
+        chart.canvas.style.removeProperty('cursor')
       }
     },
   }
