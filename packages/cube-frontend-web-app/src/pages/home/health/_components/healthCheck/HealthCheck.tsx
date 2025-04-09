@@ -8,7 +8,7 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { useContext } from 'react'
 import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../../homeHealthPageUtils'
 import { AvailableStatus, HealthStatusBadge } from './HealthStatusBadge'
@@ -29,7 +29,9 @@ export const HealthCheck = () => {
       }) satisfies HealthApiGetHealthsRequest,
   )
 
-  useInterval(getHealths, HOME_HEALTH_PAGE_POLLING_INTERVAL)
+  useSequentialInterval(getHealths, HOME_HEALTH_PAGE_POLLING_INTERVAL, {
+    immediate: false,
+  })
 
   const { isLoading: isCallingRepairApi, mutateResource: repairHealth } =
     useCosMutationRequest(

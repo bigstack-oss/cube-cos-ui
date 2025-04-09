@@ -4,7 +4,7 @@ import { MetricsApiGetMetricsOverviewRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { UsagePanel } from './_components/UsagePanel/UsagePanel'
 import { ChartPanel } from './_components/ChartPanel/ChartPanel'
 import { RankingPanels } from './_components/RankingPanels/RankingPanels'
@@ -27,7 +27,9 @@ export const HomeChartPage = () => {
     } satisfies MetricsApiGetMetricsOverviewRequest
   })
 
-  useInterval(getMetrics, CHART_PAGE_POLLING_INTERVAL, { immediate: false })
+  useSequentialInterval(getMetrics, CHART_PAGE_POLLING_INTERVAL, {
+    immediate: false,
+  })
 
   const showMetricsLoading = !hasResponseBeenReceived && isMetricsLoading
 

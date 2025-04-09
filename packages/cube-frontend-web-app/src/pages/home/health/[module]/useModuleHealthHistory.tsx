@@ -6,7 +6,7 @@ import {
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { useContext } from 'react'
 import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../homeHealthPageUtils'
@@ -47,11 +47,17 @@ export const useModuleHealthHistory = (
       },
     )
 
-  useInterval(() => {
-    if (module && shouldUseStreamData) {
-      getHealthHistory()
-    }
-  }, HOME_HEALTH_PAGE_POLLING_INTERVAL)
+  useSequentialInterval(
+    () => {
+      if (module && shouldUseStreamData) {
+        getHealthHistory()
+      }
+    },
+    HOME_HEALTH_PAGE_POLLING_INTERVAL,
+    {
+      immediate: false,
+    },
+  )
 
   const { data: manualFetchResponse } = useCosGetRequest(
     healthApi.getHealthHistory,

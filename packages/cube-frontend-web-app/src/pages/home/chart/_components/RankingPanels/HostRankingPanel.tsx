@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { GetMetricByTypesMetricTypeEnum } from '@cube-frontend/api'
 import { CosDropdown, CosGeneralPanel } from '@cube-frontend/ui-library'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { useMetricsParams } from '../StoragePanels/useMetricsParams'
 import { CHART_PAGE_POLLING_INTERVAL, getRanking } from '../utils'
 import { RankingChart } from './RankingChart/RankingChart'
@@ -61,7 +61,9 @@ export const HostRankingPanel = () => {
     }),
   )
 
-  useInterval(getResource, CHART_PAGE_POLLING_INTERVAL, { immediate: false })
+  useSequentialInterval(getResource, CHART_PAGE_POLLING_INTERVAL, {
+    immediate: false,
+  })
 
   const showLoading = !hasResponseBeenReceived && isLoading
 

@@ -14,7 +14,7 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
 
 const HOME_PAGE_EVENT_ROW_LIMIT = 5
@@ -55,7 +55,13 @@ export const EventPanel = () => {
 
   const isLoading = !hasResponseBeenReceived
 
-  useInterval(getAbstractedEvents, HOME_OVERVIEW_PAGE_POLLING_INTERVAL)
+  useSequentialInterval(
+    getAbstractedEvents,
+    HOME_OVERVIEW_PAGE_POLLING_INTERVAL,
+    {
+      immediate: false,
+    },
+  )
 
   const rows = useMemo<TableEvent[]>(() => {
     return eventsData?.events.map(mapToTableEvent) || []

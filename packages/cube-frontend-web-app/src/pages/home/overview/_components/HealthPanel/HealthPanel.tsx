@@ -14,7 +14,7 @@ import { HealthError } from './HealthError'
 import { HealthStatus } from './HealthStatus/HealthStatus'
 import { toHealthUIData } from './utils'
 import { links } from '../../../links'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 
 const HealthPanel = () => {
@@ -32,7 +32,9 @@ const HealthPanel = () => {
 
   const isLoading = !hasResponseBeenReceived
 
-  useInterval(getHealths, HOME_OVERVIEW_PAGE_POLLING_INTERVAL)
+  useSequentialInterval(getHealths, HOME_OVERVIEW_PAGE_POLLING_INTERVAL, {
+    immediate: false,
+  })
 
   const updateTime = useUpdateTime(healths, isLoading)
   const { errorCount, errorServices, categories } = useMemo(

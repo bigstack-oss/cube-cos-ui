@@ -22,7 +22,7 @@ import {
 } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
 import { toPercentage } from '@cube-frontend/web-app/utils/number'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
 
 const HOME_PAGE_NODE_ROW_LIMIT = 5
@@ -47,7 +47,9 @@ export const NodePanel = () => {
 
   const isLoading = !hasResponseBeenReceived
 
-  useInterval(getNodes, HOME_OVERVIEW_PAGE_POLLING_INTERVAL)
+  useSequentialInterval(getNodes, HOME_OVERVIEW_PAGE_POLLING_INTERVAL, {
+    immediate: false,
+  })
 
   const updateTime = useUpdateTime(nodesData, isLoading)
 

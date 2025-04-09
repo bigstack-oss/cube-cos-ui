@@ -8,7 +8,7 @@ import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { StorageChart } from './StorageChart/StorageChart'
 import { toAbbreviation } from '@cube-frontend/web-app/utils/number'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 
 export const StorageLatencyPanel = () => {
   const getMetricsParams = useMetricsParams()
@@ -27,7 +27,9 @@ export const StorageLatencyPanel = () => {
     getMetricsParams(getDiskLatencyHistoryTypeParams),
   )
 
-  useInterval(getResource, CHART_PAGE_POLLING_INTERVAL, { immediate: false })
+  useSequentialInterval(getResource, CHART_PAGE_POLLING_INTERVAL, {
+    immediate: false,
+  })
 
   const showLoading = !hasResponseBeenReceived && isLoading
 

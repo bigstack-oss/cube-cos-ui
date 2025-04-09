@@ -13,7 +13,7 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { links } from '../../../links'
 import { toMetricsChart } from '../../../utils'
 import { defaultMetrics } from './utils'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 
 const ChartPanel = () => {
@@ -31,7 +31,13 @@ const ChartPanel = () => {
 
   const isLoading = !hasResponseBeenReceived
 
-  useInterval(getMetricsOverview, HOME_OVERVIEW_PAGE_POLLING_INTERVAL)
+  useSequentialInterval(
+    getMetricsOverview,
+    HOME_OVERVIEW_PAGE_POLLING_INTERVAL,
+    {
+      immediate: false,
+    },
+  )
 
   const {
     vmBarChart,

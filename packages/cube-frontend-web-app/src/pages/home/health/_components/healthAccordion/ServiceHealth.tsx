@@ -10,7 +10,7 @@ import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { Dayjs } from 'dayjs'
 import { upperFirst } from 'lodash'
 import { useContext, useMemo } from 'react'
@@ -52,11 +52,17 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
     },
   )
 
-  useInterval(() => {
-    if (isVisible) {
-      getServiceHealthHistory()
-    }
-  }, HOME_HEALTH_PAGE_POLLING_INTERVAL)
+  useSequentialInterval(
+    () => {
+      if (isVisible) {
+        getServiceHealthHistory()
+      }
+    },
+    HOME_HEALTH_PAGE_POLLING_INTERVAL,
+    {
+      immediate: false,
+    },
+  )
 
   const moduleHistoriesMap = useMemo<
     Map<
