@@ -165,7 +165,9 @@ export const EventsTuningsPage = () => {
         isActionButtonVisible={false}
         onCloseClick={onHostsModalClose}
       >
-        {joinHostNames(rowForHostModal?.hosts)}
+        <div className="primary-body4 text-functional-text">
+          {joinHostNames(rowForHostModal?.hosts)}
+        </div>
       </CosModal>
       <CosModal
         title="Reset Tuning"
@@ -175,7 +177,9 @@ export const EventsTuningsPage = () => {
         onActionClick={onConfirmReset}
         onCloseClick={onCloseResetModal}
       >
-        Are you sure you want to reset this tuning to default?
+        <div className="primary-body4 text-functional-text">
+          Are you sure you want to reset this tuning to default?
+        </div>
       </CosModal>
     </div>
   )
