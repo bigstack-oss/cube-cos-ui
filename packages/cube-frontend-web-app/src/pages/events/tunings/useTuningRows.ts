@@ -1,8 +1,10 @@
 import { Page, TuningsApiListTuningsRequest } from '@cube-frontend/api'
 import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { isCosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { isAxiosError } from 'axios'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { TuningRow, tuningToRow } from './tuningsUtils'
 import { ListTuningsQuery } from './useListTuningsQuery'
@@ -16,7 +18,19 @@ type UseTuningRows = {
   resetTuning: (rowId: string) => Promise<void>
 }
 
-export const useTuningRows = (query: ListTuningsQuery): UseTuningRows => {
+const parseErrorMessage = (error: unknown): string | undefined => {
+  if (isAxiosError(error) && isCosApiResponse(error.response)) {
+    return error.response.data?.msg
+  } else if (error instanceof Error) {
+    return error.message
+  }
+  return undefined
+}
+
+export const useTuningRows = (
+  query: ListTuningsQuery,
+  onOperationErrorOccur: (errorMessage: string) => void,
+): UseTuningRows => {
   const { name: dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<TuningRow[]>([])
@@ -47,6 +61,13 @@ export const useTuningRows = (query: ListTuningsQuery): UseTuningRows => {
   const hasModifiedTuning = useMemo<boolean>(() => {
     return rows.some((row) => row.isModified)
   }, [rows])
+
+  const onError = (error: unknown): void => {
+    const errorMessage = parseErrorMessage(error)
+    if (errorMessage) {
+      onOperationErrorOccur(errorMessage)
+    }
+  }
 
   const patchRow = (id: string, payload: Partial<TuningRow>): void => {
     setRows((prevRows) => {
@@ -100,6 +121,7 @@ export const useTuningRows = (query: ListTuningsQuery): UseTuningRows => {
           isUpdating: false,
         },
       })
+      onError(error)
     }
   }
 
@@ -135,6 +157,7 @@ export const useTuningRows = (query: ListTuningsQuery): UseTuningRows => {
           isUpdating: false,
         },
       })
+      onError(error)
     }
   }
 

@@ -5,6 +5,7 @@ import {
 import {
   CosButton,
   CosHyperlink,
+  CosInlineNotification,
   CosLoadingSpinner,
   CosModal,
   CosPagination,
@@ -19,6 +20,7 @@ import { TuningsFilter } from './TuningsFilter'
 import { joinHostNames, maxHostsDisplayCount, TuningRow } from './tuningsUtils'
 import { useResetTuningModal } from './uesResetTuningModal'
 import { useListTuningsQuery } from './useListTuningsQuery'
+import { useOperationErrors } from './useOperationErrors'
 import { useTuningHostsModal } from './useTuningHostsModal'
 import { useTuningRows } from './useTuningRows'
 
@@ -36,6 +38,9 @@ export const EventsTuningsPage = () => {
     onItemsPerPageChange,
   } = useListTuningsQuery()
 
+  const { operationErrors, onOperationErrorOccur, onOperationErrorClose } =
+    useOperationErrors()
+
   const {
     isLoading,
     rows,
@@ -43,7 +48,7 @@ export const EventsTuningsPage = () => {
     hasModifiedTuning,
     onToggleChange,
     resetTuning,
-  } = useTuningRows(query)
+  } = useTuningRows(query, onOperationErrorOccur)
 
   const {
     isHostsModalOpen,
@@ -108,6 +113,15 @@ export const EventsTuningsPage = () => {
           </CosButton>
         </Link>
       </div>
+      {operationErrors.map((error, index) => (
+        <CosInlineNotification
+          key={error.id}
+          type="error"
+          onClose={() => onOperationErrorClose(index)}
+        >
+          {error.message}
+        </CosInlineNotification>
+      ))}
       <CosStroke type="dot" />
       <TuningsFilter
         query={query}
