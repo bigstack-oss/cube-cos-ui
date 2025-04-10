@@ -27,6 +27,28 @@ const healthStatusColors: Record<HealthStatus, FillColorClass> = {
   blank: 'fill-grey-300',
 }
 
+const checkHistoryEntriesSorting = (history: HistoryEntry[]): void => {
+  if (history.length <= 1) return
+
+  for (let i = 0; i < history.length - 1; i++) {
+    const [formerTimestamp, laterTimestamp] = [
+      history[i].time,
+      history[i + 1].time,
+    ]
+    const [formerTime, laterTime] = [
+      dayjs.respectTzOffset(formerTimestamp),
+      dayjs.respectTzOffset(laterTimestamp),
+    ]
+    if (formerTime.isAfter(laterTime)) {
+      console.warn(
+        'The history entries of a HealthSegmentedBar must be sorted by time in ascending order, ' +
+          `but ${formerTimestamp} is placed before ${laterTimestamp}`,
+      )
+      return
+    }
+  }
+}
+
 /**
  * Identify overlapping time periods in health history records and convert them
  * into segments.
@@ -42,24 +64,14 @@ export const computeHealthSegments = (
     throw new Error('There should be more than 1 time points')
   }
 
-  const segments: HealthSegment[] = []
+  checkHistoryEntriesSorting(history)
 
   const [startTimePoint, endTimePoint] = [
     timePoints[0],
     timePoints[timePoints.length - 1],
   ]
 
-  for (let i = 0; i < history.length - 1; i++) {
-    const segment = parseSegment(
-      history[i],
-      history[i + 1],
-      startTimePoint,
-      endTimePoint,
-    )
-    if (segment) {
-      segments.push(segment)
-    }
-  }
+  const segments = parseInitialSegments(history, startTimePoint, endTimePoint)
 
   fillLeadingSegment(segments, startTimePoint, endTimePoint)
   fillTrailingSegment(
@@ -75,6 +87,46 @@ export const computeHealthSegments = (
   })
 
   return mergedSegments
+}
+
+const parseInitialSegments = (
+  history: HistoryEntry[],
+  startTimePoint: TimePoint,
+  endTimePoint: TimePoint,
+): HealthSegment[] => {
+  if (history.length === 1) {
+    // There's only 1 entry in the history.
+    // Returns an array with a single 1-second segment.
+    // The duration is not important because `fillTrailingSegment` will use
+    // this segment's status to fill the rest of the bar.
+    const entry = history[0]
+    const totalMilliseconds = endTimePoint.timestamp - startTimePoint.timestamp
+    return [
+      {
+        color: healthStatusColors[entry.status],
+        colCount: 1000 / totalMilliseconds,
+        status: entry.status,
+        startDateTime: dayjs.respectTzOffset(entry.time),
+        endDateTime: dayjs.respectTzOffset(entry.time).add(1, 'seconds'),
+      },
+    ]
+  }
+
+  const segments: HealthSegment[] = []
+
+  for (let i = 0; i < history.length - 1; i++) {
+    const segment = parseSegment(
+      history[i],
+      history[i + 1],
+      startTimePoint,
+      endTimePoint,
+    )
+    if (segment) {
+      segments.push(segment)
+    }
+  }
+
+  return segments
 }
 
 const parseSegment = (
