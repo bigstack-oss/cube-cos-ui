@@ -5,8 +5,10 @@ import {
 } from '../../../../components/CosNotification/CosInlineNotification/CosInlineNotification'
 import { InlineNotificationGrid } from './InlineNotificationGrid'
 
-const hyperlinkText = 'Go to the page'
-const hyperlinkHref = `/#${Math.random()}`
+const hyperlink = {
+  text: 'Go to the page',
+  href: `/#${Math.random()}`,
+}
 
 export const InlineNotificationLayout = () => {
   return (
@@ -33,24 +35,21 @@ export const InlineNotificationLayout = () => {
           <InlineNotification
             type="positive"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
           />
         </InlineNotificationGrid>
         <InlineNotificationGrid title="Warning">
           <InlineNotification
             type="warning"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
           />
         </InlineNotificationGrid>
         <InlineNotificationGrid title="Error">
           <InlineNotification
             type="error"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
           />
         </InlineNotificationGrid>
       </StoryLayout.Section>
@@ -66,16 +65,14 @@ export const InlineNotificationLayout = () => {
             type="neutral"
             title="Notification title goes here"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
           />
         </InlineNotificationGrid>
         <InlineNotificationGrid title="Content, link">
           <InlineNotification
             type="neutral"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
           />
         </InlineNotificationGrid>
         <InlineNotificationGrid title="Icon, content">
@@ -88,8 +85,7 @@ export const InlineNotificationLayout = () => {
           <InlineNotification
             type="positive"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
           />
         </InlineNotificationGrid>
         <InlineNotificationGrid title="Icon, title, content, link">
@@ -97,16 +93,14 @@ export const InlineNotificationLayout = () => {
             type="positive"
             title="Notification title goes here"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
           />
         </InlineNotificationGrid>
         <InlineNotificationGrid title="Content over 1 row">
           <InlineNotification
             type="positive"
             content="Lorem ipsum dolor sit amet consectetur. Metus velit tincidunt hendrerit lectus ornare sed. Et adipiscing scelerisque id posuere. Senectus gravida risus vitae est. Tortor laoreet molestie semper consectetur non mauris dui ut at. Risus egestas lectus euismod pretium volutpat donec. Sem mauris posuere risus et aliquet. Hendrerit sit sed dictum cras sed morbi. Vel nibh nisl sed et dolor rhoncus id gravida sit. Pulvinar lacinia viverra sed sed dolor."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
           />
         </InlineNotificationGrid>
       </StoryLayout.Section>
@@ -123,8 +117,7 @@ export const InlineNotificationLayout = () => {
             type="neutral"
             title="Notification title goes here"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
             isLoading={true}
           />
         </InlineNotificationGrid>
@@ -132,8 +125,7 @@ export const InlineNotificationLayout = () => {
           <InlineNotification
             type="neutral"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
             isLoading={true}
           />
         </InlineNotificationGrid>
@@ -148,8 +140,7 @@ export const InlineNotificationLayout = () => {
           <InlineNotification
             type="positive"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
             isLoading={true}
           />
         </InlineNotificationGrid>
@@ -158,8 +149,7 @@ export const InlineNotificationLayout = () => {
             type="positive"
             title="Notification title goes here"
             content="Content text goes here."
-            linkHref={hyperlinkHref}
-            linkText={hyperlinkText}
+            link={hyperlink}
             isLoading={true}
           />
         </InlineNotificationGrid>
@@ -172,8 +162,10 @@ type InlineNotificationProps = {
   type: CosInlineNotificationType
   title?: string
   content?: string
-  linkHref?: string
-  linkText?: string
+  link?: {
+    href: string
+    text: string
+  }
   isLoading?: boolean
 }
 

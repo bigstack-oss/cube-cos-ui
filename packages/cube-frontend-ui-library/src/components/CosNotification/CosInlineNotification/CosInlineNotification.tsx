@@ -42,10 +42,15 @@ const notificationStyles = cva(
 type CosInlineNotificationProps = PropsWithChildren<
   PropsWithClassName & {
     isLoading?: boolean
+    /**
+     * @default 'neutral'
+     */
     type?: CosInlineNotificationType
     title?: string
-    linkHref?: string
-    linkText?: string
+    link?: {
+      href: string
+      text: string
+    }
     onClose?: () => void
     skeletonClassName?: string
   }
@@ -56,8 +61,7 @@ export const CosInlineNotification = (props: CosInlineNotificationProps) => {
     type = 'neutral',
     title,
     children,
-    linkHref,
-    linkText,
+    link,
     onClose: onCloseProp,
     isLoading,
     className: classNameProp,
@@ -96,12 +100,12 @@ export const CosInlineNotification = (props: CosInlineNotificationProps) => {
   }
 
   const renderLink = () => {
-    if (!linkText || !linkHref) {
+    if (!link) {
       return null
     }
     return (
-      <CosHyperlink size="sm" variant="text-inline" href={linkHref}>
-        {linkText}
+      <CosHyperlink size="sm" variant="text-inline" href={link.href}>
+        {link.text}
       </CosHyperlink>
     )
   }
@@ -121,7 +125,7 @@ export const CosInlineNotification = (props: CosInlineNotificationProps) => {
         hasIcon={type !== 'neutral'}
         hasTitle={!!title}
         hasSubtitle={!!children}
-        hasLink={!!linkText && !!linkHref}
+        hasLink={!!link}
         className={skeletonClassName}
       />
     )
