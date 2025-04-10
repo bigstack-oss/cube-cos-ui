@@ -60,7 +60,7 @@ export const ActionCell = (props: ActionCellProps) => {
   }
 
   const renderResetButton = () => {
-    if (isModified) {
+    if (!isModified) {
       return (
         <IconActionButton
           Icon={ArrowRotateLeft}
@@ -86,7 +86,7 @@ export const ActionCell = (props: ActionCellProps) => {
         <span>
           <CosToggle
             isOn={row.enabled}
-            disabled={!isModified || isUpdating}
+            disabled={isUpdating}
             onChange={onToggleChange}
           />
         </span>
