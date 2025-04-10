@@ -32,25 +32,22 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
 
   const { elementRef, isVisible } = useIsVisible<HTMLDivElement>()
 
-  const {
-    data: moduleHealths,
-    isLoading,
-    getResource: getServiceHealthHistory,
-  } = useCosGetRequest(
-    healthApi.getServiceHealthHistory,
-    (): HealthApiGetServiceHealthHistoryRequest | undefined => {
-      // Don't send the request when the container is not visible to avoid
-      // hitting the browser's connection limit.
-      if (!isVisible) {
-        return undefined
-      }
-      return {
-        dataCenter,
-        serviceType: service.name as GetServiceHealthHistoryServiceTypeEnum,
-        past,
-      }
-    },
-  )
+  const { data: moduleHealths, getResource: getServiceHealthHistory } =
+    useCosGetRequest(
+      healthApi.getServiceHealthHistory,
+      (): HealthApiGetServiceHealthHistoryRequest | undefined => {
+        // Don't send the request when the container is not visible to avoid
+        // hitting the browser's connection limit.
+        if (!isVisible) {
+          return undefined
+        }
+        return {
+          dataCenter,
+          serviceType: service.name as GetServiceHealthHistoryServiceTypeEnum,
+          past,
+        }
+      },
+    )
 
   useSequentialInterval(
     () => {
@@ -94,7 +91,7 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
           <ModuleHealth
             key={module.name}
             moduleName={module.name as GetHealthHistoryModuleTypeEnum}
-            isLoading={isLoading}
+            isLoading={!moduleHealths}
             history={
               moduleHistoriesMap.get(
                 module.name as GetHealthHistoryModuleTypeEnum,

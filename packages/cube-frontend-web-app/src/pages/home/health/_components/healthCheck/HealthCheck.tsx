@@ -17,17 +17,15 @@ import { NgService } from './NgService'
 export const HealthCheck = () => {
   const dataCenter = useContext(DataCenterContext)
 
-  const {
-    isLoading: isLoadingHealth,
-    data: overallHealth,
-    getResource: getHealths,
-  } = useCosGetRequest(
+  const { data: overallHealth, getResource: getHealths } = useCosGetRequest(
     healthApi.getHealths,
     () =>
       ({
         dataCenter: dataCenter.name,
       }) satisfies HealthApiGetHealthsRequest,
   )
+
+  const isLoadingHealth = !overallHealth
 
   useSequentialInterval(getHealths, HOME_HEALTH_PAGE_POLLING_INTERVAL, {
     immediate: false,
@@ -73,7 +71,7 @@ export const HealthCheck = () => {
     <div className="flex flex-col gap-y-4 rounded-[5px] bg-grey-0 px-8 py-6 shadow-[0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]">
       <div className="flex items-center gap-x-2">
         <h5 className="secondary-h5">Health Check:</h5>
-        {!overallHealth || isLoadingHealth ? (
+        {isLoadingHealth ? (
           <CosLoadingSpinner variant="dot45" />
         ) : (
           <HealthStatusBadge
