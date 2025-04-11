@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { CosTableRow } from '../CosBasicTable/cosTableUtils'
+import { CosBatchActionTableRow } from '../CosBasicTable/cosTableUtils'
 
-export const useCheckboxStatus = <Row extends CosTableRow>(
+export const useHeaderCheckboxStatus = <Row extends CosBatchActionTableRow>(
   rows: Row[],
   selectedRowIds: string[],
 ): boolean | null => {
@@ -9,9 +9,12 @@ export const useCheckboxStatus = <Row extends CosTableRow>(
     // If no rows are selected, return false
     if (selectedRowIds.length === 0) return false
 
-    // If all rows' `id` are selected, return true
+    const selectedSet = new Set(selectedRowIds)
     const enabledRows = rows.filter((row) => !row.disabled)
-    if (enabledRows.every((row) => selectedRowIds.includes(row.id))) return true
+
+    // All enabled row IDs are in the selected set
+    const allSelected = enabledRows.every((row) => selectedSet.has(row.id))
+    if (allSelected) return true
 
     // If some rows are selected, return null (indeterminate state)
     return null

@@ -5,7 +5,10 @@ export {
   type CosBasicTableProps,
   GetCosBasicTable,
 } from './components/CosBasicTable/CosBasicTable'
-export type { CosTableRow } from './components/CosBasicTable/cosTableUtils'
+export type {
+  CosTableRow,
+  CosBatchActionTableRow,
+} from './components/CosBasicTable/cosTableUtils'
 export * from './components/CosBasicTable/rendering/CosTableTdSkeleton'
 export type {
   ColumnCompareFnMap,

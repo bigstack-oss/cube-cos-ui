@@ -48,6 +48,16 @@ export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   skeletonRowCount?: number
   rowClassName?: RowClassNameProp<Row>
   onRowClick?: (row: Row) => void
+  /**
+   * The IDs of the selected rows,
+   * which is used to determine the selected state of the rows.
+   */
+  selectedRowSet?: Set<string>
+  /**
+   * The IDs of the disabled rows,
+   * which is used to determine the disabled state of the rows.
+   */
+  disabledRowSet?: Set<string>
 }>
 
 export const CosBasicTable = <Row extends CosTableRow>(
@@ -61,6 +71,8 @@ export const CosBasicTable = <Row extends CosTableRow>(
     skeletonRowCount = 5,
     rowClassName,
     onRowClick,
+    selectedRowSet,
+    disabledRowSet,
   } = props
 
   const { columns, rowCompareFnMapRef } = useColumnPayloads<Row>(children)
@@ -106,7 +118,10 @@ export const CosBasicTable = <Row extends CosTableRow>(
         className={twMerge(
           tdBorderRadiusClass,
           computeRowClassName(rowClassName, row),
-          tableRow({ isChecked: !!row.checked, isDisabled: !!row.disabled }),
+          tableRow({
+            isChecked: selectedRowSet?.has(row.id) ?? false,
+            isDisabled: disabledRowSet?.has(row.id) ?? false,
+          }),
         )}
         onClick={() => onRowClick?.(row)}
       >

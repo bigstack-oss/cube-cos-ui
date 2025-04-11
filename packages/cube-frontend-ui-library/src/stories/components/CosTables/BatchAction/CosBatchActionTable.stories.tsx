@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import { mockTemplates, TemplateTable } from './utils'
@@ -29,8 +29,6 @@ export const Gallery: StoryObj = {
 const Default = () => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([])
 
-  const [isAllSelected, setIsAllSelected] = useState(false)
-
   const isRowSelected = (rowId: string) => selectedRowIds.includes(rowId)
 
   const handleSelectedRowsChange = (id: string) => {
@@ -41,10 +39,6 @@ const Default = () => {
     setSelectedRowIds(newSelectedRows)
   }
 
-  const handleAllCheckChange = () => {
-    setIsAllSelected((prev) => !prev)
-  }
-
   const allTemplateIds = useMemo(
     () =>
       mockTemplates
@@ -53,6 +47,14 @@ const Default = () => {
     [],
   )
 
+  const handleAllCheckChange = (checked: boolean) => {
+    if (checked) {
+      setSelectedRowIds(allTemplateIds)
+    } else {
+      setSelectedRowIds([])
+    }
+  }
+
   const disabledTemplateIds = useMemo(
     () =>
       mockTemplates
@@ -60,14 +62,6 @@ const Default = () => {
         .map((template) => template.id),
     [],
   )
-
-  useEffect(() => {
-    if (isAllSelected) {
-      setSelectedRowIds(allTemplateIds)
-    } else {
-      setSelectedRowIds([])
-    }
-  }, [allTemplateIds, isAllSelected])
 
   return (
     <TemplateTable

@@ -1,15 +1,15 @@
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import {
   CosBasicTable,
   CosBasicTableProps,
 } from '../CosBasicTable/CosBasicTable'
-import { CosTableRow } from '../CosBasicTable/cosTableUtils'
+import { CosBatchActionTableRow } from '../CosBasicTable/cosTableUtils'
 import { CreateCosTableColumn } from '../CosBasicTable/rendering/CosTableColumn'
 import { CosCheckbox } from '../CosCheckbox/CosCheckbox'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
-import { useCheckboxStatus } from './useCheckboxStatus'
+import { useHeaderCheckboxStatus } from './useHeaderCheckboxStatus'
 
-export type CosBatchActionTableProps<Row extends CosTableRow> =
+export type CosBatchActionTableProps<Row extends CosBatchActionTableRow> =
   CosBasicTableProps<Row> & {
     selectedRowIds: string[]
     disabledRowIds?: string[]
@@ -17,12 +17,12 @@ export type CosBatchActionTableProps<Row extends CosTableRow> =
   } & (
       | {
           showHeaderCheckbox: true
-          onAllCheckChange: () => void
+          onAllCheckChange: (checked: boolean) => void
         }
       | { showHeaderCheckbox: false }
     )
 
-const CosBatchActionTable = <Row extends CosTableRow>(
+const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
   props: CosBatchActionTableProps<Row>,
 ) => {
   const {
@@ -35,12 +35,13 @@ const CosBatchActionTable = <Row extends CosTableRow>(
     ...restProps
   } = props
 
-  const isRowSelected = useCallback(
-    (rowId: string) => selectedRowIds.includes(rowId),
+  const selectedRowSet = useMemo(
+    () => new Set(selectedRowIds),
     [selectedRowIds],
   )
-  const isRowDisabled = useCallback(
-    (rowId: string) => disabledRowIds.includes(rowId),
+
+  const disabledRowSet = useMemo(
+    () => new Set(disabledRowIds),
     [disabledRowIds],
   )
 
@@ -48,13 +49,13 @@ const CosBatchActionTable = <Row extends CosTableRow>(
     () =>
       rows.map((row) => ({
         ...row,
-        checked: isRowSelected(row.id),
-        disabled: isRowDisabled(row.id),
+        checked: selectedRowSet.has(row.id),
+        disabled: disabledRowSet.has(row.id),
       })),
-    [isRowDisabled, isRowSelected, rows],
+    [rows, disabledRowSet, selectedRowSet],
   )
 
-  const checkboxStatus = useCheckboxStatus(convertedRows, selectedRowIds)
+  const checkboxStatus = useHeaderCheckboxStatus(convertedRows, selectedRowIds)
 
   const renderHeaderCheckbox = () => {
     if (!showHeaderCheckbox) return null
@@ -66,21 +67,26 @@ const CosBatchActionTable = <Row extends CosTableRow>(
     return (
       <CosCheckbox
         checked={checkboxStatus}
-        onChange={() => onAllCheckChange()}
+        onChange={(e) => onAllCheckChange(e.target.checked)}
       />
     )
   }
 
   return (
-    <CosBasicTable {...restProps} rows={convertedRows}>
-      <CosBasicTable.Column label={renderHeaderCheckbox()} property="id">
-        {(id) => {
-          if (isRowDisabled(id)) return null
+    <CosBasicTable
+      {...restProps}
+      rows={convertedRows}
+      selectedRowSet={selectedRowSet}
+      disabledRowSet={disabledRowSet}
+    >
+      <CosBasicTable.Column label={renderHeaderCheckbox()}>
+        {(_, row: CosBatchActionTableRow) => {
+          if (row.disabled) return null
 
           return (
             <CosCheckbox
-              checked={isRowSelected(id)}
-              onChange={() => onCheckChange(id)}
+              checked={row.checked}
+              onChange={() => onCheckChange(row.id)}
             />
           )
         }}
@@ -92,13 +98,13 @@ const CosBatchActionTable = <Row extends CosTableRow>(
 
 CosBatchActionTable.Column = CosBasicTable.Column
 
-type CosBatchActionTableWithColumn<Row extends CosTableRow> =
+type CosBatchActionTableWithColumn<Row extends CosBatchActionTableRow> =
   typeof CosBatchActionTable<Row> & {
     Column: ReturnType<typeof CreateCosTableColumn<Row>>
   }
 
 export const GetCosBatchActionTable = <
-  Row extends CosTableRow,
+  Row extends CosBatchActionTableRow,
 >(): CosBatchActionTableWithColumn<Row> => {
   return CosBatchActionTable as CosBatchActionTableWithColumn<Row>
 }
