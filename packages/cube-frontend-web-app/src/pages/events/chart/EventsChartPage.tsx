@@ -22,7 +22,7 @@ export const EventsChartPage = () => {
   const eventsFilter = getEventsFilter(eventsType)
 
   return (
-    <div className="mt-4 flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <EventsContentSwitcher
           activeTab={eventsType}
