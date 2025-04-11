@@ -1,8 +1,13 @@
 import { CosToastWrapper } from './CosToast'
-import { useToast } from './useToast'
+import { CosToastType } from './utils'
 
-export const CosToastNotification = () => {
-  const { toasts, removeToast } = useToast()
+type CosToastListProps = {
+  toasts: CosToastType[]
+  removeToast: (id: string) => void
+}
+
+export const CosToastList = (props: CosToastListProps) => {
+  const { toasts, removeToast } = props
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-5">
@@ -14,7 +19,6 @@ export const CosToastNotification = () => {
           title={toast.title}
           message={toast.message}
           link={toast.link}
-          isLoading={toast.isLoading}
           onToastClose={removeToast}
           time={toast.time}
         />

@@ -4,7 +4,7 @@ type ToastNotificationGridProps = PropsWithChildren<{
   title?: string
 }>
 
-export const InlineNotificationGrid = (props: ToastNotificationGridProps) => {
+export const ToastNotificationGrid = (props: ToastNotificationGridProps) => {
   const { children: childrenProps, title } = props
 
   const children = Array.isArray(childrenProps)

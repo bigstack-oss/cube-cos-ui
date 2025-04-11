@@ -1,14 +1,17 @@
-import { PropsWithChildren, useCallback, useState } from 'react'
+import { PropsWithChildren, useCallback, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { CosToastType, MAX_VISIBLE_TOASTS_AMOUNT } from './utils'
 import { CosToastContext } from './context'
+import { CosToastList } from './CosToastList'
 
-type ToastProviderProps = PropsWithChildren
-
-export const CosToastProvider = (props: ToastProviderProps) => {
+export const CosToastProvider = (props: PropsWithChildren) => {
   const { children } = props
 
   const [toasts, setToasts] = useState<CosToastType[]>([])
 
+  /**
+   * Only expose add/remove in the context to avoid unnecessary re-renders
+   */
   const addToast = useCallback((toast: CosToastType) => {
     setToasts((prevToasts) => {
       const next = [...prevToasts, toast]
@@ -23,9 +26,21 @@ export const CosToastProvider = (props: ToastProviderProps) => {
     setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id))
   }, [])
 
+  /**
+   * Memorize context value with a stable reference
+   */
+  const contextValueRef = useRef({
+    addToast,
+    removeToast,
+  })
+
   return (
-    <CosToastContext.Provider value={{ toasts, addToast, removeToast }}>
+    <CosToastContext.Provider value={contextValueRef.current}>
       {children}
+      {createPortal(
+        <CosToastList toasts={toasts} removeToast={removeToast} />,
+        document.body,
+      )}
     </CosToastContext.Provider>
   )
 }

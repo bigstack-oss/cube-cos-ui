@@ -1,8 +1,6 @@
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
-import {
-  CosInlineNotification,
-  CosInlineNotificationType,
-} from '../../../../components/CosNotification/CosInlineNotification/CosInlineNotification'
+import { CosNotificationBaseProps } from '../../../../components/CosNotification/cosNotificationTypes'
+import { CosInlineNotification } from '../../../../components/CosNotification/CosInlineNotification/CosInlineNotification'
 import { InlineNotificationGrid } from './InlineNotificationGrid'
 
 const hyperlink = {
@@ -158,14 +156,8 @@ export const InlineNotificationLayout = () => {
   )
 }
 
-type InlineNotificationProps = {
-  type: CosInlineNotificationType
-  title?: string
+type InlineNotificationProps = CosNotificationBaseProps & {
   content?: string
-  link?: {
-    href: string
-    text: string
-  }
   isLoading?: boolean
 }
 

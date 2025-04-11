@@ -5,6 +5,7 @@ import '@fontsource/urbanist/400.css'
 import '@fontsource/urbanist/500.css'
 import '@fontsource/urbanist/600.css'
 import '@fontsource/urbanist/800.css'
+import { CosToastProvider } from '@cube-frontend/ui-library'
 import { DataCenterProvider } from './context/DataCenterProvider'
 import { IntegrationsContextProvider } from './context/IntegrationsContextProvider'
 import { UserContextProvider } from './context/UserContextProvider'
@@ -20,9 +21,11 @@ function App() {
     <DataCenterProvider>
       <UserContextProvider>
         <IntegrationsContextProvider>
-          <Layout>
-            <CosRoutes />
-          </Layout>
+          <CosToastProvider>
+            <Layout>
+              <CosRoutes />
+            </Layout>
+          </CosToastProvider>
         </IntegrationsContextProvider>
       </UserContextProvider>
     </DataCenterProvider>

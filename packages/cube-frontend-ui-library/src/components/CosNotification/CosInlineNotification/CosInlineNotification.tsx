@@ -2,18 +2,14 @@ import { PropsWithChildren, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { cva } from 'class-variance-authority'
 import { PropsWithClassName } from '@cube-frontend/utils'
-import CircleFill from '../../../components/CosIcon/monochrome/circle_fill.svg?react'
-import WarningFilled from '../../../components/CosIcon/monochrome/warning_filled.svg?react'
-import WarningAltFilled from '../../../components/CosIcon/monochrome/warning_alt_filled.svg?react'
-import CloseIcon from '../../../components/CosIcon/monochrome/x_small.svg?react'
-import { CosHyperlink } from '../../CosHyperlink/CosHyperlink'
 import { CosInlineNotificationSkeleton } from './CosInlineNotificationSkeleton'
-
-export type CosInlineNotificationType =
-  | 'neutral'
-  | 'positive'
-  | 'warning'
-  | 'error'
+import { CosNotificationBaseProps } from '../cosNotificationTypes'
+import {
+  renderCloseButton,
+  renderIcon,
+  renderLink,
+  renderTitle,
+} from '../cosNotificationUtils'
 
 const notificationStyles = cva(
   [
@@ -40,20 +36,11 @@ const notificationStyles = cva(
 )
 
 type CosInlineNotificationProps = PropsWithChildren<
-  PropsWithClassName & {
-    isLoading?: boolean
-    /**
-     * @default 'neutral'
-     */
-    type?: CosInlineNotificationType
-    title?: string
-    link?: {
-      href: string
-      text: string
+  PropsWithClassName &
+    CosNotificationBaseProps & {
+      isLoading?: boolean
+      skeletonClassName?: string
     }
-    onClose?: () => void
-    skeletonClassName?: string
-  }
 >
 
 export const CosInlineNotification = (props: CosInlineNotificationProps) => {
@@ -75,50 +62,6 @@ export const CosInlineNotification = (props: CosInlineNotificationProps) => {
     setClose(true)
   }
 
-  const renderIcon = () => {
-    switch (type) {
-      case 'positive':
-        return <CircleFill className="icon-md shrink-0 text-status-positive" />
-      case 'warning':
-        return (
-          <WarningAltFilled className="icon-md shrink-0 text-status-warning" />
-        )
-      case 'error':
-        return (
-          <WarningFilled className="icon-md shrink-0 text-status-negative" />
-        )
-      default:
-        return null
-    }
-  }
-
-  const renderTitle = () => {
-    if (!title) {
-      return null
-    }
-    return <div className="font-semibold text-functional-title">{title}</div>
-  }
-
-  const renderLink = () => {
-    if (!link) {
-      return null
-    }
-    return (
-      <CosHyperlink size="sm" variant="text-inline" href={link.href}>
-        {link.text}
-      </CosHyperlink>
-    )
-  }
-
-  const renderCloseButton = () => {
-    return (
-      <CloseIcon
-        className="icon-md shrink-0 cursor-pointer text-functional-text hover:text-functional-text-light"
-        onClick={handleClose}
-      />
-    )
-  }
-
   if (isLoading)
     return (
       <CosInlineNotificationSkeleton
@@ -138,13 +81,13 @@ export const CosInlineNotification = (props: CosInlineNotificationProps) => {
       )}
     >
       <div className="flex flex-1 items-start gap-2">
-        {renderIcon()}
-        {renderTitle()}
+        {renderIcon(type)}
+        {renderTitle(title)}
         {children}
       </div>
       <div className="flex items-center gap-2 self-start">
-        {renderLink()}
-        {renderCloseButton()}
+        {renderLink(link)}
+        {renderCloseButton(handleClose)}
       </div>
     </div>
   )

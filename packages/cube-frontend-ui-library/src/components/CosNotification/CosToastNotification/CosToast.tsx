@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import { CosToastType, TOAST_LIFETIME } from './utils'
 import { cva } from 'class-variance-authority'
-import CircleFill from '../../../components/CosIcon/monochrome/circle_fill.svg?react'
-import WarningFilled from '../../../components/CosIcon/monochrome/warning_filled.svg?react'
-import WarningAltFilled from '../../../components/CosIcon/monochrome/warning_alt_filled.svg?react'
-import CloseIcon from '../../../components/CosIcon/monochrome/x_small.svg?react'
-import { CosHyperlink } from '../../CosHyperlink/CosHyperlink'
+import {
+  renderCloseButton,
+  renderIcon,
+  renderLink,
+  renderTitle,
+} from '../cosNotificationUtils'
 
 const toastStyles = cva(
   [
@@ -39,41 +40,14 @@ export const CosToast = (props: CosToastProps) => {
     time,
   } = props
 
-  const renderIcon = () => {
-    switch (type) {
-      case 'positive':
-        return <CircleFill className="icon-md shrink-0 text-status-positive" />
-      case 'warning':
-        return (
-          <WarningAltFilled className="icon-md shrink-0 text-status-warning" />
-        )
-      case 'error':
-        return (
-          <WarningFilled className="icon-md shrink-0 text-status-negative" />
-        )
-      default:
-        return null
-    }
-  }
-
   const renderHeader = () => {
     if (!title) return null
 
     return (
       <div className="flex items-center gap-[6px]">
-        {renderIcon()}
-        <div className="font-semibold text-functional-title">{title}</div>
+        {renderIcon(type)}
+        {renderTitle(title)}
       </div>
-    )
-  }
-
-  const renderLink = () => {
-    if (!link) return null
-
-    return (
-      <CosHyperlink size="sm" variant="text-inline" href={link.href}>
-        {link.text}
-      </CosHyperlink>
     )
   }
 
@@ -81,14 +55,7 @@ export const CosToast = (props: CosToastProps) => {
     return <div className="primary-body5 ml-auto">{time}</div>
   }
 
-  const renderCloseButton = () => {
-    return (
-      <CloseIcon
-        className="icon-md shrink-0 cursor-pointer text-functional-text hover:text-functional-text-light"
-        onClick={() => onToastClose(id)}
-      />
-    )
-  }
+  const handleClose = () => onToastClose(id)
 
   return (
     <div className={toastStyles({ type })}>
@@ -97,10 +64,10 @@ export const CosToast = (props: CosToastProps) => {
           {renderHeader()}
           {message}
         </div>
-        {renderCloseButton()}
+        {renderCloseButton(handleClose)}
       </div>
       <div className="flex w-full items-center">
-        {renderLink()}
+        {renderLink(link)}
         {renderTime()}
       </div>
     </div>

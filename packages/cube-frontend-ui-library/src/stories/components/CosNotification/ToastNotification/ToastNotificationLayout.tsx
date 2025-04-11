@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { uniqueId } from 'lodash'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
-import { CosToastNotification } from '../../../../components/CosNotification/CosToastNotification/CosToastNotification'
 import { CosToast } from '../../../../components/CosNotification/CosToastNotification/CosToast'
 import { CosToastType } from '../../../../components/CosNotification/CosToastNotification/utils'
-import { InlineNotificationGrid } from './ToastNotificationGrid'
+import { ToastNotificationGrid } from './ToastNotificationGrid'
 import { CreateToastButton } from './CreateToastButton'
 
 const notificationTitle = 'Notification Title'
@@ -21,7 +20,7 @@ export const ToastNotificationLayout = () => {
       desc="A maximum of four notifications can be displayed at once, each lasting up to 5 seconds; if exceeded, the earlier notifications will disappear."
     >
       <StoryLayout.Section title="Notification - Toast">
-        <InlineNotificationGrid title="Master">
+        <ToastNotificationGrid title="Master">
           <ToastNotification
             id={uniqueId()}
             type="neutral"
@@ -29,14 +28,13 @@ export const ToastNotificationLayout = () => {
             link={hyperlink}
             time={notificationTime}
           />
-        </InlineNotificationGrid>
-        <InlineNotificationGrid title="Custom">
+        </ToastNotificationGrid>
+        <ToastNotificationGrid title="Custom">
           <CreateToastButton />
-        </InlineNotificationGrid>
-        <CosToastNotification />
+        </ToastNotificationGrid>
       </StoryLayout.Section>
       <StoryLayout.Section title="Usage">
-        <InlineNotificationGrid title="Neutral">
+        <ToastNotificationGrid title="Neutral">
           <ToastNotification
             id={uniqueId()}
             type="neutral"
@@ -44,8 +42,8 @@ export const ToastNotificationLayout = () => {
             link={hyperlink}
             time={notificationTime}
           />
-        </InlineNotificationGrid>
-        <InlineNotificationGrid title="Positive">
+        </ToastNotificationGrid>
+        <ToastNotificationGrid title="Positive">
           <ToastNotification
             id={uniqueId()}
             type="positive"
@@ -53,8 +51,8 @@ export const ToastNotificationLayout = () => {
             link={hyperlink}
             time={notificationTime}
           />
-        </InlineNotificationGrid>
-        <InlineNotificationGrid title="Warning">
+        </ToastNotificationGrid>
+        <ToastNotificationGrid title="Warning">
           <ToastNotification
             id={uniqueId()}
             type="warning"
@@ -62,8 +60,8 @@ export const ToastNotificationLayout = () => {
             link={hyperlink}
             time={notificationTime}
           />
-        </InlineNotificationGrid>
-        <InlineNotificationGrid title="Error">
+        </ToastNotificationGrid>
+        <ToastNotificationGrid title="Error">
           <ToastNotification
             id={uniqueId()}
             type="error"
@@ -71,14 +69,14 @@ export const ToastNotificationLayout = () => {
             link={hyperlink}
             time={notificationTime}
           />
-        </InlineNotificationGrid>
+        </ToastNotificationGrid>
       </StoryLayout.Section>
       <StoryLayout.Section title="Layout">
-        <InlineNotificationGrid title="">
+        <ToastNotificationGrid title="">
           <div className="primary-body2 text-center font-medium">Neutral</div>
           <div className="primary-body2 text-center font-medium">Positive</div>
-        </InlineNotificationGrid>
-        <InlineNotificationGrid title="No title or link">
+        </ToastNotificationGrid>
+        <ToastNotificationGrid title="No title or link">
           <ToastNotification
             id={uniqueId()}
             type="neutral"
@@ -89,8 +87,8 @@ export const ToastNotificationLayout = () => {
             type="positive"
             time={notificationTime}
           />
-        </InlineNotificationGrid>
-        <InlineNotificationGrid title="With title">
+        </ToastNotificationGrid>
+        <ToastNotificationGrid title="With title">
           <ToastNotification
             id={uniqueId()}
             type="neutral"
@@ -103,8 +101,8 @@ export const ToastNotificationLayout = () => {
             title={notificationTitle}
             time={notificationTime}
           />
-        </InlineNotificationGrid>
-        <InlineNotificationGrid title="With link">
+        </ToastNotificationGrid>
+        <ToastNotificationGrid title="With link">
           <ToastNotification
             id={uniqueId()}
             type="neutral"
@@ -117,8 +115,8 @@ export const ToastNotificationLayout = () => {
             link={hyperlink}
             time={notificationTime}
           />
-        </InlineNotificationGrid>
-        <InlineNotificationGrid title="With both title and link">
+        </ToastNotificationGrid>
+        <ToastNotificationGrid title="With both title and link">
           <ToastNotification
             id={uniqueId()}
             type="neutral"
@@ -133,7 +131,7 @@ export const ToastNotificationLayout = () => {
             link={hyperlink}
             time={notificationTime}
           />
-        </InlineNotificationGrid>
+        </ToastNotificationGrid>
       </StoryLayout.Section>
     </StoryLayout>
   )

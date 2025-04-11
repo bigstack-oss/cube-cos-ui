@@ -40,7 +40,6 @@ export const mockToasts: CosToastType[] = [
   {
     id: 'mock-toast-5',
     type: 'neutral',
-    isLoading: true,
     message: 'Uploading your files…',
     time: 'yyyy/mm/dd 00:00',
   },
