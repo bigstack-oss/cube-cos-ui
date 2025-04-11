@@ -4,6 +4,7 @@ import {
   PropsWithChildren,
   useMemo,
 } from 'react'
+import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import {
   computeRowClassName,
@@ -23,6 +24,20 @@ const tdBorderRadiusClass = twMerge(
   '[&:last-of-type>td:last-of-type]:rounded-br-[5px]',
 )
 
+const tableRow = cva(['[&>td]:hover:bg-functional-hover-grey'], {
+  variants: {
+    isChecked: {
+      true: '[&>td]:bg-functional-hover-secondary [&>td]:hover:bg-[#ECF1FF]',
+    },
+    isDisabled: {
+      true: [
+        '[&>td]:bg-white [&>td]:hover:bg-white',
+        '[&>td]:text-functional-disable-text',
+      ],
+    },
+  },
+})
+
 export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   rows: Row[]
   defaultSortingState?: SortingState<Row>
@@ -35,7 +50,7 @@ export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   onRowClick?: (row: Row) => void
 }>
 
-const CosBasicTable = <Row extends CosTableRow>(
+export const CosBasicTable = <Row extends CosTableRow>(
   props: CosBasicTableProps<Row>,
 ) => {
   const {
@@ -89,9 +104,9 @@ const CosBasicTable = <Row extends CosTableRow>(
       <tr
         key={row.id}
         className={twMerge(
-          '[&>td]:hover:bg-functional-hover-grey',
           tdBorderRadiusClass,
           computeRowClassName(rowClassName, row),
+          tableRow({ isChecked: !!row.checked, isDisabled: !!row.disabled }),
         )}
         onClick={() => onRowClick?.(row)}
       >

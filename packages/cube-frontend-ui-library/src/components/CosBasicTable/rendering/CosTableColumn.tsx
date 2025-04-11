@@ -21,7 +21,7 @@ export type CosTableColumnProps<
   Row extends CosTableRow,
   Property extends keyof Row | never,
 > = {
-  label?: string
+  label?: ReactNode
   property?: Property
   emphasize?: ColumnEmphasizeProp<Row>
   fitContent?: boolean

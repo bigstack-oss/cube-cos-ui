@@ -12,7 +12,7 @@ export type CosCheckboxProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'checked' | 'defaultChecked'
 > & {
-  label: string
+  label?: string
   /**
    * Use `null` for indeterminate state.
    */

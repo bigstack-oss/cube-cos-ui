@@ -1,13 +1,20 @@
 export * from './components/CosBackButton/CosBackButton'
 export * from './components/CosBackButton/CosBackButtonSkeleton'
 export * from './components/CosProgressBarChart/CosProgressBarChart'
-export * from './components/CosBasicTable/CosBasicTable'
+export {
+  type CosBasicTableProps,
+  GetCosBasicTable,
+} from './components/CosBasicTable/CosBasicTable'
 export type { CosTableRow } from './components/CosBasicTable/cosTableUtils'
 export * from './components/CosBasicTable/rendering/CosTableTdSkeleton'
 export type {
   ColumnCompareFnMap,
   CompareFn,
 } from './components/CosBasicTable/sorting/sortingUtils'
+export {
+  type CosBatchActionTableProps,
+  GetCosBatchActionTable,
+} from './components/CosBatchActionTable/CosBatchActionTable'
 export * from './components/CosButton/CosButton'
 export * from './components/CosButton/CosButtonSkeleton'
 export * from './components/CosCheckbox/CosCheckbox'
