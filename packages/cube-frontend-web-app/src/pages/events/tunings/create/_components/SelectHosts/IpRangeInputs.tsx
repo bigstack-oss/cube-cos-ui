@@ -1,4 +1,4 @@
-import { isIPv4 } from '@cube-frontend/utils'
+import { isIPv4 } from '@cube-frontend/web-app/utils/ip'
 import { cva } from 'class-variance-authority'
 import { ChangeEvent } from 'react'
 import { IpRange } from './useHostFilter'

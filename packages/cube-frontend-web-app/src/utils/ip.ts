@@ -1,10 +1,11 @@
 import { ColumnCompareFnMap } from '@cube-frontend/ui-library'
+import { z } from 'zod'
 
 const convertIpv4ToNumber = (ip: string) => {
   return Number(
     ip
       .split('.')
-      .map((num) => `000${num}`.slice(-3))
+      .map((num) => num.padStart(3, '0'))
       .join(''),
   )
 }
@@ -18,4 +19,10 @@ export const ipv4CompareFnMap: ColumnCompareFnMap<string> = {
     ipv4Compare(precedingStatus, followingStatus) > 0,
   descending: (precedingStatus, followingStatus) =>
     ipv4Compare(precedingStatus, followingStatus) < 0,
+}
+
+const ipV4Schema = z.string().ip({ version: 'v4' })
+
+export const isIPv4 = (value: string): boolean => {
+  return ipV4Schema.safeParse(value).success
 }

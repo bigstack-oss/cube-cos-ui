@@ -30,7 +30,7 @@ export const useSpecRows = (
       matchedSpecs = matchedSpecs.filter(
         (spec) =>
           spec.name.toLowerCase().includes(loweredKeyword) ||
-          spec.description.toLocaleLowerCase().includes(loweredKeyword),
+          spec.description.toLowerCase().includes(loweredKeyword),
       )
     }
 

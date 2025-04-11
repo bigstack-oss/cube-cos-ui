@@ -1,5 +1,5 @@
 import { Node } from '@cube-frontend/api'
-import { isIPv4 } from '@cube-frontend/utils'
+import { isIPv4 } from '@cube-frontend/web-app/utils/ip'
 import { NodeRoleEnum } from '@cube-frontend/web-app/utils/node'
 import { HostWithRole } from '../../createTuningsUtils'
 import { HostFilterValue } from './useHostFilter'

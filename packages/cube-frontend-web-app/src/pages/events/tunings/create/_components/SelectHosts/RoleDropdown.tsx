@@ -46,6 +46,7 @@ export const RoleDropdown = (props: RoleDropdownProps) => {
   return (
     <CosDropdown
       type="search-checkbox"
+      variant="in-table"
       selectedItems={selectedRoles}
       onAllCheckChange={onAllCheckChange}
       searchValue={search}
