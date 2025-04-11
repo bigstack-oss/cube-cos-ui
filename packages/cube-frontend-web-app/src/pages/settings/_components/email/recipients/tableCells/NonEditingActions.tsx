@@ -1,7 +1,7 @@
 import Delete from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import Send from '@cube-frontend/ui-library/icons/monochrome/send.svg?react'
-import { IconActionButton } from '../../../IconActionButton'
+import { IconActionButton } from '@cube-frontend/web-app/components/IconActionButton/IconActionButton'
 import { EmailRecipientRow } from '../emailRecipientsUtils'
 
 type NonEditingActionsProps = {

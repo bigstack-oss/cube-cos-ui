@@ -1,6 +1,6 @@
 import { CosButton } from '@cube-frontend/ui-library'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
-import { IconActionButton } from '../../../IconActionButton'
+import { IconActionButton } from '@cube-frontend/web-app/components/IconActionButton/IconActionButton'
 import { EmailSenderRow } from '../emailSendersUtils'
 
 type NonEditingActionsProps = {

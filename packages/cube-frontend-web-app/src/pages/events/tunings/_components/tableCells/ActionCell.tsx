@@ -5,7 +5,7 @@ import {
 } from '@cube-frontend/ui-library'
 import ArrowRotateLeft from '@cube-frontend/ui-library/icons/monochrome/arrow_rotate_left_01.svg?react'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
-import { IconActionButton } from '@cube-frontend/web-app/pages/settings/_components/IconActionButton'
+import { IconActionButton } from '@cube-frontend/web-app/components/IconActionButton/IconActionButton'
 import { cva } from 'class-variance-authority'
 import { useMemo } from 'react'
 import { Link } from 'react-router'
