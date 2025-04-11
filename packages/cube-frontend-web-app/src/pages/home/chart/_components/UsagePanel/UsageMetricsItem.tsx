@@ -33,13 +33,11 @@ export const UsageMetricsItem = (props: UsageMetricsItemProps) => {
         <CosProgressBarChart
           isLoading={isLoading}
           progress={Math.floor(cpuUsedPercent)}
-          color="bg-chart-1"
           title="CPU"
         />
         <CosProgressBarChart
           isLoading={isLoading}
           progress={Math.floor(memoryUsedPercent)}
-          color="bg-chart-1"
           title="Memory"
         />
       </div>
