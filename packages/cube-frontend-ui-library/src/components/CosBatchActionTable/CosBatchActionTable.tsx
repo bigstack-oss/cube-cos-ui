@@ -1,7 +1,10 @@
+import { cva } from 'class-variance-authority'
 import { useMemo } from 'react'
+import { twMerge } from 'tailwind-merge'
 import {
   CosBasicTable,
   CosBasicTableProps,
+  GetCosBasicTable,
 } from '../CosBasicTable/CosBasicTable'
 import { CosBatchActionTableRow } from '../CosBasicTable/cosTableUtils'
 import { CreateCosTableColumn } from '../CosBasicTable/rendering/CosTableColumn'
@@ -13,7 +16,7 @@ export type CosBatchActionTableProps<Row extends CosBatchActionTableRow> =
   CosBasicTableProps<Row> & {
     selectedRowIds: string[]
     disabledRowIds?: string[]
-    onCheckChange: (rowId: string) => void
+    onCheckChange: (rowId: string, checked: boolean) => void
   } & (
       | {
           showHeaderCheckbox: true
@@ -21,6 +24,20 @@ export type CosBatchActionTableProps<Row extends CosBatchActionTableRow> =
         }
       | { showHeaderCheckbox: false }
     )
+
+const tableRow = cva(undefined, {
+  variants: {
+    isChecked: {
+      true: '[&>td]:bg-functional-hover-secondary [&>td]:hover:bg-[#ECF1FF]',
+    },
+    isDisabled: {
+      true: [
+        '[&>td]:bg-white [&>td]:hover:bg-white',
+        '[&>td]:text-functional-disable-text',
+      ],
+    },
+  },
+})
 
 const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
   props: CosBatchActionTableProps<Row>,
@@ -35,12 +52,14 @@ const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
     ...restProps
   } = props
 
-  const selectedRowSet = useMemo(
+  const TypedBasicTable = GetCosBasicTable<Row>()
+
+  const selectedRowIdSet = useMemo(
     () => new Set(selectedRowIds),
     [selectedRowIds],
   )
 
-  const disabledRowSet = useMemo(
+  const disabledRowIdSet = useMemo(
     () => new Set(disabledRowIds),
     [disabledRowIds],
   )
@@ -49,13 +68,16 @@ const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
     () =>
       rows.map((row) => ({
         ...row,
-        checked: selectedRowSet.has(row.id),
-        disabled: disabledRowSet.has(row.id),
+        checked: selectedRowIdSet.has(row.id),
+        disabled: disabledRowIdSet.has(row.id),
       })),
-    [rows, disabledRowSet, selectedRowSet],
+    [rows, selectedRowIdSet, disabledRowIdSet],
   )
 
-  const checkboxStatus = useHeaderCheckboxStatus(convertedRows, selectedRowIds)
+  const checkboxStatus = useHeaderCheckboxStatus(
+    convertedRows,
+    selectedRowIdSet,
+  )
 
   const renderHeaderCheckbox = () => {
     if (!showHeaderCheckbox) return null
@@ -73,26 +95,32 @@ const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
   }
 
   return (
-    <CosBasicTable
+    <TypedBasicTable
       {...restProps}
       rows={convertedRows}
-      selectedRowSet={selectedRowSet}
-      disabledRowSet={disabledRowSet}
+      rowClassName={(row) =>
+        twMerge(
+          tableRow({
+            isChecked: selectedRowIdSet?.has(row.id),
+            isDisabled: disabledRowIdSet?.has(row.id),
+          }),
+        )
+      }
     >
-      <CosBasicTable.Column label={renderHeaderCheckbox()}>
-        {(_, row: CosBatchActionTableRow) => {
+      <TypedBasicTable.Column label={renderHeaderCheckbox()}>
+        {(_, row) => {
           if (row.disabled) return null
 
           return (
             <CosCheckbox
               checked={row.checked}
-              onChange={() => onCheckChange(row.id)}
+              onChange={(e) => onCheckChange(row.id, e.target.checked)}
             />
           )
         }}
-      </CosBasicTable.Column>
+      </TypedBasicTable.Column>
       {children}
-    </CosBasicTable>
+    </TypedBasicTable>
   )
 }
 

@@ -4,7 +4,6 @@ import {
   PropsWithChildren,
   useMemo,
 } from 'react'
-import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import {
   computeRowClassName,
@@ -24,20 +23,6 @@ const tdBorderRadiusClass = twMerge(
   '[&:last-of-type>td:last-of-type]:rounded-br-[5px]',
 )
 
-const tableRow = cva(['[&>td]:hover:bg-functional-hover-grey'], {
-  variants: {
-    isChecked: {
-      true: '[&>td]:bg-functional-hover-secondary [&>td]:hover:bg-[#ECF1FF]',
-    },
-    isDisabled: {
-      true: [
-        '[&>td]:bg-white [&>td]:hover:bg-white',
-        '[&>td]:text-functional-disable-text',
-      ],
-    },
-  },
-})
-
 export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   rows: Row[]
   defaultSortingState?: SortingState<Row>
@@ -48,16 +33,6 @@ export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   skeletonRowCount?: number
   rowClassName?: RowClassNameProp<Row>
   onRowClick?: (row: Row) => void
-  /**
-   * The IDs of the selected rows,
-   * which is used to determine the selected state of the rows.
-   */
-  selectedRowSet?: Set<string>
-  /**
-   * The IDs of the disabled rows,
-   * which is used to determine the disabled state of the rows.
-   */
-  disabledRowSet?: Set<string>
 }>
 
 export const CosBasicTable = <Row extends CosTableRow>(
@@ -71,8 +46,6 @@ export const CosBasicTable = <Row extends CosTableRow>(
     skeletonRowCount = 5,
     rowClassName,
     onRowClick,
-    selectedRowSet,
-    disabledRowSet,
   } = props
 
   const { columns, rowCompareFnMapRef } = useColumnPayloads<Row>(children)
@@ -116,12 +89,9 @@ export const CosBasicTable = <Row extends CosTableRow>(
       <tr
         key={row.id}
         className={twMerge(
+          '[&>td]:hover:bg-functional-hover-grey',
           tdBorderRadiusClass,
           computeRowClassName(rowClassName, row),
-          tableRow({
-            isChecked: selectedRowSet?.has(row.id) ?? false,
-            isDisabled: disabledRowSet?.has(row.id) ?? false,
-          }),
         )}
         onClick={() => onRowClick?.(row)}
       >
