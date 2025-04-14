@@ -77,8 +77,8 @@ const validateBool: ValidateFn = (_, value) => {
 }
 
 const validateFnMap: Record<TuningLimitationType, ValidateFn> = {
-  string: validateString,
+  str: validateString,
   int: validateInt,
-  float: validateFloat,
-  bool: validateBool,
+  uint: validateFloat,
+  boolean: validateBool,
 }

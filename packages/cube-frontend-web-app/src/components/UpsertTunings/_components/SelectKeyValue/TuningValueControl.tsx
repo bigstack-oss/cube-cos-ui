@@ -46,10 +46,10 @@ export const TuningValueControl = (props: TuningValueControlProps) => {
   }
 
   const renderFnMap: Record<TuningLimitationType, () => ReactNode> = {
-    string: renderInput,
+    str: renderInput,
     int: renderInput,
-    float: renderInput,
-    bool: renderBoolControl,
+    uint: renderInput,
+    boolean: renderBoolControl,
   }
 
   return renderFnMap[limitation.type]()
