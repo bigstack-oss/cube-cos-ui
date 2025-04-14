@@ -33,6 +33,8 @@ export const CosGeneralPanelTitleBar = (
     )
   }
 
+  const timeElement = renderTime()
+
   return (
     <div className="flex items-end justify-between">
       <span className="secondary-body1 text-functional-text-light">
@@ -42,10 +44,12 @@ export const CosGeneralPanelTitleBar = (
         {hyperLinkProps && (
           <CosHyperlink variant="text-inline" size="sm" {...hyperLinkProps} />
         )}
-        <div className="flex items-end gap-x-2">
-          {renderTime()}
-          {dropdown}
-        </div>
+        {(timeElement || dropdown) && (
+          <div className="flex items-end gap-x-2">
+            {timeElement}
+            {dropdown}
+          </div>
+        )}
       </div>
     </div>
   )

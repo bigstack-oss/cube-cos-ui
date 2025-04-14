@@ -1,12 +1,20 @@
-import { useState } from 'react'
-import { noop } from 'lodash'
-import { GetMetricByTypesMetricTypeEnum } from '@cube-frontend/api'
+import { useContext, useState } from 'react'
+import {
+  GetMetricByTypesMetricTypeEnum,
+  GrafanaApiGetGrafanaTopInstancesRequest,
+} from '@cube-frontend/api'
 import { CosDropdown, CosGeneralPanel } from '@cube-frontend/ui-library'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { useMetricsParams } from '../StoragePanels/useMetricsParams'
-import { CHART_PAGE_POLLING_INTERVAL, getRanking } from '../utils'
+import {
+  CHART_PAGE_POLLING_INTERVAL,
+  computeTitleBarHyperlinkProps,
+  getRanking,
+} from '../utils'
 import { RankingChart } from './RankingChart/RankingChart'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
 
 type VmRankingItem = {
   name: string
@@ -41,6 +49,8 @@ const vmRankingOptions = [
 ] satisfies VmRankingItem[]
 
 export const VmRankingPanel = () => {
+  const { name: dataCenter } = useContext(DataCenterContext)
+
   const [selectedItems, setSelectedItems] = useState<VmRankingItem[]>([
     vmRankingOptions[0],
   ])
@@ -71,15 +81,18 @@ export const VmRankingPanel = () => {
 
   const showLoading = !hasResponseBeenReceived && isLoading
 
+  const { data: grafanaLinkResponse } = useCosGetRequest(
+    grafanaApi.getGrafanaTopInstances,
+    (): GrafanaApiGetGrafanaTopInstancesRequest => ({
+      dataCenter,
+    }),
+  )
+
   return (
     <CosGeneralPanel.Container className="flex-1">
       <CosGeneralPanel.TitleBar
         title="Instance"
-        hyperLinkProps={{
-          children: 'More instance on Grafana',
-          // TODO: We need the backend API to provide the link.
-          onClick: noop,
-        }}
+        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse)}
       />
       <CosGeneralPanel
         className="flex-1"

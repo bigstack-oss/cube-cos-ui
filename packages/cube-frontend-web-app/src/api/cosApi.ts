@@ -16,6 +16,7 @@ import {
   LicensesApi,
   SupportFilesApi,
   TriggersApi,
+  GrafanaApi,
 } from '@cube-frontend/api'
 import devAccessTokenInterceptor from './devAccessTokenInterceptor'
 import { samlAuthErrorInterceptor } from './samlAuthErrorInterceptor'
@@ -74,6 +75,7 @@ export const tuningsApi = createApiInstance(TuningsApi)
 export const licenseApi = createApiInstance(LicensesApi)
 export const supportFilesApi = createApiInstance(SupportFilesApi)
 export const triggersApi = createApiInstance(TriggersApi)
+export const grafanaApi = createApiInstance(GrafanaApi)
 
 cosApi.interceptors.response.use(undefined, samlAuthErrorInterceptor)
 

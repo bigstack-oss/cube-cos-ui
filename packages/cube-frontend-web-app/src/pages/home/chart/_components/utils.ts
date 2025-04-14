@@ -15,9 +15,12 @@ import {
   GetMemoryUsageRankOfVmsResponse,
   GetDiskReadIopsRankOfVmsResponse,
   GetDiskWriteIopsRankOfVmsResponse,
+  GetGrafanaDashboardLinkResponseData,
 } from '@cube-frontend/api'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { CosGeneralPanelTitleBarProps } from '@cube-frontend/ui-library'
+import { noop } from 'lodash'
 
 const getMetricsByTypes = async <T extends GetMetricByTypes200Response>(
   req: MetricsApiGetMetricByTypesRequest,
@@ -71,3 +74,28 @@ export const getRanking = getMetricsByTypes<
 >
 
 export const CHART_PAGE_POLLING_INTERVAL = 30 * 1000
+
+export const computeTitleBarHyperlinkProps = (
+  response: GetGrafanaDashboardLinkResponseData | undefined,
+): CosGeneralPanelTitleBarProps['hyperLinkProps'] => {
+  if (!response) {
+    // Grafana link is still loading.
+    return {
+      children: 'More',
+      onClick: noop,
+      disabled: true,
+    }
+  }
+
+  if (!response.enabled) {
+    // The related feature is disabled in Grafana.
+    // Hide the hyperlink.
+    return undefined
+  }
+
+  return {
+    children: 'More',
+    href: response.link,
+    target: '_blank',
+  }
+}
