@@ -7,19 +7,26 @@ import { CosDatePickerSkeleton } from './CosDatePickerSkeleton'
 import { CosDatePickerContext } from './context'
 
 type CosDatePickerProps = {
+  /**
+   * @default false
+   */
   disabled?: boolean
+  /**
+   * @default false
+   */
   isLoading?: boolean
   startDate: Dayjs | undefined
   endDate: Dayjs | undefined
   setStartDate: (date: Dayjs | undefined) => void
   setEndDate: (date: Dayjs | undefined) => void
-  onApplyClick?: () => void
-  onCancelClick?: () => void
   /**
-   * `onOutsideClickClose` triggered only when the date picker is closed by clicking outside.
-   * This will not be triggered when closing via "Apply" or "Cancel" buttons.
+   * Optional callback triggered when "Apply" button is clicked
    */
-  onOutsideClickClose?: () => void
+  onApplyClick?: () => void
+  /**
+   * Optional callback triggered when "Cancel" button is clicked
+   */
+  onCancelClick?: () => void
 }
 
 export const CosDatePicker = (props: CosDatePickerProps) => {
@@ -32,35 +39,50 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
     setEndDate,
     onApplyClick,
     onCancelClick,
-    onOutsideClickClose,
   } = props
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
+  const [displayDates, setDisplayDates] = useState<{
+    start: Dayjs | undefined
+    end: Dayjs | undefined
+  }>({ start: startDate, end: endDate })
+
   const [currentMonth, setCurrentMonth] = useState(() => dayjs(new Date()))
 
-  const handleDayClick = (date: Dayjs) => {
-    if (startDate && endDate) {
-      setStartDate(date)
-      setEndDate(undefined)
-    } else if (!startDate) {
-      setStartDate(date)
-    } else if (startDate && date >= startDate) {
-      setEndDate(date)
+  const handleDisplayDatesChange = (date: Dayjs) => {
+    const { start, end } = displayDates
+
+    if (start && end) {
+      setDisplayDates({ start: date, end: undefined })
+    } else if (!displayDates.start) {
+      setDisplayDates({ start: date, end: undefined })
+    } else if (start && date >= start) {
+      setDisplayDates((prev) => ({ ...prev, end: date }))
     } else {
-      setStartDate(date)
-      setEndDate(startDate)
+      setDisplayDates((prev) => ({ start: date, end: prev.start }))
     }
   }
 
   const handleApply = () => {
-    if (onApplyClick) onApplyClick()
+    const { start, end } = displayDates
+
+    if (!start || !end) return
+
+    onApplyClick?.()
+    setStartDate(start)
+    setEndDate(end)
     setIsCalendarOpen(false)
   }
 
-  const handleCancel = () => {
-    if (onCancelClick) onCancelClick()
+  const handleCancel = useCallback(() => {
+    onCancelClick?.()
+    setDisplayDates({ start: startDate, end: endDate })
     setIsCalendarOpen(false)
+  }, [endDate, onCancelClick, startDate])
+
+  const handleReset = () => {
+    setDisplayDates({ start: startDate, end: endDate })
   }
 
   const toggleCalendarOpen = () => {
@@ -93,11 +115,10 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
       const isMenu = elementRef.current?.contains(target)
 
       if (!isTrigger && !isMenu) {
-        onOutsideClickClose?.()
-        setIsCalendarOpen(false)
+        handleCancel()
       }
     },
-    [anchorRef, elementRef, onOutsideClickClose],
+    [anchorRef, elementRef, handleCancel],
   )
 
   useEffect(() => {
@@ -117,14 +138,14 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
         toggleCalendarOpen,
         floatingProps,
         triggerDisabled: disabled,
-        isSelected: !!startDate || !!endDate,
-        startDate,
-        endDate,
-        onDateClick: handleDayClick,
+        isSelected: !!displayDates.start || !!displayDates.end,
+        displayDates,
+        onDateClick: handleDisplayDatesChange,
         onPreviousMonthClick: handlePreviousMonthClick,
         onNextMonthClick: handleNextMonthClick,
         onApplyClick: handleApply,
         onCancelClick: handleCancel,
+        onResetClick: handleReset,
       }}
     >
       <>

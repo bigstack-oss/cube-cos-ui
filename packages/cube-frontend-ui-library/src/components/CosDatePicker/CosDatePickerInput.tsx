@@ -20,6 +20,7 @@ export const CosDatePickerInput = (props: CosDatePickerInputProps) => {
         type="text"
         value={value}
         placeholder={placeholder}
+        hideErrorIcon={true}
         readOnly
       />
     </div>

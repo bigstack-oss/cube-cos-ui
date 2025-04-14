@@ -8,6 +8,7 @@ import { CosTableInputSkeleton } from './CosTableInputSkeleton'
 export type CosTableInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isLoading?: boolean
   errorMessage?: string | boolean
+  hideErrorIcon?: boolean
 }
 
 const input = cva(
@@ -39,6 +40,7 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
       className,
       isLoading = false,
       errorMessage,
+      hideErrorIcon = false,
       disabled,
       ...restProps
     } = props
@@ -46,26 +48,24 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
     const defaultId = useId()
     const inputId = restProps.id || defaultId
 
-    const isError = !!errorMessage
+    const showErrorMessage = !!errorMessage && !hideErrorIcon
 
     const renderErrorIcon = () => {
+      if (!showErrorMessage) return null
+
       return (
-        <div className="flex size-4 shrink-0 items-center justify-center">
-          {isError && (
-            <CosTooltip
-              hoverContent={{
-                message: errorMessage?.toString(),
-              }}
-            >
-              <WarningFilled className="icon-md text-status-negative" />
-            </CosTooltip>
-          )}
-        </div>
+        <CosTooltip
+          hoverContent={{
+            message: errorMessage?.toString(),
+          }}
+        >
+          <WarningFilled className="icon-md absolute -right-6 text-status-negative" />
+        </CosTooltip>
       )
     }
 
     return (
-      <div className="flex items-center gap-x-2">
+      <div className="relative flex items-center gap-x-2">
         {isLoading ? (
           <CosTableInputSkeleton />
         ) : (
@@ -74,7 +74,10 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
             id={inputId}
             ref={ref}
             disabled={disabled}
-            className={twMerge(input({ isError, disabled }), className)}
+            className={twMerge(
+              input({ isError: showErrorMessage, disabled }),
+              className,
+            )}
           />
         )}
         {renderErrorIcon()}

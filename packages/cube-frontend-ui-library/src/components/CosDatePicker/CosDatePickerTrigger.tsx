@@ -10,11 +10,12 @@ export const CosDatePickerTrigger = () => {
     floatingProps,
     isSelected,
     triggerDisabled: disabled,
-    startDate,
-    endDate,
     calendarOpen: isOpen,
     toggleCalendarOpen,
+    displayDates,
   } = useContext(CosDatePickerContext)
+
+  const { start, end } = displayDates
 
   return (
     <button
@@ -25,7 +26,7 @@ export const CosDatePickerTrigger = () => {
       className={twMerge(trigger({ isSelected, isOpen, disabled }))}
     >
       <CalendarIcon className="icon-md shrink-0" />
-      <span>{formatDateRange(startDate, endDate) ?? 'Time'}</span>
+      <span>{formatDateRange(start, end) ?? 'Time'}</span>
     </button>
   )
 }

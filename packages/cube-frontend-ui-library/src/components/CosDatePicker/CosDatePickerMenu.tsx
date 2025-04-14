@@ -12,8 +12,7 @@ export const CosDatePickerMenu = () => {
   const {
     floatingProps,
     calendarOpen: isVisible,
-    startDate,
-    endDate,
+    displayDates,
     currentMonth,
     onPreviousMonthClick,
     onNextMonthClick,
@@ -21,6 +20,8 @@ export const CosDatePickerMenu = () => {
     onCancelClick,
     onApplyClick,
   } = useContext(CosDatePickerContext)
+
+  const { start, end } = displayDates
 
   const { elementRef, resolvedStyles } = floatingProps
 
@@ -33,12 +34,12 @@ export const CosDatePickerMenu = () => {
       <div className="flex gap-4">
         <CosDatePickerInput
           type="start"
-          value={startDate ? dayjs(startDate).format('YYYY/MM/DD') : ''}
+          value={start ? dayjs(start).format('YYYY/MM/DD') : ''}
           placeholder="Choose Start"
         />
         <CosDatePickerInput
           type="end"
-          value={endDate ? dayjs(endDate).format('YYYY/MM/DD') : ''}
+          value={end ? dayjs(end).format('YYYY/MM/DD') : ''}
           placeholder="Choose End"
         />
       </div>
@@ -47,14 +48,19 @@ export const CosDatePickerMenu = () => {
         onPreviousMonth={onPreviousMonthClick}
         onNextMonth={onNextMonthClick}
         onSelectDay={onDateClick}
-        startDate={startDate}
-        endDate={endDate}
+        startDate={start}
+        endDate={end}
       />
       <div className="flex justify-end gap-2">
         <CosButton size="sm" type="ghost" onClick={onCancelClick}>
           Cancel
         </CosButton>
-        <CosButton size="sm" type="primary" onClick={onApplyClick}>
+        <CosButton
+          size="sm"
+          type="primary"
+          onClick={onApplyClick}
+          disabled={!start || !end}
+        >
           Apply
         </CosButton>
       </div>

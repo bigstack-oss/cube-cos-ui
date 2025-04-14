@@ -45,7 +45,6 @@ export const DatePickerFilter = (props: DatePickerFilterProps) => {
       setEndDate={setSelectedEndDate}
       onApplyClick={handleApply}
       onCancelClick={handleCancel}
-      onOutsideClickClose={handleCancel}
     />
   )
 }

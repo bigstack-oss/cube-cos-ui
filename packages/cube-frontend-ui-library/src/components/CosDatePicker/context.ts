@@ -10,13 +10,16 @@ export type CosDatePickerContextValue = {
 
   triggerDisabled: boolean
   isSelected: boolean
-  startDate: Dayjs | undefined
-  endDate: Dayjs | undefined
+  displayDates: {
+    start: Dayjs | undefined
+    end: Dayjs | undefined
+  }
   onDateClick: (date: Dayjs) => void
   onPreviousMonthClick: () => void
   onNextMonthClick: () => void
   onApplyClick: () => void
   onCancelClick: () => void
+  onResetClick: () => void
 }
 
 export const CosDatePickerContext = createContext<CosDatePickerContextValue>({
@@ -30,11 +33,14 @@ export const CosDatePickerContext = createContext<CosDatePickerContextValue>({
 
   triggerDisabled: false,
   isSelected: false,
-  startDate: undefined,
-  endDate: undefined,
+  displayDates: {
+    start: undefined,
+    end: undefined,
+  },
   onDateClick: () => {},
   onPreviousMonthClick: () => {},
   onNextMonthClick: () => {},
   onApplyClick: () => {},
   onCancelClick: () => {},
+  onResetClick: () => {},
 })

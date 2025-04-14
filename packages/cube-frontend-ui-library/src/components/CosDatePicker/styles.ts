@@ -71,7 +71,7 @@ export const menu = cva(
 )
 
 export const dayButton = cva(
-  'primary-body2 flex size-10 items-center justify-center',
+  'primary-body2 flex aspect-square w-full items-center justify-center',
   {
     variants: {
       status: {
