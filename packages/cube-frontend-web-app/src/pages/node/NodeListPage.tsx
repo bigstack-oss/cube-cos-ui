@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import {
-  GetNodesRoleEnum,
+  GetNodesRolesEnum,
   Node,
   NodesApiGetNodesRequest,
   SupportFilesApiCreateSupportFilesRequest,
@@ -25,7 +25,7 @@ export const NodeListPage = () => {
   const dataCenter = useContext(DataCenterContext)
 
   const [searchKeyword, setSearchKeyword] = useState('')
-  const [selectedRoles, setSelectedRoles] = useState<GetNodesRoleEnum[]>([])
+  const [selectedRoles, setSelectedRoles] = useState<GetNodesRolesEnum[]>([])
   const [pageNum, setPageNum] = useState(1)
   const [pageSize, setPageSize] = useState(DEFAULT_ITEMS_PER_PAGE)
 
@@ -41,8 +41,7 @@ export const NodeListPage = () => {
         dataCenter: dataCenter.name,
         pageNum,
         pageSize,
-        // TODO: Waiting for the COS API support multiple roles filter.
-        role: selectedRoles[0],
+        roles: selectedRoles,
         keyword: debouncedSearchKeyword,
       } satisfies NodesApiGetNodesRequest
     },

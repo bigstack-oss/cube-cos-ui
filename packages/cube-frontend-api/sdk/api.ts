@@ -1696,6 +1696,31 @@ export interface GetGrafanaInstances500Response {
 /**
  * 
  * @export
+ * @interface GetGrafanaNetworkDevices500Response
+ */
+export interface GetGrafanaNetworkDevices500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGrafanaNetworkDevices500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaNetworkDevices500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaNetworkDevices500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface GetGrafanaNetworks500Response
  */
 export interface GetGrafanaNetworks500Response {
@@ -1959,10 +1984,10 @@ export interface GetHealthsResponseDataServicesInner {
     'category': string;
     /**
      * 
-     * @type {GetHealthsResponseDataServicesInnerStatus}
+     * @type {GetHealthsResponseDataOverallStatus}
      * @memberof GetHealthsResponseDataServicesInner
      */
-    'status': GetHealthsResponseDataServicesInnerStatus;
+    'status': GetHealthsResponseDataOverallStatus;
     /**
      * 
      * @type {Array<GetHealthsResponseDataServicesInnerModulesInner>}
@@ -1984,32 +2009,11 @@ export interface GetHealthsResponseDataServicesInnerModulesInner {
     'name': string;
     /**
      * 
-     * @type {GetHealthsResponseDataServicesInnerStatus}
+     * @type {GetHealthsResponseDataOverallStatus}
      * @memberof GetHealthsResponseDataServicesInnerModulesInner
      */
-    'status': GetHealthsResponseDataServicesInnerStatus;
+    'status': GetHealthsResponseDataOverallStatus;
 }
-/**
- * 
- * @export
- * @interface GetHealthsResponseDataServicesInnerStatus
- */
-export interface GetHealthsResponseDataServicesInnerStatus {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetHealthsResponseDataServicesInnerStatus
-     */
-    'current': GetHealthsResponseDataServicesInnerStatusCurrentEnum;
-}
-
-export const GetHealthsResponseDataServicesInnerStatusCurrentEnum = {
-    Ok: 'ok',
-    Ng: 'ng'
-} as const;
-
-export type GetHealthsResponseDataServicesInnerStatusCurrentEnum = typeof GetHealthsResponseDataServicesInnerStatusCurrentEnum[keyof typeof GetHealthsResponseDataServicesInnerStatusCurrentEnum];
-
 /**
  * 
  * @export
@@ -2404,10 +2408,10 @@ export interface GetLicensesResponseDataLicensesInner {
     'quantity': GetLicensesResponseDataLicensesInnerQuantity;
     /**
      * 
-     * @type {GetLicensesResponseDataLicensesInnerServiceLevelAgreement}
+     * @type {string}
      * @memberof GetLicensesResponseDataLicensesInner
      */
-    'serviceLevelAgreement': GetLicensesResponseDataLicensesInnerServiceLevelAgreement;
+    'serviceLevelAgreement': string;
     /**
      * 
      * @type {GetLicensesResponseDataLicensesInnerExpiry}
@@ -2508,37 +2512,6 @@ export interface GetLicensesResponseDataLicensesInnerQuantity {
      * @memberof GetLicensesResponseDataLicensesInnerQuantity
      */
     'value': number;
-}
-/**
- * 
- * @export
- * @interface GetLicensesResponseDataLicensesInnerServiceLevelAgreement
- */
-export interface GetLicensesResponseDataLicensesInnerServiceLevelAgreement {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetLicensesResponseDataLicensesInnerServiceLevelAgreement
-     */
-    'uptime': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerServiceLevelAgreement
-     */
-    'period': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerServiceLevelAgreement
-     */
-    'meanTimeBetweenFailure': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerServiceLevelAgreement
-     */
-    'meanTimeToRecovery': string;
 }
 /**
  * 
@@ -5110,22 +5083,22 @@ export interface ListTuningSpecResponseDataInnerLimitation {
     'type': TuningLimitationType;
     /**
      * 
-     * @type {ListTuningResponseDataTuningsInnerLimitationDefault}
+     * @type {ListTuningSpecResponseDataInnerLimitationDefault}
      * @memberof ListTuningSpecResponseDataInnerLimitation
      */
-    'default': ListTuningResponseDataTuningsInnerLimitationDefault;
+    'default': ListTuningSpecResponseDataInnerLimitationDefault;
     /**
      * 
-     * @type {ListTuningResponseDataTuningsInnerLimitationMin}
+     * @type {ListTuningSpecResponseDataInnerLimitationMin}
      * @memberof ListTuningSpecResponseDataInnerLimitation
      */
-    'min'?: ListTuningResponseDataTuningsInnerLimitationMin;
+    'min'?: ListTuningSpecResponseDataInnerLimitationMin;
     /**
      * 
-     * @type {ListTuningResponseDataTuningsInnerLimitationMin}
+     * @type {ListTuningSpecResponseDataInnerLimitationMin}
      * @memberof ListTuningSpecResponseDataInnerLimitation
      */
-    'max'?: ListTuningResponseDataTuningsInnerLimitationMin;
+    'max'?: ListTuningSpecResponseDataInnerLimitationMin;
     /**
      * 
      * @type {string}
@@ -5134,6 +5107,18 @@ export interface ListTuningSpecResponseDataInnerLimitation {
     'regex'?: string;
 }
 
+
+/**
+ * @type ListTuningSpecResponseDataInnerLimitationDefault
+ * @export
+ */
+export type ListTuningSpecResponseDataInnerLimitationDefault = boolean | number | string;
+
+/**
+ * @type ListTuningSpecResponseDataInnerLimitationMin
+ * @export
+ */
+export type ListTuningSpecResponseDataInnerLimitationMin = number;
 
 /**
  * 
@@ -5339,12 +5324,6 @@ export interface Node {
      * @type {string}
      * @memberof Node
      */
-    'protocol': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Node
-     */
     'address': string;
     /**
      * 
@@ -5358,6 +5337,12 @@ export interface Node {
      * @memberof Node
      */
     'managementIP': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Node
+     */
+    'storageIP': string;
     /**
      * 
      * @type {NodeLicense}
@@ -5430,6 +5415,12 @@ export interface NodeBlockDevicesInner {
      * @type {string}
      * @memberof NodeBlockDevicesInner
      */
+    'serial': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeBlockDevicesInner
+     */
     'device': string;
     /**
      * 
@@ -5456,6 +5447,12 @@ export interface NodeBlockDevicesInner {
  * @interface NodeLicense
  */
 export interface NodeLicense {
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeLicense
+     */
+    'name': string;
     /**
      * 
      * @type {string}
@@ -5494,10 +5491,10 @@ export interface NodeLicense {
     'quantity': GetLicensesResponseDataLicensesInnerQuantity;
     /**
      * 
-     * @type {NodeLicenseServiceLevelAgreement}
+     * @type {string}
      * @memberof NodeLicense
      */
-    'serviceLevelAgreement': NodeLicenseServiceLevelAgreement;
+    'serviceLevelAgreement': string;
     /**
      * 
      * @type {NodeLicenseExpiry}
@@ -5573,37 +5570,6 @@ export interface NodeLicenseProduct {
      * @memberof NodeLicenseProduct
      */
     'features': object;
-}
-/**
- * 
- * @export
- * @interface NodeLicenseServiceLevelAgreement
- */
-export interface NodeLicenseServiceLevelAgreement {
-    /**
-     * 
-     * @type {number}
-     * @memberof NodeLicenseServiceLevelAgreement
-     */
-    'uptime': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseServiceLevelAgreement
-     */
-    'period': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseServiceLevelAgreement
-     */
-    'meanTimeBetweenFailure': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseServiceLevelAgreement
-     */
-    'meanTimeToRecovery'?: string;
 }
 /**
  * 
@@ -6535,10 +6501,10 @@ export interface TrySlackChannelResponse {
  */
 
 export const TuningLimitationType = {
-    String: 'string',
+    Str: 'str',
     Int: 'int',
-    Float: 'float',
-    Bool: 'bool'
+    Uint: 'uint',
+    Boolean: 'boolean'
 } as const;
 
 export type TuningLimitationType = typeof TuningLimitationType[keyof typeof TuningLimitationType];
@@ -6822,10 +6788,10 @@ export interface UpdateTuning500Response {
 export interface UpdateTuningRequest {
     /**
      * 
-     * @type {UpdateTuningRequestValue}
+     * @type {ListTuningSpecResponseDataInnerLimitationDefault}
      * @memberof UpdateTuningRequest
      */
-    'value': UpdateTuningRequestValue;
+    'value': ListTuningSpecResponseDataInnerLimitationDefault;
     /**
      * 
      * @type {Array<string>}
@@ -6833,12 +6799,6 @@ export interface UpdateTuningRequest {
      */
     'hosts': Array<string>;
 }
-/**
- * @type UpdateTuningRequestValue
- * @export
- */
-export type UpdateTuningRequestValue = boolean | number | string;
-
 /**
  * 
  * @export
@@ -8123,6 +8083,40 @@ export const GrafanaApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Get Grafana network devices dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaNetworkDevices: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaNetworkDevices', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/networkDevices`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Get Grafana networks dashboard
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
@@ -8297,6 +8291,19 @@ export const GrafanaApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get Grafana network devices dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaNetworkDevices(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaNetworkDevices(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaNetworkDevices']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Get Grafana networks dashboard
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
@@ -8376,6 +8383,16 @@ export const GrafanaApiFactory = function (configuration?: Configuration, basePa
          */
         getGrafanaInstances(requestParameters: GrafanaApiGetGrafanaInstancesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
             return localVarFp.getGrafanaInstances(requestParameters.dataCenter, requestParameters.instanceId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Grafana network devices dashboard
+         * @param {GrafanaApiGetGrafanaNetworkDevicesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaNetworkDevices(requestParameters: GrafanaApiGetGrafanaNetworkDevicesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaNetworkDevices(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8463,6 +8480,20 @@ export interface GrafanaApiGetGrafanaInstancesRequest {
 }
 
 /**
+ * Request parameters for getGrafanaNetworkDevices operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaNetworkDevicesRequest
+ */
+export interface GrafanaApiGetGrafanaNetworkDevicesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaNetworkDevices
+     */
+    readonly dataCenter: string
+}
+
+/**
  * Request parameters for getGrafanaNetworks operation in GrafanaApi.
  * @export
  * @interface GrafanaApiGetGrafanaNetworksRequest
@@ -8547,6 +8578,18 @@ export class GrafanaApi extends BaseAPI {
      */
     public getGrafanaInstances(requestParameters: GrafanaApiGetGrafanaInstancesRequest, options?: RawAxiosRequestConfig) {
         return GrafanaApiFp(this.configuration).getGrafanaInstances(requestParameters.dataCenter, requestParameters.instanceId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Grafana network devices dashboard
+     * @param {GrafanaApiGetGrafanaNetworkDevicesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaNetworkDevices(requestParameters: GrafanaApiGetGrafanaNetworkDevicesRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaNetworkDevices(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -8673,10 +8716,11 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Retrieve the overall health status of all modules
          * @param {string} dataCenter The name of the data center to operate
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {GetHealthsPastEnum} [past] The past time of the health to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHealths: async (dataCenter: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getHealths: async (dataCenter: string, watch?: boolean, past?: GetHealthsPastEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getHealths', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/healths`
@@ -8694,6 +8738,10 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (watch !== undefined) {
                 localVarQueryParameter['watch'] = watch;
+            }
+
+            if (past !== undefined) {
+                localVarQueryParameter['past'] = past;
             }
 
 
@@ -8875,11 +8923,12 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * @summary Retrieve the overall health status of all modules
          * @param {string} dataCenter The name of the data center to operate
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {GetHealthsPastEnum} [past] The past time of the health to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getHealths(dataCenter: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetHealthsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getHealths(dataCenter, watch, options);
+        async getHealths(dataCenter: string, watch?: boolean, past?: GetHealthsPastEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetHealthsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHealths(dataCenter, watch, past, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['HealthApi.getHealths']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8958,7 +9007,7 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getHealths(requestParameters: HealthApiGetHealthsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetHealthsResponse> {
-            return localVarFp.getHealths(requestParameters.dataCenter, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getHealths(requestParameters.dataCenter, requestParameters.watch, requestParameters.past, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9068,6 +9117,13 @@ export interface HealthApiGetHealthsRequest {
      * @memberof HealthApiGetHealths
      */
     readonly watch?: boolean
+
+    /**
+     * The past time of the health to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+     * @type {'1h' | '24h' | '7d' | '14d' | '30d'}
+     * @memberof HealthApiGetHealths
+     */
+    readonly past?: GetHealthsPastEnum
 }
 
 /**
@@ -9189,7 +9245,7 @@ export class HealthApi extends BaseAPI {
      * @memberof HealthApi
      */
     public getHealths(requestParameters: HealthApiGetHealthsRequest, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).getHealths(requestParameters.dataCenter, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return HealthApiFp(this.configuration).getHealths(requestParameters.dataCenter, requestParameters.watch, requestParameters.past, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9331,6 +9387,17 @@ export const GetHealthHistoryPastEnum = {
     _30d: '30d'
 } as const;
 export type GetHealthHistoryPastEnum = typeof GetHealthHistoryPastEnum[keyof typeof GetHealthHistoryPastEnum];
+/**
+ * @export
+ */
+export const GetHealthsPastEnum = {
+    _1h: '1h',
+    _24h: '24h',
+    _7d: '7d',
+    _14d: '14d',
+    _30d: '30d'
+} as const;
+export type GetHealthsPastEnum = typeof GetHealthsPastEnum[keyof typeof GetHealthsPastEnum];
 /**
  * @export
  */
@@ -9601,16 +9668,16 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Retrieve the list of licenses
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {GetLicensesProductEnum} [product] The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
-         * @param {GetLicensesLicenseStatusEnum} [licenseStatus] The status of the host
-         * @param {GetLicensesTypeEnum} [type] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
+         * @param {Array<GetLicensesProductsEnum>} [products] The product of the host
+         * @param {Array<GetLicensesStatusesEnum>} [statuses] The status of the host
+         * @param {Array<GetLicensesTypesEnum>} [types] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLicenses: async (dataCenter: string, keyword?: string, product?: GetLicensesProductEnum, licenseStatus?: GetLicensesLicenseStatusEnum, type?: GetLicensesTypeEnum, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getLicenses: async (dataCenter: string, keyword?: string, products?: Array<GetLicensesProductsEnum>, statuses?: Array<GetLicensesStatusesEnum>, types?: Array<GetLicensesTypesEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getLicenses', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses`
@@ -9630,16 +9697,16 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['keyword'] = keyword;
             }
 
-            if (product !== undefined) {
-                localVarQueryParameter['product'] = product;
+            if (products) {
+                localVarQueryParameter['products'] = products;
             }
 
-            if (licenseStatus !== undefined) {
-                localVarQueryParameter['licenseStatus'] = licenseStatus;
+            if (statuses) {
+                localVarQueryParameter['statuses'] = statuses;
             }
 
-            if (type !== undefined) {
-                localVarQueryParameter['type'] = type;
+            if (types) {
+                localVarQueryParameter['types'] = types;
             }
 
             if (pageSize !== undefined) {
@@ -9819,17 +9886,17 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * @summary Retrieve the list of licenses
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {GetLicensesProductEnum} [product] The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
-         * @param {GetLicensesLicenseStatusEnum} [licenseStatus] The status of the host
-         * @param {GetLicensesTypeEnum} [type] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
+         * @param {Array<GetLicensesProductsEnum>} [products] The product of the host
+         * @param {Array<GetLicensesStatusesEnum>} [statuses] The status of the host
+         * @param {Array<GetLicensesTypesEnum>} [types] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLicenses(dataCenter: string, keyword?: string, product?: GetLicensesProductEnum, licenseStatus?: GetLicensesLicenseStatusEnum, type?: GetLicensesTypeEnum, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicensesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenses(dataCenter, keyword, product, licenseStatus, type, pageSize, pageNum, watch, options);
+        async getLicenses(dataCenter: string, keyword?: string, products?: Array<GetLicensesProductsEnum>, statuses?: Array<GetLicensesStatusesEnum>, types?: Array<GetLicensesTypesEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicensesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenses(dataCenter, keyword, products, statuses, types, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LicensesApi.getLicenses']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9871,7 +9938,7 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async verifyLicense(dataCenter: string, license: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostLicenseResponse>> {
+        async verifyLicense(dataCenter: string, license: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VerifyLicenseResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.verifyLicense(dataCenter, license, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LicensesApi.verifyLicense']?.[localVarOperationServerIndex]?.url;
@@ -9895,7 +9962,7 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         getLicenses(requestParameters: LicensesApiGetLicensesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetLicensesResponse> {
-            return localVarFp.getLicenses(requestParameters.dataCenter, requestParameters.keyword, requestParameters.product, requestParameters.licenseStatus, requestParameters.type, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getLicenses(requestParameters.dataCenter, requestParameters.keyword, requestParameters.products, requestParameters.statuses, requestParameters.types, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9924,7 +9991,7 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        verifyLicense(requestParameters: LicensesApiVerifyLicenseRequest, options?: RawAxiosRequestConfig): AxiosPromise<PostLicenseResponse> {
+        verifyLicense(requestParameters: LicensesApiVerifyLicenseRequest, options?: RawAxiosRequestConfig): AxiosPromise<VerifyLicenseResponse> {
             return localVarFp.verifyLicense(requestParameters.dataCenter, requestParameters.license, options).then((request) => request(axios, basePath));
         },
     };
@@ -9951,25 +10018,25 @@ export interface LicensesApiGetLicensesRequest {
     readonly keyword?: string
 
     /**
-     * The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
-     * @type {'CubeCOS' | 'CubeCMP'}
+     * The product of the host
+     * @type {Array<'cubeCOS' | 'cubeCMP'>}
      * @memberof LicensesApiGetLicenses
      */
-    readonly product?: GetLicensesProductEnum
+    readonly products?: Array<GetLicensesProductsEnum>
 
     /**
      * The status of the host
-     * @type {'ok' | 'expiring' | 'expired' | 'error'}
+     * @type {Array<'ok' | 'expiring' | 'expired' | 'error'>}
      * @memberof LicensesApiGetLicenses
      */
-    readonly licenseStatus?: GetLicensesLicenseStatusEnum
+    readonly statuses?: Array<GetLicensesStatusesEnum>
 
     /**
      * The type of the license to query, click \&#39;try it out\&#39; to see a few options.
-     * @type {'trial' | 'perpetual' | 'community' | 'enterprise'}
+     * @type {Array<'trial' | 'perpetual' | 'community' | 'enterprise'>}
      * @memberof LicensesApiGetLicenses
      */
-    readonly type?: GetLicensesTypeEnum
+    readonly types?: Array<GetLicensesTypesEnum>
 
     /**
      * The number of items per page (default is unlimit).
@@ -10079,7 +10146,7 @@ export class LicensesApi extends BaseAPI {
      * @memberof LicensesApi
      */
     public getLicenses(requestParameters: LicensesApiGetLicensesRequest, options?: RawAxiosRequestConfig) {
-        return LicensesApiFp(this.configuration).getLicenses(requestParameters.dataCenter, requestParameters.keyword, requestParameters.product, requestParameters.licenseStatus, requestParameters.type, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return LicensesApiFp(this.configuration).getLicenses(requestParameters.dataCenter, requestParameters.keyword, requestParameters.products, requestParameters.statuses, requestParameters.types, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10122,31 +10189,31 @@ export class LicensesApi extends BaseAPI {
 /**
  * @export
  */
-export const GetLicensesProductEnum = {
-    CubeCos: 'CubeCOS',
-    CubeCmp: 'CubeCMP'
+export const GetLicensesProductsEnum = {
+    CubeCos: 'cubeCOS',
+    CubeCmp: 'cubeCMP'
 } as const;
-export type GetLicensesProductEnum = typeof GetLicensesProductEnum[keyof typeof GetLicensesProductEnum];
+export type GetLicensesProductsEnum = typeof GetLicensesProductsEnum[keyof typeof GetLicensesProductsEnum];
 /**
  * @export
  */
-export const GetLicensesLicenseStatusEnum = {
+export const GetLicensesStatusesEnum = {
     Ok: 'ok',
     Expiring: 'expiring',
     Expired: 'expired',
     Error: 'error'
 } as const;
-export type GetLicensesLicenseStatusEnum = typeof GetLicensesLicenseStatusEnum[keyof typeof GetLicensesLicenseStatusEnum];
+export type GetLicensesStatusesEnum = typeof GetLicensesStatusesEnum[keyof typeof GetLicensesStatusesEnum];
 /**
  * @export
  */
-export const GetLicensesTypeEnum = {
+export const GetLicensesTypesEnum = {
     Trial: 'trial',
     Perpetual: 'perpetual',
     Community: 'community',
     Enterprise: 'enterprise'
 } as const;
-export type GetLicensesTypeEnum = typeof GetLicensesTypeEnum[keyof typeof GetLicensesTypeEnum];
+export type GetLicensesTypesEnum = typeof GetLicensesTypesEnum[keyof typeof GetLicensesTypesEnum];
 
 
 /**
@@ -10856,16 +10923,16 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
          * @summary Retrieve the list of nodes
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {GetNodesProductEnum} [product] The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
-         * @param {GetNodesRoleEnum} [role] The role of the host
-         * @param {GetNodesLicenseStatusEnum} [licenseStatus] The status of the host
+         * @param {Array<GetNodesRolesEnum>} [roles] The role of the host
+         * @param {Array<GetNodesLicenseStatusesEnum>} [licenseStatuses] The status of the host
+         * @param {Array<GetNodesProductsEnum>} [products] The product of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNodes: async (dataCenter: string, keyword?: string, product?: GetNodesProductEnum, role?: GetNodesRoleEnum, licenseStatus?: GetNodesLicenseStatusEnum, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNodes: async (dataCenter: string, keyword?: string, roles?: Array<GetNodesRolesEnum>, licenseStatuses?: Array<GetNodesLicenseStatusesEnum>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getNodes', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes`
@@ -10885,16 +10952,16 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
                 localVarQueryParameter['keyword'] = keyword;
             }
 
-            if (product !== undefined) {
-                localVarQueryParameter['product'] = product;
+            if (roles) {
+                localVarQueryParameter['roles'] = roles;
             }
 
-            if (role !== undefined) {
-                localVarQueryParameter['role'] = role;
+            if (licenseStatuses) {
+                localVarQueryParameter['licenseStatuses'] = licenseStatuses;
             }
 
-            if (licenseStatus !== undefined) {
-                localVarQueryParameter['licenseStatus'] = licenseStatus;
+            if (products) {
+                localVarQueryParameter['products'] = products;
             }
 
             if (pageSize !== undefined) {
@@ -10950,17 +11017,17 @@ export const NodesApiFp = function(configuration?: Configuration) {
          * @summary Retrieve the list of nodes
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {GetNodesProductEnum} [product] The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
-         * @param {GetNodesRoleEnum} [role] The role of the host
-         * @param {GetNodesLicenseStatusEnum} [licenseStatus] The status of the host
+         * @param {Array<GetNodesRolesEnum>} [roles] The role of the host
+         * @param {Array<GetNodesLicenseStatusesEnum>} [licenseStatuses] The status of the host
+         * @param {Array<GetNodesProductsEnum>} [products] The product of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNodes(dataCenter: string, keyword?: string, product?: GetNodesProductEnum, role?: GetNodesRoleEnum, licenseStatus?: GetNodesLicenseStatusEnum, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(dataCenter, keyword, product, role, licenseStatus, pageSize, pageNum, watch, options);
+        async getNodes(dataCenter: string, keyword?: string, roles?: Array<GetNodesRolesEnum>, licenseStatuses?: Array<GetNodesLicenseStatusesEnum>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(dataCenter, keyword, roles, licenseStatuses, products, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodesApi.getNodes']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -10993,7 +11060,7 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
          * @throws {RequiredError}
          */
         getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNodesResponse> {
-            return localVarFp.getNodes(requestParameters.dataCenter, requestParameters.keyword, requestParameters.product, requestParameters.role, requestParameters.licenseStatus, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getNodes(requestParameters.dataCenter, requestParameters.keyword, requestParameters.roles, requestParameters.licenseStatuses, requestParameters.products, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -11047,25 +11114,25 @@ export interface NodesApiGetNodesRequest {
     readonly keyword?: string
 
     /**
-     * The type of product to query, the value can be \&#39;CubeCOS\&#39; or \&#39;CubeCMP\&#39;.
-     * @type {'CubeCOS' | 'CubeCMP'}
-     * @memberof NodesApiGetNodes
-     */
-    readonly product?: GetNodesProductEnum
-
-    /**
      * The role of the host
-     * @type {'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'}
+     * @type {Array<'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'>}
      * @memberof NodesApiGetNodes
      */
-    readonly role?: GetNodesRoleEnum
+    readonly roles?: Array<GetNodesRolesEnum>
 
     /**
      * The status of the host
-     * @type {'ok' | 'expiring' | 'expired' | 'error'}
+     * @type {Array<'ok' | 'expiring' | 'expired' | 'error'>}
      * @memberof NodesApiGetNodes
      */
-    readonly licenseStatus?: GetNodesLicenseStatusEnum
+    readonly licenseStatuses?: Array<GetNodesLicenseStatusesEnum>
+
+    /**
+     * The product of the host
+     * @type {Array<'cubeCOS' | 'cubeCMP'>}
+     * @memberof NodesApiGetNodes
+     */
+    readonly products?: Array<GetNodesProductsEnum>
 
     /**
      * The number of items per page (default is unlimit).
@@ -11117,22 +11184,14 @@ export class NodesApi extends BaseAPI {
      * @memberof NodesApi
      */
     public getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig) {
-        return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.keyword, requestParameters.product, requestParameters.role, requestParameters.licenseStatus, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.keyword, requestParameters.roles, requestParameters.licenseStatuses, requestParameters.products, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 /**
  * @export
  */
-export const GetNodesProductEnum = {
-    CubeCos: 'CubeCOS',
-    CubeCmp: 'CubeCMP'
-} as const;
-export type GetNodesProductEnum = typeof GetNodesProductEnum[keyof typeof GetNodesProductEnum];
-/**
- * @export
- */
-export const GetNodesRoleEnum = {
+export const GetNodesRolesEnum = {
     ControlConverged: 'control-converged',
     Control: 'control',
     Compute: 'compute',
@@ -11140,17 +11199,25 @@ export const GetNodesRoleEnum = {
     EdgeCore: 'edge-core',
     Moderator: 'moderator'
 } as const;
-export type GetNodesRoleEnum = typeof GetNodesRoleEnum[keyof typeof GetNodesRoleEnum];
+export type GetNodesRolesEnum = typeof GetNodesRolesEnum[keyof typeof GetNodesRolesEnum];
 /**
  * @export
  */
-export const GetNodesLicenseStatusEnum = {
+export const GetNodesLicenseStatusesEnum = {
     Ok: 'ok',
     Expiring: 'expiring',
     Expired: 'expired',
     Error: 'error'
 } as const;
-export type GetNodesLicenseStatusEnum = typeof GetNodesLicenseStatusEnum[keyof typeof GetNodesLicenseStatusEnum];
+export type GetNodesLicenseStatusesEnum = typeof GetNodesLicenseStatusesEnum[keyof typeof GetNodesLicenseStatusesEnum];
+/**
+ * @export
+ */
+export const GetNodesProductsEnum = {
+    CubeCos: 'cubeCOS',
+    CubeCmp: 'cubeCMP'
+} as const;
+export type GetNodesProductsEnum = typeof GetNodesProductsEnum[keyof typeof GetNodesProductsEnum];
 
 
 /**
@@ -13034,16 +13101,16 @@ export const SupportFilesApiAxiosParamCreator = function (configuration?: Config
          * @summary Retrieve all support files
          * @param {string} dataCenter The name of the data center to operate
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {Array<GetSupportFilesRolesEnum>} [roles] The role of the host
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {GetSupportFilesRoleEnum} [role] The role of the host
-         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSupportFiles: async (dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, role?: GetSupportFilesRoleEnum, start?: string, stop?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getSupportFiles: async (dataCenter: string, watch?: boolean, roles?: Array<GetSupportFilesRolesEnum>, start?: string, stop?: string, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getSupportFiles', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/supportFiles`
@@ -13063,6 +13130,18 @@ export const SupportFilesApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['watch'] = watch;
             }
 
+            if (roles) {
+                localVarQueryParameter['roles'] = roles;
+            }
+
+            if (start !== undefined) {
+                localVarQueryParameter['start'] = start;
+            }
+
+            if (stop !== undefined) {
+                localVarQueryParameter['stop'] = stop;
+            }
+
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
             }
@@ -13073,18 +13152,6 @@ export const SupportFilesApiAxiosParamCreator = function (configuration?: Config
 
             if (keyword !== undefined) {
                 localVarQueryParameter['keyword'] = keyword;
-            }
-
-            if (role !== undefined) {
-                localVarQueryParameter['role'] = role;
-            }
-
-            if (start !== undefined) {
-                localVarQueryParameter['start'] = start;
-            }
-
-            if (stop !== undefined) {
-                localVarQueryParameter['stop'] = stop;
             }
 
 
@@ -13141,17 +13208,17 @@ export const SupportFilesApiFp = function(configuration?: Configuration) {
          * @summary Retrieve all support files
          * @param {string} dataCenter The name of the data center to operate
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {Array<GetSupportFilesRolesEnum>} [roles] The role of the host
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {GetSupportFilesRoleEnum} [role] The role of the host
-         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
-         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSupportFiles(dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, role?: GetSupportFilesRoleEnum, start?: string, stop?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSupportFilesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportFiles(dataCenter, watch, pageSize, pageNum, keyword, role, start, stop, options);
+        async getSupportFiles(dataCenter: string, watch?: boolean, roles?: Array<GetSupportFilesRolesEnum>, start?: string, stop?: string, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSupportFilesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportFiles(dataCenter, watch, roles, start, stop, pageSize, pageNum, keyword, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SupportFilesApi.getSupportFiles']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -13194,7 +13261,7 @@ export const SupportFilesApiFactory = function (configuration?: Configuration, b
          * @throws {RequiredError}
          */
         getSupportFiles(requestParameters: SupportFilesApiGetSupportFilesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetSupportFilesResponse> {
-            return localVarFp.getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, requestParameters.role, requestParameters.start, requestParameters.stop, options).then((request) => request(axios, basePath));
+            return localVarFp.getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.roles, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -13262,6 +13329,27 @@ export interface SupportFilesApiGetSupportFilesRequest {
     readonly watch?: boolean
 
     /**
+     * The role of the host
+     * @type {Array<'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'>}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly roles?: Array<GetSupportFilesRolesEnum>
+
+    /**
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof SupportFilesApiGetSupportFiles
+     */
+    readonly stop?: string
+
+    /**
      * The number of items per page (default is unlimit).
      * @type {number}
      * @memberof SupportFilesApiGetSupportFiles
@@ -13281,27 +13369,6 @@ export interface SupportFilesApiGetSupportFilesRequest {
      * @memberof SupportFilesApiGetSupportFiles
      */
     readonly keyword?: string
-
-    /**
-     * The role of the host
-     * @type {'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'}
-     * @memberof SupportFilesApiGetSupportFiles
-     */
-    readonly role?: GetSupportFilesRoleEnum
-
-    /**
-     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
-     * @type {string}
-     * @memberof SupportFilesApiGetSupportFiles
-     */
-    readonly start?: string
-
-    /**
-     * The end time of the event to query, the value should be in RFC3339 format (default is now).
-     * @type {string}
-     * @memberof SupportFilesApiGetSupportFiles
-     */
-    readonly stop?: string
 }
 
 /**
@@ -13344,14 +13411,14 @@ export class SupportFilesApi extends BaseAPI {
      * @memberof SupportFilesApi
      */
     public getSupportFiles(requestParameters: SupportFilesApiGetSupportFilesRequest, options?: RawAxiosRequestConfig) {
-        return SupportFilesApiFp(this.configuration).getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, requestParameters.role, requestParameters.start, requestParameters.stop, options).then((request) => request(this.axios, this.basePath));
+        return SupportFilesApiFp(this.configuration).getSupportFiles(requestParameters.dataCenter, requestParameters.watch, requestParameters.roles, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 /**
  * @export
  */
-export const GetSupportFilesRoleEnum = {
+export const GetSupportFilesRolesEnum = {
     ControlConverged: 'control-converged',
     Control: 'control',
     Compute: 'compute',
@@ -13359,7 +13426,7 @@ export const GetSupportFilesRoleEnum = {
     EdgeCore: 'edge-core',
     Moderator: 'moderator'
 } as const;
-export type GetSupportFilesRoleEnum = typeof GetSupportFilesRoleEnum[keyof typeof GetSupportFilesRoleEnum];
+export type GetSupportFilesRolesEnum = typeof GetSupportFilesRolesEnum[keyof typeof GetSupportFilesRolesEnum];
 
 
 /**

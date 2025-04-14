@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { Dayjs } from 'dayjs'
 import { noop } from 'lodash'
 import {
-  GetNodesRoleEnum,
+  GetNodesRolesEnum,
   SupportFilesApiGetSupportFilesRequest,
   SupportFileSet,
 } from '@cube-frontend/api'
@@ -30,7 +30,7 @@ export const MaintenanceSupportFilesPage = () => {
   const dataCenter = useContext(DataCenterContext)
 
   const [searchKeyword, setSearchKeyword] = useState<string>('')
-  const [selectedRoles, setSelectedRoles] = useState<GetNodesRoleEnum[]>([])
+  const [selectedRoles, setSelectedRoles] = useState<GetNodesRolesEnum[]>([])
   const [startDate, setStartDate] = useState<Dayjs>()
   const [endDate, setEndDate] = useState<Dayjs>()
   const [pageNum, setPageNum] = useState(1)
@@ -51,8 +51,7 @@ export const MaintenanceSupportFilesPage = () => {
         keyword: debouncedSearchKeyword,
         start: startDate?.format(),
         stop: endDate?.format(),
-        // TODO: Waiting for the COS API support multiple roles filter.
-        role: selectedRoles[0],
+        roles: selectedRoles,
       } satisfies SupportFilesApiGetSupportFilesRequest
     },
   )

@@ -3,14 +3,14 @@ import { CosIconFrame, CosSearchBarFilter } from '@cube-frontend/ui-library'
 import XIcon from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
 import { DatePickerFilter } from './DatePickerFilter'
-import { GetNodesRoleEnum } from '@cube-frontend/api'
+import { GetNodesRolesEnum } from '@cube-frontend/api'
 
 export type SupportFilesFiltersProps = {
   searchKeyword: string
   handleSearchKeywordChange: (value: string) => void
   handleSearchKeywordClear: () => void
-  selectedRoles: GetNodesRoleEnum[]
-  handleRolesSelect: (roles: GetNodesRoleEnum[]) => void
+  selectedRoles: GetNodesRolesEnum[]
+  handleRolesSelect: (roles: GetNodesRolesEnum[]) => void
   startDate?: Dayjs
   endDate?: Dayjs
   handleStartDateChange: (date?: Dayjs) => void

@@ -1,12 +1,12 @@
 import { ChangeEvent, useState } from 'react'
 import { CosDropdown } from '@cube-frontend/ui-library'
-import { GetNodesRoleEnum } from '@cube-frontend/api'
+import { GetNodesRolesEnum } from '@cube-frontend/api'
 
-const allRoles = Object.values(GetNodesRoleEnum)
+const allRoles = Object.values(GetNodesRolesEnum)
 
 export type RoleFilterProps = {
-  selectedRoles: GetNodesRoleEnum[]
-  handleRolesSelect: (roles: GetNodesRoleEnum[]) => void
+  selectedRoles: GetNodesRolesEnum[]
+  handleRolesSelect: (roles: GetNodesRolesEnum[]) => void
 }
 
 export const RoleFilter = (props: RoleFilterProps) => {
@@ -30,7 +30,7 @@ export const RoleFilter = (props: RoleFilterProps) => {
     handleRolesSelect([])
   }
 
-  const handleRoleClick = (role: GetNodesRoleEnum) => {
+  const handleRoleClick = (role: GetNodesRolesEnum) => {
     const selectedRoleSet = new Set(selectedRoles)
 
     if (selectedRoleSet.has(role)) {
