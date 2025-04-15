@@ -1,8 +1,15 @@
 import { toUnitDisplay } from '@cube-frontend/web-app/utils/unit'
-import { ChartDataset, ChartData, ChartOptions, FontSpec } from 'chart.js'
+import { ChartDataset, ChartData, ChartOptions } from 'chart.js'
 import { last } from 'lodash'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
 import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
+import {
+  chartFontFamily,
+  getChartTicksOptions,
+  getChartTooltipBodyFont,
+  getChartTooltipTitleFont,
+  getChartYAxisTitleFont,
+} from '@cube-frontend/web-app/utils/chart'
 
 enum DATASET_LABELS {
   Read = 'Read',
@@ -62,51 +69,6 @@ export const getLineChartData = (props: {
   }
 }
 
-const fontFamily = cubeTheme.fontFamily.inter[0]
-
-const getTitleFont = (): Partial<FontSpec> => {
-  const body2 = cubeTheme.fontSize['primary-body2']
-  const fontSize = Number(body2[0].replace('px', ''))
-  const lineHeight = body2[1].lineHeight
-  const fontWeight = Number(cubeTheme.fontWeight.semibold)
-
-  return {
-    family: fontFamily,
-    size: fontSize,
-    weight: fontWeight,
-    lineHeight,
-  }
-}
-
-const titleFont = getTitleFont()
-
-const getBodyFont = (): Partial<FontSpec> => {
-  const body3 = cubeTheme.fontSize['primary-body3']
-  const fontSize = Number(body3[0].replace('px', ''))
-  const lineHeight = body3[1].lineHeight
-
-  return {
-    family: fontFamily,
-    size: fontSize,
-    lineHeight,
-  }
-}
-
-const getYAxisTitleFont = (): Partial<FontSpec> => {
-  const body5 = cubeTheme.fontSize['primary-body5']
-  const fontSize = Number(body5[0].replace('px', ''))
-  const lineHeight = body5[1].lineHeight
-
-  return {
-    family: fontFamily,
-    size: fontSize,
-    lineHeight,
-  }
-}
-const yAxisTitleFont = getYAxisTitleFont()
-
-const bodyFont = getBodyFont()
-
 export const getChartOptions = (props: {
   unit: string
   unitSuffix: string
@@ -123,7 +85,7 @@ export const getChartOptions = (props: {
       intersect: false,
     },
     font: {
-      family: fontFamily,
+      family: chartFontFamily,
     },
     scales: {
       x: {
@@ -135,12 +97,13 @@ export const getChartOptions = (props: {
         title: {
           display: true,
           text: toUnitDisplay(unit, unitSuffix),
-          font: yAxisTitleFont,
+          font: getChartYAxisTitleFont(),
         },
         border: {
           display: false,
         },
         ticks: {
+          ...getChartTicksOptions(),
           callback: (tickValue, index) => {
             if (isLoading) {
               return `${index * 100}`
@@ -163,8 +126,8 @@ export const getChartOptions = (props: {
         padding: 12,
         titleColor: cubeTheme.colors.primary[200],
         usePointStyle: true,
-        titleFont,
-        bodyFont,
+        titleFont: getChartTooltipTitleFont(),
+        bodyFont: getChartTooltipBodyFont(),
         boxPadding: 4,
         callbacks: {
           labelPointStyle: () => ({
