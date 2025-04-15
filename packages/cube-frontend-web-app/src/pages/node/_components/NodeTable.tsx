@@ -5,7 +5,7 @@ import {
   CosStatus,
   CosTag,
   CosTooltip,
-  GetCosBasicTable,
+  GetCosBatchActionTable,
 } from '@cube-frontend/ui-library'
 import {
   humanizeDuration,
@@ -14,18 +14,19 @@ import {
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
 import { toPercentage } from '@cube-frontend/web-app/utils/number'
 import { noop } from 'lodash'
+import { ComponentProps } from 'react'
 import { Link } from 'react-router'
-import { CopyButton } from '../CopyButton'
+import { CopyButton } from '@cube-frontend/web-app/components/CopyButton'
 
-export const BasicNodeTable =
-  GetCosBasicTable<GetNodesResponseData['nodes'][number]>()
+const BatchActionNodeTable =
+  GetCosBatchActionTable<GetNodesResponseData['nodes'][number]>()
 
-export type NodeTableProps = React.ComponentProps<typeof BasicNodeTable>
+export type NodeTableProps = ComponentProps<typeof BatchActionNodeTable>
 
 export const NodeTable = (props: NodeTableProps) => {
   return (
-    <BasicNodeTable {...props}>
-      <BasicNodeTable.Column
+    <BatchActionNodeTable {...props}>
+      <BatchActionNodeTable.Column
         label="Hostname"
         property="hostname"
         emphasize={true}
@@ -37,8 +38,8 @@ export const NodeTable = (props: NodeTableProps) => {
             </CosHyperlink>
           </Link>
         )}
-      </BasicNodeTable.Column>
-      <BasicNodeTable.Column
+      </BatchActionNodeTable.Column>
+      <BatchActionNodeTable.Column
         label="Management IP"
         property="managementIP"
         isSortable={true}
@@ -53,18 +54,18 @@ export const NodeTable = (props: NodeTableProps) => {
             </CosTooltip>
           </div>
         )}
-      </BasicNodeTable.Column>
-      <BasicNodeTable.Column label="Role" property="role">
+      </BatchActionNodeTable.Column>
+      <BatchActionNodeTable.Column label="Role" property="role">
         {(role) => (
           <CosTag color="blue" variant="filled">
             {role}
           </CosTag>
         )}
-      </BasicNodeTable.Column>
-      <BasicNodeTable.Column label="License Expire" property="license">
+      </BatchActionNodeTable.Column>
+      <BatchActionNodeTable.Column label="License Expire" property="license">
         {(license) => toLicenseDateDisplay(license.expiry.date)}
-      </BasicNodeTable.Column>
-      <BasicNodeTable.Column
+      </BatchActionNodeTable.Column>
+      <BatchActionNodeTable.Column
         label="CPU"
         property="vcpu"
         skeletonVariant="with-barchart"
@@ -76,8 +77,8 @@ export const NodeTable = (props: NodeTableProps) => {
             progress={toPercentage(cpu.usedCores, cpu.totalCores)}
           />
         )}
-      </BasicNodeTable.Column>
-      <BasicNodeTable.Column
+      </BatchActionNodeTable.Column>
+      <BatchActionNodeTable.Column
         label="RAM"
         property="memory"
         skeletonVariant="with-barchart"
@@ -89,8 +90,8 @@ export const NodeTable = (props: NodeTableProps) => {
             progress={toPercentage(memory.usedMiB, memory.totalMiB)}
           />
         )}
-      </BasicNodeTable.Column>
-      <BasicNodeTable.Column
+      </BatchActionNodeTable.Column>
+      <BatchActionNodeTable.Column
         label="Partition"
         property="storage"
         skeletonVariant="with-barchart"
@@ -102,17 +103,17 @@ export const NodeTable = (props: NodeTableProps) => {
             progress={toPercentage(storage.usedMiB, storage.totalMiB)}
           />
         )}
-      </BasicNodeTable.Column>
-      <BasicNodeTable.Column label="Running" property="uptimeSeconds">
+      </BatchActionNodeTable.Column>
+      <BatchActionNodeTable.Column label="Running" property="uptimeSeconds">
         {(uptimeSeconds) => humanizeDuration(uptimeSeconds)}
-      </BasicNodeTable.Column>
-      <BasicNodeTable.Column
+      </BatchActionNodeTable.Column>
+      <BatchActionNodeTable.Column
         label="Status"
         property="status"
         skeletonVariant="status"
       >
         {(status) => <CosStatus status={status} />}
-      </BasicNodeTable.Column>
-    </BasicNodeTable>
+      </BatchActionNodeTable.Column>
+    </BatchActionNodeTable>
   )
 }

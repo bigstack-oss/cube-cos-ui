@@ -5,9 +5,9 @@ import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { NodeTable } from '@cube-frontend/web-app/components/NodeTable/NodeTable'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
+import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
+import { NodeTable } from './NodeTable'
 
 const HOME_PAGE_NODE_ROW_LIMIT = 5
 

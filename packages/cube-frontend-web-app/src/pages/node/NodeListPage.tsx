@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import {
   GetNodesRolesEnum,
   Node,
@@ -17,7 +17,7 @@ import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosReques
 import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { NodeTable } from '@cube-frontend/web-app/components/NodeTable/NodeTable'
+import { NodeTable } from './_components/NodeTable'
 import { NodeFilters } from './_components/NodeFilters'
 import { CreateSupportFilesModal } from './_components/CreateSupportFilesModal'
 
@@ -63,14 +63,23 @@ export const NodeListPage = () => {
 
   const [isCreateSupportFilesModalOpen, setIsCreateSupportFilesModalOpen] =
     useState(false)
-  const [selectedNodes, setSelectedNodes] = useState<Node[]>([])
+  const [selectedNodeIds, setSelectedNodeIds] = useState<string[]>([])
   const [comments, setComments] = useState('')
 
-  // TODO: select all nodes for create support files modal,
-  // will remove this when table batch actions are implemented.
-  useEffect(() => {
-    setSelectedNodes(nodesData?.nodes || [])
-  }, [nodesData])
+  const selectedNodes = useMemo<Node[]>(() => {
+    if (!nodesData) return []
+    const selectedNodeIdSet = new Set(selectedNodeIds)
+    return nodesData.nodes.filter((node) => selectedNodeIdSet.has(node.id))
+  }, [nodesData, selectedNodeIds])
+
+  const handleRowCheckChange = (nodeId: string, checked: boolean) => {
+    setSelectedNodeIds((prev) => {
+      if (checked) {
+        return [...prev, nodeId]
+      }
+      return prev.filter((id) => id !== nodeId)
+    })
+  }
 
   const handleCreateSupportFilesButtonClick = () => {
     setComments('')
@@ -90,7 +99,7 @@ export const NodeListPage = () => {
       console.error('Create support files error: ', error)
     } finally {
       setIsCreateSupportFilesModalOpen(false)
-      setSelectedNodes([])
+      setSelectedNodeIds([])
     }
   }
 
@@ -117,6 +126,9 @@ export const NodeListPage = () => {
             rows={nodesData?.nodes || []}
             isLoading={isLoading}
             skeletonRowCount={pageSize}
+            selectedRowIds={selectedNodeIds}
+            showHeaderCheckbox={false}
+            onCheckChange={handleRowCheckChange}
           />
           <CosPagination
             isLoading={isLoading}
