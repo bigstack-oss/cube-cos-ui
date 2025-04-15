@@ -12,10 +12,7 @@ const mapToEmailTable = (
   email: GetTriggerResponseDataResponseEmailsInner,
 ): EmailTableType => ({
   ...email,
-  /**
-   * Replace email with correct email address (waiting for API update)
-   */
-  id: email.note,
+  id: email.email,
 })
 
 export const ResponseEmailTable = () => {
@@ -39,9 +36,6 @@ export const ResponseEmailTable = () => {
         showHeaderCheckbox={true}
         onAllCheckChange={handleEmailSelectAll}
       >
-        {/**
-         * TODO: update the property of email (waiting for API update)
-         */}
         <EmailTable.Column label="Email" property="email" />
         <EmailTable.Column label="Note" property="note" />
       </EmailTable>

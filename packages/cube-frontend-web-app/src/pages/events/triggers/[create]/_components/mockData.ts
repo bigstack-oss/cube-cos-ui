@@ -1,4 +1,7 @@
-import { GetTriggersResponseDataInnerAttributes } from '@cube-frontend/api'
+import {
+  GetTriggerResponseDataResponse,
+  GetTriggersResponseDataInnerAttributes,
+} from '@cube-frontend/api'
 
 export const mockAttributes: GetTriggersResponseDataInnerAttributes[] = [
   { name: 'severity', type: 'string', value: 'W', enabled: true },
@@ -12,3 +15,28 @@ export const mockAttributes: GetTriggersResponseDataInnerAttributes[] = [
   { name: 'category', type: 'string', value: 'SRV', enabled: false },
   { name: 'category', type: 'string', value: 'VRT', enabled: false },
 ]
+
+export const mockResponse: GetTriggerResponseDataResponse = {
+  types: ['email', 'slack'],
+  slacks: [
+    {
+      name: 'amqp-alert-p1',
+      url: 'https://hooks.slack.com/services/<hookHash>/<hookHash>/<hookHash>',
+      description: 'example slack channel 1',
+      enabled: false,
+    },
+    {
+      name: '#test-cos-300-notification',
+      url: 'https://hooks.slack.com/services/<hookHash>/<hookHash>/<hookHash>',
+      description: 'example slack channel 2',
+      enabled: false,
+    },
+  ],
+  emails: [
+    {
+      email: 'example.user@example.com',
+      note: 'example email recipient',
+      enabled: false,
+    },
+  ],
+}

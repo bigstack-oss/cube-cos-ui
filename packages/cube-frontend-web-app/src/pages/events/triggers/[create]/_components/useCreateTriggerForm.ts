@@ -44,7 +44,7 @@ export const useTriggerCreateForm = (
     [trigger],
   )
   const allEmails = useMemo(
-    () => trigger?.response?.emails?.map((email) => email.note) ?? [],
+    () => trigger?.response?.emails?.map((email) => email.email) ?? [],
     [trigger],
   )
   const allSlacks = useMemo(
@@ -58,8 +58,34 @@ export const useTriggerCreateForm = (
    */
   useEffect(() => {
     if (!isTriggerLoading && trigger) {
-      setSelectedEmails(allEmails.length > 0 ? [allEmails[0]] : [])
-      setSelectedSlacks(allSlacks.length > 0 ? [allSlacks[0]] : [])
+      const enabledEmails = trigger?.response.emails
+        .filter((email) => email.enabled)
+        .map((email) => email.email)
+
+      const enabledSlacks = trigger?.response.slacks
+        .filter((slack) => slack.enabled)
+        .map((slack) => slack.url)
+
+      setSelectedEmails(() => {
+        if (enabledEmails.length > 0) {
+          return enabledEmails
+        } else if (trigger?.response?.emails?.length > 0) {
+          return [allEmails[0]]
+        } else {
+          return []
+        }
+      })
+
+      setSelectedSlacks(() => {
+        if (enabledSlacks.length > 0) {
+          return enabledEmails
+        } else if (trigger?.response?.slacks.length > 0) {
+          return [allSlacks[0]]
+        } else {
+          return []
+        }
+      })
+
       setDescription(trigger.description)
     }
   }, [trigger, isTriggerLoading, allEmails, allSlacks])

@@ -12,10 +12,10 @@ export const TriggersCreateActionButton = () => {
     isTemplateLoading,
     selectedTemplateName,
     isTriggerLoading,
-    enabled,
     attributes,
     selectedEmails,
     selectedSlacks,
+    description,
   } = useContext(TriggersCreateContext)
 
   const { isValid, errorMessage } = isFormValueValid(
@@ -28,11 +28,11 @@ export const TriggersCreateActionButton = () => {
   const { isUpdateLoading, handleTriggerUpdate, errorState } = useUpdateTrigger(
     {
       isValid,
-      enabled,
       attributes,
       selectedTemplateName,
       selectedEmails,
       selectedSlacks,
+      description,
     },
   )
 

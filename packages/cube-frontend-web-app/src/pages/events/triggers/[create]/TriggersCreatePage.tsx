@@ -29,7 +29,6 @@ export const TriggersCreatePage = () => {
   })
 
   const {
-    enabled,
     attributes,
     selectedEmails,
     selectedSlacks,
@@ -56,7 +55,6 @@ export const TriggersCreatePage = () => {
         // The Rest Form Fields
         trigger,
         isTriggerLoading,
-        enabled,
         attributes,
         selectedEmails,
         selectedSlacks,

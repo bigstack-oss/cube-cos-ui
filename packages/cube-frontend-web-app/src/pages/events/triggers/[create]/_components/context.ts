@@ -19,7 +19,6 @@ export type TriggersCreateContextValue = {
   // The Rest Form Fields
   trigger: GetTriggerResponseData | undefined
   isTriggerLoading: boolean
-  enabled: boolean
   attributes: GetTriggersResponseDataInnerAttributes[]
   selectedEmails: string[]
   selectedSlacks: string[]
@@ -45,7 +44,6 @@ export const TriggersCreateContext = createContext<TriggersCreateContextValue>({
   // The Rest Form Fields
   trigger: undefined,
   isTriggerLoading: false,
-  enabled: true,
   attributes: [],
   selectedEmails: [],
   selectedSlacks: [],
