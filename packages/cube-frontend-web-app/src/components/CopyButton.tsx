@@ -10,7 +10,12 @@ export type CopyButtonProps = {
 }
 
 export const CopyButton = (props: CopyButtonProps) => {
-  const { copyContent: copyText, ...restProps } = props
+  const { copyContent: copyText, onClick: onClickProp, ...restProps } = props
+
+  const onClick = (e: MouseEvent<HTMLElement>): void => {
+    navigator.clipboard.writeText(copyText)
+    onClickProp?.(e)
+  }
 
   return (
     <CosButton
@@ -19,7 +24,7 @@ export const CopyButton = (props: CopyButtonProps) => {
       size="sm"
       Icon={CopyIcon}
       {...restProps}
-      onClick={() => navigator.clipboard.writeText(copyText)}
+      onClick={onClick}
     />
   )
 }

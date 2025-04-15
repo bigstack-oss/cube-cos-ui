@@ -18,7 +18,7 @@ export type CosButtonSize = 'sm' | 'md' | 'lg'
 
 export type CosButtonProps = Omit<
   JSX.IntrinsicElements['button'],
-  'type' | 'onClick' | 'children'
+  'type' | 'children'
 > & {
   htmlType?: ButtonHTMLAttributes<HTMLButtonElement>['type']
   /**
@@ -37,7 +37,6 @@ export type CosButtonProps = Omit<
    * @default false
    */
   loading?: boolean
-  onClick?: () => void
 } & (
     | {
         usage?: never
