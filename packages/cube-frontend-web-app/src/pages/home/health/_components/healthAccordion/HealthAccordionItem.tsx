@@ -1,6 +1,6 @@
 import { GetHealthHistoryPastEnum } from '@cube-frontend/api'
 import ChevronDown from '@cube-frontend/ui-library/icons/monochrome/chevron_down.svg?react'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
+import { TimeRange } from '../../healthTimeRangeUtils'
 import { cva } from 'class-variance-authority'
 import { Dayjs } from 'dayjs'
 import { capitalize } from 'lodash'

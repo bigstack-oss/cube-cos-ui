@@ -1,10 +1,16 @@
 import { EventsContentSwitcher } from '@cube-frontend/web-app/components/EventsContentSwitcher/EventsContentSwitcher'
 import { useEventsFilter } from '@cube-frontend/web-app/hooks/events/useEventsFilter'
+import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
+import {
+  timeRanges,
+  TimeRange,
+  timeRangeLabels,
+  timeRangePastMap,
+} from './_components/eventsTimeRangeUtils'
 import { useEventsChartQuery } from './_components/useEventsChartQuery'
 import { EventsChartProportion } from './_components/EventsChartProportion/EventsChartProportion'
 import { EventsChartComparison } from './_components/EventsChartComparison/EventsChartComparison'
-import { TimeRangeDropdown } from './_components/TimeRangeDropdown/TimeRangeDropdown'
-import { useTimeRange } from './_components/TimeRangeDropdown/useTimeRange'
 
 export const EventsChartPage = () => {
   const {
@@ -15,7 +21,10 @@ export const EventsChartPage = () => {
     getRedirectQuery,
   } = useEventsChartQuery()
 
-  const { timeRange, onTimeRangeChange, past } = useTimeRange()
+  const { timeRange, onTimeRangeChange, past } = useTimeRange({
+    defaultValue: 'last24Hours' as TimeRange,
+    timeRangePastMap,
+  })
 
   const { isEventsFilterLoading, getEventsFilter } = useEventsFilter()
 
@@ -32,6 +41,8 @@ export const EventsChartPage = () => {
           selectedItem={timeRange}
           disabled={false}
           onChange={onTimeRangeChange}
+          timeRanges={timeRanges}
+          timeRangeLabels={timeRangeLabels}
         />
       </div>
       <EventsChartProportion

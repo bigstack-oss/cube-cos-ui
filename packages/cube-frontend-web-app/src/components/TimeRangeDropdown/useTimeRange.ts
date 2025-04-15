@@ -1,32 +1,31 @@
-import { GetHealthHistoryPastEnum } from '@cube-frontend/api'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import dayjs, { Dayjs } from 'dayjs'
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { TimeRange } from './timeRangeDropdownUtils'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 
-export type UseTimeRange = {
+export type UseTimeRangeOption<T extends string, K extends string> = {
+  defaultValue: T
+  timeRangePastMap: Record<T, K>
+}
+
+export type UseTimeRange<T extends string, K extends string> = {
   now: Dayjs
-  timeRange: TimeRange
-  past: GetHealthHistoryPastEnum
-  onTimeRangeChange: (newTimeRange: TimeRange) => void
+  timeRange: T
+  past: K
+  onTimeRangeChange: (newTimeRange: T) => void
 }
 
-const timeRangePastMap: Record<TimeRange, GetHealthHistoryPastEnum> = {
-  last30Days: '30d',
-  last14Days: '14d',
-  last7Days: '7d',
-  last24Hours: '24h',
-  lastHour: '1h',
-}
+export const useTimeRange = <T extends string, K extends string>(
+  option: UseTimeRangeOption<T, K>,
+): UseTimeRange<T, K> => {
+  const { defaultValue, timeRangePastMap } = option
 
-export const useTimeRange = (): UseTimeRange => {
   const { utcTimeZone } = useContext(DataCenterContext)
 
   const getNow = useCallback(() => {
     return dayjs.utc().utcOffset(utcTimeZone)
   }, [utcTimeZone])
 
-  const [timeRange, setTimeRange] = useState<TimeRange>('last24Hours')
+  const [timeRange, setTimeRange] = useState<T>(defaultValue)
 
   const [now, setNow] = useState(getNow)
 
@@ -40,12 +39,12 @@ export const useTimeRange = (): UseTimeRange => {
     }
   }, [getNow])
 
-  const past = useMemo<GetHealthHistoryPastEnum>(
+  const past = useMemo<K>(
     () => timeRangePastMap[timeRange],
-    [timeRange],
+    [timeRange, timeRangePastMap],
   )
 
-  const onTimeRangeChange = (newTimeRange: TimeRange): void => {
+  const onTimeRangeChange = (newTimeRange: T): void => {
     setTimeRange(newTimeRange)
   }
 

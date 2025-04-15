@@ -7,7 +7,6 @@ import {
   HealthApiGetServiceHealthHistoryRequest,
 } from '@cube-frontend/api'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
@@ -17,6 +16,7 @@ import { useContext, useMemo } from 'react'
 import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../../homeHealthPageUtils'
 import { ModuleHealth } from './ModuleHealth'
 import { useIsVisible } from './useIsVisible'
+import { TimeRange } from '../../healthTimeRangeUtils'
 
 export type ServiceHealthProps = {
   service: GetServicesResponseDataInner

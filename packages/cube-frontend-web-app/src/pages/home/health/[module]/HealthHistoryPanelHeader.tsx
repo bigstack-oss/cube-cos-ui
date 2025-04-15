@@ -3,7 +3,7 @@ import { CosButton, CosSkeleton } from '@cube-frontend/ui-library'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
+import { TimeRange, timeRangeLabels, timeRanges } from '../healthTimeRangeUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
@@ -66,6 +66,8 @@ export const HealthHistoryPanelHeader = (
           selectedItem={selectedTimeRange}
           disabled={!module}
           onChange={onTimeRangeChange}
+          timeRanges={timeRanges}
+          timeRangeLabels={timeRangeLabels}
         />
         <CosButton
           className="rounded-full"

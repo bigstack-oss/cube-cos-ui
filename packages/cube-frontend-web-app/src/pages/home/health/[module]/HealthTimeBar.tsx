@@ -1,7 +1,7 @@
 import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
 import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
+import { TimeRange } from '../healthTimeRangeUtils'
 import { Dayjs } from 'dayjs'
 import { useMemo } from 'react'
 import { timePointFns } from './healthDetailsUtils'

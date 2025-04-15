@@ -6,7 +6,6 @@ import { CosHyperlink } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { Dayjs } from 'dayjs'
 import { capitalize, noop } from 'lodash'
 import { useMemo } from 'react'
@@ -14,6 +13,7 @@ import { Link } from 'react-router'
 import { timePointFns } from './healthAccordionUtils'
 import { HealthBarSkeleton } from './HealthBarSkeleton'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
+import { TimeRange } from '../../healthTimeRangeUtils'
 
 export type ModuleHealthProps = {
   moduleName: GetHealthHistoryModuleTypeEnum

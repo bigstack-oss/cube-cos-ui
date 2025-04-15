@@ -1,5 +1,14 @@
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { ManipulateType } from 'dayjs'
+
+export const timeRanges = [
+  'last30Days',
+  'last14Days',
+  'last7Days',
+  'last24Hours',
+  'lastHour',
+] as const
+
+export type TimeRange = (typeof timeRanges)[number]
 
 type TimeDelta = {
   value: number

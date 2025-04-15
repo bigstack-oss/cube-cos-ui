@@ -3,8 +3,8 @@ import {
   createTimePoints,
   TimePoint,
 } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeDropdownUtils'
 import { Dayjs } from 'dayjs'
+import { TimeRange } from '../../healthTimeRangeUtils'
 
 export type ServiceCategory = {
   name: string
