@@ -669,37 +669,6 @@ export interface GetAbstractedEventsResponseDataLimit {
 /**
  * 
  * @export
- * @interface GetCpuUsageHistoryOfHostResponse
- */
-export interface GetCpuUsageHistoryOfHostResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetCpuUsageHistoryOfHostResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {TimeValuePair}
-     * @memberof GetCpuUsageHistoryOfHostResponse
-     */
-    'data': TimeValuePair;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCpuUsageHistoryOfHostResponse
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetCpuUsageHistoryOfHostResponse
-     */
-    'status': string;
-}
-/**
- * 
- * @export
  * @interface GetCpuUsageRankOfHostsResponse
  */
 export interface GetCpuUsageRankOfHostsResponse {
@@ -2612,37 +2581,6 @@ export interface GetMeResponseData {
 /**
  * 
  * @export
- * @interface GetMemoryUsageHistoryOfHostResponse
- */
-export interface GetMemoryUsageHistoryOfHostResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetMemoryUsageHistoryOfHostResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {TimeValuePair}
-     * @memberof GetMemoryUsageHistoryOfHostResponse
-     */
-    'data': TimeValuePair;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetMemoryUsageHistoryOfHostResponse
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetMemoryUsageHistoryOfHostResponse
-     */
-    'status': string;
-}
-/**
- * 
- * @export
  * @interface GetMemoryUsageRankOfHostsResponse
  */
 export interface GetMemoryUsageRankOfHostsResponse {
@@ -2764,12 +2702,6 @@ export interface GetMemoryUsageSummaryOfVmsResponse {
      */
     'status': string;
 }
-/**
- * @type GetMetricByHostOrVm200Response
- * @export
- */
-export type GetMetricByHostOrVm200Response = GetCpuUsageHistoryOfHostResponse | GetMemoryUsageHistoryOfHostResponse;
-
 /**
  * 
  * @export
@@ -4557,6 +4489,12 @@ export interface GetTriggerResponseDataResponseEmailsInner {
      * @memberof GetTriggerResponseDataResponseEmailsInner
      */
     'note': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetTriggerResponseDataResponseEmailsInner
+     */
+    'enabled': boolean;
 }
 /**
  * 
@@ -4731,6 +4669,12 @@ export interface GetTriggersResponseDataInnerResponseEmailsInner {
      * @memberof GetTriggersResponseDataInnerResponseEmailsInner
      */
     'note': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
+     */
+    'enabled': boolean;
 }
 /**
  * 
@@ -4756,6 +4700,12 @@ export interface GetTriggersResponseDataInnerResponseSlacksInner {
      * @memberof GetTriggersResponseDataInnerResponseSlacksInner
      */
     'description': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
+     */
+    'enabled': boolean;
 }
 /**
  * 
@@ -4775,6 +4725,56 @@ export interface GetTriggersResponseDataInnerStatus {
      * @memberof GetTriggersResponseDataInnerStatus
      */
     'isUpdating': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface HostMetricHistoryResponse
+ */
+export interface HostMetricHistoryResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof HostMetricHistoryResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {HostMetricHistoryResponseData}
+     * @memberof HostMetricHistoryResponse
+     */
+    'data': HostMetricHistoryResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof HostMetricHistoryResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HostMetricHistoryResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface HostMetricHistoryResponseData
+ */
+export interface HostMetricHistoryResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof HostMetricHistoryResponseData
+     */
+    'unit': string;
+    /**
+     * 
+     * @type {Array<TimeValuePair>}
+     * @memberof HostMetricHistoryResponseData
+     */
+    'history': Array<TimeValuePair>;
 }
 /**
  * 
@@ -6643,10 +6643,10 @@ export interface UpdateTrigger500Response {
 export interface UpdateTriggerRequest {
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerAttributes>}
+     * @type {Array<UpdateTriggerRequestAttributesInner>}
      * @memberof UpdateTriggerRequest
      */
-    'attributes': Array<GetTriggersResponseDataInnerAttributes>;
+    'attributes': Array<UpdateTriggerRequestAttributesInner>;
     /**
      * 
      * @type {UpdateTriggerRequestResponse}
@@ -6655,10 +6655,35 @@ export interface UpdateTriggerRequest {
     'response': UpdateTriggerRequestResponse;
     /**
      * 
-     * @type {boolean}
+     * @type {string}
      * @memberof UpdateTriggerRequest
      */
-    'enabled': boolean;
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateTriggerRequestAttributesInner
+ */
+export interface UpdateTriggerRequestAttributesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTriggerRequestAttributesInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTriggerRequestAttributesInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTriggerRequestAttributesInner
+     */
+    'value': string;
 }
 /**
  * 
@@ -10518,7 +10543,7 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMetricByHostOrVm(dataCenter: string, metricType: GetMetricByHostOrVmMetricTypeEnum, viewType: GetMetricByHostOrVmViewTypeEnum, entityType: GetMetricByHostOrVmEntityTypeEnum, entityIdOrName: string, past?: GetMetricByHostOrVmPastEnum, start?: string, stop?: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMetricByHostOrVm200Response>> {
+        async getMetricByHostOrVm(dataCenter: string, metricType: GetMetricByHostOrVmMetricTypeEnum, viewType: GetMetricByHostOrVmViewTypeEnum, entityType: GetMetricByHostOrVmEntityTypeEnum, entityIdOrName: string, past?: GetMetricByHostOrVmPastEnum, start?: string, stop?: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HostMetricHistoryResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMetricByHostOrVm(dataCenter, metricType, viewType, entityType, entityIdOrName, past, start, stop, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.getMetricByHostOrVm']?.[localVarOperationServerIndex]?.url;
@@ -10574,7 +10599,7 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMetricByHostOrVm(requestParameters: MetricsApiGetMetricByHostOrVmRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMetricByHostOrVm200Response> {
+        getMetricByHostOrVm(requestParameters: MetricsApiGetMetricByHostOrVmRequest, options?: RawAxiosRequestConfig): AxiosPromise<HostMetricHistoryResponse> {
             return localVarFp.getMetricByHostOrVm(requestParameters.dataCenter, requestParameters.metricType, requestParameters.viewType, requestParameters.entityType, requestParameters.entityIdOrName, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
