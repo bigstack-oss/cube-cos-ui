@@ -11,9 +11,11 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { Dayjs } from 'dayjs'
-import { upperFirst } from 'lodash'
 import { useContext, useMemo } from 'react'
-import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../../homeHealthPageUtils'
+import {
+  HOME_HEALTH_PAGE_POLLING_INTERVAL,
+  serviceNameToLabel,
+} from '../../homeHealthPageUtils'
 import { ModuleHealth } from './ModuleHealth'
 import { useIsVisible } from './useIsVisible'
 import { HealthTimeRange } from '../../healthTimeRangeUtils'
@@ -78,7 +80,7 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
   return (
     <div className="flex flex-col gap-y-2">
       <div className="primary-body3 font-medium text-functional-text">
-        {upperFirst(service.name)}
+        {serviceNameToLabel(service.name)}
       </div>
       <div
         ref={elementRef}

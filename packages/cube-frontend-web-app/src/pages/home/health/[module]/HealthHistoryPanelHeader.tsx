@@ -9,6 +9,7 @@ import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRe
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { useContext } from 'react'
+import { moduleNameToLabel } from '../homeHealthPageUtils'
 
 export type HealthHistoryPanelHeaderProps = {
   module: ModuleMetadata | undefined
@@ -51,7 +52,11 @@ export const HealthHistoryPanelHeader = (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-x-3">
         <span className="primary-h4 text-functional-text">
-          {!module ? <CosSkeleton className="h-6 w-16" /> : module.name}
+          {!module ? (
+            <CosSkeleton className="h-6 w-16" />
+          ) : (
+            moduleNameToLabel(module.name)
+          )}
         </span>
         <CosButton
           loading={isCallingRepairApi}

@@ -3,7 +3,7 @@ import ChevronDown from '@cube-frontend/ui-library/icons/monochrome/chevron_down
 import { HealthTimeRange } from '../../healthTimeRangeUtils'
 import { cva } from 'class-variance-authority'
 import { Dayjs } from 'dayjs'
-import { capitalize } from 'lodash'
+import { startCase } from 'lodash'
 import { ServiceCategory } from './healthAccordionUtils'
 import { ServiceHealth } from './ServiceHealth'
 
@@ -52,7 +52,7 @@ export const HealthAccordionItem = (props: HealthAccordionItemProps) => {
         onClick={onExpand}
       >
         <h5 className="secondary-h5 text-functional-text">
-          {capitalize(category.name)}
+          {startCase(category.name)}
         </h5>
         <span className="flex items-center justify-center p-2">
           <ChevronDown className={chevron({ isExpanded })} />

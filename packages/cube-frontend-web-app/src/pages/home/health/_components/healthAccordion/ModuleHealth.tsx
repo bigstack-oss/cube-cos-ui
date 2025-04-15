@@ -7,9 +7,10 @@ import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_rig
 import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
 import { Dayjs } from 'dayjs'
-import { capitalize, noop } from 'lodash'
+import { noop } from 'lodash'
 import { useMemo } from 'react'
 import { Link } from 'react-router'
+import { moduleNameToLabel } from '../../homeHealthPageUtils'
 import { timePointFns } from './healthAccordionUtils'
 import { HealthBarSkeleton } from './HealthBarSkeleton'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
@@ -46,7 +47,7 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
           // Assign noop because `CosHyperlink` requires either `href` or `onClick` prop to be presented.
           onClick={noop}
         >
-          {capitalize(moduleName)}
+          {moduleNameToLabel(moduleName)}
         </CosHyperlink>
       </Link>
       {isLoading ? (

@@ -6,6 +6,7 @@ import {
 import { noop } from 'lodash'
 import { useMemo, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
+import { moduleNameToLabel, serviceNameToLabel } from '../homeHealthPageUtils'
 import { HealthDetails } from './HealthDetails'
 
 export const HealthDetailsPage = () => {
@@ -37,12 +38,12 @@ export const HealthDetailsPage = () => {
       <div className="flex items-center justify-between">
         <Link to="/home/health">
           <CosBackButton
-            details={`${moduleName} Details`}
+            details={`${moduleNameToLabel(moduleName)} Details`}
             loading={!module}
             // Assign noop because `CosBackButton` requires either `href` or `onClick` prop to be presented.
             onClick={noop}
           >
-            {module?.service ?? ''}
+            {serviceNameToLabel(module?.service)}
           </CosBackButton>
         </Link>
         <CosToggle
