@@ -16,6 +16,8 @@ import { toHealthUIData } from './utils'
 import { links } from '../../../links'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
+import { noop } from 'lodash'
+import { Link } from 'react-router'
 
 const HealthPanel = () => {
   const dataCenter = useContext(DataCenterContext)
@@ -67,7 +69,8 @@ const HealthPanel = () => {
       title="Health"
       time={updateTime}
       errorCount={errorCount}
-      hyperLinkProps={{ href: links.health }}
+      hyperLinkProps={{ onClick: noop }}
+      HyperLinkContainer={<Link to={links.health} />}
       isTimeLoading={isLoading}
     >
       {(isLoading || errorServices.length > 0) && (

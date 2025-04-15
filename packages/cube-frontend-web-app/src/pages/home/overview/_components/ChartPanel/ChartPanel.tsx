@@ -15,6 +15,8 @@ import { toMetricsChart } from '../../../utils'
 import { defaultMetrics } from './utils'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
+import { noop } from 'lodash'
+import { Link } from 'react-router'
 
 const ChartPanel = () => {
   const dataCenter = useContext(DataCenterContext)
@@ -53,7 +55,8 @@ const ChartPanel = () => {
     <CosDashboardPanel
       title="Chart"
       time={updateTime}
-      hyperLinkProps={{ href: links.chart }}
+      hyperLinkProps={{ onClick: noop }}
+      HyperLinkContainer={<Link to={links.chart} />}
       isTimeLoading={isLoading}
     >
       <CosDashboardPanel.Row>

@@ -16,6 +16,8 @@ import { formatEventTime } from '@cube-frontend/web-app/utils/date'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
+import { noop } from 'lodash'
+import { Link } from 'react-router'
 
 const HOME_PAGE_EVENT_ROW_LIMIT = 5
 
@@ -73,7 +75,8 @@ export const EventPanel = () => {
     <CosDashboardPanel
       title="Events"
       time={updateTime}
-      hyperLinkProps={{ href: '/events' }}
+      hyperLinkProps={{ onClick: noop }}
+      HyperLinkContainer={<Link to="/events" />}
       useContentWrapper={false}
       isTimeLoading={isLoading}
     >

@@ -6,6 +6,7 @@ import {
 } from '../../CosHyperlink/CosHyperlink'
 import ChevronRightIcon from '../..//CosIcon/monochrome/chevron_right.svg?react'
 import WarningAltFilledIcon from '../../CosIcon/monochrome/warning_alt_filled.svg?react'
+import { cloneElement, PropsWithChildren, ReactElement } from 'react'
 
 export type CosDashboardPanelHeaderProps = {
   title: string
@@ -15,11 +16,19 @@ export type CosDashboardPanelHeaderProps = {
    * @default false
    */
   isTimeLoading?: boolean
-  hyperLinkProps?: Pick<
-    CosHyperlinkProps,
-    'href' | 'disabled' | 'target' | 'onClick'
-  >
-}
+} & (
+  | {
+      hyperLinkProps?: never
+      HyperLinkContainer?: never
+    }
+  | {
+      hyperLinkProps: Pick<
+        CosHyperlinkProps,
+        'href' | 'disabled' | 'target' | 'onClick'
+      >
+      HyperLinkContainer?: ReactElement<PropsWithChildren>
+    }
+)
 
 // TODO: Replace this with i18n.
 const pluralizeError = (count: number): string => {
@@ -35,6 +44,7 @@ export const CosDashboardPanelHeader = (
     time,
     isTimeLoading = false,
     hyperLinkProps,
+    HyperLinkContainer,
   } = props
 
   const renderTime = () => {
@@ -44,6 +54,26 @@ export const CosDashboardPanelHeader = (
     return (
       <span className="secondary-body5 text-functional-text-light">{time}</span>
     )
+  }
+
+  const renderHyperlink = () => {
+    const linkElement = hyperLinkProps && (
+      <CosHyperlink
+        variant="icon-right"
+        size="sm"
+        Icon={ChevronRightIcon}
+        {...hyperLinkProps}
+      >
+        View All
+      </CosHyperlink>
+    )
+
+    if (!linkElement) return undefined
+    if (!HyperLinkContainer) return linkElement
+
+    return cloneElement(HyperLinkContainer, {
+      children: linkElement,
+    })
   }
 
   return (
@@ -59,16 +89,7 @@ export const CosDashboardPanelHeader = (
       </div>
       <div className="flex items-center gap-x-2.5">
         {renderTime()}
-        {hyperLinkProps && (
-          <CosHyperlink
-            variant="icon-right"
-            size="sm"
-            Icon={ChevronRightIcon}
-            {...hyperLinkProps}
-          >
-            View All
-          </CosHyperlink>
-        )}
+        {renderHyperlink()}
       </div>
     </div>
   )

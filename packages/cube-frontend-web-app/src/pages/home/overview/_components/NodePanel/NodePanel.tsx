@@ -8,6 +8,8 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 import { NodeTable } from './NodeTable'
+import { noop } from 'lodash'
+import { Link } from 'react-router'
 
 const HOME_PAGE_NODE_ROW_LIMIT = 5
 
@@ -38,7 +40,8 @@ export const NodePanel = () => {
     <CosDashboardPanel
       title="Nodes"
       time={updateTime}
-      hyperLinkProps={{ href: '/nodes' }}
+      hyperLinkProps={{ onClick: noop }}
+      HyperLinkContainer={<Link to="/nodes" />}
       useContentWrapper={false}
       isTimeLoading={isLoading}
     >
