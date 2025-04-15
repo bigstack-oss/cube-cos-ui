@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import isBetween from 'dayjs/plugin/isBetween'
 import minMax from 'dayjs/plugin/minMax'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { respectTz } from '@cube-frontend/utils'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -11,6 +12,7 @@ import App from './App.tsx'
 dayjs.extend(duration)
 dayjs.extend(isBetween)
 dayjs.extend(minMax)
+dayjs.extend(relativeTime)
 dayjs.extend(respectTz)
 
 createRoot(document.getElementById('root')!).render(

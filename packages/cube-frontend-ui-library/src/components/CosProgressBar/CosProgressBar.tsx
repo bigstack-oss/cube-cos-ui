@@ -35,7 +35,7 @@ export const CosProgressBar = (props: CosProgressBarProps) => {
   }
 
   const className = twMerge(
-    'inline-flex w-full items-center gap-x-[6px]',
+    'inline-flex w-full shrink-0 items-center gap-x-[6px]',
     classNameProps,
   )
 
@@ -52,7 +52,7 @@ export const CosProgressBar = (props: CosProgressBarProps) => {
           style={progressWidthStyle}
         />
       </div>
-      <span className="primary-body5 text-functional-text">{`${progress}%`}</span>
+      <span className="primary-body5 text-functional-text">{`${Math.round(progress)}%`}</span>
     </div>
   )
 }

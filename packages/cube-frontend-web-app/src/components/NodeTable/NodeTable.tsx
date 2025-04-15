@@ -1,5 +1,6 @@
 import { GetNodesResponseData } from '@cube-frontend/api'
 import {
+  CosHyperlink,
   CosProgressBar,
   CosStatus,
   CosTag,
@@ -12,6 +13,8 @@ import {
 } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
 import { toPercentage } from '@cube-frontend/web-app/utils/number'
+import { noop } from 'lodash'
+import { Link } from 'react-router'
 import { CopyButton } from '../CopyButton'
 
 export const BasicNodeTable =
@@ -26,7 +29,15 @@ export const NodeTable = (props: NodeTableProps) => {
         label="Hostname"
         property="hostname"
         emphasize={true}
-      />
+      >
+        {(hostname) => (
+          <Link className="block w-fit" to={`/nodes/${hostname}`}>
+            <CosHyperlink variant="text-only" onClick={noop}>
+              {hostname}
+            </CosHyperlink>
+          </Link>
+        )}
+      </BasicNodeTable.Column>
       <BasicNodeTable.Column
         label="Management IP"
         property="managementIP"
@@ -38,7 +49,7 @@ export const NodeTable = (props: NodeTableProps) => {
           <div className="flex items-center gap-x-1.5">
             <span className="w-[98px]">{managementIP}</span>
             <CosTooltip clickContent={{ message: 'Copied' }}>
-              <CopyButton copyContent="managementIP" />
+              <CopyButton copyContent={managementIP} />
             </CosTooltip>
           </div>
         )}

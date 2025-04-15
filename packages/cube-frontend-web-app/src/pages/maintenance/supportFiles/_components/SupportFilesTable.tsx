@@ -1,8 +1,5 @@
 import { CosButton, GetCosBasicTable } from '@cube-frontend/ui-library'
-import {
-  convertSize,
-  getReadableSizeUnit,
-} from '@cube-frontend/web-app/utils/byte'
+import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
 import { formatSupportFilesTimestamp } from '@cube-frontend/web-app/utils/date'
 import { SupportFileRow } from '../MaintenanceSupportFilesPage'
 
@@ -32,14 +29,7 @@ export const SupportFilesTable = (props: SupportFilesTableProps) => {
         )}
       </SupportFilesBasicTable.Column>
       <SupportFilesBasicTable.Column label="Size" property="sizeMiB">
-        {(MiB) => {
-          const readableSizeUnit = getReadableSizeUnit(MiB, 'MiB')
-          const readableSize = convertSize(MiB, {
-            fromUnit: 'MiB',
-            toUnit: readableSizeUnit,
-          })
-          return `${readableSize} ${readableSizeUnit}`
-        }}
+        {(MiB) => toReadableSizeString(MiB, 'MiB')}
       </SupportFilesBasicTable.Column>
       <SupportFilesBasicTable.Column label="Comments" property="description" />
       <SupportFilesBasicTable.Column fitContent={true}>

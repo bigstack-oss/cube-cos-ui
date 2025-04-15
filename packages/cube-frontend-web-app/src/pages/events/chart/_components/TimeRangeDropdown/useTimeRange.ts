@@ -18,14 +18,19 @@ const timeRangePastMap: Record<TimeRange, GetRankedEventsPastEnum> = {
   lastHour: '1h',
 }
 
-export const useTimeRange = (): UseTimeRange => {
+export const useTimeRange = (
+  /**
+   * @default 'last24Hours'
+   */
+  defaultTimeRange: TimeRange = 'last24Hours',
+): UseTimeRange => {
   const { utcTimeZone } = useContext(DataCenterContext)
 
   const getNow = useCallback(() => {
     return dayjs.utc().utcOffset(utcTimeZone)
   }, [utcTimeZone])
 
-  const [timeRange, setTimeRange] = useState<TimeRange>('last24Hours')
+  const [timeRange, setTimeRange] = useState<TimeRange>(defaultTimeRange)
 
   const [now, setNow] = useState(getNow)
 

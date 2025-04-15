@@ -21,6 +21,7 @@ import { MaintenanceLayout } from './pages/maintenance/MaintenanceLayout'
 import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/MaintenanceSupportFilesPage'
 import { MaintenanceLicensePage } from './pages/maintenance/license/MaintenanceLicensePage'
 import { NodeListPage } from './pages/node/NodeListPage'
+import { NodeDetailsPage } from './pages/node/[name]/NodeDetailsPage'
 
 // TODO: extract all links to CosRoutesEnum.
 export const CosRoutes = () => {
@@ -39,6 +40,7 @@ export const CosRoutes = () => {
         <Route path="/home/manage" element={<HomeManagePage />} />
       </Route>
       <Route path="/nodes" element={<NodeListPage />} />
+      <Route path="/nodes/:name" element={<NodeDetailsPage />} />
       <Route path="/events" element={<EventsLayout />}>
         <Route path="/events/tunings" element={<EventsTuningsPage />} />
       </Route>

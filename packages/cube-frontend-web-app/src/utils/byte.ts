@@ -23,7 +23,8 @@ export const getReadableSizeUnit = (
 ): SizeUnit => {
   const fromIndex = sizeUnits.indexOf(unit)
   const valueInBytes = value * Math.pow(K, fromIndex)
-  const displayUnitIndex = Math.floor(baseLog(valueInBytes, K))
+  const displayUnitIndex =
+    valueInBytes === 0 ? fromIndex : Math.floor(baseLog(valueInBytes, K))
 
   return sizeUnits[displayUnitIndex]
 }
@@ -63,4 +64,16 @@ export const toReadableUsedSize = (props: {
     used: readableUsedValue,
     sizeUnit: readableSizeUnit,
   }
+}
+
+export const toReadableSizeString = (
+  value: number,
+  originalSizeUnit: SizeUnit,
+): string => {
+  const readableSizeUnit = getReadableSizeUnit(value, originalSizeUnit)
+  const readableSize = convertSize(value, {
+    fromUnit: originalSizeUnit,
+    toUnit: readableSizeUnit,
+  })
+  return `${readableSize} ${readableSizeUnit}`
 }
