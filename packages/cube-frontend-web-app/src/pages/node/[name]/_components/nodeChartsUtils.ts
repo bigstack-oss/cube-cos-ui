@@ -105,7 +105,8 @@ export const getCpuChartOptions = (unit: string): ChartOptions<'line'> => {
           },
           label: (tooltipItem) => {
             const value = tooltipItem.parsed.y.toFixed(2)
-            const unitText = unit === 'percentage' ? '%' : unit
+            // TODO: Define an enum for `unit` in the API docs.
+            const unitText = unit === 'percentage' ? '%' : ` ${unit}`
             return `${value}${unitText}`
           },
         },
