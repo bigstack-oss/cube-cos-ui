@@ -116,9 +116,17 @@ export const CosNagging = (props: CosNaggingProps) => {
       return null
     }
 
-    if (isArray(description)) {
-      if (description.length === 0) {
+    const renderSingleDescription = (description: string) => {
+      if (!description) {
         return null
+      }
+
+      return <div className={descriptionContainerClass}>{description}</div>
+    }
+
+    const renderDescriptionList = (description: string[]) => {
+      if (description.length === 1) {
+        return renderSingleDescription(description[0])
       }
 
       return (
@@ -132,7 +140,9 @@ export const CosNagging = (props: CosNaggingProps) => {
       )
     }
 
-    return <div className={descriptionContainerClass}>{description}</div>
+    return isArray(description)
+      ? renderDescriptionList(description)
+      : renderSingleDescription(description)
   }
 
   const renderBottomLink = () => {

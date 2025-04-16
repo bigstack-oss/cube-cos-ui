@@ -20,8 +20,7 @@ export const DatePickerFilter = (props: DatePickerFilterProps) => {
     endDate,
   )
 
-  // Sync the selected dates with props,
-  // since the user can clear the start and end dates from the parent component.
+  // Sync selected dates with props
   useEffect(() => {
     setSelectedStartDate(startDate)
     setSelectedEndDate(endDate)
@@ -38,6 +37,7 @@ export const DatePickerFilter = (props: DatePickerFilterProps) => {
   }
 
   return (
+    // TODO: we need a method to clear the date picker selection
     <CosDatePicker
       startDate={selectedStartDate}
       setStartDate={setSelectedStartDate}

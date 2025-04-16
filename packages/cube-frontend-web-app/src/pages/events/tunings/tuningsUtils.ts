@@ -1,7 +1,4 @@
-import {
-  ListTuningResponseDataTuningsInner,
-  ListTuningResponseDataTuningsInnerHostsInner,
-} from '@cube-frontend/api'
+import { ListTuningResponseDataTuningsInner } from '@cube-frontend/api'
 import { CosTableRow, DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 import { uniqueId } from 'lodash'
 import { z } from 'zod'
@@ -17,14 +14,6 @@ export const tuningToRow = (
   ...structuredClone(tuning),
   id: getRowId(),
 })
-
-export const maxHostsDisplayCount = 10
-
-export const joinHostNames = (
-  hosts: ListTuningResponseDataTuningsInnerHostsInner[] | undefined,
-): string | undefined => {
-  return hosts?.map((host) => host.name).join(',')
-}
 
 const querySchema = z.object({
   keyword: z.string().nullable(),
