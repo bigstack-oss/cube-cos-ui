@@ -373,6 +373,12 @@ export interface EmailRecipientResponse {
      * @memberof EmailRecipientResponse
      */
     'note': string;
+    /**
+     * 
+     * @type {SettingStatus}
+     * @memberof EmailRecipientResponse
+     */
+    'status': SettingStatus;
 }
 /**
  * 
@@ -484,6 +490,12 @@ export interface EmailSenderResponse {
      * @memberof EmailSenderResponse
      */
     'accessVerified': boolean;
+    /**
+     * 
+     * @type {SettingStatus}
+     * @memberof EmailSenderResponse
+     */
+    'status': SettingStatus;
 }
 /**
  * 
@@ -2371,16 +2383,16 @@ export interface GetLicensesResponseDataLicensesInner {
     'issue': GetLicensesResponseDataLicensesInnerIssue;
     /**
      * 
-     * @type {GetLicensesResponseDataLicensesInnerQuantity}
+     * @type {string}
      * @memberof GetLicensesResponseDataLicensesInner
      */
-    'quantity': GetLicensesResponseDataLicensesInnerQuantity;
+    'quantity': string;
     /**
      * 
      * @type {string}
      * @memberof GetLicensesResponseDataLicensesInner
      */
-    'serviceLevelAgreement': string;
+    'supportPlan': string;
     /**
      * 
      * @type {GetLicensesResponseDataLicensesInnerExpiry}
@@ -2458,29 +2470,10 @@ export interface GetLicensesResponseDataLicensesInnerProduct {
     'name': string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof GetLicensesResponseDataLicensesInnerProduct
      */
-    'features': Array<string>;
-}
-/**
- * 
- * @export
- * @interface GetLicensesResponseDataLicensesInnerQuantity
- */
-export interface GetLicensesResponseDataLicensesInnerQuantity {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerQuantity
-     */
-    'type': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetLicensesResponseDataLicensesInnerQuantity
-     */
-    'value': number;
+    'feature': string;
 }
 /**
  * 
@@ -4054,10 +4047,10 @@ export interface GetSettingResponse {
 export interface GetSettingResponseData {
     /**
      * 
-     * @type {string}
+     * @type {GetSettingResponseDataTitlePrefix}
      * @memberof GetSettingResponseData
      */
-    'titlePrefix': string;
+    'titlePrefix': GetSettingResponseDataTitlePrefix;
     /**
      * 
      * @type {GetSettingResponseDataEmail}
@@ -4098,10 +4091,29 @@ export interface GetSettingResponseDataEmail {
 export interface GetSettingResponseDataSlack {
     /**
      * 
-     * @type {Array<SlackChannelPostRequest>}
+     * @type {Array<SlackChannelGetResponse>}
      * @memberof GetSettingResponseDataSlack
      */
-    'channels'?: Array<SlackChannelPostRequest>;
+    'channels'?: Array<SlackChannelGetResponse>;
+}
+/**
+ * 
+ * @export
+ * @interface GetSettingResponseDataTitlePrefix
+ */
+export interface GetSettingResponseDataTitlePrefix {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetSettingResponseDataTitlePrefix
+     */
+    'value': string;
+    /**
+     * 
+     * @type {SettingStatus}
+     * @memberof GetSettingResponseDataTitlePrefix
+     */
+    'status': SettingStatus;
 }
 /**
  * 
@@ -4429,70 +4441,20 @@ export interface GetTriggerResponseData {
     'description': string;
     /**
      * 
-     * @type {GetTriggersResponseDataInnerAttributes}
+     * @type {Array<GetTriggersResponseDataInnerAttributesInner>}
      * @memberof GetTriggerResponseData
      */
-    'attributes': GetTriggersResponseDataInnerAttributes;
+    'attributes': Array<GetTriggersResponseDataInnerAttributesInner>;
     /**
      * 
-     * @type {GetTriggerResponseDataResponse}
+     * @type {GetTriggersResponseDataInnerResponse}
      * @memberof GetTriggerResponseData
      */
-    'response': GetTriggerResponseDataResponse;
+    'response': GetTriggersResponseDataInnerResponse;
     /**
      * 
      * @type {boolean}
      * @memberof GetTriggerResponseData
-     */
-    'enabled': boolean;
-}
-/**
- * 
- * @export
- * @interface GetTriggerResponseDataResponse
- */
-export interface GetTriggerResponseDataResponse {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetTriggerResponseDataResponse
-     */
-    'types': Array<string>;
-    /**
-     * 
-     * @type {Array<GetTriggersResponseDataInnerResponseSlacksInner>}
-     * @memberof GetTriggerResponseDataResponse
-     */
-    'slacks': Array<GetTriggersResponseDataInnerResponseSlacksInner>;
-    /**
-     * 
-     * @type {Array<GetTriggerResponseDataResponseEmailsInner>}
-     * @memberof GetTriggerResponseDataResponse
-     */
-    'emails': Array<GetTriggerResponseDataResponseEmailsInner>;
-}
-/**
- * 
- * @export
- * @interface GetTriggerResponseDataResponseEmailsInner
- */
-export interface GetTriggerResponseDataResponseEmailsInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggerResponseDataResponseEmailsInner
-     */
-    'email': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggerResponseDataResponseEmailsInner
-     */
-    'note': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggerResponseDataResponseEmailsInner
      */
     'enabled': boolean;
 }
@@ -4572,10 +4534,10 @@ export interface GetTriggersResponseDataInner {
     'description': string;
     /**
      * 
-     * @type {GetTriggersResponseDataInnerAttributes}
+     * @type {Array<GetTriggersResponseDataInnerAttributesInner>}
      * @memberof GetTriggersResponseDataInner
      */
-    'attributes': GetTriggersResponseDataInnerAttributes;
+    'attributes': Array<GetTriggersResponseDataInnerAttributesInner>;
     /**
      * 
      * @type {GetTriggersResponseDataInnerResponse}
@@ -4598,31 +4560,31 @@ export interface GetTriggersResponseDataInner {
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInnerAttributes
+ * @interface GetTriggersResponseDataInnerAttributesInner
  */
-export interface GetTriggersResponseDataInnerAttributes {
+export interface GetTriggersResponseDataInnerAttributesInner {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributes
+     * @memberof GetTriggersResponseDataInnerAttributesInner
      */
     'name': string;
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributes
+     * @memberof GetTriggersResponseDataInnerAttributesInner
      */
     'type': string;
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributes
+     * @memberof GetTriggersResponseDataInnerAttributesInner
      */
     'value': string;
     /**
      * 
      * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerAttributes
+     * @memberof GetTriggersResponseDataInnerAttributesInner
      */
     'enabled': boolean;
 }
@@ -5473,10 +5435,10 @@ export interface NodeLicense {
     'serial': string;
     /**
      * 
-     * @type {NodeLicenseProduct}
+     * @type {GetLicensesResponseDataLicensesInnerProduct}
      * @memberof NodeLicense
      */
-    'product': NodeLicenseProduct;
+    'product': GetLicensesResponseDataLicensesInnerProduct;
     /**
      * 
      * @type {NodeLicenseIssue}
@@ -5485,16 +5447,16 @@ export interface NodeLicense {
     'issue': NodeLicenseIssue;
     /**
      * 
-     * @type {GetLicensesResponseDataLicensesInnerQuantity}
+     * @type {string}
      * @memberof NodeLicense
      */
-    'quantity': GetLicensesResponseDataLicensesInnerQuantity;
+    'quantity': string;
     /**
      * 
      * @type {string}
      * @memberof NodeLicense
      */
-    'serviceLevelAgreement': string;
+    'supportPlan': string;
     /**
      * 
      * @type {NodeLicenseExpiry}
@@ -5551,25 +5513,6 @@ export interface NodeLicenseIssue {
      * @memberof NodeLicenseIssue
      */
     'date': string;
-}
-/**
- * 
- * @export
- * @interface NodeLicenseProduct
- */
-export interface NodeLicenseProduct {
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseProduct
-     */
-    'name': string;
-    /**
-     * 
-     * @type {object}
-     * @memberof NodeLicenseProduct
-     */
-    'features': object;
 }
 /**
  * 
@@ -6091,6 +6034,34 @@ export interface RoleUsageMemory {
 /**
  * 
  * @export
+ * @interface SettingStatus
+ */
+export interface SettingStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof SettingStatus
+     */
+    'current': SettingStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SettingStatus
+     */
+    'isUpdating': boolean;
+}
+
+export const SettingStatusCurrentEnum = {
+    Ok: 'ok',
+    Updating: 'updating',
+    Error: 'error'
+} as const;
+
+export type SettingStatusCurrentEnum = typeof SettingStatusCurrentEnum[keyof typeof SettingStatusCurrentEnum];
+
+/**
+ * 
+ * @export
  * @interface SlackChannelGetResponse
  */
 export interface SlackChannelGetResponse {
@@ -6112,6 +6083,12 @@ export interface SlackChannelGetResponse {
      * @memberof SlackChannelGetResponse
      */
     'description': string;
+    /**
+     * 
+     * @type {SettingStatus}
+     * @memberof SlackChannelGetResponse
+     */
+    'status': SettingStatus;
 }
 /**
  * 
@@ -6305,6 +6282,12 @@ export interface TitlePrefix {
      * @memberof TitlePrefix
      */
     'value': string;
+    /**
+     * 
+     * @type {SettingStatus}
+     * @memberof TitlePrefix
+     */
+    'status': SettingStatus;
 }
 /**
  * 
@@ -6987,16 +6970,16 @@ export interface VerifyLicenseResponseDataLicense {
     'issue': GetLicensesResponseDataLicensesInnerIssue;
     /**
      * 
-     * @type {GetLicensesResponseDataLicensesInnerQuantity}
+     * @type {string}
      * @memberof VerifyLicenseResponseDataLicense
      */
-    'quantity': GetLicensesResponseDataLicensesInnerQuantity;
+    'quantity': string;
     /**
      * 
      * @type {string}
      * @memberof VerifyLicenseResponseDataLicense
      */
-    'serviceLevelAgreement': string;
+    'supportPlan': string;
     /**
      * 
      * @type {GetLicensesResponseDataLicensesInnerExpiry}

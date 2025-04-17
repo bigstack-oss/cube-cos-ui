@@ -57,12 +57,12 @@ export const TriggersCreateContext = createContext<TriggersCreateContextValue>({
    * Form fields
    */
   formOptions: {
-    allAttributes: undefined,
+    allAttributes: [],
     allEmails: [],
     allSlacks: [],
   },
   formValue: {
-    formAttributes: undefined,
+    formAttributes: [],
     formEmails: [],
     formSlacks: [],
     formDescription: '',

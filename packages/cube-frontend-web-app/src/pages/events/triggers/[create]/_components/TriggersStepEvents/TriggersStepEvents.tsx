@@ -19,7 +19,7 @@ export const TriggersStepEvent = () => {
   /**
    * TODO: update api schema
    */
-  const groupedAttributes = groupAttributeByName(formValue.formAttributes) || {}
+  const groupedAttributes = groupAttributeByName(formValue.formAttributes)
 
   const renderErrorMessage = () => {
     if (!errorMessage) return null

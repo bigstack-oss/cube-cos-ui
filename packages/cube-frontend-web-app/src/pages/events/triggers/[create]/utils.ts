@@ -1,7 +1,7 @@
 import { groupBy } from 'lodash'
 import {
   GetTriggersResponseDataInner,
-  GetTriggersResponseDataInnerAttributes,
+  GetTriggersResponseDataInnerAttributesInner,
   UpdateTriggerRequest,
 } from '@cube-frontend/api'
 import {
@@ -9,12 +9,15 @@ import {
   CreateTriggerFormValue,
 } from './useCreateTriggerForm'
 
-type GroupedAttribute = Record<string, GetTriggersResponseDataInnerAttributes[]>
+type GroupedAttribute = Record<
+  string,
+  GetTriggersResponseDataInnerAttributesInner[]
+>
 
 export const groupAttributeByName = (
-  arr: GetTriggersResponseDataInnerAttributes[] | undefined,
-): GroupedAttribute | undefined => {
-  if (!arr) return
+  arr: GetTriggersResponseDataInnerAttributesInner[] | undefined,
+): GroupedAttribute => {
+  if (!arr) return {}
   return groupBy(arr, (item) => item.name)
 }
 
@@ -23,7 +26,7 @@ export const triggerToFormOptions = (
 ): CreateTriggerFormOptions => {
   if (!selectedTemplate)
     return {
-      allAttributes: {} as GetTriggersResponseDataInnerAttributes,
+      allAttributes: [],
       allEmails: [],
       allSlacks: [],
     }
@@ -156,8 +159,7 @@ export const formValueToRequest = (
   const { formAttributes, formEmails, formSlacks, formDescription } = formValue
 
   return {
-    // TODO: update api request schema
-    attributes: formAttributes ? [formAttributes] : [],
+    attributes: formAttributes,
     response: {
       slacks: formSlacks.map((url) => ({ url })),
       emails: formEmails.map((address) => ({ address })),

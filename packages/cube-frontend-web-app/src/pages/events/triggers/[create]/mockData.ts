@@ -1,9 +1,9 @@
 import {
-  GetTriggerResponseDataResponse,
-  GetTriggersResponseDataInnerAttributes,
+  GetTriggersResponseDataInnerResponse,
+  GetTriggersResponseDataInnerAttributesInner,
 } from '@cube-frontend/api'
 
-export const mockAttributes: GetTriggersResponseDataInnerAttributes[] = [
+export const mockAttributes: GetTriggersResponseDataInnerAttributesInner[] = [
   { name: 'severity', type: 'string', value: 'W', enabled: true },
   { name: 'severity', type: 'string', value: 'E', enabled: true },
   { name: 'severity', type: 'string', value: 'C', enabled: true },
@@ -16,7 +16,7 @@ export const mockAttributes: GetTriggersResponseDataInnerAttributes[] = [
   { name: 'category', type: 'string', value: 'VRT', enabled: false },
 ]
 
-export const mockResponse: GetTriggerResponseDataResponse = {
+export const mockResponse: GetTriggersResponseDataInnerResponse = {
   types: ['email', 'slack'],
   slacks: [
     {
@@ -34,7 +34,7 @@ export const mockResponse: GetTriggerResponseDataResponse = {
   ],
   emails: [
     {
-      email: 'example.user@example.com',
+      address: 'example.user@example.com',
       note: 'example email recipient',
       enabled: false,
     },

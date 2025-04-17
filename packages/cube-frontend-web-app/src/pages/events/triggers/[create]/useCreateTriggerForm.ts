@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import {
   GetTriggersResponseDataInner,
-  GetTriggersResponseDataInnerAttributes,
+  GetTriggersResponseDataInnerAttributesInner,
   GetTriggersResponseDataInnerResponseEmailsInner,
   GetTriggersResponseDataInnerResponseSlacksInner,
 } from '@cube-frontend/api'
@@ -14,13 +14,13 @@ import {
 } from './utils'
 
 export type CreateTriggerFormOptions = {
-  allAttributes: GetTriggersResponseDataInnerAttributes | undefined
+  allAttributes: GetTriggersResponseDataInnerAttributesInner[]
   allEmails: GetTriggersResponseDataInnerResponseEmailsInner[]
   allSlacks: GetTriggersResponseDataInnerResponseSlacksInner[]
 }
 
 export type CreateTriggerFormValue = {
-  formAttributes: GetTriggersResponseDataInnerAttributes | undefined
+  formAttributes: GetTriggersResponseDataInnerAttributesInner[]
   formEmails: string[]
   formSlacks: string[]
   formDescription: string
@@ -56,7 +56,7 @@ export const useTriggerCreateForm = (
   const { allEmails, allSlacks } = formOptions
 
   const [formValue, setFormValue] = useState<CreateTriggerFormValue>({
-    formAttributes: {} as GetTriggersResponseDataInnerAttributes,
+    formAttributes: [],
     formEmails: [],
     formSlacks: [],
     formDescription: '',
