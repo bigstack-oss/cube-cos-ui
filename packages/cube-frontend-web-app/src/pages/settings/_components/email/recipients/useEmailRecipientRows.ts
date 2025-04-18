@@ -1,12 +1,14 @@
 import { EmailRecipientResponse } from '@cube-frontend/api'
+import { DeepPartial } from '@cube-frontend/utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { merge } from 'lodash'
+import { ChangeEvent, useContext, useState } from 'react'
 import { createEmailRecipient } from './actions/createEmailRecipient'
 import { deleteEmailRecipient as deleteEmailRecipientAction } from './actions/deleteEmailRecipient'
 import { tryEmailRecipient } from './actions/tryEmailRecipient'
 import { updateEmailRecipient } from './actions/updateEmailRecipient'
-import { emailRecipientToRow } from './emailRecipientMappers'
 import { createNewRow, EmailRecipientRow } from './emailRecipientsUtils'
+import { useSyncRecipientRows } from './useSyncRecipientRows'
 
 type UseEmailRecipientRows = {
   rows: EmailRecipientRow[]
@@ -20,30 +22,29 @@ type UseEmailRecipientRows = {
 }
 
 export const useEmailRecipientRows = (
-  initialRecipients?: EmailRecipientResponse[] | undefined,
+  recipientsFromApi?: EmailRecipientResponse[] | undefined,
 ): UseEmailRecipientRows => {
   const { name: dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<EmailRecipientRow[]>([])
 
-  useEffect(() => {
-    if (initialRecipients) {
-      setRows(initialRecipients.map(emailRecipientToRow))
-    }
-  }, [initialRecipients])
+  useSyncRecipientRows(recipientsFromApi, rows.length, setRows)
 
   const onAddClick = (): void => {
     setRows((prevRows) => [createNewRow(), ...prevRows])
   }
 
-  const patchRow = (id: string, payload: Partial<EmailRecipientRow>): void => {
+  const patchRow = (
+    id: string,
+    payload: DeepPartial<EmailRecipientRow>,
+  ): void => {
     setRows((prevRows) => {
       const rowIndex = prevRows.findIndex((row) => row.id === id)
       if (rowIndex < 0) {
         return prevRows
       }
       const nextRows = [...prevRows]
-      Object.assign(nextRows[rowIndex], payload)
+      merge(nextRows[rowIndex], payload)
       return nextRows
     })
   }
@@ -54,9 +55,7 @@ export const useEmailRecipientRows = (
 
   const onCancelEditClick = (rowId: string): void => {
     const targetRow = rows.find((row) => row.id === rowId)
-    if (!targetRow) {
-      return
-    }
+    if (!targetRow) return
 
     if (targetRow.isNew) {
       // Remove the new row.
@@ -79,9 +78,8 @@ export const useEmailRecipientRows = (
 
   const onTryClick = async (rowId: string): Promise<void> => {
     const row = rows.find((row) => row.id === rowId)
-    if (!row) {
-      return
-    }
+    if (!row) return
+
     await tryEmailRecipient({
       dataCenter,
       row,
@@ -91,9 +89,8 @@ export const useEmailRecipientRows = (
 
   const onSaveClick = async (rowId: string): Promise<void> => {
     const row = rows.find((row) => row.id === rowId)
-    if (!row) {
-      return
-    }
+    if (!row) return
+
     if (row.isNew) {
       await createEmailRecipient({
         dataCenter,
@@ -111,9 +108,8 @@ export const useEmailRecipientRows = (
 
   const deleteEmailRecipient = async (rowId: string): Promise<void> => {
     const row = rows.find((row) => row.id === rowId)
-    if (!row) {
-      return
-    }
+    if (!row) return
+
     await deleteEmailRecipientAction({
       dataCenter,
       row,

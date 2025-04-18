@@ -1,4 +1,8 @@
-import { EmailSenderResponse } from '@cube-frontend/api'
+import {
+  EmailSenderResponse,
+  SettingStatus,
+  SettingStatusCurrentEnum,
+} from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
 import { uniqueId } from 'lodash'
 import { z } from 'zod'
@@ -6,13 +10,13 @@ import { z } from 'zod'
 export type EmailSenderRow = EmailSenderForUi &
   CosTableRow & {
     originalState: EmailSenderForUi
+    status: SettingStatus
     isNew: boolean
     isEditing: boolean
-    isSaving: boolean
     isVerifying: boolean
   }
 
-export type EmailSenderForUi = Omit<EmailSenderResponse, 'port'> & {
+export type EmailSenderForUi = Omit<EmailSenderResponse, 'port' | 'status'> & {
   // Use string instead of number for `port` in the UI to simplify form validation
   // and allow an empty string for the placeholder row.
   port: string
@@ -34,6 +38,10 @@ export const createNewRow = (): EmailSenderRow => ({
   ...createEmailSender(),
   id: getRowId(),
   originalState: createEmailSender(),
+  status: {
+    current: SettingStatusCurrentEnum.Ok,
+    isUpdating: false,
+  },
   isNew: true,
   // Normally, a new row should start in editing mode.
   // But in phase 1, users are not allowed to add new email senders directly.
@@ -42,30 +50,15 @@ export const createNewRow = (): EmailSenderRow => ({
   // So for now, `isEditing` is `false` by default, and should be changed to
   // `true` once multiple email senders are supported.
   isEditing: false,
-  isSaving: false,
   isVerifying: false,
 })
 
 // TODO: Replace error messages with i18n keys.
-export const emailSenderSchema = z
-  .object({
-    host: z.string().min(1, 'Host cannot be empty'),
-    port: z.string().regex(/^\d+$/, 'Invalid port number'),
-    username: z.string().min(1, 'Username cannot be empty'),
-    password: z.string().optional(),
-    email: z.string().email('Invalid email'),
-    isNew: z.boolean(),
-  })
-  .refine(
-    (row) => {
-      if (!row.isNew) {
-        // Password field is optional for existing email senders.
-        return true
-      }
-      return !!row.password
-    },
-    {
-      path: ['password'],
-      message: 'Password cannot be empty',
-    },
-  )
+export const emailSenderSchema = z.object({
+  host: z.string().min(1, 'Host cannot be empty'),
+  port: z.string().regex(/^\d+$/, 'Invalid port number'),
+  username: z.string().min(1, 'Username cannot be empty'),
+  password: z.string().optional(),
+  email: z.string().email('Invalid email'),
+  isNew: z.boolean(),
+})

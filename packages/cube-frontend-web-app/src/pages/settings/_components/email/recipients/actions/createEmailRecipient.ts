@@ -1,3 +1,4 @@
+import { SettingStatusCurrentEnum } from '@cube-frontend/api'
 import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { rowToEmailPostRequest } from '../emailRecipientMappers'
 import { getRowId } from '../emailRecipientsUtils'
@@ -8,7 +9,14 @@ export const createEmailRecipient = async (
 ): Promise<void> => {
   const { dataCenter, row, patchRow, onSuccess } = options
 
-  patchRow(row.id, { isSaving: true })
+  const statusBeforeCreate = { ...row.status }
+
+  patchRow(row.id, {
+    status: {
+      current: SettingStatusCurrentEnum.Updating,
+      isUpdating: true,
+    },
+  })
 
   const newEmailRecipient = rowToEmailPostRequest(row)
 
@@ -20,13 +28,18 @@ export const createEmailRecipient = async (
     patchRow(row.id, {
       id: getRowId(),
       originalState: newEmailRecipient,
+      status: {
+        current: SettingStatusCurrentEnum.Ok,
+        isUpdating: false,
+      },
       isNew: false,
       isEditing: false,
-      isSaving: false,
     })
     onSuccess?.()
   } catch (error) {
     console.error('Create email recipient error: ', error)
-    patchRow(row.id, { isSaving: false })
+    patchRow(row.id, {
+      status: statusBeforeCreate,
+    })
   }
 }

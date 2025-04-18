@@ -1,3 +1,4 @@
+import { SettingStatusCurrentEnum } from '@cube-frontend/api'
 import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { rowToEmailSenderPutRequest } from '../emailSenderMappers'
 import { ActionOptions } from './utils'
@@ -7,7 +8,14 @@ export const updateEmailSender = async (
 ): Promise<void> => {
   const { dataCenter, row, patchRow } = options
 
-  patchRow(row.id, { isSaving: true })
+  const statusBeforeUpdate = { ...row.status }
+
+  patchRow(row.id, {
+    status: {
+      current: SettingStatusCurrentEnum.Updating,
+      isUpdating: true,
+    },
+  })
 
   const updatedEmailSender = rowToEmailSenderPutRequest(row)
 
@@ -27,11 +35,12 @@ export const updateEmailSender = async (
         accessVerified: false,
       },
       isEditing: false,
-      isSaving: false,
       accessVerified: false,
     })
   } catch (error) {
     console.error('Update email sender error: ', error)
-    patchRow(row.id, { isSaving: false })
+    patchRow(row.id, {
+      status: statusBeforeUpdate,
+    })
   }
 }

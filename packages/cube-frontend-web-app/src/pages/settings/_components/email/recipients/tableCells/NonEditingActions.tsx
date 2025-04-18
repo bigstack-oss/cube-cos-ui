@@ -23,13 +23,17 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
     callbacks: { onEditClick, onTryClick, onDeleteClick },
   } = props
 
-  const { isTrying, isDeleting } = row
+  const {
+    isTrying,
+    isDeleting,
+    status: { isUpdating },
+  } = row
 
   return (
     <div className="flex items-center justify-end gap-x-4">
       <IconActionButton
         Icon={Edit}
-        disabled={isTrying || isDeleting}
+        disabled={isTrying || isUpdating || isDeleting}
         onClick={() => onEditClick(row.id)}
       />
       <IconActionButton
@@ -40,13 +44,13 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
             ? 'Send test message'
             : 'A verified sender email is required to send the test message.'
         }
-        disabled={!hasVerifiedSender || isDeleting}
+        disabled={!hasVerifiedSender || isUpdating || isDeleting}
         onClick={() => onTryClick(row.id)}
       />
       <IconActionButton
         Icon={Delete}
         isLoading={isDeleting}
-        disabled={isTrying}
+        disabled={isUpdating || isTrying}
         onClick={() => onDeleteClick(row.id)}
       />
     </div>

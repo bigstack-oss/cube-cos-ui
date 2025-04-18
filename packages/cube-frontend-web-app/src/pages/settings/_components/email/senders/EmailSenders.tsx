@@ -1,5 +1,6 @@
 import {
   CosIconText,
+  CosLoadingSpinner,
   CosTableInput,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
@@ -50,7 +51,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
           is not available in phase 1. */}
       <EmailSendersHeader isAddButtonVisible={false} onAddButtonClick={noop} />
       <EmailSenderTable isLoading={isLoading} rows={rows}>
-        <EmailSenderTable.Column property="email" label="Email">
+        <EmailSenderTable.Column property="email" label="From Email">
           {(email, row) => (
             <div className="flex items-center gap-x-2">
               {row.isEditing ? (
@@ -59,28 +60,31 @@ export const EmailSenders = (props: EmailSendersProps) => {
                   type="email"
                   value={email}
                   errorMessage={rowsErrorMap.get(row.id)?.email}
-                  disabled={row.isSaving}
+                  disabled={row.status.isUpdating}
                   onChange={(e) => onChange(row.id, e)}
                 />
               ) : (
-                <>
+                <div className="flex items-center gap-2">
                   {email}
                   {!row.isNew && !row.accessVerified && (
                     <CosIconText type="warning">unverified</CosIconText>
                   )}
-                </>
+                  {row.status.isUpdating && (
+                    <CosLoadingSpinner variant="dot120" />
+                  )}
+                </div>
               )}
             </div>
           )}
         </EmailSenderTable.Column>
-        <EmailSenderTable.Column property="host" label="host">
+        <EmailSenderTable.Column property="host" label="Host">
           {(host, row) =>
             row.isEditing ? (
               <CosTableInput
                 name="host"
                 value={host}
                 errorMessage={rowsErrorMap.get(row.id)?.host}
-                disabled={row.isSaving}
+                disabled={row.status.isUpdating}
                 onChange={(e) => onChange(row.id, e)}
               />
             ) : (
@@ -96,7 +100,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
                 name="port"
                 value={port}
                 errorMessage={rowsErrorMap.get(row.id)?.port}
-                disabled={row.isSaving}
+                disabled={row.status.isUpdating}
                 onChange={(e) => onChange(row.id, e)}
               />
             ) : (
@@ -112,7 +116,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
                 name="username"
                 value={username}
                 errorMessage={rowsErrorMap.get(row.id)?.username}
-                disabled={row.isSaving}
+                disabled={row.status.isUpdating}
                 onChange={(e) => onChange(row.id, e)}
               />
             ) : (

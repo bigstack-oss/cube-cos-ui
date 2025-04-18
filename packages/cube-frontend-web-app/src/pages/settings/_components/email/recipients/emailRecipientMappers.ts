@@ -10,12 +10,15 @@ export const emailRecipientToRow = (
 ): EmailRecipientRow => ({
   address: emailRecipient.address,
   note: emailRecipient.note,
+  status: emailRecipient.status,
   id: getRowId(),
-  originalState: { ...emailRecipient },
+  originalState: {
+    address: emailRecipient.address,
+    note: emailRecipient.note,
+  },
   isNew: false,
   isEditing: false,
   isTrying: false,
-  isSaving: false,
   isDeleting: false,
 })
 

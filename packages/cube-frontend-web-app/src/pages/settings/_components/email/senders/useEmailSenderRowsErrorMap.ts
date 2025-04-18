@@ -27,7 +27,7 @@ export const useEmailSenderRowsErrorMap = (
 
     rows.forEach((row) => {
       const errorRecord = validateBySchema<
-        Omit<EmailSenderForUi, 'accessVerified'>
+        Omit<EmailSenderForUi, 'accessVerified' | 'status'>
       >(emailSenderSchema, row)
 
       // Currently, the backend uses `host` as the key rather than `host:port`.

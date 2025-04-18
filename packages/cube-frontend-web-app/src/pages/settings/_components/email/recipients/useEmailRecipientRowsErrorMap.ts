@@ -1,9 +1,13 @@
-import { EmailRecipientResponse } from '@cube-frontend/api'
 import { useMemo } from 'react'
 import { ErrorRecord, validateBySchema } from '../../validateBySchema'
-import { EmailRecipientRow, emailRecipientSchema } from './emailRecipientsUtils'
+import {
+  EmailRecipientResponseWithoutStatus,
+  EmailRecipientRow,
+  emailRecipientSchema,
+} from './emailRecipientsUtils'
 
-export type EmailRecipientRowError = ErrorRecord<EmailRecipientResponse>
+export type EmailRecipientRowError =
+  ErrorRecord<EmailRecipientResponseWithoutStatus>
 
 const computeEmailCountMap = (
   rows: EmailRecipientRow[],
@@ -24,7 +28,7 @@ export const useEmailRecipientRowsErrorMap = (
     const errorMap = new Map<string, EmailRecipientRowError>()
 
     rows.forEach((row) => {
-      const errorRecord = validateBySchema<EmailRecipientResponse>(
+      const errorRecord = validateBySchema<EmailRecipientResponseWithoutStatus>(
         emailRecipientSchema,
         row,
       )

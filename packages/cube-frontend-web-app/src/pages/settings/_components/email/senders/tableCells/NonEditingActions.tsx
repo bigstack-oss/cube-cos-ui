@@ -21,13 +21,18 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
     callbacks: { onEditClick, onVerifyClick },
   } = props
 
-  const { isNew, accessVerified, isVerifying } = row
+  const {
+    isNew,
+    accessVerified,
+    isVerifying,
+    status: { isUpdating },
+  } = row
 
   return (
     <div className="flex items-center justify-end gap-x-4">
       <IconActionButton
         Icon={Edit}
-        disabled={isVerifying}
+        disabled={isUpdating || isVerifying}
         onClick={() => onEditClick(row.id)}
       />
       {!isNew && !accessVerified && (
@@ -36,7 +41,7 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
           size="sm"
           usage="text-only"
           loading={isVerifying}
-          disabled={!canVerify}
+          disabled={isUpdating || !canVerify}
           onClick={() => onVerifyClick(row.id)}
         >
           Verify

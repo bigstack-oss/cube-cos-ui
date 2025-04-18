@@ -1,10 +1,12 @@
 import { EmailSenderResponse } from '@cube-frontend/api'
+import { DeepPartial } from '@cube-frontend/utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { merge } from 'lodash'
+import { ChangeEvent, useContext, useState } from 'react'
 import { createEmailSender } from './actions/createEmailSender'
 import { updateEmailSender } from './actions/updateEmailSender'
-import { emailSenderToRow } from './emailSenderMappers'
-import { createNewRow, EmailSenderRow } from './emailSendersUtils'
+import { EmailSenderRow } from './emailSendersUtils'
+import { useSyncSenderRows } from './useSyncSenderRows'
 
 export type UseEmailSenderRows = {
   rows: EmailSenderRow[]
@@ -16,32 +18,22 @@ export type UseEmailSenderRows = {
 }
 
 export const useEmailSenderRows = (
-  initialEmailSenders: EmailSenderResponse[] | undefined,
+  sendersFromApi: EmailSenderResponse[] | undefined,
 ): UseEmailSenderRows => {
   const { name: dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<EmailSenderRow[]>([])
 
-  useEffect(() => {
-    if (!initialEmailSenders) {
-      return
-    }
+  useSyncSenderRows(sendersFromApi, rows.length, setRows)
 
-    if (initialEmailSenders.length) {
-      setRows(initialEmailSenders.map(emailSenderToRow))
-    } else {
-      setRows([createNewRow()])
-    }
-  }, [initialEmailSenders])
-
-  const patchRow = (id: string, payload: Partial<EmailSenderRow>): void => {
+  const patchRow = (id: string, payload: DeepPartial<EmailSenderRow>): void => {
     setRows((prevRows) => {
       const nextRows = [...prevRows]
       const targetRow = nextRows.find((row) => row.id === id)
       if (!targetRow) {
         return prevRows
       }
-      Object.assign(targetRow, payload)
+      merge(targetRow, payload)
       return nextRows
     })
   }
@@ -52,9 +44,7 @@ export const useEmailSenderRows = (
 
   const onCancelEditClick = (rowId: string): void => {
     const row = rows.find((row) => row.id === rowId)
-    if (!row) {
-      return
-    }
+    if (!row) return
 
     // Reset the target row to the original state and exit editing state.
     patchRow(row.id, {
@@ -72,9 +62,7 @@ export const useEmailSenderRows = (
 
   const onSaveClick = async (rowId: string): Promise<void> => {
     const row = rows.find((row) => row.id === rowId)
-    if (!row) {
-      return
-    }
+    if (!row) return
 
     if (row.isNew) {
       await createEmailSender({
@@ -93,9 +81,8 @@ export const useEmailSenderRows = (
 
   const onSenderVerified = (rowId: string): void => {
     const row = rows.find((row) => row.id === rowId)
-    if (!row) {
-      return
-    }
+    if (!row) return
+
     patchRow(rowId, {
       originalState: {
         ...row.originalState,

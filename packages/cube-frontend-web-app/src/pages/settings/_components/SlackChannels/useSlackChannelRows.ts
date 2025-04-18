@@ -1,6 +1,7 @@
 import { SlackChannelPostRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { merge } from 'lodash'
+import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react'
 import { createSlackChannel } from './actions/createSlackChannel'
 import { deleteSlackChannel as deleteSlackChannelAction } from './actions/deleteSlackChannel'
 import { trySlackChannel } from './actions/trySlackChannel'
@@ -26,11 +27,18 @@ export const useSlackChannelRows = (
 
   const [rows, setRows] = useState<SlackChannelRow[]>([])
 
+  const isInitializedRef = useRef(false)
+
   useEffect(() => {
-    if (initialChannels) {
-      setRows(initialChannels.map(slackChannelToRow))
-    }
-  }, [initialChannels])
+    // Still loading.
+    if (!initialChannels) return
+
+    // Already initialized.
+    if (isInitializedRef.current) return
+
+    setRows(initialChannels.map(slackChannelToRow))
+    isInitializedRef.current = true
+  }, [initialChannels, rows.length])
 
   const onAddClick = (): void => {
     setRows((prevRows) => [createNewRow(), ...prevRows])
@@ -43,7 +51,7 @@ export const useSlackChannelRows = (
         return prevRows
       }
       const nextRows = [...prevRows]
-      Object.assign(nextRows[rowIndex], payload)
+      merge(nextRows[rowIndex], payload)
       return nextRows
     })
   }

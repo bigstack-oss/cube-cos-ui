@@ -16,11 +16,11 @@ export const emailSenderToRow = (
 
   return {
     ...emailSenderForUi,
+    status: emailSender.status,
     id: getRowId(),
     originalState: { ...emailSenderForUi },
     isNew: false,
     isEditing: false,
-    isSaving: false,
     isVerifying: false,
   }
 }

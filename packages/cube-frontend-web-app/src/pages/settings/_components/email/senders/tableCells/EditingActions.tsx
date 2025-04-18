@@ -20,13 +20,13 @@ export const EditingActions = (props: EditingActionsProps) => {
     callbacks: { onSaveClick, onCancelEditClick },
   } = props
 
-  const { isSaving } = row
+  const { isUpdating } = row.status
 
   return (
     <div className="flex items-center justify-end gap-x-2">
       <CosButton
         usage="text-only"
-        loading={isSaving}
+        loading={isUpdating}
         disabled={!canSave}
         onClick={() => onSaveClick(row.id)}
       >
@@ -37,7 +37,7 @@ export const EditingActions = (props: EditingActionsProps) => {
         type="ghost"
         usage="icon-only"
         Icon={Close}
-        disabled={isSaving}
+        disabled={isUpdating}
         onClick={() => onCancelEditClick(row.id)}
       />
     </div>

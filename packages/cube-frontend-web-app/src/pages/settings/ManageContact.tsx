@@ -1,4 +1,8 @@
-import { SettingsApiUpdateTitlePrefixRequest } from '@cube-frontend/api'
+import {
+  GetSettingResponseDataTitlePrefix,
+  SettingsApiUpdateTitlePrefixRequest,
+  SettingStatusCurrentEnum,
+} from '@cube-frontend/api'
 import { CosButton, CosInput, CosStroke } from '@cube-frontend/ui-library'
 import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -8,41 +12,64 @@ import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { SettingsSection } from './SettingsSection'
 
 type ManageContactProps = {
-  isLoading: boolean
-  initialTitlePrefix: string | undefined
+  titlePrefixFromApi: GetSettingResponseDataTitlePrefix | undefined
 }
 
 export const ManageContact = (props: ManageContactProps) => {
-  const { isLoading, initialTitlePrefix } = props
+  const { titlePrefixFromApi } = props
 
   const { name: dataCenter } = useContext(DataCenterContext)
 
-  const [titlePrefix, setTitlePrefix] = useState('')
-
-  const { isLoading: isUpdating, mutateResource: updateTitlePrefix } =
-    useCosMutationRequest(
-      settingsApi.updateTitlePrefix as (
-        params: SettingsApiUpdateTitlePrefixRequest,
-      ) => Promise<CosApiResponse<undefined>>,
-    )
+  const [titlePrefix, setTitlePrefix] = useState<
+    GetSettingResponseDataTitlePrefix | undefined
+  >(titlePrefixFromApi)
 
   useEffect(() => {
-    if (initialTitlePrefix !== undefined) {
-      setTitlePrefix(initialTitlePrefix)
-    }
-  }, [initialTitlePrefix])
+    if (!titlePrefixFromApi) return
+
+    setTitlePrefix((prev) => {
+      if (!prev) {
+        // Set initial value.
+        return titlePrefixFromApi
+      }
+      // Update status only.
+      return {
+        ...prev,
+        status: titlePrefixFromApi.status,
+      }
+    })
+  }, [titlePrefixFromApi])
+
+  const {
+    isLoading: isCallingUpdateApi,
+    mutateResource: updateTitlePrefixApi,
+  } = useCosMutationRequest(
+    settingsApi.updateTitlePrefix as (
+      params: SettingsApiUpdateTitlePrefixRequest,
+    ) => Promise<CosApiResponse<undefined>>,
+  )
 
   const onTitlePrefixChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setTitlePrefix(e.target.value)
+    setTitlePrefix((prev) => ({
+      ...prev!,
+      value: e.target.value,
+    }))
   }
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     try {
-      updateTitlePrefix({
+      setTitlePrefix((prev) => ({
+        ...prev!,
+        status: {
+          current: SettingStatusCurrentEnum.Updating,
+          isUpdating: true,
+        },
+      }))
+      updateTitlePrefixApi({
         dataCenter,
-        titlePrefix: {
-          value: titlePrefix,
+        updateTitlePrefixRequest: {
+          value: titlePrefix!.value,
         },
       })
     } catch (error) {
@@ -61,9 +88,9 @@ export const ManageContact = (props: ManageContactProps) => {
             <CosInput
               label="Title prefix"
               placeholder="Title prefix"
-              isLoading={isLoading}
-              value={titlePrefix}
-              disabled={isUpdating}
+              value={titlePrefix?.value ?? ''}
+              isLoading={!titlePrefix}
+              disabled={titlePrefix?.status.isUpdating || isCallingUpdateApi}
               onChange={onTitlePrefixChange}
             />
           </div>
@@ -71,8 +98,8 @@ export const ManageContact = (props: ManageContactProps) => {
             className="mb-[3px]"
             htmlType="submit"
             usage="text-only"
-            loading={isUpdating}
-            disabled={isLoading}
+            loading={titlePrefix?.status.isUpdating || isCallingUpdateApi}
+            disabled={!titlePrefix}
           >
             Save
           </CosButton>

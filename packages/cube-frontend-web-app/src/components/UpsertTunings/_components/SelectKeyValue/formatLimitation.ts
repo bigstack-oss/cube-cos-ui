@@ -16,6 +16,13 @@ export const formatLimitation = (
   options: FormatLimitationOptions = {},
 ): string => {
   const formatFn = formatFnMap[limitation.type]
+  if (!formatFn) {
+    // Throwing a straightforward error (to help debug) since COS sometimes
+    // returns unexpected limitation types.
+    throw new Error(
+      `Cannot find the format function for limitation type ${limitation.type}`,
+    )
+  }
   return formatFn(limitation, options)
 }
 

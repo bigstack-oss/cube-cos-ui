@@ -86,7 +86,7 @@ export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
 
   return (
     <CosModal
-      title="Send Test Email"
+      title="Send Test Email to Verify"
       size="sm"
       isOpen={isOpen}
       actionText="Send"

@@ -1,5 +1,6 @@
 import { EmailRecipientResponse } from '@cube-frontend/api'
 import {
+  CosLoadingSpinner,
   CosModal,
   CosTableInput,
   GetCosBasicTable,
@@ -13,14 +14,14 @@ import { useEmailRecipientRowsErrorMap } from './useEmailRecipientRowsErrorMap'
 
 type EmailRecipientsProps = {
   isLoading: boolean
-  initialRecipients?: EmailRecipientResponse[] | undefined
+  recipientsFromApi?: EmailRecipientResponse[] | undefined
   hasVerifiedSender: boolean
 }
 
 const EmailRecipientTable = GetCosBasicTable<EmailRecipientRow>()
 
 export const EmailRecipients = (props: EmailRecipientsProps) => {
-  const { isLoading, initialRecipients, hasVerifiedSender } = props
+  const { isLoading, recipientsFromApi, hasVerifiedSender } = props
 
   const {
     rows,
@@ -31,7 +32,7 @@ export const EmailRecipients = (props: EmailRecipientsProps) => {
     onTryClick,
     onSaveClick,
     deleteEmailRecipient,
-  } = useEmailRecipientRows(initialRecipients)
+  } = useEmailRecipientRows(recipientsFromApi)
 
   const rowsErrorMap = useEmailRecipientRowsErrorMap(rows)
 
@@ -65,11 +66,16 @@ export const EmailRecipients = (props: EmailRecipientsProps) => {
                 placeholder="Email"
                 value={address}
                 errorMessage={rowsErrorMap.get(row.id)?.address}
-                disabled={row.isSaving}
+                disabled={row.status.isUpdating}
                 onChange={(e) => onChange(row.id, e)}
               />
             ) : (
-              address
+              <div className="flex items-center gap-2">
+                {address}
+                {row.status.isUpdating && (
+                  <CosLoadingSpinner variant="dot120" />
+                )}
+              </div>
             )
           }
         </EmailRecipientTable.Column>
@@ -81,7 +87,7 @@ export const EmailRecipients = (props: EmailRecipientsProps) => {
                 placeholder="Note"
                 value={note}
                 errorMessage={rowsErrorMap.get(row.id)?.note}
-                disabled={row.isSaving}
+                disabled={row.status.isUpdating}
                 onChange={(e) => onChange(row.id, e)}
               />
             ) : (

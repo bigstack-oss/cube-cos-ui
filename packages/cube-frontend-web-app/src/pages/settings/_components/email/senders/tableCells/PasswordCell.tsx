@@ -15,7 +15,12 @@ const mask = '*'.repeat(10)
 export const PasswordCell = (props: PasswordCellProps) => {
   const { row, errorMessage, onChange } = props
 
-  const { password, isNew, isEditing, isSaving } = row
+  const {
+    password,
+    isNew,
+    isEditing,
+    status: { isUpdating },
+  } = row
 
   if (!isEditing) {
     if (isNew) {
@@ -33,7 +38,7 @@ export const PasswordCell = (props: PasswordCellProps) => {
         placeholder={isNew ? '' : mask}
         value={password}
         errorMessage={errorMessage}
-        disabled={isSaving}
+        disabled={isUpdating}
         onChange={onChange}
       />
       {!isNew && (

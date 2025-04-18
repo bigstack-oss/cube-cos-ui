@@ -6546,6 +6546,19 @@ export interface UpdateTitlePrefix500Response {
 /**
  * 
  * @export
+ * @interface UpdateTitlePrefixRequest
+ */
+export interface UpdateTitlePrefixRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateTitlePrefixRequest
+     */
+    'value': string;
+}
+/**
+ * 
+ * @export
  * @interface UpdateTitlePrefixResponse
  */
 export interface UpdateTitlePrefixResponse {
@@ -11982,15 +11995,15 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Update title prefix
          * @param {string} dataCenter The name of the data center to operate
-         * @param {TitlePrefix} titlePrefix 
+         * @param {UpdateTitlePrefixRequest} updateTitlePrefixRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTitlePrefix: async (dataCenter: string, titlePrefix: TitlePrefix, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateTitlePrefix: async (dataCenter: string, updateTitlePrefixRequest: UpdateTitlePrefixRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('updateTitlePrefix', 'dataCenter', dataCenter)
-            // verify required parameter 'titlePrefix' is not null or undefined
-            assertParamExists('updateTitlePrefix', 'titlePrefix', titlePrefix)
+            // verify required parameter 'updateTitlePrefixRequest' is not null or undefined
+            assertParamExists('updateTitlePrefix', 'updateTitlePrefixRequest', updateTitlePrefixRequest)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/titlePrefix`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -12011,7 +12024,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(titlePrefix, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(updateTitlePrefixRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -12256,12 +12269,12 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Update title prefix
          * @param {string} dataCenter The name of the data center to operate
-         * @param {TitlePrefix} titlePrefix 
+         * @param {UpdateTitlePrefixRequest} updateTitlePrefixRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTitlePrefix(dataCenter: string, titlePrefix: TitlePrefix, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateTitlePrefixResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTitlePrefix(dataCenter, titlePrefix, options);
+        async updateTitlePrefix(dataCenter: string, updateTitlePrefixRequest: UpdateTitlePrefixRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateTitlePrefixResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTitlePrefix(dataCenter, updateTitlePrefixRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateTitlePrefix']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -12444,7 +12457,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         updateTitlePrefix(requestParameters: SettingsApiUpdateTitlePrefixRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateTitlePrefixResponse> {
-            return localVarFp.updateTitlePrefix(requestParameters.dataCenter, requestParameters.titlePrefix, options).then((request) => request(axios, basePath));
+            return localVarFp.updateTitlePrefix(requestParameters.dataCenter, requestParameters.updateTitlePrefixRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -12800,10 +12813,10 @@ export interface SettingsApiUpdateTitlePrefixRequest {
 
     /**
      * 
-     * @type {TitlePrefix}
+     * @type {UpdateTitlePrefixRequest}
      * @memberof SettingsApiUpdateTitlePrefix
      */
-    readonly titlePrefix: TitlePrefix
+    readonly updateTitlePrefixRequest: UpdateTitlePrefixRequest
 }
 
 /**
@@ -13014,7 +13027,7 @@ export class SettingsApi extends BaseAPI {
      * @memberof SettingsApi
      */
     public updateTitlePrefix(requestParameters: SettingsApiUpdateTitlePrefixRequest, options?: RawAxiosRequestConfig) {
-        return SettingsApiFp(this.configuration).updateTitlePrefix(requestParameters.dataCenter, requestParameters.titlePrefix, options).then((request) => request(this.axios, this.basePath));
+        return SettingsApiFp(this.configuration).updateTitlePrefix(requestParameters.dataCenter, requestParameters.updateTitlePrefixRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
