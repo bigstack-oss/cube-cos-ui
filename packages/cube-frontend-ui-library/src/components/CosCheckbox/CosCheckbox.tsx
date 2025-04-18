@@ -125,7 +125,9 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
         className="peer hidden"
       />
       {renderIcon()}
-      <span className={twMerge(checkbox.label({ disabled }))}>{label}</span>
+      {label && (
+        <span className={twMerge(checkbox.label({ disabled }))}>{label}</span>
+      )}
     </label>
   )
 }

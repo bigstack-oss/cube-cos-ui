@@ -107,7 +107,7 @@ const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
         )
       }
     >
-      <TypedBasicTable.Column label={renderHeaderCheckbox()}>
+      <TypedBasicTable.Column label={renderHeaderCheckbox()} fitContent={true}>
         {(_, row) => {
           if (row.disabled) return null
 
