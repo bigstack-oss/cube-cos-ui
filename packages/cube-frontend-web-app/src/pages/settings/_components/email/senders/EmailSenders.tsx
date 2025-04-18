@@ -126,11 +126,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
         </EmailSenderTable.Column>
         <EmailSenderTable.Column property="password" label="Password">
           {(_, row) => (
-            <PasswordCell
-              row={row}
-              errorMessage={rowsErrorMap.get(row.id)?.password}
-              onChange={(e) => onChange(row.id, e)}
-            />
+            <PasswordCell row={row} onChange={(e) => onChange(row.id, e)} />
           )}
         </EmailSenderTable.Column>
         <EmailSenderTable.Column>

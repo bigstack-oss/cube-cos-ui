@@ -26,16 +26,15 @@ export const updateEmailSender = async (
       emailSenderPutRequest: updatedEmailSender,
     })
     patchRow(row.id, {
+      password: '',
+      accessVerified: false,
       originalState: {
-        email: row.email,
-        host: row.host,
+        ...updatedEmailSender,
         port: row.port,
-        username: row.username,
         password: '',
         accessVerified: false,
       },
       isEditing: false,
-      accessVerified: false,
     })
   } catch (error) {
     console.error('Update email sender error: ', error)

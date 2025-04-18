@@ -42,5 +42,5 @@ export const rowToEmailSenderPutRequest = (
   host: row.host,
   port: parseInt(row.port),
   username: row.username,
-  password: row.password || undefined,
+  password: row.password,
 })

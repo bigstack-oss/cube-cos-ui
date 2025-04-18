@@ -1,19 +1,17 @@
 import { CosTableInput, CosTooltip } from '@cube-frontend/ui-library'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { ChangeEvent } from 'react'
-import { twMerge } from 'tailwind-merge'
 import { EmailSenderRow } from '../emailSendersUtils'
 
 type PasswordCellProps = {
   row: EmailSenderRow
-  errorMessage: string | undefined
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 const mask = '*'.repeat(10)
 
 export const PasswordCell = (props: PasswordCellProps) => {
-  const { row, errorMessage, onChange } = props
+  const { row, onChange } = props
 
   const {
     password,
@@ -35,24 +33,18 @@ export const PasswordCell = (props: PasswordCellProps) => {
         name="password"
         type="password"
         className="w-32"
-        placeholder={isNew ? '' : mask}
         value={password}
-        errorMessage={errorMessage}
+        hideErrorIcon={true}
         disabled={isUpdating}
         onChange={onChange}
       />
       {!isNew && (
         <CosTooltip
           hoverContent={{
-            message: 'Leave blank to keep your current password',
+            message: 'Enter a new password, or leave empty to clear it.',
           }}
         >
-          <InformationCircle
-            className={twMerge(
-              'icon-md text-functional-text-light',
-              !errorMessage && '-ml-6',
-            )}
-          />
+          <InformationCircle className="icon-md text-functional-text-light" />
         </CosTooltip>
       )}
     </div>
