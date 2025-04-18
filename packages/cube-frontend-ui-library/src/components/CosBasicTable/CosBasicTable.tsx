@@ -1,6 +1,7 @@
 import {
   ComponentProps,
   ComponentType,
+  Fragment,
   PropsWithChildren,
   useMemo,
 } from 'react'
@@ -17,6 +18,7 @@ import { CosTableTh } from './rendering/CosTableTh'
 import { SortingState } from './sorting/sortingUtils'
 import { useSortedRows } from './sorting/useSortedRows'
 import { useColumnPayloads } from './useColumnPayloads'
+import { useSubRows } from './useSubRows'
 
 const tdBorderRadiusClass = twMerge(
   '[&:last-of-type>td:first-of-type]:rounded-bl-[5px]',
@@ -49,6 +51,8 @@ export const CosBasicTable = <Row extends CosTableRow>(
   } = props
 
   const { columns, rowCompareFnMapRef } = useColumnPayloads<Row>(children)
+
+  const subRows = useSubRows<Row>(children)
 
   const { sortedRows, sortingState, onSortDirectionChange } = useSortedRows(
     rows,
@@ -86,25 +90,55 @@ export const CosBasicTable = <Row extends CosTableRow>(
     if (sortedRows.length === 0) return renderEmptyRow()
 
     return sortedRows.map((row, rowIndex) => (
-      <tr
-        key={row.id}
-        className={twMerge(
-          '[&>td]:hover:bg-functional-hover-grey',
-          tdBorderRadiusClass,
-          computeRowClassName(rowClassName, row),
-        )}
-        onClick={() => onRowClick?.(row)}
-      >
-        {columns.map((column, colIndex) => (
-          <CosTableTd
-            key={`${column.property?.toString() ?? ''}-${colIndex}`}
-            row={row}
-            rowIndex={rowIndex}
-            column={column}
-          />
-        ))}
-      </tr>
+      <Fragment key={row.id}>
+        <tr
+          className={twMerge(
+            '[&>td]:hover:bg-functional-hover-grey',
+            tdBorderRadiusClass,
+            computeRowClassName(rowClassName, row),
+          )}
+          onClick={() => onRowClick?.(row)}
+        >
+          {columns.map((column, colIndex) => (
+            <CosTableTd
+              key={`${column.property?.toString() ?? ''}-${colIndex}`}
+              row={row}
+              rowIndex={rowIndex}
+              column={column}
+            />
+          ))}
+        </tr>
+        {renderSubRows(row)}
+      </Fragment>
     ))
+  }
+
+  const renderSubRows = (parentRow: Row) => {
+    if (!subRows.length) return undefined
+
+    return subRows.map((subRow, subRowIndex) => {
+      const { className, isVisible } = subRow.props
+      return (
+        <tr
+          key={`${parentRow.id}-sub-row-${subRowIndex}`}
+          className={twMerge(
+            '[&>td]:hover:bg-functional-hover-grey',
+            tdBorderRadiusClass,
+            computeRowClassName(className, parentRow),
+            !isVisible(parentRow) && 'invisible [&>td]:p-0',
+          )}
+        >
+          {subRow.columns.map((column, columnIndex) => (
+            <CosTableTd
+              key={columnIndex}
+              row={parentRow}
+              rowIndex={subRowIndex}
+              column={column}
+            />
+          ))}
+        </tr>
+      )
+    })
   }
 
   return (

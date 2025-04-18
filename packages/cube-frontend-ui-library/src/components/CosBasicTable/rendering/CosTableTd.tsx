@@ -79,6 +79,7 @@ export const CosTableTd = <Row extends CosTableRow>(
         emphasize: getEmphasize(),
         fitContent: column.fitContent,
       })}
+      colSpan={column.colSpan}
     >
       {isLoading ? (
         <CosTableTdSkeleton variant={column.skeletonVariant ?? 'regular'} />

@@ -28,13 +28,7 @@ export const useColumnPayloads = <Row extends CosTableRow>(
     const nextRowCompareFnMap: RowCompareFnMap<Row> = {}
 
     Children.toArray(children).forEach((child) => {
-      if (!isCosTableColumn<Row>(child)) {
-        console.warn(
-          'The children of CosTable can only be CosTableColumn, but found: ',
-          child,
-        )
-        return
-      }
+      if (!isCosTableColumn<Row>(child)) return
 
       const columnProps = child.props as CosTableColumnProps<
         Row,

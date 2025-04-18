@@ -43,6 +43,10 @@ export type CosTableColumnProps<
    * @default 'regular'
    */
   skeletonVariant?: CosTableColumnSkeletonVariant
+  /**
+   * @default undefined
+   */
+  colSpan?: number
 }
 
 // Wrapper function to help TypeScript correctly infer the type of `Row[Property]`.

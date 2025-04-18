@@ -8,6 +8,7 @@ export {
 export type {
   CosTableRow,
   CosBatchActionTableRow,
+  CosViewDetailsTableDetailItem,
 } from './components/CosBasicTable/cosTableUtils'
 export * from './components/CosBasicTable/rendering/CosTableTdSkeleton'
 export type {
@@ -18,6 +19,11 @@ export {
   type CosBatchActionTableProps,
   GetCosBatchActionTable,
 } from './components/CosBatchActionTable/CosBatchActionTable'
+export {
+  type CosViewDetailsTableProps,
+  GetCosViewDetailsTable,
+} from './components/CosViewDetailsTable/CosViewDetailsTable'
+export { useExpandedRowIdSet } from './components/CosViewDetailsTable/useExpandedRowIdSet'
 export * from './components/CosButton/CosButton'
 export * from './components/CosButton/CosButtonSkeleton'
 export * from './components/CosCheckbox/CosCheckbox'
