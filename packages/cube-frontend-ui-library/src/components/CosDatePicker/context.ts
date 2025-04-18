@@ -17,9 +17,9 @@ export type CosDatePickerContextValue = {
   onDateClick: (date: Dayjs) => void
   onPreviousMonthClick: () => void
   onNextMonthClick: () => void
-  onApplyClick: () => void
-  onCancelClick: () => void
-  onResetClick: () => void
+  onCancel: () => void
+  onApply: () => void
+  onReset: () => void
 }
 
 export const CosDatePickerContext = createContext<CosDatePickerContextValue>({
@@ -40,7 +40,7 @@ export const CosDatePickerContext = createContext<CosDatePickerContextValue>({
   onDateClick: () => {},
   onPreviousMonthClick: () => {},
   onNextMonthClick: () => {},
-  onApplyClick: () => {},
-  onCancelClick: () => {},
-  onResetClick: () => {},
+  onCancel: () => {},
+  onApply: () => {},
+  onReset: () => {},
 })

@@ -17,8 +17,8 @@ export const CosDatePickerMenu = () => {
     onPreviousMonthClick,
     onNextMonthClick,
     onDateClick,
-    onCancelClick,
-    onApplyClick,
+    onApply,
+    onReset,
   } = useContext(CosDatePickerContext)
 
   const { start, end } = displayDates
@@ -52,13 +52,13 @@ export const CosDatePickerMenu = () => {
         endDate={end}
       />
       <div className="flex justify-end gap-2">
-        <CosButton size="sm" type="ghost" onClick={onCancelClick}>
-          Cancel
+        <CosButton size="sm" type="ghost" onClick={onReset}>
+          Reset
         </CosButton>
         <CosButton
           size="sm"
           type="primary"
-          onClick={onApplyClick}
+          onClick={onApply}
           disabled={!start || !end}
         >
           Apply

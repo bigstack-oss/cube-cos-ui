@@ -5,6 +5,7 @@ import { CosDatePickerTrigger } from './CosDatePickerTrigger'
 import { CosDatePickerMenu } from './CosDatePickerMenu'
 import { CosDatePickerSkeleton } from './CosDatePickerSkeleton'
 import { CosDatePickerContext } from './context'
+import { DatePickerDates } from './useDatePicker'
 
 type CosDatePickerProps = {
   /**
@@ -15,85 +16,55 @@ type CosDatePickerProps = {
    * @default false
    */
   isLoading?: boolean
-  startDate: Dayjs | undefined
-  endDate: Dayjs | undefined
-  setStartDate: (date: Dayjs | undefined) => void
-  setEndDate: (date: Dayjs | undefined) => void
-  /**
-   * Optional callback triggered when "Apply" button is clicked
-   */
-  onApplyClick?: () => void
-  /**
-   * Optional callback triggered when "Cancel" button is clicked
-   */
-  onCancelClick?: () => void
+  displayDates: DatePickerDates
+  onChange: (date: Dayjs) => void
+  onCancel: () => void
+  onApply: () => void
+  onReset: () => void
 }
 
 export const CosDatePicker = (props: CosDatePickerProps) => {
   const {
     disabled = false,
     isLoading = false,
-    startDate,
-    endDate,
-    setStartDate,
-    setEndDate,
-    onApplyClick,
-    onCancelClick,
+    displayDates,
+    onChange: onChangeProps,
+    onCancel: onCancelProps,
+    onApply: onApplyProps,
+    onReset: onResetProps,
   } = props
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
-  const [displayDates, setDisplayDates] = useState<{
-    start: Dayjs | undefined
-    end: Dayjs | undefined
-  }>({ start: startDate, end: endDate })
-
   const [currentMonth, setCurrentMonth] = useState(() => dayjs(new Date()))
 
-  const handleDisplayDatesChange = (date: Dayjs) => {
-    const { start, end } = displayDates
-
-    if (start && end) {
-      setDisplayDates({ start: date, end: undefined })
-    } else if (!displayDates.start) {
-      setDisplayDates({ start: date, end: undefined })
-    } else if (start && date >= start) {
-      setDisplayDates((prev) => ({ ...prev, end: date }))
-    } else {
-      setDisplayDates((prev) => ({ start: date, end: prev.start }))
-    }
-  }
-
-  const handleApply = () => {
+  const onApply = () => {
     const { start, end } = displayDates
 
     if (!start || !end) return
 
-    onApplyClick?.()
-    setStartDate(start)
-    setEndDate(end)
+    onApplyProps()
     setIsCalendarOpen(false)
   }
 
-  const handleCancel = useCallback(() => {
-    onCancelClick?.()
-    setDisplayDates({ start: startDate, end: endDate })
-    setIsCalendarOpen(false)
-  }, [endDate, onCancelClick, startDate])
+  const onReset = useCallback(() => {
+    onResetProps()
+  }, [onResetProps])
 
-  const handleReset = () => {
-    setDisplayDates({ start: startDate, end: endDate })
-  }
+  const onCancel = useCallback(() => {
+    onCancelProps()
+    setIsCalendarOpen(false)
+  }, [onCancelProps])
 
   const toggleCalendarOpen = () => {
     setIsCalendarOpen((prev) => !prev)
   }
 
-  const handlePreviousMonthClick = () => {
+  const onPreviousMonthClick = () => {
     setCurrentMonth(currentMonth.subtract(1, 'month'))
   }
 
-  const handleNextMonthClick = () => {
+  const onNextMonthClick = () => {
     setCurrentMonth(currentMonth.add(1, 'month'))
   }
 
@@ -115,10 +86,10 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
       const isMenu = elementRef.current?.contains(target)
 
       if (!isTrigger && !isMenu) {
-        handleCancel()
+        onCancel()
       }
     },
-    [anchorRef, elementRef, handleCancel],
+    [anchorRef, elementRef, onCancel],
   )
 
   useEffect(() => {
@@ -140,12 +111,12 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
         triggerDisabled: disabled,
         isSelected: !!displayDates.start || !!displayDates.end,
         displayDates,
-        onDateClick: handleDisplayDatesChange,
-        onPreviousMonthClick: handlePreviousMonthClick,
-        onNextMonthClick: handleNextMonthClick,
-        onApplyClick: handleApply,
-        onCancelClick: handleCancel,
-        onResetClick: handleReset,
+        onDateClick: onChangeProps,
+        onPreviousMonthClick,
+        onNextMonthClick,
+        onCancel,
+        onApply,
+        onReset,
       }}
     >
       <>
