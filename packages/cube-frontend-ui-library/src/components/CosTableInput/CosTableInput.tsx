@@ -8,6 +8,9 @@ import { CosTableInputSkeleton } from './CosTableInputSkeleton'
 export type CosTableInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isLoading?: boolean
   errorMessage?: string | boolean
+  /**
+   * @default false
+   */
   hideErrorIcon?: boolean
 }
 
@@ -48,24 +51,26 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
     const defaultId = useId()
     const inputId = restProps.id || defaultId
 
-    const showErrorMessage = !!errorMessage && !hideErrorIcon
+    const showErrorMessage = !!errorMessage
 
     const renderErrorIcon = () => {
-      if (!showErrorMessage) return null
-
       return (
-        <CosTooltip
-          hoverContent={{
-            message: errorMessage?.toString(),
-          }}
-        >
-          <WarningFilled className="icon-md absolute -right-6 text-status-negative" />
-        </CosTooltip>
+        <div className="flex size-4 shrink-0 items-center justify-center">
+          {showErrorMessage && (
+            <CosTooltip
+              hoverContent={{
+                message: errorMessage?.toString(),
+              }}
+            >
+              <WarningFilled className="icon-md text-status-negative" />
+            </CosTooltip>
+          )}
+        </div>
       )
     }
 
     return (
-      <div className="relative flex items-center gap-x-2">
+      <div className="flex items-center gap-x-2">
         {isLoading ? (
           <CosTableInputSkeleton />
         ) : (
@@ -80,7 +85,7 @@ export const CosTableInput = forwardRef<HTMLInputElement, CosTableInputProps>(
             )}
           />
         )}
-        {renderErrorIcon()}
+        {!hideErrorIcon && renderErrorIcon()}
       </div>
     )
   },
