@@ -12,6 +12,7 @@ import {
   selectAllItems,
   formValidation,
 } from './utils'
+import { CreateTriggerStepParams } from './useCreateTriggerStep'
 
 export type CreateTriggerFormOptions = {
   allAttributes: GetTriggersResponseDataInnerAttributesInner[]
@@ -27,6 +28,8 @@ export type CreateTriggerFormValue = {
 }
 
 type UseTriggerCreateFormOption = {
+  step: CreateTriggerStepParams
+  isTemplateLoading: boolean
   selectedTemplate: GetTriggersResponseDataInner | undefined
 }
 
@@ -47,7 +50,7 @@ type UseTriggerCreateForm = {
 export const useTriggerCreateForm = (
   option: UseTriggerCreateFormOption,
 ): UseTriggerCreateForm => {
-  const { selectedTemplate } = option
+  const { step, isTemplateLoading, selectedTemplate } = option
 
   const formOptions = useMemo(
     () => triggerToFormOptions(selectedTemplate),
@@ -105,7 +108,9 @@ export const useTriggerCreateForm = (
     setFormValue((prev) => ({ ...prev, formDescription: e.target.value }))
   }
 
-  const { isFormValueValid, errorMessage } = formValidation({
+  const errorMessage = formValidation({
+    step,
+    isTemplateLoading,
     formTemplate: selectedTemplate?.name,
     formEmails: formValue.formEmails,
     formSlacks: formValue.formSlacks,
@@ -114,7 +119,7 @@ export const useTriggerCreateForm = (
   return {
     formOptions,
     formValue,
-    isFormValueValid,
+    isFormValueValid: !errorMessage,
     errorMessage,
 
     handleEmailSelect,

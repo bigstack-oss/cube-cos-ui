@@ -19,7 +19,7 @@ type UseTemplateTable = {
 export const useTemplateTable = (): UseTemplateTable => {
   const navigate = useNavigate()
 
-  const [searchParams, _] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const urlTemplateName = searchParams.get('name')
 
@@ -38,7 +38,7 @@ export const useTemplateTable = (): UseTemplateTable => {
   const [selectedTemplate, setSelectedTemplate] =
     useState<GetTriggersResponseDataInner>()
 
-  const { isLoading, data: listTemplate } = useCosGetRequest(
+  const { isLoading, data: templatesFromApi } = useCosGetRequest(
     triggersApi.getTriggers,
     () => {
       if (!dataCenter) return
@@ -49,24 +49,24 @@ export const useTemplateTable = (): UseTemplateTable => {
   )
 
   useEffect(() => {
-    if (urlTemplateName && listTemplate) {
-      const targetTemplate = listTemplate.filter(
+    if (urlTemplateName && templatesFromApi) {
+      const targetTemplate = templatesFromApi.find(
         (template) => template.name === urlTemplateName,
       )
 
-      if (targetTemplate.length === 0) {
+      if (!targetTemplate) {
         console.warn('Not a valid template, please try again')
         navigate('/events/triggers')
       }
 
-      setSelectedTemplate(targetTemplate[0])
+      setSelectedTemplate(targetTemplate)
     }
-  }, [listTemplate, navigate, urlTemplateName])
+  }, [templatesFromApi, navigate, urlTemplateName])
 
   const templateRows: TemplateRow[] = useMemo(() => {
-    if (isLoading || !listTemplate) return []
+    if (isLoading || !templatesFromApi) return []
 
-    return listTemplate.map((template) => ({
+    return templatesFromApi.map((template) => ({
       ...template,
       /**
        * We use the template name as the row ID since it is unique.
@@ -74,7 +74,7 @@ export const useTemplateTable = (): UseTemplateTable => {
        */
       id: template.name,
     }))
-  }, [isLoading, listTemplate])
+  }, [isLoading, templatesFromApi])
 
   const disabledRowsId = urlTemplateName
     ? templateRows

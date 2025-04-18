@@ -1,12 +1,8 @@
 import { useContext } from 'react'
-import {
-  CosButton,
-  CosStroke,
-  GetCosBatchActionTable,
-} from '@cube-frontend/ui-library'
-import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
+import { CosStroke, GetCosBatchActionTable } from '@cube-frontend/ui-library'
 import { TriggersCreateContext } from '../../context'
 import { TemplateRow } from '../../useTemplateTable'
+import { TriggersNextButton } from '../TriggersNextButton'
 
 const TemplateTable = GetCosBatchActionTable<TemplateRow>()
 
@@ -19,16 +15,7 @@ export const TriggersStepTemplate = () => {
     disabledRowsId,
     handleTemplateSelect,
     isFormValueValid,
-    errorMessage,
   } = useContext(TriggersCreateContext)
-
-  const renderErrorMessage = () => {
-    if (errorMessage)
-      return (
-        <div className="primary-body3 text-status-negative">{errorMessage}</div>
-      )
-    return null
-  }
 
   return (
     <div className="flex flex-col gap-y-6 rounded-[5px] bg-grey-0 px-6 py-4 [box-shadow:0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]">
@@ -47,21 +34,11 @@ export const TriggersStepTemplate = () => {
         </TemplateTable>
       </div>
       <CosStroke type="dot" />
-      <div className="flex w-fit flex-col gap-2">
-        {renderErrorMessage()}
-        <CosButton
-          size="md"
-          type="primary"
-          usage="icon-right"
-          className="w-fit"
-          Icon={ChevronRight}
-          loading={isTemplateLoading}
-          disabled={!isFormValueValid}
-          onClick={goToEvents}
-        >
-          Next
-        </CosButton>
-      </div>
+      <TriggersNextButton
+        isLoading={isTemplateLoading}
+        disabled={!isFormValueValid}
+        onClick={goToEvents}
+      />
     </div>
   )
 }

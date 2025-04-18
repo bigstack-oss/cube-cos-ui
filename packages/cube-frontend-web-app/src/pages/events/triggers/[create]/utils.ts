@@ -8,6 +8,7 @@ import {
   CreateTriggerFormOptions,
   CreateTriggerFormValue,
 } from './useCreateTriggerForm'
+import { CreateTriggerStepParams } from './useCreateTriggerStep'
 
 type GroupedAttribute = Record<
   string,
@@ -17,7 +18,6 @@ type GroupedAttribute = Record<
 export const groupAttributeByName = (
   arr: GetTriggersResponseDataInnerAttributesInner[] | undefined,
 ): GroupedAttribute => {
-  if (!arr) return {}
   return groupBy(arr, (item) => item.name)
 }
 
@@ -90,42 +90,39 @@ export const triggerToFormValue = (
 }
 
 type FormValidationOptions = {
+  step: CreateTriggerStepParams
+  isTemplateLoading: boolean
   formTemplate: string | undefined
   formEmails: string[]
   formSlacks: string[]
 }
 
-type FormValidation = {
-  isFormValueValid: boolean
-  errorMessage?: string
-}
-
 /**
- * @returns An object containing:
- *   - `isFormValueValid`: `true` if the form values are valid for the given step, otherwise `false`.
- *   - `errorMessage`: A string describing the validation error, or `undefined` if valid.
+ * @returns An error message, or `undefined` if there’s no error.
  */
 export const formValidation = (
   options: FormValidationOptions,
-): FormValidation => {
-  const { formTemplate, formEmails, formSlacks } = options
+): string | undefined => {
+  const { step, isTemplateLoading, formTemplate, formEmails, formSlacks } =
+    options
 
-  if (!formTemplate) {
-    return {
-      isFormValueValid: false,
-      errorMessage: 'Please select a template.',
+  if (
+    step === CreateTriggerStepParams.TEMPLATE &&
+    !isTemplateLoading &&
+    !formTemplate
+  ) {
+    return 'Please select a template.'
+  }
+
+  if (step === CreateTriggerStepParams.RESPONSE) {
+    const hasEmails = formEmails.length > 0
+    const hasSlacks = formSlacks.length > 0
+    if (!hasEmails && !hasSlacks) {
+      return 'At least one email recipient or Slack channel must be selected.'
     }
   }
 
-  const hasEmails = formEmails.length > 0
-  const hasSlacks = formSlacks.length > 0
-  if (!hasEmails && !hasSlacks)
-    return {
-      isFormValueValid: false,
-      errorMessage:
-        'At least one email recipient or Slack channel must be selected.',
-    }
-  return { isFormValueValid: true, errorMessage: undefined }
+  return undefined
 }
 
 export const selectSingleItem = (

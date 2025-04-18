@@ -39,7 +39,11 @@ export const TriggersCreatePage = () => {
     handleSlackSelect,
     handleSlackSelectAll,
     handleDescriptionChange,
-  } = useTriggerCreateForm({ selectedTemplate })
+  } = useTriggerCreateForm({
+    step,
+    isTemplateLoading,
+    selectedTemplate,
+  })
 
   const renderContentFnMap: Record<CreateTriggerStepParams, () => ReactNode> = {
     selectTemplate: () => <TriggersStepTemplate />,
