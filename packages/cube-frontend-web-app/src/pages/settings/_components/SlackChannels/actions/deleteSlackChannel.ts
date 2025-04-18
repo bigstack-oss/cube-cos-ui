@@ -4,7 +4,7 @@ import { ActionOptions } from './utils'
 export const deleteSlackChannel = async (
   options: ActionOptions,
 ): Promise<void> => {
-  const { dataCenter, row, patchRow, onSuccess } = options
+  const { dataCenter, row, patchRow, onSuccess, onError } = options
 
   patchRow(row.id, { isDeleting: true })
 
@@ -17,5 +17,6 @@ export const deleteSlackChannel = async (
   } catch (error) {
     console.error('Delete slack channel error: ', error)
     patchRow(row.id, { isDeleting: false })
+    onError?.(error)
   }
 }

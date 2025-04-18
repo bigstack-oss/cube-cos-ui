@@ -1,5 +1,6 @@
 import { SlackChannelPostRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 import { merge } from 'lodash'
 import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react'
 import { createSlackChannel } from './actions/createSlackChannel'
@@ -24,6 +25,8 @@ export const useSlackChannelRows = (
   initialChannels: SlackChannelPostRequest[] | undefined,
 ): UseSlackChannelRows => {
   const { name: dataCenter } = useContext(DataCenterContext)
+
+  const showErrorToast = useShowErrorToast()
 
   const [rows, setRows] = useState<SlackChannelRow[]>([])
 
@@ -94,6 +97,7 @@ export const useSlackChannelRows = (
       dataCenter,
       row,
       patchRow,
+      onError: showErrorToast,
     })
   }
 
@@ -108,12 +112,14 @@ export const useSlackChannelRows = (
         dataCenter,
         row,
         patchRow,
+        onError: showErrorToast,
       })
     } else {
       await updateSlackChannel({
         dataCenter,
         row,
         patchRow,
+        onError: showErrorToast,
       })
     }
   }
@@ -130,6 +136,7 @@ export const useSlackChannelRows = (
       onSuccess: () => {
         setRows((prevRows) => prevRows.filter((row) => row.id !== rowId))
       },
+      onError: showErrorToast,
     })
   }
 

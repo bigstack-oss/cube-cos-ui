@@ -4,7 +4,7 @@ import { ActionOptions } from './utils'
 export const tryEmailRecipient = async (
   options: ActionOptions,
 ): Promise<void> => {
-  const { dataCenter, row, patchRow, onSuccess } = options
+  const { dataCenter, row, patchRow, onSuccess, onError } = options
 
   patchRow(row.id, { isTrying: true })
 
@@ -16,6 +16,7 @@ export const tryEmailRecipient = async (
     onSuccess?.()
   } catch (error) {
     console.error('Try email recipient error: ', error)
+    onError?.(error)
   } finally {
     patchRow(row.id, { isTrying: false })
   }

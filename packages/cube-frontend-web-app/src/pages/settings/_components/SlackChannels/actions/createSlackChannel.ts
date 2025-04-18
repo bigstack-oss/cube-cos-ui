@@ -6,7 +6,7 @@ import { ActionOptions } from './utils'
 export const createSlackChannel = async (
   options: ActionOptions,
 ): Promise<void> => {
-  const { dataCenter, row, patchRow, onSuccess } = options
+  const { dataCenter, row, patchRow, onSuccess, onError } = options
 
   patchRow(row.id, { isSaving: true })
 
@@ -28,5 +28,6 @@ export const createSlackChannel = async (
   } catch (error) {
     console.error('Create slack channel error: ', error)
     patchRow(row.id, { isSaving: false })
+    onError?.(error)
   }
 }

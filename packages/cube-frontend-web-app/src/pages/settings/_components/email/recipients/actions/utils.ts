@@ -6,4 +6,5 @@ export type ActionOptions = {
   row: EmailRecipientRow
   patchRow: (id: string, payload: DeepPartial<EmailRecipientRow>) => void
   onSuccess?: () => void
+  onError?: (error: unknown) => void
 }

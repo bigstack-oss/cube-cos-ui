@@ -1,6 +1,7 @@
 import { EmailRecipientResponse } from '@cube-frontend/api'
 import { DeepPartial } from '@cube-frontend/utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 import { merge } from 'lodash'
 import { ChangeEvent, useContext, useState } from 'react'
 import { createEmailRecipient } from './actions/createEmailRecipient'
@@ -25,6 +26,8 @@ export const useEmailRecipientRows = (
   recipientsFromApi?: EmailRecipientResponse[] | undefined,
 ): UseEmailRecipientRows => {
   const { name: dataCenter } = useContext(DataCenterContext)
+
+  const showErrorToast = useShowErrorToast()
 
   const [rows, setRows] = useState<EmailRecipientRow[]>([])
 
@@ -84,6 +87,7 @@ export const useEmailRecipientRows = (
       dataCenter,
       row,
       patchRow,
+      onError: showErrorToast,
     })
   }
 
@@ -96,12 +100,14 @@ export const useEmailRecipientRows = (
         dataCenter,
         row,
         patchRow,
+        onError: showErrorToast,
       })
     } else {
       await updateEmailRecipient({
         dataCenter,
         row,
         patchRow,
+        onError: showErrorToast,
       })
     }
   }
@@ -117,6 +123,7 @@ export const useEmailRecipientRows = (
       onSuccess: () => {
         setRows((prevRows) => prevRows.filter((row) => row.id !== rowId))
       },
+      onError: showErrorToast,
     })
   }
 

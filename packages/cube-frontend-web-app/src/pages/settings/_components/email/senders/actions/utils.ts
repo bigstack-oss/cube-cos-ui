@@ -5,4 +5,5 @@ export type ActionOptions = {
   dataCenter: string
   row: EmailSenderRow
   patchRow: (id: string, payload: DeepPartial<EmailSenderRow>) => void
+  onError?: (error: unknown) => void
 }

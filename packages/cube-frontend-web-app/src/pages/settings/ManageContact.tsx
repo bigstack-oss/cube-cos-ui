@@ -8,6 +8,7 @@ import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { SettingsSection } from './SettingsSection'
 
@@ -19,6 +20,8 @@ export const ManageContact = (props: ManageContactProps) => {
   const { titlePrefixFromApi } = props
 
   const { name: dataCenter } = useContext(DataCenterContext)
+
+  const showErrorToast = useShowErrorToast()
 
   const [titlePrefix, setTitlePrefix] = useState<
     GetSettingResponseDataTitlePrefix | undefined
@@ -74,6 +77,7 @@ export const ManageContact = (props: ManageContactProps) => {
       })
     } catch (error) {
       console.error('Update title prefix error: ', error)
+      showErrorToast(error)
     }
   }
 

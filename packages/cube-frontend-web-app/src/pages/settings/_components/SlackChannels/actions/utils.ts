@@ -5,4 +5,5 @@ export type ActionOptions = {
   row: SlackChannelRow
   patchRow: (id: string, payload: Partial<SlackChannelRow>) => void
   onSuccess?: () => void
+  onError?: (error: unknown) => void
 }

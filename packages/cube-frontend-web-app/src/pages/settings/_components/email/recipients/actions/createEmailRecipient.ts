@@ -7,7 +7,7 @@ import { ActionOptions } from './utils'
 export const createEmailRecipient = async (
   options: ActionOptions,
 ): Promise<void> => {
-  const { dataCenter, row, patchRow, onSuccess } = options
+  const { dataCenter, row, patchRow, onSuccess, onError } = options
 
   const statusBeforeCreate = { ...row.status }
 
@@ -41,5 +41,6 @@ export const createEmailRecipient = async (
     patchRow(row.id, {
       status: statusBeforeCreate,
     })
+    onError?.(error)
   }
 }

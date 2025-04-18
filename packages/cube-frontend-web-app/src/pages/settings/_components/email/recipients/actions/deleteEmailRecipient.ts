@@ -4,7 +4,7 @@ import { ActionOptions } from './utils'
 export const deleteEmailRecipient = async (
   options: ActionOptions,
 ): Promise<void> => {
-  const { dataCenter, row, patchRow, onSuccess } = options
+  const { dataCenter, row, patchRow, onSuccess, onError } = options
 
   patchRow(row.id, { isDeleting: true })
 
@@ -17,5 +17,6 @@ export const deleteEmailRecipient = async (
   } catch (error) {
     console.error('Delete email recipient error: ', error)
     patchRow(row.id, { isDeleting: false })
+    onError?.(error)
   }
 }

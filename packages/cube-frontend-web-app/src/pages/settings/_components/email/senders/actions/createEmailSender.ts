@@ -7,7 +7,7 @@ import { ActionOptions } from './utils'
 export const createEmailSender = async (
   options: ActionOptions,
 ): Promise<void> => {
-  const { dataCenter, row, patchRow } = options
+  const { dataCenter, row, patchRow, onError } = options
 
   const statusBeforeCreate = { ...row.status }
 
@@ -47,5 +47,6 @@ export const createEmailSender = async (
     patchRow(row.id, {
       status: statusBeforeCreate,
     })
+    onError?.(error)
   }
 }

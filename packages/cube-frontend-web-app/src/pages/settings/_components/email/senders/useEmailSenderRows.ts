@@ -1,6 +1,7 @@
 import { EmailSenderResponse } from '@cube-frontend/api'
 import { DeepPartial } from '@cube-frontend/utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 import { merge } from 'lodash'
 import { ChangeEvent, useContext, useState } from 'react'
 import { createEmailSender } from './actions/createEmailSender'
@@ -21,6 +22,8 @@ export const useEmailSenderRows = (
   sendersFromApi: EmailSenderResponse[] | undefined,
 ): UseEmailSenderRows => {
   const { name: dataCenter } = useContext(DataCenterContext)
+
+  const showErrorToast = useShowErrorToast()
 
   const [rows, setRows] = useState<EmailSenderRow[]>([])
 
@@ -69,12 +72,14 @@ export const useEmailSenderRows = (
         dataCenter,
         row,
         patchRow,
+        onError: showErrorToast,
       })
     } else {
       await updateEmailSender({
         dataCenter,
         row,
         patchRow,
+        onError: showErrorToast,
       })
     }
   }
