@@ -16,11 +16,11 @@ import { useContext, useMemo } from 'react'
 import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../../homeHealthPageUtils'
 import { ModuleHealth } from './ModuleHealth'
 import { useIsVisible } from './useIsVisible'
-import { TimeRange } from '../../healthTimeRangeUtils'
+import { HealthTimeRange } from '../../healthTimeRangeUtils'
 
 export type ServiceHealthProps = {
   service: GetServicesResponseDataInner
-  timeRange: TimeRange
+  timeRange: HealthTimeRange
   now: Dayjs
   past: GetHealthHistoryPastEnum
 }

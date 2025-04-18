@@ -1,23 +1,23 @@
 import dayjs, { Dayjs } from 'dayjs'
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { TimeRange } from './timeRangeUtils'
 
-export type UseTimeRangeOption<T extends string, K extends string> = {
-  defaultValue: T
-  timeRangePastMap: Record<T, K>
+export type UseTimeRangeOption<T extends readonly TimeRange[]> = {
+  includes: T
+  defaultValue: T[number]
 }
 
-export type UseTimeRange<T extends string, K extends string> = {
+export type UseTimeRange<T extends readonly TimeRange[]> = {
   now: Dayjs
-  timeRange: T
-  past: K
-  onTimeRangeChange: (newTimeRange: T) => void
+  timeRange: T[number]
+  onTimeRangeChange: (newTimeRange: T[number]) => void
 }
 
-export const useTimeRange = <T extends string, K extends string>(
-  option: UseTimeRangeOption<T, K>,
-): UseTimeRange<T, K> => {
-  const { defaultValue, timeRangePastMap } = option
+export const useTimeRange = <T extends readonly TimeRange[]>(
+  option: UseTimeRangeOption<T>,
+): UseTimeRange<T> => {
+  const { defaultValue } = option
 
   const { utcTimeZone } = useContext(DataCenterContext)
 
@@ -25,7 +25,7 @@ export const useTimeRange = <T extends string, K extends string>(
     return dayjs.utc().utcOffset(utcTimeZone)
   }, [utcTimeZone])
 
-  const [timeRange, setTimeRange] = useState<T>(defaultValue)
+  const [timeRange, setTimeRange] = useState<TimeRange>(defaultValue)
 
   const [now, setNow] = useState(getNow)
 
@@ -39,19 +39,13 @@ export const useTimeRange = <T extends string, K extends string>(
     }
   }, [getNow])
 
-  const past = useMemo<K>(
-    () => timeRangePastMap[timeRange],
-    [timeRange, timeRangePastMap],
-  )
-
-  const onTimeRangeChange = (newTimeRange: T): void => {
+  const onTimeRangeChange = (newTimeRange: T[number]): void => {
     setTimeRange(newTimeRange)
   }
 
   return {
     now,
     timeRange,
-    past,
     onTimeRangeChange,
   }
 }

@@ -13,11 +13,12 @@ import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { TimeRangeDropdown } from '@cube-frontend/web-app/pages/events/chart/_components/TimeRangeDropdown/TimeRangeDropdown'
-import { useTimeRange } from '@cube-frontend/web-app/pages/events/chart/_components/TimeRangeDropdown/useTimeRange'
 import dayjs from 'dayjs'
 import { useContext, useMemo, useState } from 'react'
 import { Panel } from './Panel'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
+import { chartTimeRanges } from './nodeChartsUtils'
+import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
 
 type NodeEventsProps = {
   node: Node | undefined
@@ -30,7 +31,10 @@ export const NodeEvents = (props: NodeEventsProps) => {
 
   const { name: dataCenter } = useContext(DataCenterContext)
 
-  const { timeRange, past, onTimeRangeChange } = useTimeRange()
+  const { timeRange, onTimeRangeChange } = useTimeRange({
+    includes: chartTimeRanges,
+    defaultValue: '1h',
+  })
 
   const [paginationParams, setPaginationParams] = useState({
     page: 1,
@@ -59,7 +63,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
         dataCenter,
         type: 'host',
         host: node.hostname,
-        past,
+        past: timeRange,
         pageNum: paginationParams.page,
         pageSize: paginationParams.itemsPerPage,
       }
@@ -92,6 +96,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
       <div className="flex items-center justify-between">
         <span className="primary-h5 text-functional-text">Node Events</span>
         <TimeRangeDropdown
+          timeRanges={chartTimeRanges}
           selectedItem={timeRange}
           disabled={!node}
           onChange={onTimeRangeChange}

@@ -5,7 +5,7 @@ import {
 } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 import { Dayjs } from 'dayjs'
 import { twMerge } from 'tailwind-merge'
-import { TimeRange } from '../healthTimeRangeUtils'
+import { HealthTimeRange } from '../healthTimeRangeUtils'
 
 export type HistoryRow = GetModuleHealthHistoryResponseDataHistoryInner & {
   id: string
@@ -22,8 +22,11 @@ export const historyToTableRows = (
 
 export const widthTransitionClasses = twMerge('transition-[width] duration-300')
 
-export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
-  last30Days: (now) =>
+export const timePointFns: Record<
+  HealthTimeRange,
+  (now: Dayjs) => TimePoint[]
+> = {
+  '30d': (now) =>
     createTimePoints({
       now,
       iteration: 15,
@@ -31,7 +34,7 @@ export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
       unit: 'days',
       labelFormatters: ['MM/DD', 'HH:mm'],
     }),
-  last14Days: (now) =>
+  '14d': (now) =>
     createTimePoints({
       now,
       iteration: 14,
@@ -39,7 +42,7 @@ export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
       unit: 'day',
       labelFormatters: ['MM/DD', 'HH:mm'],
     }),
-  last7Days: (now) =>
+  '7d': (now) =>
     createTimePoints({
       now,
       iteration: 14,
@@ -47,7 +50,7 @@ export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
       unit: 'hours',
       labelFormatters: ['MM/DD', 'HH:mm'],
     }),
-  last24Hours: (now) =>
+  '24h': (now) =>
     createTimePoints({
       now,
       iteration: 12,
@@ -55,7 +58,7 @@ export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
       unit: 'hour',
       labelFormatters: ['MM/DD', 'HH:mm'],
     }),
-  lastHour: (now) =>
+  '1h': (now) =>
     createTimePoints({
       now,
       iteration: 12,

@@ -2,15 +2,11 @@ import { EventsContentSwitcher } from '@cube-frontend/web-app/components/EventsC
 import { useEventsFilter } from '@cube-frontend/web-app/hooks/events/useEventsFilter'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
-import {
-  timeRanges,
-  TimeRange,
-  timeRangeLabels,
-  timeRangePastMap,
-} from './_components/eventsTimeRangeUtils'
 import { useEventsChartQuery } from './_components/useEventsChartQuery'
 import { EventsChartProportion } from './_components/EventsChartProportion/EventsChartProportion'
 import { EventsChartComparison } from './_components/EventsChartComparison/EventsChartComparison'
+
+const timeRanges = ['1h', '24h', '7d', '14d'] as const
 
 export const EventsChartPage = () => {
   const {
@@ -21,9 +17,9 @@ export const EventsChartPage = () => {
     getRedirectQuery,
   } = useEventsChartQuery()
 
-  const { timeRange, onTimeRangeChange, past } = useTimeRange({
-    defaultValue: 'last24Hours' as TimeRange,
-    timeRangePastMap,
+  const { timeRange, onTimeRangeChange } = useTimeRange({
+    includes: timeRanges,
+    defaultValue: '24h',
   })
 
   const { isEventsFilterLoading, getEventsFilter } = useEventsFilter()
@@ -38,11 +34,10 @@ export const EventsChartPage = () => {
           onEventsTypeChange={handleEventsTypeChange}
         />
         <TimeRangeDropdown
-          selectedItem={timeRange}
           disabled={false}
-          onChange={onTimeRangeChange}
+          selectedItem={timeRange}
           timeRanges={timeRanges}
-          timeRangeLabels={timeRangeLabels}
+          onChange={onTimeRangeChange}
         />
       </div>
       <EventsChartProportion
@@ -52,7 +47,7 @@ export const EventsChartPage = () => {
         handleEventsQueryChange={handleEventsQueryChange}
         currentQuery={getCurrentQuery('proportion').eventsFilter}
         getRedirectQuery={getRedirectQuery}
-        past={past}
+        past={timeRange}
       />
       <EventsChartComparison
         isEventsFilterLoading={isEventsFilterLoading}
@@ -61,7 +56,7 @@ export const EventsChartPage = () => {
         handleEventsQueryChange={handleEventsQueryChange}
         currentQuery={getCurrentQuery('comparison').eventsFilter}
         getRedirectQuery={getRedirectQuery}
-        past={past}
+        past={timeRange}
       />
     </div>
   )

@@ -1,6 +1,6 @@
 import { GetHealthHistoryPastEnum } from '@cube-frontend/api'
 import ChevronDown from '@cube-frontend/ui-library/icons/monochrome/chevron_down.svg?react'
-import { TimeRange } from '../../healthTimeRangeUtils'
+import { HealthTimeRange } from '../../healthTimeRangeUtils'
 import { cva } from 'class-variance-authority'
 import { Dayjs } from 'dayjs'
 import { capitalize } from 'lodash'
@@ -10,7 +10,7 @@ import { ServiceHealth } from './ServiceHealth'
 export type HealthAccordionItemProps = {
   category: ServiceCategory
   isExpanded: boolean
-  timeRange: TimeRange
+  timeRange: HealthTimeRange
   now: Dayjs
   past: GetHealthHistoryPastEnum
   onExpand: () => void

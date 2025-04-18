@@ -13,13 +13,13 @@ import { Link } from 'react-router'
 import { timePointFns } from './healthAccordionUtils'
 import { HealthBarSkeleton } from './HealthBarSkeleton'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
-import { TimeRange } from '../../healthTimeRangeUtils'
+import { HealthTimeRange } from '../../healthTimeRangeUtils'
 
 export type ModuleHealthProps = {
   moduleName: GetHealthHistoryModuleTypeEnum
   isLoading: boolean
   history: GetServiceHealthHistoryResponseDataInnerHistoryInner[]
-  timeRange: TimeRange
+  timeRange: HealthTimeRange
   now: Dayjs
 }
 

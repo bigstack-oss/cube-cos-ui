@@ -3,12 +3,16 @@ import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { TimeRangeDropdown } from '@cube-frontend/web-app/pages/events/chart/_components/TimeRangeDropdown/TimeRangeDropdown'
-import { useTimeRange } from '@cube-frontend/web-app/pages/events/chart/_components/TimeRangeDropdown/useTimeRange'
 import { useContext, useMemo } from 'react'
 import { Line } from 'react-chartjs-2'
 import { Panel } from './Panel'
-import { computeChartData, getCpuChartOptions } from './nodeChartsUtils'
+import {
+  chartTimeRanges,
+  computeChartData,
+  getCpuChartOptions,
+} from './nodeChartsUtils'
+import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 
 type CpuPerformanceChartProps = {
   node: Node | undefined
@@ -19,7 +23,10 @@ export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
 
   const { name: dataCenter } = useContext(DataCenterContext)
 
-  const { timeRange, past, onTimeRangeChange } = useTimeRange('lastHour')
+  const { timeRange, onTimeRangeChange } = useTimeRange({
+    includes: chartTimeRanges,
+    defaultValue: '1h',
+  })
 
   const { data: metricsData, getResource: getMetrics } = useCosGetRequest(
     metricsApi.getMetricByHostOrVm,
@@ -31,7 +38,7 @@ export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
         viewType: 'history',
         entityType: 'hosts',
         entityIdOrName: node.hostname,
-        past,
+        past: timeRange,
       }
     },
   )
@@ -65,6 +72,7 @@ export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
           CPU Performance
         </span>
         <TimeRangeDropdown
+          timeRanges={chartTimeRanges}
           selectedItem={timeRange}
           disabled={!node}
           onChange={onTimeRangeChange}

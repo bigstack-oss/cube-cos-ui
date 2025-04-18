@@ -1,18 +1,17 @@
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { TimeRange, timeRangeLabels } from './timeRangeUtils'
 
-export type TimeRangeDropdownProps<T extends string> = {
-  selectedItem: T
+export type TimeRangeDropdownProps<T extends readonly TimeRange[]> = {
   disabled?: boolean
-  onChange: (timeRange: T) => void
-  timeRanges: readonly T[]
-  timeRangeLabels: Record<T, string>
+  timeRanges: T
+  selectedItem: T[number]
+  onChange: (timeRange: T[number]) => void
 }
 
-export const TimeRangeDropdown = <T extends string>(
+export const TimeRangeDropdown = <T extends readonly TimeRange[]>(
   props: TimeRangeDropdownProps<T>,
 ) => {
-  const { selectedItem, disabled, onChange, timeRanges, timeRangeLabels } =
-    props
+  const { disabled, timeRanges, selectedItem, onChange } = props
 
   return (
     <CosDropdown selectedItems={[selectedItem]} disabled={disabled}>

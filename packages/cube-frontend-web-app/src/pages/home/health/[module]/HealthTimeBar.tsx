@@ -1,7 +1,7 @@
 import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
 import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
-import { TimeRange } from '../healthTimeRangeUtils'
+import { HealthTimeRange } from '../healthTimeRangeUtils'
 import { Dayjs } from 'dayjs'
 import { useMemo } from 'react'
 import { timePointFns } from './healthDetailsUtils'
@@ -9,7 +9,7 @@ import { timePointFns } from './healthDetailsUtils'
 export type HealthTimeBarProps = {
   history: GetModuleHealthHistoryResponseDataHistoryInner[] | undefined
   now: Dayjs
-  selectedTimeRange: TimeRange
+  selectedTimeRange: HealthTimeRange
 }
 
 const TIME_TRACK_HEIGHT = 32

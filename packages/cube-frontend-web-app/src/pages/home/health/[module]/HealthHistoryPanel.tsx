@@ -9,7 +9,7 @@ import { HealthHistoryTableSection } from './HealthHistoryTableSection'
 import { HealthTimeBar } from './HealthTimeBar'
 import { HealthTimeBarSkeleton } from './HealthTimeBarSkeleton'
 import { useModuleHealthHistory } from './useModuleHealthHistory'
-import { TimeRange, timeRangePastMap } from '../healthTimeRangeUtils'
+import { healthTimeRanges } from '../healthTimeRangeUtils'
 
 export type HealthHistoryPanelProps = {
   module: ModuleMetadata | undefined
@@ -46,14 +46,14 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
     onHistoryRowClick,
   } = props
 
-  const { now, timeRange, past, onTimeRangeChange } = useTimeRange({
-    defaultValue: 'last24Hours' as TimeRange,
-    timeRangePastMap: timeRangePastMap,
+  const { now, timeRange, onTimeRangeChange } = useTimeRange({
+    includes: healthTimeRanges,
+    defaultValue: '24h',
   })
 
   const history = useModuleHealthHistory({
     module,
-    past,
+    past: timeRange,
     autoRefresh,
   })
 

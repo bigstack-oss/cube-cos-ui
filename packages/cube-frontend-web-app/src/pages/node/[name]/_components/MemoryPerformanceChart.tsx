@@ -3,13 +3,17 @@ import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { TimeRangeDropdown } from '@cube-frontend/web-app/pages/events/chart/_components/TimeRangeDropdown/TimeRangeDropdown'
-import { useTimeRange } from '@cube-frontend/web-app/pages/events/chart/_components/TimeRangeDropdown/useTimeRange'
 import { SizeUnit } from '@cube-frontend/web-app/utils/byte'
 import { useContext, useMemo } from 'react'
 import { Line } from 'react-chartjs-2'
 import { Panel } from './Panel'
-import { computeChartData, getMemoryChartOptions } from './nodeChartsUtils'
+import {
+  chartTimeRanges,
+  computeChartData,
+  getMemoryChartOptions,
+} from './nodeChartsUtils'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
+import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
 
 type MemoryPerformanceChartProps = {
   node: Node | undefined
@@ -20,7 +24,10 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
 
   const { name: dataCenter } = useContext(DataCenterContext)
 
-  const { timeRange, past, onTimeRangeChange } = useTimeRange('lastHour')
+  const { timeRange, onTimeRangeChange } = useTimeRange({
+    includes: chartTimeRanges,
+    defaultValue: '1h',
+  })
 
   const { data: metricsData, getResource: getMetrics } = useCosGetRequest(
     metricsApi.getMetricByHostOrVm,
@@ -32,7 +39,7 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
         viewType: 'history',
         entityType: 'hosts',
         entityIdOrName: node.hostname,
-        past,
+        past: timeRange,
       }
     },
   )
@@ -70,6 +77,7 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
           Memory Performance
         </span>
         <TimeRangeDropdown
+          timeRanges={chartTimeRanges}
           selectedItem={timeRange}
           disabled={!node}
           onChange={onTimeRangeChange}

@@ -4,7 +4,7 @@ import {
   TimePoint,
 } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 import { Dayjs } from 'dayjs'
-import { TimeRange } from '../../healthTimeRangeUtils'
+import { HealthTimeRange } from '../../healthTimeRangeUtils'
 
 export type ServiceCategory = {
   name: string
@@ -32,8 +32,11 @@ export const groupServicesByCategory = (
   return Array.from(map.values())
 }
 
-export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
-  last30Days: (now) =>
+export const timePointFns: Record<
+  HealthTimeRange,
+  (now: Dayjs) => TimePoint[]
+> = {
+  '30d': (now) =>
     createTimePoints({
       now,
       iteration: 2,
@@ -41,7 +44,7 @@ export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
       unit: 'days',
       labelFormatters: ['MM/DD', 'HH:mm A'],
     }),
-  last14Days: (now) =>
+  '14d': (now) =>
     createTimePoints({
       now,
       iteration: 2,
@@ -49,7 +52,7 @@ export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
       unit: 'days',
       labelFormatters: ['MM/DD', 'HH:mm A'],
     }),
-  last7Days: (now) =>
+  '7d': (now) =>
     createTimePoints({
       now,
       iteration: 2,
@@ -58,7 +61,7 @@ export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
       unit: 'hours',
       labelFormatters: ['MM/DD', 'HH:mm A'],
     }),
-  last24Hours: (now) =>
+  '24h': (now) =>
     createTimePoints({
       now,
       iteration: 2,
@@ -66,7 +69,7 @@ export const timePointFns: Record<TimeRange, (now: Dayjs) => TimePoint[]> = {
       unit: 'hours',
       labelFormatters: ['HH:mm A'],
     }),
-  lastHour: (now) =>
+  '1h': (now) =>
     createTimePoints({
       now,
       iteration: 2,

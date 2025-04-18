@@ -9,17 +9,12 @@ import {
   groupServicesByCategory,
   ServiceCategory,
 } from './healthAccordionUtils'
-import {
-  TimeRange,
-  timeRangeLabels,
-  timeRangePastMap,
-  timeRanges,
-} from '../../healthTimeRangeUtils'
+import { healthTimeRanges } from '../../healthTimeRangeUtils'
 
 export const HealthAccordion = () => {
-  const { now, timeRange, past, onTimeRangeChange } = useTimeRange({
-    defaultValue: 'last24Hours' as TimeRange,
-    timeRangePastMap,
+  const { now, timeRange, onTimeRangeChange } = useTimeRange({
+    includes: healthTimeRanges,
+    defaultValue: '24h',
   })
 
   const { services, isLoadingServices } = useServices()
@@ -57,8 +52,7 @@ export const HealthAccordion = () => {
           selectedItem={timeRange}
           disabled={isLoadingServices}
           onChange={onTimeRangeChange}
-          timeRanges={timeRanges}
-          timeRangeLabels={timeRangeLabels}
+          timeRanges={healthTimeRanges}
         />
       </div>
       {isLoadingServices
@@ -72,7 +66,7 @@ export const HealthAccordion = () => {
               isExpanded={expandedCategoryName === category.name}
               timeRange={timeRange}
               now={now}
-              past={past}
+              past={timeRange}
               onExpand={() => onExpandedCategoryNameChange(category.name)}
             />
           ))}

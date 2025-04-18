@@ -11,6 +11,8 @@ import {
 import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
 import { ChartData, ChartOptions } from 'chart.js'
 
+export const chartTimeRanges = ['1h', '24h', '7d', '14d'] as const
+
 const cpuLineColor = cubeTheme.colors.chart[1]
 const memoryLineColor = cubeTheme.colors.chart[2]
 
