@@ -10,15 +10,15 @@ import {
   ItemsPerPage,
 } from '@cube-frontend/ui-library'
 import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
+import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import dayjs from 'dayjs'
 import { useContext, useMemo, useState } from 'react'
-import { Panel } from './Panel'
-import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { chartTimeRanges } from './nodeChartsUtils'
-import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
+import { Panel } from './Panel'
 
 type NodeEventsProps = {
   node: Node | undefined
@@ -33,7 +33,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
 
   const { timeRange, onTimeRangeChange } = useTimeRange({
     includes: chartTimeRanges,
-    defaultValue: '1h',
+    defaultValue: '24h',
   })
 
   const [paginationParams, setPaginationParams] = useState({

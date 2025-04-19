@@ -1,6 +1,6 @@
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import dayjs, { Dayjs } from 'dayjs'
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { TimeRange } from './timeRangeUtils'
 
 export type UseTimeRangeOption<T extends readonly TimeRange[]> = {
@@ -10,6 +10,11 @@ export type UseTimeRangeOption<T extends readonly TimeRange[]> = {
 
 export type UseTimeRange<T extends readonly TimeRange[]> = {
   now: Dayjs
+  /**
+   * The same `includes` array from the options.
+   * Exposed it just to make type inference and usage easier.
+   */
+  timeRanges: T
   timeRange: T[number]
   onTimeRangeChange: (newTimeRange: T[number]) => void
 }
@@ -17,7 +22,7 @@ export type UseTimeRange<T extends readonly TimeRange[]> = {
 export const useTimeRange = <T extends readonly TimeRange[]>(
   option: UseTimeRangeOption<T>,
 ): UseTimeRange<T> => {
-  const { defaultValue } = option
+  const { includes, defaultValue } = option
 
   const { utcTimeZone } = useContext(DataCenterContext)
 
@@ -45,6 +50,7 @@ export const useTimeRange = <T extends readonly TimeRange[]>(
 
   return {
     now,
+    timeRanges: includes,
     timeRange,
     onTimeRangeChange,
   }

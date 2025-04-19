@@ -1,5 +1,6 @@
 import { HostMetricHistoryResponseData } from '@cube-frontend/api'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
+import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeUtils'
 import { convertSize, SizeUnit } from '@cube-frontend/web-app/utils/byte'
 import {
   chartFontFamily,
@@ -11,7 +12,12 @@ import {
 import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
 import { ChartData, ChartOptions } from 'chart.js'
 
-export const chartTimeRanges = ['1h', '24h', '7d', '14d'] as const
+export const chartTimeRanges = [
+  '1h',
+  '24h',
+  '7d',
+  '14d',
+] as const satisfies TimeRange[]
 
 const cpuLineColor = cubeTheme.colors.chart[1]
 const memoryLineColor = cubeTheme.colors.chart[2]

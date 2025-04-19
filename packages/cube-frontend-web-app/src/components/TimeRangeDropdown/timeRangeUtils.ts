@@ -1,12 +1,6 @@
 import { GetHealthHistoryPastEnum } from '@cube-frontend/api'
 
-export const timeRanges = [
-  '30d',
-  '14d',
-  '7d',
-  '24h',
-  '1h',
-] as const satisfies readonly GetHealthHistoryPastEnum[]
+export const timeRanges = Object.values(GetHealthHistoryPastEnum)
 
 export type TimeRange = (typeof timeRanges)[number]
 

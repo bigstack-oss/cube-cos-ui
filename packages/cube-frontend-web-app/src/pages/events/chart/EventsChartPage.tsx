@@ -6,8 +6,6 @@ import { useEventsChartQuery } from './_components/useEventsChartQuery'
 import { EventsChartProportion } from './_components/EventsChartProportion/EventsChartProportion'
 import { EventsChartComparison } from './_components/EventsChartComparison/EventsChartComparison'
 
-const timeRanges = ['1h', '24h', '7d', '14d'] as const
-
 export const EventsChartPage = () => {
   const {
     eventsType,
@@ -17,8 +15,8 @@ export const EventsChartPage = () => {
     getRedirectQuery,
   } = useEventsChartQuery()
 
-  const { timeRange, onTimeRangeChange } = useTimeRange({
-    includes: timeRanges,
+  const { timeRanges, timeRange, onTimeRangeChange } = useTimeRange({
+    includes: ['1h', '24h', '7d', '14d'],
     defaultValue: '24h',
   })
 
