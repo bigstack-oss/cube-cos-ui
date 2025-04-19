@@ -47,7 +47,7 @@ export const LoginFields = () => {
       {isRememberMeEnabled && (
         <CosCheckbox
           name="rememberMe"
-          label="Remember username"
+          label="Stay signed in"
           defaultChecked={true}
           tabIndex={0}
         />
