@@ -72,6 +72,7 @@ export const NodeDevices = (props: NodeDevicesProps) => {
       <DeviceTable isLoading={!node} rows={rows}>
         <DeviceTable.Column label="Device" property="device" emphasize={true} />
         <DeviceTable.Column label="Type" property="type" />
+        <DeviceTable.Column label="Serial" property="serial" />
         <DeviceTable.Column label="Size" property="sizeMiB">
           {(sizeMiB) => toReadableSizeString(sizeMiB, 'MiB')}
         </DeviceTable.Column>
