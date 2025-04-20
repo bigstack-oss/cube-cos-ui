@@ -11,11 +11,14 @@ import {
 import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useEventsQuery } from './useEventsQuery'
 import { mapFilterToRequestParams } from './utils'
 
 export type UseEventsOptions = {
   eventsType: GetEventsTypeEnum
+  getCurrentQuery: () => {
+    eventsFilter: Record<string, string>
+    isEventsFilterEmpty: boolean
+  }
 }
 
 export type UseEvents = {
@@ -34,7 +37,7 @@ export type UseEvents = {
 }
 
 export const useEvents = (options: UseEventsOptions): UseEvents => {
-  const { eventsType } = options
+  const { eventsType, getCurrentQuery } = options
 
   const [currentPageNum, setCurrentPageNum] = useState(1)
 
@@ -43,8 +46,6 @@ export const useEvents = (options: UseEventsOptions): UseEvents => {
   )
 
   const { dataCenter } = useContext(DataCenterContext)
-
-  const { getCurrentQuery } = useEventsQuery()
 
   const currentQuery = getCurrentQuery()
 

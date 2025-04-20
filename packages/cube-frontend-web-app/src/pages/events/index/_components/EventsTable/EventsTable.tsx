@@ -6,7 +6,13 @@ import { useEvents } from './useEvents'
 import { useEventsQuery } from './useEventsQuery'
 
 export const EventsTable = () => {
-  const { eventsType, handleEventsTypeChange } = useEventsQuery()
+  const {
+    eventsType,
+    handleEventsTypeChange,
+    handleEventsQueryChange,
+    handleEventsQueryReset,
+    getCurrentQuery,
+  } = useEventsQuery()
 
   const {
     events,
@@ -20,6 +26,7 @@ export const EventsTable = () => {
     setCurrentPageSize,
   } = useEvents({
     eventsType,
+    getCurrentQuery,
   })
 
   return (
@@ -35,7 +42,12 @@ export const EventsTable = () => {
         activeTab={eventsType}
         onEventsTypeChange={handleEventsTypeChange}
       />
-      <EventsTableFilter eventsType={eventsType} currentQuery={currentQuery} />
+      <EventsTableFilter
+        eventsType={eventsType}
+        currentQuery={currentQuery}
+        handleEventsQueryChange={handleEventsQueryChange}
+        handleEventsQueryReset={handleEventsQueryReset}
+      />
       <EventsTableSelection
         currentPage={currentPageNum}
         setCurrentPage={setCurrentPageNum}

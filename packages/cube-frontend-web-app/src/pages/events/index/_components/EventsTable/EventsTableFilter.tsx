@@ -1,10 +1,10 @@
+import dayjs from 'dayjs'
 import { CosSearchBarFilter } from '@cube-frontend/ui-library'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
 import Cancel from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { FilterDropdown } from './FilterDropdown'
 import { FilterDatePicker } from './FilterDatePicker'
 import { useEventsFilter } from './useEventsFilter'
-import { useEventsQuery } from './useEventsQuery'
 import { mapFilterToFilterKey } from './utils'
 
 type EventsTableFilterProps = {
@@ -13,17 +13,30 @@ type EventsTableFilterProps = {
     eventsFilter: Record<string, string>
     isEventsFilterEmpty: boolean
   }
+  handleEventsQueryChange: (updates: Record<string, string | null>) => void
+  handleEventsQueryReset: () => void
 }
 
 export const EventsTableFilter = (props: EventsTableFilterProps) => {
-  const { eventsType, currentQuery } = props
+  const {
+    eventsType,
+    currentQuery,
+    handleEventsQueryChange,
+    handleEventsQueryReset,
+  } = props
 
   const { isLoading: isEventsFilterLoading, getEventsFilter } =
     useEventsFilter()
 
   const eventsFilter = getEventsFilter(eventsType)
 
-  const { handleEventsQueryChange, handleEventsQueryReset } = useEventsQuery()
+  const selectedStartDate = currentQuery.eventsFilter?.startDate
+    ? dayjs(currentQuery.eventsFilter.startDate)
+    : undefined
+
+  const selectedEndDate = currentQuery.eventsFilter?.endDate
+    ? dayjs(currentQuery.eventsFilter.endDate)
+    : undefined
 
   return (
     <div className="flex items-center gap-3">
@@ -51,10 +64,10 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
           )
         })}
       <FilterDatePicker
-        isLoading={isEventsFilterLoading}
-        selectedStartDate={currentQuery.eventsFilter.startDate}
-        selectedEndDate={currentQuery.eventsFilter.endDate}
-        onChange={handleEventsQueryChange}
+        startDate={selectedStartDate}
+        endDate={selectedEndDate}
+        handleEventsQueryChange={handleEventsQueryChange}
+        handleEventsQueryReset={handleEventsQueryReset}
       />
       {!currentQuery.isEventsFilterEmpty && (
         <>

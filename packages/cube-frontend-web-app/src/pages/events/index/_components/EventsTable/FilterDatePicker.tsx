@@ -1,59 +1,63 @@
 import { useEffect, useState } from 'react'
-import dayjs, { Dayjs } from 'dayjs'
-import { CosDatePicker } from '@cube-frontend/ui-library'
+import { Dayjs } from 'dayjs'
+import {
+  CosDatePicker,
+  DatePickerDates,
+  useDatePicker,
+} from '@cube-frontend/ui-library'
 
 type FilterDatePickerProps = {
-  isLoading: boolean
-  selectedStartDate?: string
-  selectedEndDate?: string
-  onChange: (updates: Record<string, string | null>) => void
+  startDate: Dayjs | undefined
+  endDate: Dayjs | undefined
+  handleEventsQueryChange: (updates: Record<string, string | null>) => void
+  handleEventsQueryReset: () => void
 }
 
 export const FilterDatePicker = (props: FilterDatePickerProps) => {
   const {
-    isLoading,
-    selectedStartDate,
-    selectedEndDate,
-    onChange: onDatePickerChange,
+    startDate,
+    endDate,
+    handleEventsQueryChange,
+    handleEventsQueryReset,
   } = props
 
-  const [startDate, setStartDate] = useState<Dayjs | undefined>()
+  const [dates, setDates] = useState<DatePickerDates>({
+    start: startDate,
+    end: endDate,
+  })
 
-  const [endDate, setEndDate] = useState<Dayjs | undefined>()
+  const { displayDates, onChange, onCancel, onReset, onApply } = useDatePicker({
+    handledDates: dates,
+    onHandledDatesChange: (dates: DatePickerDates) => setDates(dates),
+  })
 
   useEffect(() => {
-    setStartDate(selectedStartDate ? dayjs(selectedStartDate) : undefined)
-    setEndDate(selectedStartDate ? dayjs(selectedEndDate) : undefined)
-  }, [selectedStartDate, selectedEndDate])
+    setDates({ start: startDate, end: endDate })
+  }, [startDate, endDate])
 
   const handleApplyClick = () => {
-    if (!dayjs.isDayjs(startDate) || !dayjs.isDayjs(endDate)) return
+    const { start, end } = displayDates
+    if (!start || !end) return
 
-    onDatePickerChange({
-      startDate: startDate.format('YYYY-MM-DD'),
-      endDate: endDate.format('YYYY-MM-DD'),
+    onApply()
+    handleEventsQueryChange({
+      startDate: start.format('YYYY-MM-DD'),
+      endDate: end.format('YYYY-MM-DD'),
     })
   }
 
-  const handleCancelClick = () => {
-    setStartDate(undefined)
-    setEndDate(undefined)
-
-    onDatePickerChange({
-      startDate: null,
-      endDate: null,
-    })
+  const handleResetClick = () => {
+    onReset()
+    handleEventsQueryReset()
   }
 
   return (
     <CosDatePicker
-      isLoading={isLoading}
-      startDate={startDate}
-      endDate={endDate}
-      setStartDate={setStartDate}
-      setEndDate={setEndDate}
-      onApplyClick={handleApplyClick}
-      onCancelClick={handleCancelClick}
+      displayDates={displayDates}
+      onChange={onChange}
+      onCancel={onCancel}
+      onApply={handleApplyClick}
+      onReset={handleResetClick}
     />
   )
 }

@@ -1,4 +1,8 @@
-import { CosDatePicker } from '@cube-frontend/ui-library'
+import {
+  CosDatePicker,
+  DatePickerDates,
+  useDatePicker,
+} from '@cube-frontend/ui-library'
 import { Dayjs } from 'dayjs'
 import { useEffect, useState } from 'react'
 
@@ -13,38 +17,44 @@ export const DatePickerFilter = (props: DatePickerFilterProps) => {
   const { startDate, endDate, handleStartDateChange, handleEndDateChange } =
     props
 
-  const [selectedStartDate, setSelectedStartDate] = useState<Dayjs | undefined>(
-    startDate,
-  )
-  const [selectedEndDate, setSelectedEndDate] = useState<Dayjs | undefined>(
-    endDate,
-  )
+  const [dates, setDates] = useState<DatePickerDates>({
+    start: startDate,
+    end: endDate,
+  })
+
+  const { displayDates, onChange, onCancel, onReset, onApply } = useDatePicker({
+    handledDates: dates,
+    onHandledDatesChange: (dates: DatePickerDates) => setDates(dates),
+  })
 
   // Sync selected dates with props
   useEffect(() => {
-    setSelectedStartDate(startDate)
-    setSelectedEndDate(endDate)
+    setDates({ start: startDate, end: endDate })
   }, [endDate, startDate])
 
-  const handleApply = () => {
-    handleStartDateChange(selectedStartDate)
-    handleEndDateChange(selectedEndDate)
+  const handleApplyClick = () => {
+    const { start, end } = displayDates
+    if (!start || !end) return
+
+    onApply()
+    handleStartDateChange(start)
+    handleEndDateChange(end)
   }
 
-  const handleCancel = () => {
-    setSelectedStartDate(startDate)
-    setSelectedEndDate(endDate)
+  const handleResetClick = () => {
+    onReset()
+    handleStartDateChange(undefined)
+    handleEndDateChange(undefined)
   }
 
   return (
     // TODO: we need a method to clear the date picker selection
     <CosDatePicker
-      startDate={selectedStartDate}
-      setStartDate={setSelectedStartDate}
-      endDate={selectedEndDate}
-      setEndDate={setSelectedEndDate}
-      onApplyClick={handleApply}
-      onCancelClick={handleCancel}
+      displayDates={displayDates}
+      onChange={onChange}
+      onCancel={onCancel}
+      onApply={handleApplyClick}
+      onReset={handleResetClick}
     />
   )
 }
