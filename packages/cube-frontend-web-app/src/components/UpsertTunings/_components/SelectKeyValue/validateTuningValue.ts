@@ -80,5 +80,5 @@ const validateFnMap: Record<TuningLimitationType, ValidateFn> = {
   str: validateString,
   int: validateInt,
   uint: validateFloat,
-  boolean: validateBool,
+  bool: validateBool,
 }

@@ -49,7 +49,7 @@ export const TuningValueControl = (props: TuningValueControlProps) => {
     str: renderInput,
     int: renderInput,
     uint: renderInput,
-    boolean: renderBoolControl,
+    bool: renderBoolControl,
   }
 
   return renderFnMap[limitation.type]()

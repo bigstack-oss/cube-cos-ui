@@ -6487,7 +6487,7 @@ export const TuningLimitationType = {
     Str: 'str',
     Int: 'int',
     Uint: 'uint',
-    Boolean: 'boolean'
+    Bool: 'bool'
 } as const;
 
 export type TuningLimitationType = typeof TuningLimitationType[keyof typeof TuningLimitationType];

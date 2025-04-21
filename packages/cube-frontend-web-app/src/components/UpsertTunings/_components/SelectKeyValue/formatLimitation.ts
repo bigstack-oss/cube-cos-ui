@@ -71,7 +71,7 @@ const formatFnMap: Record<TuningLimitationType, FormatFn> = {
   str: formatStringLimitation,
   int: formatNumberLimitation,
   uint: formatNumberLimitation,
-  boolean: () => 'Boolean',
+  bool: () => 'Boolean',
 }
 
 type Entry = {
