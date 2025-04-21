@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import {
   GetEventsResponseData,
   GetEventsResponseDataEventsInner,
-  Page,
 } from '@cube-frontend/api'
 import {
   CosPagination,
@@ -40,33 +39,29 @@ const mapToEventTable = (e: EventResponse, index: number): EventTableType => ({
 })
 
 type EventsTableSelectionProps = {
-  currentPage: number
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
-  itemsPerPage: ItemsPerPage
-  setItemsPerPage: React.Dispatch<React.SetStateAction<ItemsPerPage>>
-  events: GetEventsResponseDataEventsInner[] | undefined
-  pagination: Page | undefined
   isEventsLoading: boolean
+  events: GetEventsResponseDataEventsInner[] | undefined
+  currentPage: number
+  itemsPerPage: ItemsPerPage
+  totalItems: number
+  handleCurrentPageChange: (page: number) => void
+  handlePageSizeChange: (itemsPerPage: ItemsPerPage) => void
 }
 
 export const EventsTableSelection = (props: EventsTableSelectionProps) => {
   const {
-    currentPage,
-    setCurrentPage,
-    itemsPerPage,
-    setItemsPerPage,
-    events,
-    pagination,
     isEventsLoading,
+    events,
+    currentPage,
+    itemsPerPage,
+    totalItems,
+    handleCurrentPageChange,
+    handlePageSizeChange,
   } = props
 
   const rows = useMemo<EventTableType[]>(() => {
     return events?.map(mapToEventTable) || []
   }, [events])
-
-  const handleCurrentPageChange = (page: number) => {
-    setCurrentPage(page)
-  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -103,11 +98,11 @@ export const EventsTableSelection = (props: EventsTableSelectionProps) => {
       </EventTable>
       <CosPagination
         isLoading={isEventsLoading}
-        totalItems={pagination?.totalItemCount || 0}
         currentPage={currentPage}
-        onPageChange={handleCurrentPageChange}
         itemsPerPage={itemsPerPage}
-        onItemsPerPageChange={setItemsPerPage}
+        totalItems={totalItems}
+        onPageChange={handleCurrentPageChange}
+        onItemsPerPageChange={handlePageSizeChange}
       />
     </div>
   )

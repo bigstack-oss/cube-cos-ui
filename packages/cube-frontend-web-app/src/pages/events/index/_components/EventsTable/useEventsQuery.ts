@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { isEmpty } from 'lodash'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
-import { useEffect, useState } from 'react'
+import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from '@cube-frontend/ui-library'
 
 const isValidEventsType = (type: string | null): boolean => {
   return Object.values(GetEventsTypeEnum).includes(
@@ -21,11 +22,15 @@ const getValidEventsType = (
   return urlEventsType as GetEventsTypeEnum
 }
 
+const DEFAULT_PAGE = 1
+
 export type UseEventsQuery = {
   eventsType: GetEventsTypeEnum
   handleEventsTypeChange: (type: GetEventsTypeEnum) => void
   handleEventsQueryChange: (updates: Record<string, string | null>) => void
   handleEventsQueryReset: () => void
+  handleCurrentPageChange: (page: number) => void
+  handlePageSizeChange: (itemsPerPage: ItemsPerPage) => void
   getCurrentQuery: () => {
     eventsFilter: Record<string, string>
     /**
@@ -48,12 +53,26 @@ export const useEventsQuery = (): UseEventsQuery => {
     if (urlEventsType !== eventsType) {
       const validEventsType = getValidEventsType(searchParams)
       setEventsType(validEventsType)
-      setSearchParams({ eventsType: validEventsType }, { replace: true })
+      setSearchParams(
+        {
+          eventsType: validEventsType,
+          page: DEFAULT_PAGE.toString(),
+          size: DEFAULT_ITEMS_PER_PAGE.toString(),
+        },
+        { replace: true },
+      )
     }
   }, [eventsType, searchParams, setSearchParams])
 
   const handleEventsTypeChange = (type: GetEventsTypeEnum) => {
-    setSearchParams({ eventsType: type }, { replace: true })
+    setSearchParams(
+      {
+        eventsType: type,
+        page: DEFAULT_PAGE.toString(),
+        size: DEFAULT_ITEMS_PER_PAGE.toString(),
+      },
+      { replace: true },
+    )
   }
 
   const handleEventsQueryChange = (updates: Record<string, string | null>) => {
@@ -65,18 +84,37 @@ export const useEventsQuery = (): UseEventsQuery => {
         newParams.delete(key)
       }
     })
+
+    newParams.set('page', DEFAULT_PAGE.toString())
+    newParams.set('size', DEFAULT_ITEMS_PER_PAGE.toString())
+
     setSearchParams(newParams, { replace: true })
   }
 
   const handleEventsQueryReset = () => {
+    const currentSize =
+      searchParams.get('size') ?? DEFAULT_ITEMS_PER_PAGE.toString()
     const newParams = new URLSearchParams()
     newParams.set('eventsType', eventsType)
+    newParams.set('page', DEFAULT_PAGE.toString())
+    newParams.set('size', currentSize)
     setSearchParams(newParams, { replace: true })
+  }
+
+  const handleCurrentPageChange = (page: number): void => {
+    searchParams.set('page', page.toString())
+    setSearchParams(searchParams)
+  }
+
+  const handlePageSizeChange = (itemsPerPage: ItemsPerPage) => {
+    searchParams.set('size', itemsPerPage.toString())
+    searchParams.set('page', DEFAULT_PAGE.toString())
+    setSearchParams(searchParams)
   }
 
   const getCurrentQuery = () => {
     const eventsFilter = Object.fromEntries(searchParams)
-    const { eventsType, ...restFilter } = eventsFilter
+    const { eventsType, size, page, ...restFilter } = eventsFilter
     const isFilterEmpty = isEmpty(restFilter)
 
     return {
@@ -90,6 +128,8 @@ export const useEventsQuery = (): UseEventsQuery => {
     handleEventsTypeChange,
     handleEventsQueryChange,
     handleEventsQueryReset,
+    handleCurrentPageChange,
+    handlePageSizeChange,
     getCurrentQuery,
   }
 }

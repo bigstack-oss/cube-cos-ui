@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from '@cube-frontend/ui-library'
 
 import {
@@ -6,11 +6,11 @@ import {
   GetEventsResponseData,
   GetEventsResponseDataEventsInner,
   GetEventsTypeEnum,
-  Page,
 } from '@cube-frontend/api'
 import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { mapFilterToRequestParams } from './utils'
 
 export type UseEventsOptions = {
@@ -22,61 +22,66 @@ export type UseEventsOptions = {
 }
 
 export type UseEvents = {
-  events: GetEventsResponseDataEventsInner[] | undefined
-  pagination: Page | undefined
   isEventsLoading: boolean
+  events: GetEventsResponseDataEventsInner[] | undefined
+
   getResource: () => Promise<GetEventsResponseData>
   currentQuery: {
     eventsFilter: Record<string, string>
     isEventsFilterEmpty: boolean
   }
-  currentPageNum: number
-  currentPageSize: ItemsPerPage
-  setCurrentPageNum: React.Dispatch<React.SetStateAction<number>>
-  setCurrentPageSize: React.Dispatch<React.SetStateAction<ItemsPerPage>>
+  currentPage: number
+  itemsPerPage: ItemsPerPage
+  totalItems: number
 }
 
 export const useEvents = (options: UseEventsOptions): UseEvents => {
   const { eventsType, getCurrentQuery } = options
 
-  const [currentPageNum, setCurrentPageNum] = useState(1)
-
-  const [currentPageSize, setCurrentPageSize] = useState<ItemsPerPage>(
-    DEFAULT_ITEMS_PER_PAGE,
-  )
-
   const { dataCenter } = useContext(DataCenterContext)
 
   const currentQuery = getCurrentQuery()
 
-  useEffect(() => {
-    setCurrentPageNum(1)
-  }, [eventsType, currentQuery])
+  const currentPage = currentQuery.eventsFilter?.page
+    ? Number(currentQuery.eventsFilter.page)
+    : 1
 
-  const { data, isLoading, getResource } = useCosGetRequest(
-    eventsApi.getEvents,
-    () => {
-      const requestParams = mapFilterToRequestParams(currentQuery.eventsFilter)
+  const itemsPerPage = currentQuery.eventsFilter?.size
+    ? (Number(currentQuery.eventsFilter.size) as ItemsPerPage)
+    : DEFAULT_ITEMS_PER_PAGE
 
-      return {
-        ...requestParams,
-        dataCenter: dataCenter!.name,
-        type: eventsType,
-        pageSize: currentPageSize,
-        pageNum: currentPageNum,
-      } satisfies EventsApiGetEventsRequest
-    },
+  const { keyword, ...requestParams } = mapFilterToRequestParams(
+    currentQuery.eventsFilter,
   )
 
-  return {
-    events: data?.events ?? [],
-    pagination: data?.page ?? ({} as Page),
-    isEventsLoading: isLoading,
+  const [debouncedSearchKeyword, _] = useDebounce(keyword, 300)
+
+  const {
+    data,
+    isLoading: isEventsLoading,
     getResource,
+  } = useCosGetRequest(eventsApi.getEvents, () => {
+    if (!dataCenter) return null
+
+    return {
+      ...requestParams,
+      dataCenter: dataCenter!.name,
+      type: eventsType,
+      pageNum: currentPage,
+      pageSize: itemsPerPage,
+      keyword: debouncedSearchKeyword,
+    } satisfies EventsApiGetEventsRequest
+  })
+
+  const totalItems = data?.page.totalItemCount ?? 0
+
+  return {
     currentQuery,
-    currentPageNum,
-    currentPageSize,
-    setCurrentPageNum,
-    setCurrentPageSize,
+    isEventsLoading,
+    events: data?.events ?? [],
+    getResource,
+    currentPage,
+    itemsPerPage,
+    totalItems,
   }
 }

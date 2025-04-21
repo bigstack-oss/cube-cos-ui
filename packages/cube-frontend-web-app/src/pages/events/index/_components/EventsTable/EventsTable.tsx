@@ -11,19 +11,20 @@ export const EventsTable = () => {
     handleEventsTypeChange,
     handleEventsQueryChange,
     handleEventsQueryReset,
+    handleCurrentPageChange,
+    handlePageSizeChange,
     getCurrentQuery,
   } = useEventsQuery()
 
   const {
     events,
     isEventsLoading,
-    pagination,
+
     getResource: onEventsRefresh,
     currentQuery,
-    currentPageNum,
-    currentPageSize,
-    setCurrentPageNum,
-    setCurrentPageSize,
+    currentPage,
+    itemsPerPage,
+    totalItems,
   } = useEvents({
     eventsType,
     getCurrentQuery,
@@ -49,13 +50,13 @@ export const EventsTable = () => {
         handleEventsQueryReset={handleEventsQueryReset}
       />
       <EventsTableSelection
-        currentPage={currentPageNum}
-        setCurrentPage={setCurrentPageNum}
-        itemsPerPage={currentPageSize}
-        setItemsPerPage={setCurrentPageSize}
-        events={events}
-        pagination={pagination}
         isEventsLoading={isEventsLoading}
+        events={events}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={totalItems}
+        handleCurrentPageChange={handleCurrentPageChange}
+        handlePageSizeChange={handlePageSizeChange}
       />
     </div>
   )
