@@ -8,9 +8,10 @@ import {
 import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { PieChart } from './PieChart/PieChart'
 import { FilterDropdown } from '../FilterDropdown'
+import { FilterEmpty } from '../FilterEmpty'
 import { useRankedEvents } from '../useRankedEvents'
 import { ChartType, mapToDropdownFilterValues } from '../utils'
-import { mockRankedEvents } from '../mockData'
+import { ChartEmpty } from '../ChartEmpty'
 
 type EventsChartProportionProps = {
   isEventsFilterLoading: boolean
@@ -39,46 +40,59 @@ export const EventsChartProportion = (props: EventsChartProportionProps) => {
 
   const chartType: ChartType = 'proportion'
 
-  const { isRankedEventsLoading } = useRankedEvents({
+  const { isRankedEventsLoading, rankedEvents } = useRankedEvents({
     eventsType,
     chartType,
     past,
   })
 
-  if (!eventsFilter) return
+  const hasFilter = !!eventsFilter
+
+  const isChartEmpty = !rankedEvents || rankedEvents.length === 0
+
+  const renderFilters = () => {
+    if (!hasFilter) return <FilterEmpty />
+
+    return Object.entries(eventsFilter).map(([key, options]) => {
+      const { dropdownFilterLabel, queryKey } = mapToDropdownFilterValues(
+        chartType,
+        key,
+      )
+      return (
+        <FilterDropdown
+          key={key}
+          isLoading={isEventsFilterLoading}
+          filterKey={queryKey}
+          filterLabel={dropdownFilterLabel}
+          options={options}
+          selectedValue={currentQuery?.[queryKey]}
+          onChange={handleEventsQueryChange}
+        />
+      )
+    })
+  }
+
+  const renderChart = () => {
+    if (isChartEmpty) return <ChartEmpty />
+
+    return (
+      <PieChart
+        chartType={chartType}
+        getRedirectQuery={getRedirectQuery}
+        rankedEvents={rankedEvents}
+        isRankedEventsLoading={isRankedEventsLoading}
+      />
+    )
+  }
 
   return (
     <CosGeneralPanel
       topic="Event ID Proportion"
       dropdown={
-        <div className="flex items-center gap-2">
-          {Object.entries(eventsFilter).map(([key, options]) => {
-            const { dropdownFilterLabel, queryKey } = mapToDropdownFilterValues(
-              chartType,
-              key,
-            )
-            return (
-              <FilterDropdown
-                key={key}
-                isLoading={isEventsFilterLoading}
-                filterKey={queryKey}
-                filterLabel={dropdownFilterLabel}
-                options={options}
-                selectedValue={currentQuery?.[queryKey]}
-                onChange={handleEventsQueryChange}
-              />
-            )
-          })}
-        </div>
+        <div className="flex items-center gap-2">{renderFilters()}</div>
       }
     >
-      {/** TODO: Replace `rankedEvents` with `rankedEvents` from useRankedEvents */}
-      <PieChart
-        chartType={chartType}
-        getRedirectQuery={getRedirectQuery}
-        rankedEvents={mockRankedEvents()}
-        isRankedEventsLoading={isRankedEventsLoading}
-      />
+      {renderChart()}
     </CosGeneralPanel>
   )
 }
