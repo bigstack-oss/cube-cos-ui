@@ -20,7 +20,7 @@ export const mapFilterToRequestParams = (filter: Record<string, string>) => {
           eventsRequestKeyMapping[key as keyof typeof eventsRequestKeyMapping]
         acc[mappedKey] =
           mappedKey === 'start' || mappedKey === 'stop'
-            ? dayjs(value).toISOString()
+            ? dayjs(value).format()
             : value
       }
       return acc
@@ -35,8 +35,8 @@ export const mapFilterToRequestParams = (filter: Record<string, string>) => {
    */
   if (result['start'] && result['stop'] && result['start'] === result['stop']) {
     const sameDay = dayjs(result['start'])
-    result['start'] = sameDay.startOf('day').toISOString()
-    result['stop'] = sameDay.endOf('day').toISOString()
+    result['start'] = sameDay.startOf('day').format()
+    result['stop'] = sameDay.endOf('day').format()
   }
 
   return result
