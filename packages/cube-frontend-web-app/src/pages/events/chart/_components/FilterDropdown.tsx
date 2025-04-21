@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { upperFirst } from 'lodash'
 import { CosDropdown } from '@cube-frontend/ui-library'
 
@@ -20,15 +21,35 @@ export const FilterDropdown = (props: FilterDropdownProps) => {
     onChange: onDropdownChange,
   } = props
 
-  const selectedItem = selectedValue ? [selectedValue] : []
+  const [selectedItem, setSelectedItem] = useState<string[]>(
+    selectedValue ? [selectedValue] : [],
+  )
+
+  useEffect(() => {
+    if (selectedValue) {
+      setSelectedItem([selectedValue])
+    }
+  }, [selectedValue])
+
+  const modifiedOptions = ['All', ...options]
+
+  const handleItemClick = (option: string) => {
+    if (option === 'All') {
+      onDropdownChange({ [filterKey]: null })
+      setSelectedItem([option])
+      return
+    }
+
+    onDropdownChange({ [filterKey]: option })
+  }
 
   const renderOptions = () => {
-    return options.map((option) => {
+    return modifiedOptions.map((option) => {
       return (
         <CosDropdown.Item
           key={option}
           item={option}
-          onClick={() => onDropdownChange({ [filterKey]: option })}
+          onClick={() => handleItemClick(option)}
         >
           {option}
         </CosDropdown.Item>
