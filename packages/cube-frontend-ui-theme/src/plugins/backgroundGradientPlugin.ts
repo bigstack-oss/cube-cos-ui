@@ -11,5 +11,8 @@ export const backgroundGradientPlugin: PluginCreator = ({
     '.background-scene-gradient': {
       background: theme('colors.scene.gradient'),
     },
+    '.bg-image-scene-gradient': {
+      backgroundImage: theme('colors.scene.gradient'),
+    },
   })
 }
