@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { noop } from 'lodash'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import {
   CosSideBar,
   CosSideBarProps,
-} from '../../..//components/CosSideBar/CosSideBar'
+} from '../../../components/CosSideBar/CosSideBar'
 import HomeIcon from '../../../components/CosIcon/monochrome/home_01.svg?react'
 import NodeIcon from '../../../components/CosIcon/monochrome/node.svg?react'
 import IntegrationsIcon from '../../../components/CosIcon/monochrome/integration.svg?react'
@@ -31,46 +32,54 @@ const defaultArgs = {
     version: 'Cube Appliance 2.3.3',
   },
   username: 'Admin',
+  naggingProps: {
+    type: 'error',
+    title: '3 hosts license verification failed.',
+    link: {
+      text: 'Go to License',
+      onClick: noop,
+    },
+  },
   options: [
     {
       Icon: HomeIcon,
       label: 'Home',
       notificationCount: 1,
       isSelected: true,
-      onClick: () => {},
+      onClick: noop,
     },
     {
       Icon: NodeIcon,
       label: 'Nodes',
       notificationCount: 99,
       isSelected: false,
-      onClick: () => {},
+      onClick: noop,
     },
     {
       Icon: IntegrationsIcon,
       label: 'Integrations',
       notificationCount: 100,
       isSelected: false,
-      onClick: () => {},
+      onClick: noop,
     },
     {
       Icon: MaintenanceIcon,
       label: 'Maintenance',
       notificationCount: 0,
       isSelected: false,
-      onClick: () => {},
+      onClick: noop,
     },
     {
       Icon: EventsIcon,
       label: 'Events',
       isSelected: false,
-      onClick: () => {},
+      onClick: noop,
     },
     {
       Icon: SettingsIcon,
       label: 'Settings',
       isSelected: false,
-      onClick: () => {},
+      onClick: noop,
     },
   ],
   links: [

@@ -12,6 +12,7 @@ import { UserContext } from '../context/UserContext'
 import Content from './Content'
 import { useSidebarOptions } from './useSidebarOptions'
 import { useSidebarBottomLinks } from './useSidebarBottomLinks'
+import { useSideBarNagging } from './useSideBarNagging'
 
 const integrationIcons = {
   keycloak: KeycloakIcon,
@@ -39,6 +40,10 @@ const Layout = (props: PropsWithChildren) => {
   const { integrations, isLoading: isIntegrationsLoading } =
     useContext(IntegrationsContext)
 
+  const sideBarNaggingProps = useSideBarNagging(
+    dataCenter?.additional.nodeLicenseStatus,
+  )
+
   const quickAccesses = integrations.map((integration) => {
     const Icon =
       integrationIcons[integration.name as keyof typeof integrationIcons]
@@ -48,6 +53,7 @@ const Layout = (props: PropsWithChildren) => {
 
     return { Icon, href: integration.url }
   })
+
   return (
     <div className="h-svh min-w-full overflow-hidden bg-scene-background">
       <div className="flex h-svh flex-row">
@@ -55,6 +61,7 @@ const Layout = (props: PropsWithChildren) => {
           LogoContainer={<Link to="/home"></Link>}
           isLoading={isDataCenterLoading || isUserInfoLoading}
           dataCenter={dataCenter}
+          naggingProps={sideBarNaggingProps}
           username={userInfo?.name}
           options={sideBarOptions}
           links={sideBarBottomLinks}

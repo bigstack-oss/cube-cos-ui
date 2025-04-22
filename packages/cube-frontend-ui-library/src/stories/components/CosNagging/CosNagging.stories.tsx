@@ -6,6 +6,7 @@ import {
   NaggingBoxForTop,
   NaggingRowForTop,
 } from './NaggingBox'
+import { noop } from 'lodash'
 
 const meta = {
   title: 'Molecules/Nagging',
@@ -20,6 +21,11 @@ const naggingContent = {
   longerTitle:
     'Two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this',
   description: 'Text goes here. Text goes here. (Optional)',
+  multilineDescription: [
+    'Text goes here. Text goes here. (Optional)',
+    'Text goes here. Text goes here. (Optional)',
+    'Text goes here. Text goes here. (Optional)',
+  ],
   createLink: () => ({
     text: 'Call to action',
     href: `/#${Math.random()}`,
@@ -107,6 +113,21 @@ export const Sidebar: StoryObj = {
               description={naggingContent.description}
             />
           </NaggingBoxForSidebar>
+          <NaggingBoxForSidebar title="Multiple descriptions">
+            <CosNagging
+              type="error"
+              variant="sidebar"
+              title={naggingContent.title}
+              description={naggingContent.multilineDescription}
+              link={naggingContent.createLink()}
+            />
+            <CosNagging
+              type="error"
+              variant="sidebar"
+              title={naggingContent.title}
+              description={naggingContent.multilineDescription}
+            />
+          </NaggingBoxForSidebar>
         </div>
       </StoryLayout.Section>
     </StoryLayout>
@@ -140,6 +161,7 @@ export const Top: StoryObj = {
                 variant="top"
                 title={naggingContent.title}
                 link={naggingContent.createLink()}
+                description={naggingContent.description}
               />
             </NaggingRowForTop>
             <NaggingRowForTop title="Without link">
@@ -147,6 +169,7 @@ export const Top: StoryObj = {
                 type="error"
                 variant="top"
                 title={naggingContent.title}
+                description={naggingContent.description}
               />
             </NaggingRowForTop>
           </NaggingBoxForTop>
@@ -157,6 +180,7 @@ export const Top: StoryObj = {
                 variant="top"
                 title={naggingContent.title}
                 link={naggingContent.createLink()}
+                description={naggingContent.description}
               />
             </NaggingRowForTop>
             <NaggingRowForTop title="Without link">
@@ -164,6 +188,28 @@ export const Top: StoryObj = {
                 type="warning"
                 variant="top"
                 title={naggingContent.title}
+                description={naggingContent.description}
+              />
+            </NaggingRowForTop>
+          </NaggingBoxForTop>
+          <NaggingBoxForTop title="With close button">
+            <NaggingRowForTop title="With link">
+              <CosNagging
+                type="error"
+                variant="top"
+                title={naggingContent.title}
+                link={naggingContent.createLink()}
+                description={naggingContent.description}
+                onClose={noop}
+              />
+            </NaggingRowForTop>
+            <NaggingRowForTop title="Without link">
+              <CosNagging
+                type="warning"
+                variant="top"
+                title={naggingContent.title}
+                description={naggingContent.description}
+                onClose={noop}
               />
             </NaggingRowForTop>
           </NaggingBoxForTop>
@@ -202,6 +248,25 @@ export const Top: StoryObj = {
                 type="warning"
                 variant="top"
                 title={naggingContent.longerTitle}
+              />
+            </NaggingRowForTop>
+          </NaggingBoxForTop>
+          <NaggingBoxForTop title="Multiple descriptions">
+            <NaggingRowForTop title="With link">
+              <CosNagging
+                type="error"
+                variant="top"
+                title={naggingContent.title}
+                link={naggingContent.createLink()}
+                description={naggingContent.multilineDescription}
+              />
+            </NaggingRowForTop>
+            <NaggingRowForTop title="Without link">
+              <CosNagging
+                type="error"
+                variant="top"
+                title={naggingContent.title}
+                description={naggingContent.multilineDescription}
               />
             </NaggingRowForTop>
           </NaggingBoxForTop>

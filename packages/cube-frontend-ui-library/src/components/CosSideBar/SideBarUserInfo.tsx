@@ -1,3 +1,4 @@
+import { CosNagging, CosNaggingProps } from '../CosNagging/CosNagging'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 import { SideBarBlock } from './SideBarBlock'
 import { UserNameTag } from './UserNameTag'
@@ -14,10 +15,11 @@ export type SideBarUserInfoProps = {
       }
     | undefined
   username: string | undefined
+  naggingProps?: Omit<CosNaggingProps, 'variant'>
 }
 
 const SideBarUserInfo = (props: SideBarUserInfoProps) => {
-  const { isLoading = false, dataCenter, username } = props
+  const { isLoading = false, dataCenter, username, naggingProps } = props
 
   const renderDataCenter = () => {
     if (isLoading) {
@@ -55,6 +57,7 @@ const SideBarUserInfo = (props: SideBarUserInfoProps) => {
         {renderUserName()}
       </div>
       {renderVersion()}
+      {naggingProps && <CosNagging {...naggingProps} variant="sidebar" />}
     </SideBarBlock>
   )
 }

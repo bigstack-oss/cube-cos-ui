@@ -403,13 +403,13 @@ export interface EmailSenderPostRequest {
      * @type {string}
      * @memberof EmailSenderPostRequest
      */
-    'username': string;
+    'username'?: string;
     /**
      * 
      * @type {string}
      * @memberof EmailSenderPostRequest
      */
-    'password': string;
+    'password'?: string;
     /**
      * 
      * @type {string}
@@ -944,6 +944,37 @@ export interface GetDataCentersResponseDataInnerAdditional {
      * @memberof GetDataCentersResponseDataInnerAdditional
      */
     'helpUrl': string;
+    /**
+     * 
+     * @type {GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus}
+     * @memberof GetDataCentersResponseDataInnerAdditional
+     */
+    'nodeLicenseStatus': GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus;
+}
+/**
+ * 
+ * @export
+ * @interface GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
+ */
+export interface GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
+     */
+    'valid': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
+     */
+    'expired': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
+     */
+    'unlicense': number;
 }
 /**
  * 
@@ -2401,10 +2432,10 @@ export interface GetLicensesResponseDataLicensesInner {
     'expiry': GetLicensesResponseDataLicensesInnerExpiry;
     /**
      * 
-     * @type {GetLicensesResponseDataLicensesInnerStatus}
+     * @type {ListLicenseStatus}
      * @memberof GetLicensesResponseDataLicensesInner
      */
-    'status': GetLicensesResponseDataLicensesInnerStatus;
+    'status': ListLicenseStatus;
 }
 /**
  * 
@@ -2475,33 +2506,6 @@ export interface GetLicensesResponseDataLicensesInnerProduct {
      */
     'feature': string;
 }
-/**
- * 
- * @export
- * @interface GetLicensesResponseDataLicensesInnerStatus
- */
-export interface GetLicensesResponseDataLicensesInnerStatus {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerStatus
-     */
-    'current': GetLicensesResponseDataLicensesInnerStatusCurrentEnum;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetLicensesResponseDataLicensesInnerStatus
-     */
-    'isExpiring': boolean;
-}
-
-export const GetLicensesResponseDataLicensesInnerStatusCurrentEnum = {
-    Ok: 'ok',
-    Expired: 'expired'
-} as const;
-
-export type GetLicensesResponseDataLicensesInnerStatusCurrentEnum = typeof GetLicensesResponseDataLicensesInnerStatusCurrentEnum[keyof typeof GetLicensesResponseDataLicensesInnerStatusCurrentEnum];
-
 /**
  * 
  * @export
@@ -4766,6 +4770,41 @@ export interface ImportClusterLicense500Response {
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const ListLicenseCurrentStatus = {
+    Valid: 'valid',
+    Expired: 'expired'
+} as const;
+
+export type ListLicenseCurrentStatus = typeof ListLicenseCurrentStatus[keyof typeof ListLicenseCurrentStatus];
+
+
+/**
+ * 
+ * @export
+ * @interface ListLicenseStatus
+ */
+export interface ListLicenseStatus {
+    /**
+     * 
+     * @type {ListLicenseCurrentStatus}
+     * @memberof ListLicenseStatus
+     */
+    'current': ListLicenseCurrentStatus;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListLicenseStatus
+     */
+    'isExpiring': boolean;
+}
+
+
+/**
+ * 
+ * @export
  * @interface ListTuningResponse
  */
 export interface ListTuningResponse {
@@ -5463,7 +5502,28 @@ export interface NodeLicense {
      * @memberof NodeLicense
      */
     'expiry': NodeLicenseExpiry;
+    /**
+     * 
+     * @type {NodeLicenseStatus}
+     * @memberof NodeLicense
+     */
+    'status': NodeLicenseStatus;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const NodeLicenseCurrentStatus = {
+    Unlicense: 'unlicense',
+    Valid: 'valid',
+    Expired: 'expired'
+} as const;
+
+export type NodeLicenseCurrentStatus = typeof NodeLicenseCurrentStatus[keyof typeof NodeLicenseCurrentStatus];
+
+
 /**
  * 
  * @export
@@ -5514,6 +5574,27 @@ export interface NodeLicenseIssue {
      */
     'date': string;
 }
+/**
+ * 
+ * @export
+ * @interface NodeLicenseStatus
+ */
+export interface NodeLicenseStatus {
+    /**
+     * 
+     * @type {NodeLicenseCurrentStatus}
+     * @memberof NodeLicenseStatus
+     */
+    'current': NodeLicenseCurrentStatus;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof NodeLicenseStatus
+     */
+    'isExpiring': boolean;
+}
+
+
 /**
  * 
  * @export
@@ -6946,10 +7027,10 @@ export interface VerifyLicenseResponseDataEffectNodesInner {
     'expiry': GetLicensesResponseDataLicensesInnerExpiry;
     /**
      * 
-     * @type {VerifyLicenseResponseDataLicenseStatus}
+     * @type {NodeLicenseStatus}
      * @memberof VerifyLicenseResponseDataEffectNodesInner
      */
-    'status': VerifyLicenseResponseDataLicenseStatus;
+    'status': NodeLicenseStatus;
 }
 /**
  * 
@@ -7001,38 +7082,40 @@ export interface VerifyLicenseResponseDataLicense {
     'expiry': GetLicensesResponseDataLicensesInnerExpiry;
     /**
      * 
-     * @type {VerifyLicenseResponseDataLicenseStatus}
+     * @type {VerifyLicenseStatus}
      * @memberof VerifyLicenseResponseDataLicense
      */
-    'status': VerifyLicenseResponseDataLicenseStatus;
+    'status': VerifyLicenseStatus;
 }
 /**
  * 
  * @export
- * @interface VerifyLicenseResponseDataLicenseStatus
+ * @interface VerifyLicenseStatus
  */
-export interface VerifyLicenseResponseDataLicenseStatus {
+export interface VerifyLicenseStatus {
     /**
      * 
      * @type {string}
-     * @memberof VerifyLicenseResponseDataLicenseStatus
+     * @memberof VerifyLicenseStatus
      */
-    'current': VerifyLicenseResponseDataLicenseStatusCurrentEnum;
+    'current': VerifyLicenseStatusCurrentEnum;
     /**
      * 
      * @type {boolean}
-     * @memberof VerifyLicenseResponseDataLicenseStatus
+     * @memberof VerifyLicenseStatus
      */
     'isExpiring': boolean;
 }
 
-export const VerifyLicenseResponseDataLicenseStatusCurrentEnum = {
-    Ok: 'ok',
-    Expiring: 'expiring',
+export const VerifyLicenseStatusCurrentEnum = {
+    Valid: 'valid',
+    UnmatchedHardware: 'unmatched hardware',
+    InvalidSignature: 'invalid signature',
+    SystemCompromised: 'system compromised',
     Expired: 'expired'
 } as const;
 
-export type VerifyLicenseResponseDataLicenseStatusCurrentEnum = typeof VerifyLicenseResponseDataLicenseStatusCurrentEnum[keyof typeof VerifyLicenseResponseDataLicenseStatusCurrentEnum];
+export type VerifyLicenseStatusCurrentEnum = typeof VerifyLicenseStatusCurrentEnum[keyof typeof VerifyLicenseStatusCurrentEnum];
 
 
 /**
@@ -9690,7 +9773,7 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {Array<GetLicensesProductsEnum>} [products] The product of the host
-         * @param {Array<GetLicensesStatusesEnum>} [statuses] The status of the host
+         * @param {Array<ListLicenseCurrentStatus>} [statuses] The status of the license
          * @param {Array<GetLicensesTypesEnum>} [types] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -9698,7 +9781,7 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLicenses: async (dataCenter: string, keyword?: string, products?: Array<GetLicensesProductsEnum>, statuses?: Array<GetLicensesStatusesEnum>, types?: Array<GetLicensesTypesEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getLicenses: async (dataCenter: string, keyword?: string, products?: Array<GetLicensesProductsEnum>, statuses?: Array<ListLicenseCurrentStatus>, types?: Array<GetLicensesTypesEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getLicenses', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses`
@@ -9908,7 +9991,7 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {Array<GetLicensesProductsEnum>} [products] The product of the host
-         * @param {Array<GetLicensesStatusesEnum>} [statuses] The status of the host
+         * @param {Array<ListLicenseCurrentStatus>} [statuses] The status of the license
          * @param {Array<GetLicensesTypesEnum>} [types] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -9916,7 +9999,7 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLicenses(dataCenter: string, keyword?: string, products?: Array<GetLicensesProductsEnum>, statuses?: Array<GetLicensesStatusesEnum>, types?: Array<GetLicensesTypesEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicensesResponse>> {
+        async getLicenses(dataCenter: string, keyword?: string, products?: Array<GetLicensesProductsEnum>, statuses?: Array<ListLicenseCurrentStatus>, types?: Array<GetLicensesTypesEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicensesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenses(dataCenter, keyword, products, statuses, types, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LicensesApi.getLicenses']?.[localVarOperationServerIndex]?.url;
@@ -10046,11 +10129,11 @@ export interface LicensesApiGetLicensesRequest {
     readonly products?: Array<GetLicensesProductsEnum>
 
     /**
-     * The status of the host
-     * @type {Array<'ok' | 'expiring' | 'expired' | 'error'>}
+     * The status of the license
+     * @type {Array<ListLicenseCurrentStatus>}
      * @memberof LicensesApiGetLicenses
      */
-    readonly statuses?: Array<GetLicensesStatusesEnum>
+    readonly statuses?: Array<ListLicenseCurrentStatus>
 
     /**
      * The type of the license to query, click \&#39;try it out\&#39; to see a few options.
@@ -10215,16 +10298,6 @@ export const GetLicensesProductsEnum = {
     CubeCmp: 'cubeCMP'
 } as const;
 export type GetLicensesProductsEnum = typeof GetLicensesProductsEnum[keyof typeof GetLicensesProductsEnum];
-/**
- * @export
- */
-export const GetLicensesStatusesEnum = {
-    Ok: 'ok',
-    Expiring: 'expiring',
-    Expired: 'expired',
-    Error: 'error'
-} as const;
-export type GetLicensesStatusesEnum = typeof GetLicensesStatusesEnum[keyof typeof GetLicensesStatusesEnum];
 /**
  * @export
  */
@@ -10945,7 +11018,7 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {Array<GetNodesRolesEnum>} [roles] The role of the host
-         * @param {Array<GetNodesLicenseStatusesEnum>} [licenseStatuses] The status of the host
+         * @param {Array<NodeLicenseCurrentStatus>} [licenseStatuses] The license status of the host
          * @param {Array<GetNodesProductsEnum>} [products] The product of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -10953,7 +11026,7 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNodes: async (dataCenter: string, keyword?: string, roles?: Array<GetNodesRolesEnum>, licenseStatuses?: Array<GetNodesLicenseStatusesEnum>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNodes: async (dataCenter: string, keyword?: string, roles?: Array<GetNodesRolesEnum>, licenseStatuses?: Array<NodeLicenseCurrentStatus>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getNodes', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes`
@@ -11039,7 +11112,7 @@ export const NodesApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {Array<GetNodesRolesEnum>} [roles] The role of the host
-         * @param {Array<GetNodesLicenseStatusesEnum>} [licenseStatuses] The status of the host
+         * @param {Array<NodeLicenseCurrentStatus>} [licenseStatuses] The license status of the host
          * @param {Array<GetNodesProductsEnum>} [products] The product of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -11047,7 +11120,7 @@ export const NodesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNodes(dataCenter: string, keyword?: string, roles?: Array<GetNodesRolesEnum>, licenseStatuses?: Array<GetNodesLicenseStatusesEnum>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
+        async getNodes(dataCenter: string, keyword?: string, roles?: Array<GetNodesRolesEnum>, licenseStatuses?: Array<NodeLicenseCurrentStatus>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(dataCenter, keyword, roles, licenseStatuses, products, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodesApi.getNodes']?.[localVarOperationServerIndex]?.url;
@@ -11142,11 +11215,11 @@ export interface NodesApiGetNodesRequest {
     readonly roles?: Array<GetNodesRolesEnum>
 
     /**
-     * The status of the host
-     * @type {Array<'ok' | 'expiring' | 'expired' | 'error'>}
+     * The license status of the host
+     * @type {Array<NodeLicenseCurrentStatus>}
      * @memberof NodesApiGetNodes
      */
-    readonly licenseStatuses?: Array<GetNodesLicenseStatusesEnum>
+    readonly licenseStatuses?: Array<NodeLicenseCurrentStatus>
 
     /**
      * The product of the host
@@ -11221,16 +11294,6 @@ export const GetNodesRolesEnum = {
     Moderator: 'moderator'
 } as const;
 export type GetNodesRolesEnum = typeof GetNodesRolesEnum[keyof typeof GetNodesRolesEnum];
-/**
- * @export
- */
-export const GetNodesLicenseStatusesEnum = {
-    Ok: 'ok',
-    Expiring: 'expiring',
-    Expired: 'expired',
-    Error: 'error'
-} as const;
-export type GetNodesLicenseStatusesEnum = typeof GetNodesLicenseStatusesEnum[keyof typeof GetNodesLicenseStatusesEnum];
 /**
  * @export
  */

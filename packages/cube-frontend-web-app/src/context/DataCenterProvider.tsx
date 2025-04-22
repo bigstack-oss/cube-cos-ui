@@ -16,6 +16,14 @@ export const DataCenterProvider = (props: PropsWithChildren) => {
     throw new Error('A data center is required.')
   }
 
+  if (dataCenter) {
+    dataCenter.additional.nodeLicenseStatus = {
+      expired: 10,
+      unlicense: 1,
+      valid: 0,
+    }
+  }
+
   return (
     <DataCenterContext.Provider value={{ dataCenter, isLoading }}>
       {children}

@@ -1,26 +1,34 @@
+import { isArray } from 'lodash'
 import WarningFilled from '../../components/CosIcon/monochrome/warning_filled.svg?react'
 import WarningAltFilled from '../../components/CosIcon/monochrome/warning_alt_filled.svg?react'
+import XSmallIcon from '@cube-frontend/ui-library/icons/monochrome/x_small.svg?react'
 import { PropsWithClassName } from '@cube-frontend/utils'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
-import { CosHyperlink } from '../CosHyperlink/CosHyperlink'
+import { CosHyperlink, CosHyperlinkProps } from '../CosHyperlink/CosHyperlink'
 import { SvgElement } from '../CosIcon/CosIcon'
 
 export type CosNaggingType = 'error' | 'warning'
 
 export type CosNaggingVariant = 'sidebar' | 'top'
 
+export type CosNaggingLink = Pick<CosHyperlinkProps, 'href' | 'onClick'> & {
+  text: CosHyperlinkProps['children']
+}
+
 export type CosNaggingProps = PropsWithClassName & {
   type: CosNaggingType
   title: string
+  description?: string | string[]
+  link?: CosNaggingLink
 } & (
-    | { variant: Extract<CosNaggingVariant, 'sidebar'>; description?: string }
-    | { variant: Extract<CosNaggingVariant, 'top'> }
-  ) & { link?: { href: string; text: string } }
+    | { variant: Extract<CosNaggingVariant, 'sidebar'> }
+    | { variant: Extract<CosNaggingVariant, 'top'>; onClose?: () => void }
+  )
 
 const nagging = cva(
   [
-    'flex gap-[6px] self-start rounded-md border bg-yellow-50 p-3',
+    'flex flex-col gap-[6px] self-start rounded-md border bg-yellow-50 p-3',
     'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
   ],
   {
@@ -29,30 +37,27 @@ const nagging = cva(
         error: 'border-status-negative',
         warning: 'border-status-warning',
       },
-      variant: {
-        sidebar: 'flex-col',
-        top: '',
-      },
     },
   },
 )
 
+const descriptionContainerClass = twMerge('primary-body4 text-functional-text')
 const typeIconBaseClass = twMerge('icon-md shrink-0')
 const typeIcons: Record<CosNaggingType, SvgElement> = {
   error: (
-    <WarningAltFilled
+    <WarningFilled
       className={twMerge(typeIconBaseClass, 'text-status-negative')}
     />
   ),
   warning: (
-    <WarningFilled
+    <WarningAltFilled
       className={twMerge(typeIconBaseClass, 'text-status-warning')}
     />
   ),
 }
 
 export const CosNagging = (props: CosNaggingProps) => {
-  const { className, type, variant, title } = props
+  const { className, type, variant, title, description, link } = props
 
   const isVariantSidebar = variant === 'sidebar'
 
@@ -71,7 +76,12 @@ export const CosNagging = (props: CosNaggingProps) => {
         <div className="flex flex-wrap items-center gap-2">
           {titleElement}
           {link && (
-            <CosHyperlink variant="text-inline" size="sm" href={link.href}>
+            <CosHyperlink
+              variant="text-inline"
+              size="sm"
+              href={link.href}
+              onClick={link.onClick}
+            >
               {link.text}
             </CosHyperlink>
           )}
@@ -82,22 +92,59 @@ export const CosNagging = (props: CosNaggingProps) => {
     }
   }
 
-  const renderDescription = () => {
+  const renderCloseIcon = () => {
     if (isVariantSidebar) {
-      const { description } = props
+      return undefined
+    }
+
+    const { onClose } = props
+
+    if (!onClose) {
+      return null
+    }
+
+    return (
+      <XSmallIcon
+        className="icon-md cursor-pointer text-functional-text"
+        onClick={onClose}
+      />
+    )
+  }
+
+  const renderDescription = () => {
+    if (!description) {
+      return null
+    }
+
+    if (isArray(description)) {
+      if (description.length === 0) {
+        return null
+      }
+
       return (
-        <div className="primary-body4 text-functional-text">{description}</div>
+        <div className={descriptionContainerClass}>
+          <ul className="list-outside list-disc pl-4">
+            {description.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
       )
     }
-    return undefined
+
+    return <div className={descriptionContainerClass}>{description}</div>
   }
 
   const renderBottomLink = () => {
     if (isVariantSidebar) {
-      const { link } = props
       return (
         link && (
-          <CosHyperlink variant="text-inline" size="sm" href={link.href}>
+          <CosHyperlink
+            variant="text-inline"
+            size="sm"
+            href={link.href}
+            onClick={link.onClick}
+          >
             {link.text}
           </CosHyperlink>
         )
@@ -107,10 +154,13 @@ export const CosNagging = (props: CosNaggingProps) => {
   }
 
   return (
-    <div className={twMerge(nagging({ variant, type }), className)}>
-      <div className="flex items-start gap-2">
-        {icon}
-        {renderTitle()}
+    <div className={twMerge(nagging({ type }), className)}>
+      <div className="flex items-center justify-between">
+        <div className="flex items-start gap-2">
+          {icon}
+          {renderTitle()}
+        </div>
+        {renderCloseIcon()}
       </div>
       {renderDescription()}
       {renderBottomLink()}

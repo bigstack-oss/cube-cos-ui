@@ -9,8 +9,15 @@ export type CosSideBarProps = SideBarTitleProps &
   SideBarBottomProps
 
 export const CosSideBar = (props: CosSideBarProps) => {
-  const { LogoContainer, isLoading, dataCenter, username, options, links } =
-    props
+  const {
+    LogoContainer,
+    isLoading,
+    dataCenter,
+    username,
+    options,
+    links,
+    naggingProps,
+  } = props
 
   return (
     <div
@@ -22,6 +29,7 @@ export const CosSideBar = (props: CosSideBarProps) => {
         isLoading={isLoading}
         dataCenter={dataCenter}
         username={username}
+        naggingProps={naggingProps}
       />
       <SideBarCombobox options={options} />
       <SideBarBottom links={links} />
