@@ -1,39 +1,72 @@
-import { Node } from '@cube-frontend/api'
+import {
+  Node,
+  SupportFilesApiCreateSupportFilesRequest,
+} from '@cube-frontend/api'
 import {
   CosInput,
   CosModal,
   CosTag,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
+import { supportFilesApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+import { useContext } from 'react'
 
-const SelectedHostsTable = GetCosBasicTable<Node>()
+const SelectedHostsTable = GetCosBasicTable<NodeForCreateSupportFiles>()
 
 export type CreateSupportFilesModalProps = {
   isOpen: boolean
-  isCreating: boolean
-  selectedNodes: Node[]
+  selectedNodes: NodeForCreateSupportFiles[]
   comments: string
   onCommentsChange: (comments: string) => void
-  onCreateClick: () => void
   onCloseClick: () => void
+  onSuccess?: () => void
 }
+
+type NodeForCreateSupportFiles = Pick<Node, 'id' | 'hostname' | 'role'>
 
 export const CreateSupportFilesModal = (
   props: CreateSupportFilesModalProps,
 ) => {
   const {
     isOpen,
-    isCreating,
     selectedNodes,
     comments,
     onCommentsChange,
-    onCreateClick,
     onCloseClick,
+    onSuccess,
   } = props
+
+  const { dataCenter } = useContext(DataCenterContext)
+
+  const { isLoading: isCreating, mutateResource: createSupportFilesApi } =
+    useCosMutationRequest(
+      supportFilesApi.createSupportFiles as (
+        params: SupportFilesApiCreateSupportFilesRequest,
+      ) => Promise<CosApiResponse<undefined>>,
+    )
+
+  const onCreateClick = async (): Promise<void> => {
+    try {
+      await createSupportFilesApi({
+        dataCenter: dataCenter!.name,
+        createSupportFilesRequest: {
+          description: comments,
+          hosts: selectedNodes.map((node) => node.hostname),
+        },
+      })
+      onCloseClick()
+      onSuccess?.()
+    } catch (error) {
+      console.error('Create support files error: ', error)
+    }
+  }
 
   return (
     <CosModal
-      title="Create support files"
+      title="Create Support Files"
       size="sm"
       isOpen={isOpen}
       actionText="Create support files"

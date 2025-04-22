@@ -3,7 +3,6 @@ import {
   GetNodesRolesEnum,
   Node,
   NodesApiGetNodesRequest,
-  SupportFilesApiCreateSupportFilesRequest,
 } from '@cube-frontend/api'
 import {
   CosButton,
@@ -11,15 +10,14 @@ import {
   CosPagination,
   DEFAULT_ITEMS_PER_PAGE,
 } from '@cube-frontend/ui-library'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
-import { nodesApi, supportFilesApi } from '@cube-frontend/web-app/api/cosApi'
-import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { NodeTable } from './_components/NodeTable'
 import { NodeFilters } from './_components/NodeFilters'
 import { CreateSupportFilesModal } from './_components/CreateSupportFilesModal'
+import { useCreateSupportFilesModal } from './_components/useCreateSupportFilesModal'
 
 export const NodeListPage = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -52,19 +50,7 @@ export const NodeListPage = () => {
     setDebounceSearchKeyword('')
   }
 
-  const {
-    isLoading: isCreatingSupportFiles,
-    mutateResource: createSupportFiles,
-  } = useCosMutationRequest(
-    supportFilesApi.createSupportFiles as (
-      params: SupportFilesApiCreateSupportFilesRequest,
-    ) => Promise<CosApiResponse<undefined>>,
-  )
-
-  const [isCreateSupportFilesModalOpen, setIsCreateSupportFilesModalOpen] =
-    useState(false)
   const [selectedNodeIds, setSelectedNodeIds] = useState<string[]>([])
-  const [comments, setComments] = useState('')
 
   const selectedNodes = useMemo<Node[]>(() => {
     if (!nodesData) return []
@@ -81,27 +67,13 @@ export const NodeListPage = () => {
     })
   }
 
-  const handleCreateSupportFilesButtonClick = () => {
-    setComments('')
-    setIsCreateSupportFilesModalOpen(true)
-  }
-
-  const handleConfirmCreateSupportFiles = async () => {
-    try {
-      await createSupportFiles({
-        dataCenter: dataCenter!.name,
-        createSupportFilesRequest: {
-          description: comments,
-          hosts: selectedNodes.map((node) => node.hostname),
-        },
-      })
-    } catch (error) {
-      console.error('Create support files error: ', error)
-    } finally {
-      setIsCreateSupportFilesModalOpen(false)
-      setSelectedNodeIds([])
-    }
-  }
+  const {
+    isCreateSupportFilesModalOpen,
+    comments,
+    onCommentsChange,
+    openCreateSupportFilesModal,
+    closeCreateSupportFilesModal,
+  } = useCreateSupportFilesModal()
 
   return (
     <>
@@ -116,7 +88,7 @@ export const NodeListPage = () => {
               handleRolesSelect={setSelectedRoles}
             />
             <CosButton
-              onClick={handleCreateSupportFilesButtonClick}
+              onClick={openCreateSupportFilesModal}
               disabled={selectedNodes.length === 0}
             >
               Create support files
@@ -142,12 +114,11 @@ export const NodeListPage = () => {
       </CosGeneralPanel>
       <CreateSupportFilesModal
         isOpen={isCreateSupportFilesModalOpen}
-        isCreating={isCreatingSupportFiles}
         selectedNodes={selectedNodes}
         comments={comments}
-        onCommentsChange={setComments}
-        onCreateClick={handleConfirmCreateSupportFiles}
-        onCloseClick={() => setIsCreateSupportFilesModalOpen(false)}
+        onCommentsChange={onCommentsChange}
+        onCloseClick={closeCreateSupportFilesModal}
+        onSuccess={() => setSelectedNodeIds([])}
       />
     </>
   )
