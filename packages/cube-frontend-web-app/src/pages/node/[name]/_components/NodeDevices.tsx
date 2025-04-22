@@ -1,6 +1,7 @@
 import { Node, NodeBlockDevicesInner } from '@cube-frontend/api'
 import {
   CosPagination,
+  CosStatus,
   CosTableRow,
   DEFAULT_ITEMS_PER_PAGE,
   GetCosBasicTable,
@@ -8,6 +9,7 @@ import {
 } from '@cube-frontend/ui-library'
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
+import { capitalize } from 'lodash'
 import { useMemo, useState } from 'react'
 import { Panel } from './Panel'
 
@@ -51,8 +53,8 @@ export const NodeDevices = (props: NodeDevicesProps) => {
     }))
   }, [node?.blockDevices, paginationState])
 
-  const renderStatus = (status: string) => {
-    if (status === 'can be added') {
+  const renderAvailability = (availability: string) => {
+    if (availability === 'can be added') {
       return (
         <div className="flex items-center gap-x-2">
           <span className="primary-body4 font-medium text-status-positive-text">
@@ -63,7 +65,7 @@ export const NodeDevices = (props: NodeDevicesProps) => {
       )
     }
 
-    return status
+    return capitalize(availability)
   }
 
   return (
@@ -76,8 +78,11 @@ export const NodeDevices = (props: NodeDevicesProps) => {
         <DeviceTable.Column label="Size" property="sizeMiB">
           {(sizeMiB) => toReadableSizeString(sizeMiB, 'MiB')}
         </DeviceTable.Column>
-        <DeviceTable.Column label="Availability" property="status">
-          {renderStatus}
+        <DeviceTable.Column label="Availability" property="availability">
+          {renderAvailability}
+        </DeviceTable.Column>
+        <DeviceTable.Column label="Status" property="status">
+          {(status) => <CosStatus status={status.current} />}
         </DeviceTable.Column>
       </DeviceTable>
       <CosPagination

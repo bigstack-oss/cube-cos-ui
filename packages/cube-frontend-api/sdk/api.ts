@@ -5440,8 +5440,42 @@ export interface NodeBlockDevicesInner {
      * @type {string}
      * @memberof NodeBlockDevicesInner
      */
-    'status': string;
+    'availability': string;
+    /**
+     * 
+     * @type {NodeBlockDevicesInnerStatus}
+     * @memberof NodeBlockDevicesInner
+     */
+    'status': NodeBlockDevicesInnerStatus;
 }
+/**
+ * 
+ * @export
+ * @interface NodeBlockDevicesInnerStatus
+ */
+export interface NodeBlockDevicesInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeBlockDevicesInnerStatus
+     */
+    'current': NodeBlockDevicesInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeBlockDevicesInnerStatus
+     */
+    'description': string;
+}
+
+export const NodeBlockDevicesInnerStatusCurrentEnum = {
+    Ok: 'ok',
+    Warning: 'warning',
+    Fail: 'fail'
+} as const;
+
+export type NodeBlockDevicesInnerStatusCurrentEnum = typeof NodeBlockDevicesInnerStatusCurrentEnum[keyof typeof NodeBlockDevicesInnerStatusCurrentEnum];
+
 /**
  * 
  * @export
@@ -7032,6 +7066,34 @@ export interface VerifyLicenseResponseDataEffectNodesInner {
      */
     'status': NodeLicenseStatus;
 }
+/**
+ * 
+ * @export
+ * @interface VerifyLicenseResponseDataEffectNodesInnerStatus
+ */
+export interface VerifyLicenseResponseDataEffectNodesInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyLicenseResponseDataEffectNodesInnerStatus
+     */
+    'current': VerifyLicenseResponseDataEffectNodesInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof VerifyLicenseResponseDataEffectNodesInnerStatus
+     */
+    'isExpiring': boolean;
+}
+
+export const VerifyLicenseResponseDataEffectNodesInnerStatusCurrentEnum = {
+    Ok: 'ok',
+    Expiring: 'expiring',
+    Expired: 'expired'
+} as const;
+
+export type VerifyLicenseResponseDataEffectNodesInnerStatusCurrentEnum = typeof VerifyLicenseResponseDataEffectNodesInnerStatusCurrentEnum[keyof typeof VerifyLicenseResponseDataEffectNodesInnerStatusCurrentEnum];
+
 /**
  * 
  * @export

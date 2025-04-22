@@ -1,5 +1,7 @@
 import { Node } from '@cube-frontend/api'
 import {
+  CosButton,
+  CosOverflowMenu,
   CosSkeleton,
   CosStroke,
   CosTag,
@@ -11,6 +13,8 @@ import dayjs from 'dayjs'
 import { range } from 'lodash'
 import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { CreateSupportFilesModal } from '../../_components/CreateSupportFilesModal'
+import { useCreateSupportFilesModal } from '../../_components/useCreateSupportFilesModal'
 import { Panel } from './Panel'
 
 type NodeSummaryProps = {
@@ -19,6 +23,14 @@ type NodeSummaryProps = {
 
 export const NodeSummary = (props: NodeSummaryProps) => {
   const { node } = props
+
+  const {
+    isCreateSupportFilesModalOpen,
+    comments,
+    onCommentsChange,
+    openCreateSupportFilesModal,
+    closeCreateSupportFilesModal,
+  } = useCreateSupportFilesModal()
 
   const renderRow = (label: string, content: ReactNode) => {
     return (
@@ -71,9 +83,12 @@ export const NodeSummary = (props: NodeSummaryProps) => {
   if (!node) {
     return (
       <Panel className="gap-y-6">
-        <div className="flex items-center gap-x-2.5">
-          <CosSkeleton className="h-6 w-[70px]" />
-          <CosSkeleton className="h-6 w-[120px] rounded-full" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-x-2.5">
+            <CosSkeleton className="h-6 w-[70px]" />
+            <CosSkeleton className="h-6 w-[120px] rounded-full" />
+          </div>
+          <CosButton disabled={true}>Action</CosButton>
         </div>
         <CosStroke type="dot" />
         <div className="w-fit rounded-[5px] border border-functional-border-divider">
@@ -85,11 +100,23 @@ export const NodeSummary = (props: NodeSummaryProps) => {
 
   return (
     <Panel className="gap-y-6">
-      <div className="flex items-center gap-x-2.5">
-        <span className="primary-h4 text-functional-text">{node.hostname}</span>
-        <CosTag color="blue" variant="filled">
-          {node.role}
-        </CosTag>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-x-2.5">
+          <span className="primary-h4 text-functional-text">
+            {node.hostname}
+          </span>
+          <CosTag className="h-[23px]" color="blue" variant="filled">
+            {node.role}
+          </CosTag>
+        </div>
+        <CosOverflowMenu triggerElement={<CosButton>Action</CosButton>}>
+          <CosOverflowMenu.Title>Basic</CosOverflowMenu.Title>
+          <CosOverflowMenu.Item
+            type="plain"
+            title="Create support file"
+            onClick={openCreateSupportFilesModal}
+          />
+        </CosOverflowMenu>
       </div>
       <CosStroke type="dot" />
       <table className="border border-functional-border-divider">
@@ -125,6 +152,15 @@ export const NodeSummary = (props: NodeSummaryProps) => {
           )}
         </tbody>
       </table>
+      {!!node && (
+        <CreateSupportFilesModal
+          isOpen={isCreateSupportFilesModalOpen}
+          selectedNodes={[node]}
+          comments={comments}
+          onCommentsChange={onCommentsChange}
+          onCloseClick={closeCreateSupportFilesModal}
+        />
+      )}
     </Panel>
   )
 }
