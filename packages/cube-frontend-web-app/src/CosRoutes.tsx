@@ -23,6 +23,7 @@ import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/Ma
 import { MaintenanceLicensePage } from './pages/maintenance/license/MaintenanceLicensePage'
 import { NodeListPage } from './pages/node/NodeListPage'
 import { NodeDetailsPage } from './pages/node/[name]/NodeDetailsPage'
+import { HttpErrorDisplay } from './components/ErrorDisplay/HttpErrorDisplay'
 
 // TODO: extract all links to CosRoutesEnum.
 export const CosRoutes = () => {
@@ -85,7 +86,14 @@ export const CosRoutes = () => {
         path={CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}
         element={<TriggersCreatePage />}
       />
-      <Route path="*" element={<div>TODO: Not Found Page</div>} />
+      <Route
+        path="*"
+        element={
+          <div className="flex size-full items-center justify-center">
+            <HttpErrorDisplay statusCode={404} />
+          </div>
+        }
+      />
     </Routes>
   )
 }
