@@ -1,4 +1,5 @@
 import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
+import { PropsWithClassName } from '@cube-frontend/utils'
 import { cva } from 'class-variance-authority'
 import { ClassValue } from 'class-variance-authority/types'
 import { twMerge } from 'tailwind-merge'
@@ -10,22 +11,22 @@ import { createDefaultStyles } from './defaultStyles'
 import { createPrimaryBlueStyles } from './primaryBlueStyles'
 import { Compound } from './styleUtils'
 
-export type CosTagProps = {
+export type CosTagProps = PropsWithClassName & {
   children: string
   color?: CosTagColor
   variant: CosTagVariant
   disabled?: boolean
 } & (
-  | // The props for the close button and icon are both optional.
-  // To allow this, we need to add an empty object to the union type.
-  // `NonNullable<unknown>` is used to avoid `{}`.
-  NonNullable<unknown>
-  | {
-      showCloseButton: boolean
-      onClose?: () => void
-    }
-  | { Icon: SvgComponent }
-)
+    | // The props for the close button and icon are both optional.
+    // To allow this, we need to add an empty object to the union type.
+    // `NonNullable<unknown>` is used to avoid `{}`.
+    NonNullable<unknown>
+    | {
+        showCloseButton: boolean
+        onClose?: () => void
+      }
+    | { Icon: SvgComponent }
+  )
 
 export type CosTagColor = 'default' | 'primary-blue' | 'blue' | 'cyan' | 'dark'
 
@@ -72,7 +73,13 @@ const closeButton = cva('icon-xs', {
 })
 
 export const CosTag = (props: CosTagProps) => {
-  const { children, color = 'default', variant, disabled = false } = props
+  const {
+    className,
+    children,
+    color = 'default',
+    variant,
+    disabled = false,
+  } = props
 
   const hasIcon = 'Icon' in props
   const hasCloseButton = 'showCloseButton' in props && props.showCloseButton
@@ -112,6 +119,7 @@ export const CosTag = (props: CosTagProps) => {
           hasIcon,
           disabled,
         }),
+        className,
       )}
     >
       {renderIcon()}
