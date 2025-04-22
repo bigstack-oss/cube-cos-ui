@@ -5,24 +5,36 @@ import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdow
 import { useEventsChartQuery } from './_components/useEventsChartQuery'
 import { EventsChartProportion } from './_components/EventsChartProportion/EventsChartProportion'
 import { EventsChartComparison } from './_components/EventsChartComparison/EventsChartComparison'
+import { ChartTimeRanges, chartTimeRanges } from './_components/utils'
 
 export const EventsChartPage = () => {
   const {
+    past,
     eventsType,
     handleEventsTypeChange,
+    handleTimeRangeChange: onTimeRangeQueryChange,
     handleEventsQueryChange,
     getCurrentQuery,
     getRedirectQuery,
   } = useEventsChartQuery()
 
-  const { timeRanges, timeRange, onTimeRangeChange } = useTimeRange({
-    includes: ['1h', '24h', '7d', '14d'],
-    defaultValue: '24h',
+  const {
+    timeRanges,
+    timeRange,
+    onTimeRangeChange: onTimeRangeDropdownChange,
+  } = useTimeRange({
+    includes: chartTimeRanges,
+    defaultValue: past,
   })
 
   const { isEventsFilterLoading, getEventsFilter } = useEventsFilter()
 
   const eventsFilter = getEventsFilter(eventsType)
+
+  const onTimeRangeChange = (newTimeRange: ChartTimeRanges) => {
+    onTimeRangeQueryChange(newTimeRange)
+    onTimeRangeDropdownChange(newTimeRange)
+  }
 
   return (
     <div className="flex flex-col gap-4">

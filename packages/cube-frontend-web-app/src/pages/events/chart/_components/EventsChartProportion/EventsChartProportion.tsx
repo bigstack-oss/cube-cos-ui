@@ -60,7 +60,7 @@ export const EventsChartProportion = (props: EventsChartProportionProps) => {
       )
       return (
         <FilterDropdown
-          key={key}
+          key={`${eventsType}-${key}`}
           isLoading={isEventsFilterLoading}
           filterKey={queryKey}
           filterLabel={dropdownFilterLabel}

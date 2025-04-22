@@ -2,45 +2,21 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { isEmpty } from 'lodash'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
-import { ChartType, removeQueryKeyPrefix } from './utils'
-
-const isValidEventsType = (type: string | null): boolean => {
-  return Object.values(GetEventsTypeEnum).includes(type as GetEventsTypeEnum)
-}
-
-const getValidEventsType = (
-  searchParams: URLSearchParams,
-): GetEventsTypeEnum => {
-  const urlEventsType = searchParams.get('eventsType')
-
-  return isValidEventsType(urlEventsType)
-    ? (urlEventsType as GetEventsTypeEnum)
-    : GetEventsTypeEnum.System
-}
-
-const getMatchedFilterByPrefix = (
-  chartType: ChartType,
-  filter: Record<string, string>,
-) => {
-  return Object.fromEntries(
-    Object.entries(filter).filter(([key]) => key.startsWith(chartType)),
-  )
-}
-
-const mapToRedirectQuery = (
-  currentQuery: Record<string, string>,
-  chartType: ChartType,
-): string => {
-  const params = new URLSearchParams()
-  Object.entries(currentQuery).forEach(([key, value]) => {
-    params.set(removeQueryKeyPrefix(chartType, key), value)
-  })
-  return params.toString()
-}
+import {
+  ChartType,
+  ChartTimeRanges,
+  getValidTimeRange,
+  getValidEventsType,
+  getMatchedFilterByPrefix,
+  mapToTimeRangeQuery,
+  mapToRedirectQuery,
+} from './utils'
 
 export type UseEventsChartQuery = {
+  past: ChartTimeRanges
   eventsType: GetEventsTypeEnum
   handleEventsTypeChange: (eventsType: GetEventsTypeEnum) => void
+  handleTimeRangeChange: (timeRange: ChartTimeRanges) => void
   handleEventsQueryChange: (updates: Record<string, string | null>) => void
   getCurrentQuery: (chartType: ChartType) => {
     eventsFilter: Record<string, string>
@@ -55,22 +31,55 @@ export type UseEventsChartQuery = {
 export const useEventsChartQuery = (): UseEventsChartQuery => {
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const [past, setPast] = useState<ChartTimeRanges>(
+    getValidTimeRange(searchParams),
+  )
+
   const [eventsType, setEventsType] = useState<GetEventsTypeEnum>(
     getValidEventsType(searchParams),
   )
 
   useEffect(() => {
-    const urlEventsType = searchParams.get('eventsType')
+    const currentPast = searchParams.get('past')
+    const currentEventsType = searchParams.get('eventsType')
 
-    if (urlEventsType !== eventsType) {
-      const validEventsType = getValidEventsType(searchParams)
-      setEventsType(validEventsType)
-      setSearchParams({ eventsType: validEventsType }, { replace: true })
+    const validPast = getValidTimeRange(searchParams)
+    const validEventsType = getValidEventsType(searchParams)
+
+    const newParams = new URLSearchParams(searchParams)
+    let shouldUpdate = false
+
+    if (past !== currentPast) {
+      newParams.set('past', validPast)
+      setPast(validPast)
+      shouldUpdate = true
     }
-  }, [eventsType, searchParams, setSearchParams])
 
-  const handleEventsTypeChange = (eventsType: GetEventsTypeEnum) => {
-    setSearchParams({ eventsType }, { replace: true })
+    if (eventsType !== currentEventsType) {
+      newParams.set('eventsType', validEventsType)
+      setEventsType(validEventsType)
+      shouldUpdate = true
+    }
+
+    if (shouldUpdate) {
+      setSearchParams(newParams, { replace: true })
+    }
+  }, [eventsType, past, searchParams, setSearchParams])
+
+  const handleEventsTypeChange = (type: GetEventsTypeEnum) => {
+    const newParams = new URLSearchParams()
+    newParams.set('eventsType', type)
+    newParams.set('past', past)
+
+    setSearchParams(newParams, { replace: true })
+  }
+
+  const handleTimeRangeChange = (timeRange: ChartTimeRanges) => {
+    const newParams = new URLSearchParams()
+    newParams.set('past', timeRange)
+    newParams.set('eventsType', eventsType)
+
+    setSearchParams(newParams, { replace: true })
   }
 
   const handleEventsQueryChange = (updates: Record<string, string | null>) => {
@@ -99,17 +108,29 @@ export const useEventsChartQuery = (): UseEventsChartQuery => {
 
   const getRedirectQuery = (chartType: ChartType, eventId: string) => {
     const rawFilter = Object.fromEntries(searchParams) as Record<string, string>
-
     const eventsType = rawFilter.eventsType
-    const matchedFilter = getMatchedFilterByPrefix(chartType, rawFilter)
 
-    const newQueryString = mapToRedirectQuery(matchedFilter, chartType)
-    return `/events?eventsType=${encodeURIComponent(eventsType)}&keyword=${encodeURIComponent(eventId)}&${newQueryString}`
+    const matchedFilter = getMatchedFilterByPrefix(chartType, rawFilter)
+    const { start, end } = mapToTimeRangeQuery(past)
+    const filteredQueryString = mapToRedirectQuery(matchedFilter, chartType)
+
+    const baseParams = new URLSearchParams({
+      eventsType,
+      keyword: eventId,
+      start,
+      end,
+    })
+
+    return filteredQueryString
+      ? `/events?${baseParams.toString()}&${filteredQueryString}`
+      : `/events?${baseParams.toString()}`
   }
 
   return {
+    past,
     eventsType,
     handleEventsTypeChange,
+    handleTimeRangeChange,
     handleEventsQueryChange,
     getCurrentQuery,
     getRedirectQuery,
