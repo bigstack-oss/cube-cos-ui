@@ -84,7 +84,10 @@ export const Group: Story = {
   render: (props) => {
     return (
       <StoryLayout title="Sidebar - Group" useSceneBgColor={true}>
-        <CosSideBar {...props} />
+        <div className="flex gap-10">
+          <CosSideBar {...props} />
+          <CosSideBar {...props} isLoading={true} />
+        </div>
       </StoryLayout>
     )
   },

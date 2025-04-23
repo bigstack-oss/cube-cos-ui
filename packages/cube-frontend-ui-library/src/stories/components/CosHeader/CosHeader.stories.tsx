@@ -37,6 +37,7 @@ export const Group: Story = {
     return (
       <StoryLayout title="Header - Group" useSceneBgColor={false}>
         <CosHeader {...props} />
+        <CosHeader {...props} isLoading={true} />
       </StoryLayout>
     )
   },
