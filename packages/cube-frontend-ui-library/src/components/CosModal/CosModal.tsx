@@ -6,6 +6,7 @@ import { backdrop, modal } from './cosModalStyles'
 import { useCloseModalWithEsc } from './useCloseModalWithEsc'
 import { PropsWithClassName } from '@cube-frontend/utils'
 import { twMerge } from 'tailwind-merge'
+import MemoChildren from './MemoChildren'
 
 export type CosModalProps = {
   children: ReactNode
@@ -60,38 +61,42 @@ export const CosModal = (props: CosModalProps) => {
           boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)',
         }}
       >
-        <div className="flex items-center justify-between border-b border-functional-border-divider px-7 py-4 pr-5">
-          <div className="primary-h4 truncate text-cosmos-primary">{title}</div>
-          <CosButton
-            className="rounded-full text-functional-text"
-            usage="icon-only"
-            type="ghost"
-            Icon={X}
-            onClick={onCloseClick}
-          />
-        </div>
-        <div className="flex-1 overflow-auto p-7">{children}</div>
-        <div className="flex items-center justify-end gap-x-2.5 border-t border-functional-border-divider px-7 py-4">
-          {footerMessage}
-          {isActionButtonVisible && (
+        <MemoChildren shouldUpdate={isOpen}>
+          <div className="flex items-center justify-between border-b border-functional-border-divider px-7 py-4 pr-5">
+            <div className="primary-h4 truncate text-cosmos-primary">
+              {title}
+            </div>
             <CosButton
+              className="rounded-full text-functional-text"
+              usage="icon-only"
+              type="ghost"
+              Icon={X}
+              onClick={onCloseClick}
+            />
+          </div>
+          <div className="flex-1 overflow-auto p-7">{children}</div>
+          <div className="flex items-center justify-end gap-x-2.5 border-t border-functional-border-divider px-7 py-4">
+            {footerMessage}
+            {isActionButtonVisible && (
+              <CosButton
+                usage="text-only"
+                size="lg"
+                onClick={onActionClick}
+                {...actionButtonProps}
+              >
+                {actionText}
+              </CosButton>
+            )}
+            <CosButton
+              type="secondary"
               usage="text-only"
               size="lg"
-              onClick={onActionClick}
-              {...actionButtonProps}
+              onClick={onCloseClick}
             >
-              {actionText}
+              Cancel
             </CosButton>
-          )}
-          <CosButton
-            type="secondary"
-            usage="text-only"
-            size="lg"
-            onClick={onCloseClick}
-          >
-            Cancel
-          </CosButton>
-        </div>
+          </div>
+        </MemoChildren>
       </div>
     </>,
     document.body,
