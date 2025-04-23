@@ -6,7 +6,7 @@ import { GetParamFn } from '@cube-frontend/web-app/hooks/useCosRequest/cosReques
 import { TypeParams } from '../utils'
 
 export const useMetricsParams = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const currentTime = useRef(dayjs())
 
@@ -22,7 +22,7 @@ export const useMetricsParams = () => {
   ): GetParamFn<MetricsApiGetMetricByTypesRequest> => {
     return () => {
       return {
-        dataCenter: dataCenter.name,
+        dataCenter: dataCenter!.name,
         ...getTimeRangeParams(),
         ...typeParams,
       } satisfies MetricsApiGetMetricByTypesRequest

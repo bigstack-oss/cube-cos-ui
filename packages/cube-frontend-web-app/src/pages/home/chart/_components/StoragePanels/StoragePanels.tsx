@@ -10,12 +10,12 @@ import { GrafanaApiGetGrafanaStoragesRequest } from '@cube-frontend/api'
 import { computeTitleBarHyperlinkProps } from '../utils'
 
 export const StoragePanels = () => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data: grafanaLinkResponse } = useCosGetRequest(
     grafanaApi.getGrafanaStorages,
     (): GrafanaApiGetGrafanaStoragesRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 

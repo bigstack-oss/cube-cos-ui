@@ -20,7 +20,7 @@ import { noop } from 'lodash'
 import { Link } from 'react-router'
 
 const HealthPanel = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const {
     data: healths,
@@ -28,7 +28,7 @@ const HealthPanel = () => {
     getResource: getHealths,
   } = useCosGetRequest(healthApi.getHealths, () => {
     return {
-      dataCenter: dataCenter.name,
+      dataCenter: dataCenter!.name,
     } satisfies HealthApiGetHealthsRequest
   })
 
@@ -54,7 +54,7 @@ const HealthPanel = () => {
   const handleRepair = async () => {
     try {
       await repairHealth({
-        dataCenter: dataCenter.name,
+        dataCenter: dataCenter!.name,
       })
     } catch (error) {
       console.error('Repair data center health error: ', error)

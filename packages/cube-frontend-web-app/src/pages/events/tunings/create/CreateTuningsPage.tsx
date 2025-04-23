@@ -13,7 +13,7 @@ import { Link, useNavigate } from 'react-router'
 export const CreateTuningsPage = () => {
   const navigate = useNavigate()
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const {
     mutateResource: updateTuning,
@@ -30,7 +30,7 @@ export const CreateTuningsPage = () => {
     clearError()
     try {
       await updateTuning({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         parameterName: selectedSpecName,
         updateTuningRequest: {
           value,

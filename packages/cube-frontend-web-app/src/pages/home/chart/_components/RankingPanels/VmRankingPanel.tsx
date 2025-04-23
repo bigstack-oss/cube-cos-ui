@@ -49,7 +49,7 @@ const vmRankingOptions = [
 ] satisfies VmRankingItem[]
 
 export const VmRankingPanel = () => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [selectedItems, setSelectedItems] = useState<VmRankingItem[]>([
     vmRankingOptions[0],
@@ -84,7 +84,7 @@ export const VmRankingPanel = () => {
   const { data: grafanaLinkResponse } = useCosGetRequest(
     grafanaApi.getGrafanaTopInstances,
     (): GrafanaApiGetGrafanaTopInstancesRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 

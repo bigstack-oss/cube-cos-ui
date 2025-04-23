@@ -16,7 +16,7 @@ export const EditTuningsPage = () => {
 
   const defaultData = useEditTuningsStore((store) => store.defaultData)
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const {
     mutateResource: updateTuning,
@@ -33,7 +33,7 @@ export const EditTuningsPage = () => {
     clearError()
     try {
       await updateTuning({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         parameterName: selectedSpecName,
         updateTuningRequest: {
           value,

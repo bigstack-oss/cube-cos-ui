@@ -19,7 +19,7 @@ import { noop } from 'lodash'
 import { Link } from 'react-router'
 
 const ChartPanel = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const {
     data: metrics = defaultMetrics,
@@ -27,7 +27,7 @@ const ChartPanel = () => {
     getResource: getMetricsOverview,
   } = useCosGetRequest(metricsApi.getMetricsOverview, () => {
     return {
-      dataCenter: dataCenter.name,
+      dataCenter: dataCenter!.name,
     } satisfies MetricsApiGetMetricsOverviewRequest
   })
 

@@ -45,7 +45,7 @@ const hostRankingOptions = [
 ] satisfies HostRankingItem[]
 
 export const HostRankingPanel = () => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [selectedItems, setSelectedItems] = useState<HostRankingItem[]>([
     hostRankingOptions[0],
@@ -80,7 +80,7 @@ export const HostRankingPanel = () => {
   const { data: grafanaLinkResponse } = useCosGetRequest(
     grafanaApi.getGrafanaTopHosts,
     (): GrafanaApiGetGrafanaTopHostsRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 

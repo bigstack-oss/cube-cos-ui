@@ -26,7 +26,7 @@ export const useTriggerRows = (
 
   const navigate = useNavigate()
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<TriggerRow[]>([])
 
@@ -37,7 +37,7 @@ export const useTriggerRows = (
   } = useCosGetRequest(
     triggersApi.getTriggers,
     (): TriggersApiGetTriggersRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 
@@ -87,7 +87,7 @@ export const useTriggerRows = (
 
     try {
       await triggersApi.enableOrDisableTrigger({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         triggerName,
         enableOrDisableTriggerRequest: {
           enable: newEnabled,

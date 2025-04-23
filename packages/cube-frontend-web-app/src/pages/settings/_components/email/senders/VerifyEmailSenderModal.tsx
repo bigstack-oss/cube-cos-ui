@@ -27,7 +27,7 @@ const emailSchema = z.string().email()
 export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
   const { isOpen, toBeVerifiedRow, onSenderVerified, onClose } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [sendTo, setSendTo] = useState('')
 
@@ -61,7 +61,7 @@ export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
 
     try {
       await tryEmailSender({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         senderHost: toBeVerifiedRow.host,
         tryEmailSender: {
           email: sendTo,

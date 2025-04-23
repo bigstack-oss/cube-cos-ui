@@ -19,7 +19,7 @@ type ManageContactProps = {
 export const ManageContact = (props: ManageContactProps) => {
   const { titlePrefixFromApi } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const showErrorToast = useShowErrorToast()
 
@@ -70,7 +70,7 @@ export const ManageContact = (props: ManageContactProps) => {
         },
       }))
       updateTitlePrefixApi({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         updateTitlePrefixRequest: {
           value: titlePrefix!.value,
         },

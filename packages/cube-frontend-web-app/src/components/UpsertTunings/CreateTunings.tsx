@@ -26,19 +26,19 @@ type CreateTuningsProps = {
 export const CreateTunings = (props: CreateTuningsProps) => {
   const { errorMessage, onPublishClick } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data: specs } = useCosGetRequest(
     tuningsApi.listTuningSpecs,
     (): TuningsApiListTuningSpecsRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 
   const { data: listNodesResponse } = useCosGetRequest(
     nodesApi.getNodes,
     (): NodesApiGetNodesRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 

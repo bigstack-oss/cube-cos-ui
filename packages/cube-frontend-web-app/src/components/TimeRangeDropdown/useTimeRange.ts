@@ -24,11 +24,11 @@ export const useTimeRange = <T extends readonly TimeRange[]>(
 ): UseTimeRange<T> => {
   const { includes, defaultValue } = option
 
-  const { utcTimeZone } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const getNow = useCallback(() => {
-    return dayjs.utc().utcOffset(utcTimeZone)
-  }, [utcTimeZone])
+    return dayjs.utc().utcOffset(dataCenter!.utcTimeZone)
+  }, [dataCenter])
 
   const [timeRange, setTimeRange] = useState<TimeRange>(defaultValue)
 

@@ -58,22 +58,20 @@ export const useRankedEvents = (
 ): UseRankedEvents => {
   const { eventsType, chartType, past } = options
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { getCurrentQuery } = useEventsChartQuery()
 
   const { data, isLoading } = useCosGetRequest(
     eventsApi.getRankedEvents,
     () => {
-      if (!dataCenter) return null
-
       const { eventsFilter } = getCurrentQuery(chartType)
 
       const requestParams = mapFilterToRequestParams(chartType, eventsFilter)
 
       return {
         ...requestParams,
-        dataCenter,
+        dataCenter: dataCenter!.name,
         type: eventsType,
         limit: 24,
         past,

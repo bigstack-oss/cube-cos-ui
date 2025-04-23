@@ -24,7 +24,7 @@ export const HealthHistoryPanelHeader = (
   const { module, selectedTimeRange, onTimeRangeChange, onToggleDetailPanel } =
     props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { isLoading: isCallingRepairApi, mutateResource: repairModuleHealth } =
     useCosMutationRequest(
@@ -39,7 +39,7 @@ export const HealthHistoryPanelHeader = (
     }
     try {
       await repairModuleHealth({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         serviceType: module.service,
         moduleType: module.name,
       })

@@ -10,7 +10,7 @@ type UseShowErrorToast = (error: unknown) => void
 export const useShowErrorToast = (): UseShowErrorToast => {
   const { addToast, removeToast } = useToast()
 
-  const { utcTimeZone } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const showErrorToast = (error: unknown): void => {
     const errorMessage =
@@ -19,7 +19,7 @@ export const useShowErrorToast = (): UseShowErrorToast => {
       'Unknown error occurred, please try again.'
 
     const toastId = uniqueId('error-toast')
-    const now = dayjs.utc().utcOffset(utcTimeZone)
+    const now = dayjs.utc().utcOffset(dataCenter!.utcTimeZone)
 
     addToast({
       id: toastId,

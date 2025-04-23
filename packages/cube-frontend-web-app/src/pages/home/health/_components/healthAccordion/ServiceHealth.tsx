@@ -30,7 +30,7 @@ export type ServiceHealthProps = {
 export const ServiceHealth = (props: ServiceHealthProps) => {
   const { service, timeRange, now, past } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { elementRef, isVisible } = useIsVisible<HTMLDivElement>()
 
@@ -44,7 +44,7 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
           return undefined
         }
         return {
-          dataCenter,
+          dataCenter: dataCenter!.name,
           serviceType: service.name as GetServiceHealthHistoryServiceTypeEnum,
           past,
         }

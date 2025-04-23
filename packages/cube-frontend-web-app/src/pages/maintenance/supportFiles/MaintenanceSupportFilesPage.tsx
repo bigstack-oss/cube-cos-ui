@@ -27,7 +27,7 @@ import { SupportFilesTable } from './_components/SupportFilesTable'
 export type SupportFileRow = SupportFileSet & CosTableRow
 
 export const MaintenanceSupportFilesPage = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [searchKeyword, setSearchKeyword] = useState<string>('')
   const [selectedRoles, setSelectedRoles] = useState<GetNodesRolesEnum[]>([])
@@ -45,7 +45,7 @@ export const MaintenanceSupportFilesPage = () => {
     supportFilesApi.getSupportFiles,
     () => {
       return {
-        dataCenter: dataCenter.name,
+        dataCenter: dataCenter!.name,
         pageNum,
         pageSize,
         keyword: debouncedSearchKeyword,

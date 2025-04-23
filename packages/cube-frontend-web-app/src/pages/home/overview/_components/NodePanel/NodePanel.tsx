@@ -14,7 +14,7 @@ import { Link } from 'react-router'
 const HOME_PAGE_NODE_ROW_LIMIT = 5
 
 export const NodePanel = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const {
     data: nodesData,
@@ -22,7 +22,7 @@ export const NodePanel = () => {
     getResource: getNodes,
   } = useCosGetRequest(nodesApi.getNodes, () => {
     return {
-      dataCenter: dataCenter.name,
+      dataCenter: dataCenter!.name,
       pageNum: 1,
       pageSize: HOME_PAGE_NODE_ROW_LIMIT,
     } satisfies NodesApiGetNodesRequest

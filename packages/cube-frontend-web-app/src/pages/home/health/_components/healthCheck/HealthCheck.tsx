@@ -15,13 +15,13 @@ import { AvailableStatus, HealthStatusBadge } from './HealthStatusBadge'
 import { NgService } from './NgService'
 
 export const HealthCheck = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data: overallHealth, getResource: getHealths } = useCosGetRequest(
     healthApi.getHealths,
     () =>
       ({
-        dataCenter: dataCenter.name,
+        dataCenter: dataCenter!.name,
       }) satisfies HealthApiGetHealthsRequest,
   )
 
@@ -58,7 +58,7 @@ export const HealthCheck = () => {
 
   const onRepairClick = async () => {
     try {
-      await repairHealth({ dataCenter: dataCenter.name })
+      await repairHealth({ dataCenter: dataCenter!.name })
     } catch (error) {
       console.error('Repair data center health error: ', error)
     }

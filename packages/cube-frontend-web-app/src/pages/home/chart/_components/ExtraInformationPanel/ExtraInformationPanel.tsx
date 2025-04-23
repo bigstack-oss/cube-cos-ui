@@ -9,19 +9,19 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { useContext } from 'react'
 
 export const ExtraInformationPanel = () => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data: networkGrafanaLinkResponse } = useCosGetRequest(
     grafanaApi.getGrafanaNetworks,
     (): GrafanaApiGetGrafanaNetworksRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 
   const { data: deviceGrafanaLinkResponse } = useCosGetRequest(
     grafanaApi.getGrafanaNetworkDevices,
     (): GrafanaApiGetGrafanaNetworkDevicesRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 

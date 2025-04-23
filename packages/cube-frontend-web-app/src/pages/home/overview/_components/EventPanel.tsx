@@ -38,7 +38,7 @@ const mapToTableEvent = (e: ResponseEvent, index: number): TableEvent => ({
 })
 
 export const EventPanel = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [eventType, setEventType] =
     useState<GetAbstractedEventsTypeEnum>('system')
@@ -49,7 +49,7 @@ export const EventPanel = () => {
     getResource: getAbstractedEvents,
   } = useCosGetRequest(eventsApi.getAbstractedEvents, () => {
     return {
-      dataCenter: dataCenter.name,
+      dataCenter: dataCenter!.name,
       type: eventType,
       limit: HOME_PAGE_EVENT_ROW_LIMIT,
     } satisfies EventsApiGetAbstractedEventsRequest

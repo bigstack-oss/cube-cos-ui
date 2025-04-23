@@ -22,14 +22,14 @@ export const useModuleHealthHistory = (
 ): GetModuleHealthHistoryResponseDataHistoryInner[] | undefined => {
   const { module, past, autoRefresh: shouldUseStreamData } = options
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const getRequestParams = (): HealthApiGetHealthHistoryRequest | undefined => {
     if (!module) {
       return undefined
     }
     return {
-      dataCenter,
+      dataCenter: dataCenter!.name,
       serviceType: module.service,
       moduleType: module.name,
       past,

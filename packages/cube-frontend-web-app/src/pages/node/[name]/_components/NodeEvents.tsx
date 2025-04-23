@@ -29,7 +29,7 @@ const EventTable = GetCosBasicTable<GetEventsResponseDataEventsInner>()
 export const NodeEvents = (props: NodeEventsProps) => {
   const { node } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { timeRange, onTimeRangeChange } = useTimeRange({
     includes: chartTimeRanges,
@@ -60,7 +60,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
     (): EventsApiGetEventsRequest | undefined => {
       if (!node) return undefined
       return {
-        dataCenter,
+        dataCenter: dataCenter!.name,
         type: 'host',
         host: node.hostname,
         past: timeRange,

@@ -21,7 +21,7 @@ type CpuPerformanceChartProps = {
 export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
   const { node } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { timeRange, onTimeRangeChange } = useTimeRange({
     includes: chartTimeRanges,
@@ -33,7 +33,7 @@ export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
     (): MetricsApiGetMetricByHostOrVmRequest | undefined => {
       if (!node) return undefined
       return {
-        dataCenter,
+        dataCenter: dataCenter!.name,
         metricType: 'cpuUsage',
         viewType: 'history',
         entityType: 'hosts',

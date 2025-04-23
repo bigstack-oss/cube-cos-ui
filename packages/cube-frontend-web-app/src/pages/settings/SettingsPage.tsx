@@ -11,12 +11,12 @@ import { ManageContact } from './ManageContact'
 import { SettingsSection } from './SettingsSection'
 
 export const SettingsPage = () => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data: settingsData, getResource: getSettings } = useCosGetRequest(
     settingsApi.getSettings,
     (): SettingsApiGetSettingsRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 

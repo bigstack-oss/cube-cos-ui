@@ -24,7 +24,7 @@ type UseSlackChannelRows = {
 export const useSlackChannelRows = (
   initialChannels: SlackChannelPostRequest[] | undefined,
 ): UseSlackChannelRows => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const showErrorToast = useShowErrorToast()
 
@@ -94,7 +94,7 @@ export const useSlackChannelRows = (
       return
     }
     await trySlackChannel({
-      dataCenter,
+      dataCenter: dataCenter!.name,
       row,
       patchRow,
       onError: showErrorToast,
@@ -109,14 +109,14 @@ export const useSlackChannelRows = (
 
     if (row.isNew) {
       await createSlackChannel({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         row,
         patchRow,
         onError: showErrorToast,
       })
     } else {
       await updateSlackChannel({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         row,
         patchRow,
         onError: showErrorToast,
@@ -130,7 +130,7 @@ export const useSlackChannelRows = (
       return
     }
     await deleteSlackChannelAction({
-      dataCenter,
+      dataCenter: dataCenter!.name,
       row: targetRow,
       patchRow,
       onSuccess: () => {

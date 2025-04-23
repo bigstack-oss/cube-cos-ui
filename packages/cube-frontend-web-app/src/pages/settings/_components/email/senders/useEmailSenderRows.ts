@@ -21,7 +21,7 @@ export type UseEmailSenderRows = {
 export const useEmailSenderRows = (
   sendersFromApi: EmailSenderResponse[] | undefined,
 ): UseEmailSenderRows => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const showErrorToast = useShowErrorToast()
 
@@ -69,14 +69,14 @@ export const useEmailSenderRows = (
 
     if (row.isNew) {
       await createEmailSender({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         row,
         patchRow,
         onError: showErrorToast,
       })
     } else {
       await updateEmailSender({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         row,
         patchRow,
         onError: showErrorToast,

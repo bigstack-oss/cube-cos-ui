@@ -22,7 +22,7 @@ type MemoryPerformanceChartProps = {
 export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
   const { node } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { timeRange, onTimeRangeChange } = useTimeRange({
     includes: chartTimeRanges,
@@ -34,7 +34,7 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
     (): MetricsApiGetMetricByHostOrVmRequest | undefined => {
       if (!node) return undefined
       return {
-        dataCenter,
+        dataCenter: dataCenter!.name,
         metricType: 'memoryUsage',
         viewType: 'history',
         entityType: 'hosts',

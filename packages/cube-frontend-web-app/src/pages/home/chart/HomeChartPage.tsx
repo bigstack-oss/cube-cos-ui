@@ -13,7 +13,7 @@ import { defaultMetrics } from '../overview/_components/ChartPanel/utils'
 import { CHART_PAGE_POLLING_INTERVAL } from './_components/utils'
 
 export const HomeChartPage = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const {
     data: metrics = defaultMetrics,
@@ -22,7 +22,7 @@ export const HomeChartPage = () => {
     getResource: getMetrics,
   } = useCosGetRequest(metricsApi.getMetricsOverview, () => {
     return {
-      dataCenter: dataCenter.name,
+      dataCenter: dataCenter!.name,
     } satisfies MetricsApiGetMetricsOverviewRequest
   })
 

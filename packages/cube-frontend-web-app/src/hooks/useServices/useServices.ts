@@ -21,13 +21,13 @@ export type ModuleMetadata = {
 }
 
 export const useServices = (): UseServices => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data: services = [], isLoading } = useCosGetRequest(
     servicesApi.getServices,
     () =>
       ({
-        dataCenter,
+        dataCenter: dataCenter!.name,
       }) satisfies ServicesApiGetServicesRequest,
   )
 

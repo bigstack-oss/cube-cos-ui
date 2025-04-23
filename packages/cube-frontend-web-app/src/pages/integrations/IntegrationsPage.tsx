@@ -21,11 +21,13 @@ const integrationToRow = (item: GetIntegrationsResponseDataInner) => ({
 })
 
 export const IntegrationsPage = () => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data, isLoading } = useCosGetRequest(
     integrationsApi.getIntegrations,
-    () => ({ dataCenter }),
+    () => ({
+      dataCenter: dataCenter!.name,
+    }),
   )
 
   const rows = useMemo(() => data?.map(integrationToRow) || [], [data])

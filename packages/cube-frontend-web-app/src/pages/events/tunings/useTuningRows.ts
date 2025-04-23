@@ -21,7 +21,7 @@ export const useTuningRows = (
   query: ListTuningsQuery,
   onOperationErrorOccur: (errorMessage: string) => void,
 ): UseTuningRows => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<TuningRow[]>([])
 
@@ -32,7 +32,7 @@ export const useTuningRows = (
   } = useCosGetRequest(
     tuningsApi.listTunings,
     (): TuningsApiListTuningsRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
       host: query.hosts,
       keyword: query.keyword,
       modified: query.selectedModified[0],
@@ -92,7 +92,7 @@ export const useTuningRows = (
 
     try {
       await tuningsApi.enableOrDisableTuning({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         parameterName: row.name,
         enableOrDisableTuningRequest: {
           enable: enabled,
@@ -130,7 +130,7 @@ export const useTuningRows = (
 
     try {
       await tuningsApi.resetTuning({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         parameterName: row.name,
         resetTuningRequest: {
           hosts: row.hosts.map((host) => host.name),

@@ -33,7 +33,7 @@ export const useUpdateTrigger = (
 
   const navigate = useNavigate()
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const {
     isLoading: isUpdating,
@@ -49,11 +49,6 @@ export const useUpdateTrigger = (
   const handleTriggerUpdate = async () => {
     clearError()
 
-    if (!dataCenter) {
-      console.warn('No valid data center.')
-      return
-    }
-
     if (!selectedTemplate) {
       console.warn('Please select a trigger template.')
       return
@@ -66,7 +61,7 @@ export const useUpdateTrigger = (
 
     try {
       await updateTrigger({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         triggerName: selectedTemplate.name,
         updateTriggerRequest: formValueToRequest(formValue),
       })

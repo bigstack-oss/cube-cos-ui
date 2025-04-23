@@ -22,13 +22,13 @@ export type UseEventsFilter = {
 }
 
 export const useEventsFilter = (): UseEventsFilter => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data, isLoading } = useCosGetRequest(
     eventsApi.getEventFilterConditions,
     () => {
       return {
-        dataCenter: dataCenter,
+        dataCenter: dataCenter!.name,
       } satisfies EventsApiGetEventFilterConditionsRequest
     },
   )

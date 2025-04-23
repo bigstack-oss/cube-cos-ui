@@ -23,7 +23,7 @@ export const useTemplateTable = (): UseTemplateTable => {
 
   const urlTemplateName = searchParams.get('name')
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   /**
    * When editing a trigger, the URL will include a name corresponding to the default `selectedTemplateName`.
@@ -41,9 +41,8 @@ export const useTemplateTable = (): UseTemplateTable => {
   const { isLoading, data: templatesFromApi } = useCosGetRequest(
     triggersApi.getTriggers,
     () => {
-      if (!dataCenter) return
       return {
-        dataCenter,
+        dataCenter: dataCenter!.name,
       }
     },
   )

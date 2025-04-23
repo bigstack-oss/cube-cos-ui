@@ -22,7 +22,7 @@ import { NodeFilters } from './_components/NodeFilters'
 import { CreateSupportFilesModal } from './_components/CreateSupportFilesModal'
 
 export const NodeListPage = () => {
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [searchKeyword, setSearchKeyword] = useState('')
   const [selectedRoles, setSelectedRoles] = useState<GetNodesRolesEnum[]>([])
@@ -38,7 +38,7 @@ export const NodeListPage = () => {
     nodesApi.getNodes,
     () => {
       return {
-        dataCenter: dataCenter.name,
+        dataCenter: dataCenter!.name,
         pageNum,
         pageSize,
         roles: selectedRoles,
@@ -89,7 +89,7 @@ export const NodeListPage = () => {
   const handleConfirmCreateSupportFiles = async () => {
     try {
       await createSupportFiles({
-        dataCenter: dataCenter.name,
+        dataCenter: dataCenter!.name,
         createSupportFilesRequest: {
           description: comments,
           hosts: selectedNodes.map((node) => node.hostname),

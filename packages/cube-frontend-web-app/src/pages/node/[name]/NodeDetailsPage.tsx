@@ -15,7 +15,7 @@ import { NodeSummary } from './_components/NodeSummary'
 export const NodeDetailsPage = () => {
   const { name: nodeName } = useParams()
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   if (!nodeName) {
     throw new Error('Cannot find node name in the URL')
@@ -28,7 +28,7 @@ export const NodeDetailsPage = () => {
   } = useCosGetRequest(
     nodesApi.getNode,
     (): NodesApiGetNodeRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
       nodeName,
     }),
   )

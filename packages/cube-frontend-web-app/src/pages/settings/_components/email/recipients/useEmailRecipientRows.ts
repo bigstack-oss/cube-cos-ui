@@ -25,7 +25,7 @@ type UseEmailRecipientRows = {
 export const useEmailRecipientRows = (
   recipientsFromApi?: EmailRecipientResponse[] | undefined,
 ): UseEmailRecipientRows => {
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const showErrorToast = useShowErrorToast()
 
@@ -84,7 +84,7 @@ export const useEmailRecipientRows = (
     if (!row) return
 
     await tryEmailRecipient({
-      dataCenter,
+      dataCenter: dataCenter!.name,
       row,
       patchRow,
       onError: showErrorToast,
@@ -97,14 +97,14 @@ export const useEmailRecipientRows = (
 
     if (row.isNew) {
       await createEmailRecipient({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         row,
         patchRow,
         onError: showErrorToast,
       })
     } else {
       await updateEmailRecipient({
-        dataCenter,
+        dataCenter: dataCenter!.name,
         row,
         patchRow,
         onError: showErrorToast,
@@ -117,7 +117,7 @@ export const useEmailRecipientRows = (
     if (!row) return
 
     await deleteEmailRecipientAction({
-      dataCenter,
+      dataCenter: dataCenter!.name,
       row,
       patchRow,
       onSuccess: () => {

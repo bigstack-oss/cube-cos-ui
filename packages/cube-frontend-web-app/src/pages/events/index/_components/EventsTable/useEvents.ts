@@ -42,7 +42,7 @@ export const useEvents = (options: UseEventsOptions): UseEvents => {
     DEFAULT_ITEMS_PER_PAGE,
   )
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { getCurrentQuery } = useEventsQuery()
 
@@ -55,13 +55,11 @@ export const useEvents = (options: UseEventsOptions): UseEvents => {
   const { data, isLoading, getResource } = useCosGetRequest(
     eventsApi.getEvents,
     () => {
-      if (!dataCenter) return null
-
       const requestParams = mapFilterToRequestParams(currentQuery.eventsFilter)
 
       return {
         ...requestParams,
-        dataCenter: dataCenter,
+        dataCenter: dataCenter!.name,
         type: eventsType,
         pageSize: currentPageSize,
         pageNum: currentPageNum,

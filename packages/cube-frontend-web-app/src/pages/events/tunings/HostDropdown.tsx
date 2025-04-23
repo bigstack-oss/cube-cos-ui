@@ -18,14 +18,14 @@ export const HostDropdown = (props: HostDropdownProps) => {
     onAllCheckChange: onAllCheckChangeProp,
   } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [searchValue, setSearchValue] = useState('')
 
   const { isLoading, data: getNodesData } = useCosGetRequest(
     nodesApi.getNodes,
     (): NodesApiGetNodesRequest => ({
-      dataCenter,
+      dataCenter: dataCenter!.name,
     }),
   )
 

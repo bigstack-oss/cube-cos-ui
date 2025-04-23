@@ -20,14 +20,14 @@ const VerticalBar = () => {
 export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
   const { node } = props
 
-  const { name: dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { data: grafanaLinkResponse } = useCosGetRequest(
     grafanaApi.getGrafanaHosts,
     (): GrafanaApiGetGrafanaHostsRequest | undefined => {
       if (!node) return undefined
       return {
-        dataCenter,
+        dataCenter: dataCenter!.name,
         hostname: node.hostname,
       }
     },
