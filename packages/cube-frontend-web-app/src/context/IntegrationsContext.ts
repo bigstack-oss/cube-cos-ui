@@ -1,6 +1,12 @@
-import { GetIntegrationsResponse } from '@cube-frontend/api'
 import { createContext } from 'react'
+import { GetIntegrationsResponse } from '@cube-frontend/api'
 
-export const IntegrationsContext = createContext<
-  GetIntegrationsResponse['data']
->([])
+type IntegrationsContextValue = {
+  integrations: GetIntegrationsResponse['data']
+  isLoading: boolean
+}
+
+export const IntegrationsContext = createContext<IntegrationsContextValue>({
+  integrations: [],
+  isLoading: false,
+})

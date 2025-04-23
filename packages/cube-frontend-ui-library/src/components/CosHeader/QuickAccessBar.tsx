@@ -20,8 +20,8 @@ export const QuickAccessBar = (props: QuickAccessBarProps) => {
   const renderQuickAccesses = () => {
     if (isLoading) {
       return range(0, 4).map((_, index) => (
-        <span className="p-2">
-          <CosSkeleton key={index} className="size-[18px]" />
+        <span className="p-2" key={index}>
+          <CosSkeleton className="size-[18px]" />
         </span>
       ))
     }

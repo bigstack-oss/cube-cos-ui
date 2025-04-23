@@ -1,4 +1,12 @@
-import { GetMeResponseData } from '@cube-frontend/api'
 import { createContext } from 'react'
+import { GetMeResponseData } from '@cube-frontend/api'
 
-export const UserContext = createContext(null as unknown as GetMeResponseData)
+type UserContextValue = {
+  userInfo: GetMeResponseData | undefined
+  isLoading: boolean
+}
+
+export const UserContext = createContext<UserContextValue>({
+  userInfo: undefined,
+  isLoading: false,
+})

@@ -8,12 +8,15 @@ import { UserInfoApiGetMeRequest } from '@cube-frontend/api'
 export const UserContextProvider = (props: PropsWithChildren) => {
   const { children } = props
 
-  const dataCenter = useContext(DataCenterContext)
+  const { dataCenter, isLoading: isDataCenterLoading } =
+    useContext(DataCenterContext)
 
-  const { data: userInfo, isLoading } = useCosGetRequest(
+  const { data: userInfo, isLoading: isUserInfoLoading } = useCosGetRequest(
     userInfoApi.getMe,
     () => {
-      if (!dataCenter.name) return null
+      if (!dataCenter) {
+        return null
+      }
       const req: UserInfoApiGetMeRequest = {
         dataCenter: dataCenter.name,
       }
@@ -21,11 +24,11 @@ export const UserContextProvider = (props: PropsWithChildren) => {
     },
   )
 
-  if (isLoading || !userInfo) {
-    return null
-  }
+  const isLoading = isDataCenterLoading || isUserInfoLoading
 
   return (
-    <UserContext.Provider value={userInfo}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ userInfo, isLoading }}>
+      {children}
+    </UserContext.Provider>
   )
 }

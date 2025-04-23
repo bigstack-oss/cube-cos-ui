@@ -1,6 +1,12 @@
-import { GetDataCentersResponseDataInner } from '@cube-frontend/api'
 import { createContext } from 'react'
+import { GetDataCentersResponseDataInner } from '@cube-frontend/api'
 
-export const DataCenterContext = createContext<GetDataCentersResponseDataInner>(
-  null as unknown as GetDataCentersResponseDataInner,
-)
+type DataCenterContextValue = {
+  dataCenter: GetDataCentersResponseDataInner | undefined
+  isLoading: boolean
+}
+
+export const DataCenterContext = createContext<DataCenterContextValue>({
+  dataCenter: undefined,
+  isLoading: false,
+})

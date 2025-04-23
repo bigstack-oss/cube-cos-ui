@@ -10,17 +10,14 @@ export const DataCenterProvider = (props: PropsWithChildren) => {
     dataCentersApi.getDataCenters,
   )
 
-  if (isLoading || !dataCenters) {
-    return null
-  }
+  const dataCenter = dataCenters?.[0]
 
-  const dataCenter = dataCenters[0]
-  if (!dataCenter) {
-    return null
+  if (!isLoading && !dataCenter) {
+    throw new Error('A data center is required.')
   }
 
   return (
-    <DataCenterContext.Provider value={dataCenter}>
+    <DataCenterContext.Provider value={{ dataCenter, isLoading }}>
       {children}
     </DataCenterContext.Provider>
   )
