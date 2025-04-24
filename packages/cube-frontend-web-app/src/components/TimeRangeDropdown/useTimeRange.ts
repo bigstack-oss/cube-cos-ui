@@ -19,6 +19,10 @@ export type UseTimeRange<T extends readonly TimeRange[]> = {
   onTimeRangeChange: (newTimeRange: T[number]) => void
 }
 
+/**
+ * This hook has a dependency on the data center.
+ * Do not use it outside of `<Content>`.
+ */
 export const useTimeRange = <T extends readonly TimeRange[]>(
   option: UseTimeRangeOption<T>,
 ): UseTimeRange<T> => {

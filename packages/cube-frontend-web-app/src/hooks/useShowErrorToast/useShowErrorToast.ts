@@ -7,6 +7,10 @@ import { useContext } from 'react'
 
 type UseShowErrorToast = (error: unknown) => void
 
+/**
+ * This hook has a dependency on the data center.
+ * Do not use it outside of `<Content>`.
+ */
 export const useShowErrorToast = (): UseShowErrorToast => {
   const { addToast, removeToast } = useToast()
 

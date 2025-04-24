@@ -11,7 +11,7 @@ export const IntegrationsContextProvider = (props: PropsWithChildren) => {
   const { dataCenter, isLoading: isDataCenterLoading } =
     useContext(DataCenterContext)
 
-  const { data: integrations, isLoading: isIntegrationsLoading } =
+  const { data: integrations = [], isLoading: isIntegrationsLoading } =
     useCosGetRequest(integrationsApi.getIntegrations, () => {
       if (!dataCenter) {
         return null
@@ -25,7 +25,7 @@ export const IntegrationsContextProvider = (props: PropsWithChildren) => {
   return (
     <IntegrationsContext.Provider
       value={{
-        integrations: integrations || [],
+        integrations,
         isLoading: isDataCenterLoading || isIntegrationsLoading,
       }}
     >
