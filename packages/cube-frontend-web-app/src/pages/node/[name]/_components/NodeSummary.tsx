@@ -34,11 +34,27 @@ export const NodeSummary = (props: NodeSummaryProps) => {
 
   const renderRow = (label: string, content: ReactNode) => {
     return (
-      <tr className="border-t border-functional-border-divider">
-        <th className="primary-body4 w-[120px] whitespace-nowrap px-4 py-2.5 text-left font-semibold text-functional-text">
+      <tr
+        className={twMerge(
+          '[&:first-of-type>td]:rounded-tr-[5px] [&:first-of-type>th]:rounded-tl-[5px]',
+          '[&:last-of-type>td]:rounded-br-[5px] [&:last-of-type>td]:border-b [&:last-of-type>th]:rounded-bl-[5px] [&:last-of-type>th]:border-b',
+        )}
+      >
+        <th
+          className={twMerge(
+            'w-[120px] whitespace-nowrap px-4 py-2.5 text-left',
+            'primary-body4 font-semibold text-functional-text',
+            'border-l border-t border-functional-border-divider',
+          )}
+        >
           {label}
         </th>
-        <td className="primary-body4 w-[440x] px-4 py-2.5 text-functional-text-light">
+        <td
+          className={twMerge(
+            'primary-body4 w-[440x] px-4 py-2.5 text-functional-text-light',
+            'border-r border-t border-functional-border-divider',
+          )}
+        >
           {content}
         </td>
       </tr>
@@ -119,7 +135,7 @@ export const NodeSummary = (props: NodeSummaryProps) => {
         </CosOverflowMenu>
       </div>
       <CosStroke type="dot" />
-      <table className="border border-functional-border-divider">
+      <table className="w-fit min-w-[560px] border-separate border-spacing-0">
         <tbody>
           {renderRow('CPU spec', node.cpuSpec)}
           {renderRow(
