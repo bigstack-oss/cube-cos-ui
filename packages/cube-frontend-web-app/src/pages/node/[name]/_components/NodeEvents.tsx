@@ -110,7 +110,9 @@ export const NodeEvents = (props: NodeEventsProps) => {
         <EventTable.Column label="Description" property="description" />
         <EventTable.Column label="Category" property="category" />
         <EventTable.Column label="Service" property="service" />
-        <EventTable.Column label="Metadata" property="metadata" />
+        <EventTable.Column label="Metadata" property="metadata">
+          {(metadata) => JSON.stringify(metadata)}
+        </EventTable.Column>
       </EventTable>
       <CosPagination
         isLoading={!node}
