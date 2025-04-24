@@ -53,7 +53,7 @@ export const TypeFilter = (props: TypeFilterProps) => {
       onAllCheckChange={handleSelectAllLicenseTypes}
       onClearClick={handleClearLicenseTypesClick}
     >
-      <CosDropdown.Trigger placeholder="Select a Type">
+      <CosDropdown.Trigger placeholder="Select Types">
         {selectedLicenseTypes.length > 0 ? `Types` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>

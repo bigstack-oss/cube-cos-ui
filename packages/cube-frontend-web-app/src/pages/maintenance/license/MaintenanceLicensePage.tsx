@@ -6,13 +6,11 @@ import {
   LicensesApiGetLicensesRequest,
 } from '@cube-frontend/api'
 import {
-  CosButton,
   CosGeneralPanel,
   CosPagination,
   CosStroke,
   DEFAULT_ITEMS_PER_PAGE,
 } from '@cube-frontend/ui-library'
-import UploadIcon from '@cube-frontend/ui-library/icons/monochrome/upload.svg?react'
 import { licenseApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -20,6 +18,7 @@ import { LicenseFilters } from './_components/LicenseFilters/LicenseFilters'
 import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { LicenseRow, LicenseTable } from './_components/LicenseTable'
 import { useTopLicenseNaggingStore } from '@cube-frontend/web-app/stores/topLicenseNaggingStore'
+import { LicenseActions } from './_components/LicenseActions/LicenseActions'
 
 export const MaintenanceLicensePage = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -37,20 +36,21 @@ export const MaintenanceLicensePage = () => {
   const [pageNum, setPageNum] = useState(1)
   const [pageSize, setPageSize] = useState(DEFAULT_ITEMS_PER_PAGE)
 
-  const { data: licenseData, isLoading } = useCosGetRequest(
-    licenseApi.getLicenses,
-    () => {
-      return {
-        dataCenter: dataCenter!.name,
-        pageNum,
-        pageSize,
-        keyword: debouncedSearchKeyword,
-        products: selectedProducts,
-        types: selectedLicenseTypes,
-        statuses: selectedLicenseStatuses,
-      } satisfies LicensesApiGetLicensesRequest
-    },
-  )
+  const {
+    data: licenseData,
+    isLoading,
+    getResource: fetchLicenses,
+  } = useCosGetRequest(licenseApi.getLicenses, () => {
+    return {
+      dataCenter: dataCenter!.name,
+      pageNum,
+      pageSize,
+      keyword: debouncedSearchKeyword,
+      products: selectedProducts,
+      types: selectedLicenseTypes,
+      statuses: selectedLicenseStatuses,
+    } satisfies LicensesApiGetLicensesRequest
+  })
 
   const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
     searchKeyword,
@@ -80,12 +80,7 @@ export const MaintenanceLicensePage = () => {
   return (
     <CosGeneralPanel topic="License">
       <div className="flex flex-col gap-y-6 pt-2">
-        <div className="flex items-center justify-between">
-          <CosButton usage="icon-left" type="secondary" Icon={UploadIcon}>
-            Import License
-          </CosButton>
-          <CosButton>Get hardware serials</CosButton>
-        </div>
+        <LicenseActions onImportLicenseSuccess={fetchLicenses} />
         <CosStroke type="dot" />
         <div className="flex flex-col gap-y-2">
           <h5 className="primary-h5 text-functional-text">License</h5>

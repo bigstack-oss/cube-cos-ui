@@ -4,6 +4,8 @@ import { createPortal } from 'react-dom'
 import { CosButton, CosButtonProps } from '../CosButton/CosButton'
 import { backdrop, modal } from './cosModalStyles'
 import { useCloseModalWithEsc } from './useCloseModalWithEsc'
+import { PropsWithClassName } from '@cube-frontend/utils'
+import { twMerge } from 'tailwind-merge'
 
 export type CosModalProps = {
   children: ReactNode
@@ -13,6 +15,7 @@ export type CosModalProps = {
   size?: CosModalSize
   isOpen: boolean
   title: string
+  footerMessage?: ReactNode
   /**
    * @default true
    */
@@ -24,16 +27,18 @@ export type CosModalProps = {
   actionButtonProps?: Pick<CosButtonProps, 'loading' | 'disabled'>
   onActionClick?: () => void
   onCloseClick: () => void
-}
+} & PropsWithClassName
 
 export type CosModalSize = 'sm' | 'md'
 
 export const CosModal = (props: CosModalProps) => {
   const {
     children,
+    className: classNameProp,
     size = 'md',
     isOpen,
     title,
+    footerMessage,
     isActionButtonVisible = true,
     actionText = 'Action',
     actionButtonProps,
@@ -50,7 +55,7 @@ export const CosModal = (props: CosModalProps) => {
     <>
       <div className={backdrop({ isOpen })} onClick={onCloseClick} />
       <div
-        className={modal({ size, isOpen })}
+        className={twMerge(classNameProp, modal({ size, isOpen }))}
         style={{
           boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)',
         }}
@@ -67,6 +72,7 @@ export const CosModal = (props: CosModalProps) => {
         </div>
         <div className="flex-1 overflow-auto p-7">{children}</div>
         <div className="flex items-center justify-end gap-x-2.5 border-t border-functional-border-divider px-7 py-4">
+          {footerMessage}
           {isActionButtonVisible && (
             <CosButton
               usage="text-only"

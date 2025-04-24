@@ -50,7 +50,7 @@ export const RoleFilter = (props: RoleFilterProps) => {
       onAllCheckChange={handleAllSelect}
       onClearClick={handleClearRolesClick}
     >
-      <CosDropdown.Trigger placeholder="Select a Role">
+      <CosDropdown.Trigger placeholder="Select Roles">
         {selectedRoles.length > 0 ? `Roles` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>

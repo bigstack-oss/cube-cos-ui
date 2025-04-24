@@ -6,7 +6,7 @@ import {
   ListLicenseCurrentStatus,
 } from '@cube-frontend/api'
 import { ProductFilter } from './ProductFilter'
-import { StatusFilter } from './StatusFilter'
+import { LicenseStatusFilter } from './LicenseStatusFilter'
 import { TypeFilter } from './TypeFilter'
 
 export type LicenseFiltersProps = {
@@ -75,7 +75,7 @@ export const LicenseFilters = (props: LicenseFiltersProps) => {
           handleProductsSelect={handleProductsSelect}
           handleClearProductsClick={handleClearProductsClick}
         />
-        <StatusFilter
+        <LicenseStatusFilter
           selectedLicenseStatuses={selectedLicenseStatuses}
           handleLicenseStatusesSelect={handleLicenseStatusesSelect}
           handleClearLicenseStatusesClick={handleClearLicenseStatusesClick}

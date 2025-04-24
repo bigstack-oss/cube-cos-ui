@@ -48,7 +48,7 @@ export const ProductFilter = (props: ProductFilterProps) => {
       onAllCheckChange={handleSelectAllProduct}
       onClearClick={handleClearProductsClick}
     >
-      <CosDropdown.Trigger placeholder="Select a Product">
+      <CosDropdown.Trigger placeholder="Select Products">
         {selectedProducts.length > 0 ? `Products` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
