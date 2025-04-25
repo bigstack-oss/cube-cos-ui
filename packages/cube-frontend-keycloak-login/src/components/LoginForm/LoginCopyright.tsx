@@ -19,7 +19,7 @@ export const LoginCopyright = () => {
       <CosHyperlink
         variant="text-inline"
         color="secondary"
-        href="TODO: terms and policy href"
+        href="https://www.bigstack.co/privacy-policy"
       >
         Terms & Policy
       </CosHyperlink>
