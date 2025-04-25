@@ -1,6 +1,6 @@
 import {
   GetHealthHistoryPastEnum,
-  GetModuleHealthHistoryResponseDataHistoryInner,
+  GetModuleHealthHistoryResponseData,
   HealthApiGetHealthHistoryRequest,
 } from '@cube-frontend/api'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
@@ -19,7 +19,7 @@ export type UseModuleHealthHistoryOptions = {
 
 export const useModuleHealthHistory = (
   options: UseModuleHealthHistoryOptions,
-): GetModuleHealthHistoryResponseDataHistoryInner[] | undefined => {
+): GetModuleHealthHistoryResponseData | undefined => {
   const { module, past, autoRefresh: shouldUseStreamData } = options
 
   const { dataCenter } = useContext(DataCenterContext)
@@ -72,5 +72,5 @@ export const useModuleHealthHistory = (
   // Use stream data if `autoFetch` is true. Otherwise, use manual fetch data.
   const response = shouldUseStreamData ? streamResponse : manualFetchResponse
 
-  return response?.history
+  return response
 }

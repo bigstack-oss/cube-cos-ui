@@ -3,13 +3,13 @@ import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdow
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
+import { healthTimeRanges } from '../healthTimeRangeUtils'
 import { HistoryRow, widthTransitionClasses } from './healthDetailsUtils'
 import { HealthHistoryPanelHeader } from './HealthHistoryPanelHeader'
 import { HealthHistoryTableSection } from './HealthHistoryTableSection'
 import { HealthTimeBar } from './HealthTimeBar'
 import { HealthTimeBarSkeleton } from './HealthTimeBarSkeleton'
 import { useModuleHealthHistory } from './useModuleHealthHistory'
-import { healthTimeRanges } from '../healthTimeRangeUtils'
 
 export type HealthHistoryPanelProps = {
   module: ModuleMetadata | undefined
@@ -51,7 +51,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
     defaultValue: '24h',
   })
 
-  const history = useModuleHealthHistory({
+  const historyResponse = useModuleHealthHistory({
     module,
     past: timeRange,
     autoRefresh,
@@ -61,6 +61,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
     <div className={twMerge(container({ isDetailPanelOpen }))}>
       <HealthHistoryPanelHeader
         module={module}
+        isRepairable={!!historyResponse?.isRepairable}
         selectedTimeRange={timeRange}
         onTimeRangeChange={onTimeRangeChange}
         onToggleDetailPanel={onToggleDetailPanel}
@@ -69,7 +70,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
         <HealthTimeBarSkeleton />
       ) : (
         <HealthTimeBar
-          history={history}
+          history={historyResponse?.history}
           now={now}
           selectedTimeRange={timeRange}
         />
@@ -79,7 +80,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
         // Use `key` to reset the `currentPage` state in pagination
         // when `timeRange` changes.
         key={timeRange}
-        history={history}
+        history={historyResponse?.history}
         activeRow={activeHistoryRow}
         onRowClick={onHistoryRowClick}
       />

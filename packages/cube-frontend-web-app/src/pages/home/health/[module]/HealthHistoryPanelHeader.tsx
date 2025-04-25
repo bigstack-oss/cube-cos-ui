@@ -3,16 +3,17 @@ import { CosButton, CosSkeleton } from '@cube-frontend/ui-library'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
-import { HealthTimeRange, healthTimeRanges } from '../healthTimeRangeUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { useContext } from 'react'
+import { HealthTimeRange, healthTimeRanges } from '../healthTimeRangeUtils'
 import { moduleNameToLabel } from '../homeHealthPageUtils'
 
 export type HealthHistoryPanelHeaderProps = {
   module: ModuleMetadata | undefined
+  isRepairable: boolean
   selectedTimeRange: HealthTimeRange
   onTimeRangeChange: (timeRange: HealthTimeRange) => void
   onToggleDetailPanel: () => void
@@ -21,8 +22,13 @@ export type HealthHistoryPanelHeaderProps = {
 export const HealthHistoryPanelHeader = (
   props: HealthHistoryPanelHeaderProps,
 ) => {
-  const { module, selectedTimeRange, onTimeRangeChange, onToggleDetailPanel } =
-    props
+  const {
+    module,
+    isRepairable,
+    selectedTimeRange,
+    onTimeRangeChange,
+    onToggleDetailPanel,
+  } = props
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -60,7 +66,7 @@ export const HealthHistoryPanelHeader = (
         </span>
         <CosButton
           loading={isCallingRepairApi}
-          disabled={!module}
+          disabled={!module || !isRepairable}
           onClick={onRepairClick}
         >
           Repair
