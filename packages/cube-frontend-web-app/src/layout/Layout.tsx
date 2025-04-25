@@ -71,6 +71,7 @@ const Layout = (props: PropsWithChildren) => {
           <CosHeader
             isLoading={isIntegrationsLoading}
             quickAccesses={quickAccesses}
+            notificationContainer={<Link to={CosRoutesEnum.EVENTS_PAGE} />}
             onLogout={handleLogout}
           />
           {/**

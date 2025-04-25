@@ -6,13 +6,16 @@ export type CosHeaderProps = QuickAccessBarProps & FunctionBarProps
 
 // TODO: implement notification and logout overflow menu.
 export const CosHeader = (props: CosHeaderProps) => {
-  const { isLoading, quickAccesses, onLogout } = props
+  const { isLoading, quickAccesses, notificationContainer, onLogout } = props
 
   return (
     <div className="relative flex h-[54px] flex-row items-center justify-end gap-x-2.5 px-5">
       <QuickAccessBar isLoading={isLoading} quickAccesses={quickAccesses} />
       <div className="h-6 w-px bg-functional-border-divider" />
-      <FunctionBar onLogout={onLogout} />
+      <FunctionBar
+        notificationContainer={notificationContainer}
+        onLogout={onLogout}
+      />
       <div className="absolute bottom-0 left-0 w-full px-5">
         <CosStroke />
       </div>

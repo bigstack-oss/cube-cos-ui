@@ -1,39 +1,46 @@
 import NotificationIcon from '@cube-frontend/ui-library/icons/monochrome/notification.svg?react'
 import LogoutIcon from '@cube-frontend/ui-library/icons/monochrome/logout.svg?react'
 import { CosButton } from '../CosButton/CosButton'
+import { cloneElement, PropsWithChildren, ReactElement } from 'react'
+import { PropsWithClassName } from '@cube-frontend/utils'
 
 export type FunctionBarProps = {
+  notificationContainer?: ReactElement<PropsWithClassName & PropsWithChildren>
   onLogout: () => void
 }
 
 export const FunctionBar = (props: FunctionBarProps) => {
-  const { onLogout } = props
+  const { notificationContainer, onLogout } = props
 
-  const functions = [
-    {
-      // TODO: implement unread notification dotspan.
-      Icon: NotificationIcon,
-      onClick: () => {
-        // TODO: implement notification logic here.
-      },
-    },
-    {
-      Icon: LogoutIcon,
-      onClick: () => onLogout(),
-    },
-  ]
+  const renderNotification = () => {
+    const button = (
+      <CosButton
+        size="md"
+        type="ghost"
+        usage="icon-only"
+        Icon={NotificationIcon}
+      />
+    )
+
+    if (!notificationContainer) {
+      return button
+    }
+
+    return cloneElement(notificationContainer, {
+      children: button,
+    })
+  }
+
   return (
     <div className="flex flex-row items-center">
-      {functions.map((button, index) => (
-        <CosButton
-          key={index}
-          size="md"
-          type="ghost"
-          usage="icon-only"
-          Icon={button.Icon}
-          onClick={button.onClick}
-        />
-      ))}
+      {renderNotification()}
+      <CosButton
+        size="md"
+        type="ghost"
+        usage="icon-only"
+        Icon={LogoutIcon}
+        onClick={() => onLogout()}
+      />
     </div>
   )
 }
