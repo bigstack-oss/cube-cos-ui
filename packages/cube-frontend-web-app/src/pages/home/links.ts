@@ -1,6 +1,7 @@
+import { Routes } from '@cube-frontend/web-app/enum/routes'
+
 export const links = {
-  overview: '/home',
-  chart: '/home/chart',
-  health: '/home/health',
-  manage: '/home/manage',
+  overview: Routes.HOME_PAGE,
+  chart: Routes.HOME_CHART_PAGE,
+  health: Routes.HOME_HEALTH_PAGE,
 }

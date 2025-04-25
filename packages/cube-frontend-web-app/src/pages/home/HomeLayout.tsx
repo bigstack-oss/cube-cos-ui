@@ -23,11 +23,6 @@ export const HomeLayout = () => {
             Health
           </CosTabs.Tab>
         </Link>
-        <Link to={links.manage}>
-          <CosTabs.Tab isActive={location.pathname === links.manage}>
-            Manage
-          </CosTabs.Tab>
-        </Link>
       </CosTabs>
       <Outlet />
     </div>

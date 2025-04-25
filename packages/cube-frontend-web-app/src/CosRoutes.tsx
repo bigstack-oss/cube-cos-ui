@@ -5,7 +5,6 @@ import { HomeOverviewPage } from './pages/home/overview/HomeOverviewPage'
 import { HomeChartPage } from './pages/home/chart/HomeChartPage'
 import { HomeHealthPage } from './pages/home/health/HomeHealthPage'
 import { HealthDetailsPage } from './pages/home/health/[module]/HealthDetailsPage'
-import { HomeManagePage } from './pages/home/manage/HomeManagePage'
 import { NodeListPage } from './pages/node/NodeListPage'
 import { NodeDetailsPage } from './pages/node/[name]/NodeDetailsPage'
 import { IntegrationsPage } from './pages/integrations/IntegrationsPage'
@@ -44,10 +43,6 @@ export const CosRoutes = () => {
         <Route
           path={CosRoutesEnum.HOME_HEALTH_DETAIL_PAGE}
           element={<HealthDetailsPage />}
-        />
-        <Route
-          path={CosRoutesEnum.HOME_MANAGE_PAGE}
-          element={<HomeManagePage />}
         />
       </Route>
       <Route path={CosRoutesEnum.NODES_PAGE} element={<NodeListPage />} />

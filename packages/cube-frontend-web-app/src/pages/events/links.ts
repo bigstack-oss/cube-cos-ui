@@ -1,7 +1,8 @@
-// TODO: Replace this with the route constants once the Events Page PR is merged.
+import { Routes } from '@cube-frontend/web-app/enum/routes'
+
 export const links = {
-  events: '/events',
-  triggers: '/events/triggers',
-  tunings: '/events/tunings',
-  chart: '/events/chart',
+  events: Routes.EVENTS_PAGE,
+  triggers: Routes.EVENTS_TRIGGERS_PAGE,
+  tunings: Routes.EVENTS_TUNINGS_PAGE,
+  chart: Routes.EVENTS_CHART_PAGE,
 }
