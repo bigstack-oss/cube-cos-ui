@@ -1,15 +1,17 @@
 import { Navigate, Route, Routes } from 'react-router'
 import { Routes as CosRoutesEnum } from './enum/routes'
-/** Home Page */
 import { HomeLayout } from './pages/home/HomeLayout'
 import { HomeOverviewPage } from './pages/home/overview/HomeOverviewPage'
 import { HomeChartPage } from './pages/home/chart/HomeChartPage'
 import { HomeHealthPage } from './pages/home/health/HomeHealthPage'
-import { HomeManagePage } from './pages/home/manage/HomeManagePage'
 import { HealthDetailsPage } from './pages/home/health/[module]/HealthDetailsPage'
-import { SettingsPage } from './pages/settings/SettingsPage'
+import { HomeManagePage } from './pages/home/manage/HomeManagePage'
+import { NodeListPage } from './pages/node/NodeListPage'
+import { NodeDetailsPage } from './pages/node/[name]/NodeDetailsPage'
 import { IntegrationsPage } from './pages/integrations/IntegrationsPage'
-/** Events Page */
+import { MaintenanceLayout } from './pages/maintenance/MaintenanceLayout'
+import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/MaintenanceSupportFilesPage'
+import { MaintenanceLicensePage } from './pages/maintenance/license/MaintenanceLicensePage'
 import { EventsLayout } from './pages/events/EventsLayout'
 import { EventsIndexPage } from './pages/events/index/EventsIndexPage'
 import { EventsTriggersPage } from './pages/events/triggers/EventsTriggersPage'
@@ -18,54 +20,68 @@ import { EventsTuningsPage } from './pages/events/tunings/EventsTuningsPage'
 import { CreateTuningsPage } from './pages/events/tunings/create/CreateTuningsPage'
 import { EditTuningsPage } from './pages/events/tunings/edit/EditTuningsPage'
 import { EventsChartPage } from './pages/events/chart/EventsChartPage'
-import { MaintenanceLayout } from './pages/maintenance/MaintenanceLayout'
-import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/MaintenanceSupportFilesPage'
-import { MaintenanceLicensePage } from './pages/maintenance/license/MaintenanceLicensePage'
-import { NodeListPage } from './pages/node/NodeListPage'
-import { NodeDetailsPage } from './pages/node/[name]/NodeDetailsPage'
+import { SettingsPage } from './pages/settings/SettingsPage'
 import { HttpErrorDisplay } from './components/ErrorDisplay/HttpErrorDisplay'
 
-// TODO: extract all links to CosRoutesEnum.
 export const CosRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/"
+        path={CosRoutesEnum.ROOT_ROUTE}
         index={true}
-        element={<Navigate to="/home" replace={true} />}
+        element={<Navigate to={CosRoutesEnum.HOME_PAGE} replace={true} />}
       />
       <Route path={CosRoutesEnum.HOME_PAGE} element={<HomeLayout />}>
         <Route index={true} element={<HomeOverviewPage />} />
-        <Route path="/home/chart" element={<HomeChartPage />} />
-        <Route path="/home/health" element={<HomeHealthPage />} />
-        <Route path="/home/health/:module" element={<HealthDetailsPage />} />
-        <Route path="/home/manage" element={<HomeManagePage />} />
-      </Route>
-      <Route path="/nodes" element={<NodeListPage />} />
-      <Route path="/nodes/:name" element={<NodeDetailsPage />} />
-      <Route path="/events" element={<EventsLayout />}>
-        <Route path="/events/tunings" element={<EventsTuningsPage />} />
-      </Route>
-      {/* Create & edit tunings route are placed outside of EventsLayout because
-        the shared tabs should not be displayed on those pages. */}
-      <Route path="/events/tunings/create" element={<CreateTuningsPage />} />
-      <Route path="/events/tunings/edit" element={<EditTuningsPage />} />
-      <Route path="/settings" element={<SettingsPage />} />
-      <Route path="/integrations" element={<IntegrationsPage />} />
-      <Route path="/maintenance" element={<MaintenanceLayout />}>
         <Route
-          path="/maintenance/support-files"
+          path={CosRoutesEnum.HOME_CHART_PAGE}
+          element={<HomeChartPage />}
+        />
+        <Route
+          path={CosRoutesEnum.HOME_HEALTH_PAGE}
+          element={<HomeHealthPage />}
+        />
+        <Route
+          path={CosRoutesEnum.HOME_HEALTH_DETAIL_PAGE}
+          element={<HealthDetailsPage />}
+        />
+        <Route
+          path={CosRoutesEnum.HOME_MANAGE_PAGE}
+          element={<HomeManagePage />}
+        />
+      </Route>
+      <Route path={CosRoutesEnum.NODES_PAGE} element={<NodeListPage />} />
+      <Route
+        path={CosRoutesEnum.NODES_DETAIL_PAGE}
+        element={<NodeDetailsPage />}
+      />
+      <Route path={CosRoutesEnum.EVENTS_PAGE} element={<EventsLayout />}>
+        <Route
+          path={CosRoutesEnum.EVENTS_TUNINGS_PAGE}
+          element={<EventsTuningsPage />}
+        />
+      </Route>
+      <Route
+        path={CosRoutesEnum.INTEGRATIONS_PAGE}
+        element={<IntegrationsPage />}
+      />
+      <Route
+        path={CosRoutesEnum.MAINTENANCE_PAGE}
+        element={<MaintenanceLayout />}
+      >
+        <Route
+          path={CosRoutesEnum.MAINTENANCE_SUPPORT_FILES_PAGE}
           element={<MaintenanceSupportFilesPage />}
         />
         <Route
-          path="/maintenance/license"
+          path={CosRoutesEnum.MAINTENANCE_LICENSE_PAGE}
           element={<MaintenanceLicensePage />}
         />
       </Route>
       <Route path={CosRoutesEnum.EVENTS_PAGE} element={<EventsLayout />}>
         <Route
-          path={CosRoutesEnum.EVENTS_PAGE}
           index={true}
+          path={CosRoutesEnum.EVENTS_PAGE}
           element={<EventsIndexPage />}
         />
         <Route
@@ -81,11 +97,21 @@ export const CosRoutes = () => {
           element={<EventsChartPage />}
         />
       </Route>
-      <Route path="/settings" element={<SettingsPage />} />
+      {/* Create & edit tunings route are placed outside of EventsLayout because
+        the shared tabs should not be displayed on those pages. */}
+      <Route
+        path={CosRoutesEnum.EVENTS_TUNINGS_CREATE_PAGE}
+        element={<CreateTuningsPage />}
+      />
+      <Route
+        path={CosRoutesEnum.EVENTS_TUNINGS_EDIT_PAGE}
+        element={<EditTuningsPage />}
+      />
       <Route
         path={CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}
         element={<TriggersCreatePage />}
       />
+      <Route path={CosRoutesEnum.SETTINGS_PAGE} element={<SettingsPage />} />
       <Route
         path="*"
         element={
