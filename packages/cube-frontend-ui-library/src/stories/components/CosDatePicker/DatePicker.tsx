@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { CosDatePicker } from '../../../components/CosDatePicker/CosDatePicker'
 import {
   DatePickerDates,
-  useDatePicker,
-} from '../../../components/CosDatePicker/useDatePicker'
+  useDatePickerDisplayDates,
+} from '../../../components/CosDatePicker/useDatePickerDisplayDates'
 import { Dayjs } from 'dayjs'
 
 type DatePickerProps = {
@@ -20,10 +20,30 @@ export const DatePicker = (props: DatePickerProps) => {
     end: Dayjs | undefined
   }>({ start: defaultDates.start, end: defaultDates.end })
 
-  const { displayDates, onChange, onCancel, onReset, onApply } = useDatePicker({
-    handledDates: dates,
-    onHandledDatesChange: (dates: DatePickerDates) => setDates(dates),
+  const {
+    displayDates,
+    onChange,
+    onCancel,
+    onReset: onDisplayDatesReset,
+  } = useDatePickerDisplayDates({
+    initialStartDate: dates.start,
+    initialEndDate: dates.end,
   })
+
+  const onReset = () => {
+    onDisplayDatesReset()
+    setDates({
+      start: undefined,
+      end: undefined,
+    })
+  }
+
+  const onApply = () => {
+    setDates({
+      start: displayDates.start,
+      end: displayDates.end,
+    })
+  }
 
   return (
     <CosDatePicker

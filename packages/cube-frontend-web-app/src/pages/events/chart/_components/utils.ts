@@ -151,8 +151,8 @@ export const getRedirectUrl = (
   const searchParams = new URLSearchParams({
     type: chartQuery.type,
     keyword: eventId,
-    start: startDate.toString(),
-    stop: endDate.toString(),
+    start: startDate.format(),
+    stop: endDate.format(),
   })
 
   const category = getQueryValue(chartType, 'category', chartQuery)

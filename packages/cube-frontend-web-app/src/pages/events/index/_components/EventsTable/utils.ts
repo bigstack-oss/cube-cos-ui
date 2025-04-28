@@ -1,59 +1,89 @@
 import dayjs from 'dayjs'
-import { EventsApiGetEventsRequest } from '@cube-frontend/api'
+import {
+  EventsApiGetEventsRequest,
+  GetEventsTypeEnum,
+} from '@cube-frontend/api'
+import {
+  DatePickerDates,
+  DEFAULT_ITEMS_PER_PAGE,
+  ItemsPerPage,
+} from '@cube-frontend/ui-library'
+import { EventsQuery } from './useEventsQuery'
 
-const eventsRequestKeyMapping: Record<string, keyof EventsApiGetEventsRequest> =
-  {
-    startDate: 'start',
-    endDate: 'stop',
-    category: 'category',
-    severity: 'severity',
-    keyword: 'keyword',
-    name: 'host',
-    id: 'instance',
+const getValidType = (type: string): GetEventsTypeEnum => {
+  const defaultType = GetEventsTypeEnum.System
+
+  if (!type) {
+    return defaultType
   }
 
-export const mapFilterToRequestParams = (filter: Record<string, string>) => {
-  const result = Object.entries(filter).reduce(
-    (acc, [key, value]) => {
-      if (value && key in eventsRequestKeyMapping) {
-        const mappedKey =
-          eventsRequestKeyMapping[key as keyof typeof eventsRequestKeyMapping]
-        acc[mappedKey] =
-          mappedKey === 'start' || mappedKey === 'stop'
-            ? dayjs(value).format()
-            : value
-      }
-      return acc
-    },
-    {} as Record<string, string>,
-  )
+  const validTypes = Object.values(GetEventsTypeEnum) as string[]
 
-  /**
-   * Check if start and stop are the same and modify the times
-   * - start => "YYYY-MM-DD 00:00:00"
-   * - stop  => "YYYY-MM-DD 23:59:59"
-   */
-  if (result['start'] && result['stop'] && result['start'] === result['stop']) {
-    const sameDay = dayjs(result['start'])
-    result['start'] = sameDay.startOf('day').format()
-    result['stop'] = sameDay.endOf('day').format()
+  if (validTypes.includes(type)) {
+    return type as GetEventsTypeEnum
   }
 
-  return result
+  return defaultType
 }
 
-const filterKeyMapping: Record<string, string> = {
-  severities: 'severity',
-  categories: 'category',
-  ids: 'id',
-  names: 'name',
+export const initEventsQuery = (searchParams: URLSearchParams): EventsQuery => {
+  const type = getValidType(searchParams.get('type') ?? '')
+
+  const keyword = searchParams.get('keyword') ?? ''
+
+  const category = searchParams.get('category') ?? undefined
+
+  const startDate = searchParams.get('start')
+    ? dayjs(searchParams.get('start') ?? '')
+    : undefined
+
+  const endDate = searchParams.get('stop')
+    ? dayjs(searchParams.get('stop') ?? '')
+    : undefined
+
+  const pageSize = (parseInt(searchParams.get('pageSize') ?? '') ||
+    DEFAULT_ITEMS_PER_PAGE) as ItemsPerPage
+
+  const pageNum = parseInt(searchParams.get('pageNum') ?? '') || 1
+
+  const severity = searchParams.get('severity') ?? undefined
+
+  const host = searchParams.get('host') ?? undefined
+
+  const instance = searchParams.get('instance') ?? undefined
+
+  return {
+    type,
+    keyword,
+    category,
+    start: startDate?.isValid() ? startDate : undefined,
+    stop: endDate?.isValid() ? endDate : undefined,
+    pageSize,
+    pageNum,
+    severity,
+    host,
+    instance,
+  }
 }
 
-export const mapFilterToFilterKey = (key: string): string => {
-  const filterKey = filterKeyMapping[key] || ''
-  if (!filterKey) {
-    console.warn('Not a valid filter key')
+export const datesToRequestParams = (
+  dates: DatePickerDates,
+): Pick<EventsApiGetEventsRequest, 'start' | 'stop'> => {
+  const { start: selectedStartDate, end: selectedEndDate } = dates
+
+  let start: string | undefined = undefined
+  let stop: string | undefined = undefined
+
+  if (selectedStartDate) {
+    start = selectedStartDate.format()
   }
 
-  return filterKey
+  if (selectedEndDate) {
+    stop = selectedEndDate.format()
+  }
+
+  return {
+    start,
+    stop,
+  }
 }

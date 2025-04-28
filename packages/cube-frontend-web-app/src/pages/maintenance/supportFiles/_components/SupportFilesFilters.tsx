@@ -1,8 +1,12 @@
 import { Dayjs } from 'dayjs'
-import { CosIconFrame, CosSearchBarFilter } from '@cube-frontend/ui-library'
+import {
+  CosDatePicker,
+  CosIconFrame,
+  CosSearchBarFilter,
+  useDatePickerDisplayDates,
+} from '@cube-frontend/ui-library'
 import XIcon from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
-import { DatePickerFilter } from './DatePickerFilter'
 import { GetNodesRolesEnum } from '@cube-frontend/api'
 
 export type SupportFilesFiltersProps = {
@@ -30,11 +34,34 @@ export const SupportFilesFilters = (props: SupportFilesFiltersProps) => {
     handleEndDateChange,
   } = props
 
+  const {
+    displayDates,
+    onChange,
+    onCancel,
+    onReset: onDisplayDatesReset,
+  } = useDatePickerDisplayDates({
+    initialStartDate: startDate,
+    initialEndDate: endDate,
+  })
+
+  const handleDatePickerApply = () => {
+    const { start, end } = displayDates
+    if (!start || !end) return
+
+    handleStartDateChange(displayDates.start)
+    handleEndDateChange(displayDates.end)
+  }
+
+  const handleDatePickerReset = () => {
+    onDisplayDatesReset()
+    handleStartDateChange(undefined)
+    handleEndDateChange(undefined)
+  }
+
   const handleClearAllFilter = () => {
     handleRolesSelect([])
     handleSearchKeywordClear()
-    handleStartDateChange(undefined)
-    handleEndDateChange(undefined)
+    handleDatePickerReset()
   }
 
   const showClearAllFilter =
@@ -55,11 +82,12 @@ export const SupportFilesFilters = (props: SupportFilesFiltersProps) => {
           selectedRoles={selectedRoles}
           handleRolesSelect={handleRolesSelect}
         />
-        <DatePickerFilter
-          startDate={startDate}
-          endDate={endDate}
-          handleStartDateChange={handleStartDateChange}
-          handleEndDateChange={handleEndDateChange}
+        <CosDatePicker
+          displayDates={displayDates}
+          onChange={onChange}
+          onCancel={onCancel}
+          onApply={handleDatePickerApply}
+          onReset={handleDatePickerReset}
         />
       </div>
       {showClearAllFilter && (

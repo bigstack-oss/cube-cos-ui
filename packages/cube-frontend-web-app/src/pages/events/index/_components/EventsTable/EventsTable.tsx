@@ -1,4 +1,3 @@
-import { EventsContentSwitcher } from './EventsContentSwitcher'
 import { EventsTableFilter } from './EventsTableFilter'
 import { EventsTableSelection } from './EventsTableSelection'
 import { EventsRefreshButton } from './EventsRefreshButton'
@@ -7,28 +6,21 @@ import { useEventsQuery } from './useEventsQuery'
 
 export const EventsTable = () => {
   const {
-    eventsType,
-    handleEventsTypeChange,
-    handleEventsQueryChange,
-    handleEventsQueryReset,
-    handleCurrentPageChange,
-    handlePageSizeChange,
-    getCurrentQuery,
+    eventsQuery,
+    onTypeChange,
+    onKeywordChange,
+    onDatesChange,
+    onFieldChange,
+    onPageNumChange,
+    onPageSizeChange,
   } = useEventsQuery()
 
   const {
     events,
     isEventsLoading,
-
     getResource: onEventsRefresh,
-    currentQuery,
-    currentPage,
-    itemsPerPage,
     totalItems,
-  } = useEvents({
-    eventsType,
-    getCurrentQuery,
-  })
+  } = useEvents(eventsQuery)
 
   return (
     <div className="flex flex-col gap-6 bg-white px-6 py-4">
@@ -39,24 +31,21 @@ export const EventsTable = () => {
           isEventsLoading={isEventsLoading}
         />
       </div>
-      <EventsContentSwitcher
-        activeTab={eventsType}
-        onEventsTypeChange={handleEventsTypeChange}
-      />
       <EventsTableFilter
-        eventsType={eventsType}
-        currentQuery={currentQuery}
-        handleEventsQueryChange={handleEventsQueryChange}
-        handleEventsQueryReset={handleEventsQueryReset}
+        eventsQuery={eventsQuery}
+        onTypeChange={onTypeChange}
+        onKeywordChange={onKeywordChange}
+        onDatesChange={onDatesChange}
+        onFieldChange={onFieldChange}
       />
       <EventsTableSelection
         isEventsLoading={isEventsLoading}
         events={events}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
+        currentPage={eventsQuery.pageNum}
+        itemsPerPage={eventsQuery.pageSize}
         totalItems={totalItems}
-        handleCurrentPageChange={handleCurrentPageChange}
-        handlePageSizeChange={handlePageSizeChange}
+        onPageNumChange={onPageNumChange}
+        onPageSizeChange={onPageSizeChange}
       />
     </div>
   )

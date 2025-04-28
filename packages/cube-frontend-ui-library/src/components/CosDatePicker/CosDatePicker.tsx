@@ -5,7 +5,7 @@ import { CosDatePickerTrigger } from './CosDatePickerTrigger'
 import { CosDatePickerMenu } from './CosDatePickerMenu'
 import { CosDatePickerSkeleton } from './CosDatePickerSkeleton'
 import { CosDatePickerContext } from './context'
-import { DatePickerDates } from './useDatePicker'
+import { DatePickerDates } from './useDatePickerDisplayDates'
 
 type CosDatePickerProps = {
   /**

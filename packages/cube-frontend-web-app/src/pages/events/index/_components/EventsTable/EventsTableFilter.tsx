@@ -1,83 +1,168 @@
-import dayjs from 'dayjs'
-import { CosSearchBarFilter } from '@cube-frontend/ui-library'
-import { GetEventsTypeEnum } from '@cube-frontend/api'
-import Cancel from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
+import XIcon from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
+import {
+  CosDatePicker,
+  CosIconFrame,
+  CosSearchBarFilter,
+  DatePickerDates,
+  useDatePickerDisplayDates,
+} from '@cube-frontend/ui-library'
 import { FilterDropdown } from './FilterDropdown'
-import { FilterDatePicker } from './FilterDatePicker'
 import { useEventsFilter } from './useEventsFilter'
-import { mapFilterToFilterKey } from './utils'
+import { EventsQuery, FilterKeys, FilterOptions } from './useEventsQuery'
+import { EventsContentSwitcher } from './EventsContentSwitcher'
+import { GetEventsTypeEnum } from '@cube-frontend/api'
+
+const filterKeyMapping: Record<string, FilterKeys> = {
+  categories: 'category',
+  severities: 'severity',
+  names: 'host',
+  ids: 'instance',
+}
+
+const mapFilterToFilterKey = (key: string): FilterKeys | undefined => {
+  return filterKeyMapping[key] || undefined
+}
 
 type EventsTableFilterProps = {
-  eventsType: GetEventsTypeEnum
-  currentQuery: {
-    eventsFilter: Record<string, string>
-    isEventsFilterEmpty: boolean
-  }
-  handleEventsQueryChange: (updates: Record<string, string | null>) => void
-  handleEventsQueryReset: () => void
+  eventsQuery: EventsQuery
+  onTypeChange: (type: GetEventsTypeEnum) => void
+  onKeywordChange: (keyword: string) => void
+  onDatesChange: (dates: DatePickerDates) => void
+  onFieldChange: <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key] | undefined,
+  ) => void
 }
 
 export const EventsTableFilter = (props: EventsTableFilterProps) => {
   const {
-    eventsType,
-    currentQuery,
-    handleEventsQueryChange,
-    handleEventsQueryReset,
+    eventsQuery,
+    onTypeChange: onTypeChangeProp,
+    onKeywordChange,
+    onDatesChange,
+    onFieldChange,
   } = props
+
+  const { type, keyword, category, start, stop, severity, host, instance } =
+    eventsQuery
 
   const { isLoading: isEventsFilterLoading, getEventsFilter } =
     useEventsFilter()
 
-  const eventsFilter = getEventsFilter(eventsType)
+  const eventsFilter = getEventsFilter(type)
 
-  const selectedStartDate = currentQuery.eventsFilter?.startDate
-    ? dayjs(currentQuery.eventsFilter.startDate)
-    : undefined
+  const {
+    displayDates,
+    onChange,
+    onCancel,
+    onReset: onDisplayDatesReset,
+  } = useDatePickerDisplayDates({
+    initialStartDate: start,
+    initialEndDate: stop,
+  })
 
-  const selectedEndDate = currentQuery.eventsFilter?.endDate
-    ? dayjs(currentQuery.eventsFilter.endDate)
-    : undefined
+  const onDatePickerApply = () => {
+    const { start, end } = displayDates
+    if (!start || !end) return
+
+    /**
+     * When the user selects a start and end date from the date picker,
+     * we need to set the `start` to the beginning of the `startDate` and the `end` to the end of the `endDate`.
+     */
+    onDatesChange({
+      start: start.startOf('day'),
+      end: end.endOf('day'),
+    })
+  }
+
+  const onDatePickerReset = () => {
+    onDisplayDatesReset()
+    onDatesChange({
+      start: undefined,
+      end: undefined,
+    })
+  }
+
+  const onAllFilterReset = () => {
+    onKeywordChange('')
+    onDatePickerReset()
+
+    if (eventsFilter) {
+      Object.keys(eventsFilter).map((key) => {
+        const filterKey = mapFilterToFilterKey(key)
+
+        if (filterKey) onFieldChange(filterKey, undefined)
+      })
+    }
+  }
+
+  const onTypeChange = (type: GetEventsTypeEnum) => {
+    onTypeChangeProp(type)
+    onAllFilterReset()
+  }
+
+  const showAllFilterReset = Object.values({
+    keyword,
+    start,
+    stop,
+    category,
+    severity,
+    host,
+    instance,
+  }).some((value) => !!value)
 
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex items-center gap-2">
-        <CosSearchBarFilter
-          isLoading={isEventsFilterLoading}
-          value={currentQuery.eventsFilter.keyword || ''}
-          onChange={(e) => handleEventsQueryChange({ keyword: e.target.value })}
-          onInputClear={() => handleEventsQueryChange({ keyword: null })}
-          showDropdown={false}
-        />
-      </div>
-      {eventsFilter &&
-        Object.entries(eventsFilter).map(([key, options]) => {
-          const filterKey = mapFilterToFilterKey(key)
-          return (
-            <FilterDropdown
-              key={key}
-              isLoading={isEventsFilterLoading}
-              filterKey={filterKey}
-              options={options}
-              selectedValue={currentQuery.eventsFilter?.[filterKey]}
-              onChange={handleEventsQueryChange}
-            />
-          )
-        })}
-      <FilterDatePicker
-        startDate={selectedStartDate}
-        endDate={selectedEndDate}
-        handleEventsQueryChange={handleEventsQueryChange}
-        handleEventsQueryReset={handleEventsQueryReset}
+    <>
+      <EventsContentSwitcher
+        activeTab={type}
+        onEventsTypeChange={onTypeChange}
       />
-      {!currentQuery.isEventsFilterEmpty && (
-        <>
-          <div className="h-[34px] border-l border-functional-border-divider"></div>
-          <Cancel
-            className="icon-md m-[10px] shrink-0 cursor-pointer text-functional-text-light"
-            onClick={handleEventsQueryReset}
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <CosSearchBarFilter
+            isLoading={isEventsFilterLoading}
+            value={keyword}
+            onChange={(e) => onKeywordChange(e.target.value)}
+            onInputClear={() => onKeywordChange('')}
+            showDropdown={false}
           />
-        </>
-      )}
-    </div>
+        </div>
+        {eventsFilter &&
+          Object.entries(eventsFilter).map(([key, options]) => {
+            const filterKey = mapFilterToFilterKey(key)
+            if (!filterKey) return null
+
+            return (
+              <FilterDropdown
+                key={key}
+                isLoading={isEventsFilterLoading}
+                filterKey={filterKey}
+                options={options}
+                selectedValue={eventsQuery[filterKey]}
+                onChange={onFieldChange}
+              />
+            )
+          })}
+        <CosDatePicker
+          displayDates={displayDates}
+          onChange={onChange}
+          onCancel={onCancel}
+          onApply={onDatePickerApply}
+          onReset={onDatePickerReset}
+        />
+        {showAllFilterReset && (
+          <>
+            <div className="w-px self-stretch bg-functional-border-divider" />
+            <CosIconFrame
+              className="cursor-pointer"
+              size="md"
+              onClick={onAllFilterReset}
+            >
+              <XIcon className="icon-md-sm text-functional-text-light" />
+            </CosIconFrame>
+          </>
+        )}
+      </div>
+    </>
   )
 }

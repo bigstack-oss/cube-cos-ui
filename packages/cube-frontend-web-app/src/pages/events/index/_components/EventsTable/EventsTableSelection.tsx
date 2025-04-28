@@ -44,8 +44,8 @@ type EventsTableSelectionProps = {
   currentPage: number
   itemsPerPage: ItemsPerPage
   totalItems: number
-  handleCurrentPageChange: (page: number) => void
-  handlePageSizeChange: (itemsPerPage: ItemsPerPage) => void
+  onPageNumChange: (pageNum: number) => void
+  onPageSizeChange: (pageSize: ItemsPerPage) => void
 }
 
 export const EventsTableSelection = (props: EventsTableSelectionProps) => {
@@ -55,8 +55,8 @@ export const EventsTableSelection = (props: EventsTableSelectionProps) => {
     currentPage,
     itemsPerPage,
     totalItems,
-    handleCurrentPageChange,
-    handlePageSizeChange,
+    onPageNumChange,
+    onPageSizeChange,
   } = props
 
   const rows = useMemo<EventTableType[]>(() => {
@@ -101,8 +101,8 @@ export const EventsTableSelection = (props: EventsTableSelectionProps) => {
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
         totalItems={totalItems}
-        onPageChange={handleCurrentPageChange}
-        onItemsPerPageChange={handlePageSizeChange}
+        onPageChange={onPageNumChange}
+        onItemsPerPageChange={onPageSizeChange}
       />
     </div>
   )

@@ -1,135 +1,130 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { isEmpty } from 'lodash'
+import { Dayjs } from 'dayjs'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
-import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from '@cube-frontend/ui-library'
+import { DatePickerDates, ItemsPerPage } from '@cube-frontend/ui-library'
+import { initEventsQuery } from './utils'
 
-const isValidEventsType = (type: string | null): boolean => {
-  return Object.values(GetEventsTypeEnum).includes(
-    type as unknown as GetEventsTypeEnum,
-  )
+export type FilterKeys = Extract<
+  keyof EventsQuery,
+  'category' | 'severity' | 'host' | 'instance'
+>
+
+export type FilterOptions = {
+  [K in FilterKeys]: NonNullable<EventsQuery[K]>
 }
 
-const getValidEventsType = (
-  searchParams: URLSearchParams,
-): GetEventsTypeEnum => {
-  const urlEventsType = searchParams.get('eventsType')
-
-  if (!urlEventsType || !isValidEventsType(urlEventsType)) {
-    return GetEventsTypeEnum.System
-  }
-
-  return urlEventsType as GetEventsTypeEnum
+type UseEventsQuery = {
+  eventsQuery: EventsQuery
+  onTypeChange: (type: GetEventsTypeEnum) => void
+  onKeywordChange: (keyword: string) => void
+  onDatesChange: (dates: DatePickerDates) => void
+  onFieldChange: <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key] | undefined,
+  ) => void
+  onPageNumChange: (pageNum: number) => void
+  onPageSizeChange: (pageSize: ItemsPerPage) => void
 }
 
-const DEFAULT_PAGE = 1
-
-export type UseEventsQuery = {
-  eventsType: GetEventsTypeEnum
-  handleEventsTypeChange: (type: GetEventsTypeEnum) => void
-  handleEventsQueryChange: (updates: Record<string, string | null>) => void
-  handleEventsQueryReset: () => void
-  handleCurrentPageChange: (page: number) => void
-  handlePageSizeChange: (itemsPerPage: ItemsPerPage) => void
-  getCurrentQuery: () => {
-    eventsFilter: Record<string, string>
-    /**
-     * Checks whether the filter is empty, excluding the `eventsType` field.
-     */
-    isEventsFilterEmpty: boolean
-  }
+export type EventsQuery = {
+  type: GetEventsTypeEnum
+  keyword: string
+  category: string | undefined
+  start: Dayjs | undefined
+  stop: Dayjs | undefined
+  pageSize: ItemsPerPage
+  pageNum: number
+  // System
+  severity: string | undefined
+  // Host
+  host: string | undefined
+  // Instance
+  instance: string | undefined
 }
 
 export const useEventsQuery = (): UseEventsQuery => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const [eventsType, setEventsType] = useState<GetEventsTypeEnum>(
-    getValidEventsType(searchParams),
+  const [eventsQuery, setEventsQuery] = useState<EventsQuery>(() =>
+    initEventsQuery(searchParams),
   )
 
   useEffect(() => {
-    const urlEventsType = searchParams.get('eventsType')
-
-    if (urlEventsType !== eventsType) {
-      const validEventsType = getValidEventsType(searchParams)
-      setEventsType(validEventsType)
-      setSearchParams(
-        {
-          eventsType: validEventsType,
-          page: DEFAULT_PAGE.toString(),
-          size: DEFAULT_ITEMS_PER_PAGE.toString(),
-        },
-        { replace: true },
-      )
-    }
-  }, [eventsType, searchParams, setSearchParams])
-
-  const handleEventsTypeChange = (type: GetEventsTypeEnum) => {
-    setSearchParams(
-      {
-        eventsType: type,
-        page: DEFAULT_PAGE.toString(),
-        size: DEFAULT_ITEMS_PER_PAGE.toString(),
+    const record = Object.entries(eventsQuery).reduce(
+      (result, [key, value]) => {
+        const stringValue = value?.toString()
+        if (stringValue) {
+          result[key] = stringValue
+        }
+        return result
       },
-      { replace: true },
+      {} as Record<string, string>,
     )
-  }
 
-  const handleEventsQueryChange = (updates: Record<string, string | null>) => {
-    const newParams = new URLSearchParams(searchParams)
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value) {
-        newParams.set(key, value)
-      } else {
-        newParams.delete(key)
-      }
+    setSearchParams(record, {
+      replace: true,
     })
+  }, [eventsQuery, setSearchParams])
 
-    newParams.set('page', DEFAULT_PAGE.toString())
-    newParams.set('size', DEFAULT_ITEMS_PER_PAGE.toString())
-
-    setSearchParams(newParams, { replace: true })
+  const onTypeChange = (type: GetEventsTypeEnum): void => {
+    setEventsQuery((prev) => ({
+      ...prev,
+      type,
+      pageNum: 1,
+    }))
   }
 
-  const handleEventsQueryReset = () => {
-    const currentSize =
-      searchParams.get('size') ?? DEFAULT_ITEMS_PER_PAGE.toString()
-    const newParams = new URLSearchParams()
-    newParams.set('eventsType', eventsType)
-    newParams.set('page', DEFAULT_PAGE.toString())
-    newParams.set('size', currentSize)
-    setSearchParams(newParams, { replace: true })
+  const onKeywordChange = (keyword: string): void => {
+    setEventsQuery((prev) => ({
+      ...prev,
+      keyword,
+      pageNum: 1,
+    }))
   }
 
-  const handleCurrentPageChange = (page: number): void => {
-    searchParams.set('page', page.toString())
-    setSearchParams(searchParams)
+  const onDatesChange = (dates: DatePickerDates): void => {
+    setEventsQuery((prev) => ({
+      ...prev,
+      start: dates.start,
+      stop: dates.end,
+      pageNum: 1,
+    }))
   }
 
-  const handlePageSizeChange = (itemsPerPage: ItemsPerPage) => {
-    searchParams.set('size', itemsPerPage.toString())
-    searchParams.set('page', DEFAULT_PAGE.toString())
-    setSearchParams(searchParams)
+  const onFieldChange = <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key] | undefined,
+  ): void => {
+    setEventsQuery((prev) => ({
+      ...prev,
+      [key]: value,
+      pageNum: 1,
+    }))
   }
 
-  const getCurrentQuery = () => {
-    const eventsFilter = Object.fromEntries(searchParams)
-    const { eventsType, size, page, ...restFilter } = eventsFilter
-    const isFilterEmpty = isEmpty(restFilter)
+  const onPageNumChange = (pageNum: number): void => {
+    setEventsQuery((prev) => ({
+      ...prev,
+      pageNum,
+    }))
+  }
 
-    return {
-      eventsFilter,
-      isEventsFilterEmpty: isFilterEmpty,
-    }
+  const onPageSizeChange = (pageSize: ItemsPerPage): void => {
+    setEventsQuery((prev) => ({
+      ...prev,
+      pageSize,
+      pageNum: 1,
+    }))
   }
 
   return {
-    eventsType,
-    handleEventsTypeChange,
-    handleEventsQueryChange,
-    handleEventsQueryReset,
-    handleCurrentPageChange,
-    handlePageSizeChange,
-    getCurrentQuery,
+    eventsQuery,
+    onTypeChange,
+    onKeywordChange,
+    onDatesChange,
+    onFieldChange,
+    onPageNumChange,
+    onPageSizeChange,
   }
 }

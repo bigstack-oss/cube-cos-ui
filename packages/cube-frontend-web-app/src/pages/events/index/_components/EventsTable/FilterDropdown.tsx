@@ -1,23 +1,33 @@
 import { ChangeEvent, useState } from 'react'
 import { upperFirst } from 'lodash'
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { FilterOptions } from './useEventsQuery'
 
-type FilterDropdownProps = {
+type FilterDropdownProps<Key extends keyof FilterOptions> = {
   isLoading: boolean
-  filterKey: string
-  options: string[]
-  selectedValue: string | undefined
-  onChange: (updates: Record<string, string | null>) => void
+  filterKey: Key
+  options: FilterOptions[Key][]
+  selectedValue: FilterOptions[Key] | undefined
+  onChange: (key: Key, value: FilterOptions[Key] | undefined) => void
 }
 
-export const FilterDropdown = (props: FilterDropdownProps) => {
-  const {
-    isLoading,
-    filterKey,
-    options,
-    selectedValue,
-    onChange: onDropdownChange,
-  } = props
+const filterOptionBySearchValue = <Key extends keyof FilterOptions>(
+  searchValue: string,
+  options: FilterOptions[Key][],
+): string[] => {
+  if (searchValue === '') return options
+
+  const lowerSearchValue = searchValue.toLowerCase()
+
+  return options.filter((option) => {
+    return option.toLowerCase().includes(lowerSearchValue)
+  })
+}
+
+export const FilterDropdown = <Key extends keyof FilterOptions>(
+  props: FilterDropdownProps<Key>,
+) => {
+  const { isLoading, filterKey, options, selectedValue, onChange } = props
 
   const selectedItem = selectedValue ? [selectedValue] : []
 
@@ -28,28 +38,21 @@ export const FilterDropdown = (props: FilterDropdownProps) => {
   }
 
   const handleClearClick = () => {
-    onDropdownChange({ [filterKey]: null })
+    onChange(filterKey, undefined)
   }
 
   const renderOptions = () => {
-    return options.map((option) => {
-      if (
-        searchValue &&
-        !option.toLowerCase().includes(searchValue.toLowerCase())
-      ) {
-        return null
-      }
+    const filteredOptions = filterOptionBySearchValue(searchValue, options)
 
-      return (
-        <CosDropdown.Item
-          key={option}
-          item={option}
-          onClick={() => onDropdownChange({ [filterKey]: option })}
-        >
-          {option}
-        </CosDropdown.Item>
-      )
-    })
+    return filteredOptions.map((option) => (
+      <CosDropdown.Item
+        key={option}
+        item={option}
+        onClick={() => onChange(filterKey, option)}
+      >
+        {option}
+      </CosDropdown.Item>
+    ))
   }
 
   return (
