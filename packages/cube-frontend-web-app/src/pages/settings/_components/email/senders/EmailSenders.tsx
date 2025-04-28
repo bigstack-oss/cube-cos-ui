@@ -51,21 +51,21 @@ export const EmailSenders = (props: EmailSendersProps) => {
           is not available in phase 1. */}
       <EmailSendersHeader isAddButtonVisible={false} onAddButtonClick={noop} />
       <EmailSenderTable isLoading={isLoading} rows={rows}>
-        <EmailSenderTable.Column property="email" label="From Email">
-          {(email, row) => (
+        <EmailSenderTable.Column property="from" label="From Email">
+          {(from, row) => (
             <div className="flex items-center gap-x-2">
               {row.isEditing ? (
                 <CosTableInput
-                  name="email"
+                  name={'from' satisfies keyof EmailSenderRow}
                   type="email"
-                  value={email}
-                  errorMessage={rowsErrorMap.get(row.id)?.email}
+                  value={from}
+                  errorMessage={rowsErrorMap.get(row.id)?.from}
                   disabled={row.status.isUpdating}
                   onChange={(e) => onChange(row.id, e)}
                 />
               ) : (
                 <div className="flex items-center gap-2">
-                  {email}
+                  {from}
                   {!row.isNew && !row.accessVerified && (
                     <CosIconText type="warning">unverified</CosIconText>
                   )}
@@ -81,7 +81,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
           {(host, row) =>
             row.isEditing ? (
               <CosTableInput
-                name="host"
+                name={'host' satisfies keyof EmailSenderRow}
                 value={host}
                 errorMessage={rowsErrorMap.get(row.id)?.host}
                 disabled={row.status.isUpdating}
@@ -97,7 +97,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
             row.isEditing ? (
               <CosTableInput
                 className="w-16"
-                name="port"
+                name={'port' satisfies keyof EmailSenderRow}
                 value={port}
                 errorMessage={rowsErrorMap.get(row.id)?.port}
                 disabled={row.status.isUpdating}
@@ -113,7 +113,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
             row.isEditing ? (
               <CosTableInput
                 className="w-24"
-                name="username"
+                name={'username' satisfies keyof EmailSenderRow}
                 value={username}
                 errorMessage={rowsErrorMap.get(row.id)?.username}
                 disabled={row.status.isUpdating}

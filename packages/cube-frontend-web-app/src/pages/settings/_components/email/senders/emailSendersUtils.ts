@@ -30,7 +30,7 @@ const createEmailSender = (): EmailSenderForUi => ({
   port: '',
   username: '',
   password: '',
-  email: '',
+  from: '',
   accessVerified: false,
 })
 
@@ -59,6 +59,6 @@ export const emailSenderSchema = z.object({
   port: z.string().regex(/^\d+$/, 'Invalid port number'),
   username: z.string().min(1, 'Username cannot be empty'),
   password: z.string().optional(),
-  email: z.string().email('Invalid email'),
+  from: z.string().email('Invalid email'),
   isNew: z.boolean(),
 })

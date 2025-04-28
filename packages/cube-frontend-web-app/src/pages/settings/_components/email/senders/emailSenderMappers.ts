@@ -1,6 +1,6 @@
 import {
+  EmailSenderPatchRequest,
   EmailSenderPostRequest,
-  EmailSenderPutRequest,
   EmailSenderResponse,
 } from '@cube-frontend/api'
 import { EmailSenderForUi, EmailSenderRow, getRowId } from './emailSendersUtils'
@@ -28,17 +28,17 @@ export const emailSenderToRow = (
 export const rowToEmailSenderPostRequest = (
   row: EmailSenderRow,
 ): EmailSenderPostRequest => ({
-  email: row.email,
+  from: row.from,
   host: row.host,
   port: parseInt(row.port),
   username: row.username,
   password: row.password,
 })
 
-export const rowToEmailSenderPutRequest = (
+export const rowToEmailSenderPatchRequest = (
   row: EmailSenderRow,
-): EmailSenderPutRequest => ({
-  email: row.email,
+): EmailSenderPatchRequest => ({
+  from: row.from,
   host: row.host,
   port: parseInt(row.port),
   username: row.username,

@@ -10,7 +10,7 @@ import {
 const computeMapKey = (
   sender: EmailSenderResponse | EmailSenderForUi,
 ): string => {
-  return `${sender.email},${sender.host}:${sender.port}`
+  return `${sender.from},${sender.host}:${sender.port}`
 }
 
 export const useSyncSenderRows = (

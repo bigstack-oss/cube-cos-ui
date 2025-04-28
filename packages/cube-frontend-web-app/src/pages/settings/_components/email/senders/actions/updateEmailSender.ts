@@ -1,6 +1,6 @@
 import { SettingStatusCurrentEnum } from '@cube-frontend/api'
 import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
-import { rowToEmailSenderPutRequest } from '../emailSenderMappers'
+import { rowToEmailSenderPatchRequest } from '../emailSenderMappers'
 import { ActionOptions } from './utils'
 
 export const updateEmailSender = async (
@@ -17,13 +17,13 @@ export const updateEmailSender = async (
     },
   })
 
-  const updatedEmailSender = rowToEmailSenderPutRequest(row)
+  const updatedEmailSender = rowToEmailSenderPatchRequest(row)
 
   try {
     await settingsApi.updateEmailSender({
       dataCenter,
       senderHost: row.originalState.host,
-      emailSenderPutRequest: updatedEmailSender,
+      emailSenderPatchRequest: updatedEmailSender,
     })
     patchRow(row.id, {
       password: '',

@@ -30,7 +30,7 @@ export const PasswordCell = (props: PasswordCellProps) => {
   return (
     <div className="flex items-center gap-x-2">
       <CosTableInput
-        name="password"
+        name={'password' satisfies keyof EmailSenderRow}
         type="password"
         className="w-32"
         value={password}
