@@ -7,14 +7,15 @@
  * using a username, password and data center to obtain an access token for
  * accessing protected APIs.
  */
-import { InternalAxiosRequestConfig } from 'axios'
+import { HttpStatusCode, InternalAxiosRequestConfig, isAxiosError } from 'axios'
 import { tokenApi } from './cosTokenApi'
 import dayjs from 'dayjs'
 
 const ACCESS_TOKEN_KEY = 'accessToken'
 const EXPIRES_KEY = 'expires'
+const DATA_CENTER_KEY = 'dataCenter'
 
-const renewToken = async () => {
+export const renewToken = async () => {
   const {
     VITE_USERNAME: name,
     VITE_PASSWORD: password,
@@ -31,6 +32,7 @@ const renewToken = async () => {
 
   localStorage.setItem(ACCESS_TOKEN_KEY, accessToken)
   localStorage.setItem(EXPIRES_KEY, accessTokenExpires)
+  localStorage.setItem(DATA_CENTER_KEY, dataCenter)
 
   return accessToken
 }
@@ -38,6 +40,11 @@ const renewToken = async () => {
 const getDevAccessToken = async (): Promise<string> => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY)
   const expires = localStorage.getItem(EXPIRES_KEY)
+  const dataCenter = localStorage.getItem(DATA_CENTER_KEY)
+
+  if (dataCenter !== import.meta.env.VITE_DATA_CENTER) {
+    return renewToken()
+  }
 
   if (accessToken && expires && dayjs().isBefore(dayjs(expires))) {
     return accessToken
@@ -46,7 +53,7 @@ const getDevAccessToken = async (): Promise<string> => {
   return renewToken()
 }
 
-const devAccessTokenInterceptor = async (
+export const devAccessTokenRequestInterceptor = async (
   config: InternalAxiosRequestConfig,
 ) => {
   const devAccessToken = await getDevAccessToken()
@@ -54,4 +61,14 @@ const devAccessTokenInterceptor = async (
   return config
 }
 
-export default devAccessTokenInterceptor
+export const devAccessTokenErrorInterceptor = async (
+  error: unknown,
+): Promise<unknown> => {
+  if (
+    isAxiosError(error) &&
+    error.response?.status === HttpStatusCode.Unauthorized
+  ) {
+    await renewToken()
+  }
+  return Promise.reject(error)
+}

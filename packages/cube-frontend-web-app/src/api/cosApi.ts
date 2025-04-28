@@ -18,7 +18,10 @@ import {
   TriggersApi,
   GrafanaApi,
 } from '@cube-frontend/api'
-import devAccessTokenInterceptor from './devAccessTokenInterceptor'
+import {
+  devAccessTokenRequestInterceptor,
+  devAccessTokenErrorInterceptor,
+} from './devAccessTokenInterceptor'
 import { samlAuthErrorInterceptor } from './samlAuthErrorInterceptor'
 import { config, validateStatus } from './utils'
 
@@ -77,10 +80,11 @@ export const supportFilesApi = createApiInstance(SupportFilesApi)
 export const triggersApi = createApiInstance(TriggersApi)
 export const grafanaApi = createApiInstance(GrafanaApi)
 
-cosApi.interceptors.response.use(undefined, samlAuthErrorInterceptor)
-
 if (import.meta.env.DEV) {
-  cosApi.interceptors.request.use(devAccessTokenInterceptor)
+  cosApi.interceptors.request.use(devAccessTokenRequestInterceptor)
+  cosApi.interceptors.response.use(undefined, devAccessTokenErrorInterceptor)
+} else {
+  cosApi.interceptors.response.use(undefined, samlAuthErrorInterceptor)
 }
 
 export default cosApi
