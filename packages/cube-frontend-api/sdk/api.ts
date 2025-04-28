@@ -894,7 +894,19 @@ export interface GetDataCentersResponseDataInner {
      * @type {string}
      * @memberof GetDataCentersResponseDataInner
      */
+    'type': GetDataCentersResponseDataInnerTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetDataCentersResponseDataInner
+     */
     'name': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetDataCentersResponseDataInner
+     */
+    'roles': Array<GetDataCentersResponseDataInnerRolesEnum>;
     /**
      * 
      * @type {string}
@@ -932,6 +944,24 @@ export interface GetDataCentersResponseDataInner {
      */
     'additional': GetDataCentersResponseDataInnerAdditional;
 }
+
+export const GetDataCentersResponseDataInnerTypeEnum = {
+    Cloud: 'cloud',
+    Edge: 'edge'
+} as const;
+
+export type GetDataCentersResponseDataInnerTypeEnum = typeof GetDataCentersResponseDataInnerTypeEnum[keyof typeof GetDataCentersResponseDataInnerTypeEnum];
+export const GetDataCentersResponseDataInnerRolesEnum = {
+    ControlConverged: 'control-converged',
+    Control: 'control',
+    Compute: 'compute',
+    Storage: 'storage',
+    EdgeCore: 'edge-core',
+    Moderator: 'moderator'
+} as const;
+
+export type GetDataCentersResponseDataInnerRolesEnum = typeof GetDataCentersResponseDataInnerRolesEnum[keyof typeof GetDataCentersResponseDataInnerRolesEnum];
+
 /**
  * 
  * @export
@@ -2368,13 +2398,13 @@ export interface GetLicensesResponseData {
      * @type {Array<GetLicensesResponseDataLicensesInner>}
      * @memberof GetLicensesResponseData
      */
-    'licenses'?: Array<GetLicensesResponseDataLicensesInner>;
+    'licenses': Array<GetLicensesResponseDataLicensesInner>;
     /**
      * 
      * @type {Page}
      * @memberof GetLicensesResponseData
      */
-    'page'?: Page;
+    'page': Page;
 }
 /**
  * 
@@ -2382,6 +2412,12 @@ export interface GetLicensesResponseData {
  * @interface GetLicensesResponseDataLicensesInner
  */
 export interface GetLicensesResponseDataLicensesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicensesResponseDataLicensesInner
+     */
+    'name': string;
     /**
      * 
      * @type {string}
@@ -2408,10 +2444,10 @@ export interface GetLicensesResponseDataLicensesInner {
     'product': GetLicensesResponseDataLicensesInnerProduct;
     /**
      * 
-     * @type {GetLicensesResponseDataLicensesInnerIssue}
+     * @type {LicenseIssue}
      * @memberof GetLicensesResponseDataLicensesInner
      */
-    'issue': GetLicensesResponseDataLicensesInnerIssue;
+    'issue': LicenseIssue;
     /**
      * 
      * @type {string}
@@ -2455,37 +2491,6 @@ export interface GetLicensesResponseDataLicensesInnerExpiry {
      * @memberof GetLicensesResponseDataLicensesInnerExpiry
      */
     'days': number;
-}
-/**
- * 
- * @export
- * @interface GetLicensesResponseDataLicensesInnerIssue
- */
-export interface GetLicensesResponseDataLicensesInnerIssue {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerIssue
-     */
-    'by': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerIssue
-     */
-    'to': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerIssue
-     */
-    'hardware': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLicensesResponseDataLicensesInnerIssue
-     */
-    'date': string;
 }
 /**
  * 
@@ -3684,6 +3689,62 @@ export interface GetNodesResponseData {
 /**
  * 
  * @export
+ * @interface GetOpenSearchDashboardLinkResponse
+ */
+export interface GetOpenSearchDashboardLinkResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetOpenSearchDashboardLinkResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetGrafanaDashboardLinkResponseData}
+     * @memberof GetOpenSearchDashboardLinkResponse
+     */
+    'data': GetGrafanaDashboardLinkResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOpenSearchDashboardLinkResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOpenSearchDashboardLinkResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetOpenSearchInstances500Response
+ */
+export interface GetOpenSearchInstances500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetOpenSearchInstances500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOpenSearchInstances500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOpenSearchInstances500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface GetRankedEventsResponse
  */
 export interface GetRankedEventsResponse {
@@ -4770,6 +4831,37 @@ export interface ImportClusterLicense500Response {
 /**
  * 
  * @export
+ * @interface LicenseIssue
+ */
+export interface LicenseIssue {
+    /**
+     * 
+     * @type {string}
+     * @memberof LicenseIssue
+     */
+    'by': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LicenseIssue
+     */
+    'to': string;
+    /**
+     * this field will be the serial number(s) of the host(s) that the license is issued to. \'*\' means all hosts, genearlly, it\'s for trial license only. for the paid license, it will be the comma separated serial numbers of the hosts. examples:   - \"*\"   - example-serial-number-1, example-serial-number-2, ... 
+     * @type {string}
+     * @memberof LicenseIssue
+     */
+    'hardware': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LicenseIssue
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -4789,10 +4881,10 @@ export type ListLicenseCurrentStatus = typeof ListLicenseCurrentStatus[keyof typ
 export interface ListLicenseStatus {
     /**
      * 
-     * @type {ListLicenseCurrentStatus}
+     * @type {string}
      * @memberof ListLicenseStatus
      */
-    'current': ListLicenseCurrentStatus;
+    'current': ListLicenseStatusCurrentEnum;
     /**
      * 
      * @type {boolean}
@@ -4801,6 +4893,12 @@ export interface ListLicenseStatus {
     'isExpiring': boolean;
 }
 
+export const ListLicenseStatusCurrentEnum = {
+    Valid: 'valid',
+    Expired: 'expired'
+} as const;
+
+export type ListLicenseStatusCurrentEnum = typeof ListLicenseStatusCurrentEnum[keyof typeof ListLicenseStatusCurrentEnum];
 
 /**
  * 
@@ -5514,10 +5612,10 @@ export interface NodeLicense {
     'product': GetLicensesResponseDataLicensesInnerProduct;
     /**
      * 
-     * @type {NodeLicenseIssue}
+     * @type {LicenseIssue}
      * @memberof NodeLicense
      */
-    'issue': NodeLicenseIssue;
+    'issue': LicenseIssue;
     /**
      * 
      * @type {string}
@@ -5576,37 +5674,6 @@ export interface NodeLicenseExpiry {
      * @memberof NodeLicenseExpiry
      */
     'days': number;
-}
-/**
- * 
- * @export
- * @interface NodeLicenseIssue
- */
-export interface NodeLicenseIssue {
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseIssue
-     */
-    'by': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseIssue
-     */
-    'to': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseIssue
-     */
-    'hardware': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeLicenseIssue
-     */
-    'date': string;
 }
 /**
  * 
@@ -7061,10 +7128,10 @@ export interface VerifyLicenseResponseDataEffectNodesInner {
     'expiry': GetLicensesResponseDataLicensesInnerExpiry;
     /**
      * 
-     * @type {NodeLicenseStatus}
+     * @type {VerifyLicenseResponseDataEffectNodesInnerStatus}
      * @memberof VerifyLicenseResponseDataEffectNodesInner
      */
-    'status': NodeLicenseStatus;
+    'status': VerifyLicenseResponseDataEffectNodesInnerStatus;
 }
 /**
  * 
@@ -7120,10 +7187,10 @@ export interface VerifyLicenseResponseDataLicense {
     'product': GetLicensesResponseDataLicensesInnerProduct;
     /**
      * 
-     * @type {GetLicensesResponseDataLicensesInnerIssue}
+     * @type {LicenseIssue}
      * @memberof VerifyLicenseResponseDataLicense
      */
-    'issue': GetLicensesResponseDataLicensesInnerIssue;
+    'issue': LicenseIssue;
     /**
      * 
      * @type {string}
@@ -9835,7 +9902,7 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {Array<GetLicensesProductsEnum>} [products] The product of the host
-         * @param {Array<ListLicenseCurrentStatus>} [statuses] The status of the license
+         * @param {Array<ListLicenseCurrentStatus>} [statuses] The status of the host
          * @param {Array<GetLicensesTypesEnum>} [types] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -10053,7 +10120,7 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {Array<GetLicensesProductsEnum>} [products] The product of the host
-         * @param {Array<ListLicenseCurrentStatus>} [statuses] The status of the license
+         * @param {Array<ListLicenseCurrentStatus>} [statuses] The status of the host
          * @param {Array<GetLicensesTypesEnum>} [types] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -10185,13 +10252,13 @@ export interface LicensesApiGetLicensesRequest {
 
     /**
      * The product of the host
-     * @type {Array<'cubeCOS' | 'cubeCMP'>}
+     * @type {Array<'CubeCOS' | 'CubeCMP'>}
      * @memberof LicensesApiGetLicenses
      */
     readonly products?: Array<GetLicensesProductsEnum>
 
     /**
-     * The status of the license
+     * The status of the host
      * @type {Array<ListLicenseCurrentStatus>}
      * @memberof LicensesApiGetLicenses
      */
@@ -10356,8 +10423,8 @@ export class LicensesApi extends BaseAPI {
  * @export
  */
 export const GetLicensesProductsEnum = {
-    CubeCos: 'cubeCOS',
-    CubeCmp: 'cubeCMP'
+    CubeCos: 'CubeCOS',
+    CubeCmp: 'CubeCMP'
 } as const;
 export type GetLicensesProductsEnum = typeof GetLicensesProductsEnum[keyof typeof GetLicensesProductsEnum];
 /**
@@ -11285,7 +11352,7 @@ export interface NodesApiGetNodesRequest {
 
     /**
      * The product of the host
-     * @type {Array<'cubeCOS' | 'cubeCMP'>}
+     * @type {Array<'CubeCOS' | 'CubeCMP'>}
      * @memberof NodesApiGetNodes
      */
     readonly products?: Array<GetNodesProductsEnum>
@@ -11360,10 +11427,144 @@ export type GetNodesRolesEnum = typeof GetNodesRolesEnum[keyof typeof GetNodesRo
  * @export
  */
 export const GetNodesProductsEnum = {
-    CubeCos: 'cubeCOS',
-    CubeCmp: 'cubeCMP'
+    CubeCos: 'CubeCOS',
+    CubeCmp: 'CubeCMP'
 } as const;
 export type GetNodesProductsEnum = typeof GetNodesProductsEnum[keyof typeof GetNodesProductsEnum];
+
+
+/**
+ * OpenSearchApi - axios parameter creator
+ * @export
+ */
+export const OpenSearchApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Get OpenSearch instances dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} instanceId The instance ID of the instance to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOpenSearchInstances: async (dataCenter: string, instanceId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getOpenSearchInstances', 'dataCenter', dataCenter)
+            // verify required parameter 'instanceId' is not null or undefined
+            assertParamExists('getOpenSearchInstances', 'instanceId', instanceId)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/opensearch/instances/{instanceId}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"instanceId"}}`, encodeURIComponent(String(instanceId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * OpenSearchApi - functional programming interface
+ * @export
+ */
+export const OpenSearchApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OpenSearchApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Get OpenSearch instances dashboard
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} instanceId The instance ID of the instance to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOpenSearchInstances(dataCenter: string, instanceId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOpenSearchDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOpenSearchInstances(dataCenter, instanceId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OpenSearchApi.getOpenSearchInstances']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * OpenSearchApi - factory interface
+ * @export
+ */
+export const OpenSearchApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OpenSearchApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Get OpenSearch instances dashboard
+         * @param {OpenSearchApiGetOpenSearchInstancesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOpenSearchInstances(requestParameters: OpenSearchApiGetOpenSearchInstancesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetOpenSearchDashboardLinkResponse> {
+            return localVarFp.getOpenSearchInstances(requestParameters.dataCenter, requestParameters.instanceId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for getOpenSearchInstances operation in OpenSearchApi.
+ * @export
+ * @interface OpenSearchApiGetOpenSearchInstancesRequest
+ */
+export interface OpenSearchApiGetOpenSearchInstancesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof OpenSearchApiGetOpenSearchInstances
+     */
+    readonly dataCenter: string
+
+    /**
+     * The instance ID of the instance to operate
+     * @type {string}
+     * @memberof OpenSearchApiGetOpenSearchInstances
+     */
+    readonly instanceId: string
+}
+
+/**
+ * OpenSearchApi - object-oriented interface
+ * @export
+ * @class OpenSearchApi
+ * @extends {BaseAPI}
+ */
+export class OpenSearchApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get OpenSearch instances dashboard
+     * @param {OpenSearchApiGetOpenSearchInstancesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OpenSearchApi
+     */
+    public getOpenSearchInstances(requestParameters: OpenSearchApiGetOpenSearchInstancesRequest, options?: RawAxiosRequestConfig) {
+        return OpenSearchApiFp(this.configuration).getOpenSearchInstances(requestParameters.dataCenter, requestParameters.instanceId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 /**

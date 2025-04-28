@@ -62,10 +62,10 @@ export const LicenseTable = (props: LicenseTableProps) => {
         <LicenseViewDetailsTable.Column label="Product" property="product">
           {(product) => product.name}
         </LicenseViewDetailsTable.Column>
-        <LicenseViewDetailsTable.Column label="License name" property="serial">
-          {(serial, row) => (
+        <LicenseViewDetailsTable.Column label="License name" property="name">
+          {(name, row) => (
             <div className="flex items-center gap-x-2">
-              <span>{serial}</span>
+              <span>{name}</span>
               <ExpiryIconText expiryDays={row.expiry.days} />
             </div>
           )}

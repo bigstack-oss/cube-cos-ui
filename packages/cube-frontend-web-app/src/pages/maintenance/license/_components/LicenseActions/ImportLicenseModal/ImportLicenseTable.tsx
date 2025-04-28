@@ -29,7 +29,7 @@ export const ImportLicenseTable = (props: ImportLicenseTableProps) => {
       key: 'Expire Date',
       value: toLicenseDateDisplay(license.expiry.date),
     },
-    { key: 'Hardware serials', value: license.name },
+    { key: 'Hardware serials', value: license.issue.hardware },
   ].map((kv) => ({ id: kv.key, ...kv }) satisfies LicenseDetailRow)
 
   return (
