@@ -1,9 +1,108 @@
 import dayjs from 'dayjs'
-import { lowerFirst, upperFirst } from 'lodash'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeUtils'
-import { GetEventsTypeEnum } from '@cube-frontend/api'
+import { lowerFirst } from 'lodash'
+import {
+  EventsApiGetRankedEventsRequest,
+  GetEventFilterConditionResponseDataHost,
+  GetEventFilterConditionResponseDataInstance,
+  GetEventFilterConditionResponseDataSystem,
+  GetEventsTypeEnum,
+} from '@cube-frontend/api'
+import { ChartQuery, FilterKeys } from './useEventsChartQuery'
+import { getValidTimeRange, timeRangeToDaysMapping } from './timeRangeUtils'
 
 export type ChartType = 'proportion' | 'comparison'
+
+export type FilterKeysResponse =
+  | keyof GetEventFilterConditionResponseDataSystem
+  | keyof GetEventFilterConditionResponseDataHost
+  | keyof GetEventFilterConditionResponseDataInstance
+
+const filterKeyMapping: Record<
+  FilterKeysResponse,
+  Record<ChartType, FilterKeys>
+> = {
+  categories: {
+    proportion: 'proportionCategory',
+    comparison: 'comparisonCategory',
+  },
+  severities: {
+    proportion: 'proportionSeverity',
+    comparison: 'comparisonSeverity',
+  },
+  names: {
+    proportion: 'proportionHost',
+    comparison: 'comparisonHost',
+  },
+  ids: {
+    proportion: 'proportionInstance',
+    comparison: 'comparisonInstance',
+  },
+}
+
+export const getFilterKeyByChartType = (
+  chartType: ChartType,
+  key: FilterKeysResponse,
+): FilterKeys | undefined => {
+  return filterKeyMapping[key][chartType] || undefined
+}
+
+const filterLabelMapping: Record<FilterKeysResponse, string> = {
+  categories: 'Category',
+  severities: 'Severity',
+  names: 'Host',
+  ids: 'Instance',
+}
+
+export const getFilterLabel = (key: FilterKeysResponse) => {
+  return filterLabelMapping[key] || ''
+}
+
+const getValidType = (type: string): GetEventsTypeEnum => {
+  const defaultType = GetEventsTypeEnum.System
+
+  if (!type) {
+    return defaultType
+  }
+
+  const validTypes = Object.values(GetEventsTypeEnum) as string[]
+
+  if (validTypes.includes(type)) {
+    return type as GetEventsTypeEnum
+  }
+
+  return defaultType
+}
+
+export const initChartQuery = (searchParams: URLSearchParams): ChartQuery => {
+  const type = getValidType(searchParams.get('type') ?? '')
+
+  const past = getValidTimeRange(searchParams.get('past') ?? '')
+
+  const proportionCategory = searchParams.get('proportionCategory') ?? undefined
+  const comparisonCategory = searchParams.get('comparisonCategory') ?? undefined
+
+  const proportionSeverity = searchParams.get('proportionSeverity') ?? undefined
+  const comparisonSeverity = searchParams.get('comparisonSeverity') ?? undefined
+
+  const proportionHost = searchParams.get('proportionHost') ?? undefined
+  const comparisonHost = searchParams.get('comparisonHost') ?? undefined
+
+  const proportionInstance = searchParams.get('proportionInstance') ?? undefined
+  const comparisonInstance = searchParams.get('comparisonInstance') ?? undefined
+
+  return {
+    type,
+    past,
+    proportionCategory,
+    comparisonCategory,
+    proportionSeverity,
+    comparisonSeverity,
+    proportionHost,
+    comparisonHost,
+    proportionInstance,
+    comparisonInstance,
+  }
+}
 
 export const removeQueryKeyPrefix = (
   chartType: ChartType,
@@ -12,112 +111,55 @@ export const removeQueryKeyPrefix = (
   return lowerFirst(queryKey.replace(chartType, ''))
 }
 
-const dropdownFilterKeyMapping: Record<string, string> = {
-  severities: 'severity',
-  categories: 'category',
-  ids: 'id',
-  names: 'name',
-}
-
-type DropdownFilterValues = {
-  dropdownFilterLabel: string
-  queryKey: string
-}
-
-export const mapToDropdownFilterValues = (
+const getQueryValue = (
   chartType: ChartType,
-  key: string,
-): DropdownFilterValues => {
-  const dropdownFilterKey = dropdownFilterKeyMapping[key]
-
-  if (!dropdownFilterKey) {
-    console.warn('Not a valid filter key')
-  }
-
-  /**
-   * The current implementation is not yet compatible with i18n.
-   */
-  const dropdownFilterLabel = upperFirst(dropdownFilterKey) ?? ''
-
-  const queryKey = chartType + dropdownFilterLabel
-
-  return { dropdownFilterLabel, queryKey }
-}
-
-export const chartTimeRanges = [
-  '1h',
-  '24h',
-  '7d',
-  '14d',
-] as const satisfies TimeRange[]
-
-export type ChartTimeRanges = (typeof chartTimeRanges)[number]
-
-const timeRangeToDays: Record<ChartTimeRanges, number> = {
-  '1h': 0,
-  '24h': 0,
-  '7d': 7,
-  '14d': 14,
-}
-
-export const mapToTimeRangeQuery = (past: ChartTimeRanges) => {
-  const end = dayjs()
-  const start = end.subtract(timeRangeToDays[past], 'day')
-
-  return {
-    start: start.format('YYYY-MM-DD'),
-    end: end.format('YYYY-MM-DD'),
-  }
-}
-
-const isValidEventsType = (type: string | null): boolean => {
-  return Object.values(GetEventsTypeEnum).includes(type as GetEventsTypeEnum)
-}
-
-export const getValidEventsType = (
-  searchParams: URLSearchParams,
-): GetEventsTypeEnum => {
-  const urlEventsType = searchParams.get('eventsType')
-
-  return isValidEventsType(urlEventsType)
-    ? (urlEventsType as GetEventsTypeEnum)
-    : GetEventsTypeEnum.System
-}
-
-const DEFAULT_TIME_RANGE = '24h' satisfies ChartTimeRanges
-
-const isChartTimeRange = (
-  timeRange: string | null,
-): timeRange is ChartTimeRanges => {
-  return (
-    timeRange !== null &&
-    (chartTimeRanges as readonly string[]).includes(timeRange)
-  )
-}
-
-export const getValidTimeRange = (
-  searchParams: URLSearchParams,
-): ChartTimeRanges => {
-  const urlTimeRange = searchParams.get('past')
-  return isChartTimeRange(urlTimeRange) ? urlTimeRange : DEFAULT_TIME_RANGE
-}
-
-export const getMatchedFilterByPrefix = (
-  chartType: ChartType,
-  filter: Record<string, string>,
+  queryKey: keyof EventsApiGetRankedEventsRequest,
+  chartQuery: ChartQuery,
 ) => {
-  return Object.fromEntries(
-    Object.entries(filter).filter(([key]) => key.startsWith(chartType)),
-  )
+  const dynamicKey =
+    `${chartType}${queryKey.charAt(0).toUpperCase()}${queryKey.slice(1)}` as keyof ChartQuery
+  return chartQuery[dynamicKey]
 }
 
-export const mapToRedirectQuery = (
-  currentQuery: Record<string, string>,
+export const getRequestQueryByChartType = (
   chartType: ChartType,
+  chartQuery: ChartQuery,
+): Pick<
+  EventsApiGetRankedEventsRequest,
+  'type' | 'past' | 'category' | 'severity' | 'host' | 'instance'
+> => {
+  return {
+    type: chartQuery.type,
+    past: chartQuery.past,
+    category: getQueryValue(chartType, 'category', chartQuery),
+    severity: getQueryValue(chartType, 'severity', chartQuery),
+    host: getQueryValue(chartType, 'host', chartQuery),
+    instance: getQueryValue(chartType, 'instance', chartQuery),
+  }
+}
+
+export const getRedirectUrl = (
+  chartType: ChartType,
+  chartQuery: ChartQuery,
+  eventId: string,
 ): string => {
-  const params = new URLSearchParams()
-  Object.entries(currentQuery).forEach(([key, value]) => {
-    params.set(removeQueryKeyPrefix(chartType, key), value)
+  const { type, past, category, severity, host, instance } =
+    getRequestQueryByChartType(chartType, chartQuery)
+
+  const endDate = dayjs()
+  const startDate = endDate.subtract(timeRangeToDaysMapping[past!], 'day')
+
+  const searchParams = new URLSearchParams({
+    type,
+    keyword: eventId,
+    start: startDate?.toString() || '',
+    stop: endDate?.toString() || '',
   })
-  return params.toString()
+
+  if (category) searchParams.set('category', category)
+  if (severity) searchParams.set('severity', severity)
+  if (host) searchParams.set('host', host)
+  if (instance) searchParams.set('instance', instance)
+
+  return `/events?${searchParams.toString()}`
 }

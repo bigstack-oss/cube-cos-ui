@@ -1,138 +1,103 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { isEmpty } from 'lodash'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
-import {
-  ChartType,
-  ChartTimeRanges,
-  getValidTimeRange,
-  getValidEventsType,
-  getMatchedFilterByPrefix,
-  mapToTimeRangeQuery,
-  mapToRedirectQuery,
-} from './utils'
+import { initChartQuery } from './utils'
+import { ChartTimeRanges } from './timeRangeUtils'
 
-export type UseEventsChartQuery = {
+export type FilterKeys = Extract<
+  keyof ChartQuery,
+  | 'proportionCategory'
+  | 'comparisonCategory'
+  | 'proportionSeverity'
+  | 'comparisonSeverity'
+  | 'proportionHost'
+  | 'comparisonHost'
+  | 'proportionInstance'
+  | 'comparisonInstance'
+>
+
+export type FilterOptions = {
+  [K in FilterKeys]: NonNullable<ChartQuery[K]>
+}
+
+export type ChartQuery = {
+  type: GetEventsTypeEnum
   past: ChartTimeRanges
-  eventsType: GetEventsTypeEnum
-  handleEventsTypeChange: (eventsType: GetEventsTypeEnum) => void
-  handleTimeRangeChange: (timeRange: ChartTimeRanges) => void
-  handleEventsQueryChange: (updates: Record<string, string | null>) => void
-  getCurrentQuery: (chartType: ChartType) => {
-    eventsFilter: Record<string, string>
-    /**
-     * Checks whether the filter is empty, excluding the `eventsType` field.
-     */
-    isEventsFilterEmpty: boolean
-  }
-  getRedirectQuery: (chartType: ChartType, eventId: string) => string
+  proportionCategory: string | undefined
+  comparisonCategory: string | undefined
+  // System
+  proportionSeverity: string | undefined
+  comparisonSeverity: string | undefined
+  // Host
+  proportionHost: string | undefined
+  comparisonHost: string | undefined
+  // Instance
+  proportionInstance: string | undefined
+  comparisonInstance: string | undefined
+}
+
+type UseEventsChartQuery = {
+  chartQuery: ChartQuery
+  onTypeChange: (type: GetEventsTypeEnum) => void
+  onTimeRangeChange: (timeRange: ChartTimeRanges) => void
+  onFieldChange: <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key] | undefined,
+  ) => void
 }
 
 export const useEventsChartQuery = (): UseEventsChartQuery => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const [past, setPast] = useState<ChartTimeRanges>(
-    getValidTimeRange(searchParams),
-  )
-
-  const [eventsType, setEventsType] = useState<GetEventsTypeEnum>(
-    getValidEventsType(searchParams),
+  const [chartQuery, setChartQuery] = useState<ChartQuery>(
+    initChartQuery(searchParams),
   )
 
   useEffect(() => {
-    const currentPast = searchParams.get('past')
-    const currentEventsType = searchParams.get('eventsType')
+    const record = Object.entries(chartQuery).reduce(
+      (result, [key, value]) => {
+        const stringValue = value?.toString()
+        if (stringValue) {
+          result[key] = stringValue
+        }
+        return result
+      },
+      {} as Record<string, string>,
+    )
 
-    const validPast = getValidTimeRange(searchParams)
-    const validEventsType = getValidEventsType(searchParams)
-
-    const newParams = new URLSearchParams(searchParams)
-    let shouldUpdate = false
-
-    if (past !== currentPast) {
-      newParams.set('past', validPast)
-      setPast(validPast)
-      shouldUpdate = true
-    }
-
-    if (eventsType !== currentEventsType) {
-      newParams.set('eventsType', validEventsType)
-      setEventsType(validEventsType)
-      shouldUpdate = true
-    }
-
-    if (shouldUpdate) {
-      setSearchParams(newParams, { replace: true })
-    }
-  }, [eventsType, past, searchParams, setSearchParams])
-
-  const handleEventsTypeChange = (type: GetEventsTypeEnum) => {
-    const newParams = new URLSearchParams()
-    newParams.set('eventsType', type)
-    newParams.set('past', past)
-
-    setSearchParams(newParams, { replace: true })
-  }
-
-  const handleTimeRangeChange = (timeRange: ChartTimeRanges) => {
-    const newParams = new URLSearchParams()
-    newParams.set('past', timeRange)
-    newParams.set('eventsType', eventsType)
-
-    setSearchParams(newParams, { replace: true })
-  }
-
-  const handleEventsQueryChange = (updates: Record<string, string | null>) => {
-    const newParams = new URLSearchParams(searchParams)
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value) {
-        newParams.set(key, value)
-      } else {
-        newParams.delete(key)
-      }
+    setSearchParams(record, {
+      replace: true,
     })
-    setSearchParams(newParams, { replace: true })
+  }, [chartQuery, setSearchParams])
+
+  const onTypeChange = (type: GetEventsTypeEnum): void => {
+    setChartQuery((prev) => ({
+      ...prev,
+      type,
+    }))
   }
 
-  const getCurrentQuery = (chartType: ChartType) => {
-    const rawFilter = Object.fromEntries(searchParams) as Record<string, string>
-
-    const eventsType = rawFilter.eventsType
-    const matchedFilter = getMatchedFilterByPrefix(chartType, rawFilter)
-
-    return {
-      eventsFilter: { ...matchedFilter, eventsType },
-      isEventsFilterEmpty: isEmpty(matchedFilter),
-    }
+  const onTimeRangeChange = (timeRange: ChartTimeRanges): void => {
+    setChartQuery((prev) => ({
+      ...prev,
+      past: timeRange,
+    }))
   }
 
-  const getRedirectQuery = (chartType: ChartType, eventId: string) => {
-    const rawFilter = Object.fromEntries(searchParams) as Record<string, string>
-    const eventsType = rawFilter.eventsType
-
-    const matchedFilter = getMatchedFilterByPrefix(chartType, rawFilter)
-    const { start, end } = mapToTimeRangeQuery(past)
-    const filteredQueryString = mapToRedirectQuery(matchedFilter, chartType)
-
-    const baseParams = new URLSearchParams({
-      eventsType,
-      keyword: eventId,
-      start,
-      end,
-    })
-
-    return filteredQueryString
-      ? `/events?${baseParams.toString()}&${filteredQueryString}`
-      : `/events?${baseParams.toString()}`
+  const onFieldChange = <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key] | undefined,
+  ): void => {
+    setChartQuery((prev) => ({
+      ...prev,
+      [key]: value,
+    }))
   }
 
   return {
-    past,
-    eventsType,
-    handleEventsTypeChange,
-    handleTimeRangeChange,
-    handleEventsQueryChange,
-    getCurrentQuery,
-    getRedirectQuery,
+    chartQuery,
+    onTypeChange,
+    onTimeRangeChange,
+    onFieldChange,
   }
 }

@@ -1,24 +1,27 @@
 import { useEffect, useState } from 'react'
 import { upperFirst } from 'lodash'
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { FilterOptions } from './useEventsChartQuery'
 
-type FilterDropdownProps = {
+type FilterDropdownProps<Key extends keyof FilterOptions> = {
   isLoading: boolean
-  filterKey: string
+  filterKey: Key
   filterLabel: string
-  options: string[]
-  selectedValue: string | undefined
-  onChange: (updates: Record<string, string | null>) => void
+  options: FilterOptions[Key][]
+  selectedValue: FilterOptions[Key] | undefined
+  onFieldChange: (key: Key, value: FilterOptions[Key] | undefined) => void
 }
 
-export const FilterDropdown = (props: FilterDropdownProps) => {
+export const FilterDropdown = <Key extends keyof FilterOptions>(
+  props: FilterDropdownProps<Key>,
+) => {
   const {
     isLoading,
     filterKey,
     filterLabel,
     options,
     selectedValue,
-    onChange: onDropdownChange,
+    onFieldChange,
   } = props
 
   const [selectedItem, setSelectedItem] = useState<string[]>(
@@ -33,14 +36,14 @@ export const FilterDropdown = (props: FilterDropdownProps) => {
 
   const modifiedOptions = ['All', ...options]
 
-  const handleItemClick = (option: string) => {
-    if (option === 'All') {
-      onDropdownChange({ [filterKey]: null })
-      setSelectedItem([option])
+  const handleItemClick = (selectedItem: string) => {
+    if (selectedItem === 'All') {
+      onFieldChange(filterKey, undefined)
+      setSelectedItem([selectedItem])
       return
     }
 
-    onDropdownChange({ [filterKey]: option })
+    onFieldChange(filterKey, selectedItem)
   }
 
   const renderOptions = () => {

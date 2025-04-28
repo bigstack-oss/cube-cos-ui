@@ -2,16 +2,22 @@ import {
   GetEventFilterConditionResponseDataHost,
   GetEventFilterConditionResponseDataInstance,
   GetEventFilterConditionResponseDataSystem,
-  GetEventsTypeEnum,
-  GetRankedEventsPastEnum,
 } from '@cube-frontend/api'
 import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { BarChart } from './BarChart/BarChart'
 import { FilterDropdown } from '../FilterDropdown'
 import { useRankedEvents } from '../useRankedEvents'
-import { ChartType, mapToDropdownFilterValues } from '../utils'
+import {
+  ChartType,
+  FilterKeysResponse,
+  getFilterKeyByChartType,
+  getFilterLabel,
+} from '../utils'
 import { ChartEmpty } from '../ChartEmpty'
 import { FilterEmpty } from '../FilterEmpty'
+import { ChartQuery, FilterOptions } from '../useEventsChartQuery'
+
+const chartType: ChartType = 'comparison'
 
 type EventsChartComparisonProps = {
   isEventsFilterLoading: boolean
@@ -20,68 +26,58 @@ type EventsChartComparisonProps = {
     | GetEventFilterConditionResponseDataHost
     | GetEventFilterConditionResponseDataInstance
     | undefined
-  eventsType: GetEventsTypeEnum
-  handleEventsQueryChange: (updates: Record<string, string | null>) => void
-  currentQuery: Record<string, string>
-  getRedirectQuery: (chartType: ChartType, eventId: string) => string
-  past: GetRankedEventsPastEnum
+
+  chartQuery: ChartQuery
+  onFieldChange: <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key] | undefined,
+  ) => void
 }
 
 export const EventsChartComparison = (props: EventsChartComparisonProps) => {
-  const {
-    isEventsFilterLoading,
-    eventsFilter,
-    eventsType,
-    handleEventsQueryChange,
-    currentQuery,
-    getRedirectQuery,
-    past,
-  } = props
+  const { isEventsFilterLoading, eventsFilter, chartQuery, onFieldChange } =
+    props
 
-  const chartType: ChartType = 'comparison'
-
-  const { isRankedEventsLoading, rankedEvents } = useRankedEvents({
-    eventsType,
+  const { isRankedEventsLoading, rankedEvents } = useRankedEvents(
     chartType,
-    past,
-  })
-
-  const hasFilter = !!eventsFilter
-
-  const isChartEmpty = !rankedEvents || rankedEvents.length === 0
+    chartQuery,
+  )
 
   const renderFilters = () => {
-    if (!hasFilter) return <FilterEmpty />
+    if (!eventsFilter) return <FilterEmpty />
 
     return Object.entries(eventsFilter).map(([key, options]) => {
-      const { dropdownFilterLabel, queryKey } = mapToDropdownFilterValues(
+      const filterLabel = getFilterLabel(key as FilterKeysResponse)
+      const filterKey = getFilterKeyByChartType(
         chartType,
-        key,
+        key as FilterKeysResponse,
       )
+
+      if (!filterKey) return null
       return (
         <FilterDropdown
-          key={key}
+          key={`${chartQuery.type}-${chartType}-${filterKey}`}
           isLoading={isEventsFilterLoading}
-          filterKey={queryKey}
-          filterLabel={dropdownFilterLabel}
+          filterKey={filterKey}
+          filterLabel={filterLabel}
           options={options}
-          selectedValue={currentQuery?.[queryKey]}
-          onChange={handleEventsQueryChange}
+          selectedValue={chartQuery[filterKey]}
+          onFieldChange={onFieldChange}
         />
       )
     })
   }
 
   const renderChart = () => {
-    if (isChartEmpty) return <ChartEmpty />
+    if (!rankedEvents || rankedEvents.length === 0) return <ChartEmpty />
 
     return (
       <div className="w-full px-5 py-3">
         <BarChart
-          chartType={chartType}
-          getRedirectQuery={getRedirectQuery}
-          rankedEvents={rankedEvents}
           isRankedEventsLoading={isRankedEventsLoading}
+          rankedEvents={rankedEvents}
+          chartType={chartType}
+          chartQuery={chartQuery}
         />
       </div>
     )

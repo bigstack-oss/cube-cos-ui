@@ -3,34 +3,37 @@ import { useNavigate } from 'react-router'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Pie } from 'react-chartjs-2'
 import { GetRankedEventsResponseDataEventsInner } from '@cube-frontend/api'
-import { ChartType } from '../../utils'
 import { PieChartLabel } from './PieChartLabel'
 import { PieChartSkeleton } from './PieChartSkeleton'
 import { getChartData, getChartOptions } from './pieChartUtils'
+import { ChartType, getRedirectUrl } from '../../utils'
+import { ChartQuery } from '../../useEventsChartQuery'
+import { ChartEmpty } from '../../ChartEmpty'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 type PieChartProps = {
-  chartType: ChartType
-  getRedirectQuery: (chartType: ChartType, eventId: string) => string
-  rankedEvents: GetRankedEventsResponseDataEventsInner[] | undefined
   isRankedEventsLoading: boolean
+  rankedEvents: GetRankedEventsResponseDataEventsInner[] | undefined
+  chartType: ChartType
+  chartQuery: ChartQuery
 }
 
 export const PieChart = (props: PieChartProps) => {
-  const { chartType, getRedirectQuery, rankedEvents, isRankedEventsLoading } =
-    props
+  const { rankedEvents, isRankedEventsLoading, chartType, chartQuery } = props
+
+  const [targetEventId, setTargetEventId] = useState<string>()
 
   const navigate = useNavigate()
 
-  const [targetEventKey, setTargetEventKey] = useState<string>()
+  const redirectUrl = getRedirectUrl(chartType, chartQuery, targetEventId ?? '')
 
   const handleMouseEnter = (key: string) => {
-    setTargetEventKey(key)
+    setTargetEventId(key)
   }
 
   const handleMouseLeave = () => {
-    setTargetEventKey(undefined)
+    setTargetEventId(undefined)
   }
 
   /**
@@ -38,25 +41,23 @@ export const PieChart = (props: PieChartProps) => {
    * Navigate to `/events` page with the current filters
    */
   const handleClick = useCallback(() => {
-    if (!targetEventKey) return
-
-    const redirectQuery = getRedirectQuery(chartType, targetEventKey)
-    navigate(redirectQuery)
-  }, [chartType, getRedirectQuery, navigate, targetEventKey])
+    if (!targetEventId) return
+    navigate(redirectUrl)
+  }, [navigate, redirectUrl, targetEventId])
 
   const chartData = useMemo(
-    () => getChartData(rankedEvents, targetEventKey),
-    [rankedEvents, targetEventKey],
+    () => getChartData(rankedEvents, targetEventId),
+    [rankedEvents, targetEventId],
   )
 
   const chartOptions = useMemo(
-    () => getChartOptions(chartData, setTargetEventKey, handleClick),
+    () => getChartOptions(chartData, setTargetEventId, handleClick),
     [chartData, handleClick],
   )
 
   if (isRankedEventsLoading) return <PieChartSkeleton />
 
-  if (!chartData) return <p>No data available</p>
+  if (!chartData) return <ChartEmpty />
 
   return (
     <div className="flex items-center justify-center gap-11 px-5 py-3">
@@ -72,10 +73,10 @@ export const PieChart = (props: PieChartProps) => {
               eventId={id}
               color={color}
               percentage={percentage}
-              isBlur={!!targetEventKey && targetEventKey !== id}
+              isBlur={!!targetEventId && targetEventId !== id}
               onMouseEnter={() => handleMouseEnter(id)}
               onMouseLeave={handleMouseLeave}
-              redirectUrl={getRedirectQuery(chartType, id)}
+              redirectUrl={redirectUrl}
             />
           )
         })}

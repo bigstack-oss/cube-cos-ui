@@ -5,17 +5,14 @@ import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdow
 import { useEventsChartQuery } from './_components/useEventsChartQuery'
 import { EventsChartProportion } from './_components/EventsChartProportion/EventsChartProportion'
 import { EventsChartComparison } from './_components/EventsChartComparison/EventsChartComparison'
-import { ChartTimeRanges, chartTimeRanges } from './_components/utils'
+import { ChartTimeRanges, chartTimeRanges } from './_components/timeRangeUtils'
 
 export const EventsChartPage = () => {
   const {
-    past,
-    eventsType,
-    handleEventsTypeChange,
-    handleTimeRangeChange: onTimeRangeQueryChange,
-    handleEventsQueryChange,
-    getCurrentQuery,
-    getRedirectQuery,
+    chartQuery,
+    onTypeChange,
+    onTimeRangeChange: onTimeRangeQueryChange,
+    onFieldChange,
   } = useEventsChartQuery()
 
   const {
@@ -24,12 +21,12 @@ export const EventsChartPage = () => {
     onTimeRangeChange: onTimeRangeDropdownChange,
   } = useTimeRange({
     includes: chartTimeRanges,
-    defaultValue: past,
+    defaultValue: chartQuery.past,
   })
 
   const { isEventsFilterLoading, getEventsFilter } = useEventsFilter()
 
-  const eventsFilter = getEventsFilter(eventsType)
+  const eventsFilter = getEventsFilter(chartQuery.type)
 
   const onTimeRangeChange = (newTimeRange: ChartTimeRanges) => {
     onTimeRangeQueryChange(newTimeRange)
@@ -40,8 +37,8 @@ export const EventsChartPage = () => {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <EventsContentSwitcher
-          activeTab={eventsType}
-          onEventsTypeChange={handleEventsTypeChange}
+          activeTab={chartQuery.type}
+          onEventsTypeChange={onTypeChange}
         />
         <TimeRangeDropdown
           disabled={false}
@@ -53,20 +50,14 @@ export const EventsChartPage = () => {
       <EventsChartProportion
         isEventsFilterLoading={isEventsFilterLoading}
         eventsFilter={eventsFilter}
-        eventsType={eventsType}
-        handleEventsQueryChange={handleEventsQueryChange}
-        currentQuery={getCurrentQuery('proportion').eventsFilter}
-        getRedirectQuery={getRedirectQuery}
-        past={timeRange}
+        chartQuery={chartQuery}
+        onFieldChange={onFieldChange}
       />
       <EventsChartComparison
         isEventsFilterLoading={isEventsFilterLoading}
         eventsFilter={eventsFilter}
-        eventsType={eventsType}
-        handleEventsQueryChange={handleEventsQueryChange}
-        currentQuery={getCurrentQuery('comparison').eventsFilter}
-        getRedirectQuery={getRedirectQuery}
-        past={timeRange}
+        chartQuery={chartQuery}
+        onFieldChange={onFieldChange}
       />
     </div>
   )
