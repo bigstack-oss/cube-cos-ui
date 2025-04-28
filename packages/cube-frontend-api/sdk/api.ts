@@ -383,6 +383,43 @@ export interface EmailRecipientResponse {
 /**
  * 
  * @export
+ * @interface EmailSenderPatchRequest
+ */
+export interface EmailSenderPatchRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPatchRequest
+     */
+    'host'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmailSenderPatchRequest
+     */
+    'port'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPatchRequest
+     */
+    'username'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPatchRequest
+     */
+    'password'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailSenderPatchRequest
+     */
+    'from'?: string;
+}
+/**
+ * 
+ * @export
  * @interface EmailSenderPostRequest
  */
 export interface EmailSenderPostRequest {
@@ -415,44 +452,7 @@ export interface EmailSenderPostRequest {
      * @type {string}
      * @memberof EmailSenderPostRequest
      */
-    'email': string;
-}
-/**
- * 
- * @export
- * @interface EmailSenderPutRequest
- */
-export interface EmailSenderPutRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmailSenderPutRequest
-     */
-    'host'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof EmailSenderPutRequest
-     */
-    'port'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmailSenderPutRequest
-     */
-    'username'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmailSenderPutRequest
-     */
-    'password'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmailSenderPutRequest
-     */
-    'email'?: string;
+    'from': string;
 }
 /**
  * 
@@ -483,7 +483,7 @@ export interface EmailSenderResponse {
      * @type {string}
      * @memberof EmailSenderResponse
      */
-    'email': string;
+    'from': string;
     /**
      * 
      * @type {boolean}
@@ -12234,17 +12234,17 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Update an email sender
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} senderHost The host of the email sender to operate
-         * @param {EmailSenderPutRequest} emailSenderPutRequest 
+         * @param {EmailSenderPatchRequest} emailSenderPatchRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateEmailSender: async (dataCenter: string, senderHost: string, emailSenderPutRequest: EmailSenderPutRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateEmailSender: async (dataCenter: string, senderHost: string, emailSenderPatchRequest: EmailSenderPatchRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('updateEmailSender', 'dataCenter', dataCenter)
             // verify required parameter 'senderHost' is not null or undefined
             assertParamExists('updateEmailSender', 'senderHost', senderHost)
-            // verify required parameter 'emailSenderPutRequest' is not null or undefined
-            assertParamExists('updateEmailSender', 'emailSenderPutRequest', emailSenderPutRequest)
+            // verify required parameter 'emailSenderPatchRequest' is not null or undefined
+            assertParamExists('updateEmailSender', 'emailSenderPatchRequest', emailSenderPatchRequest)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/settings/email/senders/{senderHost}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"senderHost"}}`, encodeURIComponent(String(senderHost)));
@@ -12266,7 +12266,7 @@ export const SettingsApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(emailSenderPutRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(emailSenderPatchRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -12566,12 +12566,12 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * @summary Update an email sender
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} senderHost The host of the email sender to operate
-         * @param {EmailSenderPutRequest} emailSenderPutRequest 
+         * @param {EmailSenderPatchRequest} emailSenderPatchRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateEmailSender(dataCenter: string, senderHost: string, emailSenderPutRequest: EmailSenderPutRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutEmailSenderResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateEmailSender(dataCenter, senderHost, emailSenderPutRequest, options);
+        async updateEmailSender(dataCenter: string, senderHost: string, emailSenderPatchRequest: EmailSenderPatchRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PutEmailSenderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateEmailSender(dataCenter, senderHost, emailSenderPatchRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SettingsApi.updateEmailSender']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -12763,7 +12763,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         updateEmailSender(requestParameters: SettingsApiUpdateEmailSenderRequest, options?: RawAxiosRequestConfig): AxiosPromise<PutEmailSenderResponse> {
-            return localVarFp.updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSenderPutRequest, options).then((request) => request(axios, basePath));
+            return localVarFp.updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSenderPatchRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -13090,10 +13090,10 @@ export interface SettingsApiUpdateEmailSenderRequest {
 
     /**
      * 
-     * @type {EmailSenderPutRequest}
+     * @type {EmailSenderPatchRequest}
      * @memberof SettingsApiUpdateEmailSender
      */
-    readonly emailSenderPutRequest: EmailSenderPutRequest
+    readonly emailSenderPatchRequest: EmailSenderPatchRequest
 }
 
 /**
@@ -13329,7 +13329,7 @@ export class SettingsApi extends BaseAPI {
      * @memberof SettingsApi
      */
     public updateEmailSender(requestParameters: SettingsApiUpdateEmailSenderRequest, options?: RawAxiosRequestConfig) {
-        return SettingsApiFp(this.configuration).updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSenderPutRequest, options).then((request) => request(this.axios, this.basePath));
+        return SettingsApiFp(this.configuration).updateEmailSender(requestParameters.dataCenter, requestParameters.senderHost, requestParameters.emailSenderPatchRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
