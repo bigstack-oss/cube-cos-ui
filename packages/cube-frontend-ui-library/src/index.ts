@@ -1,5 +1,5 @@
 export * from './components/CosBackButton/CosBackButton'
-export * from './components/CosBackButton/CosBackButtonSkeleton'
+export { type BarChartProps } from './components/CosBackButton/BarChart'
 export * from './components/CosProgressBarChart/CosProgressBarChart'
 export {
   type CosBasicTableProps,

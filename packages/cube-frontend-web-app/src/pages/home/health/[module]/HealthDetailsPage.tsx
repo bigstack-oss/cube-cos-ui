@@ -37,16 +37,21 @@ export const HealthDetailsPage = () => {
   return (
     <div className="mt-4 flex flex-col gap-y-3">
       <div className="flex items-center justify-between">
-        <Link to={CosRoutesEnum.HOME_HEALTH_PAGE}>
-          <CosBackButton
-            details={`${moduleNameToLabel(moduleName)} Details`}
-            loading={!module}
-            // Assign noop because `CosBackButton` requires either `href` or `onClick` prop to be presented.
-            onClick={noop}
-          >
-            {serviceNameToLabel(module?.service)}
-          </CosBackButton>
-        </Link>
+        <CosBackButton
+          isLoading={!module}
+          variant="title"
+          details={`${moduleNameToLabel(moduleName)} Details`}
+          backLinkContainer={{
+            Component: Link,
+            props: {
+              to: CosRoutesEnum.HOME_HEALTH_PAGE,
+            },
+          }}
+          // Assign noop because `CosBackButton` requires either `href` or `onClick` prop to be presented.
+          onClick={noop}
+        >
+          {serviceNameToLabel(module?.service)}
+        </CosBackButton>
         <CosToggle
           label="Auto-Refresh"
           isOn={autoRefresh}

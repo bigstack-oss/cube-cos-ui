@@ -92,7 +92,7 @@ export const TriggersCreatePage = () => {
       }}
     >
       <div className="flex flex-col gap-4">
-        <CosBackButton onClick={() => history.back()}>
+        <CosBackButton variant="title" onClick={() => history.back()}>
           Create from Template
         </CosBackButton>
         <TriggersCreateSteps />

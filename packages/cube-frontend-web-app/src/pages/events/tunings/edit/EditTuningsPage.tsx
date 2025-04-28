@@ -8,9 +8,8 @@ import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useEditTuningsStore } from '@cube-frontend/web-app/stores/editTuningsStore'
-import { noop } from 'lodash'
 import { useContext } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router'
+import { Navigate, useNavigate } from 'react-router'
 
 export const EditTuningsPage = () => {
   const navigate = useNavigate()
@@ -57,9 +56,9 @@ export const EditTuningsPage = () => {
 
   return (
     <div className="mx-2 my-1">
-      <Link className="inline-block" to={CosRoutesEnum.EVENTS_TUNINGS_PAGE}>
-        <CosBackButton onClick={noop}>{title}</CosBackButton>
-      </Link>
+      <CosBackButton variant="title" onClick={() => history.back()}>
+        {title}
+      </CosBackButton>
       <EditTunings
         defaultData={defaultData}
         errorMessage={errorState?.api?.msg || errorState?.native.message}

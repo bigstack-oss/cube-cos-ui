@@ -17,7 +17,7 @@ export const samlAuthErrorInterceptor = (error: unknown): Promise<unknown> => {
   const redirectUrl = data?.msg
 
   if (redirectUrl) {
-    window.location.replace(redirectUrl)
+    // window.location.replace(redirectUrl)
   }
 
   return Promise.reject(error)

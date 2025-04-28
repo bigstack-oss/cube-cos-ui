@@ -7,9 +7,8 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { noop } from 'lodash'
 import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 export const CreateTuningsPage = () => {
   const navigate = useNavigate()
@@ -46,9 +45,9 @@ export const CreateTuningsPage = () => {
 
   return (
     <div className="mx-2 my-1">
-      <Link className="inline-block" to={CosRoutesEnum.EVENTS_TUNINGS_PAGE}>
-        <CosBackButton onClick={noop}>Create Tunings</CosBackButton>
-      </Link>
+      <CosBackButton variant="title" onClick={() => history.back()}>
+        Create Tunings
+      </CosBackButton>
       <CreateTunings
         errorMessage={errorState?.api?.msg || errorState?.native.message}
         onPublishClick={onPublishClick}
