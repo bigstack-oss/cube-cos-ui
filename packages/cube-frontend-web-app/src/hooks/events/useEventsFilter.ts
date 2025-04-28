@@ -12,16 +12,14 @@ import {
 
 export type UseEventsFilter = {
   isEventsFilterLoading: boolean
-  getEventsFilter: (
-    type: GetEventsTypeEnum,
-  ) =>
+  eventsFilter:
     | GetEventFilterConditionResponseDataSystem
     | GetEventFilterConditionResponseDataHost
     | GetEventFilterConditionResponseDataInstance
     | undefined
 }
 
-export const useEventsFilter = (): UseEventsFilter => {
+export const useEventsFilter = (type: GetEventsTypeEnum): UseEventsFilter => {
   const { dataCenter } = useContext(DataCenterContext)
 
   const { data, isLoading } = useCosGetRequest(
@@ -33,10 +31,8 @@ export const useEventsFilter = (): UseEventsFilter => {
     },
   )
 
-  const getEventsFilter = (type: GetEventsTypeEnum) => data?.[type]
-
   return {
     isEventsFilterLoading: isLoading,
-    getEventsFilter,
+    eventsFilter: data?.[type],
   }
 }

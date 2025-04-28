@@ -11,13 +11,6 @@ export type ChartTimeRanges = (typeof chartTimeRanges)[number]
 
 export const DEFAULT_TIME_RANGE = '24h' satisfies ChartTimeRanges
 
-export const timeRangeToDaysMapping: Record<ChartTimeRanges, number> = {
-  '1h': 0,
-  '24h': 0,
-  '7d': 7,
-  '14d': 14,
-}
-
 export const isChartTimeRange = (value: string): value is ChartTimeRanges => {
   return ['1h', '24h', '7d', '14d'].includes(value)
 }

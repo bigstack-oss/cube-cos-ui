@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { lowerFirst } from 'lodash'
+import { lowerFirst, upperFirst } from 'lodash'
 import {
   EventsApiGetRankedEventsRequest,
   GetEventFilterConditionResponseDataHost,
@@ -7,8 +7,9 @@ import {
   GetEventFilterConditionResponseDataSystem,
   GetEventsTypeEnum,
 } from '@cube-frontend/api'
+import { timeRangeDelta } from '@cube-frontend/web-app/hooks/useTimeFrame/timeFrameUtils'
 import { ChartQuery, FilterKeys } from './useEventsChartQuery'
-import { getValidTimeRange, timeRangeToDaysMapping } from './timeRangeUtils'
+import { getValidTimeRange } from './timeRangeUtils'
 
 export type ChartType = 'proportion' | 'comparison'
 
@@ -116,8 +117,7 @@ const getQueryValue = (
   queryKey: keyof EventsApiGetRankedEventsRequest,
   chartQuery: ChartQuery,
 ) => {
-  const dynamicKey =
-    `${chartType}${queryKey.charAt(0).toUpperCase()}${queryKey.slice(1)}` as keyof ChartQuery
+  const dynamicKey = `${chartType}${upperFirst(queryKey)}` as keyof ChartQuery
   return chartQuery[dynamicKey]
 }
 
@@ -143,18 +143,21 @@ export const getRedirectUrl = (
   chartQuery: ChartQuery,
   eventId: string,
 ): string => {
-  const { type, past, category, severity, host, instance } =
-    getRequestQueryByChartType(chartType, chartQuery)
-
+  const { value, unit } = timeRangeDelta[chartQuery.past]
   const endDate = dayjs()
-  const startDate = endDate.subtract(timeRangeToDaysMapping[past!], 'day')
+  const startDate = endDate.add(value, unit)
 
   const searchParams = new URLSearchParams({
-    type,
+    type: chartQuery.type,
     keyword: eventId,
-    start: startDate?.toString() || '',
-    stop: endDate?.toString() || '',
+    start: startDate.toString(),
+    stop: endDate.toString(),
   })
+
+  const category = getQueryValue(chartType, 'category', chartQuery)
+  const severity = getQueryValue(chartType, 'severity', chartQuery)
+  const host = getQueryValue(chartType, 'host', chartQuery)
+  const instance = getQueryValue(chartType, 'instance', chartQuery)
 
   if (category) searchParams.set('category', category)
   if (severity) searchParams.set('severity', severity)

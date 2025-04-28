@@ -6,6 +6,7 @@ import { useEventsChartQuery } from './_components/useEventsChartQuery'
 import { EventsChartProportion } from './_components/EventsChartProportion/EventsChartProportion'
 import { EventsChartComparison } from './_components/EventsChartComparison/EventsChartComparison'
 import { ChartTimeRanges, chartTimeRanges } from './_components/timeRangeUtils'
+import { GetEventsTypeEnum } from '@cube-frontend/api'
 
 export const EventsChartPage = () => {
   const {
@@ -24,13 +25,25 @@ export const EventsChartPage = () => {
     defaultValue: chartQuery.past,
   })
 
-  const { isEventsFilterLoading, getEventsFilter } = useEventsFilter()
-
-  const eventsFilter = getEventsFilter(chartQuery.type)
+  const { isEventsFilterLoading, eventsFilter } = useEventsFilter(
+    chartQuery.type,
+  )
 
   const onTimeRangeChange = (newTimeRange: ChartTimeRanges) => {
     onTimeRangeQueryChange(newTimeRange)
     onTimeRangeDropdownChange(newTimeRange)
+  }
+
+  const onEventsTypeChange = (type: GetEventsTypeEnum) => {
+    onTypeChange(type)
+    onFieldChange('comparisonCategory', undefined)
+    onFieldChange('comparisonHost', undefined)
+    onFieldChange('comparisonInstance', undefined)
+    onFieldChange('comparisonSeverity', undefined)
+    onFieldChange('proportionCategory', undefined)
+    onFieldChange('proportionHost', undefined)
+    onFieldChange('proportionInstance', undefined)
+    onFieldChange('proportionSeverity', undefined)
   }
 
   return (
@@ -38,10 +51,9 @@ export const EventsChartPage = () => {
       <div className="flex items-center justify-between">
         <EventsContentSwitcher
           activeTab={chartQuery.type}
-          onEventsTypeChange={onTypeChange}
+          onEventsTypeChange={onEventsTypeChange}
         />
         <TimeRangeDropdown
-          disabled={false}
           selectedItem={timeRange}
           timeRanges={timeRanges}
           onChange={onTimeRangeChange}

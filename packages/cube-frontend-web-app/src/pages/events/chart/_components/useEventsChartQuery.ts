@@ -49,7 +49,7 @@ type UseEventsChartQuery = {
 export const useEventsChartQuery = (): UseEventsChartQuery => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const [chartQuery, setChartQuery] = useState<ChartQuery>(
+  const [chartQuery, setChartQuery] = useState<ChartQuery>(() =>
     initChartQuery(searchParams),
   )
 
