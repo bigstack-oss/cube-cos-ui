@@ -10,6 +10,7 @@ import {
 import { timeRangeDelta } from '@cube-frontend/web-app/hooks/useTimeFrame/timeFrameUtils'
 import { ChartQuery, FilterKeys } from './useEventsChartQuery'
 import { getValidTimeRange } from './timeRangeUtils'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export type ChartType = 'proportion' | 'comparison'
 
@@ -164,5 +165,5 @@ export const getRedirectUrl = (
   if (host) searchParams.set('host', host)
   if (instance) searchParams.set('instance', instance)
 
-  return `/events?${searchParams.toString()}`
+  return `${CosRoutesEnum.EVENTS_PAGE}?${searchParams.toString()}`
 }
