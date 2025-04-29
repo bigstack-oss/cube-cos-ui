@@ -7,6 +7,7 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { mapToTriggerTableRows, TriggerRow } from './utils'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export type UseTriggerRowsOptions = {
   onOperationErrorOccur: (errorMessage: string) => void
@@ -116,7 +117,7 @@ export const useTriggerRows = (
     /**
      * Navigate to the Edit page for the selected trigger.
      */
-    navigate(`/events/triggers/create?name=${triggerName}`)
+    navigate(`${CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}?name=${triggerName}`)
   }
 
   return {

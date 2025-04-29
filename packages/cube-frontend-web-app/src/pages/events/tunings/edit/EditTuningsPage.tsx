@@ -4,6 +4,7 @@ import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { EditTunings } from '@cube-frontend/web-app/components/UpsertTunings/EditTunings'
 import { NonNullableUpsertTuningsPayload } from '@cube-frontend/web-app/components/UpsertTunings/upsertTuningsUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useEditTuningsStore } from '@cube-frontend/web-app/stores/editTuningsStore'
@@ -40,7 +41,7 @@ export const EditTuningsPage = () => {
           hosts: selectedHosts.map((host) => host.name),
         },
       })
-      navigate('/events/tunings')
+      navigate(CosRoutesEnum.EVENTS_TUNINGS_PAGE)
     } catch (error) {
       console.error('Update tuning error: ', error)
     }
@@ -49,14 +50,14 @@ export const EditTuningsPage = () => {
   if (!defaultData) {
     // This happens when users access the edit tunings page by directly
     // entering the URL in the browser.
-    return <Navigate to="/events/tunings" replace={true} />
+    return <Navigate to={CosRoutesEnum.EVENTS_TUNINGS_PAGE} replace={true} />
   }
 
   const title = defaultData.hosts?.length ? 'Edit Tunings' : 'Create Tunings'
 
   return (
     <div className="mx-2 my-1">
-      <Link className="inline-block" to="/events/tunings">
+      <Link className="inline-block" to={CosRoutesEnum.EVENTS_TUNINGS_PAGE}>
         <CosBackButton onClick={noop}>{title}</CosBackButton>
       </Link>
       <EditTunings

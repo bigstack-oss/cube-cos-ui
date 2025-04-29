@@ -4,6 +4,7 @@ import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { CreateTunings } from '@cube-frontend/web-app/components/UpsertTunings/CreateTunings'
 import { NonNullableUpsertTuningsPayload } from '@cube-frontend/web-app/components/UpsertTunings/upsertTuningsUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { noop } from 'lodash'
@@ -37,7 +38,7 @@ export const CreateTuningsPage = () => {
           hosts: selectedHosts.map((host) => host.name),
         },
       })
-      navigate('/events/tunings')
+      navigate(CosRoutesEnum.EVENTS_TUNINGS_PAGE)
     } catch (error) {
       console.error('Create tuning error: ', error)
     }
@@ -45,7 +46,7 @@ export const CreateTuningsPage = () => {
 
   return (
     <div className="mx-2 my-1">
-      <Link className="inline-block" to="/events/tunings">
+      <Link className="inline-block" to={CosRoutesEnum.EVENTS_TUNINGS_PAGE}>
         <CosBackButton onClick={noop}>Create Tunings</CosBackButton>
       </Link>
       <CreateTunings

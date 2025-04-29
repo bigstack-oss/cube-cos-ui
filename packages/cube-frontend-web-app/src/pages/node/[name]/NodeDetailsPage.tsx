@@ -1,6 +1,7 @@
 import { NodesApiGetNodeRequest } from '@cube-frontend/api'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { useContext } from 'react'
@@ -39,7 +40,7 @@ export const NodeDetailsPage = () => {
 
   if (!isLoading && !node) {
     // Node not found.
-    return <Navigate to="/nodes" replace={true} />
+    return <Navigate to={CosRoutesEnum.NODES_PAGE} replace={true} />
   }
 
   return (

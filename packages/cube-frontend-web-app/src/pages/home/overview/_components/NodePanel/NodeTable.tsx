@@ -17,6 +17,7 @@ import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router'
 import { CopyButton } from '@cube-frontend/web-app/components/CopyButton'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 const BasicNodeTable = GetCosBasicTable<GetNodesResponseData['nodes'][number]>()
 
@@ -31,7 +32,10 @@ export const NodeTable = (props: NodeTableProps) => {
         emphasize={true}
       >
         {(hostname) => (
-          <Link className="block w-fit" to={`/nodes/${hostname}`}>
+          <Link
+            className="block w-fit"
+            to={CosRoutesEnum.NODES_DETAIL_PAGE(hostname)}
+          >
             <CosHyperlink variant="text-only" onClick={noop}>
               {hostname}
             </CosHyperlink>

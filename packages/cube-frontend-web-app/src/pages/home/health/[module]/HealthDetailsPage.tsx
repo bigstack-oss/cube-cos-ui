@@ -1,4 +1,5 @@
 import { CosBackButton, CosToggle } from '@cube-frontend/ui-library'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import {
   ModuleMetadata,
   useServices,
@@ -30,13 +31,13 @@ export const HealthDetailsPage = () => {
   )
 
   if (!module && !isLoadingServices) {
-    return <Navigate to="/home/health" replace={true} />
+    return <Navigate to={CosRoutesEnum.HOME_HEALTH_PAGE} replace={true} />
   }
 
   return (
     <div className="mt-4 flex flex-col gap-y-3">
       <div className="flex items-center justify-between">
-        <Link to="/home/health">
+        <Link to={CosRoutesEnum.HOME_HEALTH_PAGE}>
           <CosBackButton
             details={`${moduleNameToLabel(moduleName)} Details`}
             loading={!module}

@@ -18,6 +18,7 @@ import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentia
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
 import { noop } from 'lodash'
 import { Link } from 'react-router'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 const HOME_PAGE_EVENT_ROW_LIMIT = 5
 
@@ -76,7 +77,7 @@ export const EventPanel = () => {
       title="Events"
       time={updateTime}
       hyperLinkProps={{ onClick: noop }}
-      HyperLinkContainer={<Link to="/events" />}
+      HyperLinkContainer={<Link to={CosRoutesEnum.EVENTS_PAGE} />}
       useContentWrapper={false}
       isTimeLoading={isLoading}
     >

@@ -13,6 +13,7 @@ import {
   CreateTriggerStepParams,
   useCreateTriggerStep,
 } from './useCreateTriggerStep'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export const TriggersCreatePage = () => {
   const { step, goToEvents, goToResponse, goToDescription } =
@@ -55,7 +56,7 @@ export const TriggersCreatePage = () => {
   const renderContent = renderContentFnMap[step]
 
   if (step !== CreateTriggerStepParams.TEMPLATE && !selectedTemplate?.name) {
-    return <Navigate to="/events/triggers" replace={true} />
+    return <Navigate to={CosRoutesEnum.EVENTS_TRIGGERS_PAGE} replace={true} />
   }
 
   return (

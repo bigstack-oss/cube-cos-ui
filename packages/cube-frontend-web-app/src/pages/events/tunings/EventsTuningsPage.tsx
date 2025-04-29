@@ -9,6 +9,7 @@ import {
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
 import Plus from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import dayjs from 'dayjs'
 import { Link } from 'react-router'
 import { ActionCell } from './_components/tableCells/ActionCell'
@@ -84,7 +85,10 @@ export const EventsTuningsPage = () => {
     >
       <div className="flex flex-col gap-y-4">
         <h4 className="secondary-h4">Tunings</h4>
-        <Link className="self-start" to="/events/tunings/create">
+        <Link
+          className="self-start"
+          to={CosRoutesEnum.EVENTS_TUNINGS_CREATE_PAGE}
+        >
           <CosButton usage="icon-left" Icon={Plus}>
             Create Tuning
           </CosButton>

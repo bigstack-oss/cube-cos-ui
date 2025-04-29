@@ -10,6 +10,7 @@ import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils
 import { NodeTable } from './NodeTable'
 import { noop } from 'lodash'
 import { Link } from 'react-router'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 const HOME_PAGE_NODE_ROW_LIMIT = 5
 
@@ -41,7 +42,7 @@ export const NodePanel = () => {
       title="Nodes"
       time={updateTime}
       hyperLinkProps={{ onClick: noop }}
-      HyperLinkContainer={<Link to="/nodes" />}
+      HyperLinkContainer={<Link to={CosRoutesEnum.NODES_PAGE} />}
       useContentWrapper={false}
       isTimeLoading={isLoading}
     >

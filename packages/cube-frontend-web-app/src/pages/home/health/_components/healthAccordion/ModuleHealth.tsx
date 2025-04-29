@@ -15,6 +15,7 @@ import { timePointFns } from './healthAccordionUtils'
 import { HealthBarSkeleton } from './HealthBarSkeleton'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
 import { HealthTimeRange } from '../../healthTimeRangeUtils'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export type ModuleHealthProps = {
   moduleName: GetHealthHistoryModuleTypeEnum
@@ -28,7 +29,7 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
   const { moduleName, isLoading, history, timeRange, now } = props
 
   const detailPageLink = useMemo<string>(
-    () => `/home/health/${moduleName}`,
+    () => CosRoutesEnum.HOME_HEALTH_DETAIL_PAGE(moduleName),
     [moduleName],
   )
 

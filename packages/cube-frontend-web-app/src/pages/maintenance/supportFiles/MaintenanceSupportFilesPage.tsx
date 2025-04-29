@@ -23,6 +23,7 @@ import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { SupportFilesFilters } from './_components/SupportFilesFilters'
 import { DownloadSupportFilesModal } from './_components/DownloadSupportFilesModal'
 import { SupportFilesTable } from './_components/SupportFilesTable'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export type SupportFileRow = SupportFileSet & CosTableRow
 
@@ -78,7 +79,7 @@ export const MaintenanceSupportFilesPage = () => {
     <>
       <CosGeneralPanel topic="Support Files">
         <div className="flex flex-col gap-y-6">
-          <Link className="w-fit" to="/nodes">
+          <Link className="w-fit" to={CosRoutesEnum.NODES_PAGE}>
             <CosHyperlink
               variant="icon-right"
               Icon={ChevronRight}

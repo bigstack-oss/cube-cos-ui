@@ -3,6 +3,7 @@ import { CosHyperlink, CosSkeleton } from '@cube-frontend/ui-library'
 import ChevronLeft from '@cube-frontend/ui-library/icons/monochrome/chevron_left.svg?react'
 import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { noop } from 'lodash'
 import { useContext } from 'react'
@@ -35,7 +36,7 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
 
   const renderBackButton = () => {
     return (
-      <Link to="/nodes" className="p-1">
+      <Link to={CosRoutesEnum.NODES_PAGE} className="p-1">
         <ChevronLeft className="icon-md" />
       </Link>
     )

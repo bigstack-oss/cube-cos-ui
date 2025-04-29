@@ -6,6 +6,7 @@ import {
 import ArrowRotateLeft from '@cube-frontend/ui-library/icons/monochrome/arrow_rotate_left_01.svg?react'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import { IconActionButton } from '@cube-frontend/web-app/components/IconActionButton/IconActionButton'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import {
   EditTuningsDefaultData,
   useEditTuningsStore,
@@ -77,7 +78,7 @@ export const ActionCell = (props: ActionCellProps) => {
     }
 
     return (
-      <Link to="/events/tunings/edit" onClick={onEditClick}>
+      <Link to={CosRoutesEnum.EVENTS_TUNINGS_EDIT_PAGE} onClick={onEditClick}>
         {iconElement}
       </Link>
     )

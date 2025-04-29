@@ -4,6 +4,7 @@ import {
 } from '@cube-frontend/api'
 import { nodesApi, tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { ReactNode, useContext } from 'react'
 import { Navigate } from 'react-router'
@@ -84,7 +85,7 @@ export const CreateTunings = (props: CreateTuningsProps) => {
   if (step !== UpsertTuningsStep.KeyValue && !payload.selectedSpecName) {
     // This happens when users skip the first step by directly entering
     // the URL in the browser.
-    return <Navigate to="/events/tunings" replace={true} />
+    return <Navigate to={CosRoutesEnum.EVENTS_TUNINGS_PAGE} replace={true} />
   }
 
   return (

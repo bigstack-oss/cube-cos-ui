@@ -13,6 +13,7 @@ import Content from './Content'
 import { useSidebarOptions } from './useSidebarOptions'
 import { useSidebarBottomLinks } from './useSidebarBottomLinks'
 import { useSideBarNagging } from './useSideBarNagging'
+import { CosRoutesEnum } from '../enum/routes'
 
 const integrationIcons = {
   keycloak: KeycloakIcon,
@@ -58,7 +59,7 @@ const Layout = (props: PropsWithChildren) => {
     <div className="h-svh min-w-full overflow-hidden bg-scene-background">
       <div className="flex h-svh flex-row">
         <CosSideBar
-          LogoContainer={<Link to="/home"></Link>}
+          LogoContainer={<Link to={CosRoutesEnum.HOME_PAGE} />}
           isLoading={isDataCenterLoading || isUserInfoLoading}
           dataCenter={dataCenter}
           naggingProps={sideBarNaggingProps}
