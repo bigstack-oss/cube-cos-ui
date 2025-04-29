@@ -20,6 +20,7 @@ export const LoginCopyright = () => {
         variant="text-inline"
         color="secondary"
         href="https://www.bigstack.co/privacy-policy"
+        target="_blank"
       >
         Terms & Policy
       </CosHyperlink>

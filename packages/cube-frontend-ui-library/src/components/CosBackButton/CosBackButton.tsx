@@ -20,9 +20,7 @@ export type CosBackButtonProps<
 } & BackLinkProps<BackLinkContainerProps> &
   (TitleVariantProps | BarChartVariantProps)
 
-export const CosBackButton = <
-  BackLinkContainerProps extends PropsWithChildren = never,
->(
+export const CosBackButton = <BackLinkContainerProps extends PropsWithChildren>(
   props: CosBackButtonProps<BackLinkContainerProps>,
 ) => {
   const {

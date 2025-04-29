@@ -22,8 +22,10 @@ export const BackLink = <ContainerProps extends PropsWithChildren>(
 ) => {
   const { href, onClick, backLinkContainer } = props
 
-  if (!href && !onClick) {
-    console.warn('CosBackButton: Either href or onClick is required')
+  if (!href && !onClick && !backLinkContainer) {
+    console.warn(
+      'CosBackButton: At least one of `href`, `onClick`, or `backLinkContainer` must be provided',
+    )
   }
 
   const backButton = (

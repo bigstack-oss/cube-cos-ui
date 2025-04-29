@@ -182,7 +182,7 @@ export const Gallery = {
                 Page Title
               </CosBackButton>
             </BackButtonRow>
-            <BackButtonRow title="With Link and Bar Charts Loading">
+            <BackButtonRow title="With Links and Bar Charts Loading">
               <CosBackButton
                 isLoading={true}
                 variant="bar-chart"
