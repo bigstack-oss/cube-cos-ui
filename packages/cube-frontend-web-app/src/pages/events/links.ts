@@ -1,8 +1,8 @@
-import { Routes } from '@cube-frontend/web-app/enum/routes'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export const links = {
-  events: Routes.EVENTS_PAGE,
-  triggers: Routes.EVENTS_TRIGGERS_PAGE,
-  tunings: Routes.EVENTS_TUNINGS_PAGE,
-  chart: Routes.EVENTS_CHART_PAGE,
+  events: CosRoutesEnum.EVENTS_PAGE,
+  triggers: CosRoutesEnum.EVENTS_TRIGGERS_PAGE,
+  tunings: CosRoutesEnum.EVENTS_TUNINGS_PAGE,
+  chart: CosRoutesEnum.EVENTS_CHART_PAGE,
 }

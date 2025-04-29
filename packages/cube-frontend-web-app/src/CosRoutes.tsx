@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router'
-import { Routes as CosRoutesEnum } from './enum/routes'
+import { CosRoutesEnum } from './enum/routes'
 import { HomeLayout } from './pages/home/HomeLayout'
 import { HomeOverviewPage } from './pages/home/overview/HomeOverviewPage'
 import { HomeChartPage } from './pages/home/chart/HomeChartPage'
@@ -41,13 +41,13 @@ export const CosRoutes = () => {
           element={<HomeHealthPage />}
         />
         <Route
-          path={CosRoutesEnum.HOME_HEALTH_DETAIL_PAGE}
+          path={CosRoutesEnum.HOME_HEALTH_DETAIL_PAGE()}
           element={<HealthDetailsPage />}
         />
       </Route>
       <Route path={CosRoutesEnum.NODES_PAGE} element={<NodeListPage />} />
       <Route
-        path={CosRoutesEnum.NODES_DETAIL_PAGE}
+        path={CosRoutesEnum.NODES_DETAIL_PAGE()}
         element={<NodeDetailsPage />}
       />
       <Route path={CosRoutesEnum.EVENTS_PAGE} element={<EventsLayout />}>

@@ -1,7 +1,7 @@
-import { Routes } from '@cube-frontend/web-app/enum/routes'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export const links = {
-  overview: Routes.HOME_PAGE,
-  chart: Routes.HOME_CHART_PAGE,
-  health: Routes.HOME_HEALTH_PAGE,
+  overview: CosRoutesEnum.HOME_PAGE,
+  chart: CosRoutesEnum.HOME_CHART_PAGE,
+  health: CosRoutesEnum.HOME_HEALTH_PAGE,
 }
