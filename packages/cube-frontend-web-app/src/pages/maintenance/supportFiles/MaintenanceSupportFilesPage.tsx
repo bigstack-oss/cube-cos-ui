@@ -91,7 +91,6 @@ export const MaintenanceSupportFilesPage = () => {
           <CosStroke type="dot" />
           <div className="flex flex-col gap-y-6">
             <div className="flex flex-col gap-y-2">
-              <h5 className="primary-h5 text-functional-text">Support Files</h5>
               <SupportFilesFilters
                 searchKeyword={searchKeyword}
                 handleSearchKeywordChange={setSearchKeyword}

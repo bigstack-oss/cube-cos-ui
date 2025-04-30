@@ -34,8 +34,7 @@ export const IntegrationsPage = () => {
 
   return (
     <CosGeneralPanel topic="Integrations">
-      <div className="flex flex-col gap-y-2 pt-2">
-        <h5 className="primary-h5 text-functional-text">Integrations</h5>
+      <div className="pt-2">
         <IntegrationTable rows={rows} isLoading={isLoading}>
           <IntegrationTable.Column property="url" fitContent={true}>
             {(url) => (

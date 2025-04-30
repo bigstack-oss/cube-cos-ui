@@ -33,43 +33,35 @@ export const EventsTriggersPage = () => {
         </CosInlineNotification>
       ))}
       <CosStroke type="dot" />
-      <div className="flex flex-col gap-2">
-        <div className="primary-h5">Triggers</div>
-        <TriggersTable rows={rows} isLoading={isLoading}>
-          <TriggersTable.Column
-            label="Triggers"
-            property="name"
-            emphasize={true}
-          >
-            {(name, row) => (
-              <div className="flex items-center gap-2">
-                {name}
-                {row.status.isUpdating && (
-                  <CosLoadingSpinner variant="dot120" />
-                )}
-              </div>
-            )}
-          </TriggersTable.Column>
-          <TriggersTable.Column label="Description" property="description" />
-          <TriggersTable.Column label="Response" property="response">
-            {(response) => (
-              <span className="whitespace-nowrap">
-                {getTriggerResponse(response.types)}
-              </span>
-            )}
-          </TriggersTable.Column>
-          <TriggersTable.Column label="Status">
-            {(_, row) => (
-              <TriggersStatusToggle row={row} onChange={handleStatusChange} />
-            )}
-          </TriggersTable.Column>
-          <TriggersTable.Column>
-            {(_, row) => (
-              <TriggersActionCell row={row} onEditClick={handleEdit} />
-            )}
-          </TriggersTable.Column>
-        </TriggersTable>
-      </div>
+
+      <TriggersTable rows={rows} isLoading={isLoading}>
+        <TriggersTable.Column label="Triggers" property="name" emphasize={true}>
+          {(name, row) => (
+            <div className="flex items-center gap-2">
+              {name}
+              {row.status.isUpdating && <CosLoadingSpinner variant="dot120" />}
+            </div>
+          )}
+        </TriggersTable.Column>
+        <TriggersTable.Column label="Description" property="description" />
+        <TriggersTable.Column label="Response" property="response">
+          {(response) => (
+            <span className="whitespace-nowrap">
+              {getTriggerResponse(response.types)}
+            </span>
+          )}
+        </TriggersTable.Column>
+        <TriggersTable.Column label="Status">
+          {(_, row) => (
+            <TriggersStatusToggle row={row} onChange={handleStatusChange} />
+          )}
+        </TriggersTable.Column>
+        <TriggersTable.Column>
+          {(_, row) => (
+            <TriggersActionCell row={row} onEditClick={handleEdit} />
+          )}
+        </TriggersTable.Column>
+      </TriggersTable>
     </div>
   )
 }
