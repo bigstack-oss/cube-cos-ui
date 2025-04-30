@@ -2,6 +2,7 @@ import { range } from 'lodash'
 import { SvgComponent } from '../CosIcon/CosIcon'
 import { CosButton } from '../CosButton/CosButton'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
+import { CosTooltip } from '../CosTooltip/CosTooltip'
 
 export type QuickAccessBarProps = {
   /**
@@ -11,6 +12,7 @@ export type QuickAccessBarProps = {
   quickAccesses: {
     Icon: SvgComponent
     href: string
+    hoverMessage: string
   }[]
 }
 
@@ -26,14 +28,21 @@ export const QuickAccessBar = (props: QuickAccessBarProps) => {
       ))
     }
     return quickAccesses.map((quickAccess, index) => (
-      <a key={index} href={quickAccess.href} target="_blank">
-        <CosButton
-          size="md"
-          type="ghost"
-          usage="icon-only"
-          Icon={quickAccess.Icon}
-        />
-      </a>
+      <CosTooltip
+        key={index}
+        hoverContent={{
+          message: quickAccess.hoverMessage,
+        }}
+      >
+        <a href={quickAccess.href} target="_blank">
+          <CosButton
+            size="md"
+            type="ghost"
+            usage="icon-only"
+            Icon={quickAccess.Icon}
+          />
+        </a>
+      </CosTooltip>
     ))
   }
 

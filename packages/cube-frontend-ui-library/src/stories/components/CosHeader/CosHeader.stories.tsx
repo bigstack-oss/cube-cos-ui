@@ -6,7 +6,7 @@ import {
 } from '../../../components/CosHeader/CosHeader'
 import OpenStackIcon from '../../../components/CosIcon/colored/openstack.svg?react'
 import CephIcon from '../../../components/CosIcon/colored/ceph.svg?react'
-import KeycloakIcon from '../../../components/CosIcon/colored/keyclock.svg?react'
+import KeycloakIcon from '../../../components/CosIcon/colored/keycloak.svg?react'
 import RancherIcon from '../../../components/CosIcon/colored/rancher.svg?react'
 
 const meta = {
@@ -20,10 +20,10 @@ type Story = StoryObj<typeof meta>
 
 const defaultArgs = {
   quickAccesses: [
-    { Icon: KeycloakIcon, href: '/' },
-    { Icon: CephIcon, href: '/' },
-    { Icon: OpenStackIcon, href: '/' },
-    { Icon: RancherIcon, href: '/' },
+    { Icon: KeycloakIcon, href: '/', hoverMessage: 'Keycloak' },
+    { Icon: CephIcon, href: '/', hoverMessage: 'Ceph' },
+    { Icon: OpenStackIcon, href: '/', hoverMessage: 'OpenStack' },
+    { Icon: RancherIcon, href: '/', hoverMessage: 'Rancher' },
   ],
   onLogout: () => {
     // eslint-disable-next-line no-console

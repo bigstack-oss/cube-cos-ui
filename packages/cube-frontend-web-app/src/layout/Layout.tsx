@@ -2,10 +2,10 @@ import { PropsWithChildren, useContext } from 'react'
 import { Link } from 'react-router'
 import { CosHeader, CosSideBar } from '@cube-frontend/ui-library'
 import CephIcon from '@cube-frontend/ui-library/icons/colored/ceph.svg?react'
-import KeycloakIcon from '@cube-frontend/ui-library/icons/colored/keyclock.svg?react'
+import KeycloakIcon from '@cube-frontend/ui-library/icons/colored/keycloak.svg?react'
 import OpenStackIcon from '@cube-frontend/ui-library/icons/colored/openstack.svg?react'
-import RancherIcon from '@cube-frontend/ui-library/icons/colored/rancher.svg?react'
 import { logoutApi } from '../api/cosApi'
+import RancherIcon from '@cube-frontend/ui-library/icons/colored/rancher.svg?react'
 import { DataCenterContext } from '../context/DataCenterContext'
 import { IntegrationsContext } from '../context/IntegrationsContext'
 import { UserContext } from '../context/UserContext'
@@ -20,6 +20,13 @@ const integrationIcons = {
   ceph: CephIcon,
   openstack: OpenStackIcon,
   rancher: RancherIcon,
+}
+
+const integrationTooltipMap: Record<keyof typeof integrationIcons, string> = {
+  keycloak: 'Keycloak',
+  ceph: 'Ceph',
+  openstack: 'OpenStack',
+  rancher: 'Rancher',
 }
 
 const Layout = (props: PropsWithChildren) => {
@@ -46,13 +53,17 @@ const Layout = (props: PropsWithChildren) => {
   )
 
   const quickAccesses = integrations.map((integration) => {
-    const Icon =
-      integrationIcons[integration.name as keyof typeof integrationIcons]
+    const key = integration.name as keyof typeof integrationIcons
+    const Icon = integrationIcons[key]
     if (!Icon) {
       console.warn(`No icon found for integration: ${integration.name}`)
     }
 
-    return { Icon, href: integration.url }
+    return {
+      Icon,
+      href: integration.url,
+      hoverMessage: integrationTooltipMap[key],
+    }
   })
 
   return (
