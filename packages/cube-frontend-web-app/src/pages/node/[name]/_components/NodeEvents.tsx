@@ -24,7 +24,11 @@ type NodeEventsProps = {
   node: Node | undefined
 }
 
-const EventTable = GetCosBasicTable<GetEventsResponseDataEventsInner>()
+const EventTable = GetCosBasicTable<EventRow>()
+
+type EventRow = GetEventsResponseDataEventsInner & {
+  eventId: string
+}
 
 export const NodeEvents = (props: NodeEventsProps) => {
   const { node } = props
@@ -82,13 +86,17 @@ export const NodeEvents = (props: NodeEventsProps) => {
     },
   )
 
-  const rows = useMemo<GetEventsResponseDataEventsInner[]>(() => {
+  const rows = useMemo<EventRow[]>(() => {
     const events = response?.events ?? []
-    return events.map((event, index) => ({
-      ...event,
-      // Map events because `event.id` is not unique.
-      id: `${event.id}-${index}`,
-    }))
+    return events.map(
+      (event, index) =>
+        ({
+          ...event,
+          eventId: event.id,
+          // Map events because `event.id` is not unique.
+          id: `${event.id}-${index}`,
+        }) satisfies EventRow,
+    )
   }, [response?.events])
 
   return (
@@ -103,7 +111,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
         />
       </div>
       <EventTable isLoading={!node} rows={rows} skeletonRowCount={10}>
-        <EventTable.Column label="Event ID" property="id" />
+        <EventTable.Column label="Event ID" property="eventId" />
         <EventTable.Column label="Timestamp" property="time">
           {(time) => dayjs.respectTzOffset(time).format('YYYY/MM/DD HH:mm:ss')}
         </EventTable.Column>
