@@ -36,12 +36,15 @@ export const formatDateRange = (
   return undefined
 }
 
-export const getDateButtonStatus = (
-  date: Dayjs,
-  selectedStartDate: Dayjs | undefined,
-  selectedEndDate: Dayjs | undefined,
-) => {
-  const today = dayjs().startOf('day')
+type DateButtonStatusOptions = {
+  date: Dayjs
+  now: Dayjs
+  selectedStartDate: Dayjs | undefined
+  selectedEndDate: Dayjs | undefined
+}
+
+export const getDateButtonStatus = (option: DateButtonStatusOptions) => {
+  const { date, now, selectedStartDate, selectedEndDate } = option
 
   /**
    * If both start and end date are selected and they are the same date
@@ -81,7 +84,7 @@ export const getDateButtonStatus = (
    * If the selected date(s) is(are) not today
    * then today is shown as unselected but its style is different
    */
-  if (date.isSame(today, 'day')) {
+  if (date.isSame(now, 'day')) {
     return 'unselected-today'
   }
   /**
@@ -96,8 +99,10 @@ export const getDateButtonStatus = (
  * If the selected month doesn't begin on a Sunday or end on a Saturday,
  * additional dates from the previous or next month are included to complete the first and last weeks.
  */
-export const computeCalendarWeeks = (startOfSelectedMonth: Dayjs): Date[][] => {
-  const dates: Date[] = []
+export const computeCalendarWeeks = (
+  startOfSelectedMonth: Dayjs,
+): Dayjs[][] => {
+  const dates: Dayjs[] = []
 
   const endOfSelectedMonth = startOfSelectedMonth.endOf('month')
 
@@ -114,7 +119,7 @@ export const computeCalendarWeeks = (startOfSelectedMonth: Dayjs): Date[][] => {
   const totalDays = lastDateOfLastWeek.diff(firstDateOfFirstWeek, 'days')
 
   for (let i = 0; i <= totalDays; i++) {
-    dates.push(firstDateOfFirstWeek.add(i, 'days').toDate())
+    dates.push(firstDateOfFirstWeek.add(i, 'days'))
   }
 
   return chunk(dates, 7)

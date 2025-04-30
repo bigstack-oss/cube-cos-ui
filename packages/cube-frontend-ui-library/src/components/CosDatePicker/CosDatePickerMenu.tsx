@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { createPortal } from 'react-dom'
-import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import { CosButton } from '../CosButton/CosButton'
 import { CosDatePickerInput } from './CosDatePickerInput'
@@ -13,10 +12,6 @@ export const CosDatePickerMenu = () => {
     floatingProps,
     calendarOpen: isVisible,
     displayDates,
-    currentMonth,
-    onPreviousMonthClick,
-    onNextMonthClick,
-    onDateClick,
     onApply,
     onReset,
   } = useContext(CosDatePickerContext)
@@ -34,23 +29,16 @@ export const CosDatePickerMenu = () => {
       <div className="flex gap-4">
         <CosDatePickerInput
           type="start"
-          value={start ? dayjs(start).format('YYYY/MM/DD') : ''}
+          value={start ? start.format('YYYY/MM/DD') : ''}
           placeholder="Choose Start"
         />
         <CosDatePickerInput
           type="end"
-          value={end ? dayjs(end).format('YYYY/MM/DD') : ''}
+          value={end ? end.format('YYYY/MM/DD') : ''}
           placeholder="Choose End"
         />
       </div>
-      <CosDatePickerCalendar
-        currentMonth={currentMonth}
-        onPreviousMonth={onPreviousMonthClick}
-        onNextMonth={onNextMonthClick}
-        onSelectDay={onDateClick}
-        startDate={start}
-        endDate={end}
-      />
+      <CosDatePickerCalendar />
       <div className="flex justify-end gap-2">
         <CosButton size="sm" type="ghost" onClick={onReset}>
           Reset

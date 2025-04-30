@@ -3,6 +3,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import { UseFloating } from '../../internal/utils/floating/useFloating'
 
 export type CosDatePickerContextValue = {
+  now: Dayjs
   currentMonth: Dayjs
   calendarOpen: boolean
   toggleCalendarOpen: () => void
@@ -23,7 +24,8 @@ export type CosDatePickerContextValue = {
 }
 
 export const CosDatePickerContext = createContext<CosDatePickerContextValue>({
-  currentMonth: dayjs(new Date()),
+  now: dayjs(),
+  currentMonth: dayjs(),
   calendarOpen: false,
   toggleCalendarOpen: () => {},
   floatingProps: undefined as unknown as UseFloating<

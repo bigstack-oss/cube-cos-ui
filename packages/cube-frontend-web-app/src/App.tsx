@@ -9,6 +9,7 @@ import { CosToastProvider } from '@cube-frontend/ui-library'
 import { DataCenterProvider } from './context/DataCenterProvider'
 import { IntegrationsContextProvider } from './context/IntegrationsContextProvider'
 import { UserContextProvider } from './context/UserContextProvider'
+import { CosTimeZoneProvider } from './context/CosTimeZoneProvider'
 import { CosRoutes } from './CosRoutes'
 import Layout from './layout/Layout'
 
@@ -21,11 +22,13 @@ function App() {
     <DataCenterProvider>
       <UserContextProvider>
         <IntegrationsContextProvider>
-          <CosToastProvider>
-            <Layout>
-              <CosRoutes />
-            </Layout>
-          </CosToastProvider>
+          <CosTimeZoneProvider>
+            <CosToastProvider>
+              <Layout>
+                <CosRoutes />
+              </Layout>
+            </CosToastProvider>
+          </CosTimeZoneProvider>
         </IntegrationsContextProvider>
       </UserContextProvider>
     </DataCenterProvider>

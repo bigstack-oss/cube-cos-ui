@@ -1,3 +1,4 @@
+import { upperFirst } from 'lodash'
 import { CosTableInput } from '../CosTableInput/CosTableInput'
 
 type CosDatePickerInputProps = {
@@ -9,12 +10,10 @@ type CosDatePickerInputProps = {
 export const CosDatePickerInput = (props: CosDatePickerInputProps) => {
   const { type, value, placeholder } = props
 
-  const label = type === 'start' ? 'Start' : 'End'
-
   return (
     <div className="flex w-[132.5px] flex-col gap-2">
       <p className="primary-body4 font-medium text-functional-text-light">
-        {label}
+        {upperFirst(type)}
       </p>
       <CosTableInput
         type="text"

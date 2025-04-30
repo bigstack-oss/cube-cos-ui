@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
-import dayjs, { Dayjs } from 'dayjs'
+import { useCallback, useContext, useEffect, useState } from 'react'
+import { Dayjs } from 'dayjs'
 import { useFloating } from '../../internal/utils/floating/useFloating'
+import { useTimeZoneTime } from '../CosTimeZone/useTimeZoneTime'
+import { CosTimeZoneContext } from '../CosTimeZone/CosTimeZoneContext'
 import { CosDatePickerTrigger } from './CosDatePickerTrigger'
 import { CosDatePickerMenu } from './CosDatePickerMenu'
 import { CosDatePickerSkeleton } from './CosDatePickerSkeleton'
@@ -34,9 +36,17 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
     onReset: onResetProps,
   } = props
 
+  const timeZone = useContext(CosTimeZoneContext)
+
+  const now = useTimeZoneTime(timeZone)
+
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
-  const [currentMonth, setCurrentMonth] = useState(() => dayjs(new Date()))
+  const [currentMonth, setCurrentMonth] = useState(now)
+
+  const onDateClick = (date: Dayjs) => {
+    onChangeProps(date)
+  }
 
   const onApply = () => {
     const { start, end } = displayDates
@@ -104,6 +114,7 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
   return (
     <CosDatePickerContext.Provider
       value={{
+        now,
         currentMonth,
         calendarOpen: isCalendarOpen,
         toggleCalendarOpen,
@@ -111,7 +122,7 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
         triggerDisabled: disabled,
         isSelected: !!displayDates.start || !!displayDates.end,
         displayDates,
-        onDateClick: onChangeProps,
+        onDateClick,
         onPreviousMonthClick,
         onNextMonthClick,
         onCancel,
