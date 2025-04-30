@@ -22,7 +22,7 @@ export type FunctionBarItem<
 export const FunctionBar = (props: FunctionBarProps) => {
   const { items } = props
 
-  const renderItem = (item: (typeof items)[number]) => {
+  const renderItem = (item: FunctionBarItem) => {
     const { Icon, onClick, container } = item
 
     const button = (

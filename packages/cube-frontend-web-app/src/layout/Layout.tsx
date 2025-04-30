@@ -15,19 +15,26 @@ import { useSideBarNagging } from './useSideBarNagging'
 import { CosRoutesEnum } from '../enum/routes'
 import { useFunctionBarItems } from './useFunctionBarItems'
 
-const integrationIcons = {
-  keycloak: KeycloakIcon,
-  ceph: CephIcon,
-  openstack: OpenStackIcon,
-  rancher: RancherIcon,
-}
+const integrationUIData = {
+  keycloak: {
+    Icon: KeycloakIcon,
+    hoverMessage: 'Keycloak',
+  },
+  ceph: {
+    Icon: CephIcon,
+    hoverMessage: 'Ceph',
+  },
+  openstack: {
+    Icon: OpenStackIcon,
+    hoverMessage: 'OpenStack',
+  },
+  rancher: {
+    Icon: RancherIcon,
+    hoverMessage: 'Rancher',
+  },
+} as const
 
-const integrationTooltipMap: Record<keyof typeof integrationIcons, string> = {
-  keycloak: 'Keycloak',
-  ceph: 'Ceph',
-  openstack: 'OpenStack',
-  rancher: 'Rancher',
-}
+type IntegrationKey = keyof typeof integrationUIData
 
 const Layout = (props: PropsWithChildren) => {
   const { children } = props
@@ -49,16 +56,16 @@ const Layout = (props: PropsWithChildren) => {
   )
 
   const quickAccesses = integrations.map((integration) => {
-    const key = integration.name as keyof typeof integrationIcons
-    const Icon = integrationIcons[key]
-    if (!Icon) {
-      console.warn(`No icon found for integration: ${integration.name}`)
+    const key = integration.name as IntegrationKey
+    const uiData = integrationUIData[key]
+
+    if (!uiData) {
+      console.warn(`No UI data is defined for integration: ${integration.name}`)
     }
 
     return {
-      Icon,
+      ...uiData,
       href: integration.url,
-      hoverMessage: integrationTooltipMap[key],
     }
   })
 
