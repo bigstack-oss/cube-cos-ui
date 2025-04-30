@@ -4,7 +4,6 @@ import { CosHeader, CosSideBar } from '@cube-frontend/ui-library'
 import CephIcon from '@cube-frontend/ui-library/icons/colored/ceph.svg?react'
 import KeycloakIcon from '@cube-frontend/ui-library/icons/colored/keycloak.svg?react'
 import OpenStackIcon from '@cube-frontend/ui-library/icons/colored/openstack.svg?react'
-import { logoutApi } from '../api/cosApi'
 import RancherIcon from '@cube-frontend/ui-library/icons/colored/rancher.svg?react'
 import { DataCenterContext } from '../context/DataCenterContext'
 import { IntegrationsContext } from '../context/IntegrationsContext'
@@ -14,6 +13,7 @@ import { useSidebarOptions } from './useSidebarOptions'
 import { useSidebarBottomLinks } from './useSidebarBottomLinks'
 import { useSideBarNagging } from './useSideBarNagging'
 import { CosRoutesEnum } from '../enum/routes'
+import { useFunctionBarItems } from './useFunctionBarItems'
 
 const integrationIcons = {
   keycloak: KeycloakIcon,
@@ -35,10 +35,6 @@ const Layout = (props: PropsWithChildren) => {
   const sideBarOptions = useSidebarOptions()
 
   const sideBarBottomLinks = useSidebarBottomLinks()
-
-  const handleLogout = () => {
-    logoutApi.logout()
-  }
 
   const { dataCenter, isLoading: isDataCenterLoading } =
     useContext(DataCenterContext)
@@ -66,6 +62,8 @@ const Layout = (props: PropsWithChildren) => {
     }
   })
 
+  const functionBarItems = useFunctionBarItems()
+
   return (
     <div className="h-svh min-w-full overflow-hidden bg-scene-background">
       <div className="flex h-svh flex-row">
@@ -82,8 +80,7 @@ const Layout = (props: PropsWithChildren) => {
           <CosHeader
             isLoading={isIntegrationsLoading}
             quickAccesses={quickAccesses}
-            notificationContainer={<Link to={CosRoutesEnum.EVENTS_PAGE} />}
-            onLogout={handleLogout}
+            functionBarItems={functionBarItems}
           />
           {/**
            * Only render <Content> when `dataCenter` is available,

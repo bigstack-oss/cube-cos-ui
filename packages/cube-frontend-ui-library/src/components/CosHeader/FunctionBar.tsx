@@ -1,46 +1,59 @@
-import NotificationIcon from '@cube-frontend/ui-library/icons/monochrome/notification.svg?react'
-import LogoutIcon from '@cube-frontend/ui-library/icons/monochrome/logout.svg?react'
+import { ComponentType, createElement, PropsWithChildren } from 'react'
 import { CosButton } from '../CosButton/CosButton'
-import { cloneElement, PropsWithChildren, ReactElement } from 'react'
-import { PropsWithClassName } from '@cube-frontend/utils'
+import { SvgComponent } from '../CosIcon/CosIcon'
+import { CosTooltip } from '../CosTooltip/CosTooltip'
 
 export type FunctionBarProps = {
-  notificationContainer?: ReactElement<PropsWithClassName & PropsWithChildren>
-  onLogout: () => void
+  items: FunctionBarItem[]
+}
+
+export type FunctionBarItem<
+  ContainerProps extends PropsWithChildren = PropsWithChildren,
+> = {
+  Icon: SvgComponent
+  hoverMessage?: string
+  onClick?: () => void
+  container?: {
+    Component: ComponentType<ContainerProps>
+    props: ContainerProps
+  }
 }
 
 export const FunctionBar = (props: FunctionBarProps) => {
-  const { notificationContainer, onLogout } = props
+  const { items } = props
 
-  const renderNotification = () => {
+  const renderItem = (item: (typeof items)[number]) => {
+    const { Icon, onClick, container } = item
+
     const button = (
       <CosButton
         size="md"
         type="ghost"
         usage="icon-only"
-        Icon={NotificationIcon}
+        Icon={Icon}
+        onClick={onClick}
       />
     )
 
-    if (!notificationContainer) {
+    if (!container) {
       return button
     }
 
-    return cloneElement(notificationContainer, {
-      children: button,
-    })
+    return createElement(container.Component, container.props, button)
   }
 
   return (
     <div className="flex flex-row items-center">
-      {renderNotification()}
-      <CosButton
-        size="md"
-        type="ghost"
-        usage="icon-only"
-        Icon={LogoutIcon}
-        onClick={() => onLogout()}
-      />
+      {items.map((item, index) => (
+        <CosTooltip
+          key={index}
+          hoverContent={
+            item.hoverMessage ? { message: item.hoverMessage } : undefined
+          }
+        >
+          {renderItem(item)}
+        </CosTooltip>
+      ))}
     </div>
   )
 }
