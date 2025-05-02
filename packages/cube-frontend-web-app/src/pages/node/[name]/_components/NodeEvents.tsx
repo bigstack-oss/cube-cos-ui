@@ -111,6 +111,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
         />
       </div>
       <EventTable isLoading={!node} rows={rows} skeletonRowCount={10}>
+        <EventTable.Column label="Severity" property="severity" />
         <EventTable.Column label="Event ID" property="eventId" />
         <EventTable.Column label="Timestamp" property="time">
           {(time) => dayjs.respectTzOffset(time).format('YYYY/MM/DD HH:mm:ss')}
