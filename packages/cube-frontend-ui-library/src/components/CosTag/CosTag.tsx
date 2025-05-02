@@ -10,12 +10,23 @@ import { createDarkStyles } from './darkStyles'
 import { createDefaultStyles } from './defaultStyles'
 import { createPrimaryBlueStyles } from './primaryBlueStyles'
 import { Compound } from './styleUtils'
+import { CosTagSkeleton } from './CosTagSkeleton'
 
 export type CosTagProps = PropsWithClassName & {
-  children: string
+  children?: string
+  /**
+   * @default default
+   */
   color?: CosTagColor
   variant: CosTagVariant
+  /**
+   * @default false
+   */
   disabled?: boolean
+  /**
+   * @default false
+   */
+  isLoading?: boolean
 } & (
     | // The props for the close button and icon are both optional.
     // To allow this, we need to add an empty object to the union type.
@@ -79,6 +90,7 @@ export const CosTag = (props: CosTagProps) => {
     color = 'default',
     variant,
     disabled = false,
+    isLoading = false,
   } = props
 
   const hasIcon = 'Icon' in props
@@ -108,6 +120,8 @@ export const CosTag = (props: CosTagProps) => {
 
     return <X className={closeButton({ disabled })} onClick={onClose} />
   }
+
+  if (isLoading) return <CosTagSkeleton hasIcon={hasIcon || hasCloseButton} />
 
   return (
     <span

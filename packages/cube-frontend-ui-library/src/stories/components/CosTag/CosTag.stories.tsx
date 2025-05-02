@@ -2,6 +2,7 @@ import { CosTag } from '@cube-frontend/ui-library'
 import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { TagLayout } from './TagLayout'
+import { TagSkeletonLayout } from './TagSkeletonLayout'
 
 const meta = {
   title: 'Atoms/Tags',
@@ -30,6 +31,9 @@ const TagGallery = () => {
       </StoryLayout.Section>
       <StoryLayout.Section title="Dark">
         <TagLayout color="dark" />
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Skeleton">
+        <TagSkeletonLayout />
       </StoryLayout.Section>
     </StoryLayout>
   )
