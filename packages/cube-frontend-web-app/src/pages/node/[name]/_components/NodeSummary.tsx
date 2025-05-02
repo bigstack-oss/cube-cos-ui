@@ -114,6 +114,16 @@ export const NodeSummary = (props: NodeSummaryProps) => {
     )
   }
 
+  const getLicenseExpiration = (): string => {
+    const { date } = node.license.expiry
+
+    if (!date) {
+      return 'Unlicense'
+    }
+
+    return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm')
+  }
+
   return (
     <Panel className="gap-y-6">
       <div className="flex items-center justify-between">
@@ -137,21 +147,16 @@ export const NodeSummary = (props: NodeSummaryProps) => {
       <CosStroke type="dot" />
       <table className="w-fit min-w-[560px] border-separate border-spacing-0">
         <tbody>
-          {renderRow('CPU spec', node.cpuSpec)}
+          {renderRow('CPU Spec', node.cpuSpec)}
           {renderRow(
-            'Memory spec',
+            'Memory Spec',
             toReadableSizeString(node.memory.totalMiB, 'MiB'),
           )}
           {renderRow(
-            'Up time',
+            'Up Time',
             dayjs.duration(node.uptimeSeconds, 'seconds').humanize(),
           )}
-          {renderRow(
-            'Expires at',
-            dayjs
-              .respectTzOffset(node.license.expiry.date)
-              .format('YYYY/MM/DD HH:mm'),
-          )}
+          {renderRow('License Expiration', getLicenseExpiration())}
           {renderRow(
             'Management IP',
             <div className="flex items-center gap-x-5">

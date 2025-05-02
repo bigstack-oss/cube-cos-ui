@@ -14,6 +14,8 @@ export const formatPanelUpdateTime = (date: Dayjs) => {
 }
 
 export const toLicenseDateDisplay = (date: string) => {
+  // TODO: i18n
+  if (!date) return 'Unlicense'
   return dayjs.respectTzOffset(date).format('YYYY/MM/DD')
 }
 

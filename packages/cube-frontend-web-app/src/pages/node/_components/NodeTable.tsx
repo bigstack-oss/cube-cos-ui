@@ -66,7 +66,10 @@ export const NodeTable = (props: NodeTableProps) => {
           </CosTag>
         )}
       </BatchActionNodeTable.Column>
-      <BatchActionNodeTable.Column label="License Expire" property="license">
+      <BatchActionNodeTable.Column
+        label="License Expiration"
+        property="license"
+      >
         {(license) => toLicenseDateDisplay(license.expiry.date)}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column

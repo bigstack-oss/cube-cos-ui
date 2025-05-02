@@ -65,7 +65,7 @@ export const NodeTable = (props: NodeTableProps) => {
           </CosTag>
         )}
       </BasicNodeTable.Column>
-      <BasicNodeTable.Column label="License Expire" property="license">
+      <BasicNodeTable.Column label="License Expiration" property="license">
         {(license) => toLicenseDateDisplay(license.expiry.date)}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
