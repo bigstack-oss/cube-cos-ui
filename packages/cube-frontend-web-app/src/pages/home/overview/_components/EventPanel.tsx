@@ -1,4 +1,3 @@
-import { useContext, useMemo, useState } from 'react'
 import {
   EventsApiGetAbstractedEventsRequest,
   GetAbstractedEventsResponseData,
@@ -11,14 +10,15 @@ import {
 } from '@cube-frontend/ui-library'
 import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { formatEventTime } from '@cube-frontend/web-app/utils/date'
-import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
-import { noop } from 'lodash'
-import { Link } from 'react-router'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
+import { formatEventTime } from '@cube-frontend/web-app/utils/date'
+import { noop } from 'lodash'
+import { useContext, useMemo, useState } from 'react'
+import { Link } from 'react-router'
+import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
 
 const HOME_PAGE_EVENT_ROW_LIMIT = 5
 
@@ -103,7 +103,7 @@ export const EventPanel = () => {
           </CosContentSwitcher.Item>
         </CosContentSwitcher>
         <EventTable rows={rows} isLoading={isLoading}>
-          <EventTable.Column label="Type" property="type" />
+          <EventTable.Column label="Severity" property="severity" />
           <EventTable.Column
             label="Event ID"
             property="eventId"
