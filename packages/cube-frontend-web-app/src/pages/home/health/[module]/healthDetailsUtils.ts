@@ -1,4 +1,4 @@
-import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
+import { GetServiceHealthHistoryResponseDataInnerHistoryInner } from '@cube-frontend/api'
 import {
   createTimePoints,
   TimePoint,
@@ -7,12 +7,13 @@ import { Dayjs } from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import { HealthTimeRange } from '../healthTimeRangeUtils'
 
-export type HistoryRow = GetModuleHealthHistoryResponseDataHistoryInner & {
-  id: string
-}
+export type HistoryRow =
+  GetServiceHealthHistoryResponseDataInnerHistoryInner & {
+    id: string
+  }
 
 export const historyToTableRows = (
-  history: GetModuleHealthHistoryResponseDataHistoryInner[],
+  history: GetServiceHealthHistoryResponseDataInnerHistoryInner[],
 ): HistoryRow[] => {
   return history.map((entry) => ({
     ...entry,

@@ -1,18 +1,18 @@
 import {
-  GetModuleHealthHistoryResponseDataHistoryInner,
-  GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum,
+  GetServiceHealthHistoryResponseDataInnerHistoryInner,
+  GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum,
 } from '@cube-frontend/api'
 import { CosTooltipInformation, Segment } from '@cube-frontend/ui-library'
 import { FillColorClass } from '@cube-frontend/ui-theme'
 import dayjs, { Dayjs } from 'dayjs'
 import { TimePoint } from './createTimePoints'
 
-type HistoryEntry = GetModuleHealthHistoryResponseDataHistoryInner
+type HistoryEntry = GetServiceHealthHistoryResponseDataInnerHistoryInner
 
 export type HealthSegment = Segment & HealthInfo
 
 export type HealthStatus =
-  | GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum
+  | GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum
   | 'blank'
 
 type HealthInfo = {

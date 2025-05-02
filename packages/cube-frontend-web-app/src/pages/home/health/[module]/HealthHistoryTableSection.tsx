@@ -1,4 +1,4 @@
-import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
+import { GetServiceHealthHistoryResponseDataInnerHistoryInner } from '@cube-frontend/api'
 import {
   CosPagination,
   DEFAULT_ITEMS_PER_PAGE,
@@ -11,7 +11,7 @@ import { useMemo, useState } from 'react'
 import { HistoryRow, historyToTableRows } from './healthDetailsUtils'
 
 export type HealthHistoryTableSectionProps = {
-  history: GetModuleHealthHistoryResponseDataHistoryInner[] | undefined
+  history: GetServiceHealthHistoryResponseDataInnerHistoryInner[] | undefined
   activeRow: HistoryRow | undefined
   onRowClick: (row: HistoryRow) => void
 }
@@ -71,7 +71,7 @@ export const HealthHistoryTableSection = (
           {upperCase}
         </HistoryTable.Column>
         <HistoryTable.Column label="Reason" property="error">
-          {(error) => error?.description}
+          {(error) => error?.reason}
         </HistoryTable.Column>
       </HistoryTable>
       <CosPagination

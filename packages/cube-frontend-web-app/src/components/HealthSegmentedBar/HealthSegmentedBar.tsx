@@ -1,4 +1,4 @@
-import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
+import { GetServiceHealthHistoryResponseDataInnerHistoryInner } from '@cube-frontend/api'
 import {
   CosSegmentedBar,
   CosSegmentedBarProps,
@@ -9,7 +9,7 @@ import { computeHealthSegments, HealthSegment } from './computeHealthSegments'
 import { TimePoint } from './createTimePoints'
 
 export type HealthSegmentedBarProps = PropsWithClassName & {
-  history: GetModuleHealthHistoryResponseDataHistoryInner[]
+  history: GetServiceHealthHistoryResponseDataInnerHistoryInner[]
   timePoints: TimePoint[]
 } & Pick<CosSegmentedBarProps, 'width' | 'childrenDimensions' | 'children'>
 

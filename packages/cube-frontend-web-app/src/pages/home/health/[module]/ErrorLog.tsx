@@ -1,9 +1,9 @@
-import { GetModuleHealthHistoryResponseDataHistoryInnerError } from '@cube-frontend/api'
+import { GetServiceHealthHistoryResponseDataInnerHistoryInnerError } from '@cube-frontend/api'
 import { CosHyperlink, CosTooltip } from '@cube-frontend/ui-library'
 import { twMerge } from 'tailwind-merge'
 
 export type ErrorLogProps = {
-  error: GetModuleHealthHistoryResponseDataHistoryInnerError
+  error: GetServiceHealthHistoryResponseDataInnerHistoryInnerError
 }
 
 export const ErrorLog = (props: ErrorLogProps) => {
@@ -43,7 +43,7 @@ export const ErrorLog = (props: ErrorLogProps) => {
           </button>
         </CosTooltip>
       </div>
-      <div className="primary-body3 rounded-b-[5px] bg-dark-700 px-6 py-4 text-functional-border-darker">
+      <div className="primary-body3 whitespace-pre-line rounded-b-[5px] bg-dark-700 px-6 py-4 text-functional-border-darker">
         {error.details}
       </div>
     </div>
