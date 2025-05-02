@@ -1,17 +1,19 @@
 import {
   GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus,
+  GetLicenseAttachmentsResponseDataInner,
   GetLicensesResponseDataLicensesInnerExpiry,
 } from '@cube-frontend/api'
 import { toPluralizeDisplay } from '@cube-frontend/utils'
+import { BatchLicenseAttachmentTableRow } from './LicenseActions/HardwareSerialNumberModal/LicenseAttachmentTable'
 
 export type InvalidLicenseMessageKey = Exclude<
   keyof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus,
   'valid'
 >
+
 /**
  * The most left item in the array has the highest priority
  */
-
 export const invalidLicenseTypePriority = [
   'unlicense',
   'expired',
@@ -72,4 +74,32 @@ export const getLicenseExpiryStatus = (expiryDays: number) => {
 
 export const isLicenseExpiring = (expiryDays: number) => {
   return expiryDays > 0 && expiryDays <= 30
+}
+
+/**
+ * The API response does not include a license attachment id field,
+ * so we need to create a unique id for each row in the table.
+ *
+ * 1 host can have multiple licenses, with 0 or 1 licenses per product.
+ */
+const getRowId = (
+  licenseAttachment: GetLicenseAttachmentsResponseDataInner,
+) => {
+  const { product, hostname, serialNumber } = licenseAttachment
+  return `${product}-${hostname}-${serialNumber}`
+}
+
+const mapToTableRow = (
+  licenseAttachment: GetLicenseAttachmentsResponseDataInner,
+): BatchLicenseAttachmentTableRow => {
+  return {
+    id: getRowId(licenseAttachment),
+    ...licenseAttachment,
+  }
+}
+
+export const mapToTableRows = (
+  licenseAttachments: GetLicenseAttachmentsResponseDataInner[] | undefined,
+): BatchLicenseAttachmentTableRow[] => {
+  return licenseAttachments?.map(mapToTableRow) ?? []
 }

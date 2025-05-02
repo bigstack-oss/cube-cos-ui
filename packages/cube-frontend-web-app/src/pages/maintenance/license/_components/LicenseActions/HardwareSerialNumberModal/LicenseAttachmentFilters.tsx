@@ -1,10 +1,10 @@
+import { GetNodesRolesEnum, NodeLicenseCurrentStatus } from '@cube-frontend/api'
 import { CosIconFrame, CosSearchBarFilter } from '@cube-frontend/ui-library'
-import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
 import XIcon from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
-import { NodeLicenseCurrentStatus, GetNodesRolesEnum } from '@cube-frontend/api'
+import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
 import { NodeLicenseStatusFilter } from './NodeLicenseStatusFilter'
 
-export type HostLicenseFiltersProps = {
+export type LicenseAttachmentFiltersProps = {
   searchKeyword: string
   handleSearchKeywordChange: (value: string) => void
   handleSearchKeywordClear: () => void
@@ -16,7 +16,9 @@ export type HostLicenseFiltersProps = {
   ) => void
 }
 
-export const HostLicenseFilters = (props: HostLicenseFiltersProps) => {
+export const LicenseAttachmentFilters = (
+  props: LicenseAttachmentFiltersProps,
+) => {
   const {
     searchKeyword,
     handleSearchKeywordChange,

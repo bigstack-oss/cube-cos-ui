@@ -3476,10 +3476,80 @@ export interface GetModuleHealthHistoryResponseData {
     'isRepairable': boolean;
     /**
      * 
-     * @type {Array<GetServiceHealthHistoryResponseDataInnerHistoryInner>}
+     * @type {Array<GetModuleHealthHistoryResponseDataHistoryInner>}
      * @memberof GetModuleHealthHistoryResponseData
      */
-    'history': Array<GetServiceHealthHistoryResponseDataInnerHistoryInner>;
+    'history': Array<GetModuleHealthHistoryResponseDataHistoryInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetModuleHealthHistoryResponseDataHistoryInner
+ */
+export interface GetModuleHealthHistoryResponseDataHistoryInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
+     */
+    'time': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
+     */
+    'status': GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum;
+    /**
+     * 
+     * @type {GetModuleHealthHistoryResponseDataHistoryInnerError}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
+     */
+    'error'?: GetModuleHealthHistoryResponseDataHistoryInnerError;
+}
+
+export const GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum = {
+    Ok: 'ok',
+    Ng: 'ng'
+} as const;
+
+export type GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum = typeof GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum[keyof typeof GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface GetModuleHealthHistoryResponseDataHistoryInnerError
+ */
+export interface GetModuleHealthHistoryResponseDataHistoryInnerError {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
+     */
+    'type'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
+     */
+    'nodes'?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
+     */
+    'details'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
+     */
+    'log'?: string;
 }
 /**
  * 
@@ -3745,25 +3815,25 @@ export interface GetOpenSearchDashboardLinkResponse {
 /**
  * 
  * @export
- * @interface GetOpenSearchInstances500Response
+ * @interface GetOpenSearchRequestDashboard500Response
  */
-export interface GetOpenSearchInstances500Response {
+export interface GetOpenSearchRequestDashboard500Response {
     /**
      * 
      * @type {number}
-     * @memberof GetOpenSearchInstances500Response
+     * @memberof GetOpenSearchRequestDashboard500Response
      */
     'code'?: number;
     /**
      * 
      * @type {string}
-     * @memberof GetOpenSearchInstances500Response
+     * @memberof GetOpenSearchRequestDashboard500Response
      */
     'msg'?: string;
     /**
      * 
      * @type {string}
-     * @memberof GetOpenSearchInstances500Response
+     * @memberof GetOpenSearchRequestDashboard500Response
      */
     'status'?: string;
 }
@@ -3831,6 +3901,36 @@ export interface GetRankedEventsResponseDataEventsInner {
     'id': string;
     /**
      * 
+     * @type {string}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'severity'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'category'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'host'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'instanceId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetRankedEventsResponseDataEventsInner
+     */
+    'instanceName'?: string;
+    /**
+     * 
      * @type {number}
      * @memberof GetRankedEventsResponseDataEventsInner
      */
@@ -3841,12 +3941,6 @@ export interface GetRankedEventsResponseDataEventsInner {
      * @memberof GetRankedEventsResponseDataEventsInner
      */
     'number': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetRankedEventsResponseDataEventsInner
-     */
-    'query': string;
 }
 /**
  * 
@@ -7669,9 +7763,13 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetRankedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
          * @param {string} [category] The category of the event to query.
+         * @param {Array<string>} [categories] The categories of the event to query.
          * @param {string} [severity] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+         * @param {Array<string>} [severities] The severities of the event to query.
          * @param {string} [host] The host of the event to query.
+         * @param {Array<string>} [hosts] The hosts of the event to query.
          * @param {string} [instance] The instance of the event to query.
+         * @param {Array<string>} [instances] The instances of the event to query.
          * @param {GetRankedEventsPastEnum} [past] The past time of the event rank to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
@@ -7680,7 +7778,7 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRankedEvents: async (dataCenter: string, type: GetRankedEventsTypeEnum, category?: string, severity?: string, host?: string, instance?: string, past?: GetRankedEventsPastEnum, start?: string, stop?: string, limit?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRankedEvents: async (dataCenter: string, type: GetRankedEventsTypeEnum, category?: string, categories?: Array<string>, severity?: string, severities?: Array<string>, host?: string, hosts?: Array<string>, instance?: string, instances?: Array<string>, past?: GetRankedEventsPastEnum, start?: string, stop?: string, limit?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getRankedEvents', 'dataCenter', dataCenter)
             // verify required parameter 'type' is not null or undefined
@@ -7706,16 +7804,32 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['category'] = category;
             }
 
+            if (categories) {
+                localVarQueryParameter['categories'] = categories;
+            }
+
             if (severity !== undefined) {
                 localVarQueryParameter['severity'] = severity;
+            }
+
+            if (severities) {
+                localVarQueryParameter['severities'] = severities;
             }
 
             if (host !== undefined) {
                 localVarQueryParameter['host'] = host;
             }
 
+            if (hosts) {
+                localVarQueryParameter['hosts'] = hosts;
+            }
+
             if (instance !== undefined) {
                 localVarQueryParameter['instance'] = instance;
+            }
+
+            if (instances) {
+                localVarQueryParameter['instances'] = instances;
             }
 
             if (past !== undefined) {
@@ -7823,9 +7937,13 @@ export const EventsApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetRankedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
          * @param {string} [category] The category of the event to query.
+         * @param {Array<string>} [categories] The categories of the event to query.
          * @param {string} [severity] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+         * @param {Array<string>} [severities] The severities of the event to query.
          * @param {string} [host] The host of the event to query.
+         * @param {Array<string>} [hosts] The hosts of the event to query.
          * @param {string} [instance] The instance of the event to query.
+         * @param {Array<string>} [instances] The instances of the event to query.
          * @param {GetRankedEventsPastEnum} [past] The past time of the event rank to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
@@ -7834,8 +7952,8 @@ export const EventsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRankedEvents(dataCenter: string, type: GetRankedEventsTypeEnum, category?: string, severity?: string, host?: string, instance?: string, past?: GetRankedEventsPastEnum, start?: string, stop?: string, limit?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetRankedEventsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRankedEvents(dataCenter, type, category, severity, host, instance, past, start, stop, limit, watch, options);
+        async getRankedEvents(dataCenter: string, type: GetRankedEventsTypeEnum, category?: string, categories?: Array<string>, severity?: string, severities?: Array<string>, host?: string, hosts?: Array<string>, instance?: string, instances?: Array<string>, past?: GetRankedEventsPastEnum, start?: string, stop?: string, limit?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetRankedEventsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRankedEvents(dataCenter, type, category, categories, severity, severities, host, hosts, instance, instances, past, start, stop, limit, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EventsApi.getRankedEvents']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7888,7 +8006,7 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getRankedEvents(requestParameters: EventsApiGetRankedEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetRankedEventsResponse> {
-            return localVarFp.getRankedEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.limit, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getRankedEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.category, requestParameters.categories, requestParameters.severity, requestParameters.severities, requestParameters.host, requestParameters.hosts, requestParameters.instance, requestParameters.instances, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.limit, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -8096,11 +8214,25 @@ export interface EventsApiGetRankedEventsRequest {
     readonly category?: string
 
     /**
+     * The categories of the event to query.
+     * @type {Array<string>}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly categories?: Array<string>
+
+    /**
      * The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
      * @type {string}
      * @memberof EventsApiGetRankedEvents
      */
     readonly severity?: string
+
+    /**
+     * The severities of the event to query.
+     * @type {Array<string>}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly severities?: Array<string>
 
     /**
      * The host of the event to query.
@@ -8110,11 +8242,25 @@ export interface EventsApiGetRankedEventsRequest {
     readonly host?: string
 
     /**
+     * The hosts of the event to query.
+     * @type {Array<string>}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly hosts?: Array<string>
+
+    /**
      * The instance of the event to query.
      * @type {string}
      * @memberof EventsApiGetRankedEvents
      */
     readonly instance?: string
+
+    /**
+     * The instances of the event to query.
+     * @type {Array<string>}
+     * @memberof EventsApiGetRankedEvents
+     */
+    readonly instances?: Array<string>
 
     /**
      * The past time of the event rank to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
@@ -8204,7 +8350,7 @@ export class EventsApi extends BaseAPI {
      * @memberof EventsApi
      */
     public getRankedEvents(requestParameters: EventsApiGetRankedEventsRequest, options?: RawAxiosRequestConfig) {
-        return EventsApiFp(this.configuration).getRankedEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.limit, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return EventsApiFp(this.configuration).getRankedEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.category, requestParameters.categories, requestParameters.severity, requestParameters.severities, requestParameters.host, requestParameters.hosts, requestParameters.instance, requestParameters.instances, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.limit, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -11621,20 +11767,20 @@ export const OpenSearchApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * 
-         * @summary Get OpenSearch instances dashboard
+         * @summary Get OpenSearch dashboard by request id
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} instanceId The instance ID of the instance to operate
+         * @param {string} requestId The request id of the openstack instance operation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOpenSearchInstances: async (dataCenter: string, instanceId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getOpenSearchRequestDashboard: async (dataCenter: string, requestId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
-            assertParamExists('getOpenSearchInstances', 'dataCenter', dataCenter)
-            // verify required parameter 'instanceId' is not null or undefined
-            assertParamExists('getOpenSearchInstances', 'instanceId', instanceId)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/opensearch/instances/{instanceId}`
+            assertParamExists('getOpenSearchRequestDashboard', 'dataCenter', dataCenter)
+            // verify required parameter 'requestId' is not null or undefined
+            assertParamExists('getOpenSearchRequestDashboard', 'requestId', requestId)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/opensearch/requests/{requestId}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
-                .replace(`{${"instanceId"}}`, encodeURIComponent(String(instanceId)));
+                .replace(`{${"requestId"}}`, encodeURIComponent(String(requestId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -11669,16 +11815,16 @@ export const OpenSearchApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Get OpenSearch instances dashboard
+         * @summary Get OpenSearch dashboard by request id
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} instanceId The instance ID of the instance to operate
+         * @param {string} requestId The request id of the openstack instance operation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOpenSearchInstances(dataCenter: string, instanceId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOpenSearchDashboardLinkResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOpenSearchInstances(dataCenter, instanceId, options);
+        async getOpenSearchRequestDashboard(dataCenter: string, requestId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOpenSearchDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOpenSearchRequestDashboard(dataCenter, requestId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['OpenSearchApi.getOpenSearchInstances']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['OpenSearchApi.getOpenSearchRequestDashboard']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -11693,36 +11839,36 @@ export const OpenSearchApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * 
-         * @summary Get OpenSearch instances dashboard
-         * @param {OpenSearchApiGetOpenSearchInstancesRequest} requestParameters Request parameters.
+         * @summary Get OpenSearch dashboard by request id
+         * @param {OpenSearchApiGetOpenSearchRequestDashboardRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOpenSearchInstances(requestParameters: OpenSearchApiGetOpenSearchInstancesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetOpenSearchDashboardLinkResponse> {
-            return localVarFp.getOpenSearchInstances(requestParameters.dataCenter, requestParameters.instanceId, options).then((request) => request(axios, basePath));
+        getOpenSearchRequestDashboard(requestParameters: OpenSearchApiGetOpenSearchRequestDashboardRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetOpenSearchDashboardLinkResponse> {
+            return localVarFp.getOpenSearchRequestDashboard(requestParameters.dataCenter, requestParameters.requestId, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for getOpenSearchInstances operation in OpenSearchApi.
+ * Request parameters for getOpenSearchRequestDashboard operation in OpenSearchApi.
  * @export
- * @interface OpenSearchApiGetOpenSearchInstancesRequest
+ * @interface OpenSearchApiGetOpenSearchRequestDashboardRequest
  */
-export interface OpenSearchApiGetOpenSearchInstancesRequest {
+export interface OpenSearchApiGetOpenSearchRequestDashboardRequest {
     /**
      * The name of the data center to operate
      * @type {string}
-     * @memberof OpenSearchApiGetOpenSearchInstances
+     * @memberof OpenSearchApiGetOpenSearchRequestDashboard
      */
     readonly dataCenter: string
 
     /**
-     * The instance ID of the instance to operate
+     * The request id of the openstack instance operation
      * @type {string}
-     * @memberof OpenSearchApiGetOpenSearchInstances
+     * @memberof OpenSearchApiGetOpenSearchRequestDashboard
      */
-    readonly instanceId: string
+    readonly requestId: string
 }
 
 /**
@@ -11734,14 +11880,14 @@ export interface OpenSearchApiGetOpenSearchInstancesRequest {
 export class OpenSearchApi extends BaseAPI {
     /**
      * 
-     * @summary Get OpenSearch instances dashboard
-     * @param {OpenSearchApiGetOpenSearchInstancesRequest} requestParameters Request parameters.
+     * @summary Get OpenSearch dashboard by request id
+     * @param {OpenSearchApiGetOpenSearchRequestDashboardRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OpenSearchApi
      */
-    public getOpenSearchInstances(requestParameters: OpenSearchApiGetOpenSearchInstancesRequest, options?: RawAxiosRequestConfig) {
-        return OpenSearchApiFp(this.configuration).getOpenSearchInstances(requestParameters.dataCenter, requestParameters.instanceId, options).then((request) => request(this.axios, this.basePath));
+    public getOpenSearchRequestDashboard(requestParameters: OpenSearchApiGetOpenSearchRequestDashboardRequest, options?: RawAxiosRequestConfig) {
+        return OpenSearchApiFp(this.configuration).getOpenSearchRequestDashboard(requestParameters.dataCenter, requestParameters.requestId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
