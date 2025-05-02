@@ -21,14 +21,14 @@ export const CosDatePickerCalendar = () => {
 
   const { start, end } = displayDates
 
-  const startDateOfCurrentMonth = currentMonth.startOf('month')
-
-  const month = startDateOfCurrentMonth.month()
+  const startDateOfCurrentMonth = useMemo(
+    () => currentMonth.startOf('month'),
+    [currentMonth],
+  )
 
   const weeks = useMemo(
     () => computeCalendarWeeks(startDateOfCurrentMonth),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [month],
+    [startDateOfCurrentMonth],
   )
 
   return (

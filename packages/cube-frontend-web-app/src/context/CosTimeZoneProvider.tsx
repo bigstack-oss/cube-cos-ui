@@ -5,14 +5,11 @@ import { CosTimeZoneContext } from '@cube-frontend/ui-library'
 export const CosTimeZoneProvider = (props: PropsWithChildren) => {
   const { children } = props
 
-  const { dataCenter, isLoading: isDataCenterLoading } =
-    useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
-  if (!dataCenter || isDataCenterLoading) return null
+  if (!dataCenter) return null
 
   const { utcTimeZone } = dataCenter
-
-  if (!utcTimeZone) return null
 
   return (
     <CosTimeZoneContext.Provider value={utcTimeZone}>
