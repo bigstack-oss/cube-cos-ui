@@ -2309,6 +2309,101 @@ export interface GetIntegrationsResponseDataInner {
 /**
  * 
  * @export
+ * @interface GetLicenseAttachments500Response
+ */
+export interface GetLicenseAttachments500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetLicenseAttachments500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicenseAttachments500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicenseAttachments500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetLicenseAttachmentsResponse
+ */
+export interface GetLicenseAttachmentsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetLicenseAttachmentsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<GetLicenseAttachmentsResponseDataInner>}
+     * @memberof GetLicenseAttachmentsResponse
+     */
+    'data': Array<GetLicenseAttachmentsResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicenseAttachmentsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicenseAttachmentsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetLicenseAttachmentsResponseDataInner
+ */
+export interface GetLicenseAttachmentsResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicenseAttachmentsResponseDataInner
+     */
+    'serialNumber': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicenseAttachmentsResponseDataInner
+     */
+    'hostname': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicenseAttachmentsResponseDataInner
+     */
+    'role': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLicenseAttachmentsResponseDataInner
+     */
+    'product': string;
+    /**
+     * 
+     * @type {NodeLicenseCurrentStatus}
+     * @memberof GetLicenseAttachmentsResponseDataInner
+     */
+    'status': NodeLicenseCurrentStatus;
+}
+
+
+/**
+ * 
+ * @export
  * @interface GetLicenses401Response
  */
 export interface GetLicenses401Response {
@@ -3381,80 +3476,10 @@ export interface GetModuleHealthHistoryResponseData {
     'isRepairable': boolean;
     /**
      * 
-     * @type {Array<GetModuleHealthHistoryResponseDataHistoryInner>}
+     * @type {Array<GetServiceHealthHistoryResponseDataInnerHistoryInner>}
      * @memberof GetModuleHealthHistoryResponseData
      */
-    'history': Array<GetModuleHealthHistoryResponseDataHistoryInner>;
-}
-/**
- * 
- * @export
- * @interface GetModuleHealthHistoryResponseDataHistoryInner
- */
-export interface GetModuleHealthHistoryResponseDataHistoryInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
-     */
-    'time': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
-     */
-    'status': GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum;
-    /**
-     * 
-     * @type {GetModuleHealthHistoryResponseDataHistoryInnerError}
-     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
-     */
-    'error'?: GetModuleHealthHistoryResponseDataHistoryInnerError;
-}
-
-export const GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum = {
-    Ok: 'ok',
-    Ng: 'ng'
-} as const;
-
-export type GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum = typeof GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum[keyof typeof GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum];
-
-/**
- * 
- * @export
- * @interface GetModuleHealthHistoryResponseDataHistoryInnerError
- */
-export interface GetModuleHealthHistoryResponseDataHistoryInnerError {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
-     */
-    'type'?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
-     */
-    'nodes'?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
-     */
-    'description'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
-     */
-    'details'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetModuleHealthHistoryResponseDataHistoryInnerError
-     */
-    'log'?: string;
+    'history': Array<GetServiceHealthHistoryResponseDataInnerHistoryInner>;
 }
 /**
  * 
@@ -9898,10 +9923,64 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @summary Retrieve the list of license attachments
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetLicenseAttachmentsProductEnum} [product] The product of the host
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {Array<GetLicenseAttachmentsRolesEnum>} [roles] The role of the host
+         * @param {Array<NodeLicenseCurrentStatus>} [statuses] The status of the host
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLicenseAttachments: async (dataCenter: string, product?: GetLicenseAttachmentsProductEnum, keyword?: string, roles?: Array<GetLicenseAttachmentsRolesEnum>, statuses?: Array<NodeLicenseCurrentStatus>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getLicenseAttachments', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses/attachments`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (product !== undefined) {
+                localVarQueryParameter['product'] = product;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+            if (roles) {
+                localVarQueryParameter['roles'] = roles;
+            }
+
+            if (statuses) {
+                localVarQueryParameter['statuses'] = statuses;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the list of licenses
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {Array<GetLicensesProductsEnum>} [products] The product of the host
+         * @param {Array<GetLicensesProductsEnum>} [products] The products of the host
          * @param {Array<ListLicenseCurrentStatus>} [statuses] The status of the host
          * @param {Array<GetLicensesTypesEnum>} [types] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
@@ -10116,10 +10195,27 @@ export const LicensesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Retrieve the list of license attachments
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {GetLicenseAttachmentsProductEnum} [product] The product of the host
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {Array<GetLicenseAttachmentsRolesEnum>} [roles] The role of the host
+         * @param {Array<NodeLicenseCurrentStatus>} [statuses] The status of the host
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLicenseAttachments(dataCenter: string, product?: GetLicenseAttachmentsProductEnum, keyword?: string, roles?: Array<GetLicenseAttachmentsRolesEnum>, statuses?: Array<NodeLicenseCurrentStatus>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicenseAttachmentsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenseAttachments(dataCenter, product, keyword, roles, statuses, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LicensesApi.getLicenseAttachments']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the list of licenses
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {Array<GetLicensesProductsEnum>} [products] The product of the host
+         * @param {Array<GetLicensesProductsEnum>} [products] The products of the host
          * @param {Array<ListLicenseCurrentStatus>} [statuses] The status of the host
          * @param {Array<GetLicensesTypesEnum>} [types] The type of the license to query, click \&#39;try it out\&#39; to see a few options.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
@@ -10189,6 +10285,16 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
+         * @summary Retrieve the list of license attachments
+         * @param {LicensesApiGetLicenseAttachmentsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLicenseAttachments(requestParameters: LicensesApiGetLicenseAttachmentsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetLicenseAttachmentsResponse> {
+            return localVarFp.getLicenseAttachments(requestParameters.dataCenter, requestParameters.product, requestParameters.keyword, requestParameters.roles, requestParameters.statuses, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve the list of licenses
          * @param {LicensesApiGetLicensesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -10231,6 +10337,48 @@ export const LicensesApiFactory = function (configuration?: Configuration, baseP
 };
 
 /**
+ * Request parameters for getLicenseAttachments operation in LicensesApi.
+ * @export
+ * @interface LicensesApiGetLicenseAttachmentsRequest
+ */
+export interface LicensesApiGetLicenseAttachmentsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof LicensesApiGetLicenseAttachments
+     */
+    readonly dataCenter: string
+
+    /**
+     * The product of the host
+     * @type {'CubeCOS' | 'CubeCMP'}
+     * @memberof LicensesApiGetLicenseAttachments
+     */
+    readonly product?: GetLicenseAttachmentsProductEnum
+
+    /**
+     * The keyword to search, can be any string
+     * @type {string}
+     * @memberof LicensesApiGetLicenseAttachments
+     */
+    readonly keyword?: string
+
+    /**
+     * The role of the host
+     * @type {Array<'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'>}
+     * @memberof LicensesApiGetLicenseAttachments
+     */
+    readonly roles?: Array<GetLicenseAttachmentsRolesEnum>
+
+    /**
+     * The status of the host
+     * @type {Array<NodeLicenseCurrentStatus>}
+     * @memberof LicensesApiGetLicenseAttachments
+     */
+    readonly statuses?: Array<NodeLicenseCurrentStatus>
+}
+
+/**
  * Request parameters for getLicenses operation in LicensesApi.
  * @export
  * @interface LicensesApiGetLicensesRequest
@@ -10251,7 +10399,7 @@ export interface LicensesApiGetLicensesRequest {
     readonly keyword?: string
 
     /**
-     * The product of the host
+     * The products of the host
      * @type {Array<'CubeCOS' | 'CubeCMP'>}
      * @memberof LicensesApiGetLicenses
      */
@@ -10372,6 +10520,18 @@ export interface LicensesApiVerifyLicenseRequest {
 export class LicensesApi extends BaseAPI {
     /**
      * 
+     * @summary Retrieve the list of license attachments
+     * @param {LicensesApiGetLicenseAttachmentsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LicensesApi
+     */
+    public getLicenseAttachments(requestParameters: LicensesApiGetLicenseAttachmentsRequest, options?: RawAxiosRequestConfig) {
+        return LicensesApiFp(this.configuration).getLicenseAttachments(requestParameters.dataCenter, requestParameters.product, requestParameters.keyword, requestParameters.roles, requestParameters.statuses, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve the list of licenses
      * @param {LicensesApiGetLicensesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -10419,6 +10579,26 @@ export class LicensesApi extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const GetLicenseAttachmentsProductEnum = {
+    CubeCos: 'CubeCOS',
+    CubeCmp: 'CubeCMP'
+} as const;
+export type GetLicenseAttachmentsProductEnum = typeof GetLicenseAttachmentsProductEnum[keyof typeof GetLicenseAttachmentsProductEnum];
+/**
+ * @export
+ */
+export const GetLicenseAttachmentsRolesEnum = {
+    ControlConverged: 'control-converged',
+    Control: 'control',
+    Compute: 'compute',
+    Storage: 'storage',
+    EdgeCore: 'edge-core',
+    Moderator: 'moderator'
+} as const;
+export type GetLicenseAttachmentsRolesEnum = typeof GetLicenseAttachmentsRolesEnum[keyof typeof GetLicenseAttachmentsRolesEnum];
 /**
  * @export
  */
@@ -11148,7 +11328,7 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {Array<GetNodesRolesEnum>} [roles] The role of the host
          * @param {Array<NodeLicenseCurrentStatus>} [licenseStatuses] The license status of the host
-         * @param {Array<GetNodesProductsEnum>} [products] The product of the host
+         * @param {Array<GetNodesProductsEnum>} [products] The products of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
@@ -11242,7 +11422,7 @@ export const NodesApiFp = function(configuration?: Configuration) {
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {Array<GetNodesRolesEnum>} [roles] The role of the host
          * @param {Array<NodeLicenseCurrentStatus>} [licenseStatuses] The license status of the host
-         * @param {Array<GetNodesProductsEnum>} [products] The product of the host
+         * @param {Array<GetNodesProductsEnum>} [products] The products of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
@@ -11351,7 +11531,7 @@ export interface NodesApiGetNodesRequest {
     readonly licenseStatuses?: Array<NodeLicenseCurrentStatus>
 
     /**
-     * The product of the host
+     * The products of the host
      * @type {Array<'CubeCOS' | 'CubeCMP'>}
      * @memberof NodesApiGetNodes
      */
