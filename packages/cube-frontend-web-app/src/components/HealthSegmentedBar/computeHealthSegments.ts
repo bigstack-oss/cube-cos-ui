@@ -267,12 +267,13 @@ const createSegment = (options: CreateSegmentOptions): HealthSegment => {
   }
 }
 
-const createHoverContent = (
-  segment: HealthSegment,
-): CosTooltipInformation | undefined => {
+const createHoverContent = (segment: HealthSegment): CosTooltipInformation => {
   const { status, startDateTime, endDateTime } = segment
+
   if (status === 'blank') {
-    return undefined
+    return {
+      message: 'No data',
+    }
   }
 
   const formatDateTime = (dateTime: Dayjs): string => {
