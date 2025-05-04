@@ -82,6 +82,7 @@ const defaultArgs = {
       onClick: noop,
     },
   ],
+  utcTimeZone: '+08:00',
   links: [
     { text: 'CubeCMP', href: '/' },
     { text: 'Help', href: '/' },
@@ -105,7 +106,7 @@ export const Group: Story = {
 export const Unit: Story = {
   args: defaultArgs,
   render: (props) => {
-    const { dataCenter, username, options, links } = props
+    const { dataCenter, username, options, utcTimeZone, links } = props
 
     return (
       <StoryLayout title="Sidebar - Unit" useSceneBgColor={true}>
@@ -122,7 +123,9 @@ export const Unit: Story = {
           <SideBarOptionsGrid option={options[0]} />
         </StoryLayout.Section>
         <StoryLayout.Section title="Bottom">
-          <SideBarBottom links={links} />
+          <div className="w-[200px]">
+            <SideBarBottom utcTimeZone={utcTimeZone} links={links} />
+          </div>
         </StoryLayout.Section>
       </StoryLayout>
     )

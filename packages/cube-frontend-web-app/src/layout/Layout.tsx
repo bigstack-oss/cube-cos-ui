@@ -81,6 +81,7 @@ const Layout = (props: PropsWithChildren) => {
           naggingProps={sideBarNaggingProps}
           username={userInfo?.name}
           options={sideBarOptions}
+          utcTimeZone={dataCenter?.utcTimeZone}
           links={sideBarBottomLinks}
         />
         <div className="max-w-[calc(100svw_-_200px)] flex-1">

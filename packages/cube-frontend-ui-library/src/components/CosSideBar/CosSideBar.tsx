@@ -2,6 +2,7 @@ import SideBarBottom, { SideBarBottomProps } from './SideBarBottom'
 import SideBarCombobox, { SideBarComboboxProps } from './SideBarCombobox'
 import SideBarTitle, { SideBarTitleProps } from './SideBarTitle'
 import SideBarUserInfo, { SideBarUserInfoProps } from './SideBarUserInfo'
+import SideBarDivider from './SideBarDivider'
 
 export type CosSideBarProps = SideBarTitleProps &
   SideBarUserInfoProps &
@@ -17,6 +18,7 @@ export const CosSideBar = (props: CosSideBarProps) => {
     options,
     links,
     naggingProps,
+    utcTimeZone,
   } = props
 
   return (
@@ -25,14 +27,21 @@ export const CosSideBar = (props: CosSideBarProps) => {
       style={{ boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)' }}
     >
       <SideBarTitle LogoContainer={LogoContainer} />
+      <SideBarDivider />
       <SideBarUserInfo
         isLoading={isLoading}
         dataCenter={dataCenter}
         username={username}
         naggingProps={naggingProps}
       />
+      <SideBarDivider />
       <SideBarCombobox options={options} />
-      <SideBarBottom links={links} />
+      <SideBarDivider />
+      <SideBarBottom
+        isLoading={isLoading}
+        utcTimeZone={utcTimeZone}
+        links={links}
+      />
     </div>
   )
 }

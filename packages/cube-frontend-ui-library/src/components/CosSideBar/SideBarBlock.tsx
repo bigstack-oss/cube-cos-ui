@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react'
 import { twJoin, twMerge } from 'tailwind-merge'
 
 const borderClass = twJoin(
-  'w-[200px] border-b border-functional-border-divider bg-grey-0',
+  'w-[200px] border-functional-border-divider bg-grey-0',
 )
 
 type SideBarBlockProps = PropsWithClassName & PropsWithChildren

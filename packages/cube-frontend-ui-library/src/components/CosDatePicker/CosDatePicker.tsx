@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { Dayjs } from 'dayjs'
 import { useFloating } from '../../internal/utils/floating/useFloating'
-import { useTimeZoneTime } from './useTimeZoneTime'
+import { useTimeZoneTime } from '../../internal/utils/timeZone/useTimeZoneTime'
 import { CosTimeZoneContext } from './CosTimeZoneContext'
 import { CosDatePickerTrigger } from './CosDatePickerTrigger'
 import { CosDatePickerMenu } from './CosDatePickerMenu'
@@ -38,7 +38,7 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
 
   const timeZone = useContext(CosTimeZoneContext)
 
-  const now = useTimeZoneTime(timeZone)
+  const now = useTimeZoneTime(timeZone, 5000)
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
