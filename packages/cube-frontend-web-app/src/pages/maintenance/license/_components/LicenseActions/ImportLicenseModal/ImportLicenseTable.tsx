@@ -1,6 +1,6 @@
 import { VerifyLicenseResponseDataLicense } from '@cube-frontend/api'
 import { CosTableRow, GetCosBasicTable } from '@cube-frontend/ui-library'
-import { toLicenseDateDisplay } from '@cube-frontend/web-app/utils/date'
+import { formatLicenseDate } from '@cube-frontend/web-app/utils/date'
 
 export type LicenseDetailRow = {
   key: string
@@ -22,12 +22,12 @@ export const ImportLicenseTable = (props: ImportLicenseTableProps) => {
     { key: 'Support Plan', value: license.supportPlan },
     {
       key: 'Issue Date',
-      value: toLicenseDateDisplay(license.issue.date),
+      value: formatLicenseDate(license.issue.date),
     },
     { key: 'Issuer', value: license.issue.by },
     {
       key: 'Expire Date',
-      value: toLicenseDateDisplay(license.expiry.date),
+      value: formatLicenseDate(license.expiry.date),
     },
     { key: 'Hardware serials', value: license.issue.hardware },
   ].map((kv) => ({ id: kv.key, ...kv }) satisfies LicenseDetailRow)

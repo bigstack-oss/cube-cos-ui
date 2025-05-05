@@ -1,3 +1,4 @@
+import { NodeLicense, NodeLicenseCurrentStatus } from '@cube-frontend/api'
 import { toPluralizeDisplay } from '@cube-frontend/utils'
 import dayjs, { Dayjs } from 'dayjs'
 
@@ -13,10 +14,18 @@ export const formatPanelUpdateTime = (date: Dayjs) => {
   return date.format('YYYY/MM/DD HH:mm')
 }
 
-export const toLicenseDateDisplay = (date: string) => {
-  // TODO: i18n
-  if (!date) return 'Unlicense'
+export const formatLicenseDate = (date: string) => {
   return dayjs.respectTzOffset(date).format('YYYY/MM/DD')
+}
+
+export const toLicenseExpirationDate = (
+  license: Pick<NodeLicense, 'status' | 'expiry'>,
+): string => {
+  if (license.status.current === NodeLicenseCurrentStatus.Unlicense) {
+    // TODO: i18n
+    return 'Unlicense'
+  }
+  return formatLicenseDate(license.expiry.date)
 }
 
 export const humanizeDuration = (durationSeconds: number) => {

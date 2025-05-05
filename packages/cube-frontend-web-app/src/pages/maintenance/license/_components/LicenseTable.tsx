@@ -7,7 +7,10 @@ import {
   GetCosViewDetailsTable,
   useExpandedRowIdSet,
 } from '@cube-frontend/ui-library'
-import { toLicenseDateDisplay } from '@cube-frontend/web-app/utils/date'
+import {
+  formatLicenseDate,
+  toLicenseExpirationDate,
+} from '@cube-frontend/web-app/utils/date'
 import { HostPreviewTableCell } from '@cube-frontend/web-app/components/HostPreviewTableCell/HostPreviewTableCell'
 import { HostListModal } from '@cube-frontend/web-app/components/HostPreviewTableCell/HostListModal'
 import { renderExpiredDays } from './utils'
@@ -79,10 +82,10 @@ export const LicenseTable = (props: LicenseTableProps) => {
           )}
         </LicenseViewDetailsTable.Column>
         <LicenseViewDetailsTable.Column label="Issue date" property="issue">
-          {(issue) => toLicenseDateDisplay(issue.date)}
+          {(issue) => formatLicenseDate(issue.date)}
         </LicenseViewDetailsTable.Column>
         <LicenseViewDetailsTable.Column label="Expire date" property="expiry">
-          {(expiry) => toLicenseDateDisplay(expiry.date)}
+          {(_, license) => toLicenseExpirationDate(license)}
         </LicenseViewDetailsTable.Column>
         <LicenseViewDetailsTable.Column label="Expired" property="expiry">
           {renderExpiredDays}

@@ -9,7 +9,7 @@ import {
 import CopyIcon from '@cube-frontend/ui-library/icons/monochrome/copy.svg?react'
 import {
   humanizeDuration,
-  toLicenseDateDisplay,
+  toLicenseExpirationDate,
 } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
 import { toPercentage } from '@cube-frontend/web-app/utils/number'
@@ -55,7 +55,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column label="License Expiration" property="license">
-        {(license) => toLicenseDateDisplay(license.expiry.date)}
+        {toLicenseExpirationDate}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
         label="CPU"

@@ -1,4 +1,4 @@
-import { Node } from '@cube-frontend/api'
+import { Node, NodeLicenseCurrentStatus } from '@cube-frontend/api'
 import {
   CosButton,
   CosOverflowMenu,
@@ -115,13 +115,13 @@ export const NodeSummary = (props: NodeSummaryProps) => {
   }
 
   const getLicenseExpiration = (): string => {
-    const { date } = node.license.expiry
+    const { status, expiry } = node.license
 
-    if (!date) {
+    if (status.current === NodeLicenseCurrentStatus.Unlicense) {
       return 'Unlicense'
     }
 
-    return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm')
+    return dayjs.respectTzOffset(expiry.date).format('YYYY/MM/DD HH:mm')
   }
 
   return (

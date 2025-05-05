@@ -9,7 +9,7 @@ import {
 } from '@cube-frontend/ui-library'
 import {
   humanizeDuration,
-  toLicenseDateDisplay,
+  toLicenseExpirationDate,
 } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
 import { toPercentage } from '@cube-frontend/web-app/utils/number'
@@ -70,7 +70,7 @@ export const NodeTable = (props: NodeTableProps) => {
         label="License Expiration"
         property="license"
       >
-        {(license) => toLicenseDateDisplay(license.expiry.date)}
+        {toLicenseExpirationDate}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
         label="CPU"
