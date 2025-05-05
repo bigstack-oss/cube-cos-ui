@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react'
-import { CosDropdown } from '@cube-frontend/ui-library'
 import { GetNodesRolesEnum } from '@cube-frontend/api'
+import { CosDropdown } from '@cube-frontend/ui-library'
+import { ChangeEvent, useState } from 'react'
 
 const allRoles = Object.values(GetNodesRolesEnum)
 
@@ -50,7 +50,7 @@ export const RoleFilter = (props: RoleFilterProps) => {
       onAllCheckChange={handleAllSelect}
       onClearClick={handleClearRolesClick}
     >
-      <CosDropdown.Trigger placeholder="Select Roles">
+      <CosDropdown.Trigger placeholder="Roles">
         {selectedRoles.length > 0 ? `Roles` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>

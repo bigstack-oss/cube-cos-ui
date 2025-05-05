@@ -15,7 +15,7 @@ export const ProductDropdown = (props: ProductDropdownProps) => {
       variant="default"
       selectedItems={[selectedProduct]}
     >
-      <CosDropdown.Trigger placeholder="Select a Product">
+      <CosDropdown.Trigger placeholder="Product">
         {selectedProduct ? `${selectedProduct}` : 'Select a Product'}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
