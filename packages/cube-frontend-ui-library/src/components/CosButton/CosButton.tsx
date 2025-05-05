@@ -86,7 +86,7 @@ const button = cva(
         ],
         light: [
           'bg-secondary text-dark-400',
-          'hover:bg-secondary',
+          'hover:bg-secondary-400',
           'disabled:bg-secondary-50 disabled:text-functional-disable-text',
         ],
       },
