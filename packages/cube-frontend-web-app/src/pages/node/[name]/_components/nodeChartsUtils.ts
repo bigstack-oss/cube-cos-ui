@@ -1,4 +1,7 @@
-import { HostMetricHistoryResponseData } from '@cube-frontend/api'
+import {
+  HostMetricHistoryResponseData,
+  TimeValuePair,
+} from '@cube-frontend/api'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
 import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeUtils'
 import { convertSize, SizeUnit } from '@cube-frontend/web-app/utils/byte'
@@ -10,7 +13,8 @@ import {
   getChartYAxisTitleFont,
 } from '@cube-frontend/web-app/utils/chart'
 import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
-import { ChartData, ChartOptions } from 'chart.js'
+import { ChartData, ChartOptions, Scale, Tick } from 'chart.js'
+import dayjs from 'dayjs'
 
 export const chartTimeRanges = [
   '1h',
@@ -29,17 +33,20 @@ export const computeChartData = (
     | undefined,
   type: 'cpu' | 'memory',
 ): ChartData<'line', number[]> => {
-  if (!metricsData) {
+  const { history } = metricsData ?? {}
+
+  if (!history) {
     return {
       labels: [],
       datasets: [],
     }
   }
+
   return {
-    labels: metricsData.history.map((pair) => formatChartXAxisTime(pair.time)),
+    labels: history.map((pair) => formatChartXAxisTime(pair.time)),
     datasets: [
       {
-        data: metricsData.history.map((pair) => pair.value),
+        data: history.map((pair) => pair.value),
         borderColor: type === 'cpu' ? cpuLineColor : memoryLineColor,
         fill: false,
         tension: 0.1,
@@ -48,7 +55,10 @@ export const computeChartData = (
   }
 }
 
-export const getCpuChartOptions = (unit: string): ChartOptions<'line'> => {
+export const getCpuChartOptions = (
+  metricsData: HostMetricHistoryResponseData | undefined,
+): ChartOptions<'line'> => {
+  const { history = [], unit = '' } = metricsData ?? {}
   return {
     maintainAspectRatio: false,
     interaction: {
@@ -65,6 +75,9 @@ export const getCpuChartOptions = (unit: string): ChartOptions<'line'> => {
           display: false,
         },
         ticks: getChartTicksOptions(),
+        beforeFit: (axis) => {
+          transformTickLabelsBeforeFit(axis, history)
+        },
       },
       y: {
         min: 0,
@@ -101,6 +114,12 @@ export const getCpuChartOptions = (unit: string): ChartOptions<'line'> => {
         bodyFont: getChartTooltipBodyFont(),
         boxPadding: 4,
         callbacks: {
+          title: (tooltipItems) => {
+            if (!tooltipItems.length) return ''
+            const { dataIndex } = tooltipItems[0]
+            const pair = history[dataIndex]
+            return formatTooltipTitle(pair)
+          },
           labelPointStyle: () => ({
             pointStyle: 'line',
             rotation: 0,
@@ -123,9 +142,13 @@ export const getCpuChartOptions = (unit: string): ChartOptions<'line'> => {
   }
 }
 export const getMemoryChartOptions = (
-  isLoading: boolean,
-  originalUnit: SizeUnit,
+  metricsData: HostMetricHistoryResponseData | undefined,
 ): ChartOptions<'line'> => {
+  const isLoading = !metricsData
+  const history = metricsData?.history ?? []
+  const originalUnit = (metricsData?.unit.replace('size', '') ??
+    'MiB') as SizeUnit
+
   return {
     maintainAspectRatio: false,
     interaction: {
@@ -141,6 +164,10 @@ export const getMemoryChartOptions = (
         grid: {
           display: false,
         },
+        ticks: getChartTicksOptions(),
+        beforeFit: (axis) => {
+          transformTickLabelsBeforeFit(axis, history)
+        },
       },
       y: {
         title: {
@@ -152,6 +179,7 @@ export const getMemoryChartOptions = (
           display: false,
         },
         ticks: {
+          ...getChartTicksOptions(),
           callback: (tickValue, index) => {
             if (isLoading) return index * 10
 
@@ -182,6 +210,12 @@ export const getMemoryChartOptions = (
         bodyFont: getChartTooltipBodyFont(),
         boxPadding: 4,
         callbacks: {
+          title: (tooltipItems) => {
+            if (!tooltipItems.length) return ''
+            const { dataIndex } = tooltipItems[0]
+            const pair = history[dataIndex]
+            return formatTooltipTitle(pair)
+          },
           labelPointStyle: () => ({
             pointStyle: 'line',
             rotation: 0,
@@ -204,4 +238,45 @@ export const getMemoryChartOptions = (
       },
     },
   }
+}
+
+const formatTooltipTitle = (pair: TimeValuePair): string => {
+  return dayjs.respectTzOffset(pair.time).format('YYYY-MM-DD HH:mm')
+}
+
+type TickWithContext = Tick & {
+  // NOTE: Chart.js does not expose a type for ticks with `$context`,
+  // but this property is available at runtime.
+  $context: {
+    /**
+     * The index of the source item this tick is generated from.
+     */
+    index: number
+  }
+}
+
+const transformTickLabelsBeforeFit = (
+  axis: Scale,
+  history: TimeValuePair[],
+): void => {
+  const { ticks } = axis
+
+  let prevDate: string | undefined = undefined
+
+  ticks.forEach((tick) => {
+    const castedTick = tick as TickWithContext
+    const timeValuePair = history[castedTick.$context.index]
+    if (!timeValuePair) return
+
+    const dateWithTz = dayjs.respectTzOffset(timeValuePair.time.toString())
+    const dateString = dateWithTz.format('YYYY-MM-DD')
+
+    if (prevDate !== dateString) {
+      tick.label = dateWithTz.format('MMM DD HH:mm')
+    } else {
+      tick.label = dateWithTz.format('HH:mm')
+    }
+
+    prevDate = dateString
+  })
 }

@@ -1,5 +1,7 @@
 import { MetricsApiGetMetricByHostOrVmRequest, Node } from '@cube-frontend/api'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
+import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
@@ -11,8 +13,6 @@ import {
   computeChartData,
   getCpuChartOptions,
 } from './nodeChartsUtils'
-import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
-import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 
 type CpuPerformanceChartProps = {
   node: Node | undefined
@@ -61,8 +61,8 @@ export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
   )
 
   const chartOptions = useMemo(
-    () => getCpuChartOptions(metricsData?.unit ?? ''),
-    [metricsData?.unit],
+    () => getCpuChartOptions(metricsData),
+    [metricsData],
   )
 
   return (

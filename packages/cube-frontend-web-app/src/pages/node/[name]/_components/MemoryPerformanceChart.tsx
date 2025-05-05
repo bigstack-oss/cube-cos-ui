@@ -1,9 +1,10 @@
 import { MetricsApiGetMetricByHostOrVmRequest, Node } from '@cube-frontend/api'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
+import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
+import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { SizeUnit } from '@cube-frontend/web-app/utils/byte'
 import { useContext, useMemo } from 'react'
 import { Line } from 'react-chartjs-2'
 import { Panel } from './Panel'
@@ -12,8 +13,6 @@ import {
   computeChartData,
   getMemoryChartOptions,
 } from './nodeChartsUtils'
-import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
-import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
 
 type MemoryPerformanceChartProps = {
   node: Node | undefined
@@ -62,11 +61,7 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
   )
 
   const chartOptions = useMemo(
-    () =>
-      getMemoryChartOptions(
-        !metricsData,
-        (metricsData?.unit.replace('size', '') ?? 'MiB') as SizeUnit,
-      ),
+    () => getMemoryChartOptions(metricsData),
     [metricsData],
   )
 
