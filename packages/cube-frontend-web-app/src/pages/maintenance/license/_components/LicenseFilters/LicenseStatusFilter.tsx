@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react'
 import { ListLicenseCurrentStatus } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { ChangeEvent, useState } from 'react'
 
 const licenseStatuses = Object.values(ListLicenseCurrentStatus)
 
@@ -56,7 +56,7 @@ export const LicenseStatusFilter = (props: LicenseStatusFilterProps) => {
       onAllCheckChange={handleSelectAllLicenseStatuses}
       onClearClick={handleClearLicenseStatusesClick}
     >
-      <CosDropdown.Trigger placeholder="Select Statuses">
+      <CosDropdown.Trigger placeholder="Statuses">
         {selectedLicenseStatuses.length > 0 ? `Statuses` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>

@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react'
 import { GetLicensesTypesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { ChangeEvent, useState } from 'react'
 
 const licenseTypes = Object.values(GetLicensesTypesEnum)
 
@@ -53,7 +53,7 @@ export const TypeFilter = (props: TypeFilterProps) => {
       onAllCheckChange={handleSelectAllLicenseTypes}
       onClearClick={handleClearLicenseTypesClick}
     >
-      <CosDropdown.Trigger placeholder="Select Types">
+      <CosDropdown.Trigger placeholder="Types">
         {selectedLicenseTypes.length > 0 ? `Types` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>

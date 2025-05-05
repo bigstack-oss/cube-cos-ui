@@ -53,7 +53,7 @@ export const RoleDropdown = (props: RoleDropdownProps) => {
       onSearchChange={onSearchChange}
       onClearClick={onClearClick}
     >
-      <CosDropdown.Trigger placeholder="Role">
+      <CosDropdown.Trigger placeholder="Roles">
         {selectedRoles.length ? 'Roles' : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>

@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react'
 import { GetLicensesProductsEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { ChangeEvent, useState } from 'react'
 
 const products = Object.values(GetLicensesProductsEnum)
 
@@ -48,7 +48,7 @@ export const ProductFilter = (props: ProductFilterProps) => {
       onAllCheckChange={handleSelectAllProduct}
       onClearClick={handleClearProductsClick}
     >
-      <CosDropdown.Trigger placeholder="Select Products">
+      <CosDropdown.Trigger placeholder="Products">
         {selectedProducts.length > 0 ? `Products` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
