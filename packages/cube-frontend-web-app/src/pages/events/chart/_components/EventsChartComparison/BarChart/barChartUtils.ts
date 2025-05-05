@@ -1,39 +1,58 @@
-import { ActiveElement, ChartData, ChartOptions, Plugin } from 'chart.js'
+import { ActiveElement, ChartData, ChartOptions } from 'chart.js'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
-import { GetRankedEventsResponseDataEventsInner } from '@cube-frontend/api'
+import { GetEventsTypeEnum } from '@cube-frontend/api'
+import { RankedEvent } from '../../useRankedEvents'
+import { hexToRGBA, getChartLabelByEventsType } from '../../utils'
+import {
+  getChartTooltipBodyFont,
+  getChartTooltipTitleFont,
+  getChartYAxisTitleFont,
+} from '@cube-frontend/web-app/utils/chart'
+
+export type BarChartData = RankedEvent & {
+  barColor: string
+  labelColor: string
+}
 
 type ReturnChartData = ChartData<'bar', number[], string> & {
-  items: { id: string; number: number }[]
+  items: BarChartData[]
 }
 
 export const getChartData = (
-  events: GetRankedEventsResponseDataEventsInner[] = [],
+  eventsType: GetEventsTypeEnum,
+  rankedEvents: RankedEvent[],
+  targetEvent: RankedEvent | undefined,
 ): ReturnChartData | undefined => {
-  if (!events.length) return undefined
+  if (rankedEvents.length === 0) return undefined
 
-  /**
-   * Sort the events in descending order based on the 'percent' field
-   * and slice to keep only the top 24 events
-   */
-  const sortedEvents = [...events]
-    .sort((a, b) => b.number - a.number)
-    .slice(0, 24)
+  const items = rankedEvents.map((event) => {
+    const isBlur = !!targetEvent && targetEvent.uniqueId !== event.uniqueId
 
-  const items = sortedEvents.map((event) => {
-    const id = event.id?.toString() || 'Unknown'
-    const number = event.number || 0
+    const originalBarColor = cubeTheme.colors.chart[2]
+    const originalLabelColor = cubeTheme.colors.functional.text
+
+    const barColorWithOpacity = isBlur
+      ? hexToRGBA(originalBarColor, 0.3)
+      : originalBarColor
+
+    const labelColorWithOpacity = isBlur
+      ? hexToRGBA(originalLabelColor, 0.3)
+      : originalLabelColor
+
     return {
-      id,
-      number,
+      ...event,
+      barColor: barColorWithOpacity,
+      labelColor: labelColorWithOpacity,
     }
   })
 
   return {
-    labels: items.map((item) => item.id),
+    labels: items.map((event) => getChartLabelByEventsType(eventsType, event)),
     datasets: [
       {
-        data: sortedEvents.map((event) => event.number || 0),
-        backgroundColor: cubeTheme.colors.chart[2],
+        data: items.map((event) => event.number || 0),
+        backgroundColor: items.map((item) => item.barColor),
+        hoverBackgroundColor: cubeTheme.colors.chart[2],
         barThickness: 9,
         borderRadius: 2,
       },
@@ -45,37 +64,53 @@ export const getChartData = (
 /**
  * Plugin to draw the value of each bar on top of it
  */
-export const drawValuePlugin: Plugin<'bar'> = {
-  id: 'drawValuePlugin',
-  afterDraw: (chart) => {
-    const ctx = chart.ctx
-    ctx.font = '11px Inter'
-    ctx.fillStyle = cubeTheme.colors.functional.text
-    ctx.textAlign = 'center'
-
-    chart.data.datasets.forEach((dataset, i) => {
-      const meta = chart.getDatasetMeta(i)
-      meta.data.forEach((bar, index) => {
-        const value = dataset.data[index] as number
-        ctx.fillText(value.toString(), bar.x, bar.y - 8)
-      })
-    })
-  },
-}
+// export const drawValuePlugin: Plugin<'bar'> =
 
 export const getChartOptions = (
+  eventsType: GetEventsTypeEnum,
   chartData: ReturnChartData | undefined,
-  handleClick: (selectedId: string) => void,
+  handleMouseEnter: (event: RankedEvent) => void,
+  handleMouseLeave: () => void,
+  handleClick: (event: RankedEvent) => void,
 ): ChartOptions<'bar'> => {
+  if (!chartData) return {} as ChartOptions<'bar'>
+
+  const tooltipContents = chartData.items.map((item) => ({
+    number: item.number,
+    host: item.host || '-',
+    instanceId: item.instanceId || '-',
+    instanceName: item.instanceName || '-',
+  }))
+
   return {
     responsive: true,
+    maintainAspectRatio: false,
     font: {
       family: cubeTheme.fontFamily.inter[0],
+    },
+    layout: {
+      padding: {
+        top: 20,
+      },
     },
     scales: {
       x: {
         grid: {
           display: false,
+        },
+        ticks: {
+          color: chartData.items.map((item) => item.labelColor),
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Number of occurrences',
+          font: getChartYAxisTitleFont(),
+          color: cubeTheme.colors.functional['text-light'],
+        },
+        ticks: {
+          color: cubeTheme.colors.functional['text-light'],
         },
       },
     },
@@ -83,18 +118,36 @@ export const getChartOptions = (
       legend: {
         display: false,
       },
+
       tooltip: {
+        padding: 12,
         displayColors: false,
+        backgroundColor: cubeTheme.colors.dark[700],
+        bodyColor: cubeTheme.colors.grey[0],
         titleColor: cubeTheme.colors.primary[200],
         titleMarginBottom: 2,
+        titleFont: getChartTooltipTitleFont(),
+        bodyFont: getChartTooltipBodyFont(),
+        boxPadding: 4,
         callbacks: {
           title: (tooltipItems) => {
-            return tooltipItems?.[0].label
+            return tooltipItems?.[0].label.split('(')[0]
           },
           label: (tooltipItem) => {
-            const dataset = tooltipItem.dataset.data as number[]
-            const value = dataset[tooltipItem.dataIndex] || 0
-            return value?.toString()
+            const { number, host, instanceName, instanceId } =
+              tooltipContents[tooltipItem.dataIndex]
+
+            if (eventsType === 'host')
+              return [`Counting: ${number}`, `Host: ${host}`]
+
+            if (eventsType === 'instance')
+              return [
+                `Counting: ${number}`,
+                `Instance Name: ${instanceName}`,
+                `Instance ID: ${instanceId}`,
+              ]
+
+            return `Counting: ${number}`
           },
         },
       },
@@ -111,17 +164,26 @@ export const getChartOptions = (
          * And access the `id` from `items` array based on the index
          */
         const index = elements[0].index
-        const selectedId = chartData.items[index]?.id
+        const selectedEvent = chartData.items[index]
 
-        handleClick(selectedId)
+        handleClick(selectedEvent)
       } else {
         console.warn('No available data')
       }
     },
     onHover: (_, elements: ActiveElement[], chart) => {
       if (elements.length > 0) {
+        /**
+         * Get the index of the hovered slice
+         * And access the `id` from `items` array based on the index
+         */
+        const index = elements[0].index
+        const { barColor, labelColor, ...newItem } = chartData.items[index]
+
+        handleMouseEnter(newItem)
         chart.canvas.style.setProperty('cursor', 'pointer')
       } else {
+        handleMouseLeave()
         chart.canvas.style.removeProperty('cursor')
       }
     },

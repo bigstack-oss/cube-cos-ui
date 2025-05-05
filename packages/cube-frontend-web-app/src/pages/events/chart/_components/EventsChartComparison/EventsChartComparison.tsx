@@ -30,13 +30,22 @@ type EventsChartComparisonProps = {
   chartQuery: ChartQuery
   onFieldChange: <Key extends keyof FilterOptions>(
     key: Key,
-    value: FilterOptions[Key] | undefined,
+    value: string,
+  ) => void
+  onFieldAllSelect: <Key extends keyof FilterOptions>(
+    key: Key,
+    options: FilterOptions[Key],
   ) => void
 }
 
 export const EventsChartComparison = (props: EventsChartComparisonProps) => {
-  const { isEventsFilterLoading, eventsFilter, chartQuery, onFieldChange } =
-    props
+  const {
+    isEventsFilterLoading,
+    eventsFilter,
+    chartQuery,
+    onFieldChange,
+    onFieldAllSelect,
+  } = props
 
   const { isRankedEventsLoading, rankedEvents } = useRankedEvents(
     chartType,
@@ -63,20 +72,20 @@ export const EventsChartComparison = (props: EventsChartComparisonProps) => {
           options={options}
           selectedValue={chartQuery[filterKey]}
           onFieldChange={onFieldChange}
+          onFieldAllSelect={onFieldAllSelect}
         />
       )
     })
   }
 
   const renderChart = () => {
-    if (!rankedEvents || rankedEvents.length === 0) return <ChartEmpty />
+    if (rankedEvents.length === 0) return <ChartEmpty />
 
     return (
       <div className="w-full px-5 py-3">
         <BarChart
           isRankedEventsLoading={isRankedEventsLoading}
           rankedEvents={rankedEvents}
-          chartType={chartType}
           chartQuery={chartQuery}
         />
       </div>

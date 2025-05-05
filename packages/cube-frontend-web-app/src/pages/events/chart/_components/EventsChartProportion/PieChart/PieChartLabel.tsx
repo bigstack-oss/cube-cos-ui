@@ -1,9 +1,12 @@
 import { twMerge } from 'tailwind-merge'
+import { Link } from 'react-router'
+import { PieChartData } from './pieChartUtils'
+import { GetEventsTypeEnum } from '@cube-frontend/api'
+import { getChartLabelByEventsType } from '../../utils'
 
 type PieChartLabelProps = {
-  eventId: string
-  color: string
-  percentage: number
+  event: PieChartData
+  eventsType: GetEventsTypeEnum
   isBlur: boolean
   onMouseEnter: () => void
   onMouseLeave: () => void
@@ -11,36 +14,31 @@ type PieChartLabelProps = {
 }
 
 export const PieChartLabel = (props: PieChartLabelProps) => {
-  const {
-    eventId,
-    color,
-    percentage,
-    isBlur,
-    onMouseEnter,
-    onMouseLeave,
-    redirectUrl,
-  } = props
+  const { event, eventsType, isBlur, onMouseEnter, onMouseLeave, redirectUrl } =
+    props
+
+  const chartLabel = getChartLabelByEventsType(eventsType, event)
 
   return (
-    <a
+    <Link
       className={twMerge(
-        'grid h-[30px] w-[143px] cursor-pointer grid-cols-3 items-center gap-2 px-2 py-[6px]',
+        'grid w-full grid-cols-4 items-center gap-2 px-2 py-[6px]',
         isBlur && 'opacity-30',
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      href={redirectUrl}
+      to={redirectUrl}
     >
-      <div className="col-span-2 flex items-center gap-1">
+      <div className="col-span-3 flex items-center gap-1">
         <div
           className="size-[6px] rounded-full"
           style={{
-            backgroundColor: color,
+            backgroundColor: event.color,
           }}
         />
-        <p className="primary-body5">{eventId}</p>
+        <p className="primary-body5 text-functional-text">{chartLabel}</p>
       </div>
-      <p className="primary-body3 col-span-1 text-right">{`${percentage.toFixed(1)}%`}</p>
-    </a>
+      <p className="primary-body3 col-span-1 text-right font-medium text-functional-text">{`${event.percent.toFixed(1)}%`}</p>
+    </Link>
   )
 }

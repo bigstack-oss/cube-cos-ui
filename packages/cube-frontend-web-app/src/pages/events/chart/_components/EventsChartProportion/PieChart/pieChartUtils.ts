@@ -1,6 +1,12 @@
 import { ActiveElement, ChartData, ChartOptions } from 'chart.js'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
-import { GetRankedEventsResponseDataEventsInner } from '@cube-frontend/api'
+import { GetEventsTypeEnum } from '@cube-frontend/api'
+import { RankedEvent } from '../../useRankedEvents'
+import {
+  getChartTooltipBodyFont,
+  getChartTooltipTitleFont,
+} from '@cube-frontend/web-app/utils/chart'
+import { hexToRGBA, getChartLabelByEventsType } from '../../utils'
 
 export const chartColors = [
   cubeTheme.colors.chart[1],
@@ -29,68 +35,46 @@ export const chartColors = [
   cubeTheme.colors.chart[24],
 ]
 
-const convertHexToRGBA = (hexCode: string) => {
-  let hex = hexCode.replace('#', '')
-
-  if (hex.length === 3) {
-    hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`
-  }
-
-  const r = parseInt(hex.substring(0, 2), 16)
-  const g = parseInt(hex.substring(2, 4), 16)
-  const b = parseInt(hex.substring(4, 6), 16)
-
-  return `rgba(${r},${g},${b},0.3)`
+export type PieChartData = RankedEvent & {
+  color: string
 }
 
 type ReturnChartData = ChartData<'pie', number[], string> & {
-  items: { id: string; color: string; percentage: number }[]
+  items: PieChartData[]
 }
 
 export const getChartData = (
-  events: GetRankedEventsResponseDataEventsInner[] = [],
-  hoveredItemKey: string | undefined,
+  eventsType: GetEventsTypeEnum,
+  rankedEvents: RankedEvent[],
+  targetEvent: RankedEvent | undefined,
 ): ReturnChartData | undefined => {
-  if (!events.length) return undefined
+  if (rankedEvents.length === 0) return undefined
 
-  /**
-   * Sort the events in descending order based on the 'percent' field
-   * and slice to keep only the top 24 events
-   */
-  const sortedEvents = [...events]
-    .sort((a, b) => b.percent - a.percent)
-    .slice(0, 24)
-
-  const items = sortedEvents.map((event, index) => {
-    const id = event.id?.toString() || 'Unknown'
-
-    const percentage = event.percent || 0
-
+  const items = rankedEvents.map((event, index) => {
     /**
      * Determine whether the event is in a "blur" state
-     * isBlur  =>  Reduce its opacity by using the `convertHexToRGBA` function
+     * isBlur  =>  Reduce its opacity by using the `hexToRGBA` function
      * !isBlur =>  Keep the original color
      */
-    const isBlur = !!hoveredItemKey && id !== hoveredItemKey
+    const isBlur = !!targetEvent && targetEvent.uniqueId !== event.uniqueId
 
     const originalColor = chartColors[index % chartColors.length]
 
     const colorWithOpacity = isBlur
-      ? convertHexToRGBA(originalColor)
+      ? hexToRGBA(originalColor, 0.3)
       : originalColor
 
     return {
-      id,
+      ...event,
       color: colorWithOpacity,
-      percentage,
     }
   })
 
   return {
-    labels: items.map((item) => item.id),
+    labels: items.map((event) => getChartLabelByEventsType(eventsType, event)),
     datasets: [
       {
-        data: sortedEvents.map((event) => event.percent || 0),
+        data: items.map((item) => item.percent),
         backgroundColor: items.map((item) => item.color),
       },
     ],
@@ -99,12 +83,24 @@ export const getChartData = (
 }
 
 export const getChartOptions = (
+  eventsType: GetEventsTypeEnum,
   chartData: ReturnChartData | undefined,
-  setTargetEventKey: React.Dispatch<React.SetStateAction<string | undefined>>,
+  handleMouseEnter: (event: RankedEvent) => void,
+  handleMouseLeave: () => void,
   handleClick: () => void,
 ): ChartOptions<'pie'> => {
+  if (!chartData) return {} as ChartOptions<'pie'>
+
+  const tooltipContents = chartData.items.map((item) => ({
+    percent: item.percent,
+    host: item.host || '-',
+    instanceId: item.instanceId || '-',
+    instanceName: item.instanceName || '-',
+  }))
+
   return {
     responsive: true,
+    maintainAspectRatio: false,
     font: {
       family: cubeTheme.fontFamily.inter[0],
     },
@@ -113,23 +109,34 @@ export const getChartOptions = (
         display: false,
       },
       tooltip: {
-        padding: {
-          top: 8,
-          bottom: 8,
-          left: 12,
-          right: 12,
-        },
+        padding: 12,
         displayColors: false,
+        backgroundColor: cubeTheme.colors.dark[700],
+        bodyColor: cubeTheme.colors.grey[0],
         titleColor: cubeTheme.colors.primary[200],
         titleMarginBottom: 2,
+        titleFont: getChartTooltipTitleFont(),
+        bodyFont: getChartTooltipBodyFont(),
+        boxPadding: 4,
         callbacks: {
           title: (tooltipItems) => {
-            return tooltipItems?.[0].label
+            return tooltipItems?.[0].label.split('(')[0]
           },
           label: (tooltipItem) => {
-            const dataset = tooltipItem.dataset.data as number[]
-            const value = dataset[tooltipItem.dataIndex] || 0
-            return `${value}%`
+            const { percent, host, instanceName, instanceId } =
+              tooltipContents[tooltipItem.dataIndex]
+
+            if (eventsType === 'host')
+              return [`Proportion: ${percent.toFixed(1)}%`, `Host: ${host}`]
+
+            if (eventsType === 'instance')
+              return [
+                `Proportion: ${percent.toFixed(1)}%`,
+                `Instance Name: ${instanceName}`,
+                `Instance ID: ${instanceId}`,
+              ]
+
+            return `Proportion: ${percent.toFixed(1)}%`
           },
         },
       },
@@ -153,22 +160,18 @@ export const getChartOptions = (
       }
     },
     onHover: (_, elements: ActiveElement[], chart) => {
-      if (!chartData) {
-        console.warn('No available data')
-        return
-      }
-
       if (elements.length > 0) {
         /**
          * Get the index of the hovered slice
          * And access the `id` from `items` array based on the index
          */
         const index = elements[0].index
-        const hoveredId = chartData.items[index]?.id
-        setTargetEventKey(hoveredId)
+        const { color, ...newItem } = chartData.items[index]
+
+        handleMouseEnter(newItem)
         chart.canvas.style.setProperty('cursor', 'pointer')
       } else {
-        setTargetEventKey(undefined)
+        handleMouseLeave()
         chart.canvas.style.removeProperty('cursor')
       }
     },

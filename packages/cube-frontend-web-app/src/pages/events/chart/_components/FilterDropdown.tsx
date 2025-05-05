@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { upperFirst } from 'lodash'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { FilterOptions } from './useEventsChartQuery'
 
@@ -7,9 +6,10 @@ type FilterDropdownProps<Key extends keyof FilterOptions> = {
   isLoading: boolean
   filterKey: Key
   filterLabel: string
-  options: FilterOptions[Key][]
+  options: FilterOptions[Key]
   selectedValue: FilterOptions[Key] | undefined
-  onFieldChange: (key: Key, value: FilterOptions[Key] | undefined) => void
+  onFieldChange: (key: Key, value: string) => void
+  onFieldAllSelect: (key: Key, options: FilterOptions[Key]) => void
 }
 
 export const FilterDropdown = <Key extends keyof FilterOptions>(
@@ -22,32 +22,27 @@ export const FilterDropdown = <Key extends keyof FilterOptions>(
     options,
     selectedValue,
     onFieldChange,
+    onFieldAllSelect,
   } = props
 
-  const [selectedItem, setSelectedItem] = useState<string[]>(
-    selectedValue ? [selectedValue] : [],
+  const [selectedItems, setSelectedItems] = useState<FilterOptions[Key]>(
+    selectedValue || ([] as string[]),
   )
 
   useEffect(() => {
-    if (selectedValue) {
-      setSelectedItem([selectedValue])
-    }
+    if (selectedValue) setSelectedItems(selectedValue)
   }, [selectedValue])
 
-  const modifiedOptions = ['All', ...options]
-
   const handleItemClick = (selectedItem: string) => {
-    if (selectedItem === 'All') {
-      onFieldChange(filterKey, undefined)
-      setSelectedItem([selectedItem])
-      return
-    }
-
     onFieldChange(filterKey, selectedItem)
   }
 
+  const handleAllClick = () => {
+    onFieldAllSelect(filterKey, options)
+  }
+
   const renderOptions = () => {
-    return modifiedOptions.map((option) => {
+    return options.map((option) => {
       return (
         <CosDropdown.Item
           key={option}
@@ -62,13 +57,17 @@ export const FilterDropdown = <Key extends keyof FilterOptions>(
 
   return (
     <CosDropdown
+      type="checkbox"
       variant="in-table"
-      selectedItems={selectedItem}
+      selectedItems={selectedItems}
+      onAllCheckChange={handleAllClick}
       disabled={false}
       isLoading={isLoading}
     >
-      <CosDropdown.Trigger placeholder={upperFirst(filterLabel)}>
-        {selectedItem?.[0] ?? undefined}
+      <CosDropdown.Trigger placeholder={filterLabel}>
+        {selectedValue?.length
+          ? `${filterLabel}: (${selectedValue?.length ?? 0})`
+          : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>{renderOptions()}</CosDropdown.Menu>
     </CosDropdown>

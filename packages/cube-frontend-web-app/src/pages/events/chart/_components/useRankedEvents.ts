@@ -1,4 +1,5 @@
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
+import { uniqueId } from 'lodash'
 import {
   EventsApiGetRankedEventsRequest,
   GetRankedEventsResponseDataEventsInner,
@@ -9,8 +10,12 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { ChartQuery } from './useEventsChartQuery'
 import { ChartType, getRequestQueryByChartType } from './utils'
 
+export type RankedEvent = GetRankedEventsResponseDataEventsInner & {
+  uniqueId: string
+}
+
 type UseRankedEvents = {
-  rankedEvents: GetRankedEventsResponseDataEventsInner[] | undefined
+  rankedEvents: RankedEvent[]
   isRankedEventsLoading: boolean
 }
 
@@ -33,5 +38,21 @@ export const useRankedEvents = (
     },
   )
 
-  return { rankedEvents: data?.events, isRankedEventsLoading: isLoading }
+  /**
+   * Sort the events in descending order based on the 'percent' field
+   * then slice to keep only the top 24 events.
+   * Add a `uniqueId` to each ranked event, as the original event ID
+   * may not be unique. The `uniqueId` helps distinguish each entry.
+   */
+  const rankedEvents = useMemo(() => {
+    const events = data ? data.events : []
+    const sortedEvents = events.sort((a, b) => b.percent - a.percent)
+
+    return sortedEvents.map((event) => ({
+      ...event,
+      uniqueId: uniqueId('ranked-event'),
+    }))
+  }, [data])
+
+  return { rankedEvents, isRankedEventsLoading: isLoading }
 }

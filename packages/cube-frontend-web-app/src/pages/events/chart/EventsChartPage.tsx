@@ -14,6 +14,8 @@ export const EventsChartPage = () => {
     onTypeChange,
     onTimeRangeChange: onTimeRangeQueryChange,
     onFieldChange,
+    onFieldAllSelect,
+    onFieldReset,
   } = useEventsChartQuery()
 
   const {
@@ -36,14 +38,14 @@ export const EventsChartPage = () => {
 
   const onEventsTypeChange = (type: GetEventsTypeEnum) => {
     onTypeChange(type)
-    onFieldChange('comparisonCategory', undefined)
-    onFieldChange('comparisonHost', undefined)
-    onFieldChange('comparisonInstance', undefined)
-    onFieldChange('comparisonSeverity', undefined)
-    onFieldChange('proportionCategory', undefined)
-    onFieldChange('proportionHost', undefined)
-    onFieldChange('proportionInstance', undefined)
-    onFieldChange('proportionSeverity', undefined)
+    onFieldReset('comparisonCategory')
+    onFieldReset('comparisonHost')
+    onFieldReset('comparisonInstance')
+    onFieldReset('comparisonSeverity')
+    onFieldReset('proportionCategory')
+    onFieldReset('proportionHost')
+    onFieldReset('proportionInstance')
+    onFieldReset('proportionSeverity')
   }
 
   return (
@@ -64,12 +66,14 @@ export const EventsChartPage = () => {
         eventsFilter={eventsFilter}
         chartQuery={chartQuery}
         onFieldChange={onFieldChange}
+        onFieldAllSelect={onFieldAllSelect}
       />
       <EventsChartComparison
         isEventsFilterLoading={isEventsFilterLoading}
         eventsFilter={eventsFilter}
         chartQuery={chartQuery}
         onFieldChange={onFieldChange}
+        onFieldAllSelect={onFieldAllSelect}
       />
     </div>
   )

@@ -8,9 +8,10 @@ import {
   GetEventsTypeEnum,
 } from '@cube-frontend/api'
 import { timeRangeDelta } from '@cube-frontend/web-app/hooks/useTimeFrame/timeFrameUtils'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { ChartQuery, FilterKeys } from './useEventsChartQuery'
 import { getValidTimeRange } from './timeRangeUtils'
-import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { RankedEvent } from './useRankedEvents'
 
 export type ChartType = 'proportion' | 'comparison'
 
@@ -49,10 +50,10 @@ export const getFilterKeyByChartType = (
 }
 
 const filterLabelMapping: Record<FilterKeysResponse, string> = {
-  categories: 'Category',
-  severities: 'Severity',
-  names: 'Host',
-  ids: 'Instance',
+  categories: 'Categories',
+  severities: 'Severities',
+  names: 'Hosts',
+  ids: 'Instances',
 }
 
 export const getFilterLabel = (key: FilterKeysResponse) => {
@@ -80,17 +81,27 @@ export const initChartQuery = (searchParams: URLSearchParams): ChartQuery => {
 
   const past = getValidTimeRange(searchParams.get('past') ?? '')
 
-  const proportionCategory = searchParams.get('proportionCategory') ?? undefined
-  const comparisonCategory = searchParams.get('comparisonCategory') ?? undefined
+  const proportionCategory =
+    searchParams.getAll('proportionCategory') ?? undefined
 
-  const proportionSeverity = searchParams.get('proportionSeverity') ?? undefined
-  const comparisonSeverity = searchParams.get('comparisonSeverity') ?? undefined
+  const comparisonCategory =
+    searchParams.getAll('comparisonCategory') ?? undefined
 
-  const proportionHost = searchParams.get('proportionHost') ?? undefined
-  const comparisonHost = searchParams.get('comparisonHost') ?? undefined
+  const proportionSeverity =
+    searchParams.getAll('proportionSeverity') ?? undefined
 
-  const proportionInstance = searchParams.get('proportionInstance') ?? undefined
-  const comparisonInstance = searchParams.get('comparisonInstance') ?? undefined
+  const comparisonSeverity =
+    searchParams.getAll('comparisonSeverity') ?? undefined
+
+  const proportionHost = searchParams.getAll('proportionHost') ?? undefined
+
+  const comparisonHost = searchParams.getAll('comparisonHost') ?? undefined
+
+  const proportionInstance =
+    searchParams.getAll('proportionInstance') ?? undefined
+
+  const comparisonInstance =
+    searchParams.getAll('comparisonInstance') ?? undefined
 
   return {
     type,
@@ -127,43 +138,95 @@ export const getRequestQueryByChartType = (
   chartQuery: ChartQuery,
 ): Pick<
   EventsApiGetRankedEventsRequest,
-  'type' | 'past' | 'category' | 'severity' | 'host' | 'instance'
+  'type' | 'past' | 'categories' | 'severities' | 'hosts' | 'instances'
 > => {
   return {
     type: chartQuery.type,
     past: chartQuery.past,
-    category: getQueryValue(chartType, 'category', chartQuery),
-    severity: getQueryValue(chartType, 'severity', chartQuery),
-    host: getQueryValue(chartType, 'host', chartQuery),
-    instance: getQueryValue(chartType, 'instance', chartQuery),
+    categories: getQueryValue(
+      chartType,
+      'category',
+      chartQuery,
+    ) as EventsApiGetRankedEventsRequest['categories'],
+    severities: getQueryValue(
+      chartType,
+      'severity',
+      chartQuery,
+    ) as string[] as EventsApiGetRankedEventsRequest['severities'],
+    hosts: getQueryValue(
+      chartType,
+      'host',
+      chartQuery,
+    ) as EventsApiGetRankedEventsRequest['hosts'],
+    instances: getQueryValue(
+      chartType,
+      'instance',
+      chartQuery,
+    ) as EventsApiGetRankedEventsRequest['instances'],
   }
 }
 
 export const getRedirectUrl = (
-  chartType: ChartType,
   chartQuery: ChartQuery,
-  eventId: string,
+  targetEvent: RankedEvent | undefined,
 ): string => {
+  if (!targetEvent) return ''
+
   const { value, unit } = timeRangeDelta[chartQuery.past]
   const endDate = dayjs()
   const startDate = endDate.add(value, unit)
 
+  const { id, severity, category, host, instanceId } = targetEvent
+
   const searchParams = new URLSearchParams({
     type: chartQuery.type,
-    keyword: eventId,
+    keyword: id,
     start: startDate.format(),
     stop: endDate.format(),
   })
 
-  const category = getQueryValue(chartType, 'category', chartQuery)
-  const severity = getQueryValue(chartType, 'severity', chartQuery)
-  const host = getQueryValue(chartType, 'host', chartQuery)
-  const instance = getQueryValue(chartType, 'instance', chartQuery)
-
   if (category) searchParams.set('category', category)
   if (severity) searchParams.set('severity', severity)
   if (host) searchParams.set('host', host)
-  if (instance) searchParams.set('instance', instance)
+  if (instanceId) searchParams.set('instance', instanceId)
 
   return `${CosRoutesEnum.EVENTS_PAGE}?${searchParams.toString()}`
+}
+
+export const getChartLabelByEventsType = (
+  eventsType: GetEventsTypeEnum,
+  event: RankedEvent,
+): string => {
+  if (eventsType === 'host') {
+    const hostName = event.host ? ` (${event.host})` : ''
+    return event.id + hostName
+  }
+
+  if (eventsType === 'instance') {
+    const first8DigitOfInstanceId = event.instanceId?.split('-')[0]
+      ? ` (${event.instanceId?.split('-')[0]})`
+      : ''
+    return event.id + first8DigitOfInstanceId
+  }
+
+  return event.id
+}
+
+/**
+ * Convert hex color to RGBA format
+ * @param hexCode - Hex color code (e.g., '#FF5733')
+ * @param alpha - Alpha value (0 to 1)
+ */
+export const hexToRGBA = (hexCode: string, alpha: number) => {
+  let hex = hexCode.replace('#', '')
+
+  if (hex.length === 3) {
+    hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`
+  }
+
+  const r = parseInt(hex.substring(0, 2), 16)
+  const g = parseInt(hex.substring(2, 4), 16)
+  const b = parseInt(hex.substring(4, 6), 16)
+
+  return `rgba(${r},${g},${b},${alpha})`
 }

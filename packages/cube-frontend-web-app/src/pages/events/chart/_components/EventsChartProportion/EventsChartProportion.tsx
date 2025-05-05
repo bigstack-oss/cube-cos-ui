@@ -29,13 +29,22 @@ type EventsChartProportionProps = {
   chartQuery: ChartQuery
   onFieldChange: <Key extends keyof FilterOptions>(
     key: Key,
-    value: FilterOptions[Key] | undefined,
+    value: string,
+  ) => void
+  onFieldAllSelect: <Key extends keyof FilterOptions>(
+    key: Key,
+    options: FilterOptions[Key],
   ) => void
 }
 
 export const EventsChartProportion = (props: EventsChartProportionProps) => {
-  const { isEventsFilterLoading, eventsFilter, chartQuery, onFieldChange } =
-    props
+  const {
+    isEventsFilterLoading,
+    eventsFilter,
+    chartQuery,
+    onFieldChange,
+    onFieldAllSelect,
+  } = props
 
   const { isRankedEventsLoading, rankedEvents } = useRankedEvents(
     chartType,
@@ -62,19 +71,19 @@ export const EventsChartProportion = (props: EventsChartProportionProps) => {
           options={options}
           selectedValue={chartQuery[filterKey]}
           onFieldChange={onFieldChange}
+          onFieldAllSelect={onFieldAllSelect}
         />
       )
     })
   }
 
   const renderChart = () => {
-    if (!rankedEvents || rankedEvents.length === 0) return <ChartEmpty />
+    if (rankedEvents.length === 0) return <ChartEmpty />
 
     return (
       <PieChart
         isRankedEventsLoading={isRankedEventsLoading}
         rankedEvents={rankedEvents}
-        chartType={chartType}
         chartQuery={chartQuery}
       />
     )
