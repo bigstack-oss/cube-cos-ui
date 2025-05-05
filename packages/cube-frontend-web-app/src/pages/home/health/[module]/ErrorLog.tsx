@@ -43,7 +43,7 @@ export const ErrorLog = (props: ErrorLogProps) => {
           </button>
         </CosTooltip>
       </div>
-      <div className="primary-body3 whitespace-pre-line rounded-b-[5px] bg-dark-700 px-6 py-4 text-functional-border-darker">
+      <div className="primary-body3 overflow-x-auto whitespace-pre rounded-b-[5px] bg-dark-700 px-6 py-4 text-functional-border-darker">
         {error.details}
       </div>
     </div>
