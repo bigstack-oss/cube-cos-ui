@@ -10,15 +10,17 @@ const Content = (props: PropsWithChildren) => {
   return (
     <div
       id={containerId}
-      className="h-[calc(100svh_-_54px)] overflow-auto px-5 py-3"
+      className="flex h-[calc(100svh_-_54px)] justify-center overflow-auto px-5 py-3"
     >
-      <UseFloatingExternalContextProvider
-        scrollableRootSelector={`#${containerId}`}
-      >
-        {/* Page content level error boundary. This ensures sidebar and navbar
+      <div className="w-full max-w-[1200px]">
+        <UseFloatingExternalContextProvider
+          scrollableRootSelector={`#${containerId}`}
+        >
+          {/* Page content level error boundary. This ensures sidebar and navbar
         remain visible if an uncaught error is thrown by the page content. */}
-        <CosErrorBoundary>{children}</CosErrorBoundary>
-      </UseFloatingExternalContextProvider>
+          <CosErrorBoundary>{children}</CosErrorBoundary>
+        </UseFloatingExternalContextProvider>
+      </div>
     </div>
   )
 }
