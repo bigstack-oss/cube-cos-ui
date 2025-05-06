@@ -89,5 +89,6 @@ scp "<path of rpm>" "<user>@<cubecos>:<path to place rpm>"
 2. Install the rpm
 
 ```bash
-dnf reinstall "<path to cube-cos-ui rpm>"
+dnf -y remove cube-cos-ui
+dnf -y install "<path to cube-cos-ui rpm>"
 ```
