@@ -1,9 +1,9 @@
 import React from 'react'
-import { CosSkeleton } from '../../CosSkeleton/CosSkeleton'
 import {
   CosHyperlink,
   CosHyperlinkProps,
 } from '../../CosHyperlink/CosHyperlink'
+import { CosSkeleton } from '../../CosSkeleton/CosSkeleton'
 
 export type CosGeneralPanelTitleBarProps = {
   title?: string
@@ -37,20 +37,20 @@ export const CosGeneralPanelTitleBar = (
 
   return (
     <div className="flex items-end justify-between">
-      <span className="secondary-body1 text-functional-text-light">
-        {title}
-      </span>
-      <div className="flex items-end gap-x-3">
+      <div className="flex items-center gap-x-3">
+        <span className="secondary-body1 text-functional-text-light">
+          {title}
+        </span>
         {hyperLinkProps && (
           <CosHyperlink variant="text-inline" size="sm" {...hyperLinkProps} />
         )}
-        {(timeElement || dropdown) && (
-          <div className="flex items-end gap-x-2">
-            {timeElement}
-            {dropdown}
-          </div>
-        )}
       </div>
+      {(timeElement || dropdown) && (
+        <div className="flex items-end gap-x-2">
+          {timeElement}
+          {dropdown}
+        </div>
+      )}
     </div>
   )
 }
