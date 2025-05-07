@@ -14766,11 +14766,11 @@ export const TuningsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
-         * @param {boolean} [modified] The flag to filter the modified tunings
+         * @param {Array<boolean>} [modified] The flag to filter the modified or unmodified tunings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listTunings: async (dataCenter: string, host?: Array<string>, keyword?: string, pageSize?: number, pageNum?: number, watch?: boolean, modified?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listTunings: async (dataCenter: string, host?: Array<string>, keyword?: string, pageSize?: number, pageNum?: number, watch?: boolean, modified?: Array<boolean>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('listTunings', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/tunings/parameters`
@@ -14806,7 +14806,7 @@ export const TuningsApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['watch'] = watch;
             }
 
-            if (modified !== undefined) {
+            if (modified) {
                 localVarQueryParameter['modified'] = modified;
             }
 
@@ -14956,11 +14956,11 @@ export const TuningsApiFp = function(configuration?: Configuration) {
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
-         * @param {boolean} [modified] The flag to filter the modified tunings
+         * @param {Array<boolean>} [modified] The flag to filter the modified or unmodified tunings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listTunings(dataCenter: string, host?: Array<string>, keyword?: string, pageSize?: number, pageNum?: number, watch?: boolean, modified?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTuningResponse>> {
+        async listTunings(dataCenter: string, host?: Array<string>, keyword?: string, pageSize?: number, pageNum?: number, watch?: boolean, modified?: Array<boolean>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTuningResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listTunings(dataCenter, host, keyword, pageSize, pageNum, watch, modified, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TuningsApi.listTunings']?.[localVarOperationServerIndex]?.url;
@@ -15150,11 +15150,11 @@ export interface TuningsApiListTuningsRequest {
     readonly watch?: boolean
 
     /**
-     * The flag to filter the modified tunings
-     * @type {boolean}
+     * The flag to filter the modified or unmodified tunings
+     * @type {Array<boolean>}
      * @memberof TuningsApiListTunings
      */
-    readonly modified?: boolean
+    readonly modified?: Array<boolean>
 }
 
 /**

@@ -9,7 +9,10 @@ import {
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
 import Plus from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
+import { HostListModal } from '@cube-frontend/web-app/components/HostPreviewTableCell/HostListModal'
+import { HostPreviewTableCell } from '@cube-frontend/web-app/components/HostPreviewTableCell/HostPreviewTableCell'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { useOperationErrors } from '@cube-frontend/web-app/hooks/useOperationErrors/useOperationErrors'
 import dayjs from 'dayjs'
 import { Link } from 'react-router'
 import { ActionCell } from './_components/tableCells/ActionCell'
@@ -17,11 +20,8 @@ import { TuningsFilter } from './TuningsFilter'
 import { TuningRow } from './tuningsUtils'
 import { useResetTuningModal } from './uesResetTuningModal'
 import { useListTuningsQuery } from './useListTuningsQuery'
-import { useOperationErrors } from '@cube-frontend/web-app/hooks/useOperationErrors/useOperationErrors'
 import { useTuningHostsModal } from './useTuningHostsModal'
 import { useTuningRows } from './useTuningRows'
-import { HostListModal } from '@cube-frontend/web-app/components/HostPreviewTableCell/HostListModal'
-import { HostPreviewTableCell } from '@cube-frontend/web-app/components/HostPreviewTableCell/HostPreviewTableCell'
 
 const TuningTable = GetCosBasicTable<TuningRow>()
 
@@ -30,7 +30,8 @@ export const EventsTuningsPage = () => {
     query,
     onKeywordChange,
     onKeywordClear,
-    onModifyStatusItemClick,
+    onModifiedItemClick,
+    onModifiedAllCheckChange,
     onNodeItemClick,
     onNodesAllCheckChange,
     onPageChange,
@@ -108,7 +109,8 @@ export const EventsTuningsPage = () => {
         query={query}
         onKeywordChange={onKeywordChange}
         onKeywordClear={onKeywordClear}
-        onModifyStatusItemClick={onModifyStatusItemClick}
+        onModifiedItemClick={onModifiedItemClick}
+        onModifiedAllCheckChange={onModifiedAllCheckChange}
         onNodeItemClick={onNodeItemClick}
         onNodesAllCheckChange={onNodesAllCheckChange}
       />

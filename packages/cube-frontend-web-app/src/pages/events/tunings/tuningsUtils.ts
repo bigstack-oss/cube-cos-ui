@@ -15,19 +15,15 @@ export const tuningToRow = (
   id: getRowId(),
 })
 
+export const modifiedOptions = [true, false] as const
+
 const querySchema = z.object({
   keyword: z.string().nullable(),
   modified: z
     .enum(['true', 'false'])
     .nullable()
     .transform((value) => {
-      if (value === 'true') {
-        return true
-      }
-      if (value === 'false') {
-        return false
-      }
-      return undefined
+      return value === 'true'
     }),
   hosts: z
     .string()
@@ -48,7 +44,7 @@ export const searchParamsToQuery = (
   searchParams: URLSearchParams,
 ): ListTuningsQuery => {
   const keyword = searchParams.get(ParamKeyEnum.Keyword)
-  const modified = searchParams.get(ParamKeyEnum.Modified)
+  const modified = searchParams.getAll(ParamKeyEnum.Modified)
   const hosts = searchParams.getAll(ParamKeyEnum.Hosts)
 
   const parsedQuery = querySchema.safeParse({
@@ -59,7 +55,7 @@ export const searchParamsToQuery = (
 
   return {
     keyword: parsedQuery?.keyword ?? '',
-    selectedModified: [parsedQuery?.modified],
+    modified: (parsedQuery?.modified ?? []) as boolean[],
     hosts: parsedQuery?.hosts ?? [],
     currentPage: 1,
     itemsPerPage: DEFAULT_ITEMS_PER_PAGE,
@@ -69,17 +65,16 @@ export const searchParamsToQuery = (
 export const queryToSearchParams = (
   query: ListTuningsQuery,
 ): URLSearchParams => {
-  const { keyword, selectedModified, hosts } = query
-  const modified = selectedModified[0]
+  const { keyword, modified, hosts } = query
   const nextSearchParams = new URLSearchParams()
 
   if (keyword) {
     nextSearchParams.set(ParamKeyEnum.Keyword, keyword)
   }
 
-  if (modified !== undefined) {
-    nextSearchParams.set(ParamKeyEnum.Modified, modified.toString())
-  }
+  modified.forEach((modified) => {
+    nextSearchParams.append(ParamKeyEnum.Modified, modified.toString())
+  })
 
   hosts.forEach((host) => {
     nextSearchParams.append(ParamKeyEnum.Hosts, host)

@@ -35,7 +35,7 @@ export const useTuningRows = (
       dataCenter: dataCenter!.name,
       host: query.hosts,
       keyword: query.keyword,
-      modified: query.selectedModified[0],
+      modified: query.modified,
       pageNum: query.currentPage,
       pageSize: query.itemsPerPage,
     }),

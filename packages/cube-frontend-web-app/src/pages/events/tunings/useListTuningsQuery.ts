@@ -2,13 +2,18 @@ import { Node } from '@cube-frontend/api'
 import { ItemsPerPage } from '@cube-frontend/ui-library'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { queryToSearchParams, searchParamsToQuery } from './tuningsUtils'
+import {
+  modifiedOptions,
+  queryToSearchParams,
+  searchParamsToQuery,
+} from './tuningsUtils'
 
 type UseListTuningsQuery = {
   query: ListTuningsQuery
   onKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void
   onKeywordClear: () => void
-  onModifyStatusItemClick: (value: boolean | undefined) => void
+  onModifiedItemClick: (modified: boolean) => void
+  onModifiedAllCheckChange: (checked: boolean) => void
   onNodeItemClick: (node: Node) => void
   onNodesAllCheckChange: (nodes: Node[]) => void
   onPageChange: (page: number) => void
@@ -17,7 +22,7 @@ type UseListTuningsQuery = {
 
 export type ListTuningsQuery = {
   keyword: string
-  selectedModified: [boolean | undefined]
+  modified: boolean[]
   hosts: string[]
   currentPage: number
   itemsPerPage: ItemsPerPage
@@ -58,11 +63,27 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
     }))
   }
 
-  const onModifyStatusItemClick = (modified: boolean | undefined): void => {
+  const onModifiedItemClick = (modified: boolean): void => {
+    const { modified: modifiedArray } = query
+
+    let nextModified: boolean[] = []
+    if (modifiedArray.includes(modified)) {
+      nextModified = modifiedArray.filter((value) => value !== modified)
+    } else {
+      nextModified = [...modifiedArray, modified]
+    }
+
     setQuery((prev) => ({
       ...prev,
-      selectedModified: [modified],
+      modified: nextModified,
       currentPage: 1,
+    }))
+  }
+
+  const onModifiedAllCheckChange = (checked: boolean): void => {
+    setQuery((prev) => ({
+      ...prev,
+      modified: checked ? [...modifiedOptions] : [],
     }))
   }
 
@@ -106,7 +127,8 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
     query,
     onKeywordChange,
     onKeywordClear,
-    onModifyStatusItemClick,
+    onModifiedItemClick,
+    onModifiedAllCheckChange,
     onNodeItemClick,
     onNodesAllCheckChange,
     onPageChange,
