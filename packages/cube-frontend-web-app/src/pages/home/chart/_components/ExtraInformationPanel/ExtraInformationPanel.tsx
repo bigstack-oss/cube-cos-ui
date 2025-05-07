@@ -96,9 +96,7 @@ export const ExtraInformationPanel = () => {
           boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)',
         }}
       >
-        <div className="secondary-h4 text-functional-title">
-          Extra Information
-        </div>
+        <div className="secondary-h4 text-functional-title">Extra Monitor</div>
         {networkLinkElement}
         {deviceLinkElement}
       </div>

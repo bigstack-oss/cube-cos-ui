@@ -39,7 +39,7 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
 
     return [
       {
-        children: 'Grafana',
+        children: 'Monitor',
         href: grafanaLinkResponse.link,
         target: '_blank',
         onClick: noop,

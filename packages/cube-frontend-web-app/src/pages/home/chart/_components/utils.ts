@@ -1,25 +1,25 @@
-import { AxiosRequestConfig } from 'axios'
 import {
-  GetMetricByTypes200Response,
-  MetricsApiGetMetricByTypesRequest,
+  GetCpuUsageRankOfHostsResponse,
+  GetCpuUsageRankOfVmsResponse,
   GetDiskBandwidthHistoryOfHostsResponse,
   GetDiskIopsHistoryOfHostsResponse,
-  GetNetworkTrafficInRankOfHostsResponse,
-  GetCpuUsageRankOfHostsResponse,
-  GetDiskUsageRankOfHostsResponse,
-  GetMemoryUsageRankOfHostsResponse,
-  GetNetworkTrafficOutRankOfHostsResponse,
-  GetNetworkTrafficInRankOfVmsResponse,
-  GetNetworkTrafficOutRankOfVmsResponse,
-  GetCpuUsageRankOfVmsResponse,
-  GetMemoryUsageRankOfVmsResponse,
   GetDiskReadIopsRankOfVmsResponse,
+  GetDiskUsageRankOfHostsResponse,
   GetDiskWriteIopsRankOfVmsResponse,
   GetGrafanaDashboardLinkResponseData,
+  GetMemoryUsageRankOfHostsResponse,
+  GetMemoryUsageRankOfVmsResponse,
+  GetMetricByTypes200Response,
+  GetNetworkTrafficInRankOfHostsResponse,
+  GetNetworkTrafficInRankOfVmsResponse,
+  GetNetworkTrafficOutRankOfHostsResponse,
+  GetNetworkTrafficOutRankOfVmsResponse,
+  MetricsApiGetMetricByTypesRequest,
 } from '@cube-frontend/api'
+import { CosGeneralPanelTitleBarProps } from '@cube-frontend/ui-library'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
-import { CosGeneralPanelTitleBarProps } from '@cube-frontend/ui-library'
+import { AxiosRequestConfig } from 'axios'
 import { noop } from 'lodash'
 
 const getMetricsByTypes = async <T extends GetMetricByTypes200Response>(
@@ -81,7 +81,7 @@ export const computeTitleBarHyperlinkProps = (
   if (!response) {
     // Grafana link is still loading.
     return {
-      children: 'More',
+      children: 'Monitor',
       onClick: noop,
       disabled: true,
     }
@@ -94,7 +94,7 @@ export const computeTitleBarHyperlinkProps = (
   }
 
   return {
-    children: 'More',
+    children: 'Monitor',
     href: response.link,
     target: '_blank',
   }
