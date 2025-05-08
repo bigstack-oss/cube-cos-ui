@@ -1,8 +1,8 @@
 import { MetricRankRankInner } from '@cube-frontend/api'
-import { toUnitAbbreviation } from '@cube-frontend/web-app/utils/unit'
 import { toAbbreviation } from '@cube-frontend/web-app/utils/number'
-import { RankingItemLine } from './RankingItemLine'
+import { toUnitAbbreviation } from '@cube-frontend/web-app/utils/unit'
 import { twMerge } from 'tailwind-merge'
+import { RankingItemLine } from './RankingItemLine'
 
 export type RankingItemProps = {
   rankingItem: MetricRankRankInner
@@ -40,11 +40,11 @@ export const RankingItem = (props: RankingItemProps) => {
       <span className="primary-body3 w-[140px] text-functional-text">
         {getName()}
       </span>
-      <div className="flex h-[36px] flex-1 items-center gap-x-1.5">
+      <div className="flex h-[36px] min-w-0 flex-1 items-center gap-x-1.5">
         <span className="primary-body5 w-[48px]">
           {toAbbreviation(rankingItem.value)} {abbreviationUnit}
         </span>
-        <div className="h-[36px] flex-1">
+        <div className="h-[36px] min-w-0 flex-1">
           <RankingItemLine
             rankItem={rankingItem}
             unit={unit}

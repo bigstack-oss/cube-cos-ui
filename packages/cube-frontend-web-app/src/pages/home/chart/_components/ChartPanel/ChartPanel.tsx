@@ -4,9 +4,12 @@ import {
   CosGeneralPanel,
   CosPercentagePieChart,
 } from '@cube-frontend/ui-library'
-import { toMetricsChart } from '../../../utils'
-import { useContext, useMemo } from 'react'
 import { toPluralizeDisplay } from '@cube-frontend/utils'
+import ScrollContainer from '@cube-frontend/web-app/components/ScrollContainer/ScrollContainer'
+import { useMediaQuery } from '@cube-frontend/web-app/hooks/useMediaQuery'
+import { useContext, useMemo } from 'react'
+import { twMerge } from 'tailwind-merge'
+import { toMetricsChart } from '../../../utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 
 export type ChartPanelProps = {
@@ -29,9 +32,33 @@ export const ChartPanel = (props: ChartPanelProps) => {
     storagePieChart,
   } = useMemo(() => toMetricsChart(metrics, roles), [metrics, roles])
 
+  const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
+
+  const vmAllocationPanel = (
+    <CosGeneralPanel topic="VM allocation">
+      <div className="flex h-[260px] w-full flex-row justify-around gap-x-[35px] p-5">
+        <CosPercentagePieChart
+          title="vCPU"
+          isLoading={isLoading}
+          {...cpuPieChart}
+        />
+        <CosPercentagePieChart
+          title="Memory"
+          isLoading={isLoading}
+          {...memoryPieChart}
+        />
+        <CosPercentagePieChart
+          title="Storage"
+          isLoading={isLoading}
+          {...storagePieChart}
+        />
+      </div>
+    </CosGeneralPanel>
+  )
+
   return (
-    <div className="flex gap-x-5">
-      <div className="flex flex-1 flex-col gap-y-5">
+    <ScrollContainer className={twMerge('flex gap-x-5')}>
+      <div className="flex min-w-[500px] flex-1 flex-col gap-y-5">
         <CosGeneralPanel topic="VM summary">
           <CosCountSegmentedChart
             title="VM Status"
@@ -51,26 +78,9 @@ export const ChartPanel = (props: ChartPanelProps) => {
             skeletonCount={6}
           />
         </CosGeneralPanel>
+        {isSmallScreen && vmAllocationPanel}
       </div>
-      <CosGeneralPanel topic="VM allocation">
-        <div className="flex h-[260px] flex-row justify-between gap-x-[35px] p-5">
-          <CosPercentagePieChart
-            title="vCPU"
-            isLoading={isLoading}
-            {...cpuPieChart}
-          />
-          <CosPercentagePieChart
-            title="Memory"
-            isLoading={isLoading}
-            {...memoryPieChart}
-          />
-          <CosPercentagePieChart
-            title="Storage"
-            isLoading={isLoading}
-            {...storagePieChart}
-          />
-        </div>
-      </CosGeneralPanel>
-    </div>
+      {!isSmallScreen && vmAllocationPanel}
+    </ScrollContainer>
   )
 }

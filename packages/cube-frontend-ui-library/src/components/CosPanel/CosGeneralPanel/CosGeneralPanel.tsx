@@ -4,11 +4,11 @@ import { twMerge } from 'tailwind-merge'
 import { CosButtonProps } from '../../CosButton/CosButton'
 import { CosDropdownProps } from '../../CosDropdown/CosDropdown'
 import { CosDropdownType } from '../../CosDropdown/utils'
+import { CosGeneralPanelContainer } from './CosGeneralPanelContainer'
 import {
   CosGeneralPanelTitleBar,
   CosGeneralPanelTitleBarProps,
 } from './CosGeneralPanelTitleBar'
-import { CosGeneralPanelContainer } from './CosGeneralPanelContainer'
 
 export type CosGeneralPanelContentProps = PropsWithChildren &
   PropsWithClassName & {
@@ -64,7 +64,7 @@ export const CosGeneralPanel = (props: CosGeneralPanelContentProps) => {
       {titleBarProps && <CosGeneralPanelTitleBar {...titleBarProps} />}
       <div
         className={twMerge(
-          'flex h-full flex-col gap-y-4 rounded-[5px] bg-grey-0 p-6',
+          'flex h-full flex-col gap-y-4 overflow-auto rounded-[5px] bg-grey-0 p-6',
           classNameProps,
         )}
         style={{ boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)' }}

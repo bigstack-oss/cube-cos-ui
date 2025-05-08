@@ -10,7 +10,7 @@ export const Panel = (props: PanelProps) => {
   return (
     <div
       className={twMerge(
-        'flex flex-col rounded-[5px] bg-grey-0 px-6 py-4',
+        'flex flex-col overflow-auto rounded-[5px] bg-grey-0 px-6 py-4',
         className,
       )}
       style={{

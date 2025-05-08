@@ -1,13 +1,15 @@
+import { GrafanaApiGetGrafanaStoragesRequest } from '@cube-frontend/api'
+import { CosGeneralPanel } from '@cube-frontend/ui-library'
+import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
+import ScrollContainer from '@cube-frontend/web-app/components/ScrollContainer/ScrollContainer'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { useContext } from 'react'
+import { twMerge } from 'tailwind-merge'
+import { computeTitleBarHyperlinkProps } from '../utils'
 import { StorageBandwidthPanel } from './StorageBandwidthPanel'
 import { StorageIopsPanel } from './StorageIopsPanel'
 import { StorageLatencyPanel } from './StorageLatencyPanel'
-import { CosGeneralPanel } from '@cube-frontend/ui-library'
-import { useContext } from 'react'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
-import { GrafanaApiGetGrafanaStoragesRequest } from '@cube-frontend/api'
-import { computeTitleBarHyperlinkProps } from '../utils'
 
 export const StoragePanels = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -25,11 +27,15 @@ export const StoragePanels = () => {
         title="Storage"
         hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse)}
       />
-      <div className="flex items-stretch gap-x-4 [&>*]:flex-1">
+      <ScrollContainer
+        className={twMerge(
+          'flex items-stretch gap-x-4 [&>*]:min-w-[350px] [&>*]:flex-1',
+        )}
+      >
         <StorageBandwidthPanel />
         <StorageIopsPanel />
         <StorageLatencyPanel />
-      </div>
+      </ScrollContainer>
     </CosGeneralPanel.Container>
   )
 }

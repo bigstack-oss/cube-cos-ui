@@ -1,14 +1,14 @@
+import { PropsWithClassName } from '@cube-frontend/utils'
 import { PropsWithChildren } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { PropsWithClassName } from '@cube-frontend/utils'
+import { CosDashboardPanelContentBox } from './CosDashboardPanelContentBox'
+import { CosDashboardPanelContentCol } from './CosDashboardPanelContentCol'
+import { CosDashboardPanelContentItem } from './CosDashboardPanelContentItem'
+import { CosDashboardPanelContentRow } from './CosDashboardPanelContentRow'
 import {
   CosDashboardPanelHeader,
   CosDashboardPanelHeaderProps,
 } from './CosDashboardPanelHeader'
-import { CosDashboardPanelContentBox } from './CosDashboardPanelContentBox'
-import { CosDashboardPanelContentCol } from './CosDashboardPanelContentCol'
-import { CosDashboardPanelContentRow } from './CosDashboardPanelContentRow'
-import { CosDashboardPanelContentItem } from './CosDashboardPanelContentItem'
 
 export type CosDashboardPanelProps = PropsWithChildren &
   PropsWithClassName &

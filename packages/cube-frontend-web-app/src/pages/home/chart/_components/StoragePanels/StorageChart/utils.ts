@@ -1,8 +1,4 @@
-import { toUnitDisplay } from '@cube-frontend/web-app/utils/unit'
-import { ChartDataset, ChartData, ChartOptions } from 'chart.js'
-import { last } from 'lodash'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
-import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
 import {
   chartFontFamily,
   getChartTicksOptions,
@@ -10,6 +6,10 @@ import {
   getChartTooltipTitleFont,
   getChartYAxisTitleFont,
 } from '@cube-frontend/web-app/utils/chart'
+import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
+import { toUnitDisplay } from '@cube-frontend/web-app/utils/unit'
+import { ChartData, ChartDataset, ChartOptions } from 'chart.js'
+import { last } from 'lodash'
 
 enum DATASET_LABELS {
   Read = 'Read',
@@ -78,6 +78,7 @@ export const getChartOptions = (props: {
   const { unit, unitSuffix, isLoading, formatter } = props
 
   return {
+    responsive: true,
     maintainAspectRatio: false,
     interaction: {
       mode: 'nearest',

@@ -1,4 +1,3 @@
-import { useContext, useMemo } from 'react'
 import { MetricsApiGetMetricsOverviewRequest } from '@cube-frontend/api'
 import {
   CosCountSegmentedChart,
@@ -8,15 +7,17 @@ import {
 import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { useMediaQuery } from '@cube-frontend/web-app/hooks/useMediaQuery'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
+import { noop } from 'lodash'
+import { useContext, useMemo } from 'react'
+import { Link } from 'react-router'
 import { links } from '../../../links'
 import { toMetricsChart } from '../../../utils'
-import { defaultMetrics } from './utils'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
-import { noop } from 'lodash'
-import { Link } from 'react-router'
+import { defaultMetrics } from './utils'
 
 const ChartPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -53,6 +54,30 @@ const ChartPanel = () => {
 
   const updateTime = useUpdateTime(metrics, isLoading)
 
+  const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
+
+  const vmAllocationPanelItem = (
+    <CosDashboardPanel.Item topic="VM allocation">
+      <div className="flex flex-row justify-around gap-x-7">
+        <CosPercentagePieChart
+          title="vCPU"
+          isLoading={isLoading}
+          {...cpuPieChart}
+        />
+        <CosPercentagePieChart
+          title="Memory"
+          isLoading={isLoading}
+          {...memoryPieChart}
+        />
+        <CosPercentagePieChart
+          title="Storage"
+          isLoading={isLoading}
+          {...storagePieChart}
+        />
+      </div>
+    </CosDashboardPanel.Item>
+  )
+
   return (
     <CosDashboardPanel
       title="Chart"
@@ -61,7 +86,7 @@ const ChartPanel = () => {
       HyperLinkContainer={<Link to={links.chart} />}
       isTimeLoading={isLoading}
     >
-      <CosDashboardPanel.Row>
+      <CosDashboardPanel.Row className="[&>*]:min-w-[500px]">
         <CosDashboardPanel.Col className="flex-1">
           <CosDashboardPanel.Item
             topic="VM Summary"
@@ -86,26 +111,9 @@ const ChartPanel = () => {
               skeletonCount={6}
             />
           </CosDashboardPanel.Item>
+          {isSmallScreen && vmAllocationPanelItem}
         </CosDashboardPanel.Col>
-        <CosDashboardPanel.Item topic="VM allocation">
-          <div className="flex flex-row justify-between gap-x-7">
-            <CosPercentagePieChart
-              title="vCPU"
-              isLoading={isLoading}
-              {...cpuPieChart}
-            />
-            <CosPercentagePieChart
-              title="Memory"
-              isLoading={isLoading}
-              {...memoryPieChart}
-            />
-            <CosPercentagePieChart
-              title="Storage"
-              isLoading={isLoading}
-              {...storagePieChart}
-            />
-          </div>
-        </CosDashboardPanel.Item>
+        {!isSmallScreen && vmAllocationPanelItem}
       </CosDashboardPanel.Row>
     </CosDashboardPanel>
   )

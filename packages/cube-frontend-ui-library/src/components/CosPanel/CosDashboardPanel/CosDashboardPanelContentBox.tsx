@@ -9,7 +9,7 @@ export const CosDashboardPanelContentBox = (props: PropsWithChildren) => {
   return (
     <div
       className={twMerge(
-        'rounded-[5px] border border-functional-border-divider',
+        'overflow-auto rounded-[5px] border border-functional-border-divider',
         baseDashboardPanelBorderStyle,
       )}
     >

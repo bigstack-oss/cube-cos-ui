@@ -1,9 +1,9 @@
+import { noop } from 'lodash'
+import { CosCountSegmentedChart } from '../../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
 import { CosDashboardPanel } from '../../../../components/CosPanel/CosDashboardPanel/CosDashboardPanel'
+import { CosPercentagePieChart } from '../../../../components/CosPercentagePieChart/CosPercentagePieChart'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import { PanelBlock } from '../PanelBlock'
-import { CosCountSegmentedChart } from '../../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
-import { CosPercentagePieChart } from '../../../../components/CosPercentagePieChart/CosPercentagePieChart'
-import { noop } from 'lodash'
 import { events, EventTable, roleSummary, vmSummary } from './mockData'
 
 export const UsageSection = () => {
@@ -40,7 +40,13 @@ export const UsageSection = () => {
               time="yyyy/mm/dd 00:00"
               hyperLinkProps={{ onClick: noop }}
             >
-              <CosDashboardPanel.Row>
+              {/*
+               * To display a canvas or SVG chart inside a flexbox, we need to set a min-width on the flex item.
+               * References:
+               * 1. https://github.com/chartjs/Chart.js/issues/4156#issuecomment-295180128
+               * 2. https://jsfiddle.net/pgg9pz7c/3/
+               */}
+              <CosDashboardPanel.Row className="[&>*]:min-w-[500px]">
                 <CosDashboardPanel.Col>
                   <CosDashboardPanel.Item
                     topic="VM Summary"

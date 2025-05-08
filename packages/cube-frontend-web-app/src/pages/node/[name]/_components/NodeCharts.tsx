@@ -10,7 +10,7 @@ export const NodeCharts = (props: NodeChartsProps) => {
   const { node } = props
 
   return (
-    <div className="flex gap-x-4">
+    <div className="flex gap-x-4 overflow-auto [&>*]:min-w-[400px]">
       <CpuPerformanceChart node={node} />
       <MemoryPerformanceChart node={node} />
     </div>

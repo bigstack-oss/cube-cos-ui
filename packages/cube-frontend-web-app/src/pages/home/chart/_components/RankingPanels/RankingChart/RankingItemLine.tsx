@@ -1,21 +1,21 @@
-import { useMemo } from 'react'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  ChartOptions,
-  ChartData,
-} from 'chart.js'
-import { Line } from 'react-chartjs-2'
 import { MetricRankRankInner } from '@cube-frontend/api'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
-import { toUnitAbbreviation } from '@cube-frontend/web-app/utils/unit'
-import { toAbbreviation } from '@cube-frontend/web-app/utils/number'
 import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
+import { toAbbreviation } from '@cube-frontend/web-app/utils/number'
+import { toUnitAbbreviation } from '@cube-frontend/web-app/utils/unit'
+import {
+  CategoryScale,
+  ChartData,
+  Chart as ChartJS,
+  ChartOptions,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+} from 'chart.js'
+import { useMemo } from 'react'
+import { Line } from 'react-chartjs-2'
 
 ChartJS.register(
   CategoryScale,
@@ -51,6 +51,7 @@ const getChartData = (
 
 const getChartOptions = (unit: string): ChartOptions<'line'> => {
   return {
+    responsive: true,
     maintainAspectRatio: false,
     interaction: {
       mode: 'nearest',
@@ -104,12 +105,14 @@ export const RankingItemLine = (props: RankingItemLineProps) => {
   const options = useMemo(() => getChartOptions(unit), [unit])
 
   return (
-    <Line
-      height={36}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      data={chartData}
-      options={options}
-    />
+    <div className="relative w-full">
+      <Line
+        height={36}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        data={chartData}
+        options={options}
+      />
+    </div>
   )
 }
