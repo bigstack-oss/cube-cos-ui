@@ -7,6 +7,8 @@ import {
   CosTooltip,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
+import { CopyButton } from '@cube-frontend/web-app/components/CopyButton'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import {
   humanizeDuration,
   toLicenseExpirationDate,
@@ -16,8 +18,6 @@ import { toPercentage } from '@cube-frontend/web-app/utils/number'
 import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router'
-import { CopyButton } from '@cube-frontend/web-app/components/CopyButton'
-import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 const BasicNodeTable = GetCosBasicTable<GetNodesResponseData['nodes'][number]>()
 
@@ -65,7 +65,7 @@ export const NodeTable = (props: NodeTableProps) => {
           </CosTag>
         )}
       </BasicNodeTable.Column>
-      <BasicNodeTable.Column label="License Expiration" property="license">
+      <BasicNodeTable.Column label="COS License Expiration" property="license">
         {toLicenseExpirationDate}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
