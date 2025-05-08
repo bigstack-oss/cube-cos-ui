@@ -10,6 +10,7 @@ export type SegmentedRectProps = {
   dimensions: RectDimensions
   roundedSide: RoundedSide
   onMouseEnter?: (e: MouseEvent<SVGRectElement>) => void
+  onMouseMove?: (e: MouseEvent<SVGRectElement>) => void
   onMouseLeave?: (e: MouseEvent<SVGRectElement>) => void
 }
 
@@ -21,6 +22,7 @@ export const SegmentedRect = (props: SegmentedRectProps) => {
     dimensions,
     roundedSide,
     onMouseEnter,
+    onMouseMove,
     onMouseLeave,
   } = props
 
@@ -92,6 +94,7 @@ export const SegmentedRect = (props: SegmentedRectProps) => {
         x={getX()}
         rx={getRx()}
         onMouseEnter={onMouseEnter}
+        onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
       />
     </>

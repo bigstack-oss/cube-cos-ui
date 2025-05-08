@@ -3,6 +3,7 @@ import { MouseEvent, Ref } from 'react'
 export type InteractiveElementProps = {
   ref?: Ref<HTMLElement>
   onMouseEnter?: (e: MouseEvent<HTMLElement>) => void
+  onMouseMove?: (e: MouseEvent<HTMLElement>) => void
   onMouseLeave?: (e: MouseEvent<HTMLElement>) => void
   onClick?: (e: MouseEvent<HTMLElement>) => void
 }

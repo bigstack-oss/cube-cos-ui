@@ -67,7 +67,6 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
 
   const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
     placement: 'bottom-left',
-    autoPlacement: true,
     offsets: {
       y: 8,
     },

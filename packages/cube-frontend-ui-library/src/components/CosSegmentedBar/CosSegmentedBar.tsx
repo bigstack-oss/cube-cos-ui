@@ -128,7 +128,11 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
       height={svgHeight}
     >
       {displaySegments.map((segment, index) => (
-        <CosTooltip key={index} hoverContent={segment.hoverContent}>
+        <CosTooltip
+          key={index}
+          placement="top-follow-cursor"
+          hoverContent={segment.hoverContent}
+        >
           <SegmentedRect
             color={segment.color}
             radius={rectRadius}

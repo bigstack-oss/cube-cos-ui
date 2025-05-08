@@ -9,14 +9,20 @@ export const computeXBound = (
   elementWidth: number,
   horizontalPlacement: HorizontalPlacement,
   xOffset: number,
+  mouseX: number,
 ): XBoundary => {
   const fn = computeFn[horizontalPlacement]
-  return fn(anchorDomRect, elementWidth, xOffset)
+  return fn(anchorDomRect, elementWidth, xOffset, mouseX)
 }
 
 const computeFn: Record<
   HorizontalPlacement,
-  (anchorDomRect: DOMRect, elementWidth: number, xOffset: number) => XBoundary
+  (
+    anchorDomRect: DOMRect,
+    elementWidth: number,
+    xOffset: number,
+    mouseX: number,
+  ) => XBoundary
 > = {
   left: (anchorDomRect, elementWidth, xOffset) => {
     const left = anchorDomRect.left - xOffset
@@ -26,7 +32,7 @@ const computeFn: Record<
     }
   },
   center: (anchorDomRect, elementWidth) => {
-    // Center horizontal placement is not affected by offsets.
+    // `center` horizontal placement is not affected by offsets.
     const left = anchorDomRect.left + anchorDomRect.width / 2 - elementWidth / 2
     return {
       left,
@@ -38,6 +44,14 @@ const computeFn: Record<
     return {
       left: right - elementWidth,
       right,
+    }
+  },
+  'follow-cursor': (_anchorDomRect, elementWidth, _xOffset, mouseX) => {
+    // `follow-cursor'` horizontal placement is not affected by offsets.
+    const left = mouseX - elementWidth / 2
+    return {
+      left,
+      right: left + elementWidth,
     }
   },
 }

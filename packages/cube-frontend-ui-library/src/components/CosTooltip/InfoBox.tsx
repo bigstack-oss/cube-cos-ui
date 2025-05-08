@@ -14,6 +14,7 @@ import { useCaretStyle } from './useCaretStyle'
 export type InfoBoxProps = {
   information: CosTooltipInformation
   placement: Placement
+  mouseX: number
   anchorRef: RefObject<HTMLElement | null>
 }
 
@@ -33,6 +34,7 @@ export const InfoBox = (props: InfoBoxProps) => {
   const {
     information: { title, subtext, message },
     placement,
+    mouseX,
     anchorRef,
   } = props
 
@@ -43,17 +45,19 @@ export const InfoBox = (props: InfoBoxProps) => {
       x: 14,
       y: 2,
     },
-    autoPlacement: true,
+    mouseX,
   })
 
-  const { idealPlacement, floatingStyle, translationOffsets } =
-    resolvedStyles ?? {}
+  const {
+    idealPlacement = placement,
+    floatingStyle,
+    translateX = 0,
+  } = resolvedStyles ?? {}
 
-  const [verticalPlacement, horizontalPlacement] = splitPlacements(
-    idealPlacement ?? placement,
-  )
+  const [verticalPlacement, horizontalPlacement] =
+    splitPlacements(idealPlacement)
 
-  const caretStyle = useCaretStyle(verticalPlacement, translationOffsets)
+  const caretStyle = useCaretStyle(verticalPlacement, translateX)
 
   const onClick = (e: MouseEvent<HTMLDivElement>) => {
     // Prevent the visibility state from switching from 'hover' to 'click'

@@ -40,6 +40,8 @@ export const CosTooltip = (props: CosTooltipProps) => {
   const [visibilityState, setVisibilityState] =
     useState<VisibilityState>(undefined)
 
+  const [mouseX, setMouseX] = useState(0)
+
   const anchorRef = useRef<HTMLElement | null>(null)
 
   const infoMap: Record<
@@ -55,6 +57,11 @@ export const CosTooltip = (props: CosTooltipProps) => {
       setVisibilityState('hover')
     }
     anchorElement.props.onMouseEnter?.(e)
+  }
+
+  const onMouseMove = (e: MouseEvent<HTMLElement>): void => {
+    setMouseX(e.clientX)
+    anchorElement.props.onMouseMove?.(e)
   }
 
   const onMouseLeave = (e: MouseEvent<HTMLElement>) => {
@@ -82,6 +89,7 @@ export const CosTooltip = (props: CosTooltipProps) => {
       assignRefValue(anchorRef, element)
     },
     onMouseEnter,
+    onMouseMove,
     onMouseLeave,
     onClick,
   })
@@ -97,6 +105,7 @@ export const CosTooltip = (props: CosTooltipProps) => {
             key={visibilityState}
             information={infoMap[visibilityState]!}
             placement={placement}
+            mouseX={mouseX}
             anchorRef={anchorRef}
           />,
           document.body,

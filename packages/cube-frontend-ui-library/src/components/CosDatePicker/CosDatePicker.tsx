@@ -80,7 +80,6 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
 
   const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
     placement: 'bottom-left',
-    autoPlacement: true,
     offsets: {
       y: 8,
     },

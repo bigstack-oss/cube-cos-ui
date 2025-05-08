@@ -17,6 +17,7 @@ const caret = cva(
         left: 'ml-4 self-start',
         center: 'self-center',
         right: 'mr-4 self-end',
+        'follow-cursor': 'self-center',
       } satisfies Record<HorizontalPlacement, ClassValue>,
     },
   },

@@ -4,5 +4,10 @@ import { HorizontalPlacement, Placement, VerticalPlacement } from './types'
 export const splitPlacements = (
   placement: Placement,
 ): [VerticalPlacement, HorizontalPlacement] => {
-  return placement.split('-') as [VerticalPlacement, HorizontalPlacement]
+  const [verticalPlacement, ...horizontalPlacementParts] = placement.split('-')
+  const horizontalPlacement = horizontalPlacementParts.join('-')
+  return [verticalPlacement, horizontalPlacement] as [
+    VerticalPlacement,
+    HorizontalPlacement,
+  ]
 }

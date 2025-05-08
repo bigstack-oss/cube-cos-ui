@@ -21,11 +21,13 @@ export type UseFloatingOptions<Anchor extends HTMLElement> = {
   anchorRef?: RefObject<Anchor | null>
   placement: Placement
   offsets?: Offsets
-} & (
-  | NonNullable<unknown>
-  | { autoPlacement: boolean; translate?: never }
-  | { autoPlacement?: never; translate: boolean }
-)
+  /**
+   * Used to calculate the X-position of the floating element when
+   * horizontal placement is set to `follow-cursor`.
+   * @default 0
+   */
+  mouseX?: number
+}
 
 export const useFloating = <
   Anchor extends HTMLElement = HTMLDivElement,
@@ -33,7 +35,7 @@ export const useFloating = <
 >(
   options: UseFloatingOptions<Anchor>,
 ): UseFloating<Anchor, Element> => {
-  const { anchorRef: anchorRefOption, placement, offsets } = options
+  const { anchorRef: anchorRefOption, placement, offsets, mouseX = 0 } = options
 
   const anchorRef = useRef<Anchor>(null)
   const elementRef = useRef<Element>(null)
@@ -45,9 +47,6 @@ export const useFloating = <
     scrollableRootSelector,
   )
   const elementRect = useElementDomRect(elementRef, scrollableRootSelector)
-
-  const autoPlacement = 'autoPlacement' in options
-  const translate = 'translate' in options
 
   const resolvedStyles = useMemo<ResolvedFloatingStyles | undefined>(() => {
     if (!anchorRect || !elementRect) {
@@ -62,16 +61,11 @@ export const useFloating = <
       },
       placement,
       offsets,
+      mouseX,
     )
 
-    if (autoPlacement) {
-      floatingRect.fitByAutoPlacement()
-    } else if (translate) {
-      floatingRect.fitByTranslate()
-    }
-
     return floatingRect.resolveStyles()
-  }, [anchorRect, elementRect, placement, offsets, autoPlacement, translate])
+  }, [anchorRect, elementRect, placement, offsets, mouseX])
 
   return {
     anchorRef,

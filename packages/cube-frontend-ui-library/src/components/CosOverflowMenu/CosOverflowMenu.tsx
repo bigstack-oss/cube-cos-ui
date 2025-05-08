@@ -47,7 +47,6 @@ export const CosOverflowMenu = (props: CosOverflowMenuProps) => {
 
   const { anchorRef, elementRef, resolvedStyles } = useFloating({
     placement: 'bottom-left',
-    autoPlacement: true,
     offsets: {
       y: 8,
     },

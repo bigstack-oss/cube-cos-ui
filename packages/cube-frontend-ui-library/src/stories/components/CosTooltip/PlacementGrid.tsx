@@ -11,7 +11,7 @@ const columnClass = twMerge('flex flex-col items-center gap-y-4 [&>*]:h-6')
 export const PlacementGrid = () => {
   const renderLeft = () => (
     <div className={columnClass}>
-      <span className="primary-body3 flex items-center">Left</span>
+      <span className="primary-body3 flex items-center text-center">Left</span>
       <div className="flex items-center">
         <CosTooltip hoverContent={hoverContent} placement="top-left">
           <InformationCircle className="icon-md" />
@@ -27,7 +27,9 @@ export const PlacementGrid = () => {
 
   const renderCenter = () => (
     <div className={columnClass}>
-      <span className="primary-body3 flex items-center">Center</span>
+      <span className="primary-body3 flex items-center text-center">
+        Center
+      </span>
       <div className="flex items-center">
         <CosTooltip hoverContent={hoverContent} placement="top-center">
           <InformationCircle className="icon-md" />
@@ -43,7 +45,7 @@ export const PlacementGrid = () => {
 
   const renderRight = () => (
     <div className={columnClass}>
-      <span className="primary-body3 flex items-center">Right</span>
+      <span className="primary-body3 flex items-center text-center">Right</span>
       <div className="flex items-center">
         <CosTooltip hoverContent={hoverContent} placement="top-right">
           <InformationCircle className="icon-md" />
@@ -57,8 +59,29 @@ export const PlacementGrid = () => {
     </div>
   )
 
+  const renderFollowCursor = () => (
+    <div className={columnClass}>
+      <span className="primary-body3 flex items-center text-center">
+        Follow Cursor
+      </span>
+      <div className="flex items-center">
+        <CosTooltip hoverContent={hoverContent} placement="top-follow-cursor">
+          <InformationCircle className="icon-md" />
+        </CosTooltip>
+      </div>
+      <div className="flex items-center">
+        <CosTooltip
+          hoverContent={hoverContent}
+          placement="bottom-follow-cursor"
+        >
+          <InformationCircle className="icon-md" />
+        </CosTooltip>
+      </div>
+    </div>
+  )
+
   return (
-    <div className="grid w-[400px] grid-cols-[64px_repeat(3,1fr)]">
+    <div className="grid w-[400px] grid-cols-[64px_repeat(4,1fr)]">
       <div className="primary-body3 flex flex-col gap-y-4 [&>*]:h-6">
         <span />
         <span className="flex items-center">Top</span>
@@ -67,6 +90,7 @@ export const PlacementGrid = () => {
       {renderLeft()}
       {renderCenter()}
       {renderRight()}
+      {renderFollowCursor()}
     </div>
   )
 }

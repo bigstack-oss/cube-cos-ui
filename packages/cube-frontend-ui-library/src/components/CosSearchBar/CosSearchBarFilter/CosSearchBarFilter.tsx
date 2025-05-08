@@ -81,7 +81,6 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
 
   const floatingProps = useFloating<HTMLDivElement, HTMLDivElement>({
     placement: 'bottom-left',
-    autoPlacement: true,
     offsets: {
       y: 8,
     },

@@ -1,25 +1,16 @@
 import { computeIdealPlacement } from '../autoPlacement/computeIdealPlacement'
-import { computeTranslate } from '../translate/computeTranslate'
-import {
-  FloatingStyle,
-  Offsets,
-  Placement,
-  Size,
-  TranslationOffsets,
-  XYBoundary,
-} from '../types'
+import { FloatingStyle, Offsets, Placement, Size, XYBoundary } from '../types'
 import { computeFloatingBoundary } from './computeFloatingBoundary'
+import { computeTranslateX } from './computeTranslateX'
 
 interface IFloatingRect {
-  fitByAutoPlacement: () => this
-  fitByTranslate: () => this
   resolveStyles: () => ResolvedFloatingStyles
 }
 
 export type ResolvedFloatingStyles = {
   idealPlacement: Placement
   floatingStyle: FloatingStyle
-  translationOffsets: TranslationOffsets
+  translateX: number
 }
 
 // TODO: Add unit tests.
@@ -28,40 +19,20 @@ export class FloatingRect implements IFloatingRect {
   private readonly _size: Size
   private readonly _originalPlacement: Placement
   private readonly _offsets: Offsets | undefined = undefined
-
-  private _autoPlacement: boolean = false
-  private _translate: boolean = false
+  private readonly _mouseX: number = 0
 
   constructor(
     anchorDomRect: DOMRect,
     size: Size,
     placement: Placement,
     offsets?: Partial<Offsets>,
+    mouseX?: number,
   ) {
     this._anchorDomRect = anchorDomRect
     this._size = size
     this._originalPlacement = placement
     this._offsets = offsets
-  }
-
-  fitByAutoPlacement(): this {
-    if (this._translate) {
-      throw new Error(
-        'autoPlacement and translate cannot be used at the same time',
-      )
-    }
-    this._autoPlacement = true
-    return this
-  }
-
-  fitByTranslate(): this {
-    if (this._autoPlacement) {
-      throw new Error(
-        'translate and autoPlacement cannot be used at the same time',
-      )
-    }
-    this._translate = true
-    return this
+    this._mouseX = mouseX ?? 0
   }
 
   resolveStyles(): ResolvedFloatingStyles {
@@ -70,47 +41,41 @@ export class FloatingRect implements IFloatingRect {
       this._size,
       this._originalPlacement,
       this._offsets,
+      this._mouseX,
     )
 
-    let idealPlacement = this._originalPlacement
     let finalBoundary: XYBoundary = { ...floatingBoundary }
-    let translationOffsets: TranslationOffsets = {
-      x: 0,
-      y: 0,
-    }
 
-    if (this._autoPlacement) {
-      const overflowPx = this.computeOverflowPx(floatingBoundary)
+    const overflowPx = this.computeOverflowPx(floatingBoundary)
 
-      idealPlacement = computeIdealPlacement(
-        this._originalPlacement,
-        overflowPx,
+    const idealPlacement = computeIdealPlacement(
+      this._originalPlacement,
+      overflowPx,
+    )
+
+    if (idealPlacement !== this._originalPlacement) {
+      finalBoundary = computeFloatingBoundary(
+        this._anchorDomRect,
+        this._size,
+        idealPlacement,
+        this._offsets,
+        this._mouseX,
       )
-
-      if (idealPlacement !== this._originalPlacement) {
-        finalBoundary = computeFloatingBoundary(
-          this._anchorDomRect,
-          this._size,
-          idealPlacement,
-          this._offsets,
-        )
-      }
-    } else if (this._translate) {
-      const overflowPx = this.computeOverflowPx(floatingBoundary)
-      translationOffsets = computeTranslate(this._originalPlacement, overflowPx)
     }
+
+    const translateX = computeTranslateX(idealPlacement, overflowPx)
 
     const floatingStyle: FloatingStyle = {
       // Convert the position from viewport-relative coordinates to document-relative coordinates.
       top: finalBoundary.top + window.scrollY,
       left: finalBoundary.left + window.scrollX,
-      transform: `translate(${translationOffsets.x}px, ${translationOffsets.y}px)`,
+      transform: `translateX(${translateX}px)`,
     }
 
     return {
       idealPlacement,
       floatingStyle,
-      translationOffsets,
+      translateX,
     }
   }
 

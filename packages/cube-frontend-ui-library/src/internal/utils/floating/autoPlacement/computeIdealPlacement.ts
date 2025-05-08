@@ -14,14 +14,16 @@ export const computeIdealPlacement = (
     newVertical = flipVerticalPlacement(vertical)
   }
 
-  if (overflowPx.left > 0) {
-    // Content is clipped on the left.
-    // Anchor the floating element to the left.
-    newHorizontal = 'left'
-  } else if (overflowPx.right > 0) {
-    // Content is clipped on the right.
-    // Anchor the floating element to the right.
-    newHorizontal = 'right'
+  if (horizontal !== 'follow-cursor') {
+    if (overflowPx.left > 0) {
+      // Content is clipped on the left.
+      // Anchor the floating element to the left.
+      newHorizontal = 'left'
+    } else if (overflowPx.right > 0) {
+      // Content is clipped on the right.
+      // Anchor the floating element to the right.
+      newHorizontal = 'right'
+    }
   }
 
   return `${newVertical}-${newHorizontal}`

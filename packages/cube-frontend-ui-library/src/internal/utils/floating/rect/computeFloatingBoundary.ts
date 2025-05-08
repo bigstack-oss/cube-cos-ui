@@ -11,7 +11,8 @@ export const computeFloatingBoundary = (
   anchorDomRect: DOMRect,
   elementSize: Size,
   placement: Placement,
-  offsets?: Offsets,
+  offsets?: Offsets | undefined,
+  mouseX?: number | undefined,
 ): XYBoundary => {
   const [verticalPlacement, horizontalPlacement] = splitPlacements(placement)
 
@@ -20,6 +21,7 @@ export const computeFloatingBoundary = (
     elementSize.width,
     horizontalPlacement,
     offsets?.x ?? 0,
+    mouseX ?? 0,
   )
 
   const yBound = computeYBound(
