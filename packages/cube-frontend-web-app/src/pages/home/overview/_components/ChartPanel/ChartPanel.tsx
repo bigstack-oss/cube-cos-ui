@@ -21,6 +21,8 @@ import { Link } from 'react-router'
 const ChartPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
 
+  const roles = dataCenter!.roles
+
   const {
     data: metrics = defaultMetrics,
     hasResponseBeenReceived,
@@ -47,7 +49,7 @@ const ChartPanel = () => {
     cpuPieChart,
     memoryPieChart,
     storagePieChart,
-  } = useMemo(() => toMetricsChart(metrics), [metrics])
+  } = useMemo(() => toMetricsChart(metrics, roles), [metrics, roles])
 
   const updateTime = useUpdateTime(metrics, isLoading)
 

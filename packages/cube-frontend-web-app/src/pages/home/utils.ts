@@ -1,8 +1,15 @@
-import { GetMetricsResponseData, RoleUsage } from '@cube-frontend/api'
+import {
+  GetDataCentersResponseDataInnerRolesEnum,
+  GetMetricsResponseData,
+  RoleUsage,
+} from '@cube-frontend/api'
 import { CosCountSegmentedChartCountInfo } from '@cube-frontend/ui-library'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
 
-export const toMetricsChart = (metrics: GetMetricsResponseData) => {
+export const toMetricsChart = (
+  metrics: GetMetricsResponseData,
+  roles: GetDataCentersResponseDataInnerRolesEnum[],
+) => {
   const vmCountInfos: CosCountSegmentedChartCountInfo[] = [
     {
       name: 'Running',
@@ -31,41 +38,44 @@ export const toMetricsChart = (metrics: GetMetricsResponseData) => {
     },
   ]
 
-  // TODO: define roles enum in the openAPI.
   const roleCountInfos: CosCountSegmentedChartCountInfo[] = [
     {
-      name: 'Control-converged',
+      name: GetDataCentersResponseDataInnerRolesEnum.ControlConverged,
       color: 'fill-chart-1',
       count: metrics.host.role.controlConverged.count,
     },
     {
-      name: 'Control',
+      name: GetDataCentersResponseDataInnerRolesEnum.Control,
       color: 'fill-chart-2',
       count: metrics.host.role.control.count,
     },
     {
-      name: 'Compute',
+      name: GetDataCentersResponseDataInnerRolesEnum.Compute,
       color: 'fill-chart-3',
       count: metrics.host.role.compute.count,
     },
     {
-      name: 'Storage',
+      name: GetDataCentersResponseDataInnerRolesEnum.Storage,
       color: 'fill-chart-5',
       count: metrics.host.role.storage.count,
     },
     {
-      name: 'Edge-core',
+      name: GetDataCentersResponseDataInnerRolesEnum.EdgeCore,
       color: 'fill-chart-8',
       count: metrics.host.role.edgeCore.count,
     },
     {
-      name: 'Moderator',
+      name: GetDataCentersResponseDataInnerRolesEnum.Moderator,
       color: 'fill-chart-9',
       count: metrics.host.role.moderator.count,
     },
   ]
 
-  const totalRoles: number = Object.values(metrics.host.role).reduce(
+  const totalRoles = roleCountInfos.filter((info) =>
+    roles.includes(info.name as GetDataCentersResponseDataInnerRolesEnum),
+  )
+
+  const totalRolesCount: number = Object.values(metrics.host.role).reduce(
     (total, role: RoleUsage) => total + role.count,
     0,
   )
@@ -96,8 +106,8 @@ export const toMetricsChart = (metrics: GetMetricsResponseData) => {
       count: metrics.vm.status.total,
     },
     roleBarChart: {
-      countInfos: roleCountInfos,
-      count: totalRoles,
+      countInfos: totalRoles,
+      count: totalRolesCount,
     },
     cpuPieChart: {
       unit: 'vCPU',

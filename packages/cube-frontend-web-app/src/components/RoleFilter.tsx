@@ -1,16 +1,23 @@
-import { GetNodesRolesEnum } from '@cube-frontend/api'
+import { ChangeEvent, useContext, useState } from 'react'
+import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
-import { ChangeEvent, useState } from 'react'
-
-const allRoles = Object.values(GetNodesRolesEnum)
+import { DataCenterContext } from '../context/DataCenterContext'
 
 export type RoleFilterProps = {
-  selectedRoles: GetNodesRolesEnum[]
-  handleRolesSelect: (roles: GetNodesRolesEnum[]) => void
+  selectedRoles: GetDataCentersResponseDataInnerRolesEnum[]
+  handleRolesSelect: (roles: GetDataCentersResponseDataInnerRolesEnum[]) => void
 }
 
+/**
+ * This component has a dependency on the data center.
+ * Do not use it outside of `<Content>`.
+ */
 export const RoleFilter = (props: RoleFilterProps) => {
   const { selectedRoles, handleRolesSelect } = props
+
+  const { dataCenter } = useContext(DataCenterContext)
+
+  const allRoles = dataCenter!.roles
 
   const [searchValue, setSearchValue] = useState('')
 
@@ -30,7 +37,7 @@ export const RoleFilter = (props: RoleFilterProps) => {
     handleRolesSelect([])
   }
 
-  const handleRoleClick = (role: GetNodesRolesEnum) => {
+  const handleRoleClick = (role: GetDataCentersResponseDataInnerRolesEnum) => {
     const selectedRoleSet = new Set(selectedRoles)
 
     if (selectedRoleSet.has(role)) {

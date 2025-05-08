@@ -5,8 +5,9 @@ import {
   CosPercentagePieChart,
 } from '@cube-frontend/ui-library'
 import { toMetricsChart } from '../../../utils'
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import { toPluralizeDisplay } from '@cube-frontend/utils'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 
 export type ChartPanelProps = {
   metrics: GetMetricsResponseData
@@ -16,13 +17,17 @@ export type ChartPanelProps = {
 export const ChartPanel = (props: ChartPanelProps) => {
   const { metrics, isLoading } = props
 
+  const { dataCenter } = useContext(DataCenterContext)
+
+  const roles = dataCenter!.roles
+
   const {
     vmBarChart,
     roleBarChart,
     cpuPieChart,
     memoryPieChart,
     storagePieChart,
-  } = useMemo(() => toMetricsChart(metrics), [metrics])
+  } = useMemo(() => toMetricsChart(metrics, roles), [metrics, roles])
 
   return (
     <div className="flex gap-x-5">
