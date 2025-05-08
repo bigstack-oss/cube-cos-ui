@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
+import { range } from 'lodash'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosStackCard } from '../../../components/CosStackCard/CosStackCard'
 import { CosTag } from '../../../components/CosTag/CosTag'
@@ -30,8 +31,9 @@ export const Default: StoryObj = {
           <StackCardGrid title="With Tags">
             <CosStackCard title="Topic Name" subtext="Subtext">
               <div className="flex gap-2">
-                {Array.from({ length: 6 }).map(() => (
+                {range(6).map((i) => (
                   <CosTag
+                    key={i}
                     color="blue"
                     variant="stroke"
                     showCloseButton={true}

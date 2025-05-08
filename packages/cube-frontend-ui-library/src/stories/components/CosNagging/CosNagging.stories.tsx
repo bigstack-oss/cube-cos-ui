@@ -22,9 +22,9 @@ const naggingContent = {
     'Two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this two-line title will look like this',
   description: 'Text goes here. Text goes here. (Optional)',
   multilineDescription: [
-    'Text goes here. Text goes here. (Optional)',
-    'Text goes here. Text goes here. (Optional)',
-    'Text goes here. Text goes here. (Optional)',
+    'Text goes here. Text goes here 1. (Optional)',
+    'Text goes here. Text goes here 2. (Optional)',
+    'Text goes here. Text goes here 3. (Optional)',
   ],
   createLink: () => ({
     text: 'Call to action',

@@ -23,7 +23,7 @@ const ProgressBarGallery = () => {
             color="bg-chart-1"
           />
           <CosProgressBar progress={50} color="bg-chart-1" />
-          <div className="flex items-center gap-x-4">
+          <div className="flex flex-col gap-y-4">
             <CosProgressBar progress={0} color="bg-chart-1" />
             <CosProgressBar progress={1} color="bg-chart-1" />
             <CosProgressBar progress={50} color="bg-chart-2" />
