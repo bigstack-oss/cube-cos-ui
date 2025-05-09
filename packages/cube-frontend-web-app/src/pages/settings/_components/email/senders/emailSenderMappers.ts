@@ -37,10 +37,22 @@ export const rowToEmailSenderPostRequest = (
 
 export const rowToEmailSenderPatchRequest = (
   row: EmailSenderRow,
-): EmailSenderPatchRequest => ({
-  from: row.from,
-  host: row.host,
-  port: parseInt(row.port),
-  username: row.username,
-  password: row.password,
-})
+): EmailSenderPatchRequest => {
+  const request: EmailSenderPatchRequest = {
+    from: row.from,
+    host: row.host,
+    port: parseInt(row.port),
+    username: row.username,
+  }
+
+  /**
+   * Conditionally put the `password` field in the patch request:
+   * - If no password is provided, omit the `password` key to avoid unnecessary updates.
+   * - If a new password is provided, include it in the patch request payload.
+   */
+  if (row.password) {
+    request.password = row.password
+  }
+
+  return request
+}
