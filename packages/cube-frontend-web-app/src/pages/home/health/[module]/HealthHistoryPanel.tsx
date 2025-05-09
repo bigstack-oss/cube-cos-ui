@@ -62,6 +62,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
       <HealthHistoryPanelHeader
         module={module}
         isRepairable={!!historyResponse?.isRepairable}
+        isFixing={!!historyResponse?.status.isFixing}
         selectedTimeRange={timeRange}
         onTimeRangeChange={onTimeRangeChange}
         onToggleDetailPanel={onToggleDetailPanel}

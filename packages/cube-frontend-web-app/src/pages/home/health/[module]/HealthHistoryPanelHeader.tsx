@@ -14,6 +14,7 @@ import { moduleNameToLabel } from '../homeHealthPageUtils'
 export type HealthHistoryPanelHeaderProps = {
   module: ModuleMetadata | undefined
   isRepairable: boolean
+  isFixing: boolean
   selectedTimeRange: HealthTimeRange
   onTimeRangeChange: (timeRange: HealthTimeRange) => void
   onToggleDetailPanel: () => void
@@ -25,6 +26,7 @@ export const HealthHistoryPanelHeader = (
   const {
     module,
     isRepairable,
+    isFixing,
     selectedTimeRange,
     onTimeRangeChange,
     onToggleDetailPanel,
@@ -65,7 +67,7 @@ export const HealthHistoryPanelHeader = (
           )}
         </span>
         <CosButton
-          loading={isCallingRepairApi}
+          loading={isCallingRepairApi || isFixing}
           disabled={!module || !isRepairable}
           onClick={onRepairClick}
         >
