@@ -1,4 +1,5 @@
 export const toPercentage = (used: number, total: number) => {
+  if (total === 0) return 0
   return Math.floor((used / total) * 100)
 }
 
