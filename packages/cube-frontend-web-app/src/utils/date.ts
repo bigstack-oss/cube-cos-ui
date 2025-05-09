@@ -46,7 +46,7 @@ export const humanizeDuration = (durationSeconds: number) => {
     return toPluralizeDisplay(value, 'minute')
   }
 
-  return durationSeconds
+  return toPluralizeDisplay(durationSeconds, 'second')
 }
 
 export const formatChartXAxisTime = (time: string) => {

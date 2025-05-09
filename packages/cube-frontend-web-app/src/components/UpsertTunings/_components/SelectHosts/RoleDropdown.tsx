@@ -1,30 +1,35 @@
+import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
-import { NodeRoleEnum, nodeRoles } from '@cube-frontend/web-app/utils/node'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { capitalize } from 'lodash'
-import { ChangeEvent, useMemo, useState } from 'react'
+import { ChangeEvent, useContext, useMemo, useState } from 'react'
 
 type RoleDropdownProps = {
-  selectedRoles: NodeRoleEnum[]
-  onChange: (roles: NodeRoleEnum[]) => void
+  selectedRoles: GetDataCentersResponseDataInnerRolesEnum[]
+  onChange: (roles: GetDataCentersResponseDataInnerRolesEnum[]) => void
 }
 
 export const RoleDropdown = (props: RoleDropdownProps) => {
   const { selectedRoles, onChange } = props
 
+  const { dataCenter } = useContext(DataCenterContext)
+
+  const roles = dataCenter!.roles
+
   const [search, setSearch] = useState('')
 
-  const matchedRoles = useMemo<NodeRoleEnum[]>(() => {
+  const matchedRoles = useMemo<
+    GetDataCentersResponseDataInnerRolesEnum[]
+  >(() => {
     const loweredSearch = search.toLowerCase()
     if (!loweredSearch) {
-      return nodeRoles
+      return roles
     }
-    return nodeRoles.filter((role) =>
-      role.toLowerCase().includes(loweredSearch),
-    )
-  }, [search])
+    return roles.filter((role) => role.toLowerCase().includes(loweredSearch))
+  }, [search, roles])
 
   const onAllCheckChange = (checked: boolean) => {
-    onChange(checked ? nodeRoles : [])
+    onChange(checked ? roles : [])
   }
 
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -36,7 +41,9 @@ export const RoleDropdown = (props: RoleDropdownProps) => {
     onChange([])
   }
 
-  const onRoleClick = (role: NodeRoleEnum): void => {
+  const onRoleClick = (
+    role: GetDataCentersResponseDataInnerRolesEnum,
+  ): void => {
     const nextRoles = selectedRoles.includes(role)
       ? selectedRoles.filter((selectedRole) => selectedRole !== role)
       : [...selectedRoles, role]

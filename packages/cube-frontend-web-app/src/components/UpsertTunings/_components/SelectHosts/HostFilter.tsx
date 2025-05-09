@@ -1,16 +1,16 @@
 import { CosSearchBarFilter } from '@cube-frontend/ui-library'
 import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
-import { NodeRoleEnum } from '@cube-frontend/web-app/utils/node'
 import { ChangeEvent, useMemo } from 'react'
 import { IpRangeInputs } from './IpRangeInputs'
 import { RoleDropdown } from './RoleDropdown'
 import { HostFilterValue, IpRange } from './useHostFilter'
+import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
 
 type HostFilterProps = {
   filter: HostFilterValue
   onKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void
   onKeywordClear: () => void
-  onRolesChange: (roles: NodeRoleEnum[]) => void
+  onRolesChange: (roles: GetDataCentersResponseDataInnerRolesEnum[]) => void
   onIpRangeChange: (
     boundary: keyof IpRange,
     e: ChangeEvent<HTMLInputElement>,

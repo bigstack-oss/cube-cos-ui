@@ -1,11 +1,11 @@
-import { NodeRoleEnum } from '@cube-frontend/web-app/utils/node'
+import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
 import { ChangeEvent, useState } from 'react'
 
 type UseHostFilter = {
   filter: HostFilterValue
   onKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void
   onKeywordClear: () => void
-  onRolesChange: (roles: NodeRoleEnum[]) => void
+  onRolesChange: (roles: GetDataCentersResponseDataInnerRolesEnum[]) => void
   onIpRangeChange: (
     boundary: keyof IpRange,
     e: ChangeEvent<HTMLInputElement>,
@@ -15,7 +15,7 @@ type UseHostFilter = {
 
 export type HostFilterValue = {
   keyword: string
-  selectedRoles: NodeRoleEnum[]
+  selectedRoles: GetDataCentersResponseDataInnerRolesEnum[]
   ipRange: IpRange
 }
 
@@ -51,7 +51,9 @@ export const useHostFilter = (): UseHostFilter => {
     }))
   }
 
-  const onRolesChange = (roles: NodeRoleEnum[]): void => {
+  const onRolesChange = (
+    roles: GetDataCentersResponseDataInnerRolesEnum[],
+  ): void => {
     setFilter((prev) => ({
       ...prev,
       selectedRoles: roles,
