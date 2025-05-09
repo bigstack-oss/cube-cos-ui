@@ -3480,6 +3480,12 @@ export interface GetModuleHealthHistoryResponseData {
      * @memberof GetModuleHealthHistoryResponseData
      */
     'history': Array<GetModuleHealthHistoryResponseDataHistoryInner>;
+    /**
+     * 
+     * @type {GetModuleHealthHistoryResponseDataStatus}
+     * @memberof GetModuleHealthHistoryResponseData
+     */
+    'status': GetModuleHealthHistoryResponseDataStatus;
 }
 /**
  * 
@@ -3551,6 +3557,33 @@ export interface GetModuleHealthHistoryResponseDataHistoryInnerError {
      */
     'log'?: string;
 }
+/**
+ * 
+ * @export
+ * @interface GetModuleHealthHistoryResponseDataStatus
+ */
+export interface GetModuleHealthHistoryResponseDataStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataStatus
+     */
+    'current': GetModuleHealthHistoryResponseDataStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetModuleHealthHistoryResponseDataStatus
+     */
+    'isFixing': boolean;
+}
+
+export const GetModuleHealthHistoryResponseDataStatusCurrentEnum = {
+    Ok: 'ok',
+    Ng: 'ng'
+} as const;
+
+export type GetModuleHealthHistoryResponseDataStatusCurrentEnum = typeof GetModuleHealthHistoryResponseDataStatusCurrentEnum[keyof typeof GetModuleHealthHistoryResponseDataStatusCurrentEnum];
+
 /**
  * 
  * @export
