@@ -5,10 +5,11 @@ import {
 } from '@cube-frontend/api'
 import { CosCountSegmentedChartCountInfo } from '@cube-frontend/ui-library'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
+import { upperFirst } from 'lodash'
 
 export const toMetricsChart = (
   metrics: GetMetricsResponseData,
-  roles: GetDataCentersResponseDataInnerRolesEnum[],
+  availableRoles: GetDataCentersResponseDataInnerRolesEnum[],
 ) => {
   const vmCountInfos: CosCountSegmentedChartCountInfo[] = [
     {
@@ -38,7 +39,7 @@ export const toMetricsChart = (
     },
   ]
 
-  const roleCountInfos: CosCountSegmentedChartCountInfo[] = [
+  const allRoleCountInfos = [
     {
       name: GetDataCentersResponseDataInnerRolesEnum.ControlConverged,
       color: 'fill-chart-1',
@@ -69,11 +70,17 @@ export const toMetricsChart = (
       color: 'fill-chart-9',
       count: metrics.host.role.moderator.count,
     },
-  ]
+  ] satisfies CosCountSegmentedChartCountInfo[]
 
-  const totalRoles = roleCountInfos.filter((info) =>
-    roles.includes(info.name as GetDataCentersResponseDataInnerRolesEnum),
-  )
+  const availableRolesSet = new Set(availableRoles)
+
+  const availableRoleCountInfos: CosCountSegmentedChartCountInfo[] =
+    allRoleCountInfos
+      .filter((info) => availableRolesSet.has(info.name))
+      .map((info) => ({
+        ...info,
+        name: upperFirst(info.name),
+      }))
 
   const totalRolesCount: number = Object.values(metrics.host.role).reduce(
     (total, role: RoleUsage) => total + role.count,
@@ -106,7 +113,7 @@ export const toMetricsChart = (
       count: metrics.vm.status.total,
     },
     roleBarChart: {
-      countInfos: totalRoles,
+      countInfos: availableRoleCountInfos,
       count: totalRolesCount,
     },
     cpuPieChart: {
