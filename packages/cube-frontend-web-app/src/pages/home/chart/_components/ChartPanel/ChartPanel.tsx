@@ -8,7 +8,6 @@ import { toPluralizeDisplay } from '@cube-frontend/utils'
 import ScrollContainer from '@cube-frontend/web-app/components/ScrollContainer/ScrollContainer'
 import { useMediaQuery } from '@cube-frontend/web-app/hooks/useMediaQuery'
 import { useContext, useMemo } from 'react'
-import { twMerge } from 'tailwind-merge'
 import { toMetricsChart } from '../../../utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 
@@ -57,7 +56,7 @@ export const ChartPanel = (props: ChartPanelProps) => {
   )
 
   return (
-    <ScrollContainer className={twMerge('flex gap-x-5')}>
+    <ScrollContainer className="flex gap-x-5">
       <div className="flex min-w-[500px] flex-1 flex-col gap-y-5">
         <CosGeneralPanel topic="VM summary">
           <CosCountSegmentedChart
