@@ -1,23 +1,25 @@
 import { GetHealthsResponseDataServicesInner } from '@cube-frontend/api'
 import { CosDashboardPanel } from '@cube-frontend/ui-library'
-import { HealthStatusSkeleton } from './HealthStatusSkeleton'
-import { HealthStatusContent } from './HealthStatusContent'
+import { range } from 'lodash'
+import { ServiceHealthStatus } from './ServiceHealthStatus'
+import { ServiceHealthStatusSkeleton } from './ServiceHealthStatusSkeleton'
 
 export type HealthStatusProps = {
-  isLoading: boolean
-  categories: Record<string, GetHealthsResponseDataServicesInner[]>
+  services: GetHealthsResponseDataServicesInner[] | undefined
 }
 
 export const HealthStatus = (props: HealthStatusProps) => {
-  const { isLoading, categories } = props
+  const { services } = props
 
   return (
     <CosDashboardPanel.Item topic="Status">
-      {isLoading ? (
-        <HealthStatusSkeleton />
-      ) : (
-        <HealthStatusContent categories={categories} />
-      )}
+      <div className="grid grid-flow-col grid-rows-4 gap-x-3 gap-y-2">
+        {!services
+          ? range(20).map((i) => <ServiceHealthStatusSkeleton key={i} />)
+          : services.map((service) => (
+              <ServiceHealthStatus key={service.name} service={service} />
+            ))}
+      </div>
     </CosDashboardPanel.Item>
   )
 }

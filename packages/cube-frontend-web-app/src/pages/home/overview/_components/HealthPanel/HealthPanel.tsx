@@ -39,7 +39,7 @@ const HealthPanel = () => {
   })
 
   const updateTime = useUpdateTime(healths, isLoading)
-  const { errorCount, errorServices, categories } = useMemo(
+  const { errorCount, errorServices } = useMemo(
     () => toHealthUIData(healths),
     [healths],
   )
@@ -81,7 +81,7 @@ const HealthPanel = () => {
           isRepairButtonLoading={isRepairButtonLoading}
         />
       )}
-      <HealthStatus isLoading={isLoading} categories={categories} />
+      <HealthStatus services={healths?.services} />
     </CosDashboardPanel>
   )
 }

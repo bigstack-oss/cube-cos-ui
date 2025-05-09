@@ -7,6 +7,7 @@ import {
   CosSkeleton,
 } from '@cube-frontend/ui-library'
 import WarningFilledIcon from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
+import { serviceNameToLabel } from '../../../health/homeHealthPageUtils'
 
 type ServiceErrorProps = {
   service: GetHealthsResponseDataServicesInner
@@ -16,10 +17,12 @@ const ServiceError = (props: ServiceErrorProps) => {
   const { service } = props
 
   return (
-    <div key={service.name} className="flex items-center gap-x-5">
+    <div className="flex items-center gap-x-5">
       <div className="flex items-center gap-x-2 text-status-negative">
         <WarningFilledIcon className="icon-md" />
-        <span className="primary-body3 font-semibold">{service.name}</span>
+        <span className="primary-body3 font-semibold">
+          {serviceNameToLabel(service.name)}
+        </span>
       </div>
       <div className="primary-body4 text-functional-text-light">
         {service.modules
@@ -40,7 +43,7 @@ const ErrorServiceSkeleton = () => {
     <div className="flex flex-1 items-center">
       <CosSkeleton className="size-[13px]" />
       <CosSkeleton className="ml-2 h-[16px] w-[129px]" />
-      <CosSkeleton className="ml-5 h-[16px] flex-1" />
+      <CosSkeleton className="ml-5 h-[16px] w-[80px]" />
     </div>
   )
 }
