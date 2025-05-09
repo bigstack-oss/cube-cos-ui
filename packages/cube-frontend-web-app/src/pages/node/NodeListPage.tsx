@@ -18,6 +18,7 @@ import { NodeTable } from './_components/NodeTable'
 import { NodeFilters } from './_components/NodeFilters'
 import { CreateSupportFilesModal } from './_components/CreateSupportFilesModal'
 import { useCreateSupportFilesModal } from './_components/useCreateSupportFilesModal'
+import { uniqueId } from 'lodash'
 
 export const NodeListPage = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -44,6 +45,15 @@ export const NodeListPage = () => {
       } satisfies NodesApiGetNodesRequest
     },
   )
+
+  const rows = useMemo<Node[]>(() => {
+    const nodes = nodesData?.nodes ?? []
+    return nodes.map((node) => ({
+      ...node,
+      // Adjust `id` because `id` will be an empty string when the node is in `down` status.
+      id: node.id || uniqueId('node'),
+    }))
+  }, [nodesData?.nodes])
 
   const handleSearchKeywordClear = () => {
     setSearchKeyword('')
@@ -95,7 +105,7 @@ export const NodeListPage = () => {
             </CosButton>
           </div>
           <NodeTable
-            rows={nodesData?.nodes || []}
+            rows={rows}
             isLoading={isLoading}
             skeletonRowCount={pageSize}
             selectedRowIds={selectedNodeIds}
