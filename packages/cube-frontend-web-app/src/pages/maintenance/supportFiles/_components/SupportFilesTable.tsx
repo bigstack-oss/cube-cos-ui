@@ -1,4 +1,8 @@
-import { CosButton, GetCosBasicTable } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosLoadingSpinner,
+  GetCosBasicTable,
+} from '@cube-frontend/ui-library'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
 import { formatSupportFilesTimestamp } from '@cube-frontend/web-app/utils/date'
 import { SupportFileRow } from '../MaintenanceSupportFilesPage'
@@ -33,11 +37,20 @@ export const SupportFilesTable = (props: SupportFilesTableProps) => {
       </SupportFilesBasicTable.Column>
       <SupportFilesBasicTable.Column label="Comments" property="description" />
       <SupportFilesBasicTable.Column fitContent={true}>
-        {(_, row) => (
-          <CosButton type="ghost" onClick={() => onDownloadClick(row)}>
-            Download
-          </CosButton>
-        )}
+        {(_, row) =>
+          row.status.isCreating ? (
+            <div className="flex h-[34px] items-center gap-x-2">
+              <CosLoadingSpinner variant="dot45" />
+              <span className="primary-body4 text-functional-text-light">
+                Creating...
+              </span>
+            </div>
+          ) : (
+            <CosButton type="ghost" onClick={() => onDownloadClick(row)}>
+              Download
+            </CosButton>
+          )
+        }
       </SupportFilesBasicTable.Column>
     </SupportFilesBasicTable>
   )
