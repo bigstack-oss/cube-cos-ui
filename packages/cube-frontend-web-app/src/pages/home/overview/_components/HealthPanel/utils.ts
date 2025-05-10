@@ -10,6 +10,7 @@ type HealthUIData = {
 
 export const toHealthUIData = (
   healths: GetHealthsResponseData | undefined,
+  observedServiceNames: Set<string>,
 ): HealthUIData => {
   const { services = [] } = healths ?? {}
 
@@ -17,8 +18,13 @@ export const toHealthUIData = (
   const errorServices: GetHealthsResponseDataServicesInner[] = []
 
   services.forEach((service) => {
-    if (service.status.current === 'ng') {
+    const ng = service.status.current === 'ng'
+
+    if (ng) {
       errorCount++
+    }
+
+    if (ng || observedServiceNames.has(service.name)) {
       errorServices.push(service)
     }
   })

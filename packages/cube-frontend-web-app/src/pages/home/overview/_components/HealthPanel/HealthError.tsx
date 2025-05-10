@@ -1,38 +1,66 @@
-import { range } from 'lodash'
-import { GetHealthsResponseDataServicesInner } from '@cube-frontend/api'
+import {
+  GetHealthsResponseDataOverallStatusCurrentEnum,
+  GetHealthsResponseDataServicesInner,
+} from '@cube-frontend/api'
 import {
   CosButton,
   CosButtonSkeleton,
   CosDashboardPanel,
+  CosLoadingSpinner,
   CosSkeleton,
 } from '@cube-frontend/ui-library'
+import CircleFillIcon from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
 import WarningFilledIcon from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
+import { cva } from 'class-variance-authority'
+import { ClassValue } from 'class-variance-authority/types'
+import { range } from 'lodash'
 import { serviceNameToLabel } from '../../../health/homeHealthPageUtils'
 
 type ServiceErrorProps = {
   service: GetHealthsResponseDataServicesInner
 }
 
+const nameLabel = cva('primary-body3 font-semibold', {
+  variants: {
+    status: {
+      ok: 'text-functional-text',
+      ng: 'text-status-negative',
+    } satisfies Record<
+      GetHealthsResponseDataOverallStatusCurrentEnum,
+      ClassValue
+    >,
+  },
+})
+
 const ServiceError = (props: ServiceErrorProps) => {
   const { service } = props
 
   return (
     <div className="flex items-center gap-x-5">
-      <div className="flex items-center gap-x-2 text-status-negative">
-        <WarningFilledIcon className="icon-md" />
-        <span className="primary-body3 font-semibold">
+      <div className="flex items-center gap-x-2">
+        {service.status.isFixing ? (
+          <CosLoadingSpinner variant="dot45" />
+        ) : service.status.current === 'ok' ? (
+          <CircleFillIcon className="icon-md text-status-positive" />
+        ) : (
+          <WarningFilledIcon className="icon-md text-status-negative" />
+        )}
+        <span className={nameLabel({ status: service.status.current })}>
           {serviceNameToLabel(service.name)}
         </span>
       </div>
       <div className="primary-body4 text-functional-text-light">
-        {service.modules
-          .map((module) => {
-            const name = module.name
-            const status = module.status.current
-            const statusDisplay = status === 'ng' ? 'x' : 'v'
-            return `${name}(${statusDisplay})`
-          })
-          .join('; ')}
+        {service.status.isFixing
+          ? // TODO: i18n
+            'Fixing...'
+          : service.modules
+              .map((module) => {
+                const name = module.name
+                const status = module.status.current
+                const statusDisplay = status === 'ng' ? 'x' : 'v'
+                return `${name}(${statusDisplay})`
+              })
+              .join('; ')}
       </div>
     </div>
   )
@@ -52,11 +80,18 @@ export type HealthErrorProps = {
   isLoading: boolean
   errorServices: GetHealthsResponseDataServicesInner[]
   isRepairButtonLoading: boolean
-  onRepair: () => void
+  isRepairDone: boolean
+  onRepairClick: () => void
 }
 
 export const HealthError = (props: HealthErrorProps) => {
-  const { isLoading, errorServices, isRepairButtonLoading, onRepair } = props
+  const {
+    isLoading,
+    errorServices,
+    isRepairButtonLoading,
+    isRepairDone,
+    onRepairClick,
+  } = props
 
   const renderErrorServices = () => {
     if (isLoading) {
@@ -73,8 +108,20 @@ export const HealthError = (props: HealthErrorProps) => {
       return <CosButtonSkeleton size="md" />
     }
 
+    if (isRepairDone) {
+      return (
+        <span className="secondary-body3 font-semibold text-status-positive">
+          Done!
+        </span>
+      )
+    }
+
     return (
-      <CosButton size="md" loading={isRepairButtonLoading} onClick={onRepair}>
+      <CosButton
+        size="md"
+        loading={isRepairButtonLoading}
+        onClick={onRepairClick}
+      >
         Repair
       </CosButton>
     )

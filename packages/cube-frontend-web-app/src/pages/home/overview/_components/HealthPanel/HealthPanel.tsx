@@ -18,6 +18,7 @@ import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentia
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 import { noop } from 'lodash'
 import { Link } from 'react-router'
+import { useDelayedRepairState } from './HealthStatus/useDelayedRepairState'
 
 const HealthPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -39,9 +40,13 @@ const HealthPanel = () => {
   })
 
   const updateTime = useUpdateTime(healths, isLoading)
+
+  const { showRepairDoneText, observedServiceNames, setObservedServiceNames } =
+    useDelayedRepairState(healths?.overall.status.isFixing ?? false)
+
   const { errorCount, errorServices } = useMemo(
-    () => toHealthUIData(healths),
-    [healths],
+    () => toHealthUIData(healths, observedServiceNames),
+    [healths, observedServiceNames],
   )
 
   const { isLoading: isCallingRepairApi, mutateResource: repairHealth } =
@@ -53,6 +58,8 @@ const HealthPanel = () => {
 
   const handleRepair = async () => {
     try {
+      const errorServiceNames = errorServices.map((service) => service.name)
+      setObservedServiceNames(new Set(errorServiceNames))
       await repairHealth({
         dataCenter: dataCenter!.name,
       })
@@ -73,12 +80,13 @@ const HealthPanel = () => {
       HyperLinkContainer={<Link to={links.health} />}
       isTimeLoading={isLoading}
     >
-      {(isLoading || errorServices.length > 0) && (
+      {(isLoading || errorServices.length > 0 || showRepairDoneText) && (
         <HealthError
           isLoading={isLoading}
           errorServices={errorServices}
-          onRepair={handleRepair}
+          onRepairClick={handleRepair}
           isRepairButtonLoading={isRepairButtonLoading}
+          isRepairDone={showRepairDoneText}
         />
       )}
       <HealthStatus services={healths?.services} />
