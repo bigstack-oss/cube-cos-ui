@@ -9,7 +9,6 @@ import {
 import { useFloating } from '../../internal/utils/floating/useFloating'
 import { Caret } from './Caret'
 import { CosTooltipInformation } from './types'
-import { useCaretStyle } from './useCaretStyle'
 
 export type InfoBoxProps = {
   information: CosTooltipInformation
@@ -18,17 +17,20 @@ export type InfoBoxProps = {
   anchorRef: RefObject<HTMLElement | null>
 }
 
-const container = cva('absolute flex min-w-[50px] max-w-[480px]', {
-  variants: {
-    isVisible: {
-      false: 'pointer-events-none invisible left-[-9999px] top-[-9999px]',
+const container = cva(
+  'pointer-events-none absolute flex min-w-[50px] max-w-[480px]',
+  {
+    variants: {
+      isVisible: {
+        false: 'invisible left-[-9999px] top-[-9999px]',
+      },
+      verticalPlacement: {
+        top: 'flex-col',
+        bottom: 'flex-col-reverse',
+      } satisfies Record<VerticalPlacement, ClassValue>,
     },
-    verticalPlacement: {
-      top: 'flex-col',
-      bottom: 'flex-col-reverse',
-    } satisfies Record<VerticalPlacement, ClassValue>,
   },
-})
+)
 
 export const InfoBox = (props: InfoBoxProps) => {
   const {
@@ -54,10 +56,7 @@ export const InfoBox = (props: InfoBoxProps) => {
     translateX = 0,
   } = resolvedStyles ?? {}
 
-  const [verticalPlacement, horizontalPlacement] =
-    splitPlacements(idealPlacement)
-
-  const caretStyle = useCaretStyle(verticalPlacement, translateX)
+  const [verticalPlacement] = splitPlacements(idealPlacement)
 
   const onClick = (e: MouseEvent<HTMLDivElement>) => {
     // Prevent the visibility state from switching from 'hover' to 'click'
@@ -65,15 +64,8 @@ export const InfoBox = (props: InfoBoxProps) => {
     e.stopPropagation()
   }
 
-  return (
-    <div
-      ref={elementRef}
-      className={container({
-        isVisible: !!resolvedStyles,
-        verticalPlacement,
-      })}
-      style={floatingStyle}
-    >
+  const renderContent = () => {
+    return (
       <div
         className="flex flex-col gap-y-0.5 rounded-[5px] bg-dark-700 px-3 pb-2.5 pt-2"
         onClick={onClick}
@@ -84,7 +76,34 @@ export const InfoBox = (props: InfoBoxProps) => {
         </div>
         <p className="primary-body3 text-grey-0">{message}</p>
       </div>
-      <Caret horizontalPlacement={horizontalPlacement} style={caretStyle} />
-    </div>
+    )
+  }
+
+  return (
+    <>
+      {/* Attach `elementRef` to the invisible "shadow" element so we can
+      measure its rect accurately without wrapping, which can happen near
+      the right edge of the window. */}
+      <div
+        ref={elementRef}
+        className={container({
+          isVisible: false,
+          verticalPlacement,
+        })}
+      >
+        {renderContent()}
+      </div>
+      {/* Element that's visible to users. */}
+      <div
+        className={container({
+          isVisible: !!resolvedStyles,
+          verticalPlacement,
+        })}
+        style={floatingStyle}
+      >
+        {renderContent()}
+        <Caret placement={idealPlacement} translateX={translateX} />
+      </div>
+    </>
   )
 }

@@ -68,8 +68,7 @@ export class FloatingRect implements IFloatingRect {
     const floatingStyle: FloatingStyle = {
       // Convert the position from viewport-relative coordinates to document-relative coordinates.
       top: finalBoundary.top + window.scrollY,
-      left: finalBoundary.left + window.scrollX,
-      transform: `translateX(${translateX}px)`,
+      left: finalBoundary.left + window.scrollX + translateX,
     }
 
     return {
@@ -81,11 +80,11 @@ export class FloatingRect implements IFloatingRect {
 
   private computeOverflowPx(floatingBoundary: XYBoundary): XYBoundary {
     const { top, left } = floatingBoundary
-    const { innerWidth, innerHeight } = window
+    const { clientWidth, clientHeight } = document.documentElement
     return {
       top: top < 0 ? Math.abs(top) : 0,
-      right: Math.max(floatingBoundary.right - innerWidth, 0),
-      bottom: Math.max(floatingBoundary.bottom - innerHeight, 0),
+      right: Math.max(floatingBoundary.right - clientWidth, 0),
+      bottom: Math.max(floatingBoundary.bottom - clientHeight, 0),
       left: left < 0 ? Math.abs(left) : 0,
     }
   }
