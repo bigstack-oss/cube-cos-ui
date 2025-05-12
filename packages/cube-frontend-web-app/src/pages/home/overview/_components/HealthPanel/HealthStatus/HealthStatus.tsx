@@ -12,7 +12,7 @@ export const HealthStatus = (props: HealthStatusProps) => {
   const { services } = props
 
   return (
-    <CosDashboardPanel.Item topic="Status">
+    <CosDashboardPanel.Item topic="Status" className="overflow-x-auto">
       <div className="grid grid-flow-col grid-rows-4 gap-x-3 gap-y-2">
         {!services
           ? range(20).map((i) => <ServiceHealthStatusSkeleton key={i} />)
