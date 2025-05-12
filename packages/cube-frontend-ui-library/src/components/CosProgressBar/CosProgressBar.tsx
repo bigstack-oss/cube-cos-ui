@@ -4,6 +4,7 @@ import { twMerge } from 'tailwind-merge'
 import { BackgroundColorClass } from '@cube-frontend/ui-theme'
 import { PropsWithClassName } from '@cube-frontend/utils'
 import { CosProgressBarSkeleton } from './CosProgressBarSkeleton'
+import { useFillWidth } from './useFillWidth'
 
 export type CosProgressBarProps = {
   color: BackgroundColorClass
@@ -25,13 +26,15 @@ const progressCva = cva('absolute h-full', {
 export const CosProgressBar = (props: CosProgressBarProps) => {
   const { className: classNameProps, color, progress } = props
 
-  // Use inline style because dynamic value is not supported in TailwindCSS.
-  const progressWidthStyle: CSSProperties = {
-    width: `${Math.min(progress, 100)}%`,
-  }
-
   if (progress < 0) {
     console.warn('progress value should not be less than 0')
+  }
+
+  const { barRef, fillWidthPercentage } = useFillWidth(progress)
+
+  // Use inline style because dynamic value is not supported in TailwindCSS.
+  const progressWidthStyle: CSSProperties = {
+    width: `${fillWidthPercentage}%`,
   }
 
   const className = twMerge(
@@ -41,7 +44,10 @@ export const CosProgressBar = (props: CosProgressBarProps) => {
 
   return (
     <div className={className}>
-      <div className="relative h-[9px] w-full rounded-full bg-functional-border-divider">
+      <div
+        ref={barRef}
+        className="relative h-[9px] w-full rounded-full bg-functional-border-divider"
+      >
         <div
           className={twMerge(
             progressCva({
