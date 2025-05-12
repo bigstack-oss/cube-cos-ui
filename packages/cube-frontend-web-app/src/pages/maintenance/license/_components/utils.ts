@@ -4,6 +4,7 @@ import {
   GetLicensesResponseDataLicensesInnerExpiry,
 } from '@cube-frontend/api'
 import { toPluralizeDisplay } from '@cube-frontend/utils'
+import pluralize from 'pluralize'
 import { BatchLicenseAttachmentTableRow } from './LicenseActions/HardwareSerialNumberModal/LicenseAttachmentTable'
 
 export type InvalidLicenseMessageKey = Exclude<
@@ -24,8 +25,7 @@ export const invalidLicenseMessageMap: Record<
   (count: number) => string
 > = {
   unlicense: (count) => `${toPluralizeDisplay(count, 'host')} is unlicensed`,
-  expired: (count) =>
-    `${toPluralizeDisplay(count, 'host')} hosts license expired`,
+  expired: (count) => `${count} host ${pluralize('license', count)} expired`,
 }
 
 export const getInvalidMessageList = (
@@ -50,7 +50,7 @@ export const renderExpiredDays = (
   const { days } = expiry
 
   if (days < 0) {
-    return `${days} ago`
+    return `${toPluralizeDisplay(Math.abs(days), 'day')} ago`
   }
 
   if (days === 0) {
@@ -70,10 +70,6 @@ export const getLicenseExpiryStatus = (expiryDays: number) => {
   }
 
   return 'valid'
-}
-
-export const isLicenseExpiring = (expiryDays: number) => {
-  return expiryDays > 0 && expiryDays <= 30
 }
 
 /**

@@ -34,7 +34,7 @@ const defaultArgs = {
   username: 'Admin',
   naggingProps: {
     type: 'error',
-    title: '3 hosts license verification failed.',
+    title: '3 host licenses verification failed.',
     link: {
       text: 'Go to License',
       onClick: noop,

@@ -1,6 +1,7 @@
 import { GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus } from '@cube-frontend/api'
 import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { isNil } from 'lodash'
+import pluralize from 'pluralize'
 
 export type InvalidLicenseMessageKey = Exclude<
   keyof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus,
@@ -21,7 +22,7 @@ export const invalidLicenseMessageMap: Record<
 > = {
   unlicense: (count) =>
     `${toPluralizeDisplay(count, 'host')} ${toPluralizeDisplay(count, 'is')} unlicensed.`,
-  expired: (count) => `${toPluralizeDisplay(count, 'host')} license expired.`,
+  expired: (count) => `${count} host ${pluralize('license', count)} expired.`,
 }
 
 export const getInvalidMessageList = (
