@@ -87,7 +87,7 @@ export const HostRankingPanel = () => {
   return (
     <CosGeneralPanel.Container className="flex-1">
       <CosGeneralPanel.TitleBar
-        title="Ranking"
+        title="Host"
         hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse)}
       />
       <CosGeneralPanel
