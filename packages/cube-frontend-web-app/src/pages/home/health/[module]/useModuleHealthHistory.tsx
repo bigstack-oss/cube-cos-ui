@@ -17,10 +17,17 @@ export type UseModuleHealthHistoryOptions = {
   autoRefresh: boolean
 }
 
+type UseModuleHealthHistory = {
+  historyResponse: GetModuleHealthHistoryResponseData | undefined
+  getHealthHistory: () => Promise<GetModuleHealthHistoryResponseData>
+  startInterval: () => void
+  stopInterval: () => void
+}
+
 export const useModuleHealthHistory = (
   options: UseModuleHealthHistoryOptions,
-): GetModuleHealthHistoryResponseData | undefined => {
-  const { module, past, autoRefresh: shouldUseStreamData } = options
+): UseModuleHealthHistory => {
+  const { module, past, autoRefresh: shouldUsePollingData } = options
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -36,21 +43,21 @@ export const useModuleHealthHistory = (
     }
   }
 
-  const { data: streamResponse, getResource: getHealthHistory } =
+  const { data: pollingResponse, getResource: getHealthHistoryByPolling } =
     useCosGetRequest(
       healthApi.getHealthHistory,
       (): HealthApiGetHealthHistoryRequest | undefined => {
-        if (!shouldUseStreamData) {
+        if (!shouldUsePollingData) {
           return undefined
         }
         return getRequestParams()
       },
     )
 
-  useSequentialInterval(
+  const { startInterval, stopInterval } = useSequentialInterval(
     () => {
-      if (module && shouldUseStreamData) {
-        getHealthHistory()
+      if (module && shouldUsePollingData) {
+        getHealthHistoryByPolling()
       }
     },
     HOME_HEALTH_PAGE_POLLING_INTERVAL,
@@ -59,10 +66,13 @@ export const useModuleHealthHistory = (
     },
   )
 
-  const { data: manualFetchResponse } = useCosGetRequest(
+  const {
+    data: manualFetchResponse,
+    getResource: getHealthHistoryByManualFetch,
+  } = useCosGetRequest(
     healthApi.getHealthHistory,
     (): HealthApiGetHealthHistoryRequest | undefined => {
-      if (shouldUseStreamData) {
+      if (shouldUsePollingData) {
         return undefined
       }
       return getRequestParams()
@@ -70,7 +80,16 @@ export const useModuleHealthHistory = (
   )
 
   // Use stream data if `autoFetch` is true. Otherwise, use manual fetch data.
-  const response = shouldUseStreamData ? streamResponse : manualFetchResponse
+  const historyResponse = shouldUsePollingData
+    ? pollingResponse
+    : manualFetchResponse
 
-  return response
+  return {
+    historyResponse,
+    getHealthHistory: shouldUsePollingData
+      ? getHealthHistoryByPolling
+      : getHealthHistoryByManualFetch,
+    startInterval,
+    stopInterval,
+  }
 }

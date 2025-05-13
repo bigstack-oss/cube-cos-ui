@@ -1,7 +1,13 @@
+import { HealthApiRepairModuleHealthRequest } from '@cube-frontend/api'
 import { CosStroke } from '@cube-frontend/ui-library'
+import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { cva } from 'class-variance-authority'
+import { useContext, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { healthTimeRanges } from '../healthTimeRangeUtils'
 import { HistoryRow, widthTransitionClasses } from './healthDetailsUtils'
@@ -46,26 +52,60 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
     onHistoryRowClick,
   } = props
 
+  const { dataCenter } = useContext(DataCenterContext)
+
   const { now, timeRange, onTimeRangeChange } = useTimeRange({
     includes: healthTimeRanges,
     defaultValue: '24h',
   })
 
-  const historyResponse = useModuleHealthHistory({
-    module,
-    past: timeRange,
-    autoRefresh,
-  })
+  const { historyResponse, getHealthHistory, startInterval, stopInterval } =
+    useModuleHealthHistory({
+      module,
+      past: timeRange,
+      autoRefresh,
+    })
+
+  // Use a separate loading state instead of `useCosMutationRequest`'s `isLoading`
+  // to keep the Repair button in the loading state until the `getModuleHealthHistory`
+  // API finishes after calling `repairModuleHealth`.
+  const [isCallingRepairApi, setIsCallingRepairApi] = useState(false)
+
+  const { mutateResource: repairModuleHealth } = useCosMutationRequest(
+    healthApi.repairModuleHealth as (
+      params: HealthApiRepairModuleHealthRequest,
+    ) => Promise<CosApiResponse<undefined>>,
+  )
+
+  const onRepairClick = async () => {
+    if (!module) return
+    stopInterval()
+    setIsCallingRepairApi(true)
+    try {
+      await repairModuleHealth({
+        dataCenter: dataCenter!.name,
+        serviceType: module.service,
+        moduleType: module.name,
+      })
+    } catch (error) {
+      console.error('Repair module health error: ', error)
+    } finally {
+      await getHealthHistory()
+      startInterval()
+      setIsCallingRepairApi(false)
+    }
+  }
 
   return (
     <div className={twMerge(container({ isDetailPanelOpen }))}>
       <HealthHistoryPanelHeader
         module={module}
         isRepairable={!!historyResponse?.isRepairable}
-        isFixing={!!historyResponse?.status.isFixing}
+        isFixing={!!historyResponse?.status.isFixing || isCallingRepairApi}
         selectedTimeRange={timeRange}
         onTimeRangeChange={onTimeRangeChange}
         onToggleDetailPanel={onToggleDetailPanel}
+        onRepairClick={onRepairClick}
       />
       {!history ? (
         <HealthTimeBarSkeleton />

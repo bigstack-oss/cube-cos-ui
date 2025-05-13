@@ -1,13 +1,7 @@
-import { HealthApiRepairModuleHealthRequest } from '@cube-frontend/api'
 import { CosButton, CosSkeleton } from '@cube-frontend/ui-library'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
-import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
-import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
-import { useContext } from 'react'
 import { HealthTimeRange, healthTimeRanges } from '../healthTimeRangeUtils'
 import { moduleNameToLabel } from '../homeHealthPageUtils'
 
@@ -18,6 +12,7 @@ export type HealthHistoryPanelHeaderProps = {
   selectedTimeRange: HealthTimeRange
   onTimeRangeChange: (timeRange: HealthTimeRange) => void
   onToggleDetailPanel: () => void
+  onRepairClick: () => Promise<void>
 }
 
 export const HealthHistoryPanelHeader = (
@@ -30,31 +25,8 @@ export const HealthHistoryPanelHeader = (
     selectedTimeRange,
     onTimeRangeChange,
     onToggleDetailPanel,
+    onRepairClick,
   } = props
-
-  const { dataCenter } = useContext(DataCenterContext)
-
-  const { isLoading: isCallingRepairApi, mutateResource: repairModuleHealth } =
-    useCosMutationRequest(
-      healthApi.repairModuleHealth as (
-        params: HealthApiRepairModuleHealthRequest,
-      ) => Promise<CosApiResponse<undefined>>,
-    )
-
-  const onRepairClick = async () => {
-    if (!module) {
-      return
-    }
-    try {
-      await repairModuleHealth({
-        dataCenter: dataCenter!.name,
-        serviceType: module.service,
-        moduleType: module.name,
-      })
-    } catch (error) {
-      console.error('Repair module health error: ', error)
-    }
-  }
 
   return (
     <div className="flex items-center justify-between">
@@ -67,7 +39,7 @@ export const HealthHistoryPanelHeader = (
           )}
         </span>
         <CosButton
-          loading={isCallingRepairApi || isFixing}
+          loading={isFixing}
           disabled={!module || !isRepairable}
           onClick={onRepairClick}
         >
