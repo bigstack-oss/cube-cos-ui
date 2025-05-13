@@ -49,7 +49,7 @@ export const CosPercentagePieChart = (props: CosPercentagePieChartProps) => {
     color: colorProp,
     thresholdPercentage = 100,
     percentageFormatter = defaultPercentageFormatter,
-    overThresholdText = 'Over Limit',
+    overThresholdText,
     isLoading = false,
   } = props
 

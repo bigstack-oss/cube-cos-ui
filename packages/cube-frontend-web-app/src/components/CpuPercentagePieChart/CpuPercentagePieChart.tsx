@@ -22,7 +22,6 @@ export const CpuPercentagePieChart = (props: CpuPercentagePieChartProps) => {
       title="vCPU"
       color="stroke-chart-2"
       percentageFormatter={formatCpuPercentage}
-      overThresholdText="Over Load"
       thresholdPercentage={400}
       {...props}
     />

@@ -40,11 +40,13 @@ export const ChartPanel = (props: ChartPanelProps) => {
         <CpuPercentagePieChart isLoading={isLoading} {...cpuPieChart} />
         <CosPercentagePieChart
           title="Memory"
+          overThresholdText="Over Limit"
           isLoading={isLoading}
           {...memoryPieChart}
         />
         <CosPercentagePieChart
           title="Storage"
+          overThresholdText="Over Limit"
           isLoading={isLoading}
           {...storagePieChart}
         />

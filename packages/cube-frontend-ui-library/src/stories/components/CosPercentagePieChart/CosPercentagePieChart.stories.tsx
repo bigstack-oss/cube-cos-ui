@@ -28,78 +28,91 @@ const PercentagePieChartGallery = () => {
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
+            overThresholdText="Over Limit"
             used={0}
             total={755.1}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
+            overThresholdText="Over Limit"
             used={8.2}
             total={755.1}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
+            overThresholdText="Over Limit"
             used={380}
             total={755.1}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
+            overThresholdText="Over Limit"
             used={388}
             total={755.1}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             used={80}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             used={81}
             total={100}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
+            overThresholdText="Over Limit"
             used={99}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             used={101}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             used={150}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             used={199}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             used={200}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             used={250}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             used={300}
             total={100}
           />
@@ -118,7 +131,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={0}
               total={10}
@@ -128,7 +140,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={4}
               total={100}
@@ -138,7 +149,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={200}
               total={100}
@@ -148,7 +158,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={396}
               total={100}
@@ -158,7 +167,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={400}
               total={100}
@@ -168,7 +176,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={404}
               total={100}
@@ -178,7 +185,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={600}
               total={100}
@@ -188,7 +194,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={796}
               total={100}
@@ -198,7 +203,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={800}
               total={100}
@@ -208,7 +212,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={1000}
               total={100}
@@ -218,7 +221,6 @@ const PercentagePieChartGallery = () => {
               unit="vCPU"
               color="stroke-chart-2"
               percentageFormatter={formatCpuPercentage}
-              overThresholdText="Over Load"
               thresholdPercentage={400}
               used={1200}
               total={100}
@@ -232,6 +234,7 @@ const PercentagePieChartGallery = () => {
             isLoading={true}
             title="Memory"
             unit="GB"
+            overThresholdText="Over Limit"
             total={0}
             used={0}
           />
@@ -239,6 +242,7 @@ const PercentagePieChartGallery = () => {
             isLoading={true}
             title="Storage"
             unit="GB"
+            overThresholdText="Over Limit"
             total={0}
             used={0}
           />
