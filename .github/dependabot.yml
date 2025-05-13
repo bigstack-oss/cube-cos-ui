@@ -1,0 +1,46 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/cube-frontend-api
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /packages/cube-frontend-keycloak-login
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/cube-frontend-keycloak-login
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/cube-frontend-ui-library
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/cube-frontend-ui-theme
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/cube-frontend-utils
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/cube-frontend-web-app
+    schedule:
+      interval: daily
