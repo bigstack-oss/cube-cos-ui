@@ -1,11 +1,9 @@
-import { GetMetricsResponseData, RoleUsage } from '@cube-frontend/api'
+import { GetMetricsResponseData } from '@cube-frontend/api'
 import { CosGeneralPanel, CosStroke } from '@cube-frontend/ui-library'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useContext, useMemo } from 'react'
 import { UsageMetricsItem } from './UsageMetricsItem'
-
-type RoleGroup = {
-  name: string
-  value: RoleUsage
-}[]
+import { metricsToRoleGroups, RoleGroup } from './usagePanelUtils'
 
 export type UsagePanelProps = {
   metrics: GetMetricsResponseData
@@ -15,38 +13,12 @@ export type UsagePanelProps = {
 export const UsagePanel = (props: UsagePanelProps) => {
   const { metrics, isLoading } = props
 
-  const roleGroups: RoleGroup[] = [
-    [
-      {
-        name: 'Control-converged Nodes',
-        value: metrics.host.role.controlConverged,
-      },
-      {
-        name: 'Control Nodes',
-        value: metrics.host.role.control,
-      },
-    ],
-    [
-      {
-        name: 'Compute Nodes',
-        value: metrics.host.role.compute,
-      },
-      {
-        name: 'Storage Nodes',
-        value: metrics.host.role.storage,
-      },
-    ],
-    [
-      {
-        name: 'Edge-core Nodes',
-        value: metrics.host.role.edgeCore,
-      },
-      {
-        name: 'Moderator Nodes',
-        value: metrics.host.role.moderator,
-      },
-    ],
-  ]
+  const { dataCenter } = useContext(DataCenterContext)
+
+  const roleGroups = useMemo<RoleGroup[]>(
+    () => metricsToRoleGroups(metrics, dataCenter!.type),
+    [metrics, dataCenter],
+  )
 
   return (
     <CosGeneralPanel topic="Usage">
