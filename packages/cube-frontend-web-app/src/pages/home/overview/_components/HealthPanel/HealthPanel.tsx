@@ -1,4 +1,3 @@
-import { useContext, useMemo } from 'react'
 import {
   HealthApiGetHealthsRequest,
   HealthApiRepairAllModulesHealthRequest,
@@ -6,19 +5,20 @@ import {
 import { CosDashboardPanel } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
-import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
+import { noop } from 'lodash'
+import { useContext, useMemo, useState } from 'react'
+import { Link } from 'react-router'
+import { links } from '../../../links'
+import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 import { HealthError } from './HealthError'
 import { HealthStatus } from './HealthStatus/HealthStatus'
-import { toHealthUIData } from './utils'
-import { links } from '../../../links'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
-import { noop } from 'lodash'
-import { Link } from 'react-router'
 import { useDelayedRepairState } from './HealthStatus/useDelayedRepairState'
+import { toHealthUIData } from './utils'
 
 const HealthPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -35,9 +35,13 @@ const HealthPanel = () => {
 
   const isLoading = !hasResponseBeenReceived
 
-  useSequentialInterval(getHealths, HOME_OVERVIEW_PAGE_POLLING_INTERVAL, {
-    immediate: false,
-  })
+  const { startInterval, stopInterval } = useSequentialInterval(
+    getHealths,
+    HOME_OVERVIEW_PAGE_POLLING_INTERVAL,
+    {
+      immediate: false,
+    },
+  )
 
   const updateTime = useUpdateTime(healths, isLoading)
 
@@ -49,14 +53,20 @@ const HealthPanel = () => {
     [healths, observedServiceNames],
   )
 
-  const { isLoading: isCallingRepairApi, mutateResource: repairHealth } =
-    useCosMutationRequest(
-      healthApi.repairAllModulesHealth as (
-        params: HealthApiRepairAllModulesHealthRequest,
-      ) => Promise<CosApiResponse<undefined>>,
-    )
+  // Use a separate loading state instead of `useCosMutationRequest`'s `isLoading`
+  // to keep the Repair button in the loading state until the `getHealths` API
+  // finishes after calling `repairHealth`.
+  const [isCallingRepairApi, setIsCallingRepairApi] = useState(false)
+
+  const { mutateResource: repairHealth } = useCosMutationRequest(
+    healthApi.repairAllModulesHealth as (
+      params: HealthApiRepairAllModulesHealthRequest,
+    ) => Promise<CosApiResponse<undefined>>,
+  )
 
   const handleRepair = async () => {
+    stopInterval()
+    setIsCallingRepairApi(true)
     try {
       const errorServiceNames = errorServices.map((service) => service.name)
       setObservedServiceNames(new Set(errorServiceNames))
@@ -65,6 +75,10 @@ const HealthPanel = () => {
       })
     } catch (error) {
       console.error('Repair data center health error: ', error)
+    } finally {
+      await getHealths()
+      startInterval()
+      setIsCallingRepairApi(false)
     }
   }
 
