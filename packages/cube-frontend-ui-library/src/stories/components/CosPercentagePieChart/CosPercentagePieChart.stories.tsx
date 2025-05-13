@@ -75,6 +75,13 @@ const PercentagePieChartGallery = () => {
             total={100}
           />
           <CosPercentagePieChart
+            title="Memory"
+            unit="GB"
+            overThresholdText="Over Limit"
+            used={100}
+            total={100}
+          />
+          <CosPercentagePieChart
             title="Storage"
             unit="GB"
             overThresholdText="Over Limit"
