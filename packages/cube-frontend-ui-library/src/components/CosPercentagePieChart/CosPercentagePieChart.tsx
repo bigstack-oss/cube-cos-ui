@@ -17,9 +17,6 @@ export type CosPercentagePieChartProps = {
    */
   color?: StrokeColorClass
   percentageFormatter?: (value: number) => string
-  /**
-   * @default Over Limit
-   */
   overThresholdText?: string
   /**
    * @default false
