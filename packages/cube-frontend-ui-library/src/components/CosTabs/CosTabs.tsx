@@ -9,11 +9,7 @@ export type CosTabsProps = {
 export const CosTabs = (props: CosTabsProps) => {
   const { children } = props
 
-  return (
-    <div className="flex items-end border-b border-b-functional-border-divider">
-      {children}
-    </div>
-  )
+  return <div className="flex items-end">{children}</div>
 }
 
 CosTabs.Tab = CosTab

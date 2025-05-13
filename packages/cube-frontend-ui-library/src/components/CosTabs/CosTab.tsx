@@ -18,26 +18,53 @@ export type CosTabProps = {
 )
 
 const tab = cva(
-  'secondary-body2 flex min-h-[34px] max-w-[200px] items-center justify-center border-b-2 px-2.5 py-2',
+  'inline-block min-h-[34px] max-w-[200px] border-b border-b-functional-border-divider',
   {
     variants: {
       isActive: {
-        false: ['border-b-transparent text-functional-text-light'],
+        false: 'text-functional-text-light',
       },
       disabled: {
-        false: [
-          'cursor-pointer font-medium hover:text-functional-hover-primary',
-        ],
-        true: [
-          'cursor-default border-b-transparent text-functional-disable-text',
-        ],
+        false: ['cursor-pointer hover:text-functional-hover-primary'],
+        true: ['cursor-default text-functional-disable-text'],
       },
     },
     compoundVariants: [
       {
         isActive: true,
         disabled: false,
-        className: 'border-b-cosmos-primary font-semibold text-cosmos-primary',
+        className: 'border-b-cosmos-primary text-cosmos-primary',
+      },
+    ],
+    defaultVariants: {
+      isActive: false,
+      disabled: false,
+    },
+  },
+)
+
+// Use an inner container with a default transparent border-bottom to avoid a
+// slight layout shift when toggling between active and inactive states.
+const innerContainer = cva(
+  [
+    'secondary-body2 flex items-center justify-center px-2.5 py-2',
+    'border-b border-b-transparent',
+  ],
+  {
+    variants: {
+      isActive: {
+        true: '',
+        false: '',
+      },
+      disabled: {
+        false: 'font-medium',
+      },
+    },
+    compoundVariants: [
+      {
+        isActive: true,
+        disabled: false,
+        className: 'border-b-cosmos-primary font-semibold',
       },
     ],
     defaultVariants: {
@@ -104,8 +131,17 @@ export const CosTab = (props: CosTabProps) => {
         href: hrefAttribute,
         onClick,
       },
-      renderLabel(),
-      renderDecoration(),
+      <div
+        className={twMerge(
+          innerContainer({
+            isActive,
+            disabled,
+          }),
+        )}
+      >
+        {renderLabel()}
+        {renderDecoration()}
+      </div>,
     )
   }
 
