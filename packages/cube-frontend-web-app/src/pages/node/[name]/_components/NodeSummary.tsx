@@ -156,7 +156,7 @@ export const NodeSummary = (props: NodeSummaryProps) => {
             'Up Time',
             dayjs.duration(node.uptimeSeconds, 'seconds').humanize(),
           )}
-          {renderRow('COS License Expiration', getLicenseExpiration())}
+          {renderRow('License Expiration', getLicenseExpiration())}
           {renderRow(
             'Management IP',
             <div className="flex items-center gap-x-5">
