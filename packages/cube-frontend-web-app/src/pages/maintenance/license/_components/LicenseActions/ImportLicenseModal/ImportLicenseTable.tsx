@@ -19,6 +19,7 @@ export const ImportLicenseTable = (props: ImportLicenseTableProps) => {
   const licenseDetailsRows = [
     { key: 'Product', value: license.product.name },
     { key: 'Status', value: license.status.current },
+    { key: 'Feature', value: license.product.feature },
     { key: 'Support Plan', value: license.supportPlan },
     {
       key: 'Issue Date',
