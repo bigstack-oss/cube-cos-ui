@@ -4,6 +4,7 @@ import {
   CosDashboardPanel,
   CosPercentagePieChart,
 } from '@cube-frontend/ui-library'
+
 import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -11,6 +12,7 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { useMediaQuery } from '@cube-frontend/web-app/hooks/useMediaQuery'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
+import { CpuPercentagePieChart } from '@cube-frontend/web-app/components/CpuPercentagePieChart/CpuPercentagePieChart'
 import { noop } from 'lodash'
 import { useContext, useMemo } from 'react'
 import { Link } from 'react-router'
@@ -59,11 +61,7 @@ const ChartPanel = () => {
   const vmAllocationPanelItem = (
     <CosDashboardPanel.Item topic="VM allocation">
       <div className="flex flex-row justify-around gap-x-7">
-        <CosPercentagePieChart
-          title="vCPU"
-          isLoading={isLoading}
-          {...cpuPieChart}
-        />
+        <CpuPercentagePieChart isLoading={isLoading} {...cpuPieChart} />
         <CosPercentagePieChart
           title="Memory"
           isLoading={isLoading}

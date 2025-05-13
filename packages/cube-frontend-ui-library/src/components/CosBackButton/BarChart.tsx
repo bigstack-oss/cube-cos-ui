@@ -14,7 +14,7 @@ export const BarChart = (props: BarChartProps) => {
         {label}
       </span>
       <div className="flex w-[90px] items-center">
-        <CosProgressBar color="bg-chart-1" progress={progress} />
+        <CosProgressBar progress={progress} />
       </div>
     </div>
   )

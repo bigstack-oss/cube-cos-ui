@@ -2,8 +2,9 @@ import { clamp } from 'lodash'
 import { StrokeColorClass } from '@cube-frontend/ui-theme'
 
 type PercentagePieProps = {
-  percentage: number
   color: StrokeColorClass
+  percentage: number
+  thresholdPercentage: number
 }
 
 const WIDTH = 144
@@ -13,8 +14,9 @@ const halfWidth = WIDTH / 2
 const radius = (WIDTH - STROKE_WIDTH) / 2
 const circumference = 2 * Math.PI * radius
 
-const getSvgPercentage = (percentage: number) => {
-  let svgPercentage = clamp(percentage, 0, 100)
+const getSvgPercentage = (percentage: number, thresholdPercentage: number) => {
+  const svgPercentageRatio = thresholdPercentage / 100
+  let svgPercentage = clamp(percentage / svgPercentageRatio, 0, 100)
 
   /**
    * Workaround:
@@ -31,11 +33,24 @@ const getSvgPercentage = (percentage: number) => {
   return svgPercentage
 }
 
-export const PercentagePie = (props: PercentagePieProps) => {
-  const { percentage, color } = props
+const getOverThresholdSvgPercentage = (
+  percentage: number,
+  thresholdPercentage: number,
+) => getSvgPercentage(percentage - thresholdPercentage, thresholdPercentage)
 
-  const svgPercentage = getSvgPercentage(percentage)
-  const offset = circumference - (svgPercentage / 100) * circumference
+export const PercentagePie = (props: PercentagePieProps) => {
+  const { color, percentage, thresholdPercentage } = props
+
+  const mainSvgPercentage = getSvgPercentage(percentage, thresholdPercentage)
+  const mainSvgOffset =
+    circumference - (mainSvgPercentage / 100) * circumference
+
+  const overThresholdSvgPercentage = getOverThresholdSvgPercentage(
+    percentage,
+    thresholdPercentage,
+  )
+  const overThresholdSvgOffset =
+    circumference - (overThresholdSvgPercentage / 100) * circumference
 
   return (
     <svg width={WIDTH} height={WIDTH} className="-rotate-90">
@@ -54,9 +69,22 @@ export const PercentagePie = (props: PercentagePieProps) => {
         fill="transparent"
         strokeWidth={STROKE_WIDTH}
         strokeDasharray={circumference}
-        strokeDashoffset={offset}
+        strokeDashoffset={mainSvgOffset}
         strokeLinecap="round"
       />
+      {overThresholdSvgPercentage > 0 && (
+        <circle
+          className={'fill-transparent stroke-status-over-limit'}
+          cx={halfWidth}
+          cy={halfWidth}
+          r={radius}
+          fill="transparent"
+          strokeWidth={STROKE_WIDTH}
+          strokeDasharray={circumference}
+          strokeDashoffset={overThresholdSvgOffset}
+          strokeLinecap="round"
+        />
+      )}
     </svg>
   )
 }

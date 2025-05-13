@@ -2,11 +2,51 @@ import { RefObject, useEffect, useMemo, useRef, useState } from 'react'
 
 type UseFillWidth = {
   barRef: RefObject<HTMLDivElement | null>
+  overThresholdProgress: number
   fillWidthPercentage: number
+  overThresholdFillWidthPercentage: number
 }
 
 const MIN_TRACK_WIDTH = 16
 const MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE = 4
+
+const calculateFillWidthPercentage = (
+  progressProp: number,
+  barWidth: number,
+): number => {
+  if (progressProp >= 100) {
+    return 100
+  }
+
+  if (progressProp <= 0 || barWidth <= MIN_TRACK_WIDTH) {
+    return progressProp
+  }
+
+  let progress = progressProp
+  let filledWidth = 0
+  let blankWidth = 0
+
+  const updateWidths = (): void => {
+    filledWidth = barWidth * (progress / 100)
+    blankWidth = barWidth - filledWidth
+  }
+
+  updateWidths()
+
+  if (filledWidth < MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE) {
+    while (filledWidth < MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE && progress < 100) {
+      progress++
+      updateWidths()
+    }
+  } else if (blankWidth < MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE) {
+    while (blankWidth < MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE && progress > 0) {
+      progress--
+      updateWidths()
+    }
+  }
+
+  return progress
+}
 
 /**
  * If the bar width is too small, the filled area will be too short for the
@@ -37,46 +77,21 @@ export const useFillWidth = (progressProp: number): UseFillWidth => {
     }
   }, [])
 
-  const fillWidthPercentage = useMemo<number>(() => {
-    if (
-      progressProp <= 0 ||
-      progressProp >= 100 ||
-      barWidth <= MIN_TRACK_WIDTH
-    ) {
-      return progressProp
-    }
+  const fillWidthPercentage = useMemo<number>(
+    () => calculateFillWidthPercentage(progressProp, barWidth),
+    [progressProp, barWidth],
+  )
 
-    let progress = progressProp
-    let filledWidth = 0
-    let blankWidth = 0
+  const overThresholdProgress = Math.max(0, progressProp - 100)
 
-    const updateWidths = (): void => {
-      filledWidth = barWidth * (progress / 100)
-      blankWidth = barWidth - filledWidth
-    }
-
-    updateWidths()
-
-    if (filledWidth < MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE) {
-      while (
-        filledWidth < MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE &&
-        progress < 100
-      ) {
-        progress++
-        updateWidths()
-      }
-    } else if (blankWidth < MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE) {
-      while (blankWidth < MIN_WIDTH_FOR_RADIUS_TO_BE_VISIBLE && progress > 0) {
-        progress--
-        updateWidths()
-      }
-    }
-
-    return progress
-  }, [barWidth, progressProp])
+  const overThresholdFillWidthPercentage = useMemo<number>(() => {
+    return calculateFillWidthPercentage(overThresholdProgress, barWidth)
+  }, [barWidth, overThresholdProgress])
 
   return {
     barRef,
     fillWidthPercentage,
+    overThresholdFillWidthPercentage,
+    overThresholdProgress,
   }
 }

@@ -10,6 +10,7 @@ import { useMediaQuery } from '@cube-frontend/web-app/hooks/useMediaQuery'
 import { useContext, useMemo } from 'react'
 import { toMetricsChart } from '../../../utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { CpuPercentagePieChart } from '@cube-frontend/web-app/components/CpuPercentagePieChart/CpuPercentagePieChart'
 
 export type ChartPanelProps = {
   metrics: GetMetricsResponseData
@@ -36,11 +37,7 @@ export const ChartPanel = (props: ChartPanelProps) => {
   const vmAllocationPanel = (
     <CosGeneralPanel topic="VM allocation">
       <div className="flex h-[260px] w-full flex-row justify-around gap-x-[35px] p-5">
-        <CosPercentagePieChart
-          title="vCPU"
-          isLoading={isLoading}
-          {...cpuPieChart}
-        />
+        <CpuPercentagePieChart isLoading={isLoading} {...cpuPieChart} />
         <CosPercentagePieChart
           title="Memory"
           isLoading={isLoading}

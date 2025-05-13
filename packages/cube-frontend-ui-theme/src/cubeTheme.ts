@@ -165,6 +165,7 @@ export const cubeTheme = {
       warning: '#F9C300',
       paused: '#FF9920',
       neutral: '#4C68F9',
+      'over-limit': '#9B426E',
     },
     chart: {
       1: '#57E2E2',

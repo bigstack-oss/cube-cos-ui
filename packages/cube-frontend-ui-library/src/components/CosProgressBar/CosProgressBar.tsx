@@ -1,13 +1,12 @@
 import { CSSProperties } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
-import { BackgroundColorClass } from '@cube-frontend/ui-theme'
 import { PropsWithClassName } from '@cube-frontend/utils'
 import { CosProgressBarSkeleton } from './CosProgressBarSkeleton'
+import { BackgroundColorClass } from '@cube-frontend/ui-theme'
 import { useFillWidth } from './useFillWidth'
 
 export type CosProgressBarProps = {
-  color: BackgroundColorClass
   /**
    * An integer between 0 and 100 indicating the progress (percentage).
    */
@@ -23,24 +22,44 @@ const progressCva = cva('absolute h-full', {
   },
 })
 
+const getProgressColor = (progress: number): BackgroundColorClass => {
+  if (progress <= 50) {
+    return 'bg-chart-1'
+  } else if (progress > 50 && progress <= 80) {
+    return 'bg-status-warning'
+  }
+  return 'bg-status-negative'
+}
+
 export const CosProgressBar = (props: CosProgressBarProps) => {
-  const { className: classNameProps, color, progress } = props
+  const { className: classNameProps, progress } = props
 
   if (progress < 0) {
     console.warn('progress value should not be less than 0')
   }
 
-  const { barRef, fillWidthPercentage } = useFillWidth(progress)
+  const {
+    barRef,
+    fillWidthPercentage,
+    overThresholdFillWidthPercentage,
+    overThresholdProgress,
+  } = useFillWidth(progress)
 
   // Use inline style because dynamic value is not supported in TailwindCSS.
   const progressWidthStyle: CSSProperties = {
     width: `${fillWidthPercentage}%`,
   }
 
+  const overThresholdProgressWidthStyle: CSSProperties = {
+    width: `${overThresholdFillWidthPercentage}%`,
+  }
+
   const className = twMerge(
     'inline-flex w-full shrink-0 items-center gap-x-[6px]',
     classNameProps,
   )
+
+  const color = getProgressColor(progress)
 
   return (
     <div className={className}>
@@ -57,6 +76,17 @@ export const CosProgressBar = (props: CosProgressBarProps) => {
           )}
           style={progressWidthStyle}
         />
+        {overThresholdFillWidthPercentage > 0 && (
+          <div
+            className={twMerge(
+              progressCva({
+                isFull: overThresholdProgress >= 100,
+              }),
+              'bg-status-over-limit',
+            )}
+            style={overThresholdProgressWidthStyle}
+          />
+        )}
       </div>
       <span className="primary-body5 text-functional-text">{`${Math.round(progress)}%`}</span>
     </div>

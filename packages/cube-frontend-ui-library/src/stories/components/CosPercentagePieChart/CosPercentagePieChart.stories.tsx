@@ -14,130 +14,226 @@ export const Gallery: StoryObj = {
   render: () => <PercentagePieChartGallery />,
 }
 
-const rowClass = twJoin('flex flex-row gap-x-7')
+const rowClass = twJoin('flex flex-row flex-wrap gap-10')
+
+const formatCpuPercentage = (value: number) => {
+  return `${value / 100}x`
+}
 
 const PercentagePieChartGallery = () => {
   return (
     <StoryLayout title="Percentage Pie Chart">
-      <StoryLayout.Section title="Default Color">
+      <StoryLayout.Section title="Default">
         <div className={rowClass}>
           <CosPercentagePieChart
-            title="vCPU"
-            unit="vCPU"
-            total={144}
+            title="Memory"
+            unit="GB"
             used={0}
-          />
-          <CosPercentagePieChart
-            title="vCPU"
-            unit="vCPU"
-            total={100}
-            used={1}
-          />
-          <CosPercentagePieChart
-            title="Memory"
-            unit="GB"
             total={755.1}
-            used={124.4}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
+            used={8.2}
+            total={755.1}
+          />
+          <CosPercentagePieChart
+            title="Memory"
+            unit="GB"
+            used={380}
+            total={755.1}
+          />
+          <CosPercentagePieChart
+            title="Memory"
+            unit="GB"
+            used={388}
+            total={755.1}
+          />
+          <CosPercentagePieChart
+            title="Storage"
+            unit="GB"
+            used={80}
             total={100}
+          />
+          <CosPercentagePieChart
+            title="Storage"
+            unit="GB"
+            used={81}
+            total={100}
+          />
+          <CosPercentagePieChart
+            title="Memory"
+            unit="GB"
             used={99}
-          />
-          <CosPercentagePieChart
-            title="Storage"
-            unit="GB"
-            total={24401.9}
-            used={24401.9}
-          />
-          <CosPercentagePieChart
-            title="Storage"
-            unit="GB"
             total={100}
-            used={400}
+          />
+          <CosPercentagePieChart
+            title="Storage"
+            unit="GB"
+            used={101}
+            total={100}
+          />
+          <CosPercentagePieChart
+            title="Storage"
+            unit="GB"
+            used={150}
+            total={100}
+          />
+          <CosPercentagePieChart
+            title="Storage"
+            unit="GB"
+            used={199}
+            total={100}
+          />
+          <CosPercentagePieChart
+            title="Storage"
+            unit="GB"
+            used={200}
+            total={100}
+          />
+          <CosPercentagePieChart
+            title="Storage"
+            unit="GB"
+            used={250}
+            total={100}
+          />
+          <CosPercentagePieChart
+            title="Storage"
+            unit="GB"
+            used={300}
+            total={100}
           />
         </div>
       </StoryLayout.Section>
-      <StoryLayout.Section title="Custom Color">
-        <div className={rowClass}>
-          <CosPercentagePieChart
-            title="vCPU"
-            unit="vCPU"
-            total={144}
-            used={0}
-            color="stroke-chart-1"
-          />
-          <CosPercentagePieChart
-            title="vCPU"
-            unit="vCPU"
-            total={100}
-            used={1}
-            color="stroke-chart-2"
-          />
-          <CosPercentagePieChart
-            title="Memory"
-            unit="GB"
-            total={755.1}
-            used={124.4}
-            color="stroke-chart-3"
-          />
-          <CosPercentagePieChart
-            title="Memory"
-            unit="GB"
-            total={100}
-            used={99}
-            color="stroke-chart-4"
-          />
-          <CosPercentagePieChart
-            title="Storage"
-            unit="GB"
-            total={24401.9}
-            used={24401.9}
-            color="stroke-chart-5"
-          />
-          <CosPercentagePieChart
-            title="Storage"
-            unit="GB"
-            total={100}
-            used={400}
-            color="stroke-chart-6"
-          />
+
+      <StoryLayout.Section title="CPU Usage">
+        <div className="flex flex-col gap-y-4">
+          <span className="primary-body2 text-functional-text">
+            Customize the color, overLimitText and thresholdPercentage(set to
+            400).
+          </span>
+          <div className={rowClass}>
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={0}
+              total={10}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={4}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={200}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={396}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={400}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={404}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={600}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={796}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={800}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={1000}
+              total={100}
+            />
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              overThresholdText="Over Load"
+              thresholdPercentage={400}
+              used={1200}
+              total={100}
+            />
+          </div>
         </div>
       </StoryLayout.Section>
       <StoryLayout.Section title="Skeleton">
         <div className={rowClass}>
           <CosPercentagePieChart
             isLoading={true}
-            title="vCPU"
-            unit="vCPU"
-            total={0}
-            used={0}
-            color="stroke-chart-1"
-          />
-          <CosPercentagePieChart
-            isLoading={true}
-            title="vCPU"
-            unit="vCPU"
-            total={0}
-            used={0}
-            color="stroke-chart-2"
-          />
-          <CosPercentagePieChart
-            isLoading={true}
             title="Memory"
             unit="GB"
             total={0}
             used={0}
-            color="stroke-chart-3"
-          />
-          <CosPercentagePieChart
-            isLoading={true}
-            title="Memory"
-            unit="GB"
-            total={0}
-            used={0}
-            color="stroke-chart-4"
           />
           <CosPercentagePieChart
             isLoading={true}
@@ -145,15 +241,13 @@ const PercentagePieChartGallery = () => {
             unit="GB"
             total={0}
             used={0}
-            color="stroke-chart-5"
           />
           <CosPercentagePieChart
             isLoading={true}
-            title="Storage"
+            title="CPU"
             unit="GB"
             total={0}
             used={0}
-            color="stroke-chart-6"
           />
         </div>
       </StoryLayout.Section>
