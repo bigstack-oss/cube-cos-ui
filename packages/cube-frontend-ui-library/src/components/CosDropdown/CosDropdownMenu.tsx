@@ -58,6 +58,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
         >
           <CosCheckbox
             label="All"
+            variant={type === 'checkbox' ? 'primary' : 'secondary'}
             checked={isAllChecked}
             onClick={() => onAllCheckChange?.(!isAllChecked)}
           />

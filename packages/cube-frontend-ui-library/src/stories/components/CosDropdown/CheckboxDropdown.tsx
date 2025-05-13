@@ -11,7 +11,7 @@ type OptionType = {
 const fruits = [
   {
     code: 'apple',
-    name: 'Apple',
+    name: 'Apple apple apple apple apple',
     disabled: false,
   },
   {
@@ -66,7 +66,7 @@ const fruits = [
   },
   {
     code: 'watermelon',
-    name: 'Watermelon',
+    name: 'Watermelon watermelon watermelon',
     disabled: false,
   },
 ]

@@ -123,6 +123,10 @@ export const triggerIcon = cva(
       isOpen: {
         true: '-scale-y-100 transform',
       },
+      disabled: {
+        true: 'text-functional-disable-text',
+        false: 'text-functional-text',
+      },
     },
   },
 )

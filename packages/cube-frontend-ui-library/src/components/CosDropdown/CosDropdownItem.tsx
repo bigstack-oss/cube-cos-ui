@@ -36,12 +36,13 @@ export const CosDropdownItem = <Item,>(props: CosDropdownItemProps<Item>) => {
         itemStyle({ variant, type, isSelected, isCheckbox, disabled }),
       )}
     >
-      {/** TODO: The checkbox needs to be aligned with the design */}
       <CosCheckbox
         label={label}
+        labelClassName="truncate"
         disabled={disabled}
         checked={isSelected}
         onChange={handleClick}
+        variant={type === 'checkbox' ? 'primary' : 'secondary'}
       />
     </div>
   ) : (

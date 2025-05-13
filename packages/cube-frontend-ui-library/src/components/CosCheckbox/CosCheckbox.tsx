@@ -6,13 +6,20 @@ import CheckboxSelected from '../../components/CosIcon/monochrome/checkbox_check
 import CheckboxIndeterminate from '../../components/CosIcon/monochrome/checkbox_undeterminate_filled.svg?react'
 import { CosCheckboxSkeleton } from './CosCheckboxSkeleton'
 
+export type CosCheckboxVariant = 'primary' | 'secondary'
+
 export type CosCheckboxStatus = 'unselected' | 'selected' | 'indeterminate'
 
 export type CosCheckboxProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'checked' | 'defaultChecked'
 > & {
+  /**
+   * @default primary
+   */
+  variant?: CosCheckboxVariant
   label?: string
+  labelClassName?: string
   /**
    * Use `null` for indeterminate state.
    */
@@ -36,17 +43,45 @@ const checkbox = {
   iconWrap: cva(
     [
       'shrink-0 p-0.5',
-      'text-functional-border-darker transition-colors duration-100 peer-hover:text-functional-hover-primary',
+      'text-functional-border-darker transition-colors duration-100',
     ],
     {
       variants: {
+        variant: {
+          primary: '',
+          secondary: '',
+        },
         isSelected: {
-          true: 'text-primary',
+          true: '',
         },
         disabled: {
-          true: 'text-functional-disable-text peer-hover:text-functional-disable-text',
+          true: '',
         },
       },
+      compoundVariants: [
+        {
+          variant: 'primary',
+          isSelected: true,
+          className: 'text-primary peer-hover:text-functional-hover-primary',
+        },
+        {
+          variant: 'primary',
+          disabled: true,
+          className:
+            'text-functional-disable-text peer-hover:text-functional-disable-text',
+        },
+        {
+          variant: 'secondary',
+          isSelected: true,
+          className: 'text-blue-500 peer-hover:text-blue-700',
+        },
+        {
+          variant: 'secondary',
+          disabled: true,
+          className:
+            'text-functional-disable-text peer-hover:text-functional-disable-text',
+        },
+      ],
     },
   ),
   label: cva('max-w-[152px] text-functional-text', {
@@ -60,7 +95,9 @@ const checkbox = {
 
 export const CosCheckbox = (props: CosCheckboxProps) => {
   const {
+    variant = 'primary',
     label,
+    labelClassName,
     id,
     defaultChecked = false,
     checked: controlledChecked,
@@ -100,6 +137,7 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
       <div
         className={twMerge(
           checkbox.iconWrap({
+            variant,
             isSelected: effectiveChecked || isIndeterminate,
             disabled,
           }),
@@ -126,7 +164,9 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
       />
       {renderIcon()}
       {label && (
-        <span className={twMerge(checkbox.label({ disabled }))}>{label}</span>
+        <span className={twMerge(checkbox.label({ disabled }), labelClassName)}>
+          {label}
+        </span>
       )}
     </label>
   )

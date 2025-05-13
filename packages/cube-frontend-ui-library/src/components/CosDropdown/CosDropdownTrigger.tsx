@@ -75,7 +75,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
       <span className="flex shrink-0 items-center gap-2">
         {renderSelectedItemCount()}
         {renderClearButton()}
-        <ChevronDown className={twMerge(triggerIcon({ isOpen }))} />
+        <ChevronDown className={twMerge(triggerIcon({ isOpen, disabled }))} />
       </span>
     </button>
   )
