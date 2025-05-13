@@ -10,6 +10,10 @@ import {
 import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import {
+  IntegrationKey,
+  integrationUIData,
+} from '@cube-frontend/web-app/utils/integration'
 
 type IntegrationRow = CosTableRow & GetIntegrationsResponseDataInner
 
@@ -19,6 +23,18 @@ const integrationToRow = (item: GetIntegrationsResponseDataInner) => ({
   id: uniqueId('integration'),
   ...item,
 })
+
+const renderIntegrationName = (name: string) => {
+  const key = name as IntegrationKey
+  const uiData = integrationUIData[key]
+
+  if (!uiData) {
+    console.warn(`No UI data is defined for integration: ${name}`)
+    return capitalize(name)
+  }
+
+  return uiData.displayName
+}
 
 export const IntegrationsPage = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -50,7 +66,7 @@ export const IntegrationsPage = () => {
             property="name"
             emphasize={true}
           >
-            {capitalize}
+            {renderIntegrationName}
           </IntegrationTable.Column>
           <IntegrationTable.Column
             label="Shown on header"

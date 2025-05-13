@@ -1,10 +1,6 @@
-import { CosHeader, CosSideBar } from '@cube-frontend/ui-library'
-import CephIcon from '@cube-frontend/ui-library/icons/colored/ceph.svg?react'
-import KeycloakIcon from '@cube-frontend/ui-library/icons/colored/keycloak.svg?react'
-import OpenStackIcon from '@cube-frontend/ui-library/icons/colored/openstack.svg?react'
-import RancherIcon from '@cube-frontend/ui-library/icons/colored/rancher.svg?react'
 import { PropsWithChildren, useContext } from 'react'
 import { Link } from 'react-router'
+import { CosHeader, CosSideBar } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '../context/DataCenterContext'
 import { IntegrationsContext } from '../context/IntegrationsContext'
 import { UserContext } from '../context/UserContext'
@@ -14,27 +10,7 @@ import { useFunctionBarItems } from './useFunctionBarItems'
 import { useSidebarBottomLinks } from './useSidebarBottomLinks'
 import { useSideBarNagging } from './useSideBarNagging'
 import { useSidebarOptions } from './useSidebarOptions'
-
-const integrationUIData = {
-  keycloak: {
-    Icon: KeycloakIcon,
-    hoverMessage: 'Keycloak',
-  },
-  ceph: {
-    Icon: CephIcon,
-    hoverMessage: 'Ceph',
-  },
-  openstack: {
-    Icon: OpenStackIcon,
-    hoverMessage: 'OpenStack',
-  },
-  rancher: {
-    Icon: RancherIcon,
-    hoverMessage: 'Rancher',
-  },
-} as const
-
-type IntegrationKey = keyof typeof integrationUIData
+import { IntegrationKey, integrationUIData } from '../utils/integration'
 
 const Layout = (props: PropsWithChildren) => {
   const { children } = props
@@ -64,7 +40,8 @@ const Layout = (props: PropsWithChildren) => {
     }
 
     return {
-      ...uiData,
+      Icon: uiData.Icon,
+      hoverMessage: uiData.displayName,
       href: integration.url,
     }
   })
