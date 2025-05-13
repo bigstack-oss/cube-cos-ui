@@ -9,7 +9,7 @@ import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRe
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../../homeHealthPageUtils'
 import { AvailableStatus, HealthStatusBadge } from './HealthStatusBadge'
 import { NgService } from './NgService'
@@ -27,16 +27,24 @@ export const HealthCheck = () => {
 
   const isLoadingHealth = !overallHealth
 
-  useSequentialInterval(getHealths, HOME_HEALTH_PAGE_POLLING_INTERVAL, {
-    immediate: false,
-  })
+  const { startInterval, stopInterval } = useSequentialInterval(
+    getHealths,
+    HOME_HEALTH_PAGE_POLLING_INTERVAL,
+    {
+      immediate: false,
+    },
+  )
 
-  const { isLoading: isCallingRepairApi, mutateResource: repairHealth } =
-    useCosMutationRequest(
-      healthApi.repairAllModulesHealth as (
-        params: HealthApiRepairAllModulesHealthRequest,
-      ) => Promise<CosApiResponse<undefined>>,
-    )
+  // Use a separate loading state instead of `useCosMutationRequest`'s `isLoading`
+  // to keep the Repair button in the loading state until the `getHealths` API
+  // finishes after calling `repairHealth`.
+  const [isCallingRepairApi, setIsCallingRepairApi] = useState(false)
+
+  const { mutateResource: repairHealth } = useCosMutationRequest(
+    healthApi.repairAllModulesHealth as (
+      params: HealthApiRepairAllModulesHealthRequest,
+    ) => Promise<CosApiResponse<undefined>>,
+  )
 
   const renderNgServices = () => {
     const ngServices = overallHealth?.services.filter(
@@ -57,15 +65,18 @@ export const HealthCheck = () => {
   }
 
   const onRepairClick = async () => {
+    stopInterval()
+    setIsCallingRepairApi(true)
     try {
       await repairHealth({ dataCenter: dataCenter!.name })
     } catch (error) {
       console.error('Repair data center health error: ', error)
+    } finally {
+      await getHealths()
+      startInterval()
+      setIsCallingRepairApi(false)
     }
   }
-
-  const isRepairButtonLoading =
-    overallHealth?.overall.status.isFixing || isCallingRepairApi
 
   return (
     <div className="flex flex-col gap-y-4 rounded-[5px] bg-grey-0 px-8 py-6 shadow-[0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]">
@@ -75,14 +86,16 @@ export const HealthCheck = () => {
           <CosLoadingSpinner variant="dot45" />
         ) : (
           <HealthStatusBadge
-            status={overallHealth.overall.status.current as AvailableStatus}
+            status={
+              overallHealth.overall.status.current satisfies AvailableStatus
+            }
           />
         )}
       </div>
       {renderNgServices()}
       <CosButton
         className="self-start"
-        loading={isRepairButtonLoading}
+        loading={overallHealth?.overall.status.isFixing || isCallingRepairApi}
         disabled={isLoadingHealth}
         onClick={onRepairClick}
       >
