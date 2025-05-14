@@ -1,3 +1,5 @@
+import { upperFirst } from 'lodash'
+
 export const HOME_HEALTH_PAGE_POLLING_INTERVAL = 5 * 1000
 
 const serviceNameLabelMap: Record<string, string> = {
@@ -35,8 +37,9 @@ export const serviceNameToLabel = (name: string | undefined): string => {
   const label = serviceNameLabelMap[name]
   if (!label) {
     console.warn(`Cannot find the label for service ${name}`)
+    return upperFirst(name)
   }
-  return label || name
+  return label
 }
 
 const moduleNameLabelMap: Record<string, string> = {
@@ -56,6 +59,7 @@ const moduleNameLabelMap: Record<string, string> = {
   haproxy: 'HAProxy',
   httpd: 'Httpd',
   skyline: 'Skyline',
+  nginx: 'Nginx',
   lmi: 'LMI',
   memcache: 'Memcache',
   api: 'API',
@@ -102,6 +106,7 @@ export const moduleNameToLabel = (name: string | undefined): string => {
   const label = moduleNameLabelMap[name]
   if (!label) {
     console.warn(`Cannot find the label for module ${name}`)
+    return upperFirst(name)
   }
-  return label || name
+  return label
 }
