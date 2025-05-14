@@ -43,42 +43,176 @@ export const Gallery: StoryObj = {
         <StoryLayout.Section title="Variants">
           <div className="flex flex-col gap-y-8">
             <CheckboxGrid title="">
-              <div className="primary-body2">Default</div>
-              <div className="primary-body2">Disabled</div>
+              <div className="primary-body2">Unselect</div>
+              <div className="primary-body2">Select</div>
+              <div className="primary-body2">Indeterminate</div>
             </CheckboxGrid>
-            <CheckboxGrid title="Unselect">
+            <CheckboxGrid title="Primary">
               <CosCheckbox
+                color="primary"
                 label={checkboxText}
                 checked={unchecked}
                 onChange={handleUnchecked}
               />
               <CosCheckbox
-                label={checkboxText}
-                checked={false}
-                onChange={handleUnchecked}
-                disabled
-              />
-            </CheckboxGrid>
-            <CheckboxGrid title="Select">
-              <CosCheckbox
+                color="primary"
                 label={checkboxText}
                 checked={checked}
                 onChange={handleChecked}
               />
               <CosCheckbox
+                color="primary"
+                label={checkboxText}
+                checked={indeterminateChecked}
+                onChange={handleIndeterminateChecked}
+              />
+            </CheckboxGrid>
+            <CheckboxGrid title="Primary (Disabled)">
+              <CosCheckbox
+                color="primary"
+                label={checkboxText}
+                checked={false}
+                onChange={handleUnchecked}
+                disabled
+              />
+              <CosCheckbox
+                color="primary"
                 label={checkboxText}
                 checked={true}
                 onChange={handleChecked}
                 disabled
               />
-            </CheckboxGrid>
-            <CheckboxGrid title="Indeterminate">
               <CosCheckbox
+                color="primary"
+                label={checkboxText}
+                checked={null}
+                onChange={handleIndeterminateChecked}
+                disabled
+              />
+            </CheckboxGrid>
+            <CheckboxGrid title="Primary Dark">
+              <CosCheckbox
+                color="primary-dark"
+                label={checkboxText}
+                checked={unchecked}
+                onChange={handleUnchecked}
+              />
+              <CosCheckbox
+                color="primary-dark"
+                label={checkboxText}
+                checked={checked}
+                onChange={handleChecked}
+              />
+              <CosCheckbox
+                color="primary-dark"
                 label={checkboxText}
                 checked={indeterminateChecked}
                 onChange={handleIndeterminateChecked}
               />
+            </CheckboxGrid>
+            <CheckboxGrid title="Primary Dark (Disabled)">
               <CosCheckbox
+                color="primary-dark"
+                label={checkboxText}
+                checked={false}
+                onChange={handleUnchecked}
+                disabled
+              />
+              <CosCheckbox
+                color="primary-dark"
+                label={checkboxText}
+                checked={true}
+                onChange={handleChecked}
+                disabled
+              />
+              <CosCheckbox
+                color="primary-dark"
+                label={checkboxText}
+                checked={null}
+                onChange={handleIndeterminateChecked}
+                disabled
+              />
+            </CheckboxGrid>
+            <CheckboxGrid title="Secondary">
+              <CosCheckbox
+                color="secondary"
+                label={checkboxText}
+                checked={unchecked}
+                onChange={handleUnchecked}
+              />
+              <CosCheckbox
+                color="secondary"
+                label={checkboxText}
+                checked={checked}
+                onChange={handleChecked}
+              />
+              <CosCheckbox
+                color="secondary"
+                label={checkboxText}
+                checked={indeterminateChecked}
+                onChange={handleIndeterminateChecked}
+              />
+            </CheckboxGrid>
+            <CheckboxGrid title="Secondary (Disabled)">
+              <CosCheckbox
+                color="secondary"
+                label={checkboxText}
+                checked={false}
+                onChange={handleUnchecked}
+                disabled
+              />
+              <CosCheckbox
+                color="secondary"
+                label={checkboxText}
+                checked={true}
+                onChange={handleChecked}
+                disabled
+              />
+              <CosCheckbox
+                color="secondary"
+                label={checkboxText}
+                checked={null}
+                onChange={handleIndeterminateChecked}
+                disabled
+              />
+            </CheckboxGrid>
+            <CheckboxGrid title="Secondary Dark">
+              <CosCheckbox
+                color="secondary-dark"
+                label={checkboxText}
+                checked={unchecked}
+                onChange={handleUnchecked}
+              />
+              <CosCheckbox
+                color="secondary-dark"
+                label={checkboxText}
+                checked={checked}
+                onChange={handleChecked}
+              />
+              <CosCheckbox
+                color="secondary-dark"
+                label={checkboxText}
+                checked={indeterminateChecked}
+                onChange={handleIndeterminateChecked}
+              />
+            </CheckboxGrid>
+            <CheckboxGrid title="Secondary Dark (Disabled)">
+              <CosCheckbox
+                color="secondary-dark"
+                label={checkboxText}
+                checked={false}
+                onChange={handleUnchecked}
+                disabled
+              />
+              <CosCheckbox
+                color="secondary-dark"
+                label={checkboxText}
+                checked={true}
+                onChange={handleChecked}
+                disabled
+              />
+              <CosCheckbox
+                color="secondary-dark"
                 label={checkboxText}
                 checked={null}
                 onChange={handleIndeterminateChecked}
