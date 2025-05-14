@@ -38,13 +38,15 @@ export const HealthHistoryPanelHeader = (
             moduleNameToLabel(module.name)
           )}
         </span>
-        <CosButton
-          loading={isFixing}
-          disabled={!module || !isRepairable}
-          onClick={onRepairClick}
-        >
-          Repair
-        </CosButton>
+        {isRepairable && (
+          <CosButton
+            loading={isFixing}
+            disabled={!module}
+            onClick={onRepairClick}
+          >
+            Repair
+          </CosButton>
+        )}
       </div>
       <div className="flex items-center gap-x-2">
         <TimeRangeDropdown
