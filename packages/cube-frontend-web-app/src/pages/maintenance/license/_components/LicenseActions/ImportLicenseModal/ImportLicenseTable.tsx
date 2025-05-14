@@ -1,42 +1,41 @@
 import { VerifyLicenseResponseDataLicense } from '@cube-frontend/api'
-import { CosTableRow, GetCosBasicTable } from '@cube-frontend/ui-library'
+import { CosDetailsTable } from '@cube-frontend/ui-library'
 import { formatLicenseDate } from '@cube-frontend/web-app/utils/date'
-
-export type LicenseDetailRow = {
-  key: string
-  value: string
-} & CosTableRow
+import { capitalize } from 'lodash'
 
 export type ImportLicenseTableProps = {
   license: VerifyLicenseResponseDataLicense
 }
 
-const LicenseDetailTable = GetCosBasicTable<LicenseDetailRow>()
-
 export const ImportLicenseTable = (props: ImportLicenseTableProps) => {
   const { license } = props
 
-  const licenseDetailsRows = [
-    { key: 'Product', value: license.product.name },
-    { key: 'Status', value: license.status.current },
-    { key: 'Feature', value: license.product.feature },
-    { key: 'Support Plan', value: license.supportPlan },
-    {
-      key: 'Issue Date',
-      value: formatLicenseDate(license.issue.date),
-    },
-    { key: 'Issuer', value: license.issue.by },
-    {
-      key: 'Expire Date',
-      value: formatLicenseDate(license.expiry.date),
-    },
-    { key: 'Hardware serials', value: license.issue.hardware },
-  ].map((kv) => ({ id: kv.key, ...kv }) satisfies LicenseDetailRow)
-
   return (
-    <LicenseDetailTable rows={licenseDetailsRows}>
-      <LicenseDetailTable.Column label={license.name} property="key" />
-      <LicenseDetailTable.Column property="value" />
-    </LicenseDetailTable>
+    <CosDetailsTable header={license.name || 'Unnamed License'}>
+      <CosDetailsTable.Row title="Product">
+        {license.product.name}
+      </CosDetailsTable.Row>
+      <CosDetailsTable.Row title="Status">
+        {license.status.current}
+      </CosDetailsTable.Row>
+      <CosDetailsTable.Row title="Feature">
+        {capitalize(license.product.feature)}
+      </CosDetailsTable.Row>
+      <CosDetailsTable.Row title="Support Plan">
+        {license.supportPlan}
+      </CosDetailsTable.Row>
+      <CosDetailsTable.Row title="Issue Date">
+        {formatLicenseDate(license.issue.date)}
+      </CosDetailsTable.Row>
+      <CosDetailsTable.Row title="Issuer">
+        {license.issue.by}
+      </CosDetailsTable.Row>
+      <CosDetailsTable.Row title="Expire Date">
+        {formatLicenseDate(license.expiry.date)}
+      </CosDetailsTable.Row>
+      <CosDetailsTable.Row title="Hardware serials">
+        {license.issue.hardware}
+      </CosDetailsTable.Row>
+    </CosDetailsTable>
   )
 }
