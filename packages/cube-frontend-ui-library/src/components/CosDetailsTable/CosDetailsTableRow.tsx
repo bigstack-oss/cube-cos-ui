@@ -5,10 +5,11 @@ export type CosDetailsTableRowProps = {
   children: string
 }
 
-const tdBorderRadiusClass = twMerge(
+const rowClass = twMerge(
   '[&:first-of-type>*]:border-t',
   '[&:last-of-type>*:first-child]:rounded-bl-[5px]',
   '[&:last-of-type>*:last-child]:rounded-br-[5px]',
+  '[&:hover>*]:bg-functional-hover-grey',
 )
 
 const cellClass = twMerge(
@@ -21,7 +22,7 @@ export const CosDetailsTableRow = (props: CosDetailsTableRowProps) => {
   const { title, children } = props
 
   return (
-    <tr className={tdBorderRadiusClass}>
+    <tr className={rowClass}>
       <th className={twMerge(cellClass, 'font-semibold text-functional-text')}>
         {title}
       </th>
