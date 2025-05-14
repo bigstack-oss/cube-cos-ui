@@ -1,8 +1,8 @@
 import { Node } from '@cube-frontend/api'
-import { CosDropdown, CosSearchBarFilter } from '@cube-frontend/ui-library'
+import { CosSearchBarFilter } from '@cube-frontend/ui-library'
 import { ChangeEvent } from 'react'
 import { HostDropdown } from './HostDropdown'
-import { modifiedOptions } from './tuningsUtils'
+import { ModifiedStatusDropdown } from './ModifiedStatusDropdown'
 import { ListTuningsQuery } from './useListTuningsQuery'
 
 type TuningsFilterProps = {
@@ -35,29 +35,11 @@ export const TuningsFilter = (props: TuningsFilterProps) => {
         onChange={onKeywordChange}
         onInputClear={onKeywordClear}
       />
-      <CosDropdown
-        type="checkbox"
-        selectedItems={query.modified}
+      <ModifiedStatusDropdown
+        selectedModified={query.modified}
+        onItemClick={onModifiedItemClick}
         onAllCheckChange={onModifiedAllCheckChange}
-      >
-        <CosDropdown.Trigger
-          className="h-[34px] w-[168px]"
-          placeholder="Modify Statuses"
-        >
-          {query.modified.length ? 'Modify Statuses' : undefined}
-        </CosDropdown.Trigger>
-        <CosDropdown.Menu>
-          {modifiedOptions.map((modified) => (
-            <CosDropdown.Item
-              key={modified.toString()}
-              item={modified}
-              onClick={() => onModifiedItemClick(modified)}
-            >
-              {modified ? 'Modified' : 'Unmodified'}
-            </CosDropdown.Item>
-          ))}
-        </CosDropdown.Menu>
-      </CosDropdown>
+      />
       <HostDropdown
         selectedHosts={query.hosts}
         onItemClick={onNodeItemClick}
