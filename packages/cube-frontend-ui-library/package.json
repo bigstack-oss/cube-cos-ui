@@ -31,7 +31,7 @@
     "postcss": "catalog:",
     "prop-types": "^15.8.1",
     "pluralize": "catalog:",
-    "storybook": "^8.4.7",
+    "storybook": "^8.6.12",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
     "vite-plugin-svgr": "catalog:"
