@@ -20,7 +20,7 @@
     "@fontsource/urbanist": "catalog:",
     "@types/lodash": "catalog:",
     "@types/pluralize": "catalog:",
-    "axios": "^1.7.9",
+    "axios": "^1.9.0",
     "chart.js": "^4.4.8",
     "class-variance-authority": "catalog:",
     "dayjs": "catalog:",
