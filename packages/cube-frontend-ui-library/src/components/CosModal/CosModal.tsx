@@ -56,7 +56,7 @@ export const CosModal = (props: CosModalProps) => {
     <>
       <div className={backdrop({ isOpen })} onClick={onCloseClick} />
       <div
-        className={twMerge(classNameProp, modal({ size, isOpen }))}
+        className={twMerge(modal({ size, isOpen }), classNameProp)}
         style={{
           boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)',
         }}

@@ -25,6 +25,7 @@ export const ImportLicenseModal = (props: ImportLicenseModalProps) => {
 
   return (
     <CosModal
+      className="h-[780px] max-h-screen"
       isOpen={!!licenseVerifyInfo}
       title="Import License"
       actionText="Yes, import license"
