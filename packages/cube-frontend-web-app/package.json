@@ -43,7 +43,7 @@
     "postcss": "catalog:",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
-    "vite": "^6.0.5",
+    "vite": "^6.3.5",
     "vite-plugin-svgr": "catalog:"
   },
   "engines": {
