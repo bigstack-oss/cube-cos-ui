@@ -1,7 +1,7 @@
 import { ReactNode, useContext, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
-import { CosCheckbox } from '../CosCheckbox/CosCheckbox'
+import { CosCheckbox, CosCheckboxColor } from '../CosCheckbox/CosCheckbox'
 import { CosDropdownSearchBar } from './CosDropdownSearchBar'
 import { CosDropdownContext } from './context'
 import { content, item } from './styles'
@@ -37,6 +37,12 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     return selectedItems.length === itemCount
   }, [selectedItems.length, itemCount])
 
+  const getCheckboxColor = (): CosCheckboxColor | undefined => {
+    if (type === 'checkbox') return 'primary-dark'
+    if (type === 'search-checkbox') return 'secondary-dark'
+    return undefined
+  }
+
   return createPortal(
     <div
       ref={elementRef}
@@ -58,9 +64,10 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
         >
           <CosCheckbox
             label="All"
-            variant={type === 'checkbox' ? 'primary' : 'secondary'}
+            disabled={false}
             checked={isAllChecked}
             onClick={() => onAllCheckChange?.(!isAllChecked)}
+            color={getCheckboxColor()}
           />
         </div>
       )}

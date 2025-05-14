@@ -64,6 +64,7 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
       className={twMerge(
         trigger({
           variant,
+          isMenuOpen: isOpen,
           hasSearchbar,
           hasSelectedValue: isSelected,
           disabled,

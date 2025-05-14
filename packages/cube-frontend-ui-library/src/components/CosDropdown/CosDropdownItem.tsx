@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { CosCheckbox } from '../CosCheckbox/CosCheckbox'
+import { CosCheckbox, CosCheckboxColor } from '../CosCheckbox/CosCheckbox'
 import { CosDropdownContext } from './context'
 import { item as itemStyle } from './styles'
 
@@ -30,22 +30,31 @@ export const CosDropdownItem = <Item,>(props: CosDropdownItemProps<Item>) => {
     }
   }
 
-  return isCheckbox ? (
-    <div
-      className={twMerge(
-        itemStyle({ variant, type, isSelected, isCheckbox, disabled }),
-      )}
-    >
-      <CosCheckbox
-        label={label}
-        labelClassName="truncate"
-        disabled={disabled}
-        checked={isSelected}
-        onChange={handleClick}
-        variant={type === 'checkbox' ? 'primary' : 'secondary'}
-      />
-    </div>
-  ) : (
+  const getCheckboxColor = (): CosCheckboxColor | undefined => {
+    if (type === 'checkbox') return 'primary'
+    if (type === 'search-checkbox') return 'secondary'
+    return undefined
+  }
+
+  if (isCheckbox)
+    return (
+      <div
+        className={twMerge(
+          itemStyle({ variant, type, isSelected, isCheckbox, disabled }),
+        )}
+      >
+        <CosCheckbox
+          label={label}
+          labelClassName="truncate"
+          disabled={disabled}
+          checked={isSelected}
+          onChange={handleClick}
+          color={getCheckboxColor()}
+        />
+      </div>
+    )
+
+  return (
     <div
       className={twMerge(
         itemStyle({ variant, type, isSelected, isCheckbox, disabled }),

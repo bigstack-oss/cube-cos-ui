@@ -8,6 +8,10 @@ export const trigger = cva(
         default: 'h-[38px] min-w-[116px] max-w-[360px] px-4 py-[10px]',
         'in-table': 'h-[34px] min-w-[80px] max-w-[240px] px-3 py-2',
       },
+      isMenuOpen: {
+        true: '',
+        false: '',
+      },
       hasSearchbar: {
         true: '',
         false: '',
@@ -24,17 +28,19 @@ export const trigger = cva(
     compoundVariants: [
       // Default Dropdown
       {
+        isMenuOpen: false,
         hasSearchbar: false,
         hasSelectedValue: false,
         disabled: false,
         class: [
           'hover:border-functional-hover-primary',
           'border-functional-border-divider',
-          'text-functional-border-darker',
+          'text-functional-text-light',
           'bg-white',
         ],
       },
       {
+        isMenuOpen: false,
         hasSearchbar: false,
         hasSelectedValue: true,
         disabled: false,
@@ -46,6 +52,7 @@ export const trigger = cva(
         ],
       },
       {
+        isMenuOpen: false,
         hasSearchbar: false,
         hasSelectedValue: false,
         disabled: true,
@@ -57,6 +64,7 @@ export const trigger = cva(
         ],
       },
       {
+        isMenuOpen: false,
         hasSearchbar: false,
         hasSelectedValue: true,
         disabled: true,
@@ -64,6 +72,28 @@ export const trigger = cva(
           'hover:border-functional-border-divider',
           'border-functional-border-divider',
           'text-functional-disable-text',
+          'bg-white',
+        ],
+      },
+      {
+        isMenuOpen: true,
+        hasSearchbar: false,
+        hasSelectedValue: false,
+        disabled: false,
+        class: [
+          'border-functional-hover-primary',
+          'text-functional-text-light',
+          'bg-white',
+        ],
+      },
+      {
+        isMenuOpen: true,
+        hasSearchbar: false,
+        hasSelectedValue: true,
+        disabled: false,
+        class: [
+          'border-functional-hover-primary',
+          'text-functional-text',
           'bg-white',
         ],
       },
