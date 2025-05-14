@@ -15,6 +15,6 @@
     "@cube-frontend/utils": "workspace:*"
   },
   "devDependencies": {
-    "msw": "^2.7.0"
+    "msw": "^2.8.2"
   }
 }
