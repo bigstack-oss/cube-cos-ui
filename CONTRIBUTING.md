@@ -9,9 +9,8 @@ Thanks for your interest in contributing to CubeCOS. To create an open space for
   - [Code of conduct](#code-of-conduct)
   - [Prerequisites](#prerequisites)
     - [Create a GitHub account](#create-a-github-account)
-    - [Setup Git Commit Signing](#setup-git-commit-signing)
+    - [Setup Git commit signing](#setup-git-commit-signing)
   - [How to contribute](#how-to-contribute)
-    - [Quick guide to pull requests](#quick-guide-to-pull-requests)
   - [Developer Origin Certificate (DCO)](#developer-origin-certificate-dco)
 
 ## Code of conduct
@@ -26,7 +25,7 @@ You can reach out to us at [community@bigstack.co](mailto:community@bigstack.co)
 
 Create a [GitHub](https://github.com/signup) account if you haven't already.
 
-### Setup Git Commit Signing
+### Setup Git commit signing
 
 Git commit signing is a process that uses cryptographic signatures (GPG or SSH keys) to verify the authenticity of a commits' author, ensuring that the commit was created by a trusted identity and hasn’t been tampered with. We require our contributors to sign their commits to stay secure and validate developer origin certificate sign offs. Setup [Git commit signing](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)
 
@@ -40,8 +39,6 @@ We welcome contributions in the form of:
 - Bug fix or feature enhancement
 
 Please **do not** report any **security** issues in the issue tracker or a pull request. Please refer to our [security](/SECURITY.md) page on how to report and reach us.
-
-### Quick guide to pull requests
 
 ## Developer Origin Certificate (DCO)
 
