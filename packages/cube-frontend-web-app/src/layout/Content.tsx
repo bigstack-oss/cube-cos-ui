@@ -10,9 +10,9 @@ const Content = (props: PropsWithChildren) => {
   return (
     <div
       id={containerId}
-      className="flex h-[calc(100svh_-_54px)] w-full items-start justify-center overflow-auto"
+      className="flex h-[calc(100svh_-_54px)] w-full items-start justify-center"
     >
-      <div className="w-full max-w-[1600px] px-5 pb-[60px] pt-4 [&>*]:w-full">
+      <div className="size-full max-w-[1600px] overflow-auto px-5 pb-[60px] pt-4 [&>*]:w-full">
         <UseFloatingExternalContextProvider
           scrollableRootSelector={`#${containerId}`}
         >
