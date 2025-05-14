@@ -43,7 +43,7 @@
   "devDependencies": {
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "vite": "^6.0.5"
+    "vite": "^6.3.5"
   },
   "peerDependencies": {
     "react": "catalog:",
