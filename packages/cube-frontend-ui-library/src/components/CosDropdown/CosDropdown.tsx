@@ -1,69 +1,42 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useFloating } from '../../internal/utils/floating/useFloating'
-import { CosDropdownItem } from './CosDropdownItem'
-import { CosDropdownMenu } from './CosDropdownMenu'
-import { CosDropdownSkeleton } from './CosDropdownSkeleton'
 import { CosDropdownTrigger } from './CosDropdownTrigger'
-import { CosDropdownContext } from './context'
+import { CosDropdownMenu } from './CosDropdownMenu'
+import { CosDropdownItem } from './CosDropdownItem'
+import { CosDropdownSkeleton } from './CosDropdownSkeleton'
+import { CosDropdownProps } from './cosDropdownTypes'
+import { CosDropdownContext } from './cosDropdownContext'
+import { getOptionalProps } from './cosDropdownUtils'
 import { parseNodes } from './parseNodes'
-import { dropdownLabel } from './styles'
-import {
-  CosDropdownType,
-  CosDropdownVariant,
-  OnAllCheckChange,
-  OnClearClick,
-  OnSearchChange,
-  getOptionalProps,
-} from './utils'
+import { label as labelStyle } from './cosDropdownStyles'
 
-export type CosDropdownProps<Item, Type extends CosDropdownType> = {
-  type?: Type
-  variant?: CosDropdownVariant
-  label?: string
-  selectedItems: Item[]
-  disabled?: boolean
-  isLoading?: boolean
-  skeletonClassName?: string
-  children: ReactNode
-} & CheckboxDropdownProps<Type> &
-  SearchDropdownProps<Type>
-
-type CheckboxDropdownProps<Type extends CosDropdownType> = Type extends
-  | 'checkbox'
-  | 'search-checkbox'
-  ? {
-      onAllCheckChange: OnAllCheckChange
-    }
-  : unknown
-
-type SearchDropdownProps<Type extends CosDropdownType> = Type extends
-  | 'search'
-  | 'search-checkbox'
-  ? {
-      searchValue: string
-      onSearchChange: OnSearchChange
-      onClearClick: OnClearClick
-    }
-  : unknown
-
-export const CosDropdown = <Item, Type extends CosDropdownType>(
-  props: CosDropdownProps<Item, Type>,
-) => {
+export const CosDropdown = <Item,>(props: CosDropdownProps<Item>) => {
   const {
-    type = 'regular',
-    variant = 'default',
-    label,
+    size = 'md',
+    type,
+    variant = 'regular',
     selectedItems,
-    disabled = false,
     isLoading = false,
+    disabled = false,
+    label,
     skeletonClassName,
     children,
   } = props
 
+  const optionalProps = getOptionalProps(props)
+
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  const optionalProps = getOptionalProps(props)
+  const [searchValue, setSearchValue] = useState<string>('')
+
+  const toggleDropdownOpen = () => {
+    setDropdownOpen((prev) => !prev)
+  }
+
+  const handleSearchValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value)
+  }
 
   const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
     isOpen: dropdownOpen,
@@ -75,15 +48,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
 
   const { anchorRef, elementRef } = floatingProps
 
-  const {
-    triggerNode,
-    menuNode,
-    enabledItemCount: itemCount,
-  } = parseNodes(children)
-
-  const toggleDropdownOpen = () => {
-    setDropdownOpen((prev) => !prev)
-  }
+  const { triggerNode, menuNode, enabledItemCount } = parseNodes(children)
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
@@ -99,11 +64,6 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
     [anchorRef, elementRef],
   )
 
-  const renderLabel = () => {
-    if (!label) return null
-    return <p className={twMerge(dropdownLabel({ variant }))}>{label}</p>
-  }
-
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
@@ -111,11 +71,16 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
     }
   }, [handleClickOutside])
 
+  const renderLabel = () => {
+    if (!label) return null
+    return <p className={twMerge(labelStyle({ size }))}>{label}</p>
+  }
+
   if (isLoading) {
     return (
       <CosDropdownSkeleton
         className={skeletonClassName}
-        variant={variant}
+        size={size}
         hasLabel={!!label}
       />
     )
@@ -124,22 +89,21 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
   return (
     <CosDropdownContext.Provider
       value={{
-        // Internal control
+        floatingProps,
         dropdownOpen,
         toggleDropdownOpen,
-        floatingProps,
-        // Common props
+        size,
         type,
         variant,
-        selectedItems,
-        itemCount,
         disabled,
-        // Checkbox props
+        selectedItems,
+        enabledItemCount,
+
         onAllCheckChange: optionalProps.onAllCheckChange,
-        onClearClick: optionalProps.onClearClick,
-        // Search props
-        searchValue: optionalProps.searchValue,
-        onSearchChange: optionalProps.onSearchChange,
+        onClearSelection: optionalProps.onClearSelection,
+
+        searchValue,
+        handleSearchValueChange,
       }}
     >
       <div>

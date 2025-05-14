@@ -62,13 +62,11 @@ export const RegularDropdown = (props: RegularDropdownProps) => {
 
   return hasSearchbar ? (
     <CosDropdown
-      type="search"
-      variant={variant}
+      size="md"
+      type="radio"
+      variant="withFilter"
       label={label}
       selectedItems={selectedCountry}
-      searchValue={searchValue}
-      onSearchChange={handleSearchChange}
-      onClearClick={handleClearClick}
       disabled={isDisabled}
     >
       <CosDropdown.Trigger placeholder="Select a Country">
@@ -97,8 +95,9 @@ export const RegularDropdown = (props: RegularDropdownProps) => {
     </CosDropdown>
   ) : (
     <CosDropdown
-      type="regular"
-      variant={variant}
+      size="md"
+      type="radio"
+      variant="regular"
       label={label}
       selectedItems={selectedCountry}
       disabled={isDisabled}

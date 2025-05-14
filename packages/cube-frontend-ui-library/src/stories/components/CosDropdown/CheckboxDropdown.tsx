@@ -113,20 +113,15 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
     setSelectedFruits([])
   }
 
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value)
-  }
-
   return hasSearchbar ? (
     <CosDropdown
-      type="search-checkbox"
-      variant={variant}
+      size="md"
+      type="checkbox"
+      variant="withFilter"
       label={label}
       selectedItems={selectedFruits}
       onAllCheckChange={handleAllFruitsSelect}
-      searchValue={searchValue}
-      onSearchChange={handleSearchChange}
-      onClearClick={handleClearClick}
+      onClearSelection={handleClearClick}
       disabled={isDisabled}
     >
       <CosDropdown.Trigger placeholder="Select Fruits">
@@ -156,8 +151,9 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
     </CosDropdown>
   ) : (
     <CosDropdown
+      size="md"
       type="checkbox"
-      variant={variant}
+      variant="regular"
       label={label}
       selectedItems={selectedFruits}
       onAllCheckChange={handleAllFruitsSelect}

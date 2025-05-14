@@ -1,10 +1,10 @@
-import { ReactNode, useContext, useMemo } from 'react'
+import { ReactNode, useCallback, useContext, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
-import { CosCheckbox, CosCheckboxColor } from '../CosCheckbox/CosCheckbox'
-import { CosDropdownSearchBar } from './CosDropdownSearchBar'
-import { CosDropdownContext } from './context'
-import { content, item } from './styles'
+import { ItemCheckbox } from './_components/ItemCheckbox'
+import { CosDropdownFilter } from './CosDropdownFilter'
+import { CosDropdownContext } from './cosDropdownContext'
+import { menu } from './cosDropdownStyles'
 
 export type CosDropdownMenuProps = {
   children: ReactNode
@@ -15,61 +15,55 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
 
   const {
     floatingProps,
+    dropdownOpen,
+    size,
     variant,
     type,
     onAllCheckChange,
     selectedItems,
-    itemCount,
+    enabledItemCount,
     searchValue,
   } = useContext(CosDropdownContext)
 
   const { elementRef, resolvedStyles } = floatingProps
 
-  const isCheckbox = type === 'checkbox' || type === 'search-checkbox'
+  const isAllSelected = useMemo(() => {
+    return selectedItems.length === enabledItemCount
+  }, [selectedItems.length, enabledItemCount])
 
-  const showSearchInput = type === 'search' || type === 'search-checkbox'
+  const onAllClick = useCallback(() => {
+    onAllCheckChange?.(!isAllSelected)
+  }, [isAllSelected, onAllCheckChange])
 
-  const showAllCheckbox =
-    (type === 'checkbox' || type === 'search-checkbox') && !searchValue
+  const renderFilter = () => {
+    if (variant === 'regular') return null
+    return <CosDropdownFilter />
+  }
 
-  const isAllChecked = useMemo(() => {
-    return selectedItems.length === itemCount
-  }, [selectedItems.length, itemCount])
+  const renderSelectAllCheckbox = () => {
+    if (type === 'radio' || searchValue) return null
 
-  const getCheckboxColor = (): CosCheckboxColor | undefined => {
-    if (type === 'checkbox') return 'primary-dark'
-    if (type === 'search-checkbox') return 'secondary-dark'
-    return undefined
+    return (
+      <ItemCheckbox
+        isDark={true}
+        size={size}
+        variant={variant}
+        label="All"
+        onClick={onAllClick}
+        isSelected={isAllSelected}
+        disabled={false}
+      />
+    )
   }
 
   return createPortal(
     <div
       ref={elementRef}
-      className={twMerge(content({ variant }))}
+      className={twMerge(menu({ size, dropdownOpen }))}
       style={resolvedStyles?.floatingStyle}
     >
-      {showSearchInput && <CosDropdownSearchBar />}
-      {showAllCheckbox && (
-        <div
-          className={twMerge(
-            item({
-              variant,
-              type,
-              isSelected: isAllChecked,
-              isCheckbox,
-              disabled: false,
-            }),
-          )}
-        >
-          <CosCheckbox
-            label="All"
-            disabled={false}
-            checked={isAllChecked}
-            onClick={() => onAllCheckChange?.(!isAllChecked)}
-            color={getCheckboxColor()}
-          />
-        </div>
-      )}
+      {renderFilter()}
+      {renderSelectAllCheckbox()}
       {children}
     </div>,
     document.body,
