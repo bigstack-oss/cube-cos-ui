@@ -32,7 +32,7 @@
     "react-error-boundary": "^5.0.0",
     "react-router": "^7.1.5",
     "vitest": "catalog:",
-    "zod": "^3.24.2",
+    "zod": "^3.24.4",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
