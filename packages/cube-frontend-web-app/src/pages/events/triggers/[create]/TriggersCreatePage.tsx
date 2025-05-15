@@ -1,19 +1,19 @@
-import { ReactNode } from 'react'
-import { Navigate } from 'react-router'
 import { CosBackButton, CosStroke } from '@cube-frontend/ui-library'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { ReactNode } from 'react'
+import { Link, Navigate } from 'react-router'
 import { TriggersCreateSteps } from './_components/TriggersCreateSteps'
-import { TriggersStepTemplate } from './_components/TriggersStepTemplate/TriggersStepTemplate'
+import { TriggersStepDescription } from './_components/TriggersStepDescription/TriggersStepDescription'
 import { TriggersStepEvent } from './_components/TriggersStepEvents/TriggersStepEvents'
 import { TriggersStepResponse } from './_components/TriggersStepResponse/TriggersStepResponse'
-import { TriggersStepDescription } from './_components/TriggersStepDescription/TriggersStepDescription'
-import { useTriggerCreateForm } from './useCreateTriggerForm'
-import { useTemplateTable } from './useTemplateTable'
+import { TriggersStepTemplate } from './_components/TriggersStepTemplate/TriggersStepTemplate'
 import { TriggersCreateContext } from './context'
+import { useTriggerCreateForm } from './useCreateTriggerForm'
 import {
   CreateTriggerStepParams,
   useCreateTriggerStep,
 } from './useCreateTriggerStep'
-import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { useTemplateTable } from './useTemplateTable'
 
 export const TriggersCreatePage = () => {
   const { step, goToEvents, goToResponse, goToDescription } =
@@ -92,7 +92,15 @@ export const TriggersCreatePage = () => {
       }}
     >
       <div className="flex flex-col gap-4">
-        <CosBackButton variant="title" onClick={() => history.back()}>
+        <CosBackButton
+          variant="title"
+          backLinkContainer={{
+            Component: Link,
+            props: {
+              to: CosRoutesEnum.EVENTS_TRIGGERS_PAGE,
+            },
+          }}
+        >
           Create from Template
         </CosBackButton>
         <TriggersCreateSteps />

@@ -1,7 +1,8 @@
-import { useContext } from 'react'
 import { CosButton, CosStroke, CosTextArea } from '@cube-frontend/ui-library'
+import { useContext } from 'react'
 import { TriggersCreateContext } from '../../context'
 import { useUpdateTrigger } from '../../useUpdateTrigger'
+import { TriggersPreviousButton } from '../TriggersPreviousButton'
 
 export const TriggersStepDescription = () => {
   const {
@@ -42,16 +43,19 @@ export const TriggersStepDescription = () => {
       <CosStroke type="dot" />
       <div className="flex w-fit flex-col gap-2">
         {renderErrorMessage()}
-        <CosButton
-          size="md"
-          type="primary"
-          loading={isUpdating}
-          disabled={!!errorState}
-          onClick={handleTriggerUpdate}
-          className="w-fit"
-        >
-          Update
-        </CosButton>
+        <div className="flex items-center gap-x-4">
+          <TriggersPreviousButton />
+          <CosButton
+            size="md"
+            type="primary"
+            loading={isUpdating}
+            disabled={!!errorState}
+            onClick={handleTriggerUpdate}
+            className="w-fit"
+          >
+            Update
+          </CosButton>
+        </div>
       </div>
     </div>
   )

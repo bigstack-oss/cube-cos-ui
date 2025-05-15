@@ -1,16 +1,17 @@
-import { useContext } from 'react'
-import { upperFirst } from 'lodash'
 import {
   CosButton,
   CosStackCard,
   CosStroke,
   CosTag,
 } from '@cube-frontend/ui-library'
-import { groupAttributeByName } from '../../utils'
+import { upperFirst } from 'lodash'
+import { useContext } from 'react'
 import { TriggersCreateContext } from '../../context'
+import { groupAttributeByName } from '../../utils'
 import { TriggersAddButton } from '../TriggersAddButton'
-import { TriggersSubtractButton } from '../TriggersSubtractButton'
 import { TriggersNextButton } from '../TriggersNextButton'
+import { TriggersPreviousButton } from '../TriggersPreviousButton'
+import { TriggersSubtractButton } from '../TriggersSubtractButton'
 
 export const TriggersStepEvent = () => {
   const { goToResponse, formValue, isFormValueValid } = useContext(
@@ -50,7 +51,13 @@ export const TriggersStepEvent = () => {
         )}
       </div>
       <CosStroke type="dot" />
-      <TriggersNextButton disabled={!isFormValueValid} onClick={goToResponse} />
+      <div className="flex items-center gap-x-4">
+        <TriggersPreviousButton />
+        <TriggersNextButton
+          disabled={!isFormValueValid}
+          onClick={goToResponse}
+        />
+      </div>
     </div>
   )
 }

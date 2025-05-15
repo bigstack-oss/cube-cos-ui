@@ -1,10 +1,11 @@
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
-import { TriggersAddButton } from '../TriggersAddButton'
-import { ResponseEmailTable } from './ResponseEmailTable'
-import { ResponseSlackTable } from './ResponseSlackTable'
 import { useContext } from 'react'
 import { TriggersCreateContext } from '../../context'
+import { TriggersAddButton } from '../TriggersAddButton'
 import { TriggersNextButton } from '../TriggersNextButton'
+import { TriggersPreviousButton } from '../TriggersPreviousButton'
+import { ResponseEmailTable } from './ResponseEmailTable'
+import { ResponseSlackTable } from './ResponseSlackTable'
 
 export const TriggersStepResponse = () => {
   const { goToDescription, isFormValueValid } = useContext(
@@ -24,10 +25,13 @@ export const TriggersStepResponse = () => {
       <ResponseEmailTable />
       <ResponseSlackTable />
       <CosStroke type="dot" />
-      <TriggersNextButton
-        disabled={!isFormValueValid}
-        onClick={goToDescription}
-      />
+      <div className="flex items-center gap-x-4">
+        <TriggersPreviousButton />
+        <TriggersNextButton
+          disabled={!isFormValueValid}
+          onClick={goToDescription}
+        />
+      </div>
     </div>
   )
 }

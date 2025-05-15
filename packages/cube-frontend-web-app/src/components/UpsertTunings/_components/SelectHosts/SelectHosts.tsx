@@ -5,6 +5,7 @@ import { useMemo } from 'react'
 import { HostWithRole, UpsertTuningsPayload } from '../../upsertTuningsUtils'
 import { Board } from '../Board'
 import { SpecEntry } from '../SpecEntry'
+import { TuningsPreviousButton } from '../TuningsPreviousButton'
 import { filterHosts } from './filterHosts'
 import { HostFilter } from './HostFilter'
 import { HostList } from './HostList'
@@ -70,15 +71,17 @@ export const SelectHosts = (props: SelectHostsProps) => {
         onChange={onChange}
       />
       <CosStroke type="dot" />
-      <CosButton
-        className="self-start"
-        usage="icon-right"
-        Icon={ChevronRight}
-        disabled={!selectedHosts.length}
-        onClick={onNextClick}
-      >
-        Next
-      </CosButton>
+      <div className="flex items-center gap-x-4">
+        <TuningsPreviousButton />
+        <CosButton
+          usage="icon-right"
+          Icon={ChevronRight}
+          disabled={!selectedHosts.length}
+          onClick={onNextClick}
+        >
+          Next
+        </CosButton>
+      </div>
     </Board>
   )
 }

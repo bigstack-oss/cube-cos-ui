@@ -8,6 +8,7 @@ import {
 } from '../../upsertTuningsUtils'
 import { Board } from '../Board'
 import { SpecEntry } from '../SpecEntry'
+import { TuningsPreviousButton } from '../TuningsPreviousButton'
 
 type PublishTuningProps = {
   payload: UpsertTuningsPayload
@@ -61,14 +62,16 @@ export const PublishTuning = (props: PublishTuningProps) => {
       {errorMessage && (
         <div className="primary-body3 text-status-negative">{errorMessage}</div>
       )}
-      <CosButton
-        className="self-start"
-        usage="text-only"
-        loading={isLoading}
-        onClick={onPublishClick}
-      >
-        Publish
-      </CosButton>
+      <div className="flex items-center gap-x-4">
+        <TuningsPreviousButton />
+        <CosButton
+          usage="text-only"
+          loading={isLoading}
+          onClick={onPublishClick}
+        >
+          Publish
+        </CosButton>
+      </div>
     </Board>
   )
 }
