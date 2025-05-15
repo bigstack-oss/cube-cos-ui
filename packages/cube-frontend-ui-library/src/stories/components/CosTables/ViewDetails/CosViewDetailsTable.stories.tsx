@@ -3,7 +3,7 @@ import {
   useExpandedRowIdSet,
 } from '@cube-frontend/ui-library'
 import { Meta, StoryObj } from '@storybook/react'
-import { capitalize } from 'lodash'
+import { upperFirst } from 'lodash'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import {
   isCmpLicense,
@@ -55,7 +55,7 @@ const Default = () => {
       },
       {
         title: 'Feature',
-        value: capitalize(license.feature),
+        value: upperFirst(license.feature),
       },
     ]
   }
@@ -98,7 +98,7 @@ const WithoutTitle = () => {
       },
       {
         title: 'Feature',
-        value: capitalize(license.feature),
+        value: upperFirst(license.feature),
       },
     ]
   }
@@ -148,7 +148,7 @@ const DynamicContent = () => {
       },
       {
         title: 'Feature',
-        value: capitalize(license.feature),
+        value: upperFirst(license.feature),
       },
     ]
 

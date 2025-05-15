@@ -1,5 +1,6 @@
 import { GetLicensesTypesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { upperFirst } from 'lodash'
 import { ChangeEvent, useState } from 'react'
 
 const licenseTypes = Object.values(GetLicensesTypesEnum)
@@ -72,7 +73,7 @@ export const TypeFilter = (props: TypeFilterProps) => {
               item={licenseType}
               onClick={() => handleLicenseTypeClick(licenseType)}
             >
-              {licenseType}
+              {upperFirst(licenseType)}
             </CosDropdown.Item>
           )
         })}

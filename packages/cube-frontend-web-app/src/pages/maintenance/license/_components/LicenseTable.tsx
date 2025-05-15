@@ -1,4 +1,4 @@
-import { capitalize, upperFirst } from 'lodash'
+import { upperFirst } from 'lodash'
 import { GetLicensesResponseDataLicensesInner } from '@cube-frontend/api'
 import {
   CosBasicTableProps,
@@ -49,7 +49,7 @@ export const LicenseTable = (props: LicenseTableProps) => {
       },
       {
         title: 'Feature',
-        value: capitalize(license.product.feature),
+        value: upperFirst(license.product.feature),
       },
     ]
   }

@@ -9,7 +9,7 @@ import {
 } from '@cube-frontend/ui-library'
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
-import { capitalize } from 'lodash'
+import { upperFirst } from 'lodash'
 import { useMemo, useState } from 'react'
 import { Panel } from './Panel'
 
@@ -65,7 +65,7 @@ export const NodeDevices = (props: NodeDevicesProps) => {
       )
     }
 
-    return capitalize(availability)
+    return upperFirst(availability)
   }
 
   return (

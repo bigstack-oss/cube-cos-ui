@@ -1,6 +1,6 @@
 import { GetLicenseAttachmentsResponseDataInner } from '@cube-frontend/api'
 import { GetCosBatchActionTable } from '@cube-frontend/ui-library'
-import { capitalize } from 'lodash'
+import { upperFirst } from 'lodash'
 
 export type BatchLicenseAttachmentTableRow =
   GetLicenseAttachmentsResponseDataInner & {
@@ -25,7 +25,7 @@ export const LicenseAttachmentTable = (props: LicenseAttachmentTableProps) => {
       <BatchLicenseAttachmentTable.Column label="Role" property="role" />
       <BatchLicenseAttachmentTable.Column label="Product" property="product" />
       <BatchLicenseAttachmentTable.Column label="Status" property="status">
-        {capitalize}
+        {upperFirst}
       </BatchLicenseAttachmentTable.Column>
     </BatchLicenseAttachmentTable>
   )

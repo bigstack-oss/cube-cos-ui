@@ -1,5 +1,6 @@
 import { ListLicenseCurrentStatus } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { upperFirst } from 'lodash'
 import { ChangeEvent, useState } from 'react'
 
 const licenseStatuses = Object.values(ListLicenseCurrentStatus)
@@ -75,7 +76,7 @@ export const LicenseStatusFilter = (props: LicenseStatusFilterProps) => {
               item={licenseStatus}
               onClick={() => handleLicenseStatusClick(licenseStatus)}
             >
-              {licenseStatus}
+              {upperFirst(licenseStatus)}
             </CosDropdown.Item>
           )
         })}

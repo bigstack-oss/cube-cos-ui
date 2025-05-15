@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react'
-import { capitalize, uniqueId } from 'lodash'
+import { upperFirst, uniqueId } from 'lodash'
 import { GetIntegrationsResponseDataInner } from '@cube-frontend/api'
 import {
   CosButton,
@@ -30,7 +30,7 @@ const renderIntegrationName = (name: string) => {
 
   if (!uiData) {
     console.warn(`No UI data is defined for integration: ${name}`)
-    return capitalize(name)
+    return upperFirst(name)
   }
 
   return uiData.displayName

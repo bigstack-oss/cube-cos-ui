@@ -1,6 +1,6 @@
 import { GetHealthsResponseDataServicesInner } from '@cube-frontend/api'
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
-import { capitalize } from 'lodash'
+import { serviceNameToLabel } from '../../homeHealthPageUtils'
 
 export type NgServiceProps = {
   service: GetHealthsResponseDataServicesInner
@@ -26,7 +26,7 @@ export const NgService = (props: NgServiceProps) => {
       <div className="flex items-center gap-x-2">
         <WarningFilled className="size-4 shrink-0 text-status-negative" />
         <span className="primary-body3 font-semibold text-status-negative">
-          {capitalize(service.name)}
+          {serviceNameToLabel(service.name)}
         </span>
       </div>
       <span className="primary-body4 text-functional-text-light">

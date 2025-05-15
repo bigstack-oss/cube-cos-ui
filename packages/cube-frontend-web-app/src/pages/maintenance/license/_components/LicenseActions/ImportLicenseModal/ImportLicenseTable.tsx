@@ -1,7 +1,7 @@
 import { VerifyLicenseResponseDataLicense } from '@cube-frontend/api'
 import { CosDetailsTable } from '@cube-frontend/ui-library'
 import { formatLicenseDate } from '@cube-frontend/web-app/utils/date'
-import { capitalize } from 'lodash'
+import { upperFirst } from 'lodash'
 
 export type ImportLicenseTableProps = {
   license: VerifyLicenseResponseDataLicense
@@ -16,10 +16,10 @@ export const ImportLicenseTable = (props: ImportLicenseTableProps) => {
         {license.product.name}
       </CosDetailsTable.Row>
       <CosDetailsTable.Row title="Status">
-        {license.status.current}
+        {upperFirst(license.status.current)}
       </CosDetailsTable.Row>
       <CosDetailsTable.Row title="Feature">
-        {capitalize(license.product.feature)}
+        {upperFirst(license.product.feature)}
       </CosDetailsTable.Row>
       <CosDetailsTable.Row title="Support Plan">
         {license.supportPlan}

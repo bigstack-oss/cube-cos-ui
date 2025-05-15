@@ -1,7 +1,7 @@
 import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { capitalize } from 'lodash'
+import { upperFirst } from 'lodash'
 import { ChangeEvent, useContext, useMemo, useState } from 'react'
 
 type RoleDropdownProps = {
@@ -70,7 +70,7 @@ export const RoleDropdown = (props: RoleDropdownProps) => {
             item={role}
             onClick={() => onRoleClick(role)}
           >
-            {capitalize(role)}
+            {upperFirst(role)}
           </CosDropdown.Item>
         ))}
       </CosDropdown.Menu>
