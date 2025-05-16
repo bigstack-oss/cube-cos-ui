@@ -4,9 +4,8 @@ updates:
     directory: /
     schedule:
       interval: weekly
-      day: monday
-      time: 09:00
-
+      time: "09:00"
+      timezone: "Asia/Taipei"
   - package-ecosystem: npm
     directories:
       - /
@@ -19,8 +18,8 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: 09:00
-    update-types: ["version-update:semver-patch"]
+      time: "09:00"
+      timezone: "Asia/Taipei"
     groups:
       minor-and-patch:
         applies-to: version-updates
