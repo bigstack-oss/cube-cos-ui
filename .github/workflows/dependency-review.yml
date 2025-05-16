@@ -18,7 +18,7 @@ jobs:
       - name: Dependency Review
         uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9 # v4.7.1
         with:
-          comment-summary-in-pr: always
+          comment-summary-in-pr: on-failure
           fail-on-severity: moderate
           deny-licenses: GPL-1.0-or-later, LGPL-2.0-or-later
           retry-on-snapshot-warnings: true

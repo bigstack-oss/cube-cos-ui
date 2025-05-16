@@ -20,6 +20,7 @@ updates:
       day: monday
       time: "09:00"
       timezone: "Asia/Taipei"
+    open-pull-requests-limit: 0
     groups:
       minor-and-patch:
         applies-to: version-updates
