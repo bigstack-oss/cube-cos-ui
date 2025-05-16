@@ -16,7 +16,7 @@
     "@fontsource/inter": "catalog:",
     "@fontsource/urbanist": "catalog:",
     "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-interactions": "^8.6.13",
     "@storybook/blocks": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
