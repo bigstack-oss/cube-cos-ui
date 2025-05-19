@@ -21,7 +21,7 @@ import { useTopLicenseNaggingStore } from '@cube-frontend/web-app/stores/topLice
 import { LicenseActions } from './_components/LicenseActions/LicenseActions'
 
 export const MaintenanceLicensePage = () => {
-  const { dataCenter } = useContext(DataCenterContext)
+  const { dataCenter, fetchDataCenters } = useContext(DataCenterContext)
 
   const [searchKeyword, setSearchKeyword] = useState<string>('')
   const [selectedProducts, setSelectedProducts] = useState<
@@ -52,6 +52,11 @@ export const MaintenanceLicensePage = () => {
     } satisfies LicensesApiGetLicensesRequest
   })
 
+  const handleLicenseImportSuccess = () => {
+    fetchLicenses()
+    fetchDataCenters!()
+  }
+
   const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
     searchKeyword,
     300,
@@ -80,7 +85,7 @@ export const MaintenanceLicensePage = () => {
   return (
     <CosGeneralPanel topic="License">
       <div className="flex flex-col gap-y-6 pt-2">
-        <LicenseActions onImportLicenseSuccess={fetchLicenses} />
+        <LicenseActions onImportLicenseSuccess={handleLicenseImportSuccess} />
         <CosStroke type="dot" />
         <div className="flex flex-col gap-y-2">
           <h5 className="primary-h5 text-functional-text">License</h5>
