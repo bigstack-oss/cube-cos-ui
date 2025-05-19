@@ -1,12 +1,10 @@
 import {
   GetSettingResponseDataTitlePrefix,
-  SettingsApiUpdateTitlePrefixRequest,
   SettingStatusCurrentEnum,
 } from '@cube-frontend/api'
 import { CosButton, CosInput, CosStroke } from '@cube-frontend/ui-library'
 import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
@@ -46,11 +44,7 @@ export const ManageContact = (props: ManageContactProps) => {
   const {
     isLoading: isCallingUpdateApi,
     mutateResource: updateTitlePrefixApi,
-  } = useCosMutationRequest(
-    settingsApi.updateTitlePrefix as (
-      params: SettingsApiUpdateTitlePrefixRequest,
-    ) => Promise<CosApiResponse<undefined>>,
-  )
+  } = useCosMutationRequest(settingsApi.updateTitlePrefix)
 
   const onTitlePrefixChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setTitlePrefix((prev) => ({

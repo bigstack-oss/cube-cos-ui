@@ -5,13 +5,9 @@ import {
   useRef,
   useState,
 } from 'react'
-import {
-  LicensesApiImportClusterLicenseRequest,
-  VerifyLicenseResponseData,
-} from '@cube-frontend/api'
+import { VerifyLicenseResponseData } from '@cube-frontend/api'
 import { licenseApi } from '@cube-frontend/web-app/api/cosApi'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 
 const MESSAGE_TIMEOUT = 5 * 1000
@@ -35,11 +31,7 @@ export const useImportLicense = (options: UseImportLicenseOptions) => {
     mutateResource: importLicense,
     isLoading: isUploadingLicense,
     errorState: importLicenseErrorState,
-  } = useCosMutationRequest(
-    licenseApi.importClusterLicense as (
-      params: LicensesApiImportClusterLicenseRequest,
-    ) => Promise<CosApiResponse<undefined>>,
-  )
+  } = useCosMutationRequest(licenseApi.importClusterLicense)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 

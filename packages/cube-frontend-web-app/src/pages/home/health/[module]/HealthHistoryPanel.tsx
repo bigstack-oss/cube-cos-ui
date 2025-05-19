@@ -1,9 +1,7 @@
-import { HealthApiRepairModuleHealthRequest } from '@cube-frontend/api'
 import { CosStroke } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { cva } from 'class-variance-authority'
@@ -72,9 +70,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
   const [isCallingRepairApi, setIsCallingRepairApi] = useState(false)
 
   const { mutateResource: repairModuleHealth } = useCosMutationRequest(
-    healthApi.repairModuleHealth as (
-      params: HealthApiRepairModuleHealthRequest,
-    ) => Promise<CosApiResponse<undefined>>,
+    healthApi.repairModuleHealth,
   )
 
   const onRepairClick = async () => {

@@ -18,16 +18,16 @@ import {
 } from '@cube-frontend/api'
 import { CosGeneralPanelTitleBarProps } from '@cube-frontend/ui-library'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { CosGetApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosGetRequestUtils'
 import { AxiosRequestConfig } from 'axios'
 import { noop } from 'lodash'
 
 const getMetricsByTypes = async <T extends GetMetricByTypes200Response>(
   req: MetricsApiGetMetricByTypesRequest,
   options?: AxiosRequestConfig,
-): Promise<CosApiResponse<T['data']>> => {
+): Promise<CosGetApiResponse<T['data']>> => {
   const metrics = await metricsApi.getMetricByTypes(req, options)
-  return metrics as unknown as CosApiResponse<T['data']>
+  return metrics as unknown as CosGetApiResponse<T['data']>
 }
 
 export type TypeParams = Pick<

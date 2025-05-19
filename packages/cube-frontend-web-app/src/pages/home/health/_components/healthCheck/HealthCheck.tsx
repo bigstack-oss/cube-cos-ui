@@ -1,11 +1,7 @@
-import {
-  HealthApiGetHealthsRequest,
-  HealthApiRepairAllModulesHealthRequest,
-} from '@cube-frontend/api'
+import { HealthApiGetHealthsRequest } from '@cube-frontend/api'
 import { CosButton, CosLoadingSpinner } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
@@ -41,9 +37,7 @@ export const HealthCheck = () => {
   const [isCallingRepairApi, setIsCallingRepairApi] = useState(false)
 
   const { mutateResource: repairHealth } = useCosMutationRequest(
-    healthApi.repairAllModulesHealth as (
-      params: HealthApiRepairAllModulesHealthRequest,
-    ) => Promise<CosApiResponse<undefined>>,
+    healthApi.repairAllModulesHealth,
   )
 
   const renderNgServices = () => {

@@ -1,8 +1,6 @@
-import { SettingsApiTryEmailSenderRequest } from '@cube-frontend/api'
 import { CosInput, CosModal } from '@cube-frontend/ui-library'
 import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import {
   ChangeEvent,
@@ -36,11 +34,7 @@ export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
     mutateResource: tryEmailSender,
     errorState,
     clearError,
-  } = useCosMutationRequest(
-    settingsApi.tryEmailSender as (
-      params: SettingsApiTryEmailSenderRequest,
-    ) => Promise<CosApiResponse<undefined>>,
-  )
+  } = useCosMutationRequest(settingsApi.tryEmailSender)
 
   useEffect(() => {
     if (isOpen) {

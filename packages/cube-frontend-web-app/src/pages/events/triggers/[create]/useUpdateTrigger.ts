@@ -1,15 +1,9 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router'
-import {
-  GetTriggersResponseDataInner,
-  TriggersApiUpdateTriggerRequest,
-} from '@cube-frontend/api'
+import { GetTriggersResponseDataInner } from '@cube-frontend/api'
 import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import {
-  CosApiResponse,
-  CosRequestError,
-} from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { CosRequestError } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { formValueToRequest } from './utils'
 import { CreateTriggerFormValue } from './useCreateTriggerForm'
@@ -40,11 +34,7 @@ export const useUpdateTrigger = (
     mutateResource: updateTrigger,
     errorState,
     clearError,
-  } = useCosMutationRequest(
-    triggersApi.updateTrigger as (
-      params: TriggersApiUpdateTriggerRequest,
-    ) => Promise<CosApiResponse<undefined>>,
-  )
+  } = useCosMutationRequest(triggersApi.updateTrigger)
 
   const handleTriggerUpdate = async () => {
     clearError()

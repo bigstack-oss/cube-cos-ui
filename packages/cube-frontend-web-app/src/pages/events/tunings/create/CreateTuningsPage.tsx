@@ -1,11 +1,9 @@
-import { TuningsApiUpdateTuningRequest } from '@cube-frontend/api'
 import { CosBackButton } from '@cube-frontend/ui-library'
 import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { CreateTunings } from '@cube-frontend/web-app/components/UpsertTunings/CreateTunings'
 import { NonNullableUpsertTuningsPayload } from '@cube-frontend/web-app/components/UpsertTunings/upsertTuningsUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router'
@@ -19,11 +17,7 @@ export const CreateTuningsPage = () => {
     mutateResource: updateTuning,
     errorState,
     clearError,
-  } = useCosMutationRequest(
-    tuningsApi.updateTuning as (
-      params: TuningsApiUpdateTuningRequest,
-    ) => Promise<CosApiResponse<undefined>>,
-  )
+  } = useCosMutationRequest(tuningsApi.updateTuning)
 
   const onPublishClick = async (payload: NonNullableUpsertTuningsPayload) => {
     const { selectedSpecName, value, selectedHosts } = payload

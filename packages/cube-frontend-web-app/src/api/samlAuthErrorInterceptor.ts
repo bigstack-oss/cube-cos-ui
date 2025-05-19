@@ -1,5 +1,5 @@
 import { HttpStatusCode, isAxiosError } from 'axios'
-import { CosApiInnerResponse } from '../hooks/useCosRequest/cosRequestUtils'
+import { isCosApiResponse } from '../hooks/useCosRequest/cosRequestUtils'
 
 // Redirect to perform SAML auth if HTTP status code 401 is received.
 export const samlAuthErrorInterceptor = (error: unknown): Promise<unknown> => {
@@ -10,14 +10,11 @@ export const samlAuthErrorInterceptor = (error: unknown): Promise<unknown> => {
     return Promise.reject(error)
   }
 
-  const data = error.response.data as
-    | Partial<CosApiInnerResponse<never>>
-    | undefined
-
-  const redirectUrl = data?.msg
-
-  if (redirectUrl) {
-    window.location.replace(redirectUrl)
+  if (isCosApiResponse(error.response)) {
+    const redirectUrl = error.response.data.msg
+    if (redirectUrl) {
+      window.location.replace(redirectUrl)
+    }
   }
 
   return Promise.reject(error)

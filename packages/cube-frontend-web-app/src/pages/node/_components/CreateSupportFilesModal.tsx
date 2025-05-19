@@ -1,7 +1,4 @@
-import {
-  Node,
-  SupportFilesApiCreateSupportFilesRequest,
-} from '@cube-frontend/api'
+import { Node } from '@cube-frontend/api'
 import {
   CosInput,
   CosModal,
@@ -10,7 +7,6 @@ import {
 } from '@cube-frontend/ui-library'
 import { supportFilesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useContext } from 'react'
 
@@ -42,11 +38,7 @@ export const CreateSupportFilesModal = (
   const { dataCenter } = useContext(DataCenterContext)
 
   const { isLoading: isCreating, mutateResource: createSupportFilesApi } =
-    useCosMutationRequest(
-      supportFilesApi.createSupportFiles as (
-        params: SupportFilesApiCreateSupportFilesRequest,
-      ) => Promise<CosApiResponse<undefined>>,
-    )
+    useCosMutationRequest(supportFilesApi.createSupportFiles)
 
   const onCreateClick = async (): Promise<void> => {
     try {
