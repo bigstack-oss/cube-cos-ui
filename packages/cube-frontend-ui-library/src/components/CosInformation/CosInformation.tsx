@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import Information from '@cube-frontend/ui-library/icons/monochrome/information_circle_filled.svg?react'
 
-type CosInformationProps = PropsWithChildren<{
+export type CosInformationProps = PropsWithChildren<{
   /**
    * @default false
    */

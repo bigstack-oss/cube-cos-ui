@@ -1,6 +1,6 @@
 import { CosIconText } from '../CosIconText/CosIconText'
 
-type CosMessageProps = {
+export type CosMessageProps = {
   label?: string
   time?: string
   tag?: string
