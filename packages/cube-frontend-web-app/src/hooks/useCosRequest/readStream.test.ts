@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { CosApiInnerResponse, readStream } from './cosRequestUtils'
+import { CosGetApiInnerResponse } from './cosGetRequestUtils'
+import { readStream } from './cosStreamRequestUtils'
 
 // Helper function to create a readable stream from chunks
 const createStream = (chunks: string[]): ReadableStream => {
@@ -29,7 +30,7 @@ describe('readStream', () => {
       '{"code":200,"msg":"abc","status":"ok","data":{"id":1}}\r',
     ])
 
-    await readStream<CosApiInnerResponse<unknown>>(
+    await readStream<CosGetApiInnerResponse<unknown>>(
       stream,
       abortController.signal,
       onChunk,
@@ -51,7 +52,7 @@ describe('readStream', () => {
       '{"code":200,"msg":"abc","status":"ok","data":{"id":1}}\n{"co',
     ])
 
-    await readStream<CosApiInnerResponse<unknown>>(
+    await readStream<CosGetApiInnerResponse<unknown>>(
       stream,
       abortController.signal,
       onChunk,
@@ -75,7 +76,7 @@ describe('readStream', () => {
       '"code":200,"msg":"lorem ipsum 4","status":"ok","data":{"value":"{{{{{{{}}}"}}\n',
     ])
 
-    await readStream<CosApiInnerResponse<unknown>>(
+    await readStream<CosGetApiInnerResponse<unknown>>(
       stream,
       abortController.signal,
       onChunk,
@@ -124,7 +125,7 @@ describe('readStream', () => {
     ])
 
     await expect(async () => {
-      await readStream<CosApiInnerResponse<unknown>>(
+      await readStream<CosGetApiInnerResponse<unknown>>(
         stream,
         abortController.signal,
         onChunk,
@@ -137,7 +138,7 @@ describe('readStream', () => {
   test('handles an empty stream without errors', async () => {
     const onChunk = vi.fn()
     const stream = createStream([])
-    await readStream<CosApiInnerResponse<unknown>>(
+    await readStream<CosGetApiInnerResponse<unknown>>(
       stream,
       abortController.signal,
       onChunk,

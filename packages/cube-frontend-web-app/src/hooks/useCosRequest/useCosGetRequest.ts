@@ -1,12 +1,8 @@
 import { useSyncedRef } from '@cube-frontend/utils'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useRef } from 'react'
-import {
-  CosApiResponse,
-  GetParamFn,
-  isNullish,
-  Nullish,
-} from './cosRequestUtils'
+import { CosGetApiResponse } from './cosGetRequestUtils'
+import { GetParamFn, isNullish, Nullish } from './cosRequestUtils'
 import {
   INTERNAL_useCosRequestHandler,
   UseCosRequestHandler,
@@ -32,8 +28,8 @@ export type UseCosGetRequestOptions = {
   fetchOnParamChanges?: boolean
 }
 
-type NullaryRequest<T> = () => Promise<CosApiResponse<T>>
-type UnaryRequest<T, Param> = (param: Param) => Promise<CosApiResponse<T>>
+type NullaryRequest<T> = () => Promise<CosGetApiResponse<T>>
+type UnaryRequest<T, Param> = (param: Param) => Promise<CosGetApiResponse<T>>
 
 type UseCosGetRequestHook = {
   <Data>(

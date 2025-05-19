@@ -1,4 +1,4 @@
-import { CosApiResponse } from './cosRequestUtils'
+import { CosMutationApiResponse } from './cosMutationRequestUtils'
 import {
   INTERNAL_useCosRequestHandler,
   UseCosRequestHandler,
@@ -13,7 +13,7 @@ export type UseCosMutationRequest<Data, Params extends Array<unknown>> = Omit<
 
 type MutationRequest<Data, Params extends Array<unknown>> = (
   ...params: Params
-) => Promise<CosApiResponse<Data>>
+) => Promise<CosMutationApiResponse<Data>>
 
 export const useCosMutationRequest = <Data, Params extends Array<unknown>>(
   request: MutationRequest<Data, Params>,

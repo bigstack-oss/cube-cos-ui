@@ -1,8 +1,9 @@
 import { isAxiosError } from 'axios'
 import { useCallback, useState } from 'react'
+import { CosGetApiRequest } from './cosGetRequestUtils'
+import { CosMutationApiRequest } from './cosMutationRequestUtils'
 import {
   CosApiError,
-  CosApiRequest,
   CosRequestError,
   getNativeError,
   isCosApiResponse,
@@ -16,7 +17,9 @@ export type UseCosRequestHandler<Data> = {
   hasResponseBeenReceived: boolean
   data: Data | undefined
   errorState: CosRequestError | undefined
-  oversee: (request: CosApiRequest<Data>) => Promise<Data>
+  oversee: (
+    request: CosGetApiRequest<Data> | CosMutationApiRequest<Data>,
+  ) => Promise<Data>
   clearError: () => void
 }
 
@@ -34,7 +37,9 @@ export const INTERNAL_useCosRequestHandler = <Data>(
   const [data, setData] = useState<Data | undefined>()
   const [errorState, setErrorState] = useState<CosRequestError | undefined>()
 
-  const oversee = async (request: CosApiRequest<Data>): Promise<Data> => {
+  const oversee = async (
+    request: CosGetApiRequest<Data> | CosMutationApiRequest<Data>,
+  ): Promise<Data> => {
     setIsLoading(true)
     setErrorState(undefined)
 
@@ -42,7 +47,7 @@ export const INTERNAL_useCosRequestHandler = <Data>(
       const response = await request()
       setData(response.data.data)
       setHasResponseBeenReceived(true)
-      return response.data.data
+      return response.data.data as Data
     } catch (error) {
       if (isAxiosError(error) && isCosApiResponse(error.response)) {
         const cosApiResponse = error.response

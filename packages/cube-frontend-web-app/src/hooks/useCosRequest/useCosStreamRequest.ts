@@ -1,18 +1,17 @@
+import { AxiosRequestConfig, isAxiosError, isCancel } from 'axios'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { CosGetApiInnerResponse, CosGetApiResponse } from './cosGetRequestUtils'
 import {
   CosApiError,
-  CosApiInnerResponse,
-  CosApiResponse,
   CosRequestError,
   getNativeError,
   GetParamFn,
   isCosApiResponse,
   isNullish,
   Nullish,
-  readStream,
 } from './cosRequestUtils'
-import { AxiosRequestConfig, isAxiosError, isCancel } from 'axios'
+import { readStream } from './cosStreamRequestUtils'
 
 export type UseCosStreamRequest<Data> = {
   isLoading: boolean
@@ -27,7 +26,7 @@ type StreamParam = {
 type StreamRequest<T, Param extends StreamParam> = (
   param: Param,
   options: AxiosRequestConfig,
-) => Promise<CosApiResponse<T>>
+) => Promise<CosGetApiResponse<T>>
 
 type UseCosStreamRequestHook = {
   <Data, Param extends StreamParam>(
@@ -74,7 +73,7 @@ export const useCosStreamRequest: UseCosStreamRequestHook = <
         },
       )
 
-      readStream<CosApiInnerResponse<Data>>(
+      readStream<CosGetApiInnerResponse<Data>>(
         response.data as unknown as ReadableStream,
         abortControllerRef.current.signal,
         (chunkRes) => {
