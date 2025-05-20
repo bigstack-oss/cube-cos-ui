@@ -26,6 +26,7 @@ export const NodeNetworks = (props: NodeNetworksProps) => {
       <div className="primary-body3 text-functional-text">Network</div>
       <NetworkTable isLoading={!node} rows={getNetworkRows()}>
         <NetworkTable.Column label="Label" property="label" emphasize={true} />
+        <NetworkTable.Column label="Interface" property="interface" />
         <NetworkTable.Column label="BusID/Slaves" property="busIdSlaves" />
         <NetworkTable.Column label="Driver" property="driver" />
         <NetworkTable.Column label="State" property="state" />
