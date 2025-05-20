@@ -48,8 +48,12 @@ export const SupportFilesFilters = (props: SupportFilesFiltersProps) => {
     const { start, end } = displayDates
     if (!start || !end) return
 
-    handleStartDateChange(displayDates.start)
-    handleEndDateChange(displayDates.end)
+    /**
+     * When the user selects a start and end date from the date picker,
+     * we need to set the `start` to the beginning of the `startDate` and the `end` to the end of the `endDate`.
+     */
+    handleStartDateChange(start.startOf('day'))
+    handleEndDateChange(end.endOf('day'))
   }
 
   const handleDatePickerReset = () => {
