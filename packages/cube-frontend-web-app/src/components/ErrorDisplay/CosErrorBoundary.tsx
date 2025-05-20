@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios'
-import { ReactNode } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
+import { Location, useLocation } from 'react-router'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 import { GeneralErrorDisplay } from './GeneralErrorDisplay'
 import { HttpErrorDisplay } from './HttpErrorDisplay'
@@ -10,8 +11,22 @@ type CosErrorBoundaryProps = {
   children: ReactNode
 }
 
+// Use customized serialize function because `location.key` changes
+// every time even for the same route.
+const serializeLocation = (location: Location): string => {
+  const { pathname, search, hash } = location
+  return `${pathname}${search}${hash}`
+}
+
 export const CosErrorBoundary = (props: CosErrorBoundaryProps) => {
   const { containerClassName, children } = props
+
+  const location = useLocation()
+
+  const serializedLocation = useMemo<string>(
+    () => serializeLocation(location),
+    [location],
+  )
 
   const renderErrorDisplay = (fallbackProps: FallbackProps) => {
     const { error } = fallbackProps
@@ -42,7 +57,11 @@ export const CosErrorBoundary = (props: CosErrorBoundaryProps) => {
   }
 
   return (
-    <ErrorBoundary fallbackRender={renderErrorDisplay} onError={onError}>
+    <ErrorBoundary
+      resetKeys={[serializedLocation]}
+      fallbackRender={renderErrorDisplay}
+      onError={onError}
+    >
       {children}
     </ErrorBoundary>
   )
