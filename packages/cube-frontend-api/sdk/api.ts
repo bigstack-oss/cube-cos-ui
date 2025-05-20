@@ -5896,6 +5896,12 @@ export interface NodeNetworkInterfacesInner {
      * @type {string}
      * @memberof NodeNetworkInterfacesInner
      */
+    'interface': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeNetworkInterfacesInner
+     */
     'label': string;
     /**
      * 
