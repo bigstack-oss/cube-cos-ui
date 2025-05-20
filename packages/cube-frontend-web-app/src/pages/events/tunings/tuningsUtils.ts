@@ -1,5 +1,9 @@
 import { ListTuningResponseDataTuningsInner } from '@cube-frontend/api'
-import { CosTableRow, DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
+import {
+  CosTableRow,
+  DEFAULT_ITEMS_PER_PAGE,
+  ItemsPerPage,
+} from '@cube-frontend/ui-library'
 import { uniqueId } from 'lodash'
 import { z } from 'zod'
 import { ListTuningsQuery } from './useListTuningsQuery'
@@ -21,9 +25,10 @@ const querySchema = z.object({
   keyword: z.string().nullable(),
   modified: z
     .enum(['true', 'false'])
+    .array()
     .nullable()
-    .transform((value) => {
-      return value === 'true'
+    .transform((array) => {
+      return array?.map((value) => value === 'true')
     }),
   hosts: z
     .string()
@@ -32,12 +37,29 @@ const querySchema = z.object({
     .transform((array) => {
       return array?.filter((value) => !!value)
     }),
+  currentPage: z
+    .string()
+    .nullable()
+    .transform((value) => {
+      return value ? parseInt(value, 10) : 1
+    }),
+  itemsPerPage: z
+    .string()
+    .nullable()
+    .transform((value) => {
+      if (!value) {
+        return DEFAULT_ITEMS_PER_PAGE
+      }
+      return parseInt(value, 10) as ItemsPerPage
+    }),
 })
 
 enum ParamKeyEnum {
   Keyword = 'keyword',
   Modified = 'modified',
   Hosts = 'hosts',
+  CurrentPage = 'page',
+  ItemsPerPage = 'pageSize',
 }
 
 export const searchParamsToQuery = (
@@ -46,26 +68,30 @@ export const searchParamsToQuery = (
   const keyword = searchParams.get(ParamKeyEnum.Keyword)
   const modified = searchParams.getAll(ParamKeyEnum.Modified)
   const hosts = searchParams.getAll(ParamKeyEnum.Hosts)
+  const currentPage = searchParams.get(ParamKeyEnum.CurrentPage)
+  const itemsPerPage = searchParams.get(ParamKeyEnum.ItemsPerPage)
 
   const parsedQuery = querySchema.safeParse({
     keyword,
     modified,
     hosts,
+    currentPage,
+    itemsPerPage,
   }).data
 
   return {
     keyword: parsedQuery?.keyword ?? '',
     modified: (parsedQuery?.modified ?? []) as boolean[],
     hosts: parsedQuery?.hosts ?? [],
-    currentPage: 1,
-    itemsPerPage: DEFAULT_ITEMS_PER_PAGE,
+    currentPage: parsedQuery?.currentPage ?? 1,
+    itemsPerPage: parsedQuery?.itemsPerPage ?? DEFAULT_ITEMS_PER_PAGE,
   }
 }
 
 export const queryToSearchParams = (
   query: ListTuningsQuery,
 ): URLSearchParams => {
-  const { keyword, modified, hosts } = query
+  const { keyword, modified, hosts, currentPage, itemsPerPage } = query
   const nextSearchParams = new URLSearchParams()
 
   if (keyword) {
@@ -79,6 +105,9 @@ export const queryToSearchParams = (
   hosts.forEach((host) => {
     nextSearchParams.append(ParamKeyEnum.Hosts, host)
   })
+
+  nextSearchParams.set(ParamKeyEnum.CurrentPage, currentPage.toString())
+  nextSearchParams.set(ParamKeyEnum.ItemsPerPage, itemsPerPage.toString())
 
   return nextSearchParams
 }

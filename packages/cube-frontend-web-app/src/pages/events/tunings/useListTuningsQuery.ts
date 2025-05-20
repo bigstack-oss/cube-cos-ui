@@ -84,6 +84,7 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
     setQuery((prev) => ({
       ...prev,
       modified: checked ? [...modifiedOptions] : [],
+      currentPage: 1,
     }))
   }
 
@@ -118,8 +119,8 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
   const onItemsPerPageChange = (itemsPerPage: ItemsPerPage): void => {
     setQuery((prev) => ({
       ...prev,
-      currentPage: 1,
       itemsPerPage,
+      currentPage: 1,
     }))
   }
 
