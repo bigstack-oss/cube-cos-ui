@@ -9,7 +9,7 @@ import { CosApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosRe
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useEditTuningsStore } from '@cube-frontend/web-app/stores/editTuningsStore'
 import { useContext } from 'react'
-import { Navigate, useNavigate } from 'react-router'
+import { Link, Navigate, useNavigate } from 'react-router'
 
 export const EditTuningsPage = () => {
   const navigate = useNavigate()
@@ -56,7 +56,15 @@ export const EditTuningsPage = () => {
 
   return (
     <div className="mx-2 my-1">
-      <CosBackButton variant="title" onClick={() => history.back()}>
+      <CosBackButton
+        variant="title"
+        backLinkContainer={{
+          Component: Link,
+          props: {
+            to: CosRoutesEnum.EVENTS_TUNINGS_PAGE,
+          },
+        }}
+      >
         {title}
       </CosBackButton>
       <EditTunings
