@@ -1,11 +1,8 @@
 import { ListTuningResponseDataTuningsInner } from '@cube-frontend/api'
-import {
-  CosTableRow,
-  DEFAULT_ITEMS_PER_PAGE,
-  ItemsPerPage,
-} from '@cube-frontend/ui-library'
+import { CosTableRow, DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 import { z } from 'zod'
 import { ListTuningsQuery } from './useListTuningsQuery'
+import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 
 export type TuningRow = ListTuningResponseDataTuningsInner & CosTableRow
 
@@ -27,36 +24,26 @@ export const tuningToRow = (
 
 export const modifiedOptions = [true, false] as const
 
-const querySchema = z.object({
-  keyword: z.string().nullable(),
+export const tuningListQuerySchema = paginationQuerySchema.extend({
+  keyword: z
+    .string()
+    .nullable()
+    .transform((value) => {
+      return value ?? ''
+    }),
   modified: z
     .enum(['true', 'false'])
     .array()
     .nullable()
     .transform((array) => {
-      return array?.map((value) => value === 'true')
+      return array?.map((value) => value === 'true') ?? []
     }),
   hosts: z
     .string()
     .array()
     .nullable()
     .transform((array) => {
-      return array?.filter((value) => !!value)
-    }),
-  currentPage: z
-    .string()
-    .nullable()
-    .transform((value) => {
-      return value ? parseInt(value, 10) : 1
-    }),
-  itemsPerPage: z
-    .string()
-    .nullable()
-    .transform((value) => {
-      if (!value) {
-        return DEFAULT_ITEMS_PER_PAGE
-      }
-      return parseInt(value, 10) as ItemsPerPage
+      return array?.filter((value) => !!value) ?? []
     }),
 })
 
@@ -77,7 +64,7 @@ export const searchParamsToQuery = (
   const currentPage = searchParams.get(ParamKeyEnum.CurrentPage)
   const itemsPerPage = searchParams.get(ParamKeyEnum.ItemsPerPage)
 
-  const parsedQuery = querySchema.safeParse({
+  const parsedQuery = tuningListQuerySchema.safeParse({
     keyword,
     modified,
     hosts,
@@ -87,7 +74,7 @@ export const searchParamsToQuery = (
 
   return {
     keyword: parsedQuery?.keyword ?? '',
-    modified: (parsedQuery?.modified ?? []) as boolean[],
+    modified: parsedQuery?.modified ?? [],
     hosts: parsedQuery?.hosts ?? [],
     currentPage: parsedQuery?.currentPage ?? 1,
     itemsPerPage: parsedQuery?.itemsPerPage ?? DEFAULT_ITEMS_PER_PAGE,

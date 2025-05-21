@@ -1,14 +1,10 @@
-import { useContext, useMemo, useState } from 'react'
-import {
-  GetNodesRolesEnum,
-  Node,
-  NodesApiGetNodesRequest,
-} from '@cube-frontend/api'
+import { useContext, useEffect, useMemo, useState } from 'react'
+import { uniqueId } from 'lodash'
+import { Node, NodesApiGetNodesRequest } from '@cube-frontend/api'
 import {
   CosButton,
   CosGeneralPanel,
   CosPagination,
-  DEFAULT_ITEMS_PER_PAGE,
 } from '@cube-frontend/ui-library'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
@@ -18,30 +14,35 @@ import { NodeTable } from './_components/NodeTable'
 import { NodeFilters } from './_components/NodeFilters'
 import { CreateSupportFilesModal } from './_components/CreateSupportFilesModal'
 import { useCreateSupportFilesModal } from './_components/useCreateSupportFilesModal'
-import { uniqueId } from 'lodash'
+import { useNodeListQuery } from './_components/useNodeListQuery'
 
 export const NodeListPage = () => {
   const { dataCenter } = useContext(DataCenterContext)
 
-  const [searchKeyword, setSearchKeyword] = useState('')
-  const [selectedRoles, setSelectedRoles] = useState<GetNodesRolesEnum[]>([])
-  const [pageNum, setPageNum] = useState(1)
-  const [pageSize, setPageSize] = useState(DEFAULT_ITEMS_PER_PAGE)
+  const {
+    query,
+    onKeywordChange,
+    onRolesChange,
+    onPageChange,
+    onItemsPerPageChange,
+  } = useNodeListQuery()
 
-  const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
-    searchKeyword,
-    300,
-  )
+  const [debouncedKeyword, setDebounceKeyword] = useDebounce(query.keyword, 300)
+
+  const onSearchKeywordClear = () => {
+    onKeywordChange('')
+    setDebounceKeyword('')
+  }
 
   const { data: nodesData, isLoading } = useCosGetRequest(
     nodesApi.getNodes,
     () => {
       return {
         dataCenter: dataCenter!.name,
-        pageNum,
-        pageSize,
-        roles: selectedRoles,
-        keyword: debouncedSearchKeyword,
+        keyword: debouncedKeyword,
+        roles: query.roles,
+        pageNum: query.currentPage,
+        pageSize: query.itemsPerPage,
       } satisfies NodesApiGetNodesRequest
     },
   )
@@ -54,11 +55,6 @@ export const NodeListPage = () => {
       id: node.id || uniqueId('node'),
     }))
   }, [nodesData?.nodes])
-
-  const handleSearchKeywordClear = () => {
-    setSearchKeyword('')
-    setDebounceSearchKeyword('')
-  }
 
   const [selectedNodeIds, setSelectedNodeIds] = useState<string[]>([])
 
@@ -77,6 +73,10 @@ export const NodeListPage = () => {
     })
   }
 
+  useEffect(() => {
+    setSelectedNodeIds([])
+  }, [nodesData])
+
   const {
     isCreateSupportFilesModalOpen,
     comments,
@@ -91,11 +91,11 @@ export const NodeListPage = () => {
         <div className="flex flex-col gap-y-3">
           <div className="flex items-center justify-between">
             <NodeFilters
-              searchKeyword={searchKeyword}
-              handleSearchKeywordChange={setSearchKeyword}
-              handleSearchKeywordClear={handleSearchKeywordClear}
-              selectedRoles={selectedRoles}
-              handleRolesSelect={setSelectedRoles}
+              keyword={query.keyword}
+              handleKeywordChange={onKeywordChange}
+              handleKeywordClear={onSearchKeywordClear}
+              roles={query.roles}
+              handleRolesSelect={onRolesChange}
             />
             <CosButton
               onClick={openCreateSupportFilesModal}
@@ -107,7 +107,7 @@ export const NodeListPage = () => {
           <NodeTable
             rows={rows}
             isLoading={isLoading}
-            skeletonRowCount={pageSize}
+            skeletonRowCount={query.itemsPerPage}
             selectedRowIds={selectedNodeIds}
             showHeaderCheckbox={false}
             onCheckChange={handleRowCheckChange}
@@ -115,10 +115,10 @@ export const NodeListPage = () => {
           <CosPagination
             isLoading={isLoading}
             totalItems={nodesData?.page.totalItemCount ?? 0}
-            currentPage={pageNum}
-            itemsPerPage={pageSize}
-            onPageChange={setPageNum}
-            onItemsPerPageChange={setPageSize}
+            currentPage={query.currentPage}
+            itemsPerPage={query.itemsPerPage}
+            onPageChange={onPageChange}
+            onItemsPerPageChange={onItemsPerPageChange}
           />
         </div>
       </CosGeneralPanel>

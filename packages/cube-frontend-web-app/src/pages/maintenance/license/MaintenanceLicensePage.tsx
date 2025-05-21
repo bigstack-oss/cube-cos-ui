@@ -1,15 +1,9 @@
-import { useContext, useEffect, useState } from 'react'
-import {
-  GetLicensesProductsEnum,
-  ListLicenseCurrentStatus,
-  GetLicensesTypesEnum,
-  LicensesApiGetLicensesRequest,
-} from '@cube-frontend/api'
+import { useContext, useEffect } from 'react'
+import { LicensesApiGetLicensesRequest } from '@cube-frontend/api'
 import {
   CosGeneralPanel,
   CosPagination,
   CosStroke,
-  DEFAULT_ITEMS_PER_PAGE,
 } from '@cube-frontend/ui-library'
 import { licenseApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -19,22 +13,29 @@ import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { LicenseRow, LicenseTable } from './_components/LicenseTable'
 import { useTopLicenseNaggingStore } from '@cube-frontend/web-app/stores/topLicenseNaggingStore'
 import { LicenseActions } from './_components/LicenseActions/LicenseActions'
+import { useLicenseListQuery } from './_components/useLicenseListQuery'
 
 export const MaintenanceLicensePage = () => {
   const { dataCenter, fetchDataCenters } = useContext(DataCenterContext)
 
-  const [searchKeyword, setSearchKeyword] = useState<string>('')
-  const [selectedProducts, setSelectedProducts] = useState<
-    GetLicensesProductsEnum[]
-  >([])
-  const [selectedLicenseTypes, setSelectedLicenseTypes] = useState<
-    GetLicensesTypesEnum[]
-  >([])
-  const [selectedLicenseStatuses, setSelectedLicenseStatuses] = useState<
-    ListLicenseCurrentStatus[]
-  >([])
-  const [pageNum, setPageNum] = useState(1)
-  const [pageSize, setPageSize] = useState(DEFAULT_ITEMS_PER_PAGE)
+  const {
+    query,
+    onKeywordChange,
+    onProductsChange,
+    onStatusesChange,
+    onTypesChange,
+    onPageChange,
+    onItemsPerPageChange,
+  } = useLicenseListQuery()
+
+  const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
+    query.keyword,
+    300,
+  )
+  const handleSearchKeywordClear = () => {
+    onKeywordChange('')
+    setDebounceSearchKeyword('')
+  }
 
   const {
     data: licenseData,
@@ -43,12 +44,12 @@ export const MaintenanceLicensePage = () => {
   } = useCosGetRequest(licenseApi.getLicenses, () => {
     return {
       dataCenter: dataCenter!.name,
-      pageNum,
-      pageSize,
+      pageNum: query.currentPage,
+      pageSize: query.itemsPerPage,
       keyword: debouncedSearchKeyword,
-      products: selectedProducts,
-      types: selectedLicenseTypes,
-      statuses: selectedLicenseStatuses,
+      products: query.products,
+      types: query.types,
+      statuses: query.statuses,
     } satisfies LicensesApiGetLicensesRequest
   })
 
@@ -57,21 +58,11 @@ export const MaintenanceLicensePage = () => {
     fetchDataCenters!()
   }
 
-  const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
-    searchKeyword,
-    300,
-  )
-
   const rows: LicenseRow[] =
     licenseData?.licenses?.map((license) => ({
       ...license,
       id: license.serial,
     })) || []
-
-  const handleSearchKeywordClear = () => {
-    setSearchKeyword('')
-    setDebounceSearchKeyword('')
-  }
 
   const { restoreDefault: restoreTopLicenseNaggingStore } =
     useTopLicenseNaggingStore()
@@ -90,29 +81,29 @@ export const MaintenanceLicensePage = () => {
         <div className="flex flex-col gap-y-2">
           <h5 className="primary-h5 text-functional-text">License</h5>
           <LicenseFilters
-            searchKeyword={searchKeyword}
-            handleSearchKeywordChange={setSearchKeyword}
+            searchKeyword={query.keyword}
+            handleSearchKeywordChange={onKeywordChange}
             handleSearchKeywordClear={handleSearchKeywordClear}
-            selectedProducts={selectedProducts}
-            handleProductsSelect={setSelectedProducts}
-            selectedLicenseStatuses={selectedLicenseStatuses}
-            handleLicenseStatusesSelect={setSelectedLicenseStatuses}
-            selectedLicenseTypes={selectedLicenseTypes}
-            handleLicenseTypesSelect={setSelectedLicenseTypes}
+            selectedProducts={query.products}
+            handleProductsSelect={onProductsChange}
+            selectedLicenseStatuses={query.statuses}
+            handleLicenseStatusesSelect={onStatusesChange}
+            selectedLicenseTypes={query.types}
+            handleLicenseTypesSelect={onTypesChange}
           />
           <LicenseTable
             rows={rows}
             isLoading={isLoading}
-            skeletonRowCount={pageSize}
+            skeletonRowCount={query.itemsPerPage}
           />
         </div>
         <CosPagination
           isLoading={isLoading}
           totalItems={licenseData?.page?.totalItemCount ?? 0}
-          currentPage={pageNum}
-          itemsPerPage={pageSize}
-          onPageChange={setPageNum}
-          onItemsPerPageChange={setPageSize}
+          currentPage={query.currentPage}
+          itemsPerPage={query.itemsPerPage}
+          onPageChange={onPageChange}
+          onItemsPerPageChange={onItemsPerPageChange}
         />
       </div>
     </CosGeneralPanel>

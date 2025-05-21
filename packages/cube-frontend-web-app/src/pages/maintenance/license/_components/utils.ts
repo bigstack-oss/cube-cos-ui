@@ -1,10 +1,16 @@
+import { z } from 'zod'
+import pluralize from 'pluralize'
 import {
   GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus,
   GetLicenseAttachmentsResponseDataInner,
+  GetLicensesProductsEnum,
   GetLicensesResponseDataLicensesInnerExpiry,
+  GetLicensesTypesEnum,
+  ListLicenseCurrentStatus,
 } from '@cube-frontend/api'
 import { toPluralizeDisplay } from '@cube-frontend/utils'
-import pluralize from 'pluralize'
+import { DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
+import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 import { BatchLicenseAttachmentTableRow } from './LicenseActions/HardwareSerialNumberModal/LicenseAttachmentTable'
 
 export type InvalidLicenseMessageKey = Exclude<
@@ -98,4 +104,114 @@ export const mapToTableRows = (
   licenseAttachments: GetLicenseAttachmentsResponseDataInner[] | undefined,
 ): BatchLicenseAttachmentTableRow[] => {
   return licenseAttachments?.map(mapToTableRow) ?? []
+}
+
+enum LicenseParamKeyEnum {
+  Keyword = 'keyword',
+  Products = 'products',
+  Statuses = 'statuses',
+  Types = 'types',
+  CurrentPage = 'page',
+  ItemsPerPage = 'pageSize',
+}
+
+const licenseListQuerySchema = paginationQuerySchema.extend({
+  keyword: z
+    .string()
+    .nullable()
+    .transform((value) => {
+      return value ?? ''
+    }),
+  products: z
+    .enum(Object.values(GetLicensesProductsEnum) as [string, ...string[]])
+    .array()
+    .nullable()
+    .transform((array) => {
+      return (array ?? []) as GetLicensesProductsEnum[]
+    }),
+  statuses: z
+    .enum(Object.values(ListLicenseCurrentStatus) as [string, ...string[]])
+    .array()
+    .nullable()
+    .transform((array) => {
+      return (array ?? []) as ListLicenseCurrentStatus[]
+    }),
+  types: z
+    .enum(Object.values(GetLicensesTypesEnum) as [string, ...string[]])
+    .array()
+    .nullable()
+    .transform((array) => {
+      return (array ?? []) as GetLicensesTypesEnum[]
+    }),
+})
+
+export type LicenseListQuery = z.output<typeof licenseListQuerySchema>
+
+export const queryToSearchParams = (
+  query: LicenseListQuery,
+): URLSearchParams => {
+  const { keyword, products, statuses, types, currentPage, itemsPerPage } =
+    query
+  const nextSearchParams = new URLSearchParams()
+
+  if (keyword) {
+    nextSearchParams.set(LicenseParamKeyEnum.Keyword, keyword)
+  }
+
+  products.forEach((product) => {
+    nextSearchParams.append(LicenseParamKeyEnum.Products, product)
+  })
+
+  statuses.forEach((status) => {
+    nextSearchParams.append(LicenseParamKeyEnum.Statuses, status)
+  })
+
+  types.forEach((type) => {
+    nextSearchParams.append(LicenseParamKeyEnum.Types, type)
+  })
+
+  if (currentPage) {
+    nextSearchParams.set(
+      LicenseParamKeyEnum.CurrentPage,
+      currentPage.toString(),
+    )
+  }
+
+  if (itemsPerPage) {
+    nextSearchParams.set(
+      LicenseParamKeyEnum.ItemsPerPage,
+      itemsPerPage.toString(),
+    )
+  }
+
+  return nextSearchParams
+}
+
+export const searchParamsToQuery = (
+  searchParams: URLSearchParams,
+): LicenseListQuery => {
+  const keyword = searchParams.get(LicenseParamKeyEnum.Keyword)
+  const products = searchParams.getAll(LicenseParamKeyEnum.Products)
+  const statuses = searchParams.getAll(LicenseParamKeyEnum.Statuses)
+  const types = searchParams.getAll(LicenseParamKeyEnum.Types)
+  const currentPage = searchParams.get(LicenseParamKeyEnum.CurrentPage)
+  const itemsPerPage = searchParams.get(LicenseParamKeyEnum.ItemsPerPage)
+
+  const parsedQuery = licenseListQuerySchema.safeParse({
+    keyword,
+    products,
+    statuses,
+    types,
+    currentPage,
+    itemsPerPage,
+  }).data
+
+  return {
+    keyword: parsedQuery?.keyword ?? '',
+    products: parsedQuery?.products ?? [],
+    statuses: parsedQuery?.statuses ?? [],
+    types: (parsedQuery?.types as GetLicensesTypesEnum[]) ?? [],
+    currentPage: parsedQuery?.currentPage ?? 1,
+    itemsPerPage: parsedQuery?.itemsPerPage ?? DEFAULT_ITEMS_PER_PAGE,
+  }
 }

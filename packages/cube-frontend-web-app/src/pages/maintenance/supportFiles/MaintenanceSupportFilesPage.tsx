@@ -1,9 +1,7 @@
 import { useContext, useState } from 'react'
 import { Link } from 'react-router'
-import { Dayjs } from 'dayjs'
 import { noop } from 'lodash'
 import {
-  GetNodesRolesEnum,
   SupportFilesApiGetSupportFilesRequest,
   SupportFileSet,
 } from '@cube-frontend/api'
@@ -13,7 +11,6 @@ import {
   CosPagination,
   CosStroke,
   CosTableRow,
-  DEFAULT_ITEMS_PER_PAGE,
 } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { supportFilesApi } from '@cube-frontend/web-app/api/cosApi'
@@ -24,44 +21,47 @@ import { SupportFilesFilters } from './_components/SupportFilesFilters'
 import { DownloadSupportFilesModal } from './_components/DownloadSupportFilesModal'
 import { SupportFilesTable } from './_components/SupportFilesTable'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { useSupportFileListQuery } from './_components/useSupportFileListQuery'
 
 export type SupportFileRow = SupportFileSet & CosTableRow
 
 export const MaintenanceSupportFilesPage = () => {
   const { dataCenter } = useContext(DataCenterContext)
 
-  const [searchKeyword, setSearchKeyword] = useState<string>('')
-  const [selectedRoles, setSelectedRoles] = useState<GetNodesRolesEnum[]>([])
-  const [startDate, setStartDate] = useState<Dayjs>()
-  const [endDate, setEndDate] = useState<Dayjs>()
-  const [pageNum, setPageNum] = useState(1)
-  const [pageSize, setPageSize] = useState(DEFAULT_ITEMS_PER_PAGE)
+  const {
+    query,
+    onKeywordChange,
+    onRolesChange,
+    onStartDateChange,
+    onEndDateChange,
+    onPageChange,
+    onItemsPerPageChange,
+  } = useSupportFileListQuery()
 
   const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
-    searchKeyword,
+    query.keyword,
     300,
   )
+
+  const onSearchKeywordClear = () => {
+    onKeywordChange('')
+    setDebounceSearchKeyword('')
+  }
 
   const { data: supportFilesData, isLoading } = useCosGetRequest(
     supportFilesApi.getSupportFiles,
     () => {
       return {
         dataCenter: dataCenter!.name,
-        pageNum,
-        pageSize,
+        pageNum: query.currentPage,
+        pageSize: query.itemsPerPage,
         keyword: debouncedSearchKeyword,
-        start: startDate?.format(),
-        stop: endDate?.format(),
-        roles: selectedRoles,
+        roles: query.roles,
+        start: query.startDate?.format(),
+        stop: query.endDate?.format(),
       } satisfies SupportFilesApiGetSupportFilesRequest
     },
   )
-
-  const handleSearchKeywordClear = () => {
-    setSearchKeyword('')
-    setDebounceSearchKeyword('')
-  }
-
   const rows: SupportFileRow[] =
     supportFilesData?.supportFileSet.map((supportFileSet) => ({
       ...supportFileSet,
@@ -92,30 +92,30 @@ export const MaintenanceSupportFilesPage = () => {
           <div className="flex flex-col gap-y-6">
             <div className="flex flex-col gap-y-2">
               <SupportFilesFilters
-                searchKeyword={searchKeyword}
-                handleSearchKeywordChange={setSearchKeyword}
-                handleSearchKeywordClear={handleSearchKeywordClear}
-                selectedRoles={selectedRoles}
-                handleRolesSelect={setSelectedRoles}
-                startDate={startDate}
-                endDate={endDate}
-                handleStartDateChange={setStartDate}
-                handleEndDateChange={setEndDate}
+                keyword={query.keyword}
+                handleSearchKeywordChange={onKeywordChange}
+                handleSearchKeywordClear={onSearchKeywordClear}
+                roles={query.roles}
+                handleRolesSelect={onRolesChange}
+                startDate={query.startDate}
+                endDate={query.endDate}
+                handleStartDateChange={onStartDateChange}
+                handleEndDateChange={onEndDateChange}
               />
               <SupportFilesTable
                 rows={rows}
                 isLoading={isLoading}
-                skeletonRowCount={pageSize}
+                skeletonRowCount={query.itemsPerPage}
                 onDownloadClick={setDownloadTarget}
               />
             </div>
             <CosPagination
               isLoading={isLoading}
               totalItems={supportFilesData?.page.totalItemCount ?? 0}
-              currentPage={pageNum}
-              itemsPerPage={pageSize}
-              onPageChange={setPageNum}
-              onItemsPerPageChange={setPageSize}
+              currentPage={query.currentPage}
+              itemsPerPage={query.itemsPerPage}
+              onPageChange={onPageChange}
+              onItemsPerPageChange={onItemsPerPageChange}
             />
           </div>
         </div>

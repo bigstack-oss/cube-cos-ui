@@ -4,42 +4,42 @@ import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
 import { GetNodesRolesEnum } from '@cube-frontend/api'
 
 export type NodeFiltersProps = {
-  searchKeyword: string
-  handleSearchKeywordChange: (value: string) => void
-  handleSearchKeywordClear: () => void
-  selectedRoles: GetNodesRolesEnum[]
+  keyword: string
+  handleKeywordChange: (value: string) => void
+  handleKeywordClear: () => void
+  roles: GetNodesRolesEnum[]
   handleRolesSelect: (roles: GetNodesRolesEnum[]) => void
 }
 
 export const NodeFilters = (props: NodeFiltersProps) => {
   const {
-    searchKeyword,
-    handleSearchKeywordChange,
-    handleSearchKeywordClear,
-    selectedRoles,
+    keyword,
+    handleKeywordChange,
+    handleKeywordClear,
+    roles,
     handleRolesSelect,
   } = props
 
   const handleClearAllFilter = () => {
     handleRolesSelect([])
-    handleSearchKeywordClear()
+    handleKeywordClear()
   }
 
-  const showClearAllFilter = !!searchKeyword || selectedRoles.length > 0
+  const showClearAllFilter = !!keyword || roles.length > 0
 
   return (
     <div className="flex items-center gap-x-3">
       <div className="flex items-center gap-x-2">
         <CosSearchBarFilter
           className="w-[320px]"
-          value={searchKeyword}
-          onChange={(e) => handleSearchKeywordChange(e.target.value)}
-          onInputClear={handleSearchKeywordClear}
+          value={keyword}
+          onChange={(e) => handleKeywordChange(e.target.value)}
+          onInputClear={handleKeywordClear}
           placeholder="Search"
           showDropdown={false}
         />
         <RoleFilter
-          selectedRoles={selectedRoles}
+          selectedRoles={roles}
           handleRolesSelect={handleRolesSelect}
         />
       </div>
