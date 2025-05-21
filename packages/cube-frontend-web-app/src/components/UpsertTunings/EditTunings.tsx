@@ -5,7 +5,7 @@ import {
 import { nodesApi, tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { EditTuningsDefaultData } from '@cube-frontend/web-app/stores/editTuningsStore'
+import { EditTuningsInitialData } from '@cube-frontend/web-app/stores/editTuningsStore'
 import { ReactNode, useContext } from 'react'
 import { EditValue } from './_components/EditValue/EditValue'
 import { PublishTuning } from './_components/Publish/PublishTuning'
@@ -19,13 +19,13 @@ import {
 } from './upsertTuningsUtils'
 
 type EditTuningsProps = {
-  defaultData: EditTuningsDefaultData
+  initialData: EditTuningsInitialData
   errorMessage?: string | undefined
   onPublishClick: (payload: NonNullableUpsertTuningsPayload) => Promise<void>
 }
 
 export const EditTunings = (props: EditTuningsProps) => {
-  const { defaultData, errorMessage, onPublishClick } = props
+  const { initialData, errorMessage, onPublishClick } = props
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -51,7 +51,7 @@ export const EditTunings = (props: EditTuningsProps) => {
     selectedSpec,
     onValueChange,
     onHostsChange,
-  } = useEditTuningsPayload(specs, nodes, defaultData)
+  } = useEditTuningsPayload(specs, nodes, initialData)
 
   const { step, goToSelectHosts, goToPublish } = useStepParam()
 
@@ -77,6 +77,7 @@ export const EditTunings = (props: EditTuningsProps) => {
     publish: () => (
       <PublishTuning
         payload={payload!}
+        selectedSpec={selectedSpec!}
         errorMessage={errorMessage}
         onPublishClick={onPublishClick}
       />

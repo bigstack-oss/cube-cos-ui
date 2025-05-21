@@ -2,10 +2,10 @@ import { ListTuningResponseDataTuningsInnerLimitationDefault } from '@cube-front
 import { create } from 'zustand'
 
 type EditTuningsStoreState = {
-  defaultData: EditTuningsDefaultData | undefined
+  initialData: EditTuningsInitialData | undefined
 }
 
-export type EditTuningsDefaultData = {
+export type EditTuningsInitialData = {
   specName: string
 } & (
   | {
@@ -19,20 +19,20 @@ export type EditTuningsDefaultData = {
 )
 
 const createDefaultState = (): EditTuningsStoreState => ({
-  defaultData: undefined,
+  initialData: undefined,
 })
 
 type EditTuningsStoreActions = {
-  setDefaultData: (defaultData: EditTuningsDefaultData) => void
+  setInitialData: (initialData: EditTuningsInitialData) => void
 }
 
 export const useEditTuningsStore = create<
   EditTuningsStoreState & EditTuningsStoreActions
 >((set) => ({
   ...createDefaultState(),
-  setDefaultData: (defaultData: EditTuningsDefaultData) => {
+  setInitialData: (initialData: EditTuningsInitialData) => {
     set({
-      defaultData,
+      initialData,
     })
   },
 }))

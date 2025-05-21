@@ -14,7 +14,7 @@ import { Link, Navigate, useNavigate } from 'react-router'
 export const EditTuningsPage = () => {
   const navigate = useNavigate()
 
-  const defaultData = useEditTuningsStore((store) => store.defaultData)
+  const initialData = useEditTuningsStore((store) => store.initialData)
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -46,13 +46,13 @@ export const EditTuningsPage = () => {
     }
   }
 
-  if (!defaultData) {
+  if (!initialData) {
     // This happens when users access the edit tunings page by directly
     // entering the URL in the browser.
     return <Navigate to={CosRoutesEnum.EVENTS_TUNINGS_PAGE} replace={true} />
   }
 
-  const title = defaultData.hosts?.length ? 'Edit Tunings' : 'Create Tunings'
+  const title = initialData.hosts?.length ? 'Edit Tunings' : 'Create Tunings'
 
   return (
     <div className="mx-2 my-1">
@@ -68,7 +68,7 @@ export const EditTuningsPage = () => {
         {title}
       </CosBackButton>
       <EditTunings
-        defaultData={defaultData}
+        initialData={initialData}
         errorMessage={errorState?.api?.msg || errorState?.native.message}
         onPublishClick={onPublishClick}
       />

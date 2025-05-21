@@ -74,6 +74,7 @@ export const CreateTunings = (props: CreateTuningsProps) => {
     publish: () => (
       <PublishTuning
         payload={payload}
+        selectedSpec={selectedSpec!}
         errorMessage={errorMessage}
         onPublishClick={onPublishClick}
       />
