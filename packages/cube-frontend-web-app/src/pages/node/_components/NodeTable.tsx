@@ -14,7 +14,6 @@ import {
   toLicenseExpirationDate,
 } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
-import { toPercentage } from '@cube-frontend/web-app/utils/number'
 import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router'
@@ -80,7 +79,7 @@ export const NodeTable = (props: NodeTableProps) => {
         {(cpu) => (
           <CosProgressBar
             className="min-w-[90px]"
-            progress={toPercentage(cpu.usedCores, cpu.totalCores)}
+            progress={Math.floor(cpu.usedPercent)}
           />
         )}
       </BatchActionNodeTable.Column>
@@ -92,7 +91,7 @@ export const NodeTable = (props: NodeTableProps) => {
         {(memory) => (
           <CosProgressBar
             className="min-w-[90px]"
-            progress={toPercentage(memory.usedMiB, memory.totalMiB)}
+            progress={Math.floor(memory.usedPercent)}
           />
         )}
       </BatchActionNodeTable.Column>
@@ -104,7 +103,7 @@ export const NodeTable = (props: NodeTableProps) => {
         {(storage) => (
           <CosProgressBar
             className="min-w-[90px]"
-            progress={toPercentage(storage.usedMiB, storage.totalMiB)}
+            progress={Math.floor(storage.usedPercent)}
           />
         )}
       </BatchActionNodeTable.Column>
