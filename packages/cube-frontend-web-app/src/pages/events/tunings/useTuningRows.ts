@@ -2,9 +2,10 @@ import { Page, TuningsApiListTuningsRequest } from '@cube-frontend/api'
 import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useInterval } from '@cube-frontend/web-app/hooks/useInterval'
+import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { isEqual } from 'lodash'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { TuningRow, tuningToRow } from './tuningsUtils'
 import { ListTuningsQuery } from './useListTuningsQuery'
 
@@ -25,6 +26,8 @@ export const useTuningRows = (
 
   const [rows, setRows] = useState<TuningRow[]>([])
 
+  const intervenedRowIdsRef = useRef<Set<string>>(new Set())
+
   const {
     data: listTuningsResponse,
     hasResponseBeenReceived,
@@ -41,11 +44,30 @@ export const useTuningRows = (
     }),
   )
 
-  useInterval(listTunings, 5000)
+  const { startInterval, stopInterval } = useSequentialInterval(
+    listTunings,
+    5000,
+    {
+      immediate: false,
+    },
+  )
 
   useEffect(() => {
     const tunings = listTuningsResponse?.tunings ?? []
-    setRows(tunings.map(tuningToRow))
+    setRows((oldRows) => {
+      const oldRowsMap: Map<string, TuningRow> = new Map(
+        oldRows.map((row) => [row.id, row]),
+      )
+      return tunings.map((tuning) => {
+        const newRow = tuningToRow(tuning)
+        // For tunings with manual interventions, keep the state intact and
+        // sync it using additional API calls.
+        if (intervenedRowIdsRef.current.has(newRow.id)) {
+          return oldRowsMap.get(newRow.id) ?? newRow
+        }
+        return newRow
+      })
+    })
   }, [listTuningsResponse])
 
   const hasModifiedTuning = useMemo<boolean>(() => {
@@ -76,9 +98,7 @@ export const useTuningRows = (
     enabled: boolean,
   ): Promise<void> => {
     const row = rows.find((row) => row.id === rowId)
-    if (!row) {
-      return undefined
-    }
+    if (!row) return
 
     const enabledBeforeToggle = row.enabled
 
@@ -90,7 +110,14 @@ export const useTuningRows = (
       },
     })
 
+    intervenedRowIdsRef.current.add(row.id)
+    let requestAccepted = false
+
     try {
+      // Pause polling until the API responds to prevent users from seeing
+      // intermediate tunings (e.g., a single tuning split into two due to
+      // the fact that COS can only update tunings for 1 host at a time).
+      stopInterval()
       await tuningsApi.enableOrDisableTuning({
         dataCenter: dataCenter!.name,
         parameterName: row.name,
@@ -99,9 +126,8 @@ export const useTuningRows = (
           hosts: row.hosts.map((host) => host.name),
         },
       })
-      // Poll for updates instead of changing the `isUpdating` status on the
-      // client side after the API call, as the client doesn't know if the
-      // tuning entry is still updating or not.
+      requestAccepted = true
+      startInterval()
     } catch (error) {
       console.error('Toggle tuning error: ', error)
       patchRow(rowId, {
@@ -113,13 +139,18 @@ export const useTuningRows = (
       })
       onError(error)
     }
+
+    if (!requestAccepted) {
+      intervenedRowIdsRef.current.delete(row.id)
+      return
+    }
+
+    await syncIntervenedRowStatus(row)
   }
 
   const resetTuning = async (rowId: string): Promise<void> => {
     const row = rows.find((row) => row.id === rowId)
-    if (!row) {
-      return
-    }
+    if (!row) return
 
     patchRow(rowId, {
       status: {
@@ -128,7 +159,14 @@ export const useTuningRows = (
       },
     })
 
+    intervenedRowIdsRef.current.add(row.id)
+    let requestAccepted = false
+
     try {
+      // Pause polling until the API responds to prevent users from seeing
+      // intermediate tunings (e.g., a single tuning split into two due to
+      // the fact that COS can only update tunings for 1 host at a time).
+      stopInterval()
       await tuningsApi.resetTuning({
         dataCenter: dataCenter!.name,
         parameterName: row.name,
@@ -136,9 +174,8 @@ export const useTuningRows = (
           hosts: row.hosts.map((host) => host.name),
         },
       })
-      // Poll for updates instead of changing the `isUpdating` status on the
-      // client side after the API call, as the client doesn't know if the
-      // tuning entry is still updating or not.
+      requestAccepted = true
+      startInterval()
     } catch (error) {
       console.error('Reset tuning error: ', error)
       patchRow(rowId, {
@@ -148,6 +185,46 @@ export const useTuningRows = (
         },
       })
       onError(error)
+    }
+
+    if (!requestAccepted) {
+      intervenedRowIdsRef.current.delete(row.id)
+      return
+    }
+
+    await syncIntervenedRowStatus(row)
+  }
+
+  const syncIntervenedRowStatus = async (row: TuningRow): Promise<void> => {
+    try {
+      // The combination of tuning name and hosts is guaranteed to be unique.
+      // However, the API returns tunings matching any host in the `host`
+      // parameter, so we have to compare the host names array to find the
+      // matching tuning.
+      const response = await tuningsApi.listTunings({
+        dataCenter: dataCenter!.name,
+        host: row.hosts.map((host) => host.name),
+        keyword: row.name,
+      })
+
+      const tuning = response.data.data.tunings.find(
+        (item) =>
+          item.name === row.name &&
+          isEqual(
+            item.hosts.map((host) => host.name),
+            row.hosts.map((host) => host.name),
+          ),
+      )
+
+      if (!tuning) return
+
+      patchRow(row.id, {
+        status: tuning.status,
+      })
+    } catch (error) {
+      console.error('List tunings error when syncing intervened row: ', error)
+    } finally {
+      intervenedRowIdsRef.current.delete(row.id)
     }
   }
 

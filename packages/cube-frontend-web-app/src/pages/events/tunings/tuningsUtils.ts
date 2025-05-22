@@ -4,19 +4,25 @@ import {
   DEFAULT_ITEMS_PER_PAGE,
   ItemsPerPage,
 } from '@cube-frontend/ui-library'
-import { uniqueId } from 'lodash'
 import { z } from 'zod'
 import { ListTuningsQuery } from './useListTuningsQuery'
 
 export type TuningRow = ListTuningResponseDataTuningsInner & CosTableRow
 
-const getRowId = (): string => uniqueId('tuning')
+const computeTuningRowId = (
+  tuning: ListTuningResponseDataTuningsInner,
+): string => {
+  // The combination of tuning name and hosts is guaranteed to be unique.
+  const { name, hosts } = tuning
+  const hostNames = hosts.map((host) => host.name)
+  return JSON.stringify({ name, hostNames })
+}
 
 export const tuningToRow = (
   tuning: ListTuningResponseDataTuningsInner,
 ): TuningRow => ({
   ...structuredClone(tuning),
-  id: getRowId(),
+  id: computeTuningRowId(tuning),
 })
 
 export const modifiedOptions = [true, false] as const

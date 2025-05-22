@@ -36,6 +36,8 @@ export const useSequentialInterval = (
   const callbackRef = useSyncedRef(callback)
 
   const startInterval = useCallback(() => {
+    stopInterval()
+
     const sequentialRun = async () => {
       try {
         await callbackRef.current()
@@ -53,7 +55,7 @@ export const useSequentialInterval = (
         sequentialRun()
       }, delay)
     }
-  }, [callbackRef, delay, immediate])
+  }, [stopInterval, callbackRef, delay, immediate])
 
   useEffect(() => {
     startInterval()
