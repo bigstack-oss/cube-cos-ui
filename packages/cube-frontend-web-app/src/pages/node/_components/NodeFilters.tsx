@@ -35,7 +35,6 @@ export const NodeFilters = (props: NodeFiltersProps) => {
           value={keyword}
           onChange={(e) => handleKeywordChange(e.target.value)}
           onInputClear={handleKeywordClear}
-          placeholder="Search"
           showDropdown={false}
         />
         <RoleFilter

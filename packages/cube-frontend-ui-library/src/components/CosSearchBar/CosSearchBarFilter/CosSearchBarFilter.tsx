@@ -59,7 +59,7 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
     value,
     onChange: onInputChange,
     className,
-    placeholder = 'Search Key-Value',
+    placeholder = 'Search',
     ...restProps
   } = props
 

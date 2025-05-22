@@ -29,7 +29,6 @@ export const TuningsFilter = (props: TuningsFilterProps) => {
   return (
     <div className="flex items-center gap-x-2">
       <CosSearchBarFilter
-        placeholder="Search"
         value={query.keyword}
         showDropdown={false}
         onChange={onKeywordChange}
