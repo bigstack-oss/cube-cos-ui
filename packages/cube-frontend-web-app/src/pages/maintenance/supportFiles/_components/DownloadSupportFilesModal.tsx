@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { CosCheckbox, CosModal } from '@cube-frontend/ui-library'
 import { SupportFile } from '@cube-frontend/api'
 import { SupportFileRow } from '../MaintenanceSupportFilesPage'
-import { download } from '@cube-frontend/web-app/utils/download'
 import { formatSupportFilesTimestamp } from '@cube-frontend/web-app/utils/date'
 
 type DownloadSupportFilesModalProps = {
@@ -19,7 +18,7 @@ export const DownloadSupportFilesModal = (
   const [selectedFiles, setSelectedFiles] = useState<SupportFile[]>([])
 
   const handleDownload = () => {
-    selectedFiles.forEach((file) => download(file.url, file.name))
+    selectedFiles.forEach((file) => window.open(file.url, '_blank'))
     onCloseClick()
   }
 
