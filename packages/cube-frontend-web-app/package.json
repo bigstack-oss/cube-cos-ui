@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "tsc": "tsc",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run"
@@ -20,6 +20,7 @@
     "@fontsource/urbanist": "catalog:",
     "@types/lodash": "catalog:",
     "@types/pluralize": "catalog:",
+    "@vitejs/plugin-basic-ssl": "^2.0.0",
     "axios": "^1.7.9",
     "chart.js": "^4.4.8",
     "class-variance-authority": "catalog:",
