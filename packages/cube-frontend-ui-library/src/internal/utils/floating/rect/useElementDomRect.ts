@@ -1,6 +1,26 @@
 import { debounce } from 'lodash'
 import { RefObject, useCallback, useEffect, useState } from 'react'
 
+const isRectEqual = (
+  rectA: DOMRect | undefined,
+  rectB: DOMRect | undefined,
+): boolean => {
+  if (!rectA && !rectB) return true
+  if (!!rectA !== !!rectB) return false
+
+  const keys: (keyof DOMRect)[] = [
+    'top',
+    'right',
+    'bottom',
+    'left',
+    'width',
+    'height',
+    'x',
+    'y',
+  ]
+  return keys.every((key) => rectA![key] === rectB![key])
+}
+
 export const useElementDomRect = (
   elementRef: RefObject<HTMLElement | null>,
   scrollableRootSelector: string | undefined,
@@ -23,7 +43,11 @@ export const useElementDomRect = (
 
   useEffect(() => {
     const syncRect = () => {
-      setRect(elementRef.current?.getBoundingClientRect())
+      setRect((prevRect) => {
+        const currentRect = elementRef.current?.getBoundingClientRect()
+        if (isRectEqual(prevRect, currentRect)) return prevRect
+        return currentRect
+      })
     }
 
     const debouncedSync = debounce(syncRect, 100)

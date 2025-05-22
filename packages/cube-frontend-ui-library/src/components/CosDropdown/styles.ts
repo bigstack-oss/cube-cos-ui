@@ -235,14 +235,11 @@ export const search = {
 
 export const content = cva(
   [
-    'absolute z-10 overflow-y-auto rounded-[5px] border bg-white py-2',
+    'z-10 overflow-y-auto rounded-[5px] border bg-white py-2',
     'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
   ],
   {
     variants: {
-      isVisible: {
-        false: 'invisible',
-      },
       variant: {
         default: 'max-h-[442px] min-w-[116px] max-w-[360px]',
         'in-table': 'max-h-[390px] min-w-[80px] max-w-[240px]',

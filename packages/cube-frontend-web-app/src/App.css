@@ -1,12 +1,12 @@
 body {
   /**
-   * Prevents absolute positioned elements from causing a horizontal scrollbar on the body.
+   * Prevents absolute positioned elements from causing a horizontal & vertical scrollbar on the body.
    * 
    * References:
    * 1. https://css-tricks.com/findingfixing-unintended-body-overflow/
    * 2. https://www.reddit.com/r/webdev/comments/1ciwixx/preventing_overflow_with_absolutepositioned/
    */
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #root {

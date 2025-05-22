@@ -21,9 +21,6 @@ const container = cva(
   'pointer-events-none absolute flex min-w-[50px] max-w-[480px]',
   {
     variants: {
-      isVisible: {
-        false: 'invisible left-[-9999px] top-[-9999px]',
-      },
       verticalPlacement: {
         top: 'flex-col',
         bottom: 'flex-col-reverse',
@@ -41,6 +38,7 @@ export const InfoBox = (props: InfoBoxProps) => {
   } = props
 
   const { elementRef, resolvedStyles } = useFloating({
+    isOpen: true,
     anchorRef,
     placement,
     offsets: {
@@ -87,7 +85,6 @@ export const InfoBox = (props: InfoBoxProps) => {
       <div
         ref={elementRef}
         className={container({
-          isVisible: false,
           verticalPlacement,
         })}
       >
@@ -96,7 +93,6 @@ export const InfoBox = (props: InfoBoxProps) => {
       {/* Element that's visible to users. */}
       <div
         className={container({
-          isVisible: !!resolvedStyles,
           verticalPlacement,
         })}
         style={floatingStyle}

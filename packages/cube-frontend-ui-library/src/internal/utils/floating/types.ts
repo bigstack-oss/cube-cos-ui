@@ -11,7 +11,10 @@ export type Offsets = {
   y?: number
 }
 
-export type FloatingStyle = Pick<CSSProperties, 'top' | 'left'>
+export type FloatingStyle = Pick<
+  CSSProperties,
+  'position' | 'visibility' | 'top' | 'left'
+>
 
 export type XBoundary = {
   left: number

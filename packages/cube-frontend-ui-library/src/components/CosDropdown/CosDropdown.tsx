@@ -66,6 +66,7 @@ export const CosDropdown = <Item, Type extends CosDropdownType>(
   const optionalProps = getOptionalProps(props)
 
   const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
+    isOpen: dropdownOpen,
     placement: 'bottom-left',
     offsets: {
       y: 8,

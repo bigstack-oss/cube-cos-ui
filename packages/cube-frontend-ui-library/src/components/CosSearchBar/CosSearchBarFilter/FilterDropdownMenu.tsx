@@ -5,22 +5,12 @@ import { twMerge } from 'tailwind-merge'
 import { UseFloating } from '../../../internal/utils/floating/useFloating'
 import { FilterDropdownItem } from './FilterDropdownItem'
 
-const menu = cva(
-  [
-    'absolute z-10 min-w-[200px] overflow-y-auto rounded-[5px] border bg-white py-2',
-    'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
-  ],
-  {
-    variants: {
-      isVisible: {
-        false: 'invisible',
-      },
-    },
-  },
-)
+const menu = cva([
+  'z-10 min-w-[200px] overflow-y-auto rounded-[5px] border bg-white py-2',
+  'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
+])
 
 type FilterDropdownMenuProps = {
-  dropdownOpen: boolean
   floatingProps: UseFloating<HTMLDivElement, HTMLDivElement>
   /**
    * `children` is used to render menu content items,
@@ -32,12 +22,12 @@ type FilterDropdownMenuProps = {
 }
 
 export const FilterDropdownMenu = (props: FilterDropdownMenuProps) => {
-  const { dropdownOpen: isVisible, floatingProps, children } = props
+  const { floatingProps, children } = props
 
   return createPortal(
     <div
       ref={floatingProps.elementRef}
-      className={twMerge(menu({ isVisible }))}
+      className={twMerge(menu())}
       style={floatingProps.resolvedStyles?.floatingStyle}
     >
       {children}

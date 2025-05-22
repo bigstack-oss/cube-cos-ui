@@ -56,19 +56,10 @@ export const trigger = cva(
   },
 )
 
-export const menu = cva(
-  [
-    'absolute z-10 flex w-fit flex-col gap-4 border p-4',
-    'rounded-[5px] border-functional-border-divider bg-white shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
-  ],
-  {
-    variants: {
-      isVisible: {
-        false: 'invisible',
-      },
-    },
-  },
-)
+export const menu = cva([
+  'z-10 flex w-fit flex-col gap-4 border p-4',
+  'rounded-[5px] border-functional-border-divider bg-white shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
+])
 
 export const dayButton = cva(
   'primary-body2 flex aspect-square w-full items-center justify-center',

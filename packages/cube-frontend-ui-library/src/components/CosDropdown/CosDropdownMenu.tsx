@@ -14,7 +14,6 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
   const { children } = props
 
   const {
-    dropdownOpen: isVisible,
     floatingProps,
     variant,
     type,
@@ -46,7 +45,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
   return createPortal(
     <div
       ref={elementRef}
-      className={twMerge(content({ isVisible, variant }))}
+      className={twMerge(content({ variant }))}
       style={resolvedStyles?.floatingStyle}
     >
       {showSearchInput && <CosDropdownSearchBar />}

@@ -14,6 +14,7 @@ export type UseFloating<
 }
 
 export type UseFloatingOptions<Anchor extends HTMLElement> = {
+  isOpen: boolean
   /**
    * A controlled anchor reference for cases where the anchor element
    * and the floating element are not in the same hierarchy.
@@ -29,13 +30,32 @@ export type UseFloatingOptions<Anchor extends HTMLElement> = {
   mouseX?: number
 }
 
+const createInvisibleFloatingStyles = (
+  originalPlacement: Placement,
+): ResolvedFloatingStyles => ({
+  idealPlacement: originalPlacement,
+  floatingStyle: {
+    position: 'absolute',
+    visibility: 'hidden',
+    top: '-9999px',
+    left: '-9999px',
+  },
+  translateX: 0,
+})
+
 export const useFloating = <
   Anchor extends HTMLElement = HTMLDivElement,
   Element extends HTMLElement = HTMLDivElement,
 >(
   options: UseFloatingOptions<Anchor>,
 ): UseFloating<Anchor, Element> => {
-  const { anchorRef: anchorRefOption, placement, offsets, mouseX = 0 } = options
+  const {
+    isOpen,
+    anchorRef: anchorRefOption,
+    placement,
+    offsets,
+    mouseX = 0,
+  } = options
 
   const anchorRef = useRef<Anchor>(null)
   const elementRef = useRef<Element>(null)
@@ -49,23 +69,23 @@ export const useFloating = <
   const elementRect = useElementDomRect(elementRef, scrollableRootSelector)
 
   const resolvedStyles = useMemo<ResolvedFloatingStyles | undefined>(() => {
-    if (!anchorRect || !elementRect) {
-      return undefined
-    }
+    if (!anchorRect || !elementRect) return undefined
 
-    const floatingRect = new FloatingRect(
-      anchorRect,
-      {
+    if (!isOpen) return createInvisibleFloatingStyles(placement)
+
+    const floatingRect = new FloatingRect({
+      anchorDomRect: anchorRect,
+      size: {
         width: elementRect.width,
         height: elementRect.height,
       },
       placement,
       offsets,
       mouseX,
-    )
+    })
 
     return floatingRect.resolveStyles()
-  }, [anchorRect, elementRect, placement, offsets, mouseX])
+  }, [isOpen, anchorRect, elementRect, placement, offsets, mouseX])
 
   return {
     anchorRef,
