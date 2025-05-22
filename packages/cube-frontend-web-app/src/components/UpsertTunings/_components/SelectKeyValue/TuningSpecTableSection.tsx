@@ -1,18 +1,19 @@
 import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { CosPagination, CosSearchBarFilter } from '@cube-frontend/ui-library'
 import { TuningSpecTable } from './TuningSpecTable'
-import { useSpecFilter } from './useSpecFilter'
+import { UseSpecFilter } from './useSpecFilter'
 import { useSpecRows } from './useSpecRows'
 
 type TuningSpecTableSectionProps = {
   isLoading: boolean
   specs: ListTuningSpecResponseDataInner[] | undefined
   selectedSpec: ListTuningSpecResponseDataInner | undefined
+  specFilter: UseSpecFilter
   onSpecSelect: (spec: ListTuningSpecResponseDataInner) => void
 }
 
 export const TuningSpecTableSection = (props: TuningSpecTableSectionProps) => {
-  const { isLoading, specs, selectedSpec, onSpecSelect } = props
+  const { isLoading, specs, selectedSpec, specFilter, onSpecSelect } = props
 
   const {
     filter,
@@ -20,7 +21,7 @@ export const TuningSpecTableSection = (props: TuningSpecTableSectionProps) => {
     onKeywordClear,
     onPageChange,
     onItemsPerPageChange,
-  } = useSpecFilter()
+  } = specFilter
 
   const { matchedRows, paginatedRows } = useSpecRows(specs, filter)
 
