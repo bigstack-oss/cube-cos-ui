@@ -77,10 +77,7 @@ export const NodeTable = (props: NodeTableProps) => {
         skeletonVariant="with-barchart"
       >
         {(cpu) => (
-          <CosProgressBar
-            className="min-w-[90px]"
-            progress={Math.floor(cpu.usedPercent)}
-          />
+          <CosProgressBar className="min-w-[90px]" progress={cpu.usedPercent} />
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
@@ -91,7 +88,7 @@ export const NodeTable = (props: NodeTableProps) => {
         {(memory) => (
           <CosProgressBar
             className="min-w-[90px]"
-            progress={Math.floor(memory.usedPercent)}
+            progress={memory.usedPercent}
           />
         )}
       </BatchActionNodeTable.Column>
@@ -103,7 +100,7 @@ export const NodeTable = (props: NodeTableProps) => {
         {(storage) => (
           <CosProgressBar
             className="min-w-[90px]"
-            progress={Math.floor(storage.usedPercent)}
+            progress={storage.usedPercent}
           />
         )}
       </BatchActionNodeTable.Column>
