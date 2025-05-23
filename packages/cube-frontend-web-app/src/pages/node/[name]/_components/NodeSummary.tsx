@@ -9,6 +9,7 @@ import {
 } from '@cube-frontend/ui-library'
 import Copy from '@cube-frontend/ui-library/icons/monochrome/copy.svg?react'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
+import { humanizeDuration } from '@cube-frontend/web-app/utils/date'
 import dayjs from 'dayjs'
 import { range } from 'lodash'
 import { ReactNode } from 'react'
@@ -152,10 +153,7 @@ export const NodeSummary = (props: NodeSummaryProps) => {
             'Memory Spec',
             toReadableSizeString(node.memory.totalMiB, 'MiB'),
           )}
-          {renderRow(
-            'Up Time',
-            dayjs.duration(node.uptimeSeconds, 'seconds').humanize(),
-          )}
+          {renderRow('Up Time', humanizeDuration(node.uptimeSeconds))}
           {renderRow('License Expiration', getLicenseExpiration())}
           {renderRow(
             'Management IP',
