@@ -45,7 +45,7 @@ export const LicenseTable = (props: LicenseTableProps) => {
       },
       {
         title: 'Support Plan',
-        value: license.supportPlan,
+        value: license.supportPlan.toUpperCase(),
       },
       {
         title: 'Feature',
