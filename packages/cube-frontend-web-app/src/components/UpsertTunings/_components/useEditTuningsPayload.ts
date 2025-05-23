@@ -2,7 +2,7 @@ import { ListTuningSpecResponseDataInner, Node } from '@cube-frontend/api'
 import { EditTuningsInitialData } from '@cube-frontend/web-app/stores/editTuningsStore'
 import { ChangeEvent, useEffect, useState } from 'react'
 import {
-  computeValidHosts,
+  filterValidHosts,
   HostWithRole,
   limitationValueToPayloadValue,
   UpsertTuningsPayload,
@@ -19,15 +19,21 @@ type UseEditTuningsPayload = {
 const initializePayload = (
   initialData: EditTuningsInitialData,
   selectedSpec: ListTuningSpecResponseDataInner | undefined,
+  nodes: Node[],
 ): UpsertTuningsPayload => {
-  const { specName, value } = initialData
+  const { specName, value, hosts } = initialData
+
+  const selectedHosts: HostWithRole[] = hosts
+    ? filterValidHosts(nodes, hosts)
+    : []
+
   return {
     selectedSpecName: specName,
     value:
       value === undefined
         ? limitationValueToPayloadValue(selectedSpec?.limitation.default)
         : limitationValueToPayloadValue(value),
-    selectedHosts: [],
+    selectedHosts,
   }
 }
 
@@ -45,32 +51,16 @@ export const useEditTuningsPayload = (
   >(undefined)
 
   useEffect(() => {
-    if (!specs) {
+    if (!specs || !nodes) {
       return
     }
     const selectedSpec = specs.find(
       (spec) => spec.name === initialData.specName,
     )
     setIsInitializing(false)
-    setPayload(initializePayload(initialData, selectedSpec))
+    setPayload(initializePayload(initialData, selectedSpec, nodes))
     setSelectedSpec(selectedSpec)
-  }, [specs, initialData])
-
-  useEffect(() => {
-    if (!nodes || !initialData.hosts?.length) {
-      return
-    }
-    const validHosts = computeValidHosts(nodes, initialData.hosts)
-    setPayload((prev) => {
-      if (!prev) {
-        return prev
-      }
-      return {
-        ...prev,
-        selectedHosts: validHosts,
-      }
-    })
-  }, [nodes, initialData])
+  }, [specs, nodes, initialData])
 
   const onValueChange = (e: ChangeEvent<HTMLInputElement> | boolean): void => {
     const value = typeof e === 'boolean' ? e : e.target.value

@@ -41,7 +41,7 @@ export const hostToPreviewRow = (host: HostWithRole): PreviewRow => ({
   host,
 })
 
-export const computeValidHosts = (
+export const filterValidHosts = (
   nodes: Node[],
   hostNames: string[] = [],
 ): HostWithRole[] => {
