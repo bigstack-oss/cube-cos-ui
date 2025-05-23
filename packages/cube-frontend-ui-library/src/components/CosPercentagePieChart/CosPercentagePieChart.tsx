@@ -32,6 +32,11 @@ const defaultPercentageFormatter = (value: number) => {
   return `${value}%`
 }
 
+const calculatePercentage = (used: number, total: number) => {
+  // Default to 0 to avoid NaN when total is 0.
+  return (used / total) * 100 || 0
+}
+
 const getPercentageColor = (percentage: number): StrokeColorClass => {
   if (percentage <= 50) {
     return 'stroke-chart-1'
@@ -55,15 +60,19 @@ export const CosPercentagePieChart = (props: CosPercentagePieChartProps) => {
     isLoading = false,
   } = props
 
-  // Default to 0 to avoid NaN when total is 0.
-  const getPercentage = () => {
-    const percentage = percentageProp ?? ((used / total) * 100 || 0)
-    return Math.floor(percentage)
+  const getChartPercentage = () => {
+    const percentage = percentageProp ?? calculatePercentage(used, total)
+
+    if (percentage === 0) return 0
+    /**
+     * UX Enhancement: Show at least 1% in CosPercentagePieChart when percentage > 0.
+     */
+    return Math.max(Math.floor(percentage), 1)
   }
 
-  const percentage = getPercentage()
-  const color = colorProp ?? getPercentageColor(percentage)
-  const isOverThreshold = percentage > thresholdPercentage
+  const chartPercentage = getChartPercentage()
+  const color = colorProp ?? getPercentageColor(chartPercentage)
+  const isOverThreshold = chartPercentage > thresholdPercentage
 
   return (
     <div className="flex flex-col items-center gap-y-4">
@@ -91,12 +100,12 @@ export const CosPercentagePieChart = (props: CosPercentagePieChartProps) => {
           <div className="relative">
             <PercentagePie
               color={color}
-              percentage={percentage}
+              percentage={chartPercentage}
               thresholdPercentage={thresholdPercentage}
             />
             <div className="absolute left-1/2 top-[50px] flex -translate-x-1/2 flex-col items-center gap-y-1">
               <span className="primary-h3 text-functional-title">
-                {percentageFormatter(percentage)}
+                {percentageFormatter(chartPercentage)}
               </span>
               <div className="flex flex-col items-center">
                 <span className="primary-body5 text-functional-text-light">{`${total} ${unit}`}</span>
