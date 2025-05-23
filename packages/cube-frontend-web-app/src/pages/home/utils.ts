@@ -120,16 +120,19 @@ export const toMetricsChart = (
       unit: 'vCPU',
       total: metrics.vm.usage.vcpu.totalCores,
       used: metrics.vm.usage.vcpu.usedCores,
+      percentage: metrics.vm.usage.vcpu.usedPercent,
     },
     memoryPieChart: {
       unit: memoryReadableSizeUnit,
       total: memoryTotalReadableSize,
       used: memoryUsedReadableSize,
+      percentage: metrics.vm.usage.memory.usedPercent,
     },
     storagePieChart: {
       unit: storageReadableSizeUnit,
       total: storageTotalReadableSize,
       used: storageUsedReadableSize,
+      percentage: metrics.vm.usage.storage.usedPercent,
     },
   }
 }

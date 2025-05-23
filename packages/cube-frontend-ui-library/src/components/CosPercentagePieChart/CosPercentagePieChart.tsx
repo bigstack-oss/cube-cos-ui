@@ -9,6 +9,10 @@ export type CosPercentagePieChartProps = {
   total: number
   used: number
   /**
+   * If not provided, the percentage will be calculated based on used and total.
+   */
+  percentage?: number
+  /**
    * @default 100
    */
   thresholdPercentage?: number
@@ -43,6 +47,7 @@ export const CosPercentagePieChart = (props: CosPercentagePieChartProps) => {
     unit,
     total,
     used,
+    percentage: percentageProp,
     color: colorProp,
     thresholdPercentage = 100,
     percentageFormatter = defaultPercentageFormatter,
@@ -51,7 +56,12 @@ export const CosPercentagePieChart = (props: CosPercentagePieChartProps) => {
   } = props
 
   // Default to 0 to avoid NaN when total is 0.
-  const percentage = Math.floor((used / total) * 100) || 0
+  const getPercentage = () => {
+    const percentage = percentageProp ?? ((used / total) * 100 || 0)
+    return Math.floor(percentage)
+  }
+
+  const percentage = getPercentage()
   const color = colorProp ?? getPercentageColor(percentage)
   const isOverThreshold = percentage > thresholdPercentage
 
