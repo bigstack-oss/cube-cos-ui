@@ -21,7 +21,7 @@ export const invalidLicenseMessageMap: Record<
   (count: number) => string
 > = {
   unlicense: (count) =>
-    `${toPluralizeDisplay(count, 'host')} ${toPluralizeDisplay(count, 'is')} unlicensed.`,
+    `${toPluralizeDisplay(count, 'host')} ${pluralize('is', count)} unlicensed.`,
   expired: (count) => `${count} host ${pluralize('license', count)} expired.`,
 }
 
