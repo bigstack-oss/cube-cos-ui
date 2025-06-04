@@ -1,4 +1,5 @@
 import { CosCheckbox, CosInput } from '@cube-frontend/ui-library'
+import CheckIcon from '@cube-frontend/ui-library/icons/monochrome/checkmark.svg?react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { ModalStoryRow } from './ModalStoryRow'
@@ -23,6 +24,30 @@ export const Gallery: StoryObj = {
             label="MD"
             size="md"
             content="This is a medium modal."
+          />
+        </StoryLayout.Section>
+        <StoryLayout.Section title="Footer Message">
+          <ModalStoryRow
+            label="Default (Short)"
+            content="Do you want to delete this resource?"
+            footerMessage="Lorem ipsum dolor sit."
+          />
+          <ModalStoryRow
+            label="Default (Long)"
+            content="Do you want to delete this resource?"
+            footerMessage="Lorem ipsum dolor sit amet consectetur. Duis est netus sit aliquet. At vulputate faucibus diam arcu praesent auctor. Aliquam ipsum consequat facilisis mattis vestibulum gravida arcu."
+          />
+          <ModalStoryRow
+            label="Custom"
+            content="Do you want to delete this resource?"
+            footerMessage={
+              <div className="flex flex-1 items-center justify-end">
+                <div className="flex items-center gap-x-1 text-status-positive-text">
+                  <CheckIcon className="icon-md" />
+                  <span className="primary-body4">Copied to clipboard.</span>
+                </div>
+              </div>
+            }
           />
         </StoryLayout.Section>
         <StoryLayout.Section title="Usage">

@@ -50,6 +50,7 @@ export const DownloadSupportFilesModal = (
       title="Choose hosts to download support files"
       size="sm"
       isOpen={isOpen}
+      footerMessage="Check browser and click “Always allow pop-up” to download all files."
       actionText="Download"
       actionButtonProps={{ disabled: selectedFiles.length === 0 }}
       onActionClick={handleDownload}

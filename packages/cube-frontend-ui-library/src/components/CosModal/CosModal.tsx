@@ -52,6 +52,22 @@ export const CosModal = (props: CosModalProps) => {
     onCloseClick,
   })
 
+  const renderFooterMessage = (footerMessage: ReactNode) => {
+    if (!footerMessage) {
+      return null
+    }
+
+    if (typeof footerMessage === 'string') {
+      return (
+        <div className="primary-body3 flex-1 text-functional-text-light">
+          {footerMessage}
+        </div>
+      )
+    }
+
+    return footerMessage
+  }
+
   return createPortal(
     <>
       <div className={backdrop({ isOpen })} onClick={onCloseClick} />
@@ -76,7 +92,7 @@ export const CosModal = (props: CosModalProps) => {
           </div>
           <div className="flex-1 overflow-auto p-7">{children}</div>
           <div className="flex items-center justify-end gap-x-2.5 border-t border-functional-border-divider px-7 py-4">
-            {footerMessage}
+            {renderFooterMessage(footerMessage)}
             {isActionButtonVisible && (
               <CosButton
                 usage="text-only"
