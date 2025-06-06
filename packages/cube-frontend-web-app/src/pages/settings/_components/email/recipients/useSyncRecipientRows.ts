@@ -35,16 +35,25 @@ export const useSyncRecipientRows = (
     )
 
     setRows((prev) => {
-      const newRows = [...prev]
-      newRows.forEach((row) => {
-        if (row.isEditing || !row.status.isUpdating) return
+      const rowsToKeep = prev.filter(
+        (row) =>
+          row.isNew ||
+          row.isEditing ||
+          // Rows marked for removal are first set to an updating status by the API.
+          // Once removed, they won't appear in the API response, so a missing existing
+          // row indicates it has been deleted, and should be removed from UI as well.
+          newStatusMap.has(row.address),
+      )
 
+      rowsToKeep.forEach((row) => {
+        if (row.isEditing) return
         const newStatus = newStatusMap.get(row.address)
         if (newStatus) {
           row.status = newStatus
         }
       })
-      return newRows
+
+      return rowsToKeep
     })
   }, [recipientsFromApi, setRows])
 
