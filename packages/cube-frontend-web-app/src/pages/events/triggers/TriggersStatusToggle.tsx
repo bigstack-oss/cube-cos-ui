@@ -11,6 +11,7 @@ export const TriggersStatusToggle = (props: TriggersStatusToggleProps) => {
 
   const {
     name,
+    response: { types },
     enabled,
     status: { isUpdating },
   } = row
@@ -23,7 +24,7 @@ export const TriggersStatusToggle = (props: TriggersStatusToggleProps) => {
     <CosToggle
       isOn={!!enabled}
       onChange={handleToggleChange}
-      disabled={isUpdating}
+      disabled={isUpdating || types.length === 0}
     />
   )
 }
