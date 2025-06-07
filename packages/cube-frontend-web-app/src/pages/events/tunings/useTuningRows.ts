@@ -100,6 +100,8 @@ export const useTuningRows = (
     const row = rows.find((row) => row.id === rowId)
     if (!row) return
 
+    intervenedRowIdsRef.current.add(row.id)
+
     const enabledBeforeToggle = row.enabled
 
     patchRow(rowId, {
@@ -109,9 +111,6 @@ export const useTuningRows = (
         isUpdating: true,
       },
     })
-
-    intervenedRowIdsRef.current.add(row.id)
-    let requestAccepted = false
 
     try {
       // Pause polling until the API responds to prevent users from seeing
@@ -126,8 +125,8 @@ export const useTuningRows = (
           hosts: row.hosts.map((host) => host.name),
         },
       })
-      requestAccepted = true
       startInterval()
+      await syncIntervenedRowStatus(row)
     } catch (error) {
       console.error('Toggle tuning error: ', error)
       patchRow(rowId, {
@@ -137,20 +136,16 @@ export const useTuningRows = (
           isUpdating: false,
         },
       })
+      intervenedRowIdsRef.current.delete(row.id)
       onError(error)
     }
-
-    if (!requestAccepted) {
-      intervenedRowIdsRef.current.delete(row.id)
-      return
-    }
-
-    await syncIntervenedRowStatus(row)
   }
 
   const resetTuning = async (rowId: string): Promise<void> => {
     const row = rows.find((row) => row.id === rowId)
     if (!row) return
+
+    intervenedRowIdsRef.current.add(row.id)
 
     patchRow(rowId, {
       status: {
@@ -158,9 +153,6 @@ export const useTuningRows = (
         isUpdating: true,
       },
     })
-
-    intervenedRowIdsRef.current.add(row.id)
-    let requestAccepted = false
 
     try {
       // Pause polling until the API responds to prevent users from seeing
@@ -174,8 +166,8 @@ export const useTuningRows = (
           hosts: row.hosts.map((host) => host.name),
         },
       })
-      requestAccepted = true
       startInterval()
+      await syncIntervenedRowStatus(row)
     } catch (error) {
       console.error('Reset tuning error: ', error)
       patchRow(rowId, {
@@ -184,15 +176,9 @@ export const useTuningRows = (
           isUpdating: false,
         },
       })
+      intervenedRowIdsRef.current.delete(row.id)
       onError(error)
     }
-
-    if (!requestAccepted) {
-      intervenedRowIdsRef.current.delete(row.id)
-      return
-    }
-
-    await syncIntervenedRowStatus(row)
   }
 
   const syncIntervenedRowStatus = async (row: TuningRow): Promise<void> => {
