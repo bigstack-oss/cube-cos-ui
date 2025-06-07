@@ -35,18 +35,22 @@ export const useSyncRecipientRows = (
     )
 
     setRows((prev) => {
-      const rowsToKeep = prev.filter(
-        (row) =>
-          row.isNew ||
-          row.isEditing ||
-          // Rows marked for removal are first set to an updating status by the API.
-          // Once removed, they won't appear in the API response, so a missing existing
-          // row indicates it has been deleted, and should be removed from UI as well.
-          newStatusMap.has(row.address),
-      )
+      // TODO: Revisit this part in M2 when issues on the API side are fixed.
+      const rowsToKeep = prev.filter((row) => {
+        if (row.isDeleting) {
+          // Currently when multiple email recipients are created simultaneously,
+          // only the most recently initiated one will be included in the API response.
+          // Any other email recipients in an updating status will be invisible until
+          // the most recent one has completed its creation (when its `isUpdating` turns to `false`).
+          // To avoid recipients abruptly vanishing during polling, we could only remove rows that
+          // have an explicit deleting status.
+          return newStatusMap.has(row.address)
+        }
+        return true
+      })
 
       rowsToKeep.forEach((row) => {
-        if (row.isEditing) return
+        if (row.isNew || row.isEditing) return
         const newStatus = newStatusMap.get(row.address)
         if (newStatus) {
           row.status = newStatus
