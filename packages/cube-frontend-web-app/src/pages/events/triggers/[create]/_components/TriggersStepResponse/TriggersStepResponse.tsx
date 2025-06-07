@@ -8,7 +8,7 @@ import { ResponseEmailTable } from './ResponseEmailTable'
 import { ResponseSlackTable } from './ResponseSlackTable'
 
 export const TriggersStepResponse = () => {
-  const { goToDescription, isFormValueValid } = useContext(
+  const { goToDescription, isFormValueValid, errorMessage } = useContext(
     TriggersCreateContext,
   )
 
@@ -25,12 +25,19 @@ export const TriggersStepResponse = () => {
       <ResponseEmailTable />
       <ResponseSlackTable />
       <CosStroke type="dot" />
-      <div className="flex items-center gap-x-4">
-        <TriggersPreviousButton />
-        <TriggersNextButton
-          disabled={!isFormValueValid}
-          onClick={goToDescription}
-        />
+      <div className="flex flex-col gap-y-2">
+        {errorMessage && (
+          <div className="primary-body3 text-status-negative">
+            {errorMessage}
+          </div>
+        )}
+        <div className="flex items-center gap-x-4">
+          <TriggersPreviousButton />
+          <TriggersNextButton
+            disabled={!isFormValueValid}
+            onClick={goToDescription}
+          />
+        </div>
       </div>
     </div>
   )
