@@ -33,7 +33,7 @@ export const StorageIopsPanel = () => {
   const showLoading = !hasResponseBeenReceived && isLoading
 
   return (
-    <CosGeneralPanel topic="Storage IOPs" className="flex-1">
+    <CosGeneralPanel topic="Storage IOPS" className="flex-1">
       <StorageChart
         read={diskIopsHistory.read}
         write={diskIopsHistory.write}

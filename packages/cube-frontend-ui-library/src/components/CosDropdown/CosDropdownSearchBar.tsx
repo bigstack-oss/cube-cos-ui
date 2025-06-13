@@ -18,7 +18,7 @@ export const CosDropdownSearchBar = () => {
           'primary-body2 w-full rounded-[5px] px-4 py-[7px] outline-none',
           'bg-secondary-0 text-functional-text placeholder:text-functional-text-light',
         )}
-        placeholder="Search Key-Value"
+        placeholder="Search"
         value={searchValue}
         onChange={onSearchChange}
       />

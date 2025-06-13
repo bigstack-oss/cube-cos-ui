@@ -32,12 +32,12 @@ export const UsageMetricsItem = (props: UsageMetricsItemProps) => {
       <div className="flex gap-x-6">
         <CosProgressBarChart
           isLoading={isLoading}
-          progress={Math.floor(cpuUsedPercent)}
+          progress={cpuUsedPercent}
           title="CPU"
         />
         <CosProgressBarChart
           isLoading={isLoading}
-          progress={Math.floor(memoryUsedPercent)}
+          progress={memoryUsedPercent}
           title="Memory"
         />
       </div>

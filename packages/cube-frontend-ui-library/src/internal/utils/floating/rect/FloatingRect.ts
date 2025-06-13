@@ -7,6 +7,14 @@ interface IFloatingRect {
   resolveStyles: () => ResolvedFloatingStyles
 }
 
+type FloatingRectArgs = {
+  anchorDomRect: DOMRect
+  size: Size
+  placement: Placement
+  offsets?: Partial<Offsets>
+  mouseX?: number
+}
+
 export type ResolvedFloatingStyles = {
   idealPlacement: Placement
   floatingStyle: FloatingStyle
@@ -21,13 +29,9 @@ export class FloatingRect implements IFloatingRect {
   private readonly _offsets: Offsets | undefined = undefined
   private readonly _mouseX: number = 0
 
-  constructor(
-    anchorDomRect: DOMRect,
-    size: Size,
-    placement: Placement,
-    offsets?: Partial<Offsets>,
-    mouseX?: number,
-  ) {
+  constructor(args: FloatingRectArgs) {
+    const { anchorDomRect, size, placement, offsets, mouseX } = args
+
     this._anchorDomRect = anchorDomRect
     this._size = size
     this._originalPlacement = placement
@@ -66,6 +70,7 @@ export class FloatingRect implements IFloatingRect {
     const translateX = computeTranslateX(idealPlacement, overflowPx)
 
     const floatingStyle: FloatingStyle = {
+      position: 'absolute',
       // Convert the position from viewport-relative coordinates to document-relative coordinates.
       top: finalBoundary.top + window.scrollY,
       left: finalBoundary.left + window.scrollX + translateX,

@@ -1,7 +1,8 @@
 import {
-  ListTuningResponseDataTuningsInnerLimitationDefault,
+  ListTuningSpecResponseDataInnerLimitationDefault,
   ListTuningSpecResponseDataInnerRolesInnerHostsInner,
   Node,
+  TuningLimitationType,
 } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
 
@@ -13,9 +14,11 @@ export enum UpsertTuningsStep {
 
 export type UpsertTuningsPayload = {
   selectedSpecName: string | undefined
-  value: ListTuningResponseDataTuningsInnerLimitationDefault | undefined
+  value: UpsertTuningsPayloadValue
   selectedHosts: HostWithRole[]
 }
+
+export type UpsertTuningsPayloadValue = string | boolean | undefined
 
 export type NonNullableUpsertTuningsPayload = {
   [key in keyof UpsertTuningsPayload]: Exclude<
@@ -38,7 +41,7 @@ export const hostToPreviewRow = (host: HostWithRole): PreviewRow => ({
   host,
 })
 
-export const computeValidHosts = (
+export const filterValidHosts = (
   nodes: Node[],
   hostNames: string[] = [],
 ): HostWithRole[] => {
@@ -57,4 +60,33 @@ export const computeValidHosts = (
   })
 
   return result
+}
+
+export const limitationValueToPayloadValue = (
+  defaultValue: ListTuningSpecResponseDataInnerLimitationDefault | undefined,
+): UpsertTuningsPayloadValue => {
+  if (defaultValue === undefined) return undefined
+  if (typeof defaultValue === 'boolean') return defaultValue
+  return defaultValue.toString()
+}
+
+export const payloadValueToLimitationValue = (
+  limitationType: TuningLimitationType,
+  payloadValue: Exclude<UpsertTuningsPayloadValue, undefined>,
+): ListTuningSpecResponseDataInnerLimitationDefault => {
+  if (limitationType === 'bool' && typeof payloadValue !== 'boolean') {
+    throw new Error('bool limitation type only accept boolean value')
+  }
+
+  if (typeof payloadValue === 'boolean') return payloadValue
+
+  if (limitationType === 'int' || limitationType === 'uint') {
+    const intValue = parseInt(payloadValue, 10)
+    if (isNaN(intValue) || !isFinite(intValue)) {
+      throw new Error(`${payloadValue} is not a valid numeric string`)
+    }
+    return intValue
+  }
+
+  return payloadValue
 }

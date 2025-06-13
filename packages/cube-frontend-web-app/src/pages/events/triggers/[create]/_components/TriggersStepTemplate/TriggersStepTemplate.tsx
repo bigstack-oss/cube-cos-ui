@@ -15,6 +15,7 @@ export const TriggersStepTemplate = () => {
     disabledRowsId,
     handleTemplateSelect,
     isFormValueValid,
+    errorMessage,
   } = useContext(TriggersCreateContext)
 
   return (
@@ -34,11 +35,18 @@ export const TriggersStepTemplate = () => {
         </TemplateTable>
       </div>
       <CosStroke type="dot" />
-      <TriggersNextButton
-        isLoading={isTemplateLoading}
-        disabled={!isFormValueValid}
-        onClick={goToEvents}
-      />
+      <div className="flex flex-col gap-y-2">
+        {errorMessage && (
+          <div className="primary-body3 text-status-negative">
+            {errorMessage}
+          </div>
+        )}
+        <TriggersNextButton
+          isLoading={isTemplateLoading}
+          disabled={!isFormValueValid}
+          onClick={goToEvents}
+        />
+      </div>
     </div>
   )
 }

@@ -67,7 +67,6 @@ export const LicenseFilters = (props: LicenseFiltersProps) => {
           value={searchKeyword}
           onChange={(e) => handleSearchKeywordChange(e.target.value)}
           onInputClear={handleSearchKeywordClear}
-          placeholder="Search"
           showDropdown={false}
         />
         <ProductFilter

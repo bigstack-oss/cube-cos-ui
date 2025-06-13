@@ -25,20 +25,11 @@ type CosOverflowMenuProps = {
   children: ReactNode
 }
 
-const menu = cva(
-  [
-    'absolute z-10',
-    'rounded-[5px] border border-functional-border-divider bg-grey-0 py-2',
-    'shadow-[0px_0px_2px_0px_rgba(0,_0,_0,_0.20)]',
-  ],
-  {
-    variants: {
-      isOpen: {
-        false: 'invisible',
-      },
-    },
-  },
-)
+const menu = cva([
+  'z-10',
+  'rounded-[5px] border border-functional-border-divider bg-grey-0 py-2',
+  'shadow-[0px_0px_2px_0px_rgba(0,_0,_0,_0.20)]',
+])
 
 export const CosOverflowMenu = (props: CosOverflowMenuProps) => {
   const { triggerElement, children } = props
@@ -46,6 +37,7 @@ export const CosOverflowMenu = (props: CosOverflowMenuProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const { anchorRef, elementRef, resolvedStyles } = useFloating({
+    isOpen,
     placement: 'bottom-left',
     offsets: {
       y: 8,
@@ -91,7 +83,7 @@ export const CosOverflowMenu = (props: CosOverflowMenuProps) => {
       {createPortal(
         <div
           ref={elementRef}
-          className={menu({ isOpen })}
+          className={menu()}
           style={resolvedStyles?.floatingStyle}
         >
           {children}

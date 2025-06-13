@@ -1,4 +1,7 @@
-import { EmailRecipientResponse } from '@cube-frontend/api'
+import {
+  EmailRecipientResponse,
+  SettingStatusCurrentEnum,
+} from '@cube-frontend/api'
 import { DeepPartial } from '@cube-frontend/utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
@@ -121,7 +124,12 @@ export const useEmailRecipientRows = (
       row,
       patchRow,
       onSuccess: () => {
-        setRows((prevRows) => prevRows.filter((row) => row.id !== rowId))
+        patchRow(rowId, {
+          status: {
+            current: SettingStatusCurrentEnum.Updating,
+            isUpdating: true,
+          },
+        })
       },
       onError: showErrorToast,
     })

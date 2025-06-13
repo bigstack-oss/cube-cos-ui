@@ -38,7 +38,6 @@ export const HostFilter = (props: HostFilterProps) => {
     <div className="flex items-center gap-x-2">
       <div className="w-[288px]">
         <CosSearchBarFilter
-          placeholder="Search"
           value={keyword}
           showDropdown={false}
           onChange={onKeywordChange}

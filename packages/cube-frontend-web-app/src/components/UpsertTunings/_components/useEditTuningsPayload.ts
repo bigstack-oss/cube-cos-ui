@@ -1,9 +1,10 @@
 import { ListTuningSpecResponseDataInner, Node } from '@cube-frontend/api'
-import { EditTuningsDefaultData } from '@cube-frontend/web-app/stores/editTuningsStore'
+import { EditTuningsInitialData } from '@cube-frontend/web-app/stores/editTuningsStore'
 import { ChangeEvent, useEffect, useState } from 'react'
 import {
-  computeValidHosts,
+  filterValidHosts,
   HostWithRole,
+  limitationValueToPayloadValue,
   UpsertTuningsPayload,
 } from '../upsertTuningsUtils'
 
@@ -16,21 +17,30 @@ type UseEditTuningsPayload = {
 }
 
 const initializePayload = (
-  defaultData: EditTuningsDefaultData,
+  initialData: EditTuningsInitialData,
   selectedSpec: ListTuningSpecResponseDataInner | undefined,
+  nodes: Node[],
 ): UpsertTuningsPayload => {
-  const { specName, value } = defaultData
+  const { specName, value, hosts } = initialData
+
+  const selectedHosts: HostWithRole[] = hosts
+    ? filterValidHosts(nodes, hosts)
+    : []
+
   return {
     selectedSpecName: specName,
-    value: value === undefined ? selectedSpec?.limitation.default : value,
-    selectedHosts: [],
+    value:
+      value === undefined
+        ? limitationValueToPayloadValue(selectedSpec?.limitation.default)
+        : limitationValueToPayloadValue(value),
+    selectedHosts,
   }
 }
 
 export const useEditTuningsPayload = (
   specs: ListTuningSpecResponseDataInner[] | undefined,
   nodes: Node[] | undefined,
-  defaultData: EditTuningsDefaultData,
+  initialData: EditTuningsInitialData,
 ): UseEditTuningsPayload => {
   const [isInitializing, setIsInitializing] = useState(true)
   const [payload, setPayload] = useState<UpsertTuningsPayload | undefined>(
@@ -41,32 +51,16 @@ export const useEditTuningsPayload = (
   >(undefined)
 
   useEffect(() => {
-    if (!specs) {
+    if (!specs || !nodes) {
       return
     }
     const selectedSpec = specs.find(
-      (spec) => spec.name === defaultData.specName,
+      (spec) => spec.name === initialData.specName,
     )
     setIsInitializing(false)
-    setPayload(initializePayload(defaultData, selectedSpec))
+    setPayload(initializePayload(initialData, selectedSpec, nodes))
     setSelectedSpec(selectedSpec)
-  }, [specs, defaultData])
-
-  useEffect(() => {
-    if (!nodes || !defaultData.hosts?.length) {
-      return
-    }
-    const validHosts = computeValidHosts(nodes, defaultData.hosts)
-    setPayload((prev) => {
-      if (!prev) {
-        return prev
-      }
-      return {
-        ...prev,
-        selectedHosts: validHosts,
-      }
-    })
-  }, [nodes, defaultData])
+  }, [specs, nodes, initialData])
 
   const onValueChange = (e: ChangeEvent<HTMLInputElement> | boolean): void => {
     const value = typeof e === 'boolean' ? e : e.target.value

@@ -32,6 +32,14 @@ const PercentagePieChartGallery = () => {
             used={0}
             total={755.1}
           />
+          {/* Show at least 1% in CosPercentagePieChart when percentage > 0. */}
+          <CosPercentagePieChart
+            title="Memory"
+            unit="GB"
+            overThresholdText="Over Limit"
+            used={0.01}
+            total={755.1}
+          />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
@@ -140,6 +148,16 @@ const PercentagePieChartGallery = () => {
               percentageFormatter={formatCpuPercentage}
               thresholdPercentage={400}
               used={0}
+              total={10}
+            />
+            {/* Show at least 1% in CosPercentagePieChart when percentage > 0. */}
+            <CosPercentagePieChart
+              title="vCPU"
+              unit="vCPU"
+              color="stroke-chart-2"
+              percentageFormatter={formatCpuPercentage}
+              thresholdPercentage={400}
+              used={0.01}
               total={10}
             />
             <CosPercentagePieChart

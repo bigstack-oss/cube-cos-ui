@@ -7,12 +7,12 @@ import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useEditTuningsStore } from '@cube-frontend/web-app/stores/editTuningsStore'
 import { useContext } from 'react'
-import { Navigate, useNavigate } from 'react-router'
+import { Link, Navigate, useNavigate } from 'react-router'
 
 export const EditTuningsPage = () => {
   const navigate = useNavigate()
 
-  const defaultData = useEditTuningsStore((store) => store.defaultData)
+  const initialData = useEditTuningsStore((store) => store.initialData)
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -40,21 +40,29 @@ export const EditTuningsPage = () => {
     }
   }
 
-  if (!defaultData) {
+  if (!initialData) {
     // This happens when users access the edit tunings page by directly
     // entering the URL in the browser.
     return <Navigate to={CosRoutesEnum.EVENTS_TUNINGS_PAGE} replace={true} />
   }
 
-  const title = defaultData.hosts?.length ? 'Edit Tunings' : 'Create Tunings'
+  const title = initialData.hosts?.length ? 'Edit Tunings' : 'Create Tunings'
 
   return (
     <div className="mx-2 my-1">
-      <CosBackButton variant="title" onClick={() => history.back()}>
+      <CosBackButton
+        variant="title"
+        backLinkContainer={{
+          Component: Link,
+          props: {
+            to: CosRoutesEnum.EVENTS_TUNINGS_PAGE,
+          },
+        }}
+      >
         {title}
       </CosBackButton>
       <EditTunings
-        defaultData={defaultData}
+        initialData={initialData}
         errorMessage={errorState?.api?.msg || errorState?.native.message}
         onPublishClick={onPublishClick}
       />

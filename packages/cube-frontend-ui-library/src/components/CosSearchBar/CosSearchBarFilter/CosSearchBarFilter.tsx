@@ -59,7 +59,7 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
     value,
     onChange: onInputChange,
     className,
-    placeholder = 'Search Key-Value',
+    placeholder = 'Search',
     ...restProps
   } = props
 
@@ -80,6 +80,7 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
   }, [hasInputValue])
 
   const floatingProps = useFloating<HTMLDivElement, HTMLDivElement>({
+    isOpen: showDropdown && dropdownOpen,
     placement: 'bottom-left',
     offsets: {
       y: 8,
@@ -144,10 +145,7 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
         />
         {renderIcon()}
       </div>
-      <FilterDropdownMenu
-        dropdownOpen={dropdownOpen && showDropdown}
-        floatingProps={floatingProps}
-      >
+      <FilterDropdownMenu floatingProps={floatingProps}>
         {children}
       </FilterDropdownMenu>
     </>

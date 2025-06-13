@@ -1,5 +1,4 @@
 import { CosButton } from '@cube-frontend/ui-library'
-import { useErrorBoundary } from 'react-error-boundary'
 import { twMerge } from 'tailwind-merge'
 
 type ErrorDisplayProps = {
@@ -10,11 +9,10 @@ type ErrorDisplayProps = {
 export const ErrorDisplay = (props: ErrorDisplayProps) => {
   const { title, message } = props
 
-  const { resetBoundary } = useErrorBoundary()
-
   const onGoBackClick = (): void => {
+    // Error boundary will be reset by the `resetKeys` property on
+    // the nearest `<ErrorBoundary>` element.
     history.back()
-    resetBoundary()
   }
 
   return (

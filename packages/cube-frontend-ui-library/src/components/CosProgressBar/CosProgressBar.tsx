@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import { CSSProperties, useMemo } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { PropsWithClassName } from '@cube-frontend/utils'
@@ -61,6 +61,12 @@ export const CosProgressBar = (props: CosProgressBarProps) => {
 
   const color = getProgressColor(progress)
 
+  const displayPercentage = useMemo<number>(() => {
+    if (progress === 0) return 0
+    const rounded = Math.round(progress)
+    return Math.max(1, rounded)
+  }, [progress])
+
   return (
     <div className={className}>
       <div
@@ -88,7 +94,7 @@ export const CosProgressBar = (props: CosProgressBarProps) => {
           />
         )}
       </div>
-      <span className="primary-body5 text-functional-text">{`${Math.round(progress)}%`}</span>
+      <span className="primary-body5 text-functional-text">{`${displayPercentage}%`}</span>
     </div>
   )
 }

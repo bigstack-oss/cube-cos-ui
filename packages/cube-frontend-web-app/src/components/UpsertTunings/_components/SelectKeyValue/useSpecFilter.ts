@@ -1,7 +1,7 @@
 import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from '@cube-frontend/ui-library'
 import { ChangeEvent, useState } from 'react'
 
-type UseSpecFilter = {
+export type UseSpecFilter = {
   filter: SpecFilterValue
   onKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void
   onKeywordClear: () => void

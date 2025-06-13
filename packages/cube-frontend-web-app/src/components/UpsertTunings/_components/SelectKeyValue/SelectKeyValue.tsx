@@ -1,21 +1,21 @@
-import {
-  ListTuningResponseDataTuningsInnerLimitationDefault,
-  ListTuningSpecResponseDataInner,
-} from '@cube-frontend/api'
+import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { ChangeEvent, useMemo } from 'react'
+import { UpsertTuningsPayloadValue } from '../../upsertTuningsUtils'
 import { Board } from '../Board'
 import { SpecEntry } from '../SpecEntry'
 import { TuningSpecTableSection } from './TuningSpecTableSection'
 import { TuningValueControl } from './TuningValueControl'
+import { UseSpecFilter } from './useSpecFilter'
 import { validateTuningValue } from './validateTuningValue'
 
 type SelectKeyValueProps = {
   isLoading: boolean
   specs: ListTuningSpecResponseDataInner[] | undefined
   selectedSpec: ListTuningSpecResponseDataInner | undefined
-  value: ListTuningResponseDataTuningsInnerLimitationDefault | undefined
+  specFilter: UseSpecFilter
+  value: UpsertTuningsPayloadValue
   onSpecSelect: (spec: ListTuningSpecResponseDataInner) => void
   onValueChange: (e: ChangeEvent<HTMLInputElement> | boolean) => void
   onNextClick: () => void
@@ -26,6 +26,7 @@ export const SelectKeyValue = (props: SelectKeyValueProps) => {
     isLoading,
     specs,
     selectedSpec,
+    specFilter,
     value,
     onSpecSelect,
     onValueChange,
@@ -46,6 +47,7 @@ export const SelectKeyValue = (props: SelectKeyValueProps) => {
         isLoading={isLoading}
         specs={specs}
         selectedSpec={selectedSpec}
+        specFilter={specFilter}
         onSpecSelect={onSpecSelect}
       />
       <CosStroke type="regular" />

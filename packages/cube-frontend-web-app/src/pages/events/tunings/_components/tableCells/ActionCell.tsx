@@ -8,7 +8,7 @@ import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import { IconActionButton } from '@cube-frontend/web-app/components/IconActionButton/IconActionButton'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import {
-  EditTuningsDefaultData,
+  EditTuningsInitialData,
   useEditTuningsStore,
 } from '@cube-frontend/web-app/stores/editTuningsStore'
 import { cva } from 'class-variance-authority'
@@ -16,7 +16,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router'
 import { TuningRow } from '../../tuningsUtils'
 
-const { setDefaultData } = useEditTuningsStore.getState()
+const { setInitialData } = useEditTuningsStore.getState()
 
 export type ActionCellProps = {
   row: TuningRow
@@ -34,7 +34,7 @@ const iconButton = cva('icon-md', {
   },
 })
 
-const computeEditDefaultData = (row: TuningRow): EditTuningsDefaultData => {
+const computeEditInitialData = (row: TuningRow): EditTuningsInitialData => {
   if (row.isModified) {
     return {
       specName: row.name,
@@ -74,7 +74,7 @@ export const ActionCell = (props: ActionCellProps) => {
     }
 
     const onEditClick = (): void => {
-      setDefaultData(computeEditDefaultData(row))
+      setInitialData(computeEditInitialData(row))
     }
 
     return (

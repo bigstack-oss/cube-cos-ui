@@ -79,6 +79,7 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
   }
 
   const floatingProps = useFloating<HTMLButtonElement, HTMLDivElement>({
+    isOpen: isCalendarOpen,
     placement: 'bottom-left',
     offsets: {
       y: 8,

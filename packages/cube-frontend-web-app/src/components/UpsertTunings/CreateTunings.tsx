@@ -11,6 +11,7 @@ import { Navigate } from 'react-router'
 import { PublishTuning } from './_components/Publish/PublishTuning'
 import { SelectHosts } from './_components/SelectHosts/SelectHosts'
 import { SelectKeyValue } from './_components/SelectKeyValue/SelectKeyValue'
+import { useSpecFilter } from './_components/SelectKeyValue/useSpecFilter'
 import { UpsertTuningsSteps } from './_components/UpsertTuningsSteps'
 import { useCreateTuningsPayload } from './_components/useCreateTuningsPayload'
 import { useStepParam } from './_components/useStepParam'
@@ -50,12 +51,15 @@ export const CreateTunings = (props: CreateTuningsProps) => {
 
   const { step, goToSelectHosts, goToPublish } = useStepParam()
 
+  const specFilter = useSpecFilter()
+
   const renderContentFnMap: Record<UpsertTuningsStep, () => ReactNode> = {
     keyValue: () => (
       <SelectKeyValue
         isLoading={!specs}
         specs={specs}
         selectedSpec={selectedSpec}
+        specFilter={specFilter}
         value={payload.value}
         onSpecSelect={onSpecSelect}
         onValueChange={onValueChange}
@@ -74,6 +78,7 @@ export const CreateTunings = (props: CreateTuningsProps) => {
     publish: () => (
       <PublishTuning
         payload={payload}
+        selectedSpec={selectedSpec!}
         errorMessage={errorMessage}
         onPublishClick={onPublishClick}
       />

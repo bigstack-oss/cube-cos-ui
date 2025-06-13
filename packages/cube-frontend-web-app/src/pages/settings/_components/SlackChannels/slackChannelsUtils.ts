@@ -35,8 +35,6 @@ export const createNewRow = (): SlackChannelRow => ({
 // TODO: Replace error messages with i18n keys.
 export const slackChannelSchema = z.object({
   name: z.string().min(1, 'Invalid name'),
-  url: z
-    .string()
-    .regex(/^https:\/\/hooks\.slack\.com\/services\/.+/, 'Invalid url'),
+  url: z.string().url('Invalid url'),
   description: z.string(),
 })

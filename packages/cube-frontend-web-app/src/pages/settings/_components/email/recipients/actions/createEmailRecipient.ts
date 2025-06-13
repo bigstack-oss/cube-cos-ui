@@ -28,12 +28,11 @@ export const createEmailRecipient = async (
     patchRow(row.id, {
       id: getRowId(),
       originalState: newEmailRecipient,
-      status: {
-        current: SettingStatusCurrentEnum.Ok,
-        isUpdating: false,
-      },
       isNew: false,
       isEditing: false,
+      // Don't set `status.isUpdating` to false after creation because
+      // email recipients are in an updating state by default upon creation.
+      // Status will be synced by polling later.
     })
     onSuccess?.()
   } catch (error) {

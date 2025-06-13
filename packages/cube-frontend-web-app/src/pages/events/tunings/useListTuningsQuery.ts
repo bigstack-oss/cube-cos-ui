@@ -1,11 +1,13 @@
+import { ChangeEvent } from 'react'
+import { z } from 'zod'
 import { Node } from '@cube-frontend/api'
 import { ItemsPerPage } from '@cube-frontend/ui-library'
-import { ChangeEvent, useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router'
+import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchParamsQuery'
 import {
   modifiedOptions,
   queryToSearchParams,
   searchParamsToQuery,
+  tuningListQuerySchema,
 } from './tuningsUtils'
 
 type UseListTuningsQuery = {
@@ -20,31 +22,13 @@ type UseListTuningsQuery = {
   onItemsPerPageChange: (itemsPerPage: ItemsPerPage) => void
 }
 
-export type ListTuningsQuery = {
-  keyword: string
-  modified: boolean[]
-  hosts: string[]
-  currentPage: number
-  itemsPerPage: ItemsPerPage
-}
+export type ListTuningsQuery = z.output<typeof tuningListQuerySchema>
 
 export const useListTuningsQuery = (): UseListTuningsQuery => {
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const [query, setQuery] = useState<ListTuningsQuery>(() =>
-    searchParamsToQuery(searchParams),
-  )
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      const nextSearchParams = queryToSearchParams(query)
-      setSearchParams(nextSearchParams, { replace: true })
-    }, 250)
-
-    return () => {
-      clearTimeout(timeoutId)
-    }
-  }, [query, setSearchParams])
+  const { query, setQuery } = useSearchParamsQuery({
+    queryToSearchParams,
+    searchParamsToQuery,
+  })
 
   const onKeywordChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target
@@ -84,6 +68,7 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
     setQuery((prev) => ({
       ...prev,
       modified: checked ? [...modifiedOptions] : [],
+      currentPage: 1,
     }))
   }
 
@@ -118,8 +103,8 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
   const onItemsPerPageChange = (itemsPerPage: ItemsPerPage): void => {
     setQuery((prev) => ({
       ...prev,
-      currentPage: 1,
       itemsPerPage,
+      currentPage: 1,
     }))
   }
 

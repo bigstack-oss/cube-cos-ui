@@ -1,6 +1,10 @@
 import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { ChangeEvent, useMemo, useState } from 'react'
-import { HostWithRole, UpsertTuningsPayload } from '../upsertTuningsUtils'
+import {
+  HostWithRole,
+  limitationValueToPayloadValue,
+  UpsertTuningsPayload,
+} from '../upsertTuningsUtils'
 
 type UseCreateTuningsPayload = {
   payload: UpsertTuningsPayload
@@ -34,7 +38,7 @@ export const useCreateTuningsPayload = (
       setPayload((prev) => ({
         ...prev,
         selectedSpecName: spec.name,
-        value: spec.limitation.default,
+        value: limitationValueToPayloadValue(spec.limitation.default),
       }))
     }
   }

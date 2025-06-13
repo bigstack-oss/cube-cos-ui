@@ -8,13 +8,8 @@ import { CosDatePickerContext } from './context'
 import { menu } from './styles'
 
 export const CosDatePickerMenu = () => {
-  const {
-    floatingProps,
-    calendarOpen: isVisible,
-    displayDates,
-    onApply,
-    onReset,
-  } = useContext(CosDatePickerContext)
+  const { floatingProps, displayDates, onApply, onReset } =
+    useContext(CosDatePickerContext)
 
   const { start, end } = displayDates
 
@@ -23,7 +18,7 @@ export const CosDatePickerMenu = () => {
   return createPortal(
     <div
       ref={elementRef}
-      className={twMerge(menu({ isVisible }))}
+      className={twMerge(menu())}
       style={resolvedStyles?.floatingStyle}
     >
       <div className="flex gap-4">

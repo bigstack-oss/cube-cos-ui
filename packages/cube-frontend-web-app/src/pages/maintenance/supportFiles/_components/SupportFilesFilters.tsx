@@ -10,10 +10,10 @@ import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
 import { GetNodesRolesEnum } from '@cube-frontend/api'
 
 export type SupportFilesFiltersProps = {
-  searchKeyword: string
+  keyword: string
   handleSearchKeywordChange: (value: string) => void
   handleSearchKeywordClear: () => void
-  selectedRoles: GetNodesRolesEnum[]
+  roles: GetNodesRolesEnum[]
   handleRolesSelect: (roles: GetNodesRolesEnum[]) => void
   startDate?: Dayjs
   endDate?: Dayjs
@@ -23,10 +23,10 @@ export type SupportFilesFiltersProps = {
 
 export const SupportFilesFilters = (props: SupportFilesFiltersProps) => {
   const {
-    searchKeyword,
+    keyword,
     handleSearchKeywordChange,
     handleSearchKeywordClear,
-    selectedRoles,
+    roles,
     handleRolesSelect,
     startDate,
     endDate,
@@ -48,8 +48,12 @@ export const SupportFilesFilters = (props: SupportFilesFiltersProps) => {
     const { start, end } = displayDates
     if (!start || !end) return
 
-    handleStartDateChange(displayDates.start)
-    handleEndDateChange(displayDates.end)
+    /**
+     * When the user selects a start and end date from the date picker,
+     * we need to set the `start` to the beginning of the `startDate` and the `end` to the end of the `endDate`.
+     */
+    handleStartDateChange(start.startOf('day'))
+    handleEndDateChange(end.endOf('day'))
   }
 
   const handleDatePickerReset = () => {
@@ -65,21 +69,20 @@ export const SupportFilesFilters = (props: SupportFilesFiltersProps) => {
   }
 
   const showClearAllFilter =
-    !!searchKeyword || selectedRoles.length > 0 || !!startDate || !!endDate
+    !!keyword || roles.length > 0 || !!startDate || !!endDate
 
   return (
     <div className="flex items-center gap-x-3">
       <div className="flex items-center gap-x-2">
         <CosSearchBarFilter
           className="w-[320px]"
-          value={searchKeyword}
+          value={keyword}
           onChange={(e) => handleSearchKeywordChange(e.target.value)}
           onInputClear={handleSearchKeywordClear}
-          placeholder="Search"
           showDropdown={false}
         />
         <RoleFilter
-          selectedRoles={selectedRoles}
+          selectedRoles={roles}
           handleRolesSelect={handleRolesSelect}
         />
         <CosDatePicker

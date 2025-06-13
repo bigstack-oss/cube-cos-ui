@@ -1,36 +1,49 @@
 import { ListTuningResponseDataTuningsInner } from '@cube-frontend/api'
 import { CosTableRow, DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
-import { uniqueId } from 'lodash'
 import { z } from 'zod'
 import { ListTuningsQuery } from './useListTuningsQuery'
+import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 
 export type TuningRow = ListTuningResponseDataTuningsInner & CosTableRow
 
-const getRowId = (): string => uniqueId('tuning')
+const computeTuningRowId = (
+  tuning: ListTuningResponseDataTuningsInner,
+): string => {
+  // The combination of tuning name and hosts is guaranteed to be unique.
+  const { name, hosts } = tuning
+  const hostNames = hosts.map((host) => host.name)
+  return JSON.stringify({ name, hostNames })
+}
 
 export const tuningToRow = (
   tuning: ListTuningResponseDataTuningsInner,
 ): TuningRow => ({
   ...structuredClone(tuning),
-  id: getRowId(),
+  id: computeTuningRowId(tuning),
 })
 
 export const modifiedOptions = [true, false] as const
 
-const querySchema = z.object({
-  keyword: z.string().nullable(),
-  modified: z
-    .enum(['true', 'false'])
+export const tuningListQuerySchema = paginationQuerySchema.extend({
+  keyword: z
+    .string()
     .nullable()
     .transform((value) => {
-      return value === 'true'
+      return value ?? ''
+    }),
+  modified: z
+    .enum(['true', 'false'])
+    .array()
+    .nullable()
+    .transform((array) => {
+      return array?.map((value) => value === 'true') ?? []
     }),
   hosts: z
     .string()
     .array()
     .nullable()
     .transform((array) => {
-      return array?.filter((value) => !!value)
+      return array?.filter((value) => !!value) ?? []
     }),
 })
 
@@ -38,6 +51,8 @@ enum ParamKeyEnum {
   Keyword = 'keyword',
   Modified = 'modified',
   Hosts = 'hosts',
+  CurrentPage = 'page',
+  ItemsPerPage = 'pageSize',
 }
 
 export const searchParamsToQuery = (
@@ -46,26 +61,30 @@ export const searchParamsToQuery = (
   const keyword = searchParams.get(ParamKeyEnum.Keyword)
   const modified = searchParams.getAll(ParamKeyEnum.Modified)
   const hosts = searchParams.getAll(ParamKeyEnum.Hosts)
+  const currentPage = searchParams.get(ParamKeyEnum.CurrentPage)
+  const itemsPerPage = searchParams.get(ParamKeyEnum.ItemsPerPage)
 
-  const parsedQuery = querySchema.safeParse({
+  const parsedQuery = tuningListQuerySchema.safeParse({
     keyword,
     modified,
     hosts,
+    currentPage,
+    itemsPerPage,
   }).data
 
   return {
     keyword: parsedQuery?.keyword ?? '',
-    modified: (parsedQuery?.modified ?? []) as boolean[],
+    modified: parsedQuery?.modified ?? [],
     hosts: parsedQuery?.hosts ?? [],
-    currentPage: 1,
-    itemsPerPage: DEFAULT_ITEMS_PER_PAGE,
+    currentPage: parsedQuery?.currentPage ?? 1,
+    itemsPerPage: parsedQuery?.itemsPerPage ?? DEFAULT_ITEMS_PER_PAGE,
   }
 }
 
 export const queryToSearchParams = (
   query: ListTuningsQuery,
 ): URLSearchParams => {
-  const { keyword, modified, hosts } = query
+  const { keyword, modified, hosts, currentPage, itemsPerPage } = query
   const nextSearchParams = new URLSearchParams()
 
   if (keyword) {
@@ -79,6 +98,9 @@ export const queryToSearchParams = (
   hosts.forEach((host) => {
     nextSearchParams.append(ParamKeyEnum.Hosts, host)
   })
+
+  nextSearchParams.set(ParamKeyEnum.CurrentPage, currentPage.toString())
+  nextSearchParams.set(ParamKeyEnum.ItemsPerPage, itemsPerPage.toString())
 
   return nextSearchParams
 }

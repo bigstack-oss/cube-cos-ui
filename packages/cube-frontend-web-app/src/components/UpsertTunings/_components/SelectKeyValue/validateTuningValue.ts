@@ -1,13 +1,13 @@
 import {
-  ListTuningResponseDataTuningsInnerLimitationDefault,
   ListTuningSpecResponseDataInnerLimitation,
   TuningLimitationType,
 } from '@cube-frontend/api'
 import { z } from 'zod'
+import { UpsertTuningsPayloadValue } from '../../upsertTuningsUtils'
 
 export const validateTuningValue = (
   limitation: ListTuningSpecResponseDataInnerLimitation | undefined,
-  value: ListTuningResponseDataTuningsInnerLimitationDefault | undefined,
+  value: UpsertTuningsPayloadValue,
 ): boolean => {
   if (!limitation) {
     return false
@@ -18,7 +18,7 @@ export const validateTuningValue = (
 
 type ValidateFn = (
   limitation: ListTuningSpecResponseDataInnerLimitation,
-  value: ListTuningResponseDataTuningsInnerLimitationDefault | undefined,
+  value: UpsertTuningsPayloadValue,
 ) => boolean
 
 const validateString: ValidateFn = (limitation, value) => {
@@ -40,11 +40,14 @@ const validateString: ValidateFn = (limitation, value) => {
   return schema.safeParse(value).success
 }
 
+const intRegex = /^-?\d+$/
+
 const validateInt: ValidateFn = (limitation, value) => {
+  const stringifiedValue = value?.toString() ?? ''
+  if (!intRegex.test(stringifiedValue)) return false
+
   const { min, max } = limitation
   let schema = z.number().int()
-
-  const parsedValue = Number(value?.toString())
 
   if (min !== undefined) {
     schema = schema.min(min)
@@ -54,10 +57,16 @@ const validateInt: ValidateFn = (limitation, value) => {
     schema = schema.max(max)
   }
 
+  const parsedValue = parseInt(stringifiedValue)
   return schema.safeParse(parsedValue).success
 }
 
-const validateFloat: ValidateFn = (limitation, value) => {
+const uIntRegex = /^\d+$/
+
+const validateUInt: ValidateFn = (limitation, value) => {
+  const stringifiedValue = value?.toString() ?? ''
+  if (!uIntRegex.test(stringifiedValue)) return false
+
   const { min, max } = limitation
   let schema = z.number()
 
@@ -69,7 +78,8 @@ const validateFloat: ValidateFn = (limitation, value) => {
     schema = schema.max(max)
   }
 
-  return schema.safeParse(value).success
+  const parsedValue = parseInt(stringifiedValue)
+  return schema.safeParse(parsedValue).success
 }
 
 const validateBool: ValidateFn = (_, value) => {
@@ -79,6 +89,6 @@ const validateBool: ValidateFn = (_, value) => {
 const validateFnMap: Record<TuningLimitationType, ValidateFn> = {
   str: validateString,
   int: validateInt,
-  uint: validateFloat,
+  uint: validateUInt,
   bool: validateBool,
 }

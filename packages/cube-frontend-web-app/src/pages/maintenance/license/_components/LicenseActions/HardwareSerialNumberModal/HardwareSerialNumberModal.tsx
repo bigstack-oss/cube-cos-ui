@@ -55,9 +55,11 @@ export const HardwareSerialNumberModal = (
       title="Get Hardware Serial Number"
       footerMessage={
         showCopySuccess && (
-          <div className="flex items-center gap-x-1 text-status-positive-text">
-            <CheckIcon className="icon-md" />
-            <span className="primary-body4">Copied to clipboard.</span>
+          <div className="flex flex-1 items-center justify-end">
+            <div className="flex items-center gap-x-1 text-status-positive-text">
+              <CheckIcon className="icon-md" />
+              <span className="primary-body4">Copied to clipboard.</span>
+            </div>
           </div>
         )
       }

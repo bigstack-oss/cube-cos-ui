@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
@@ -6,7 +6,7 @@ import { TriggersApiGetTriggersRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { mapToTriggerTableRows, TriggerRow } from './utils'
+import { mapToTriggerTableRow, TriggerRow } from './utils'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export type UseTriggerRowsOptions = {
@@ -30,11 +30,12 @@ export const useTriggerRows = (
   const { dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<TriggerRow[]>([])
+  const intervenedTriggerNamesRef = useRef<Set<string>>(new Set())
 
   const {
     data: listTriggersResponse,
     hasResponseBeenReceived,
-    getResource: refreshListTriggers,
+    getResource: refreshTriggers,
   } = useCosGetRequest(
     triggersApi.getTriggers,
     (): TriggersApiGetTriggersRequest => ({
@@ -42,11 +43,24 @@ export const useTriggerRows = (
     }),
   )
 
-  useSequentialInterval(refreshListTriggers, 5000)
+  useSequentialInterval(refreshTriggers, 5000)
 
   useEffect(() => {
-    const triggers = listTriggersResponse ?? []
-    setRows(mapToTriggerTableRows(triggers))
+    const triggersFromApi = listTriggersResponse ?? []
+    setRows((oldRows) => {
+      const oldRowsMap: Map<string, TriggerRow> = new Map(
+        oldRows.map((row) => [row.name, row]),
+      )
+      return triggersFromApi.map((trigger) => {
+        const newRow = mapToTriggerTableRow(trigger)
+        // For triggers with manual interventions, keep the state intact and
+        // sync it using additional API calls.
+        if (intervenedTriggerNamesRef.current.has(trigger.name)) {
+          return oldRowsMap.get(trigger.name) ?? newRow
+        }
+        return newRow
+      })
+    })
   }, [listTriggersResponse])
 
   const onError = (error: unknown): void => {
@@ -78,6 +92,8 @@ export const useTriggerRows = (
     const enabledBeforeToggle = !!targetRow?.enabled
     const newEnabled = !enabledBeforeToggle
 
+    intervenedTriggerNamesRef.current.add(triggerName)
+
     patchRow(triggerName, {
       enabled: newEnabled,
       status: {
@@ -94,6 +110,7 @@ export const useTriggerRows = (
           enable: newEnabled,
         },
       })
+      await syncIntervenedRowStatus(targetRow)
     } catch (error) {
       console.error('Trigger update error: ', error)
       /**
@@ -106,10 +123,36 @@ export const useTriggerRows = (
           isUpdating: false,
         },
       })
+      intervenedTriggerNamesRef.current.delete(triggerName)
       /**
        * Handle the error by showing a notification.
        */
       onError(error)
+    }
+  }
+
+  const syncIntervenedRowStatus = async (
+    targetRow: TriggerRow,
+  ): Promise<void> => {
+    try {
+      const {
+        data: { data: triggers },
+      } = await triggersApi.getTriggers({
+        dataCenter: dataCenter!.name,
+      })
+
+      const trigger = triggers.find(
+        (trigger) => trigger.name === targetRow.name,
+      )
+      if (!trigger) return
+
+      patchRow(targetRow.name, {
+        status: trigger.status,
+      })
+    } catch (error) {
+      console.error('Get trigger error when syncing intervened row: ', error)
+    } finally {
+      intervenedTriggerNamesRef.current.delete(targetRow.id)
     }
   }
 

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { CosToggle } from '@cube-frontend/ui-library'
 import { TriggerRow } from './utils'
 
@@ -12,22 +11,20 @@ export const TriggersStatusToggle = (props: TriggersStatusToggleProps) => {
 
   const {
     name,
+    response: { types },
     enabled,
     status: { isUpdating },
   } = row
 
-  const [isOn, setIsOn] = useState(!!enabled)
-
   const handleToggleChange = () => {
     onChange(name)
-    setIsOn(!row?.enabled)
   }
 
   return (
     <CosToggle
-      isOn={isOn}
+      isOn={!!enabled}
       onChange={handleToggleChange}
-      disabled={isUpdating}
+      disabled={isUpdating || types.length === 0}
     />
   )
 }

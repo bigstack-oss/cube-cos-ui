@@ -1,8 +1,10 @@
+import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { CosButton, GetCosBasicTable } from '@cube-frontend/ui-library'
 import { useMemo, useState } from 'react'
 import {
   hostToPreviewRow,
   NonNullableUpsertTuningsPayload,
+  payloadValueToLimitationValue,
   PreviewRow,
   UpsertTuningsPayload,
 } from '../../upsertTuningsUtils'
@@ -12,6 +14,7 @@ import { TuningsPreviousButton } from '../TuningsPreviousButton'
 
 type PublishTuningProps = {
   payload: UpsertTuningsPayload
+  selectedSpec: ListTuningSpecResponseDataInner
   errorMessage?: string | undefined
   onPublishClick: (payload: NonNullableUpsertTuningsPayload) => Promise<void>
 }
@@ -19,7 +22,12 @@ type PublishTuningProps = {
 const PreviewTable = GetCosBasicTable<PreviewRow>()
 
 export const PublishTuning = (props: PublishTuningProps) => {
-  const { payload, errorMessage, onPublishClick: onPublishClickProp } = props
+  const {
+    payload,
+    selectedSpec,
+    errorMessage,
+    onPublishClick: onPublishClickProp,
+  } = props
 
   const { selectedSpecName, value, selectedHosts } = payload
 
@@ -33,7 +41,15 @@ export const PublishTuning = (props: PublishTuningProps) => {
   const onPublishClick = async () => {
     setIsLoading(true)
     try {
-      await onPublishClickProp(payload as NonNullableUpsertTuningsPayload)
+      const transformedPayload = {
+        ...payload,
+        value: payloadValueToLimitationValue(
+          selectedSpec.limitation.type,
+          payload.value!,
+        ),
+      } as NonNullableUpsertTuningsPayload
+
+      await onPublishClickProp(transformedPayload)
     } finally {
       setIsLoading(false)
     }
