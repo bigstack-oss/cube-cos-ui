@@ -47,7 +47,7 @@ export const CosRoutes = () => {
       </Route>
       <Route path={CosRoutesEnum.NODES_PAGE} element={<NodeListPage />} />
       <Route
-        path={CosRoutesEnum.NODES_DETAIL_PAGE()}
+        path={CosRoutesEnum.NODE_DETAIL_PAGE()}
         element={<NodeDetailsPage />}
       />
       <Route

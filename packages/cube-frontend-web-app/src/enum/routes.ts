@@ -9,7 +9,7 @@ export const CosRoutesEnum = {
   HOME_MANAGE_PAGE: '/home/manage',
   /** Nodes Page */
   NODES_PAGE: '/nodes',
-  NODES_DETAIL_PAGE: (hostname = ':name') => `/nodes/${hostname}` as const,
+  NODE_DETAIL_PAGE: (hostname = ':name') => `/nodes/${hostname}` as const,
   /** Integrations Page */
   INTEGRATIONS_PAGE: '/integrations',
   /** Maintenance Page */

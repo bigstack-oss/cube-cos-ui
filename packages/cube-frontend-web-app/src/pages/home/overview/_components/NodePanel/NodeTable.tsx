@@ -35,7 +35,7 @@ export const NodeTable = (props: NodeTableProps) => {
           <div className="flex items-center gap-x-2">
             <Link
               className="block w-fit"
-              to={CosRoutesEnum.NODES_DETAIL_PAGE(hostname)}
+              to={CosRoutesEnum.NODE_DETAIL_PAGE(hostname)}
             >
               <CosHyperlink variant="text-only" onClick={noop}>
                 {hostname}
