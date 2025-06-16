@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useMemo } from 'react'
 import { DataCenterContext } from './DataCenterContext'
 import { dataCentersApi } from '../api/cosApi'
 import { useCosGetRequest } from '../hooks/useCosRequest/useCosGetRequest'
@@ -21,10 +21,16 @@ export const DataCenterProvider = (props: PropsWithChildren) => {
     throw new Error('A data center is required.')
   }
 
+  const contextValue = useMemo(() => {
+    return {
+      dataCenter,
+      fetchDataCenters,
+      isLoading,
+    }
+  }, [dataCenter, fetchDataCenters, isLoading])
+
   return (
-    <DataCenterContext.Provider
-      value={{ dataCenter, fetchDataCenters, isLoading }}
-    >
+    <DataCenterContext.Provider value={contextValue}>
       {children}
     </DataCenterContext.Provider>
   )

@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useMemo } from 'react'
 import {
   UseFloatingExternalContext,
   UseFloatingExternalContextValue,
@@ -9,8 +9,14 @@ export const UseFloatingExternalContextProvider = (
 ) => {
   const { children, scrollableRootSelector } = props
 
+  const contextValue = useMemo(() => {
+    return {
+      scrollableRootSelector,
+    }
+  }, [scrollableRootSelector])
+
   return (
-    <UseFloatingExternalContext.Provider value={{ scrollableRootSelector }}>
+    <UseFloatingExternalContext.Provider value={contextValue}>
       {children}
     </UseFloatingExternalContext.Provider>
   )

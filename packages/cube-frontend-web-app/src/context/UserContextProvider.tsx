@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext } from 'react'
+import { PropsWithChildren, useContext, useMemo } from 'react'
 import { DataCenterContext } from './DataCenterContext'
 import { UserContext } from './UserContext'
 import { userInfoApi } from '../api/cosApi'
@@ -26,9 +26,14 @@ export const UserContextProvider = (props: PropsWithChildren) => {
 
   const isLoading = isDataCenterLoading || isUserInfoLoading
 
+  const contextValue = useMemo(() => {
+    return {
+      userInfo,
+      isLoading,
+    }
+  }, [userInfo, isLoading])
+
   return (
-    <UserContext.Provider value={{ userInfo, isLoading }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   )
 }
