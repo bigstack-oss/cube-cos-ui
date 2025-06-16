@@ -96,11 +96,23 @@ const button = cva(
         lg: 'secondary-body2 h-[42px] px-5 py-3',
       },
       usage: {} as Record<NonNullable<CosButtonUsage>, ClassValue>,
+      loading: {} as Record<'true' | 'false', ClassValue>,
     },
     compoundVariants: [
       { usage: 'icon-only', size: 'sm', className: 'p-[5px]' },
       { usage: 'icon-only', size: 'md', className: 'p-2' },
       { usage: 'icon-only', size: 'lg', className: 'p-3' },
+      /**
+       * We expect the button only show the loading spinner when the usage is 'text-only'.
+       *
+       * disabled:relative => position the absolute positioned spinner relative to the button.
+       * disabled:text-transparent => hide the text but keep the button's width and height.
+       */
+      {
+        usage: 'text-only',
+        loading: true,
+        className: 'disabled:relative disabled:text-transparent',
+      },
     ],
   },
 )
@@ -124,17 +136,29 @@ const loadingSpinner = cva(undefined, {
       warning: 'text-red-100',
       light: 'text-functional-disable-text',
     },
+    /**
+     * The button should only show the loading spinner when the usage is 'text-only',
+     * so we need to center the absolute positioned spinner within the button.
+     */
+    usage: {
+      'text-only':
+        'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+    } as Record<NonNullable<CosButtonUsage>, ClassValue>,
   },
 })
 
 type ButtonLoadingSpinnerProps = {
   type: CosButtonType
+  usage: CosButtonUsage
 }
 
 const ButtonLoadingSpinner = (props: ButtonLoadingSpinnerProps) => {
-  const { type } = props
+  const { type, usage } = props
   return (
-    <CosLoadingSpinner variant="dot45" className={loadingSpinner({ type })} />
+    <CosLoadingSpinner
+      variant="dot45"
+      className={loadingSpinner({ type, usage })}
+    />
   )
 }
 
@@ -168,7 +192,7 @@ export const CosButton = (props: CosButtonProps) => {
     return (
       <div className={twMerge(iconContainer({ size }))}>
         {loading ? (
-          <ButtonLoadingSpinner type={type} />
+          <ButtonLoadingSpinner type={type} usage={usage} />
         ) : (
           <Icon className={getIconSizeByButtonSize(size)} />
         )}
@@ -199,7 +223,7 @@ export const CosButton = (props: CosButtonProps) => {
         return (
           <>
             {props.children}
-            {loading && <ButtonLoadingSpinner type={type} />}
+            {loading && <ButtonLoadingSpinner type={type} usage={usage} />}
           </>
         )
     }
@@ -208,7 +232,7 @@ export const CosButton = (props: CosButtonProps) => {
   return (
     <button
       type={htmlType}
-      className={twMerge(button({ type, size, usage }), className)}
+      className={twMerge(button({ type, size, usage, loading }), className)}
       disabled={disabled}
       onClick={onClick}
       {...omit(restProps, 'Icon')}
