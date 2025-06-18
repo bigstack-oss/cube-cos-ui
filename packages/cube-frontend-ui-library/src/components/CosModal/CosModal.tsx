@@ -93,6 +93,14 @@ export const CosModal = (props: CosModalProps) => {
           <div className="flex-1 overflow-auto p-7">{children}</div>
           <div className="flex items-center justify-end gap-x-2.5 border-t border-functional-border-divider px-7 py-4">
             {renderFooterMessage(footerMessage)}
+            <CosButton
+              type="ghost"
+              usage="text-only"
+              size="lg"
+              onClick={onCloseClick}
+            >
+              Cancel
+            </CosButton>
             {isActionButtonVisible && (
               <CosButton
                 usage="text-only"
@@ -103,14 +111,6 @@ export const CosModal = (props: CosModalProps) => {
                 {actionText}
               </CosButton>
             )}
-            <CosButton
-              type="secondary"
-              usage="text-only"
-              size="lg"
-              onClick={onCloseClick}
-            >
-              Cancel
-            </CosButton>
           </div>
         </MemoChildren>
       </div>
