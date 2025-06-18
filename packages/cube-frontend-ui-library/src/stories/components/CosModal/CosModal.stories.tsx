@@ -142,6 +142,12 @@ export const Gallery: StoryObj = {
              */
             className="h-[780px] max-h-screen"
           />
+          <ModalStoryRow
+            label="Custom Width"
+            size="sm"
+            content="This is a custom width modal."
+            className="min-w-[min(1000px,_100dvw)]"
+          />
         </StoryLayout.Section>
       </StoryLayout>
     )

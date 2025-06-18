@@ -22,7 +22,8 @@ export const backdrop = cva(
 export const modal = cva(
   [
     'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
-    'flex max-h-[min(600px,_100dvh)] min-h-[204px] flex-col',
+    'max-h-[min(600px,_100dvh)] min-h-[204px] max-w-[min(1080px,_100dvw)]',
+    'flex flex-col',
     'rounded-[5px] border border-functional-border-divider bg-grey-0',
     'transition-opacity duration-200',
   ],

@@ -51,7 +51,7 @@ export const HardwareSerialNumberModal = (
 
   return (
     <CosModal
-      className="min-w-[1000px]"
+      className="min-w-[min(1000px,_100dvw)]"
       title="Get Hardware Serial Number"
       footerMessage={
         showCopySuccess && (
