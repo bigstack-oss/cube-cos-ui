@@ -31,7 +31,7 @@ export const coloredIcons = getIcons(coloredModule)
 
 export const renderSizeRow = (title: string, icon: React.ReactNode) => (
   <div className="flex h-16 items-center">
-    <h3 className="min-w-[180px] font-inter text-secondary-h5 text-functional-text">
+    <h3 className="secondary-h5 min-w-[180px] font-inter text-functional-text">
       {title}
     </h3>
     {icon}

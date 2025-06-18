@@ -5,7 +5,8 @@ export type {
   FillColorClass,
   StrokeColorClass,
 } from './cubeTheme'
-export type {
-  FontAttributes,
-  FontConfiguration,
-} from './plugins/typographyPlugin'
+export {
+  getTypography,
+  type Typography,
+  type TypographyClassName,
+} from './utils/typography/typography'

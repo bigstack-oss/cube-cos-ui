@@ -1,14 +1,13 @@
-import { cubePreset, FontConfiguration } from '@cube-frontend/ui-theme'
+import { Typography } from '@cube-frontend/ui-theme'
 
 export type FontConfigurationInfoProps = {
-  fontFamily: keyof typeof cubePreset.theme.extend.fontFamily
-  configuration: FontConfiguration
+  typography: Typography
 }
 
 export const FontConfigurationInfo = (props: FontConfigurationInfoProps) => {
-  const { fontFamily, configuration } = props
-
-  const [fontSize, attributes] = configuration
+  const {
+    typography: { fontFamily, fontSize, lineHeight, letterSpacing },
+  } = props
 
   const renderInfo = (label: string, value: string | number | undefined) => {
     return <div>{`${label}: ${value || 'normal'};`}</div>
@@ -21,8 +20,8 @@ export const FontConfigurationInfo = (props: FontConfigurationInfoProps) => {
         {renderInfo('Font Size', fontSize)}
       </div>
       <div className="flex flex-col gap-y-2">
-        {renderInfo('Line Height', attributes.lineHeight)}
-        {renderInfo('Letter Spacing', attributes.letterSpacing)}
+        {renderInfo('Line Height', lineHeight)}
+        {renderInfo('Letter Spacing', letterSpacing)}
       </div>
     </div>
   )

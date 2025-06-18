@@ -15,6 +15,7 @@ import { ChartEmpty } from '../../ChartEmpty'
 import { RankedEvent } from '../../useRankedEvents'
 import { BarChartSkeleton } from './BarChartSkeleton'
 import { getChartData, getChartOptions } from './barChartUtils'
+import { getTypography } from '@cube-frontend/ui-theme'
 
 ChartJS.register(BarElement, ArcElement, Tooltip, Legend)
 
@@ -102,10 +103,9 @@ export const BarChart = (props: BarChartProps) => {
             id: 'drawValuePlugin',
             afterDatasetsDraw: (chart) => {
               const ctx = chart.ctx
-              const fontFamily = cubeTheme.fontFamily.inter[0]
-              const fontSize = cubeTheme.fontSize['primary-body5'][0]
+              const typography = getTypography('primary-body5')
 
-              ctx.font = `${fontSize} ${fontFamily}`
+              ctx.font = `${typography.fontSize} ${typography.fontFamily}`
               ctx.textAlign = 'center'
 
               chart.data.datasets.forEach((dataset, i) => {

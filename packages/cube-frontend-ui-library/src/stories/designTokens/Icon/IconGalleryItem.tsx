@@ -20,7 +20,7 @@ export const IconGalleryItem = (props: IconGalleryItemProps) => {
       <CosIconFrame size={size} className={className} onClick={onIconClick}>
         <Component />
       </CosIconFrame>
-      <span className="max-w-full break-all text-center text-secondary-body6 text-functional-text-light">
+      <span className="secondary-body6 max-w-full break-all text-center text-functional-text-light">
         {name}
       </span>
     </div>
