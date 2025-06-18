@@ -131,6 +131,18 @@ export const Gallery: StoryObj = {
             }
           />
         </StoryLayout.Section>
+        <StoryLayout.Section title="Custom">
+          <ModalStoryRow
+            label="Custom Height"
+            size="sm"
+            content="This is a custom height modal."
+            /**
+             * The default `max-height` of CosModal is `min(600px, 100dvh)`.
+             * so we need to override it to display  a height of 780px.
+             */
+            className="h-[780px] max-h-screen"
+          />
+        </StoryLayout.Section>
       </StoryLayout>
     )
   },

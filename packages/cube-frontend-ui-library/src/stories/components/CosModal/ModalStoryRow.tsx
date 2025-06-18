@@ -4,10 +4,10 @@ import { Fragment, ReactNode, useState } from 'react'
 type ModalStoryRowProps = {
   label: string
   content: ReactNode
-} & Pick<CosModalProps, 'size' | 'footerMessage' | 'actionText'>
+} & Pick<CosModalProps, 'className' | 'size' | 'footerMessage' | 'actionText'>
 
 export const ModalStoryRow = (props: ModalStoryRowProps) => {
-  const { label, content, size, footerMessage, actionText } = props
+  const { className, label, content, size, footerMessage, actionText } = props
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -26,6 +26,7 @@ export const ModalStoryRow = (props: ModalStoryRowProps) => {
         Open
       </CosButton>
       <CosModal
+        className={className}
         size={size}
         isOpen={isOpen}
         title={label}
