@@ -42,11 +42,13 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
-  const [currentMonth, setCurrentMonth] = useState(now)
-
-  useEffect(() => {
-    setCurrentMonth(now)
-  }, [now])
+  const [currentMonth, setCurrentMonth] = useState(
+    /**
+     * Initialize `currentMonth` to either `displayDates.start` (if available) or `now`.
+     * Also, the value only needs to be computed once.
+     */
+    () => displayDates.start ?? now,
+  )
 
   const onApply = () => {
     const { start, end } = displayDates
