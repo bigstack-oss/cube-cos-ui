@@ -9,6 +9,7 @@ import {
 } from '@cube-frontend/ui-library'
 import { CopyButton } from '@cube-frontend/web-app/components/CopyButton'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { VipLabel } from '@cube-frontend/web-app/pages/node/_components/VipLabel'
 import {
   humanizeDuration,
   toLicenseExpirationDate,
@@ -30,15 +31,18 @@ export const NodeTable = (props: NodeTableProps) => {
         property="hostname"
         emphasize={true}
       >
-        {(hostname) => (
-          <Link
-            className="block w-fit"
-            to={CosRoutesEnum.NODES_DETAIL_PAGE(hostname)}
-          >
-            <CosHyperlink variant="text-only" onClick={noop}>
-              {hostname}
-            </CosHyperlink>
-          </Link>
+        {(hostname, node) => (
+          <div className="flex items-center gap-x-2">
+            <Link
+              className="block w-fit"
+              to={CosRoutesEnum.NODES_DETAIL_PAGE(hostname)}
+            >
+              <CosHyperlink variant="text-only" onClick={noop}>
+                {hostname}
+              </CosHyperlink>
+            </Link>
+            {node.isVirtualIpOwner && <VipLabel />}
+          </div>
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column

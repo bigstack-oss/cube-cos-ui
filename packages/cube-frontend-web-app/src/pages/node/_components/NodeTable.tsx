@@ -17,6 +17,7 @@ import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
 import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router'
+import { VipLabel } from './VipLabel'
 
 const BatchActionNodeTable =
   GetCosBatchActionTable<GetNodesResponseData['nodes'][number]>()
@@ -31,15 +32,18 @@ export const NodeTable = (props: NodeTableProps) => {
         property="hostname"
         emphasize={true}
       >
-        {(hostname) => (
-          <Link
-            className="block w-fit"
-            to={CosRoutesEnum.NODES_DETAIL_PAGE(hostname)}
-          >
-            <CosHyperlink variant="text-only" onClick={noop}>
-              {hostname}
-            </CosHyperlink>
-          </Link>
+        {(hostname, node) => (
+          <div className="flex items-center gap-x-2">
+            <Link
+              className="block w-fit"
+              to={CosRoutesEnum.NODES_DETAIL_PAGE(hostname)}
+            >
+              <CosHyperlink variant="text-only" onClick={noop}>
+                {hostname}
+              </CosHyperlink>
+            </Link>
+            {node.isVirtualIpOwner && <VipLabel />}
+          </div>
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
