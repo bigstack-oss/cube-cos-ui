@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { Node } from '@cube-frontend/api'
 import { ItemsPerPage } from '@cube-frontend/ui-library'
 import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchParamsQuery'
+import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import {
   modifiedOptions,
   queryToSearchParams,
@@ -12,6 +13,7 @@ import {
 
 type UseListTuningsQuery = {
   query: ListTuningsQuery
+  keywordDebouncedQuery: ListTuningsQuery
   onKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void
   onKeywordClear: () => void
   onModifiedItemClick: (modified: boolean) => void
@@ -30,6 +32,10 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
     searchParamsToQuery,
   })
 
+  const [debouncedKeyword, setDebounceKeyword] = useDebounce(query.keyword, 300)
+
+  const keywordDebouncedQuery = { ...query, keyword: debouncedKeyword }
+
   const onKeywordChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target
     setQuery((prev) => ({
@@ -40,6 +46,7 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
   }
 
   const onKeywordClear = (): void => {
+    setDebounceKeyword('')
     setQuery((prev) => ({
       ...prev,
       keyword: '',
@@ -110,6 +117,7 @@ export const useListTuningsQuery = (): UseListTuningsQuery => {
 
   return {
     query,
+    keywordDebouncedQuery,
     onKeywordChange,
     onKeywordClear,
     onModifiedItemClick,

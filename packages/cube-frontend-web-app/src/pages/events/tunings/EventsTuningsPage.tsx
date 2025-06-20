@@ -28,6 +28,7 @@ const TuningTable = GetCosBasicTable<TuningRow>()
 export const EventsTuningsPage = () => {
   const {
     query,
+    keywordDebouncedQuery,
     onKeywordChange,
     onKeywordClear,
     onModifiedItemClick,
@@ -48,7 +49,7 @@ export const EventsTuningsPage = () => {
     hasModifiedTuning,
     onToggleChange,
     resetTuning,
-  } = useTuningRows(query, onOperationErrorOccur)
+  } = useTuningRows(keywordDebouncedQuery, onOperationErrorOccur)
 
   const {
     isHostsModalOpen,
