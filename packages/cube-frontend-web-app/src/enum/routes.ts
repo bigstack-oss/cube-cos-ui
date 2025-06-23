@@ -10,6 +10,8 @@ export const CosRoutesEnum = {
   /** Nodes Page */
   NODES_PAGE: '/nodes',
   NODE_DETAIL_PAGE: (hostname = ':name') => `/nodes/${hostname}` as const,
+  NODE_IPMI_CONTROL_PAGE: (hostname = ':name') =>
+    `/nodes/${hostname}/ipmi-control` as const,
   /** Integrations Page */
   INTEGRATIONS_PAGE: '/integrations',
   /** Maintenance Page */

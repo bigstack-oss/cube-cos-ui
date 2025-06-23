@@ -7,6 +7,7 @@ import { HomeHealthPage } from './pages/home/health/HomeHealthPage'
 import { HealthDetailsPage } from './pages/home/health/[module]/HealthDetailsPage'
 import { NodeListPage } from './pages/node/NodeListPage'
 import { NodeDetailsPage } from './pages/node/[name]/NodeDetailsPage'
+import { NodeIPMIControlPage } from './pages/node/[name]/ipmi-control/NodeIPMIControlPage'
 import { IntegrationsPage } from './pages/integrations/IntegrationsPage'
 import { MaintenanceLayout } from './pages/maintenance/MaintenanceLayout'
 import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/MaintenanceSupportFilesPage'
@@ -49,6 +50,10 @@ export const CosRoutes = () => {
       <Route
         path={CosRoutesEnum.NODE_DETAIL_PAGE()}
         element={<NodeDetailsPage />}
+      />
+      <Route
+        path={CosRoutesEnum.NODE_IPMI_CONTROL_PAGE()}
+        element={<NodeIPMIControlPage />}
       />
       <Route
         path={CosRoutesEnum.INTEGRATIONS_PAGE}

@@ -1,4 +1,4 @@
-import { CosButton } from '@cube-frontend/ui-library'
+import { CosButton, CosTooltip } from '@cube-frontend/ui-library'
 import CopyIcon from '@cube-frontend/ui-library/icons/monochrome/copy.svg?react'
 import { MouseEvent } from 'react'
 
@@ -18,13 +18,16 @@ export const CopyButton = (props: CopyButtonProps) => {
   }
 
   return (
-    <CosButton
-      usage="icon-only"
-      type="ghost"
-      size="sm"
-      Icon={CopyIcon}
-      {...restProps}
-      onClick={onClick}
-    />
+    <CosTooltip clickContent={{ message: 'Copied' }}>
+      <CosButton
+        usage="icon-only"
+        type="ghost"
+        size="sm"
+        Icon={CopyIcon}
+        {...restProps}
+        disabled={!copyText}
+        onClick={onClick}
+      />
+    </CosTooltip>
   )
 }

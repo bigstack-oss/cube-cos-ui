@@ -1,11 +1,11 @@
 import { GrafanaApiGetGrafanaHostsRequest, Node } from '@cube-frontend/api'
-import { CosBackButton } from '@cube-frontend/ui-library'
+import { CosBackButton, CosHyperlink } from '@cube-frontend/ui-library'
 import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { noop } from 'lodash'
-import { useContext } from 'react'
+import { MouseEvent, useContext } from 'react'
 import { Link } from 'react-router'
 
 type NodeDetailsHeaderProps = {
@@ -66,20 +66,36 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
     )
   }
 
+  const onIPMILinkClick = (e: MouseEvent<HTMLAnchorElement>): void => {
+    if (!node) {
+      e.preventDefault()
+    }
+  }
+
   return (
-    <CosBackButton
-      isLoading={!node}
-      onClick={noop}
-      titleRightContent={getLinks()}
-      titleBottomContent={getBarCharts()}
-      backButtonContainer={{
-        Component: Link,
-        props: {
-          to: CosRoutesEnum.NODES_PAGE,
-        },
-      }}
-    >
-      {node?.hostname ?? ''}
-    </CosBackButton>
+    <div className="flex items-center justify-between">
+      <CosBackButton
+        isLoading={!node}
+        onClick={noop}
+        titleRightContent={getLinks()}
+        titleBottomContent={getBarCharts()}
+        backButtonContainer={{
+          Component: Link,
+          props: {
+            to: CosRoutesEnum.NODES_PAGE,
+          },
+        }}
+      >
+        {node?.hostname ?? ''}
+      </CosBackButton>
+      <Link
+        to={CosRoutesEnum.NODE_IPMI_CONTROL_PAGE(node?.hostname)}
+        onClick={onIPMILinkClick}
+      >
+        <CosHyperlink variant="text-inline" onClick={noop} disabled={!node}>
+          IPMI Control
+        </CosHyperlink>
+      </Link>
+    </div>
   )
 }
