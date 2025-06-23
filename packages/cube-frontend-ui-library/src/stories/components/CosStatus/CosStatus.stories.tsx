@@ -1,4 +1,8 @@
-import { CosStatus, CosStatusSkeleton } from '@cube-frontend/ui-library'
+import {
+  CosStatus,
+  CosStatusReaction,
+  CosStatusSkeleton,
+} from '@cube-frontend/ui-library'
 import { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { StatusRow } from './StatusRow'
@@ -13,7 +17,7 @@ export default meta
 export const Gallery: StoryObj = {
   render: () => (
     <StoryLayout title="Status">
-      <StoryLayout.Section title="Gallery">
+      <StoryLayout.Section title="Host">
         <div className="flex flex-col gap-y-8">
           <StatusRow title="Neutral">
             <CosStatus status="neutral" />
@@ -41,6 +45,26 @@ export const Gallery: StoryObj = {
           </StatusRow>
           <StatusRow title="Skeleton">
             <CosStatusSkeleton />
+          </StatusRow>
+        </div>
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Reaction">
+        <div className="flex flex-col gap-y-8">
+          <StatusRow title="Neutral">
+            <CosStatusReaction status="neutral" />
+          </StatusRow>
+          <StatusRow title="Success">
+            <CosStatusReaction status="success" />
+            <CosStatusReaction status="available" />
+            <CosStatusReaction status="done" />
+          </StatusRow>
+          <StatusRow title="Warning">
+            <CosStatusReaction status="error" />
+            <CosStatusReaction status="duplicate" />
+            <CosStatusReaction status="failed" />
+          </StatusRow>
+          <StatusRow title="Skeleton">
+            <CosStatusReaction.Skeleton />
           </StatusRow>
         </div>
       </StoryLayout.Section>
