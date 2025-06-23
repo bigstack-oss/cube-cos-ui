@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { GetNodesRolesEnum } from '@cube-frontend/api'
 import { DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
-import dayjs from 'dayjs'
 import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
+import { transformDate } from '@cube-frontend/web-app/utils/date'
 
 enum SupportFileParamKeyEnum {
   Keyword = 'keyword',
@@ -11,17 +11,6 @@ enum SupportFileParamKeyEnum {
   EndDate = 'endDate',
   CurrentPage = 'page',
   ItemsPerPage = 'pageSize',
-}
-
-const transformDate = (value: string | null) => {
-  if (!value) {
-    return undefined
-  }
-  const date = dayjs(value)
-  if (!date.isValid()) {
-    return undefined
-  }
-  return date
 }
 
 const supportFileListQuerySchema = paginationQuerySchema.extend({

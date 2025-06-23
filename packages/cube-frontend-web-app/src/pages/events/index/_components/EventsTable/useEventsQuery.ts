@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router'
-import { Dayjs } from 'dayjs'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
 import { DatePickerDates, ItemsPerPage } from '@cube-frontend/ui-library'
-import { initEventsQuery } from './utils'
+import { EventsQuery, queryToSearchParams, searchParamsToQuery } from './utils'
+import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchParamsQuery'
 
 export type FilterKeys = Extract<
   keyof EventsQuery,
@@ -21,110 +19,109 @@ type UseEventsQuery = {
   onDatesChange: (dates: DatePickerDates) => void
   onFieldChange: <Key extends keyof FilterOptions>(
     key: Key,
-    value: FilterOptions[Key] | undefined,
+    value: string,
   ) => void
+  onFieldAllCheckChange: <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key],
+  ) => void
+  onFieldClear: <Key extends keyof FilterOptions>(key: Key) => void
   onPageNumChange: (pageNum: number) => void
   onPageSizeChange: (pageSize: ItemsPerPage) => void
 }
 
-export type EventsQuery = {
-  type: GetEventsTypeEnum
-  keyword: string
-  category: string | undefined
-  start: Dayjs | undefined
-  stop: Dayjs | undefined
-  pageSize: ItemsPerPage
-  pageNum: number
-  // System
-  severity: string | undefined
-  // Host
-  host: string | undefined
-  // Instance
-  instance: string | undefined
-}
-
 export const useEventsQuery = (): UseEventsQuery => {
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const [eventsQuery, setEventsQuery] = useState<EventsQuery>(() =>
-    initEventsQuery(searchParams),
-  )
-
-  useEffect(() => {
-    const record = Object.entries(eventsQuery).reduce(
-      (result, [key, value]) => {
-        const stringValue = value?.toString()
-        if (stringValue) {
-          result[key] = stringValue
-        }
-        return result
-      },
-      {} as Record<string, string>,
-    )
-
-    setSearchParams(record, {
-      replace: true,
-    })
-  }, [eventsQuery, setSearchParams])
+  const { query, setQuery } = useSearchParamsQuery({
+    queryToSearchParams,
+    searchParamsToQuery,
+  })
 
   const onTypeChange = (type: GetEventsTypeEnum): void => {
-    setEventsQuery((prev) => ({
+    setQuery((prev) => ({
       ...prev,
       type,
-      pageNum: 1,
+      currentPage: 1,
     }))
   }
 
   const onKeywordChange = (keyword: string): void => {
-    setEventsQuery((prev) => ({
+    setQuery((prev) => ({
       ...prev,
       keyword,
-      pageNum: 1,
+      currentPage: 1,
     }))
   }
 
   const onDatesChange = (dates: DatePickerDates): void => {
-    setEventsQuery((prev) => ({
+    setQuery((prev) => ({
       ...prev,
-      start: dates.start,
-      stop: dates.end,
-      pageNum: 1,
+      startDate: dates.start,
+      endDate: dates.end,
+      currentPage: 1,
     }))
   }
 
   const onFieldChange = <Key extends keyof FilterOptions>(
     key: Key,
-    value: FilterOptions[Key] | undefined,
+    value: FilterOptions[Key][number],
   ): void => {
-    setEventsQuery((prev) => ({
+    setQuery((prev) => {
+      const currentValues = prev[key] as string[]
+
+      const nextValues = currentValues.includes(value)
+        ? currentValues.filter((item) => item !== value)
+        : [...currentValues, value]
+
+      return {
+        ...prev,
+        [key]: nextValues,
+        currentPage: 1,
+      }
+    })
+  }
+
+  const onFieldAllCheckChange = <Key extends keyof FilterOptions>(
+    key: Key,
+    options: FilterOptions[Key],
+  ): void => {
+    setQuery((prev) => ({
       ...prev,
-      [key]: value,
-      pageNum: 1,
+      [key]: options,
+      currentPage: 1,
     }))
   }
 
-  const onPageNumChange = (pageNum: number): void => {
-    setEventsQuery((prev) => ({
+  const onFieldClear = <Key extends keyof FilterOptions>(key: Key): void => {
+    setQuery((prev) => ({
       ...prev,
-      pageNum,
+      [key]: [],
+      currentPage: 1,
     }))
   }
 
-  const onPageSizeChange = (pageSize: ItemsPerPage): void => {
-    setEventsQuery((prev) => ({
+  const onPageChange = (page: number): void => {
+    setQuery((prev) => ({
       ...prev,
-      pageSize,
-      pageNum: 1,
+      currentPage: page,
+    }))
+  }
+  const onItemsPerPageChange = (itemsPerPage: ItemsPerPage): void => {
+    setQuery((prev) => ({
+      ...prev,
+      itemsPerPage,
+      currentPage: 1,
     }))
   }
 
   return {
-    eventsQuery,
+    eventsQuery: query,
     onTypeChange,
     onKeywordChange,
     onDatesChange,
     onFieldChange,
-    onPageNumChange,
-    onPageSizeChange,
+    onFieldAllCheckChange,
+    onFieldClear,
+    onPageNumChange: onPageChange,
+    onPageSizeChange: onItemsPerPageChange,
   }
 }

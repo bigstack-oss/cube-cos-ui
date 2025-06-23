@@ -66,7 +66,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
       return {
         dataCenter: dataCenter!.name,
         type: 'host',
-        host: node.hostname,
+        hosts: [node.hostname],
         past: timeRange,
         pageNum: paginationParams.page,
         pageSize: paginationParams.itemsPerPage,

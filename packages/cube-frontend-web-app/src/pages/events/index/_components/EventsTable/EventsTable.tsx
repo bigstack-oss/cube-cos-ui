@@ -11,6 +11,8 @@ export const EventsTable = () => {
     onKeywordChange,
     onDatesChange,
     onFieldChange,
+    onFieldAllCheckChange,
+    onFieldClear,
     onPageNumChange,
     onPageSizeChange,
   } = useEventsQuery()
@@ -37,12 +39,14 @@ export const EventsTable = () => {
         onKeywordChange={onKeywordChange}
         onDatesChange={onDatesChange}
         onFieldChange={onFieldChange}
+        onFieldAllCheckChange={onFieldAllCheckChange}
+        onFieldClear={onFieldClear}
       />
       <EventsTableSelection
         isEventsLoading={isEventsLoading}
         events={events}
-        currentPage={eventsQuery.pageNum}
-        itemsPerPage={eventsQuery.pageSize}
+        currentPage={eventsQuery.currentPage}
+        itemsPerPage={eventsQuery.itemsPerPage}
         totalItems={totalItems}
         onPageNumChange={onPageNumChange}
         onPageSizeChange={onPageSizeChange}

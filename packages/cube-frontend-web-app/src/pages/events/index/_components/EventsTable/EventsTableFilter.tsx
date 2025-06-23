@@ -6,17 +6,18 @@ import {
   DatePickerDates,
   useDatePickerDisplayDates,
 } from '@cube-frontend/ui-library'
-import { FilterDropdown } from './FilterDropdown'
-import { useEventsFilter } from './useEventsFilter'
-import { EventsQuery, FilterKeys, FilterOptions } from './useEventsQuery'
-import { EventsContentSwitcher } from './EventsContentSwitcher'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
+import { EventsContentSwitcher } from './EventsContentSwitcher'
+import { FilterDropdown } from './FilterDropdown'
+import { FilterKeys, FilterOptions } from './useEventsQuery'
+import { useEventsFilter } from './useEventsFilter'
+import { EventsQuery, EventsParamKeyEnum } from './utils'
 
 const filterKeyMapping: Record<string, FilterKeys> = {
-  categories: 'category',
-  severities: 'severity',
-  names: 'host',
-  ids: 'instance',
+  categories: EventsParamKeyEnum.Category,
+  severities: EventsParamKeyEnum.Severity,
+  names: EventsParamKeyEnum.Host,
+  ids: EventsParamKeyEnum.Instance,
 }
 
 const mapFilterToFilterKey = (key: string): FilterKeys | undefined => {
@@ -30,8 +31,13 @@ type EventsTableFilterProps = {
   onDatesChange: (dates: DatePickerDates) => void
   onFieldChange: <Key extends keyof FilterOptions>(
     key: Key,
-    value: FilterOptions[Key] | undefined,
+    value: string,
   ) => void
+  onFieldAllCheckChange: <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key],
+  ) => void
+  onFieldClear: <Key extends keyof FilterOptions>(key: Key) => void
 }
 
 export const EventsTableFilter = (props: EventsTableFilterProps) => {
@@ -41,10 +47,20 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
     onKeywordChange,
     onDatesChange,
     onFieldChange,
+    onFieldAllCheckChange,
+    onFieldClear,
   } = props
 
-  const { type, keyword, category, start, stop, severity, host, instance } =
-    eventsQuery
+  const {
+    type,
+    keyword,
+    category,
+    startDate,
+    endDate,
+    severity,
+    host,
+    instance,
+  } = eventsQuery
 
   const { isLoading: isEventsFilterLoading, getEventsFilter } =
     useEventsFilter()
@@ -57,8 +73,8 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
     onCancel,
     onReset: onDisplayDatesReset,
   } = useDatePickerDisplayDates({
-    initialStartDate: start,
-    initialEndDate: stop,
+    initialStartDate: startDate,
+    initialEndDate: endDate,
   })
 
   const onDatePickerApply = () => {
@@ -91,7 +107,7 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
       Object.keys(eventsFilter).map((key) => {
         const filterKey = mapFilterToFilterKey(key)
 
-        if (filterKey) onFieldChange(filterKey, undefined)
+        if (filterKey) onFieldClear(filterKey)
       })
     }
   }
@@ -103,8 +119,8 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
 
   const showAllFilterReset = Object.values({
     keyword,
-    start,
-    stop,
+    start: startDate,
+    stop: endDate,
     category,
     severity,
     host,
@@ -139,7 +155,9 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
                 filterKey={filterKey}
                 options={options}
                 selectedValue={eventsQuery[filterKey]}
-                onChange={onFieldChange}
+                onFieldChange={onFieldChange}
+                onFieldAllCheckChange={onFieldAllCheckChange}
+                onFieldClear={onFieldClear}
               />
             )
           })}

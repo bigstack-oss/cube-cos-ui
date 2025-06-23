@@ -6,14 +6,22 @@ import { FilterOptions } from './useEventsQuery'
 type FilterDropdownProps<Key extends keyof FilterOptions> = {
   isLoading: boolean
   filterKey: Key
-  options: FilterOptions[Key][]
-  selectedValue: FilterOptions[Key] | undefined
-  onChange: (key: Key, value: FilterOptions[Key] | undefined) => void
+  options: FilterOptions[Key]
+  selectedValue: string[]
+  onFieldChange: <Key extends keyof FilterOptions>(
+    key: Key,
+    value: string,
+  ) => void
+  onFieldAllCheckChange: <Key extends keyof FilterOptions>(
+    key: Key,
+    value: FilterOptions[Key],
+  ) => void
+  onFieldClear: <Key extends keyof FilterOptions>(key: Key) => void
 }
 
 const filterOptionBySearchValue = <Key extends keyof FilterOptions>(
   searchValue: string,
-  options: FilterOptions[Key][],
+  options: FilterOptions[Key],
 ): string[] => {
   if (searchValue === '') return options
 
@@ -27,18 +35,35 @@ const filterOptionBySearchValue = <Key extends keyof FilterOptions>(
 export const FilterDropdown = <Key extends keyof FilterOptions>(
   props: FilterDropdownProps<Key>,
 ) => {
-  const { isLoading, filterKey, options, selectedValue, onChange } = props
-
-  const selectedItem = selectedValue ? [selectedValue] : []
+  const {
+    isLoading,
+    filterKey,
+    options,
+    selectedValue,
+    onFieldChange,
+    onFieldAllCheckChange,
+    onFieldClear,
+  } = props
 
   const [searchValue, setSearchValue] = useState('')
+
+  const filterLabel = upperFirst(filterKey)
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
   }
 
+  const handleAllCheckChange = () => {
+    const allChecked = selectedValue.length === options.length
+    if (allChecked) {
+      onFieldAllCheckChange(filterKey, [])
+    } else {
+      onFieldAllCheckChange(filterKey, options)
+    }
+  }
+
   const handleClearClick = () => {
-    onChange(filterKey, undefined)
+    onFieldClear(filterKey)
   }
 
   const renderOptions = () => {
@@ -48,7 +73,7 @@ export const FilterDropdown = <Key extends keyof FilterOptions>(
       <CosDropdown.Item
         key={option}
         item={option}
-        onClick={() => onChange(filterKey, option)}
+        onClick={() => onFieldChange(filterKey, option)}
       >
         {option}
       </CosDropdown.Item>
@@ -57,17 +82,17 @@ export const FilterDropdown = <Key extends keyof FilterOptions>(
 
   return (
     <CosDropdown
-      type="search"
+      type="search-checkbox"
       variant="in-table"
-      selectedItems={selectedItem}
+      isLoading={isLoading}
+      selectedItems={selectedValue}
       searchValue={searchValue}
       onSearchChange={handleSearchChange}
       onClearClick={handleClearClick}
-      disabled={false}
-      isLoading={isLoading}
+      onAllCheckChange={handleAllCheckChange}
     >
-      <CosDropdown.Trigger placeholder={upperFirst(filterKey)}>
-        {selectedItem?.[0] ?? undefined}
+      <CosDropdown.Trigger placeholder={filterLabel}>
+        {filterLabel}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>{renderOptions()}</CosDropdown.Menu>
     </CosDropdown>

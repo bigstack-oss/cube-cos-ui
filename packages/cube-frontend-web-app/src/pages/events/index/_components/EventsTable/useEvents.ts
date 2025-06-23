@@ -8,8 +8,7 @@ import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
-import { EventsQuery } from './useEventsQuery'
-import { datesToRequestParams } from './utils'
+import { datesToRequestParams, EventsQuery } from './utils'
 
 export type UseEvents = {
   isEventsLoading: boolean
@@ -18,14 +17,15 @@ export type UseEvents = {
   totalItems: number
 }
 
-export const useEvents = (eventsQuery: EventsQuery): UseEvents => {
+export const useEvents = (query: EventsQuery): UseEvents => {
   const { dataCenter } = useContext(DataCenterContext)
 
-  const { keyword, start, stop, ...restQuery } = eventsQuery
+  const [debouncedSearchKeyword] = useDebounce(query.keyword, 300)
 
-  const [debouncedSearchKeyword] = useDebounce(keyword, 300)
-
-  const formattedDates = datesToRequestParams({ start, end: stop })
+  const formattedDates = datesToRequestParams({
+    start: query.startDate,
+    end: query.endDate,
+  })
 
   const {
     data,
@@ -34,10 +34,17 @@ export const useEvents = (eventsQuery: EventsQuery): UseEvents => {
   } = useCosGetRequest(eventsApi.getEvents, () => {
     return {
       dataCenter: dataCenter!.name,
+      type: query.type,
+      pageNum: query.currentPage,
+      pageSize: query.itemsPerPage,
       keyword: debouncedSearchKeyword,
-      ...restQuery,
-      ...formattedDates,
-    } as EventsApiGetEventsRequest
+      start: formattedDates.start,
+      stop: formattedDates.stop,
+      categories: query.category,
+      severities: query.severity,
+      hosts: query.host,
+      instances: query.instance,
+    } satisfies EventsApiGetEventsRequest
   })
 
   const totalItems = data?.page.totalItemCount ?? 0

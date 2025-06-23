@@ -7724,10 +7724,10 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {GetEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
          * @param {string} [keyword] The keyword of the event to query.
          * @param {string} [id] The id of the event to query.
-         * @param {string} [category] The category of the event to query.
-         * @param {string} [severity] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
-         * @param {string} [host] The host of the event to query.
-         * @param {string} [instance] The instance of the event to query.
+         * @param {Array<string>} [categories] The category of the event to query.
+         * @param {Array<GetEventsSeveritiesEnum>} [severities] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+         * @param {Array<string>} [hosts] The host of the event to query.
+         * @param {Array<string>} [instances] The instance of the event to query.
          * @param {string} [past] The past time of the event to query, use the unit of \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix to specify the time range.
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
@@ -7737,7 +7737,7 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEvents: async (dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, category?: string, severity?: string, host?: string, instance?: string, past?: string, start?: string, stop?: string, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getEvents: async (dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, categories?: Array<string>, severities?: Array<GetEventsSeveritiesEnum>, hosts?: Array<string>, instances?: Array<string>, past?: string, start?: string, stop?: string, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getEvents', 'dataCenter', dataCenter)
             // verify required parameter 'type' is not null or undefined
@@ -7771,20 +7771,20 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['id'] = id;
             }
 
-            if (category !== undefined) {
-                localVarQueryParameter['category'] = category;
+            if (categories) {
+                localVarQueryParameter['categories'] = categories;
             }
 
-            if (severity !== undefined) {
-                localVarQueryParameter['severity'] = severity;
+            if (severities) {
+                localVarQueryParameter['severities'] = severities;
             }
 
-            if (host !== undefined) {
-                localVarQueryParameter['host'] = host;
+            if (hosts) {
+                localVarQueryParameter['hosts'] = hosts;
             }
 
-            if (instance !== undefined) {
-                localVarQueryParameter['instance'] = instance;
+            if (instances) {
+                localVarQueryParameter['instances'] = instances;
             }
 
             if (past !== undefined) {
@@ -7981,10 +7981,10 @@ export const EventsApiFp = function(configuration?: Configuration) {
          * @param {GetEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
          * @param {string} [keyword] The keyword of the event to query.
          * @param {string} [id] The id of the event to query.
-         * @param {string} [category] The category of the event to query.
-         * @param {string} [severity] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
-         * @param {string} [host] The host of the event to query.
-         * @param {string} [instance] The instance of the event to query.
+         * @param {Array<string>} [categories] The category of the event to query.
+         * @param {Array<GetEventsSeveritiesEnum>} [severities] The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
+         * @param {Array<string>} [hosts] The host of the event to query.
+         * @param {Array<string>} [instances] The instance of the event to query.
          * @param {string} [past] The past time of the event to query, use the unit of \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix to specify the time range.
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
@@ -7994,8 +7994,8 @@ export const EventsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEvents(dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, category?: string, severity?: string, host?: string, instance?: string, past?: string, start?: string, stop?: string, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEvents(dataCenter, type, keyword, id, category, severity, host, instance, past, start, stop, pageSize, pageNum, watch, options);
+        async getEvents(dataCenter: string, type: GetEventsTypeEnum, keyword?: string, id?: string, categories?: Array<string>, severities?: Array<GetEventsSeveritiesEnum>, hosts?: Array<string>, instances?: Array<string>, past?: string, start?: string, stop?: string, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEvents(dataCenter, type, keyword, id, categories, severities, hosts, instances, past, start, stop, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EventsApi.getEvents']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8065,7 +8065,7 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
-            return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.categories, requestParameters.severities, requestParameters.hosts, requestParameters.instances, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8186,31 +8186,31 @@ export interface EventsApiGetEventsRequest {
 
     /**
      * The category of the event to query.
-     * @type {string}
+     * @type {Array<string>}
      * @memberof EventsApiGetEvents
      */
-    readonly category?: string
+    readonly categories?: Array<string>
 
     /**
      * The severity of the event to query, the value can be only \&#39;Info\&#39;, \&#39;Warning\&#39;, and \&#39;Error\&#39;.
-     * @type {string}
+     * @type {Array<'Info' | 'Warning' | 'Error'>}
      * @memberof EventsApiGetEvents
      */
-    readonly severity?: string
+    readonly severities?: Array<GetEventsSeveritiesEnum>
 
     /**
      * The host of the event to query.
-     * @type {string}
+     * @type {Array<string>}
      * @memberof EventsApiGetEvents
      */
-    readonly host?: string
+    readonly hosts?: Array<string>
 
     /**
      * The instance of the event to query.
-     * @type {string}
+     * @type {Array<string>}
      * @memberof EventsApiGetEvents
      */
-    readonly instance?: string
+    readonly instances?: Array<string>
 
     /**
      * The past time of the event to query, use the unit of \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix to specify the time range.
@@ -8407,7 +8407,7 @@ export class EventsApi extends BaseAPI {
      * @memberof EventsApi
      */
     public getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig) {
-        return EventsApiFp(this.configuration).getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.category, requestParameters.severity, requestParameters.host, requestParameters.instance, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return EventsApiFp(this.configuration).getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.categories, requestParameters.severities, requestParameters.hosts, requestParameters.instances, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -8451,6 +8451,15 @@ export const GetEventsTypeEnum = {
     Instance: 'instance'
 } as const;
 export type GetEventsTypeEnum = typeof GetEventsTypeEnum[keyof typeof GetEventsTypeEnum];
+/**
+ * @export
+ */
+export const GetEventsSeveritiesEnum = {
+    Info: 'Info',
+    Warning: 'Warning',
+    Error: 'Error'
+} as const;
+export type GetEventsSeveritiesEnum = typeof GetEventsSeveritiesEnum[keyof typeof GetEventsSeveritiesEnum];
 /**
  * @export
  */

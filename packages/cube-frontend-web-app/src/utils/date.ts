@@ -52,3 +52,14 @@ export const humanizeDuration = (durationSeconds: number) => {
 export const formatChartXAxisTime = (time: string) => {
   return dayjs.respectTzOffset(time).format('HH:mm')
 }
+
+export const transformDate = (value: string | null) => {
+  if (!value) {
+    return undefined
+  }
+  const date = dayjs(value)
+  if (!date.isValid()) {
+    return undefined
+  }
+  return date
+}
