@@ -1,0 +1,3 @@
+user="username"
+remote_hosts=("10.0.0.1" "10.0.0.2" "10.0.0.3")
+cos_ui_path="/usr/share/cube/ui"
