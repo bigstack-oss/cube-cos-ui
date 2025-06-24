@@ -1,8 +1,8 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosPagination } from '../../../components/CosPagination/CosPagination'
-import { useState } from 'react'
-import { DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
+import { DEFAULT_ITEMS_PER_PAGE } from '../../../components/CosPagination/cosPaginationUtils'
 
 const meta = {
   title: 'Molecules/Pagination',
@@ -16,7 +16,7 @@ const totalItems = 1203
 export const Default: StoryObj = {
   args: {},
   render: function Render() {
-    const [currentPage, setCurrentPage] = useState(100)
+    const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_ITEMS_PER_PAGE)
 
     return (
