@@ -10,14 +10,14 @@ import { NodeDetailsPage } from './pages/node/[name]/NodeDetailsPage'
 import { IntegrationsPage } from './pages/integrations/IntegrationsPage'
 import { MaintenanceLayout } from './pages/maintenance/MaintenanceLayout'
 import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/MaintenanceSupportFilesPage'
+import { MaintenanceTuningsPage } from './pages/maintenance/tunings/MaintenanceTuningsPage'
+import { CreateTuningsPage } from './pages/maintenance/tunings/create/CreateTuningsPage'
+import { EditTuningsPage } from './pages/maintenance/tunings/edit/EditTuningsPage'
 import { MaintenanceLicensePage } from './pages/maintenance/license/MaintenanceLicensePage'
 import { EventsLayout } from './pages/events/EventsLayout'
 import { EventsIndexPage } from './pages/events/index/EventsIndexPage'
 import { EventsTriggersPage } from './pages/events/triggers/EventsTriggersPage'
 import { TriggersCreatePage } from './pages/events/triggers/[create]/TriggersCreatePage'
-import { EventsTuningsPage } from './pages/events/tunings/EventsTuningsPage'
-import { CreateTuningsPage } from './pages/events/tunings/create/CreateTuningsPage'
-import { EditTuningsPage } from './pages/events/tunings/edit/EditTuningsPage'
 import { EventsChartPage } from './pages/events/chart/EventsChartPage'
 import { SettingsPage } from './pages/settings/SettingsPage'
 import { HttpErrorDisplay } from './components/ErrorDisplay/HttpErrorDisplay'
@@ -50,12 +50,6 @@ export const CosRoutes = () => {
         path={CosRoutesEnum.NODES_DETAIL_PAGE()}
         element={<NodeDetailsPage />}
       />
-      <Route path={CosRoutesEnum.EVENTS_PAGE} element={<EventsLayout />}>
-        <Route
-          path={CosRoutesEnum.EVENTS_TUNINGS_PAGE}
-          element={<EventsTuningsPage />}
-        />
-      </Route>
       <Route
         path={CosRoutesEnum.INTEGRATIONS_PAGE}
         element={<IntegrationsPage />}
@@ -67,6 +61,10 @@ export const CosRoutes = () => {
         <Route
           path={CosRoutesEnum.MAINTENANCE_SUPPORT_FILES_PAGE}
           element={<MaintenanceSupportFilesPage />}
+        />
+        <Route
+          path={CosRoutesEnum.MAINTENANCE_TUNINGS_PAGE}
+          element={<MaintenanceTuningsPage />}
         />
         <Route
           path={CosRoutesEnum.MAINTENANCE_LICENSE_PAGE}
@@ -84,10 +82,6 @@ export const CosRoutes = () => {
           element={<EventsTriggersPage />}
         />
         <Route
-          path={CosRoutesEnum.EVENTS_TUNINGS_PAGE}
-          element={<EventsTuningsPage />}
-        />
-        <Route
           path={CosRoutesEnum.EVENTS_CHART_PAGE}
           element={<EventsChartPage />}
         />
@@ -95,11 +89,11 @@ export const CosRoutes = () => {
       {/* Create & edit tunings route are placed outside of EventsLayout because
         the shared tabs should not be displayed on those pages. */}
       <Route
-        path={CosRoutesEnum.EVENTS_TUNINGS_CREATE_PAGE}
+        path={CosRoutesEnum.MAINTENANCE_TUNINGS_CREATE_PAGE}
         element={<CreateTuningsPage />}
       />
       <Route
-        path={CosRoutesEnum.EVENTS_TUNINGS_EDIT_PAGE}
+        path={CosRoutesEnum.MAINTENANCE_TUNINGS_EDIT_PAGE}
         element={<EditTuningsPage />}
       />
       <Route

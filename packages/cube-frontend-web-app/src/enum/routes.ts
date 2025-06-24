@@ -15,14 +15,14 @@ export const CosRoutesEnum = {
   /** Maintenance Page */
   MAINTENANCE_PAGE: '/maintenance',
   MAINTENANCE_SUPPORT_FILES_PAGE: '/maintenance/support-files',
+  MAINTENANCE_TUNINGS_PAGE: '/maintenance/tunings',
+  MAINTENANCE_TUNINGS_CREATE_PAGE: '/maintenance/tunings/create',
+  MAINTENANCE_TUNINGS_EDIT_PAGE: '/maintenance/tunings/edit',
   MAINTENANCE_LICENSE_PAGE: '/maintenance/license',
   /** Events Page */
   EVENTS_PAGE: '/events',
   EVENTS_TRIGGERS_PAGE: '/events/triggers',
   EVENTS_TRIGGERS_CREATE_PAGE: '/events/triggers/create',
-  EVENTS_TUNINGS_PAGE: '/events/tunings',
-  EVENTS_TUNINGS_CREATE_PAGE: '/events/tunings/create',
-  EVENTS_TUNINGS_EDIT_PAGE: '/events/tunings/edit',
   EVENTS_CHART_PAGE: '/events/chart',
   /** Settings Page */
   SETTINGS_PAGE: '/settings',

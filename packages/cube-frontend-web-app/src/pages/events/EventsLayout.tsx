@@ -1,13 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router'
 import { CosTabs } from '@cube-frontend/ui-library'
-import { CosRoutesEnum } from '../../enum/routes'
-
-const links = {
-  events: CosRoutesEnum.EVENTS_PAGE,
-  triggers: CosRoutesEnum.EVENTS_TRIGGERS_PAGE,
-  tunings: CosRoutesEnum.EVENTS_TUNINGS_PAGE,
-  chart: CosRoutesEnum.EVENTS_CHART_PAGE,
-}
+import { links } from './links'
 
 export const EventsLayout = () => {
   const location = useLocation()
@@ -23,11 +16,6 @@ export const EventsLayout = () => {
         <Link to={links.triggers}>
           <CosTabs.Tab isActive={location.pathname === links.triggers}>
             Triggers
-          </CosTabs.Tab>
-        </Link>
-        <Link to={links.tunings}>
-          <CosTabs.Tab isActive={location.pathname === links.tunings}>
-            Tunings
           </CosTabs.Tab>
         </Link>
         <Link to={links.chart}>

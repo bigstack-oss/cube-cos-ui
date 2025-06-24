@@ -14,6 +14,11 @@ export const MaintenanceLayout = () => {
             Support files
           </CosTabs.Tab>
         </Link>
+        <Link to={links.tunings}>
+          <CosTabs.Tab isActive={location.pathname === links.tunings}>
+            Tunings
+          </CosTabs.Tab>
+        </Link>
         <Link to={links.license}>
           <CosTabs.Tab isActive={location.pathname === links.license}>
             License

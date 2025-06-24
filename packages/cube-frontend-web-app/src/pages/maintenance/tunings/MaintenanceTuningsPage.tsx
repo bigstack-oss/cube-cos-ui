@@ -25,7 +25,7 @@ import { useTuningRows } from './useTuningRows'
 
 const TuningTable = GetCosBasicTable<TuningRow>()
 
-export const EventsTuningsPage = () => {
+export const MaintenanceTuningsPage = () => {
   const {
     query,
     keywordDebouncedQuery,
@@ -89,7 +89,7 @@ export const EventsTuningsPage = () => {
         <h4 className="secondary-h4">Tunings</h4>
         <Link
           className="self-start"
-          to={CosRoutesEnum.EVENTS_TUNINGS_CREATE_PAGE}
+          to={CosRoutesEnum.MAINTENANCE_TUNINGS_CREATE_PAGE}
         >
           <CosButton usage="icon-left" Icon={Plus}>
             Create Tuning

@@ -1,18 +1,15 @@
 import { CosBackButton } from '@cube-frontend/ui-library'
 import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
-import { EditTunings } from '@cube-frontend/web-app/components/UpsertTunings/EditTunings'
+import { CreateTunings } from '@cube-frontend/web-app/components/UpsertTunings/CreateTunings'
 import { NonNullableUpsertTuningsPayload } from '@cube-frontend/web-app/components/UpsertTunings/upsertTuningsUtils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useEditTuningsStore } from '@cube-frontend/web-app/stores/editTuningsStore'
 import { useContext } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
-export const EditTuningsPage = () => {
+export const CreateTuningsPage = () => {
   const navigate = useNavigate()
-
-  const initialData = useEditTuningsStore((store) => store.initialData)
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -34,19 +31,11 @@ export const EditTuningsPage = () => {
           hosts: selectedHosts.map((host) => host.name),
         },
       })
-      navigate(CosRoutesEnum.EVENTS_TUNINGS_PAGE)
+      navigate(CosRoutesEnum.MAINTENANCE_TUNINGS_PAGE)
     } catch (error) {
-      console.error('Update tuning error: ', error)
+      console.error('Create tuning error: ', error)
     }
   }
-
-  if (!initialData) {
-    // This happens when users access the edit tunings page by directly
-    // entering the URL in the browser.
-    return <Navigate to={CosRoutesEnum.EVENTS_TUNINGS_PAGE} replace={true} />
-  }
-
-  const title = initialData.hosts?.length ? 'Edit Tunings' : 'Create Tunings'
 
   return (
     <div className="mx-2 my-1">
@@ -55,14 +44,13 @@ export const EditTuningsPage = () => {
         backLinkContainer={{
           Component: Link,
           props: {
-            to: CosRoutesEnum.EVENTS_TUNINGS_PAGE,
+            to: CosRoutesEnum.MAINTENANCE_TUNINGS_PAGE,
           },
         }}
       >
-        {title}
+        Create Tunings
       </CosBackButton>
-      <EditTunings
-        initialData={initialData}
+      <CreateTunings
         errorMessage={errorState?.api?.msg || errorState?.native.message}
         onPublishClick={onPublishClick}
       />

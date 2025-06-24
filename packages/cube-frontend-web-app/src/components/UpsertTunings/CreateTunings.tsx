@@ -90,7 +90,9 @@ export const CreateTunings = (props: CreateTuningsProps) => {
   if (step !== UpsertTuningsStep.KeyValue && !payload.selectedSpecName) {
     // This happens when users skip the first step by directly entering
     // the URL in the browser.
-    return <Navigate to={CosRoutesEnum.EVENTS_TUNINGS_PAGE} replace={true} />
+    return (
+      <Navigate to={CosRoutesEnum.MAINTENANCE_TUNINGS_PAGE} replace={true} />
+    )
   }
 
   return (

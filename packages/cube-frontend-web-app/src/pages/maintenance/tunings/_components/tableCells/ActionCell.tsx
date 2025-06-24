@@ -78,7 +78,10 @@ export const ActionCell = (props: ActionCellProps) => {
     }
 
     return (
-      <Link to={CosRoutesEnum.EVENTS_TUNINGS_EDIT_PAGE} onClick={onEditClick}>
+      <Link
+        to={CosRoutesEnum.MAINTENANCE_TUNINGS_EDIT_PAGE}
+        onClick={onEditClick}
+      >
         {iconElement}
       </Link>
     )
