@@ -21,7 +21,7 @@ The repository follows the monorepo approach. Projects share the common utilitie
 
 ### Prerequisites
 
-- Node.js 22
+- Node.js 22.17.0 (You can run `nvm use` to switch to the Node.js version used by `cube-cos-ui`, if you have [nvm](https://github.com/nvm-sh/nvm) installed.)
 - npm
 - pnpm v10
 
