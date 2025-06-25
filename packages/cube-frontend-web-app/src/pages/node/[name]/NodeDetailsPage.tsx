@@ -1,4 +1,4 @@
-import { NodesApiGetNodeRequest } from '@cube-frontend/api'
+import { NodesApiGetNodeRequest, NodeStatusEnum } from '@cube-frontend/api'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
@@ -47,10 +47,14 @@ export const NodeDetailsPage = () => {
     <div className="flex flex-col gap-y-4">
       <NodeDetailsHeader node={node} />
       <NodeSummary node={node} />
-      <NodeNetworks node={node} />
-      <NodeDevices node={node} />
-      <NodeCharts node={node} />
-      <NodeEvents node={node} />
+      {(!node || node.status === NodeStatusEnum.Up) && (
+        <>
+          <NodeNetworks node={node} />
+          <NodeDevices node={node} />
+          <NodeCharts node={node} />
+          <NodeEvents node={node} />
+        </>
+      )}
     </div>
   )
 }

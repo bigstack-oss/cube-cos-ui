@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { z } from 'zod'
 
 type UseIPMISetup = {
@@ -9,6 +9,7 @@ type UseIPMISetup = {
     key: Key,
     value: IPMISetup[Key],
   ) => void
+  getParsedSetup: () => ParsedIPMISetup
 }
 
 export type IPMISetup = {
@@ -18,6 +19,10 @@ export type IPMISetup = {
   password: string
 }
 
+type ParsedIPMISetup = Omit<IPMISetup, 'port'> & {
+  port: number
+}
+
 const schema = z.object({
   port: z.string().regex(/^[0-9]{1,}$/),
   ip: z.string().ip(),
@@ -25,13 +30,20 @@ const schema = z.object({
   password: z.string().min(1),
 })
 
-export const useIPMISetup = (): UseIPMISetup => {
+export const useIPMISetup = (defaultIp: string): UseIPMISetup => {
   const [setup, setSetup] = useState<IPMISetup>(() => ({
     port: '623',
-    ip: '',
+    ip: defaultIp,
     username: '',
     password: '',
   }))
+
+  useEffect(() => {
+    setSetup((prev) => ({
+      ...prev,
+      ip: defaultIp,
+    }))
+  }, [defaultIp])
 
   const fieldsValidity = useMemo<Record<keyof IPMISetup, boolean>>(() => {
     const errors = schema.safeParse(setup).error?.format() ?? {}
@@ -57,10 +69,18 @@ export const useIPMISetup = (): UseIPMISetup => {
     }))
   }
 
+  const getParsedSetup = (): ParsedIPMISetup => {
+    return {
+      ...setup,
+      port: parseInt(setup.port, 10),
+    }
+  }
+
   return {
     setup,
     fieldsValidity,
     allFieldsValid,
     onSetupChange,
+    getParsedSetup,
   }
 }

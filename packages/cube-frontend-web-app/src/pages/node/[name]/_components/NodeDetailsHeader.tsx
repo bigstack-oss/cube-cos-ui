@@ -1,12 +1,21 @@
-import { GrafanaApiGetGrafanaHostsRequest, Node } from '@cube-frontend/api'
-import { CosBackButton, CosHyperlink } from '@cube-frontend/ui-library'
+import {
+  GrafanaApiGetGrafanaHostsRequest,
+  Node,
+  NodeStatusEnum,
+} from '@cube-frontend/api'
+import {
+  CosBackButton,
+  CosHyperlink,
+  CosLoadingSpinner,
+} from '@cube-frontend/ui-library'
 import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { noop } from 'lodash'
-import { MouseEvent, useContext } from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router'
+import { twMerge } from 'tailwind-merge'
 
 type NodeDetailsHeaderProps = {
   node: Node | undefined
@@ -45,7 +54,39 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
     )
   }
 
-  const getBarCharts = () => {
+  const renderIPMIOperationSpinner = () => {
+    const render = (text: string, colorClass: string) => {
+      return (
+        <>
+          <CosBackButton.Divider />
+          <div className="flex items-center gap-x-1.5">
+            <span
+              className={twMerge('secondary-body6 font-semibold', colorClass)}
+            >
+              {text}
+            </span>
+            <CosLoadingSpinner variant="dot45" className={colorClass} />
+          </div>
+        </>
+      )
+    }
+
+    if (node?.status === NodeStatusEnum.PoweringOn) {
+      return render('Powering On', twMerge('text-status-positive-text'))
+    }
+
+    if (node?.status === NodeStatusEnum.PoweringOff) {
+      return render('Powering Off', twMerge('text-status-negative'))
+    }
+
+    if (node?.status === NodeStatusEnum.PoweringCycle) {
+      return render('Powering Cycle', twMerge('text-functional-text'))
+    }
+
+    return null
+  }
+
+  const getTitleBottomContent = () => {
     return (
       <>
         <CosBackButton.BarChart
@@ -62,14 +103,9 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
           label="Partition"
           progress={node?.storage.usedPercent ?? 0}
         />
+        {renderIPMIOperationSpinner()}
       </>
     )
-  }
-
-  const onIPMILinkClick = (e: MouseEvent<HTMLAnchorElement>): void => {
-    if (!node) {
-      e.preventDefault()
-    }
   }
 
   return (
@@ -78,7 +114,7 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
         isLoading={!node}
         onClick={noop}
         titleRightContent={getLinks()}
-        titleBottomContent={getBarCharts()}
+        titleBottomContent={getTitleBottomContent()}
         backButtonContainer={{
           Component: Link,
           props: {
@@ -88,14 +124,13 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
       >
         {node?.hostname ?? ''}
       </CosBackButton>
-      <Link
-        to={CosRoutesEnum.NODE_IPMI_CONTROL_PAGE(node?.hostname)}
-        onClick={onIPMILinkClick}
-      >
-        <CosHyperlink variant="text-inline" onClick={noop} disabled={!node}>
-          IPMI Control
-        </CosHyperlink>
-      </Link>
+      {node?.ipmi.isSupported && (
+        <Link to={CosRoutesEnum.NODE_IPMI_CONTROL_PAGE(node?.hostname)}>
+          <CosHyperlink variant="text-inline" onClick={noop}>
+            IPMI Control
+          </CosHyperlink>
+        </Link>
+      )}
     </div>
   )
 }

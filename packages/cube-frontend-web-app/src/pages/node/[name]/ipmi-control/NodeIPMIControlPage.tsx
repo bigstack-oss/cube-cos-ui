@@ -5,17 +5,10 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useContext, useState } from 'react'
-import { Link, useParams } from 'react-router'
+import { Link, Navigate, useParams } from 'react-router'
 import { ConnectToIPMI } from './ConnectToIPMI'
 import { DisconnectFromIPMI } from './DisconnectFromIPMI'
 import { ValidationLog } from './ValidationLog'
-
-// TODO: Replace this with a property in the node details.
-let isIPMIEnabled = false
-
-export const updateIsIPMIEnabled = (value: boolean): void => {
-  isIPMIEnabled = value
-}
 
 export const NodeIPMIControlPage = () => {
   const { name: nodeName } = useParams()
@@ -29,13 +22,20 @@ export const NodeIPMIControlPage = () => {
   const [isValidationLogOpen, setIsValidationLogOpen] = useState(true)
   const [validationLog, setValidationLog] = useState('')
 
-  const { isLoading: _isLoading, data: _node } = useCosGetRequest(
+  const { isLoading, data: node } = useCosGetRequest(
     nodesApi.getNode,
     (): NodesApiGetNodeRequest => ({
       dataCenter: dataCenter!.name,
       nodeName,
     }),
   )
+
+  const backHref = CosRoutesEnum.NODE_DETAIL_PAGE(nodeName)
+
+  if (!isLoading && !node?.ipmi.isSupported) {
+    // Node not found or IPMI not supported.
+    return <Navigate to={backHref} replace={true} />
+  }
 
   const onValidationLogToggled = (isOpen?: boolean): void => {
     setIsValidationLogOpen((prev) => isOpen ?? !prev)
@@ -48,8 +48,7 @@ export const NodeIPMIControlPage = () => {
   return (
     <div className="flex flex-col gap-y-4">
       <CosBackButton
-        variant="title"
-        backLinkContainer={{
+        backButtonContainer={{
           Component: Link,
           props: {
             to: CosRoutesEnum.NODE_DETAIL_PAGE(nodeName),
@@ -58,21 +57,24 @@ export const NodeIPMIControlPage = () => {
       >
         IPMI Control
       </CosBackButton>
-      {isIPMIEnabled ? (
+      {node?.ipmi.isConnected ? (
         <DisconnectFromIPMI nodeName={nodeName} />
       ) : (
         <div className="flex items-start gap-x-4">
           <ConnectToIPMI
-            nodeName={nodeName}
+            node={node}
+            backHref={backHref}
             isValidationLogOpen={isValidationLogOpen}
             toggleValidationLog={onValidationLogToggled}
             onLogChange={onValidated}
           />
-          <ValidationLog
-            isOpen={isValidationLogOpen}
-            log={validationLog}
-            onClose={() => onValidationLogToggled(false)}
-          />
+          {!!node && (
+            <ValidationLog
+              isOpen={isValidationLogOpen}
+              log={validationLog}
+              onClose={() => onValidationLogToggled(false)}
+            />
+          )}
         </div>
       )}
     </div>

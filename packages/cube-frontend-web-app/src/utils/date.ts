@@ -25,7 +25,12 @@ export const toLicenseExpirationDate = (
     // TODO: i18n
     return 'Unlicense'
   }
-  return formatLicenseDate(license.expiry.date)
+  const { date } = license.expiry
+  if (!date) {
+    // `license.expiry.date` for nodes in powering on status will be empty string.
+    return ''
+  }
+  return formatLicenseDate(date)
 }
 
 export const humanizeDuration = (durationSeconds: number) => {

@@ -1,7 +1,10 @@
-import { Node, NodeLicenseCurrentStatus } from '@cube-frontend/api'
+import {
+  Node,
+  NodeLicenseCurrentStatus,
+  NodeStatusEnum,
+} from '@cube-frontend/api'
 import {
   CosButton,
-  CosOverflowMenu,
   CosSkeleton,
   CosStroke,
   CosTag,
@@ -17,6 +20,7 @@ import { twMerge } from 'tailwind-merge'
 import { CreateSupportFilesModal } from '../../_components/CreateSupportFilesModal'
 import { useCreateSupportFilesModal } from '../../_components/useCreateSupportFilesModal'
 import { VipLabel } from '../../_components/VipLabel'
+import { ActionMenu } from './ActionMenu'
 import { Panel } from './Panel'
 
 type NodeSummaryProps = {
@@ -117,13 +121,21 @@ export const NodeSummary = (props: NodeSummaryProps) => {
   }
 
   const getLicenseExpiration = (): string => {
-    const { status, expiry } = node.license
+    const {
+      status,
+      expiry: { date },
+    } = node.license
 
     if (status.current === NodeLicenseCurrentStatus.Unlicense) {
       return 'Unlicense'
     }
 
-    return dayjs.respectTzOffset(expiry.date).format('YYYY/MM/DD HH:mm')
+    if (!date) {
+      // `expiry.date` for nodes in powering on status will be empty string.
+      return ''
+    }
+
+    return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm')
   }
 
   return (
@@ -138,41 +150,39 @@ export const NodeSummary = (props: NodeSummaryProps) => {
             {node.role}
           </CosTag>
         </div>
-        <CosOverflowMenu triggerElement={<CosButton>Action</CosButton>}>
-          <CosOverflowMenu.Title>Basic</CosOverflowMenu.Title>
-          <CosOverflowMenu.Item
-            type="plain"
-            title="Create support file"
-            onClick={openCreateSupportFilesModal}
-          />
-        </CosOverflowMenu>
+        <ActionMenu
+          node={node}
+          onCreateSupportFileClick={openCreateSupportFilesModal}
+        />
       </div>
       <CosStroke type="dot" />
-      <table className="w-fit min-w-[560px] border-separate border-spacing-0">
-        <tbody>
-          {renderRow('CPU Spec', node.cpuSpec)}
-          {renderRow(
-            'Memory Spec',
-            toReadableSizeString(node.memory.totalMiB, 'MiB'),
-          )}
-          {renderRow('Up Time', humanizeDuration(node.uptimeSeconds))}
-          {renderRow('License Expiration', getLicenseExpiration())}
-          {renderRow(
-            'Management IP',
-            <div className="flex items-center gap-x-5">
-              <span>{node.managementIP}</span>
-              {renderCopyButton(node.managementIP)}
-            </div>,
-          )}
-          {renderRow(
-            'Storage IP',
-            <div className="flex items-center gap-x-5">
-              <span>{node.storageIP}</span>
-              {renderCopyButton(node.storageIP)}
-            </div>,
-          )}
-        </tbody>
-      </table>
+      {node.status === NodeStatusEnum.Up && (
+        <table className="w-fit min-w-[560px] border-separate border-spacing-0">
+          <tbody>
+            {renderRow('CPU Spec', node.cpuSpec)}
+            {renderRow(
+              'Memory Spec',
+              toReadableSizeString(node.memory.totalMiB, 'MiB'),
+            )}
+            {renderRow('Up Time', humanizeDuration(node.uptimeSeconds))}
+            {renderRow('License Expiration', getLicenseExpiration())}
+            {renderRow(
+              'Management IP',
+              <div className="flex items-center gap-x-5">
+                <span>{node.managementIP}</span>
+                {renderCopyButton(node.managementIP)}
+              </div>,
+            )}
+            {renderRow(
+              'Storage IP',
+              <div className="flex items-center gap-x-5">
+                <span>{node.storageIP}</span>
+                {renderCopyButton(node.storageIP)}
+              </div>,
+            )}
+          </tbody>
+        </table>
+      )}
       {!!node && (
         <CreateSupportFilesModal
           isOpen={isCreateSupportFilesModalOpen}

@@ -295,6 +295,156 @@ export interface DeleteSlackChannelResponse {
 /**
  * 
  * @export
+ * @interface DeleteSupportFileSetResponse
+ */
+export interface DeleteSupportFileSetResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteSupportFileSetResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSupportFileSetResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSupportFileSetResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteSupportFiles404Response
+ */
+export interface DeleteSupportFiles404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteSupportFiles404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSupportFiles404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSupportFiles404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteSupportFiles500Response
+ */
+export interface DeleteSupportFiles500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteSupportFiles500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSupportFiles500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteSupportFiles500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DisconnectNodeIpmi400Response
+ */
+export interface DisconnectNodeIpmi400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DisconnectNodeIpmi400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DisconnectNodeIpmi400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DisconnectNodeIpmi400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DisconnectNodeIpmi500Response
+ */
+export interface DisconnectNodeIpmi500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DisconnectNodeIpmi500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DisconnectNodeIpmi500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DisconnectNodeIpmi500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DisconnectNodeIpmiResponse
+ */
+export interface DisconnectNodeIpmiResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DisconnectNodeIpmiResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DisconnectNodeIpmiResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DisconnectNodeIpmiResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface DiskReadWriteHistory
  */
 export interface DiskReadWriteHistory {
@@ -3736,6 +3886,68 @@ export interface GetNode500Response {
 /**
  * 
  * @export
+ * @interface GetNodeIpmiSettingResponse
+ */
+export interface GetNodeIpmiSettingResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetNodeIpmiSettingResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetNodeIpmiSettingResponseData}
+     * @memberof GetNodeIpmiSettingResponse
+     */
+    'data': GetNodeIpmiSettingResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNodeIpmiSettingResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNodeIpmiSettingResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetNodeIpmiSettingResponseData
+ */
+export interface GetNodeIpmiSettingResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNodeIpmiSettingResponseData
+     */
+    'ip': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetNodeIpmiSettingResponseData
+     */
+    'port': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNodeIpmiSettingResponseData
+     */
+    'username': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNodeIpmiSettingResponseData
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
  * @interface GetNodeResponse
  */
 export interface GetNodeResponse {
@@ -5611,7 +5823,7 @@ export interface Node {
      * @type {string}
      * @memberof Node
      */
-    'status': string;
+    'status': NodeStatusEnum;
     /**
      * 
      * @type {string}
@@ -5630,6 +5842,12 @@ export interface Node {
      * @memberof Node
      */
     'blockDevices': Array<NodeBlockDevicesInner>;
+    /**
+     * 
+     * @type {NodeIpmi}
+     * @memberof Node
+     */
+    'ipmi': NodeIpmi;
     /**
      * 
      * @type {GetMetricsResponseDataHostUsagesInnerCpu}
@@ -5661,6 +5879,18 @@ export interface Node {
      */
     'labels': object;
 }
+
+export const NodeStatusEnum = {
+    Up: 'up',
+    Down: 'down',
+    PoweringOn: 'powering on',
+    PoweringOff: 'powering off',
+    PoweringCycle: 'powering cycle',
+    Unknown: 'unknown'
+} as const;
+
+export type NodeStatusEnum = typeof NodeStatusEnum[keyof typeof NodeStatusEnum];
+
 /**
  * 
  * @export
@@ -5732,6 +5962,62 @@ export const NodeBlockDevicesInnerStatusCurrentEnum = {
 
 export type NodeBlockDevicesInnerStatusCurrentEnum = typeof NodeBlockDevicesInnerStatusCurrentEnum[keyof typeof NodeBlockDevicesInnerStatusCurrentEnum];
 
+/**
+ * 
+ * @export
+ * @interface NodeIpmi
+ */
+export interface NodeIpmi {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof NodeIpmi
+     */
+    'isSupported': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof NodeIpmi
+     */
+    'isConnected': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof NodeIpmi
+     */
+    'ip': string;
+}
+/**
+ * 
+ * @export
+ * @interface NodeIpmiSettingRequest
+ */
+export interface NodeIpmiSettingRequest {
+    /**
+     * IP address of the node\'s IPMI interface
+     * @type {string}
+     * @memberof NodeIpmiSettingRequest
+     */
+    'ip': string;
+    /**
+     * Port number of the node\'s IPMI interface
+     * @type {number}
+     * @memberof NodeIpmiSettingRequest
+     */
+    'port': number;
+    /**
+     * Username for the node\'s IPMI interface
+     * @type {string}
+     * @memberof NodeIpmiSettingRequest
+     */
+    'username': string;
+    /**
+     * Password for the node\'s IPMI interface
+     * @type {string}
+     * @memberof NodeIpmiSettingRequest
+     */
+    'password': string;
+}
 /**
  * 
  * @export
@@ -5933,6 +6219,81 @@ export interface NodeNetworkInterfacesInner {
      * @memberof NodeNetworkInterfacesInner
      */
     'speed': string;
+}
+/**
+ * 
+ * @export
+ * @interface OperateNodeIpmi409Response
+ */
+export interface OperateNodeIpmi409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof OperateNodeIpmi409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperateNodeIpmi409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperateNodeIpmi409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface OperateNodeIpmi500Response
+ */
+export interface OperateNodeIpmi500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof OperateNodeIpmi500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperateNodeIpmi500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperateNodeIpmi500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface OperateNodeIpmiResponse
+ */
+export interface OperateNodeIpmiResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof OperateNodeIpmiResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperateNodeIpmiResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperateNodeIpmiResponse
+     */
+    'status': string;
 }
 /**
  * 
@@ -6376,6 +6737,81 @@ export interface RoleUsageMemory {
      * @memberof RoleUsageMemory
      */
     'freePercent': number;
+}
+/**
+ * 
+ * @export
+ * @interface SetNodeIpmi404Response
+ */
+export interface SetNodeIpmi404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof SetNodeIpmi404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetNodeIpmi404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetNodeIpmi404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SetNodeIpmi500Response
+ */
+export interface SetNodeIpmi500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof SetNodeIpmi500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetNodeIpmi500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetNodeIpmi500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SetNodeIpmiSettingResponse
+ */
+export interface SetNodeIpmiSettingResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof SetNodeIpmiSettingResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetNodeIpmiSettingResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetNodeIpmiSettingResponse
+     */
+    'status': string;
 }
 /**
  * 
@@ -7410,6 +7846,149 @@ export const VerifyLicenseStatusCurrentEnum = {
 
 export type VerifyLicenseStatusCurrentEnum = typeof VerifyLicenseStatusCurrentEnum[keyof typeof VerifyLicenseStatusCurrentEnum];
 
+/**
+ * 
+ * @export
+ * @interface VerifyNodeIpmi500Response
+ */
+export interface VerifyNodeIpmi500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyNodeIpmi500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmi500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmi500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyNodeIpmiResponse
+ */
+export interface VerifyNodeIpmiResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyNodeIpmiResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VerifyNodeIpmiResponseData}
+     * @memberof VerifyNodeIpmiResponse
+     */
+    'data': VerifyNodeIpmiResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyNodeIpmiResponseData
+ */
+export interface VerifyNodeIpmiResponseData {
+    /**
+     * 
+     * @type {VerifyNodeIpmiResponseDataBoard}
+     * @memberof VerifyNodeIpmiResponseData
+     */
+    'board': VerifyNodeIpmiResponseDataBoard;
+    /**
+     * 
+     * @type {VerifyNodeIpmiResponseDataProduct}
+     * @memberof VerifyNodeIpmiResponseData
+     */
+    'product': VerifyNodeIpmiResponseDataProduct;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyNodeIpmiResponseDataBoard
+ */
+export interface VerifyNodeIpmiResponseDataBoard {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataBoard
+     */
+    'manufacturingDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataBoard
+     */
+    'manufacturer': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataBoard
+     */
+    'product': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataBoard
+     */
+    'serial': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataBoard
+     */
+    'partNumber': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyNodeIpmiResponseDataProduct
+ */
+export interface VerifyNodeIpmiResponseDataProduct {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataProduct
+     */
+    'manufacturer': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataProduct
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataProduct
+     */
+    'serial': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyNodeIpmiResponseDataProduct
+     */
+    'version': string;
+}
 
 /**
  * DataCentersApi - axios parameter creator
@@ -11592,6 +12171,48 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
+         * @summary Disconnect the node IPMI control
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        disconnectNodeIpmi: async (dataCenter: string, nodeName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('disconnectNodeIpmi', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('disconnectNodeIpmi', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/ipmi/disconnect`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -11710,6 +12331,148 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Operate the node by IPMI
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {OperateNodeIpmiOperationEnum} operation The operation to perform on the node IPMI
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        operateNodeIpmi: async (dataCenter: string, nodeName: string, operation: OperateNodeIpmiOperationEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('operateNodeIpmi', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('operateNodeIpmi', 'nodeName', nodeName)
+            // verify required parameter 'operation' is not null or undefined
+            assertParamExists('operateNodeIpmi', 'operation', operation)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/ipmi/{operation}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"operation"}}`, encodeURIComponent(String(operation)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Set the node IPMI setting
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {NodeIpmiSettingRequest} nodeIpmiSettingRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setNodeIpmi: async (dataCenter: string, nodeName: string, nodeIpmiSettingRequest: NodeIpmiSettingRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('setNodeIpmi', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('setNodeIpmi', 'nodeName', nodeName)
+            // verify required parameter 'nodeIpmiSettingRequest' is not null or undefined
+            assertParamExists('setNodeIpmi', 'nodeIpmiSettingRequest', nodeIpmiSettingRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/ipmi`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(nodeIpmiSettingRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Verify the node IPMI setting
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {NodeIpmiSettingRequest} nodeIpmiSettingRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyNodeIpmi: async (dataCenter: string, nodeName: string, nodeIpmiSettingRequest: NodeIpmiSettingRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('verifyNodeIpmi', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('verifyNodeIpmi', 'nodeName', nodeName)
+            // verify required parameter 'nodeIpmiSettingRequest' is not null or undefined
+            assertParamExists('verifyNodeIpmi', 'nodeIpmiSettingRequest', nodeIpmiSettingRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/ipmi/verify`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(nodeIpmiSettingRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -11720,6 +12483,20 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
 export const NodesApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = NodesApiAxiosParamCreator(configuration)
     return {
+        /**
+         * 
+         * @summary Disconnect the node IPMI control
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async disconnectNodeIpmi(dataCenter: string, nodeName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DisconnectNodeIpmiResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.disconnectNodeIpmi(dataCenter, nodeName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.disconnectNodeIpmi']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
         /**
          * 
          * @summary Retrieve the node details
@@ -11755,6 +12532,51 @@ export const NodesApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['NodesApi.getNodes']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @summary Operate the node by IPMI
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {OperateNodeIpmiOperationEnum} operation The operation to perform on the node IPMI
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async operateNodeIpmi(dataCenter: string, nodeName: string, operation: OperateNodeIpmiOperationEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OperateNodeIpmiResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.operateNodeIpmi(dataCenter, nodeName, operation, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.operateNodeIpmi']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Set the node IPMI setting
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {NodeIpmiSettingRequest} nodeIpmiSettingRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setNodeIpmi(dataCenter: string, nodeName: string, nodeIpmiSettingRequest: NodeIpmiSettingRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetNodeIpmiSettingResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setNodeIpmi(dataCenter, nodeName, nodeIpmiSettingRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.setNodeIpmi']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Verify the node IPMI setting
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {NodeIpmiSettingRequest} nodeIpmiSettingRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async verifyNodeIpmi(dataCenter: string, nodeName: string, nodeIpmiSettingRequest: NodeIpmiSettingRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VerifyNodeIpmiResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyNodeIpmi(dataCenter, nodeName, nodeIpmiSettingRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.verifyNodeIpmi']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -11765,6 +12587,16 @@ export const NodesApiFp = function(configuration?: Configuration) {
 export const NodesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = NodesApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary Disconnect the node IPMI control
+         * @param {NodesApiDisconnectNodeIpmiRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        disconnectNodeIpmi(requestParameters: NodesApiDisconnectNodeIpmiRequest, options?: RawAxiosRequestConfig): AxiosPromise<DisconnectNodeIpmiResponse> {
+            return localVarFp.disconnectNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Retrieve the node details
@@ -11785,8 +12617,59 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNodesResponse> {
             return localVarFp.getNodes(requestParameters.dataCenter, requestParameters.keyword, requestParameters.roles, requestParameters.licenseStatuses, requestParameters.products, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary Operate the node by IPMI
+         * @param {NodesApiOperateNodeIpmiRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        operateNodeIpmi(requestParameters: NodesApiOperateNodeIpmiRequest, options?: RawAxiosRequestConfig): AxiosPromise<OperateNodeIpmiResponse> {
+            return localVarFp.operateNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.operation, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Set the node IPMI setting
+         * @param {NodesApiSetNodeIpmiRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setNodeIpmi(requestParameters: NodesApiSetNodeIpmiRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetNodeIpmiSettingResponse> {
+            return localVarFp.setNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.nodeIpmiSettingRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Verify the node IPMI setting
+         * @param {NodesApiVerifyNodeIpmiRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyNodeIpmi(requestParameters: NodesApiVerifyNodeIpmiRequest, options?: RawAxiosRequestConfig): AxiosPromise<VerifyNodeIpmiResponse> {
+            return localVarFp.verifyNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.nodeIpmiSettingRequest, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for disconnectNodeIpmi operation in NodesApi.
+ * @export
+ * @interface NodesApiDisconnectNodeIpmiRequest
+ */
+export interface NodesApiDisconnectNodeIpmiRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiDisconnectNodeIpmi
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiDisconnectNodeIpmi
+     */
+    readonly nodeName: string
+}
 
 /**
  * Request parameters for getNode operation in NodesApi.
@@ -11880,12 +12763,108 @@ export interface NodesApiGetNodesRequest {
 }
 
 /**
+ * Request parameters for operateNodeIpmi operation in NodesApi.
+ * @export
+ * @interface NodesApiOperateNodeIpmiRequest
+ */
+export interface NodesApiOperateNodeIpmiRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiOperateNodeIpmi
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiOperateNodeIpmi
+     */
+    readonly nodeName: string
+
+    /**
+     * The operation to perform on the node IPMI
+     * @type {'poweron' | 'poweroff' | 'powercycle'}
+     * @memberof NodesApiOperateNodeIpmi
+     */
+    readonly operation: OperateNodeIpmiOperationEnum
+}
+
+/**
+ * Request parameters for setNodeIpmi operation in NodesApi.
+ * @export
+ * @interface NodesApiSetNodeIpmiRequest
+ */
+export interface NodesApiSetNodeIpmiRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiSetNodeIpmi
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiSetNodeIpmi
+     */
+    readonly nodeName: string
+
+    /**
+     * 
+     * @type {NodeIpmiSettingRequest}
+     * @memberof NodesApiSetNodeIpmi
+     */
+    readonly nodeIpmiSettingRequest: NodeIpmiSettingRequest
+}
+
+/**
+ * Request parameters for verifyNodeIpmi operation in NodesApi.
+ * @export
+ * @interface NodesApiVerifyNodeIpmiRequest
+ */
+export interface NodesApiVerifyNodeIpmiRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiVerifyNodeIpmi
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiVerifyNodeIpmi
+     */
+    readonly nodeName: string
+
+    /**
+     * 
+     * @type {NodeIpmiSettingRequest}
+     * @memberof NodesApiVerifyNodeIpmi
+     */
+    readonly nodeIpmiSettingRequest: NodeIpmiSettingRequest
+}
+
+/**
  * NodesApi - object-oriented interface
  * @export
  * @class NodesApi
  * @extends {BaseAPI}
  */
 export class NodesApi extends BaseAPI {
+    /**
+     * 
+     * @summary Disconnect the node IPMI control
+     * @param {NodesApiDisconnectNodeIpmiRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public disconnectNodeIpmi(requestParameters: NodesApiDisconnectNodeIpmiRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).disconnectNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Retrieve the node details
@@ -11909,6 +12888,42 @@ export class NodesApi extends BaseAPI {
     public getNodes(requestParameters: NodesApiGetNodesRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).getNodes(requestParameters.dataCenter, requestParameters.keyword, requestParameters.roles, requestParameters.licenseStatuses, requestParameters.products, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
     }
+
+    /**
+     * 
+     * @summary Operate the node by IPMI
+     * @param {NodesApiOperateNodeIpmiRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public operateNodeIpmi(requestParameters: NodesApiOperateNodeIpmiRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).operateNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.operation, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Set the node IPMI setting
+     * @param {NodesApiSetNodeIpmiRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public setNodeIpmi(requestParameters: NodesApiSetNodeIpmiRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).setNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.nodeIpmiSettingRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Verify the node IPMI setting
+     * @param {NodesApiVerifyNodeIpmiRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public verifyNodeIpmi(requestParameters: NodesApiVerifyNodeIpmiRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).verifyNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.nodeIpmiSettingRequest, options).then((request) => request(this.axios, this.basePath));
+    }
 }
 
 /**
@@ -11931,6 +12946,15 @@ export const GetNodesProductsEnum = {
     CubeCmp: 'CubeCMP'
 } as const;
 export type GetNodesProductsEnum = typeof GetNodesProductsEnum[keyof typeof GetNodesProductsEnum];
+/**
+ * @export
+ */
+export const OperateNodeIpmiOperationEnum = {
+    Poweron: 'poweron',
+    Poweroff: 'poweroff',
+    Powercycle: 'powercycle'
+} as const;
+export type OperateNodeIpmiOperationEnum = typeof OperateNodeIpmiOperationEnum[keyof typeof OperateNodeIpmiOperationEnum];
 
 
 /**
@@ -13987,6 +15011,48 @@ export const SupportFilesApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
+         * @summary Delete support file set
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} supportFileSet The name of the support file set to delete. (have to be done the http encode)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSupportFiles: async (dataCenter: string, supportFileSet: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteSupportFiles', 'dataCenter', dataCenter)
+            // verify required parameter 'supportFileSet' is not null or undefined
+            assertParamExists('deleteSupportFiles', 'supportFileSet', supportFileSet)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/supportFiles/{supportFileSet}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"supportFileSet"}}`, encodeURIComponent(String(supportFileSet)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve host support files
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} hostname The hostname of the host to operate
@@ -14126,6 +15192,20 @@ export const SupportFilesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Delete support file set
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} supportFileSet The name of the support file set to delete. (have to be done the http encode)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteSupportFiles(dataCenter: string, supportFileSet: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteSupportFileSetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSupportFiles(dataCenter, supportFileSet, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SupportFilesApi.deleteSupportFiles']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve host support files
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} hostname The hostname of the host to operate
@@ -14180,6 +15260,16 @@ export const SupportFilesApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
+         * @summary Delete support file set
+         * @param {SupportFilesApiDeleteSupportFilesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSupportFiles(requestParameters: SupportFilesApiDeleteSupportFilesRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteSupportFileSetResponse> {
+            return localVarFp.deleteSupportFiles(requestParameters.dataCenter, requestParameters.supportFileSet, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve host support files
          * @param {SupportFilesApiGetHostSupportFileRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -14220,6 +15310,27 @@ export interface SupportFilesApiCreateSupportFilesRequest {
      * @memberof SupportFilesApiCreateSupportFiles
      */
     readonly createSupportFilesRequest: CreateSupportFilesRequest
+}
+
+/**
+ * Request parameters for deleteSupportFiles operation in SupportFilesApi.
+ * @export
+ * @interface SupportFilesApiDeleteSupportFilesRequest
+ */
+export interface SupportFilesApiDeleteSupportFilesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof SupportFilesApiDeleteSupportFiles
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the support file set to delete. (have to be done the http encode)
+     * @type {string}
+     * @memberof SupportFilesApiDeleteSupportFiles
+     */
+    readonly supportFileSet: string
 }
 
 /**
@@ -14323,6 +15434,18 @@ export class SupportFilesApi extends BaseAPI {
      */
     public createSupportFiles(requestParameters: SupportFilesApiCreateSupportFilesRequest, options?: RawAxiosRequestConfig) {
         return SupportFilesApiFp(this.configuration).createSupportFiles(requestParameters.dataCenter, requestParameters.createSupportFilesRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete support file set
+     * @param {SupportFilesApiDeleteSupportFilesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SupportFilesApi
+     */
+    public deleteSupportFiles(requestParameters: SupportFilesApiDeleteSupportFilesRequest, options?: RawAxiosRequestConfig) {
+        return SupportFilesApiFp(this.configuration).deleteSupportFiles(requestParameters.dataCenter, requestParameters.supportFileSet, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

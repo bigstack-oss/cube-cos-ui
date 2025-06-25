@@ -1,8 +1,9 @@
 import { CosButton, CosStroke, CosToggle } from '@cube-frontend/ui-library'
+import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { updateIsIPMIEnabled } from './NodeIPMIControlPage'
 
 type DisconnectFromIPMIProps = {
   nodeName: string
@@ -12,6 +13,8 @@ export const DisconnectFromIPMI = (props: DisconnectFromIPMIProps) => {
   const { nodeName } = props
 
   const navigate = useNavigate()
+
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [isOn, setIsOn] = useState(true)
 
@@ -25,10 +28,11 @@ export const DisconnectFromIPMI = (props: DisconnectFromIPMIProps) => {
     setIsDisconnecting(true)
     try {
       // TODO: Call disconnect IPMI API.
-      setTimeout(() => {
-        updateIsIPMIEnabled(false)
-        goBackToNodeDetailsPage()
-      }, 2000)
+      await nodesApi.disconnectNodeIpmi({
+        dataCenter: dataCenter!.name,
+        nodeName,
+      })
+      goBackToNodeDetailsPage()
     } catch (error) {
       console.error('Disconnect from IPMI error: ', error)
       setIsDisconnecting(false)
