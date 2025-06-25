@@ -16,7 +16,7 @@ export type UseTriggerRowsOptions = {
 export type UseTriggerRows = {
   isLoading: boolean
   rows: TriggerRow[]
-  handleStatusChange: (triggerName: string) => Promise<void>
+  onToggleChange: (triggerName: string) => Promise<void>
   handleEdit: (triggerName: string) => void
 }
 
@@ -82,7 +82,7 @@ export const useTriggerRows = (
     })
   }
 
-  const handleStatusChange = async (triggerName: string): Promise<void> => {
+  const onToggleChange = async (triggerName: string): Promise<void> => {
     const targetRow = rows.find((row) => row.name === triggerName)
 
     if (!targetRow) {
@@ -160,13 +160,13 @@ export const useTriggerRows = (
     /**
      * Navigate to the Edit page for the selected trigger.
      */
-    navigate(`${CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}?name=${triggerName}`)
+    navigate(`${CosRoutesEnum.EVENTS_TRIGGERS_EDIT_PAGE}`)
   }
 
   return {
     rows,
     isLoading: !hasResponseBeenReceived,
-    handleStatusChange,
+    onToggleChange,
     handleEdit,
   }
 }

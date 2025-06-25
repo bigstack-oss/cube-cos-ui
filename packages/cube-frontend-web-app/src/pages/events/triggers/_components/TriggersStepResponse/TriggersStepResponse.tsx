@@ -1,11 +1,12 @@
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import { useContext } from 'react'
-import { TriggersCreateContext } from '../../context'
+
 import { TriggersAddButton } from '../TriggersAddButton'
 import { TriggersNextButton } from '../TriggersNextButton'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
 import { ResponseEmailTable } from './ResponseEmailTable'
 import { ResponseSlackTable } from './ResponseSlackTable'
+import { TriggersCreateContext } from '../../create/context'
 
 export const TriggersStepResponse = () => {
   const { goToDescription, isFormValueValid, errorMessage } = useContext(

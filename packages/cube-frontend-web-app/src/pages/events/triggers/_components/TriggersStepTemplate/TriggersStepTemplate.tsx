@@ -1,8 +1,9 @@
 import { useContext } from 'react'
 import { CosStroke, GetCosBatchActionTable } from '@cube-frontend/ui-library'
-import { TriggersCreateContext } from '../../context'
-import { TemplateRow } from '../../useTemplateTable'
+
 import { TriggersNextButton } from '../TriggersNextButton'
+import { TriggersCreateContext } from '../../create/context'
+import { TemplateRow } from '../../create/useTemplateTable'
 
 const TemplateTable = GetCosBatchActionTable<TemplateRow>()
 

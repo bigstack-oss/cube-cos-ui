@@ -18,10 +18,11 @@ import { MaintenanceLicensePage } from './pages/maintenance/license/MaintenanceL
 import { EventsLayout } from './pages/events/EventsLayout'
 import { EventsIndexPage } from './pages/events/index/EventsIndexPage'
 import { EventsTriggersPage } from './pages/events/triggers/EventsTriggersPage'
-import { TriggersCreatePage } from './pages/events/triggers/[create]/TriggersCreatePage'
+import { CreateTriggersPage } from './pages/events/triggers/create/CreateTriggersPage'
 import { EventsChartPage } from './pages/events/chart/EventsChartPage'
 import { SettingsPage } from './pages/settings/SettingsPage'
 import { HttpErrorDisplay } from './components/ErrorDisplay/HttpErrorDisplay'
+import { EditTriggersPage } from './pages/events/triggers/edit/EditTriggersPage'
 
 export const CosRoutes = () => {
   return (
@@ -91,7 +92,7 @@ export const CosRoutes = () => {
           element={<EventsChartPage />}
         />
       </Route>
-      {/* Create & edit tunings route are placed outside of EventsLayout because
+      {/* Create & edit tunings route are placed outside of MaintenanceLayout because
         the shared tabs should not be displayed on those pages. */}
       <Route
         path={CosRoutesEnum.MAINTENANCE_TUNINGS_CREATE_PAGE}
@@ -101,9 +102,15 @@ export const CosRoutes = () => {
         path={CosRoutesEnum.MAINTENANCE_TUNINGS_EDIT_PAGE}
         element={<EditTuningsPage />}
       />
+      {/* Create & edit triggers route are placed outside of EventsLayout because
+        the shared tabs should not be displayed on those pages. */}
       <Route
         path={CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}
-        element={<TriggersCreatePage />}
+        element={<CreateTriggersPage />}
+      />
+      <Route
+        path={CosRoutesEnum.EVENTS_TRIGGERS_EDIT_PAGE}
+        element={<EditTriggersPage />}
       />
       <Route path={CosRoutesEnum.SETTINGS_PAGE} element={<SettingsPage />} />
       <Route

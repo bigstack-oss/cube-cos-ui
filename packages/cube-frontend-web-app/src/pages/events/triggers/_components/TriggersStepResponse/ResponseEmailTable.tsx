@@ -2,7 +2,7 @@ import { useContext, useMemo } from 'react'
 import { GetTriggersResponseDataInnerResponseEmailsInner } from '@cube-frontend/api'
 import { CosTableRow, GetCosBatchActionTable } from '@cube-frontend/ui-library'
 import { ResponseEmailFilter } from './ResponseEmailFilter'
-import { TriggersCreateContext } from '../../context'
+import { TriggersCreateContext } from '../../create/context'
 
 type EmailTableType = GetTriggersResponseDataInnerResponseEmailsInner &
   CosTableRow

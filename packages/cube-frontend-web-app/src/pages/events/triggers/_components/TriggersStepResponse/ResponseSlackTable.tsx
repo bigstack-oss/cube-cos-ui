@@ -2,7 +2,7 @@ import { useContext, useMemo } from 'react'
 import { GetTriggersResponseDataInnerResponseSlacksInner } from '@cube-frontend/api'
 import { GetCosBatchActionTable } from '@cube-frontend/ui-library'
 import { ResponseSlackFilter } from './ResponseSlackFilter'
-import { TriggersCreateContext } from '../../context'
+import { TriggersCreateContext } from '../../create/context'
 
 type SlackTableType = GetTriggersResponseDataInnerResponseSlacksInner & {
   id: string

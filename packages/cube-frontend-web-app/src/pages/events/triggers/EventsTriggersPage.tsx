@@ -1,14 +1,18 @@
 import {
+  CosButton,
   CosInlineNotification,
   CosLoadingSpinner,
   CosStroke,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
+import Plus from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
 import { useOperationErrors } from '@cube-frontend/web-app/hooks/useOperationErrors/useOperationErrors'
 import { useTriggerRows } from './useTriggerRows'
 import { TriggersStatusToggle } from './TriggersStatusToggle'
 import { TriggersActionCell } from './TriggersActionCell'
 import { getTriggerResponse, TriggerRow } from './utils'
+import { Link } from 'react-router'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 const TriggersTable = GetCosBasicTable<TriggerRow>()
 
@@ -16,13 +20,23 @@ export const EventsTriggersPage = () => {
   const { operationErrors, onOperationErrorOccur, onOperationErrorClose } =
     useOperationErrors()
 
-  const { rows, isLoading, handleStatusChange, handleEdit } = useTriggerRows({
+  const { isLoading, rows, onToggleChange, handleEdit } = useTriggerRows({
     onOperationErrorOccur,
   })
 
   return (
     <div className="flex flex-col gap-y-6 rounded-[5px] bg-grey-0 px-6 py-4 [box-shadow:0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]">
-      <h5 className="secondary-h4 text-functional-text">Triggers</h5>
+      <div className="flex flex-col gap-y-4">
+        <h4 className="secondary-h4 text-functional-text">Triggers</h4>
+        <Link
+          className="self-start"
+          to={CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}
+        >
+          <CosButton usage="icon-left" Icon={Plus}>
+            Create Trigger
+          </CosButton>
+        </Link>
+      </div>
       {operationErrors.map((error, index) => (
         <CosInlineNotification
           key={error.id}
@@ -53,7 +67,7 @@ export const EventsTriggersPage = () => {
         </TriggersTable.Column>
         <TriggersTable.Column label="Status">
           {(_, row) => (
-            <TriggersStatusToggle row={row} onChange={handleStatusChange} />
+            <TriggersStatusToggle row={row} onChange={onToggleChange} />
           )}
         </TriggersTable.Column>
         <TriggersTable.Column>

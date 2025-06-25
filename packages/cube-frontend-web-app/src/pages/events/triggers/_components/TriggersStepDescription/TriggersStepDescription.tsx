@@ -1,8 +1,9 @@
 import { CosButton, CosStroke, CosTextArea } from '@cube-frontend/ui-library'
 import { useContext } from 'react'
-import { TriggersCreateContext } from '../../context'
-import { useUpdateTrigger } from '../../useUpdateTrigger'
+
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
+import { TriggersCreateContext } from '../../create/context'
+import { useUpdateTrigger } from '../../create/useUpdateTrigger'
 
 export const TriggersStepDescription = () => {
   const {

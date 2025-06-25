@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { CosStepProcess } from '@cube-frontend/ui-library'
-import { TriggersCreateContext } from '../context'
-import { triggersCreateSteps } from '../useCreateTriggerStep'
+import { triggersCreateSteps } from '../create/useCreateTriggerStep'
+import { TriggersCreateContext } from '../create/context'
 
 export const TriggersCreateSteps = () => {
   const { step } = useContext(TriggersCreateContext)

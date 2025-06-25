@@ -6,12 +6,13 @@ import {
 } from '@cube-frontend/ui-library'
 import { upperFirst } from 'lodash'
 import { useContext } from 'react'
-import { TriggersCreateContext } from '../../context'
-import { groupAttributeByName } from '../../utils'
+
 import { TriggersAddButton } from '../TriggersAddButton'
 import { TriggersNextButton } from '../TriggersNextButton'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
 import { TriggersSubtractButton } from '../TriggersSubtractButton'
+import { TriggersCreateContext } from '../../create/context'
+import { groupAttributeByName } from '../../create/utils'
 
 export const TriggersStepEvent = () => {
   const { goToResponse, formValue, isFormValueValid } = useContext(
