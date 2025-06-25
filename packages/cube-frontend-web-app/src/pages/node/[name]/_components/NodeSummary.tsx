@@ -16,6 +16,7 @@ import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CreateSupportFilesModal } from '../../_components/CreateSupportFilesModal'
 import { useCreateSupportFilesModal } from '../../_components/useCreateSupportFilesModal'
+import { VipLabel } from '../../_components/VipLabel'
 import { Panel } from './Panel'
 
 type NodeSummaryProps = {
@@ -132,6 +133,7 @@ export const NodeSummary = (props: NodeSummaryProps) => {
           <span className="primary-h4 text-functional-text">
             {node.hostname}
           </span>
+          {node.isVirtualIpOwner && <VipLabel />}
           <CosTag className="h-[23px]" color="blue" variant="filled">
             {node.role}
           </CosTag>
