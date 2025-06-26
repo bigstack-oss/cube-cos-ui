@@ -1,9 +1,5 @@
 import { GrafanaApiGetGrafanaHostsRequest, Node } from '@cube-frontend/api'
-import {
-  BarChartProps,
-  CosBackButton,
-  CosHyperlinkProps,
-} from '@cube-frontend/ui-library'
+import { CosBackButton } from '@cube-frontend/ui-library'
 import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
@@ -32,48 +28,51 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
     },
   )
 
-  const getLinks = ():
-    | Pick<CosHyperlinkProps, 'children' | 'onClick' | 'href' | 'target'>[]
-    | undefined => {
-    if (!grafanaLinkResponse?.enabled) return undefined
+  const getLinks = () => {
+    if (grafanaLinkResponse && !grafanaLinkResponse.enabled) return undefined
 
-    return [
-      {
-        children: 'Monitor',
-        href: grafanaLinkResponse.link,
-        target: '_blank',
-        onClick: noop,
-      },
-    ]
+    return (
+      <>
+        <CosBackButton.Divider />
+        <CosBackButton.Link
+          href={grafanaLinkResponse?.link}
+          target="_blank"
+          onClick={noop}
+        >
+          Monitor
+        </CosBackButton.Link>
+      </>
+    )
   }
 
-  const getBarCharts = (): BarChartProps[] => {
-    if (!node) return []
-
-    return [
-      {
-        label: 'CPU',
-        progress: node.vcpu.usedPercent,
-      },
-      {
-        label: 'RAM',
-        progress: node.memory.usedPercent,
-      },
-      {
-        label: 'Partition',
-        progress: node.storage.usedPercent,
-      },
-    ]
+  const getBarCharts = () => {
+    return (
+      <>
+        <CosBackButton.BarChart
+          label="CPU"
+          progress={node?.vcpu.usedPercent ?? 0}
+        />
+        <CosBackButton.Divider />
+        <CosBackButton.BarChart
+          label="RAM"
+          progress={node?.memory.usedPercent ?? 0}
+        />
+        <CosBackButton.Divider />
+        <CosBackButton.BarChart
+          label="Partition"
+          progress={node?.storage.usedPercent ?? 0}
+        />
+      </>
+    )
   }
 
   return (
     <CosBackButton
-      variant="bar-chart"
       isLoading={!node}
       onClick={noop}
-      links={getLinks()}
-      barCharts={getBarCharts()}
-      backLinkContainer={{
+      titleRightContent={getLinks()}
+      titleBottomContent={getBarCharts()}
+      backButtonContainer={{
         Component: Link,
         props: {
           to: CosRoutesEnum.NODES_PAGE,

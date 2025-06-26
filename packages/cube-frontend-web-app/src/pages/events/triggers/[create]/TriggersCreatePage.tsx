@@ -93,8 +93,7 @@ export const TriggersCreatePage = () => {
     >
       <div className="flex flex-col gap-4">
         <CosBackButton
-          variant="title"
-          backLinkContainer={{
+          backButtonContainer={{
             Component: Link,
             props: {
               to: CosRoutesEnum.EVENTS_TRIGGERS_PAGE,

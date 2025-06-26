@@ -1,6 +1,10 @@
+import {
+  CosBackButton,
+  CosLoadingSpinner,
+  CosSkeleton,
+} from '@cube-frontend/ui-library'
 import { Meta } from '@storybook/react'
 import { noop } from 'lodash'
-import { CosBackButton } from '../../../components/CosBackButton/CosBackButton'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 
 const meta = {
@@ -33,19 +37,18 @@ export const Gallery = {
         <StoryLayout.Section title="With Title">
           <div className="flex flex-col gap-y-8">
             <BackButtonRow title="No Details">
-              <CosBackButton variant="title" onClick={noop}>
-                Page Title
-              </CosBackButton>
+              <CosBackButton onClick={noop}>Page Title</CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="No Details Loading">
-              <CosBackButton isLoading={true} variant="title" onClick={noop}>
+              <CosBackButton isLoading={true} onClick={noop}>
                 Page Title
               </CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="With Details">
               <CosBackButton
-                variant="title"
-                details="Detail text"
+                titleRightContent={
+                  <CosBackButton.Details>Detail text</CosBackButton.Details>
+                }
                 onClick={noop}
               >
                 Page Title
@@ -54,8 +57,9 @@ export const Gallery = {
             <BackButtonRow title="With Details Loading">
               <CosBackButton
                 isLoading={true}
-                variant="title"
-                details="Detail text"
+                titleRightContent={
+                  <CosBackButton.Details>Detail text</CosBackButton.Details>
+                }
                 onClick={noop}
               >
                 Page Title
@@ -66,42 +70,31 @@ export const Gallery = {
         <StoryLayout.Section title="With Bar Charts">
           <div className="flex flex-col gap-y-8">
             <BackButtonRow title="No Links and No Bar Charts">
-              <CosBackButton
-                variant="bar-chart"
-                barCharts={[]}
-                linkSkeletonCount={0}
-                barChartSkeletonCount={0}
-              >
-                Page Title
-              </CosBackButton>
+              <CosBackButton>Page Title</CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="No Links and No Bar Charts Loading">
-              <CosBackButton
-                isLoading={true}
-                variant="bar-chart"
-                barCharts={[]}
-                linkSkeletonCount={0}
-                barChartSkeletonCount={0}
-              >
-                Page Title
-              </CosBackButton>
+              <CosBackButton isLoading={true}>Page Title</CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="With Links">
               <CosBackButton
-                variant="bar-chart"
-                links={[
-                  {
-                    children: 'Grafana',
-                    target: '_blank',
-                    href: `/#${Math.random()}`,
-                  },
-                  {
-                    children: 'Detail Link',
-                    target: '_blank',
-                    href: `/#${Math.random()}`,
-                  },
-                ]}
-                barCharts={[]}
+                titleRightContent={
+                  <>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link
+                      target="_blank"
+                      href={`/#${Math.random()}`}
+                    >
+                      Grafana
+                    </CosBackButton.Link>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link
+                      target="_blank"
+                      href={`/#${Math.random()}`}
+                    >
+                      Detail Link
+                    </CosBackButton.Link>
+                  </>
+                }
               >
                 Page Title
               </CosBackButton>
@@ -109,32 +102,36 @@ export const Gallery = {
             <BackButtonRow title="With Links Loading">
               <CosBackButton
                 isLoading={true}
-                variant="bar-chart"
-                links={[
-                  {
-                    children: 'Grafana',
-                    href: `/#${Math.random()}`,
-                  },
-                ]}
-                barCharts={[]}
-                barChartSkeletonCount={0}
+                titleRightContent={
+                  <>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link
+                      target="_blank"
+                      href={`/#${Math.random()}`}
+                    >
+                      Grafana
+                    </CosBackButton.Link>
+                    <CosBackButton.Link
+                      target="_blank"
+                      href={`/#${Math.random()}`}
+                    >
+                      Detail Link
+                    </CosBackButton.Link>
+                  </>
+                }
               >
                 Page Title
               </CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="With Bar Charts">
               <CosBackButton
-                variant="bar-chart"
-                barCharts={[
-                  {
-                    label: 'CPU',
-                    progress: 12,
-                  },
-                  {
-                    label: 'RAM',
-                    progress: 34,
-                  },
-                ]}
+                titleBottomContent={
+                  <>
+                    <CosBackButton.BarChart label="CPU" progress={12} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="RAM" progress={34} />
+                  </>
+                }
               >
                 Page Title
               </CosBackButton>
@@ -142,42 +139,34 @@ export const Gallery = {
             <BackButtonRow title="With Bar Charts Loading">
               <CosBackButton
                 isLoading={true}
-                variant="bar-chart"
-                barCharts={[
-                  {
-                    label: 'CPU',
-                    progress: 12,
-                  },
-                  {
-                    label: 'RAM',
-                    progress: 34,
-                  },
-                ]}
-                linkSkeletonCount={0}
-                barChartSkeletonCount={2}
+                titleBottomContent={
+                  <>
+                    <CosBackButton.BarChart label="CPU" progress={12} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="RAM" progress={34} />
+                  </>
+                }
               >
                 Page Title
               </CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="With Links and Bar Charts">
               <CosBackButton
-                variant="bar-chart"
-                links={[
-                  {
-                    children: 'Monitor',
-                    onClick: noop,
-                  },
-                ]}
-                barCharts={[
-                  {
-                    label: 'CPU',
-                    progress: 12,
-                  },
-                  {
-                    label: 'RAM',
-                    progress: 34,
-                  },
-                ]}
+                titleRightContent={
+                  <>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link onClick={noop}>
+                      Monitor
+                    </CosBackButton.Link>
+                  </>
+                }
+                titleBottomContent={
+                  <>
+                    <CosBackButton.BarChart label="CPU" progress={12} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="RAM" progress={34} />
+                  </>
+                }
               >
                 Page Title
               </CosBackButton>
@@ -185,23 +174,90 @@ export const Gallery = {
             <BackButtonRow title="With Links and Bar Charts Loading">
               <CosBackButton
                 isLoading={true}
-                variant="bar-chart"
-                links={[
-                  {
-                    children: 'Monitor',
-                    onClick: noop,
-                  },
-                ]}
-                barCharts={[
-                  {
-                    label: 'CPU',
-                    progress: 12,
-                  },
-                  {
-                    label: 'RAM',
-                    progress: 34,
-                  },
-                ]}
+                titleRightContent={
+                  <>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link onClick={noop}>
+                      Monitor
+                    </CosBackButton.Link>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link onClick={noop}>
+                      Details Link
+                    </CosBackButton.Link>
+                  </>
+                }
+                titleBottomContent={
+                  <>
+                    <CosBackButton.BarChart label="CPU" progress={12} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="RAM" progress={34} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="Partition" progress={56} />
+                  </>
+                }
+              >
+                Page Title
+              </CosBackButton>
+            </BackButtonRow>
+            <BackButtonRow title="With Link, Bar Charts, and Custom Element">
+              <CosBackButton
+                titleRightContent={
+                  <>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link onClick={noop}>
+                      Monitor
+                    </CosBackButton.Link>
+                  </>
+                }
+                titleBottomContent={
+                  <>
+                    <CosBackButton.BarChart label="CPU" progress={12} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="RAM" progress={34} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="Partition" progress={56} />
+                    <CosBackButton.Divider />
+                    <div className="flex items-center gap-x-1.5 text-status-negative">
+                      <span className="secondary-body6 font-semibold">
+                        Powering Off
+                      </span>
+                      <CosLoadingSpinner
+                        variant="dot45"
+                        className="text-status-negative"
+                      />
+                    </div>
+                  </>
+                }
+              >
+                Page Title
+              </CosBackButton>
+            </BackButtonRow>
+            <BackButtonRow title="With Link, Bar Charts, and Custom Element Loading">
+              <CosBackButton
+                isLoading={true}
+                titleRightContent={
+                  <>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link onClick={noop}>
+                      Monitor
+                    </CosBackButton.Link>
+                    <CosBackButton.Divider />
+                    <CosBackButton.Link onClick={noop}>
+                      Details Link
+                    </CosBackButton.Link>
+                  </>
+                }
+                titleBottomContent={
+                  <>
+                    <CosBackButton.BarChart label="CPU" progress={12} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="RAM" progress={34} />
+                    <CosBackButton.Divider />
+                    <CosBackButton.BarChart label="Partition" progress={56} />
+                    <CosBackButton.Divider />
+                    <CosSkeleton className="h-4 w-[83px]" />
+                  </>
+                }
               >
                 Page Title
               </CosBackButton>

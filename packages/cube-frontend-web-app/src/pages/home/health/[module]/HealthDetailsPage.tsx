@@ -39,8 +39,7 @@ export const HealthDetailsPage = () => {
       <div className="flex items-center justify-between">
         <CosBackButton
           isLoading={!module}
-          variant="title"
-          backLinkContainer={{
+          backButtonContainer={{
             Component: Link,
             props: {
               to: CosRoutesEnum.HOME_HEALTH_PAGE,

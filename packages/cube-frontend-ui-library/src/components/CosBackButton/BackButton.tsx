@@ -4,36 +4,44 @@ import {
   createElement,
   MouseEvent,
   PropsWithChildren,
+  useContext,
 } from 'react'
 import { CosButton } from '../CosButton/CosButton'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
+import { CosBackButtonContext } from './cosBackButtonContext'
 
-export type BackLinkProps<ContainerProps extends PropsWithChildren> = {
+export type BackButtonProps<ContainerProps extends PropsWithChildren> = {
   href?: string
   onClick?: (e: MouseEvent<HTMLElement>) => void
-  backLinkContainer?: {
+  backButtonContainer?: {
     Component: ComponentType<ContainerProps>
     props: ContainerProps
   }
 }
 
-export const BackLink = <ContainerProps extends PropsWithChildren>(
-  props: BackLinkProps<ContainerProps>,
+export const BackButton = <ContainerProps extends PropsWithChildren>(
+  props: BackButtonProps<ContainerProps>,
 ) => {
-  const { href, onClick, backLinkContainer } = props
+  const { href, onClick, backButtonContainer } = props
 
-  if (!href && !onClick && !backLinkContainer) {
+  const { isLoading } = useContext(CosBackButtonContext)
+
+  if (!href && !onClick && !backButtonContainer) {
     console.warn(
-      'CosBackButton: At least one of `href`, `onClick`, or `backLinkContainer` must be provided',
+      'CosBackButton: At least one of `href`, `onClick`, or `backButtonContainer` must be provided',
     )
+  }
+
+  if (isLoading) {
+    return <CosSkeleton className="size-[34px]" />
   }
 
   const backButton = (
     <CosButton type="ghost" usage="icon-only" Icon={ChevronLeft} />
   )
 
-  if (backLinkContainer) {
-    const { Component, props } = backLinkContainer
+  if (backButtonContainer) {
+    const { Component, props } = backButtonContainer
     return createElement(Component, props, backButton)
   }
 
@@ -42,8 +50,4 @@ export const BackLink = <ContainerProps extends PropsWithChildren>(
       {backButton}
     </a>
   )
-}
-
-export const BackLinkSkeleton = () => {
-  return <CosSkeleton className="size-[34px]" />
 }

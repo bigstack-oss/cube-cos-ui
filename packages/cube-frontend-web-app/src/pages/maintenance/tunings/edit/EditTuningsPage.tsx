@@ -53,8 +53,7 @@ export const EditTuningsPage = () => {
   return (
     <div className="mx-2 my-1">
       <CosBackButton
-        variant="title"
-        backLinkContainer={{
+        backButtonContainer={{
           Component: Link,
           props: {
             to: CosRoutesEnum.MAINTENANCE_TUNINGS_PAGE,

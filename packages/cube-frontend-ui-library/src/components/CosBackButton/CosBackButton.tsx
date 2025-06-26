@@ -1,69 +1,72 @@
 import { PropsWithChildren, ReactNode } from 'react'
-import { BackLinkProps } from './BackLink'
-import {
-  BarChartVariantProps,
-  CosBackButtonBarChartVariant,
-} from './CosBackButtonBarChartVariant'
-import {
-  CosBackButtonTitleVariant,
-  TitleVariantProps,
-} from './CosBackButtonTitleVariant'
+import { BackButton, BackButtonProps } from './BackButton'
+import { BarChart } from './BarChart'
+import { CosBackButtonContextProvider } from './CosBackButtonContextProvider'
+import { Details } from './Details'
+import { Divider } from './Divider'
+import { Link } from './Link'
+import { Title } from './Title'
 
 export type CosBackButtonProps<
-  BackLinkContainerProps extends PropsWithChildren,
+  BackButtonContainerProps extends PropsWithChildren,
 > = {
+  /**
+   * Title.
+   */
+  children: string
   /**
    * @default false
    */
   isLoading?: boolean
-  children: string
-} & BackLinkProps<BackLinkContainerProps> &
-  (TitleVariantProps | BarChartVariantProps)
+  titleRightContent?: ReactNode
+  titleBottomContent?: ReactNode
+} & BackButtonProps<BackButtonContainerProps>
 
-export const CosBackButton = <BackLinkContainerProps extends PropsWithChildren>(
-  props: CosBackButtonProps<BackLinkContainerProps>,
+export const CosBackButton = <
+  BackButtonContainerProps extends PropsWithChildren,
+>(
+  props: CosBackButtonProps<BackButtonContainerProps>,
 ) => {
   const {
-    isLoading = false,
     children,
+    isLoading = false,
+    titleRightContent,
+    titleBottomContent,
+    // Back link props.
     href,
     onClick,
-    backLinkContainer,
-    variant,
+    backButtonContainer,
   } = props
 
-  const getBackLinkProps = (): BackLinkProps<BackLinkContainerProps> => {
+  const getBackButtonProps = (): BackButtonProps<BackButtonContainerProps> => {
     return {
       href,
       onClick,
-      backLinkContainer,
+      backButtonContainer,
     }
   }
 
-  const renderFnMap: Record<typeof variant, () => ReactNode> = {
-    title: () => (
-      <CosBackButtonTitleVariant
-        isLoading={isLoading}
-        title={children}
-        backLinkProps={getBackLinkProps()}
-        details={(props as TitleVariantProps).details}
-      />
-    ),
-    'bar-chart': () => {
-      const castedProps = props as BarChartVariantProps
-      return (
-        <CosBackButtonBarChartVariant
-          isLoading={isLoading}
-          title={children}
-          backLinkProps={getBackLinkProps()}
-          links={castedProps.links}
-          barCharts={castedProps.barCharts}
-          linkSkeletonCount={castedProps.linkSkeletonCount}
-          barChartSkeletonCount={castedProps.barChartSkeletonCount}
-        />
-      )
-    },
-  }
-
-  return renderFnMap[variant]()
+  return (
+    <CosBackButtonContextProvider isLoading={isLoading}>
+      <div className="flex items-center gap-x-2">
+        <BackButton {...getBackButtonProps()} />
+        <div className="flex flex-col gap-y-2">
+          <div className="flex items-center gap-x-3">
+            <Title>{children}</Title>
+            {titleRightContent}
+          </div>
+          {titleBottomContent && (
+            <div className="flex items-center gap-x-3">
+              {titleBottomContent}
+            </div>
+          )}
+        </div>
+      </div>
+    </CosBackButtonContextProvider>
+  )
 }
+
+CosBackButton.BarChart = BarChart
+CosBackButton.Details = Details
+CosBackButton.Divider = Divider
+CosBackButton.Link = Link
