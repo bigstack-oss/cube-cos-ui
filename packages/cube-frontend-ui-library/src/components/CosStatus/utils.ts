@@ -2,12 +2,18 @@ import { ValueOfSet } from '@cube-frontend/utils'
 
 // TODO: Align these values with the backend status constants.
 const neutralStatuses = new Set(['neutral', 'in-use', 'finished'] as const)
-const successStatuses = new Set(['success', 'active', 'available'] as const)
+const successStatuses = new Set([
+  'success',
+  'active',
+  'available',
+  'powering on',
+] as const)
 const warningStatuses = new Set([
   'warning',
   'error',
   'failed',
   'stopped',
+  'powering off',
 ] as const)
 
 type NeutralStatus = ValueOfSet<typeof neutralStatuses>
