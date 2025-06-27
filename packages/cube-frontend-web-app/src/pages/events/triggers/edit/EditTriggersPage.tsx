@@ -5,7 +5,7 @@ import { EditTriggers } from '@cube-frontend/web-app/components/UpsertTriggers/E
 
 export const EditTriggersPage = () => {
   return (
-    <div className="mx-2 my-1">
+    <div className="flex flex-col gap-3">
       <CosBackButton
         variant="title"
         backLinkContainer={{

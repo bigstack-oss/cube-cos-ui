@@ -1,8 +1,10 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { StepBoard } from '@cube-frontend/web-app/components/StepBoard/StepBoard'
 import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
+import { TriggersStackCard } from '../TriggersStackCard'
+import { AddAttributeModal } from './AddAttributeModal'
 
 type SelectEventsProps = {
   isLoading: boolean
@@ -13,6 +15,8 @@ type SelectEventsProps = {
 export const SelectEvents = (props: SelectEventsProps) => {
   const { onNextClick } = props
 
+  const [isOpen, setIsOpen] = useState(false)
+
   const isValueValid = useMemo(() => {
     // TODO: Implement actual validation logic
     return true
@@ -20,7 +24,25 @@ export const SelectEvents = (props: SelectEventsProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <StepBoard>SelectEvents</StepBoard>
+      <StepBoard>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <AddAttributeModal
+            isModalOpen={isOpen}
+            onModelOpen={() => setIsOpen(true)}
+            onModelClose={() => setIsOpen(false)}
+            onActionClick={() => alert('Set Response')}
+          />
+          <CosButton type="ghost" disabled={true}>
+            Reset
+          </CosButton>
+        </div>
+        <CosStroke />
+        <TriggersStackCard
+          title="Alert Type"
+          tags={['response', 'response', 'response', 'response']}
+          onRemoveClick={() => window.alert('Remove!!!')}
+        />
+      </StepBoard>
       <CosStroke type="dot" />
       <CosButton
         className="self-start"

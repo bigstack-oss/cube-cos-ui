@@ -88,7 +88,7 @@ export const CosTextArea = (props: CosTextAreaProps) => {
           {label}
         </label>
         <div className="secondary-body4 text-functional-text-light">
-          {charCount}/{maxLength}
+          {charCount.toLocaleString()}/{maxLength.toLocaleString()}
         </div>
       </div>
       <textarea

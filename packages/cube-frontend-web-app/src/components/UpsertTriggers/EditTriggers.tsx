@@ -1,11 +1,12 @@
 import { ReactNode } from 'react'
-import { UpsertTriggersStep } from './upsertTriggersUtils'
+import { CosStroke } from '@cube-frontend/ui-library'
 import { useStepParam } from './_components/useStepParam'
 import { UpsertTriggersSteps } from './_components/UpsertTriggersSteps'
 import { useCreateTriggersPayload } from './_components/useCreateTriggersPayload'
 import { SelectEvents } from './_components/SelectEvents/SelectEvents'
 import { SetResponse } from './_components/SetResponse/SetResponse'
 import { AddDescription } from './_components/AddDescription/AddDescription'
+import { UpsertTriggersStep } from './upsertTriggersUtils'
 
 export const EditTriggers = () => {
   const { step, goToSetResponse, goToAddDescription } = useStepParam([
@@ -44,8 +45,9 @@ export const EditTriggers = () => {
   const renderContent = renderContentFnMap[step]
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <UpsertTriggersSteps step={step} />
+      <CosStroke />
       {renderContent()}
     </div>
   )

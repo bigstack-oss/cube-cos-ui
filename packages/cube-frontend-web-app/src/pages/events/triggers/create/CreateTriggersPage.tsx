@@ -5,7 +5,7 @@ import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export const CreateTriggersPage = () => {
   return (
-    <div className="mx-2 my-1">
+    <div className="flex flex-col gap-3">
       <CosBackButton
         variant="title"
         backLinkContainer={{

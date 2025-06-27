@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { CosButton, CosStroke } from '@cube-frontend/ui-library'
+import { CosButton, CosStroke, CosTextArea } from '@cube-frontend/ui-library'
 import { StepBoard } from '@cube-frontend/web-app/components/StepBoard/StepBoard'
 import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
@@ -21,7 +21,18 @@ export const AddDescription = (props: AddDescriptionProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <StepBoard>AddDescription</StepBoard>
+      <StepBoard>
+        <CosTextArea
+          label="Description"
+          placeholder="Description"
+          maxLength={100000000}
+        />
+        <CosTextArea
+          label="Trigger ID name"
+          placeholder="Trigger ID name"
+          maxLength={100}
+        />
+      </StepBoard>
       <CosStroke type="dot" />
       <div className="flex items-center gap-x-4">
         <TriggersPreviousButton />

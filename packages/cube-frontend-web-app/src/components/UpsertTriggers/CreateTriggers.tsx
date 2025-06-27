@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { CosStroke } from '@cube-frontend/ui-library'
 import { SelectEvents } from './_components/SelectEvents/SelectEvents'
 import { SetResponse } from './_components/SetResponse/SetResponse'
 import { AddDescription } from './_components/AddDescription/AddDescription'
@@ -44,8 +45,9 @@ export const CreateTriggers = () => {
   const renderContent = renderContentFnMap[step]
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <UpsertTriggersSteps step={step} />
+      <CosStroke />
       {renderContent()}
     </div>
   )
