@@ -1,5 +1,5 @@
 import { GetCosBatchActionTable } from '@cube-frontend/ui-library'
-import { EmailRecipientTableRow } from './useNotification'
+import { EmailRecipientTableRow } from './SetResponse'
 
 const EmailRecipientTable = GetCosBatchActionTable<EmailRecipientTableRow>()
 

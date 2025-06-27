@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import {
   CosButton,
   CosContentSwitcher,
@@ -7,48 +7,88 @@ import {
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
 import { EmailBatchActionTable } from './EmailBatchActionTable'
 import { SlackBatchActionTable } from './SlackBatchActionTable'
-import { useNotification } from './useNotification'
+import { EmailRecipientTableRow, SlackChannelTableRow } from './SetResponse'
 
 type NotificationTab = 'Email' | 'Slack'
 
 type SendNotificationModalProps = {
+  isLoading: boolean
   isModalOpen: boolean
+  emailRows: EmailRecipientTableRow[]
+  slackRows: SlackChannelTableRow[]
+  selectedEmails: string[]
+  selectedSlacks: string[]
+  onEmailSelect: (emails: string[]) => void
+  onSlackSelect: (slacks: string[]) => void
   onModelOpen: () => void
   onModelClose: () => void
-  onActionClick: () => void
 }
 
 export const SendNotificationModal = (props: SendNotificationModalProps) => {
-  const { isModalOpen, onModelOpen, onModelClose, onActionClick } = props
-
-  const [activeTab, setActiveTab] = useState<NotificationTab>('Email')
-
   const {
-    isEmailsLoading,
-    isSlacksLoading,
+    isLoading,
+    isModalOpen,
     emailRows,
     slackRows,
     selectedEmails,
     selectedSlacks,
     onEmailSelect,
     onSlackSelect,
-  } = useNotification()
+    onModelClose: onModelCloseProp,
+    onModelOpen,
+  } = props
+
+  const [activeTab, setActiveTab] = useState<NotificationTab>('Email')
+
+  const [tempEmails, setTempEmails] = useState<string[]>(selectedEmails)
+
+  const [tempSlacks, setTempSlacks] = useState<string[]>(selectedSlacks)
+
+  useEffect(() => setTempEmails(selectedEmails), [selectedEmails])
+
+  useEffect(() => setTempSlacks(selectedSlacks), [selectedSlacks])
+
+  const onTempEmailsChange = (email: string) => {
+    const isSelected = tempEmails.includes(email)
+    setTempEmails((prev) => {
+      return isSelected ? prev.filter((e) => e !== email) : [...prev, email]
+    })
+  }
+
+  const onTempSlacksChange = (slack: string) => {
+    const isSelected = tempSlacks.includes(slack)
+    setTempSlacks((prev) => {
+      return isSelected ? prev.filter((s) => s !== slack) : [...prev, slack]
+    })
+  }
+
+  const onModelClose = () => {
+    setTempEmails(selectedEmails)
+    setTempSlacks(selectedSlacks)
+    onModelCloseProp()
+  }
+
+  const onActionClick = () => {
+    onEmailSelect(tempEmails)
+    onSlackSelect(tempSlacks)
+    onModelCloseProp()
+  }
 
   const renderContentFnMap: Record<NotificationTab, () => ReactNode> = {
     Email: () => (
       <EmailBatchActionTable
-        isLoading={isEmailsLoading}
+        isLoading={isLoading}
         rows={emailRows}
-        selectedRowIds={selectedEmails}
-        onCheckChange={onEmailSelect}
+        selectedRowIds={tempEmails}
+        onCheckChange={onTempEmailsChange}
       />
     ),
     Slack: () => (
       <SlackBatchActionTable
-        isLoading={isSlacksLoading}
+        isLoading={isLoading}
         rows={slackRows}
-        selectedRowIds={selectedSlacks}
-        onCheckChange={onSlackSelect}
+        selectedRowIds={tempSlacks}
+        onCheckChange={onTempSlacksChange}
       />
     ),
   }

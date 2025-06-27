@@ -1,5 +1,9 @@
 import { useMemo, useState } from 'react'
-import { CosButton, CosStroke } from '@cube-frontend/ui-library'
+import {
+  EmailRecipientResponse,
+  SlackChannelGetResponse,
+} from '@cube-frontend/api'
+import { CosButton, CosStroke, CosTableRow } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { StepBoard } from '@cube-frontend/web-app/components/StepBoard/StepBoard'
 import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
@@ -8,24 +12,101 @@ import { TriggersStackCard } from '../TriggersStackCard'
 import { SendNotificationModal } from './SendNotificationModal'
 import { PersonalizedScriptModal } from './PersonalizedScriptModal'
 
+export type EmailRecipientTableRow = EmailRecipientResponse & CosTableRow
+
+export type SlackChannelTableRow = SlackChannelGetResponse & CosTableRow
+
+const mapToEmailRecipientTable = (
+  email: EmailRecipientResponse,
+): EmailRecipientTableRow => ({
+  ...email,
+  id: email.address,
+})
+
+const mapToSlackChannelTable = (
+  slack: SlackChannelGetResponse,
+): SlackChannelTableRow => ({
+  ...slack,
+  id: slack.url,
+})
+
+const payloadToNotification = (
+  emails: string[],
+  slacks: string[],
+): string[] => {
+  return [...emails, ...slacks]
+}
+
 export type SetResponseProps = {
   isLoading: boolean
-  payload: UpsertTriggersPayload | undefined
+  payload: UpsertTriggersPayload
+  emails: EmailRecipientResponse[]
+  slacks: SlackChannelGetResponse[]
+  onEmailSelect: (emails: string[]) => void
+  onSlackSelect: (slacks: string[]) => void
   onNextClick: () => void
 }
 
 export const SetResponse = (props: SetResponseProps) => {
-  const { onNextClick } = props
+  const {
+    isLoading,
+    payload,
+    emails,
+    slacks,
+    onEmailSelect,
+    onSlackSelect,
+    onNextClick,
+  } = props
 
   const [isSendNotificationOpen, setIsSendNotificationOpen] = useState(false)
 
   const [isPersonalizedScriptOpen, setIsPersonalizedScriptOpen] =
     useState(false)
 
+  const emailRows = useMemo<EmailRecipientTableRow[]>(() => {
+    return emails.map(mapToEmailRecipientTable)
+  }, [emails])
+
+  const slackRows = useMemo<SlackChannelTableRow[]>(() => {
+    return slacks.map(mapToSlackChannelTable)
+  }, [slacks])
+
+  const notifications = payloadToNotification(
+    payload?.emails ?? [],
+    payload?.slacks ?? [],
+  )
+
   const isValueValid = useMemo(() => {
     // TODO: Implement actual validation logic
     return true
   }, [])
+
+  const renderNotificationStackCard = () => {
+    if (notifications.length === 0) return null
+
+    const removeNotification = () => {
+      onEmailSelect([])
+      onSlackSelect([])
+    }
+
+    return (
+      <TriggersStackCard
+        title="Notification"
+        tags={notifications}
+        onRemoveClick={removeNotification}
+      />
+    )
+  }
+
+  const renderPersonalizedScriptStackCard = () => {
+    return (
+      <TriggersStackCard
+        title="Personalized Script"
+        tags={['response', 'response', 'response', 'response']}
+        onRemoveClick={() => window.alert('Remove!!!')}
+      />
+    )
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -33,10 +114,16 @@ export const SetResponse = (props: SetResponseProps) => {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
             <SendNotificationModal
+              isLoading={isLoading}
               isModalOpen={isSendNotificationOpen}
+              emailRows={emailRows}
+              slackRows={slackRows}
+              selectedEmails={payload?.emails ?? []}
+              selectedSlacks={payload?.slacks ?? []}
+              onEmailSelect={onEmailSelect}
+              onSlackSelect={onSlackSelect}
               onModelOpen={() => setIsSendNotificationOpen(true)}
               onModelClose={() => setIsSendNotificationOpen(false)}
-              onActionClick={() => alert('Send Notification Set!!')}
             />
             <PersonalizedScriptModal
               isModalOpen={isPersonalizedScriptOpen}
@@ -50,16 +137,8 @@ export const SetResponse = (props: SetResponseProps) => {
           </CosButton>
         </div>
         <CosStroke />
-        <TriggersStackCard
-          title="Notification"
-          tags={['response', 'response', 'response', 'response']}
-          onRemoveClick={() => window.alert('Remove!!!')}
-        />
-        <TriggersStackCard
-          title="Personalized Script"
-          tags={['response', 'response', 'response', 'response']}
-          onRemoveClick={() => window.alert('Remove!!!')}
-        />
+        {renderNotificationStackCard()}
+        {renderPersonalizedScriptStackCard()}
       </StepBoard>
       <CosStroke type="dot" />
       <div className="flex items-center gap-x-4">

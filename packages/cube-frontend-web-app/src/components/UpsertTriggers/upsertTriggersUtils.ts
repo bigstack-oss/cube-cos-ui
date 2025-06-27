@@ -7,10 +7,10 @@ export enum UpsertTriggersStep {
 }
 
 export type UpsertTriggersPayload = {
-  selectedEvents: GetTriggersResponseDataInnerAttributesInner[]
-  setResponse: {
-    notifications: string[]
-    scripts: string[]
-  }
-  addedDescription: string
+  events: GetTriggersResponseDataInnerAttributesInner[]
+  emails: string[]
+  slacks: string[]
+  personalizedScripts: string[]
+  name: string
+  description?: string
 }

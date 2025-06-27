@@ -1,27 +1,75 @@
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
+import {
+  EventsApiGetEventFilterConditionsRequest,
+  SettingsApiGetEmailRecipientsRequest,
+  SettingsApiGetSlackChannelsRequest,
+} from '@cube-frontend/api'
+import { eventsApi, settingsApi } from '@cube-frontend/web-app/api/cosApi'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosStroke } from '@cube-frontend/ui-library'
+import { useStepParam } from './_components/useStepParam'
+import { useCreateTriggersPayload } from './_components/useCreateTriggersPayload'
+import { UpsertTriggersSteps } from './_components/UpsertTriggersSteps'
 import { SelectEvents } from './_components/SelectEvents/SelectEvents'
 import { SetResponse } from './_components/SetResponse/SetResponse'
 import { AddDescription } from './_components/AddDescription/AddDescription'
-import { useCreateTriggersPayload } from './_components/useCreateTriggersPayload'
-import { useStepParam } from './_components/useStepParam'
-import { UpsertTriggersSteps } from './_components/UpsertTriggersSteps'
-import { UpsertTriggersStep } from './upsertTriggersUtils'
+import {
+  UpsertTriggersPayload,
+  UpsertTriggersStep,
+} from './upsertTriggersUtils'
 
-export const CreateTriggers = () => {
+type CreateTriggersProps = {
+  onPublishClick: (payload: UpsertTriggersPayload) => void
+}
+
+export const CreateTriggers = (props: CreateTriggersProps) => {
+  const { onPublishClick } = props
+
   const { step, goToSetResponse, goToAddDescription } = useStepParam([
     UpsertTriggersStep.SelectEvents,
     UpsertTriggersStep.SetResponse,
     UpsertTriggersStep.AddDescription,
   ])
 
-  const { payload } = useCreateTriggersPayload()
+  const { dataCenter } = useContext(DataCenterContext)
+
+  const { data: attributes } = useCosGetRequest(
+    eventsApi.getEventFilterConditions,
+    (): EventsApiGetEventFilterConditionsRequest => ({
+      dataCenter: dataCenter!.name,
+    }),
+  )
+
+  const { data: emails = [] } = useCosGetRequest(
+    settingsApi.getEmailRecipients,
+    (): SettingsApiGetEmailRecipientsRequest => ({
+      dataCenter: dataCenter!.name,
+    }),
+  )
+
+  const { data: slacks = [] } = useCosGetRequest(
+    settingsApi.getSlackChannels,
+    (): SettingsApiGetSlackChannelsRequest => ({
+      dataCenter: dataCenter!.name,
+    }),
+  )
+
+  const {
+    payload,
+    onEmailSelect,
+    onSlackSelect,
+    onNameChange,
+    onDescriptionChange,
+  } = useCreateTriggersPayload()
 
   const renderContentFnMap: Record<UpsertTriggersStep, () => ReactNode> = {
     selectEvents: () => (
       <SelectEvents
         isLoading={false}
         payload={payload}
+        severities={attributes?.system.severities ?? []}
+        eventIds={attributes?.instance.ids ?? []}
         onNextClick={goToSetResponse}
       />
     ),
@@ -29,15 +77,21 @@ export const CreateTriggers = () => {
       <SetResponse
         isLoading={false}
         payload={payload}
+        emails={emails}
+        slacks={slacks}
+        onEmailSelect={onEmailSelect}
+        onSlackSelect={onSlackSelect}
         onNextClick={goToAddDescription}
       />
     ),
     addDescription: () => (
       <AddDescription
         isLoading={false}
+        nextButtonText="Update"
         payload={payload}
-        onNextClick={goToAddDescription}
-        nextButtonText="Create"
+        onNameChange={onNameChange}
+        onDescriptionChange={onDescriptionChange}
+        onPublishClick={onPublishClick}
       />
     ),
   }

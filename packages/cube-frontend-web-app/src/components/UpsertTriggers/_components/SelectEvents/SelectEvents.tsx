@@ -8,12 +8,14 @@ import { AddAttributeModal } from './AddAttributeModal'
 
 type SelectEventsProps = {
   isLoading: boolean
-  payload: UpsertTriggersPayload | undefined
+  payload: UpsertTriggersPayload
+  severities: string[]
+  eventIds: string[]
   onNextClick: () => void
 }
 
 export const SelectEvents = (props: SelectEventsProps) => {
-  const { onNextClick } = props
+  const { isLoading, payload, severities, eventIds, onNextClick } = props
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -28,6 +30,8 @@ export const SelectEvents = (props: SelectEventsProps) => {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <AddAttributeModal
             isModalOpen={isOpen}
+            severities={severities}
+            eventIds={eventIds}
             onModelOpen={() => setIsOpen(true)}
             onModelClose={() => setIsOpen(false)}
             onActionClick={() => alert('Set Response')}

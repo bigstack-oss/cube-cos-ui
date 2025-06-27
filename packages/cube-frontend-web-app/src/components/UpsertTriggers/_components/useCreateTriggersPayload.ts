@@ -1,52 +1,77 @@
-import { useState } from 'react'
-import { GetTriggersResponseDataInnerAttributesInner } from '@cube-frontend/api'
+import { ChangeEvent, useState } from 'react'
 import { UpsertTriggersPayload } from '../upsertTriggersUtils'
 
 type UseCreateTriggersPayload = {
   payload: UpsertTriggersPayload
-  onEventsChange: (
-    events: GetTriggersResponseDataInnerAttributesInner[],
-  ) => void
-  onResponseNotificationChange: () => void
-  onResponseScriptChange: () => void
-  onDescriptionChange: (description: string) => void
+  onEmailSelect: (emails: string[]) => void
+  onSlackSelect: (slacks: string[]) => void
+  onNameChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
-  const [payload, setPayload] = useState<UpsertTriggersPayload>(() => ({
-    selectedEvents: [],
-    setResponse: {
-      notifications: [],
-      scripts: [],
-    },
-    addedDescription: '',
-  }))
+  const [payload, setPayload] = useState<UpsertTriggersPayload>({
+    events: [],
+    emails: [],
+    slacks: [],
+    personalizedScripts: [],
+    name: '',
+    description: '',
+  })
 
-  const onEventsChange = (
-    events: GetTriggersResponseDataInnerAttributesInner[],
-  ) => {
-    setPayload((prev) => ({
-      ...prev,
-      events,
-    }))
+  const onAttributeChange = (): void => {}
+
+  const onEmailSelect = (emails: string[]) => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        emails,
+      }
+    })
   }
 
-  const onResponseNotificationChange = () => {}
+  const onSlackSelect = (slacks: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        slacks,
+      }
+    })
+  }
 
-  const onResponseScriptChange = () => {}
+  const onPersonalizedScriptChange = () => {}
 
-  const onDescriptionChange = (description: string) => {
-    setPayload((prev) => ({
-      ...prev,
-      description,
-    }))
+  const onNameChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+    setPayload((prev) => {
+      if (!prev) {
+        return prev
+      }
+      return {
+        ...prev,
+        name: e.target.value,
+      }
+    })
+  }
+
+  const onDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+    setPayload((prev) => {
+      if (!prev) {
+        return prev
+      }
+      return {
+        ...prev,
+        description: e.target.value,
+      }
+    })
   }
 
   return {
     payload,
-    onEventsChange,
-    onResponseNotificationChange,
-    onResponseScriptChange,
+    onEmailSelect,
+    onSlackSelect,
+    onNameChange,
     onDescriptionChange,
   }
 }
