@@ -5,6 +5,7 @@ import {
 } from '@cube-frontend/ui-library'
 import { Meta } from '@storybook/react'
 import { noop } from 'lodash'
+import { PropsWithChildren } from 'react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 
 const meta = {
@@ -28,6 +29,24 @@ const BackButtonRow = (props: BackButtonRowProps) => {
       {children}
     </div>
   )
+}
+
+type CustomBackLinkContainerProps = PropsWithChildren<{
+  href: string
+}>
+
+const CustomBackLinkContainer = (props: CustomBackLinkContainerProps) => {
+  const { children, href } = props
+
+  return (
+    <a className="border-2 border-green-600" href={href} target="_blank">
+      {children}
+    </a>
+  )
+}
+
+const getRandomLink = (): string => {
+  return `#${Math.random()}`
 }
 
 export const Gallery = {
@@ -65,36 +84,46 @@ export const Gallery = {
                 Page Title
               </CosBackButton>
             </BackButtonRow>
+            <BackButtonRow title="Custom Back Button Container">
+              <CosBackButton
+                backButtonContainer={{
+                  Component: CustomBackLinkContainer,
+                  props: {
+                    href: getRandomLink(),
+                  },
+                }}
+                onClick={noop}
+              >
+                Custom Back Button Container
+              </CosBackButton>
+            </BackButtonRow>
           </div>
         </StoryLayout.Section>
         <StoryLayout.Section title="With Bar Charts">
           <div className="flex flex-col gap-y-8">
             <BackButtonRow title="No Links and No Bar Charts">
-              <CosBackButton>Page Title</CosBackButton>
+              <CosBackButton onClick={noop}>Page Title</CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="No Links and No Bar Charts Loading">
-              <CosBackButton isLoading={true}>Page Title</CosBackButton>
+              <CosBackButton isLoading={true} onClick={noop}>
+                Page Title
+              </CosBackButton>
             </BackButtonRow>
             <BackButtonRow title="With Links">
               <CosBackButton
                 titleRightContent={
                   <>
                     <CosBackButton.Divider />
-                    <CosBackButton.Link
-                      target="_blank"
-                      href={`/#${Math.random()}`}
-                    >
+                    <CosBackButton.Link target="_blank" href={getRandomLink()}>
                       Grafana
                     </CosBackButton.Link>
                     <CosBackButton.Divider />
-                    <CosBackButton.Link
-                      target="_blank"
-                      href={`/#${Math.random()}`}
-                    >
+                    <CosBackButton.Link target="_blank" href={getRandomLink()}>
                       Detail Link
                     </CosBackButton.Link>
                   </>
                 }
+                onClick={noop}
               >
                 Page Title
               </CosBackButton>
@@ -105,20 +134,15 @@ export const Gallery = {
                 titleRightContent={
                   <>
                     <CosBackButton.Divider />
-                    <CosBackButton.Link
-                      target="_blank"
-                      href={`/#${Math.random()}`}
-                    >
+                    <CosBackButton.Link target="_blank" href={getRandomLink()}>
                       Grafana
                     </CosBackButton.Link>
-                    <CosBackButton.Link
-                      target="_blank"
-                      href={`/#${Math.random()}`}
-                    >
+                    <CosBackButton.Link target="_blank" href={getRandomLink()}>
                       Detail Link
                     </CosBackButton.Link>
                   </>
                 }
+                onClick={noop}
               >
                 Page Title
               </CosBackButton>
@@ -132,6 +156,7 @@ export const Gallery = {
                     <CosBackButton.BarChart label="RAM" progress={34} />
                   </>
                 }
+                onClick={noop}
               >
                 Page Title
               </CosBackButton>
@@ -146,6 +171,7 @@ export const Gallery = {
                     <CosBackButton.BarChart label="RAM" progress={34} />
                   </>
                 }
+                onClick={noop}
               >
                 Page Title
               </CosBackButton>
@@ -167,6 +193,7 @@ export const Gallery = {
                     <CosBackButton.BarChart label="RAM" progress={34} />
                   </>
                 }
+                onClick={noop}
               >
                 Page Title
               </CosBackButton>
@@ -195,6 +222,7 @@ export const Gallery = {
                     <CosBackButton.BarChart label="Partition" progress={56} />
                   </>
                 }
+                onClick={noop}
               >
                 Page Title
               </CosBackButton>
@@ -228,6 +256,7 @@ export const Gallery = {
                     </div>
                   </>
                 }
+                onClick={noop}
               >
                 Page Title
               </CosBackButton>
@@ -258,6 +287,7 @@ export const Gallery = {
                     <CosSkeleton className="h-4 w-[83px]" />
                   </>
                 }
+                onClick={noop}
               >
                 Page Title
               </CosBackButton>
