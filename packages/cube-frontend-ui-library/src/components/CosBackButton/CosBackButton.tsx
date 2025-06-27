@@ -1,4 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { BackButton, BackButtonProps } from './BackButton'
 import { BarChart } from './BarChart'
 import { CosBackButtonContextProvider } from './CosBackButtonContextProvider'
@@ -48,7 +49,14 @@ export const CosBackButton = <
 
   return (
     <CosBackButtonContextProvider isLoading={isLoading}>
-      <div className="flex items-center gap-x-2">
+      <div
+        className={twMerge(
+          'flex items-center gap-x-2',
+          // TODO: Find a better way to check if `titleBottomContent` renders empty
+          // for more accurate styling, instead of relying on the React Node's value.
+          titleBottomContent && 'items-start',
+        )}
+      >
         <BackButton {...getBackButtonProps()} />
         <div className="flex flex-col gap-y-2">
           <div className="flex items-center gap-x-3">
