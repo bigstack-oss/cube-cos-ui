@@ -40,21 +40,22 @@ export const ActionMenu = (props: ActionMenuProps) => {
         <>
           <CosOverflowMenu.Divider />
           <CosOverflowMenu.Title>IPMI Control</CosOverflowMenu.Title>
-          {showPowerOn && (
+          {showPowerCycle && (
             <CosOverflowMenu.Item
               type="plain"
               title="Power cycle"
               onClick={onPowerCycleClick}
             />
           )}
-          {showPowerOff && (
+          {showPowerOn && (
             <CosOverflowMenu.Item
-              type="plain"
+              type="trailing-icon"
               title="Power on"
+              TrailingIcon={Power}
               onClick={onPowerOnClick}
             />
           )}
-          {showPowerCycle && (
+          {showPowerOff && (
             <CosOverflowMenu.Item
               type="trailing-icon"
               title="Power off"
