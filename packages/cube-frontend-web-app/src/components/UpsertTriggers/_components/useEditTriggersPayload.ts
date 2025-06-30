@@ -1,27 +1,27 @@
-import { ChangeEvent, useEffect, useState } from 'react'
-import {
-  EmailRecipientResponse,
-  SlackChannelGetResponse,
-} from '@cube-frontend/api'
+import { ChangeEvent, useState } from 'react'
 import { UpsertTriggersPayload } from '../upsertTriggersUtils'
 
 type UseEditTriggersPayload = {
   isInitializing: boolean
   payload: UpsertTriggersPayload
+  onAlertTypeSelect: (alertTypes: string[]) => void
+  onSeveritySelect: (severities: string[]) => void
+  onCategorySelect: (categories: string[]) => void
+  onEventIdSelect: (eventIds: string[]) => void
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
   onNameChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
   onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-export const useEditTriggersPayload = (
-  emails: EmailRecipientResponse[],
-  slacks: SlackChannelGetResponse[],
-): UseEditTriggersPayload => {
+export const useEditTriggersPayload = (): UseEditTriggersPayload => {
   const [isInitializing, setIsInitializing] = useState(true)
 
   const [payload, setPayload] = useState<UpsertTriggersPayload>({
-    events: [],
+    alertTypes: [],
+    severities: [],
+    categories: [],
+    eventIds: [],
     emails: [],
     slacks: [],
     personalizedScripts: [],
@@ -29,7 +29,45 @@ export const useEditTriggersPayload = (
     description: '',
   })
 
-  const onAttributeChange = (): void => {}
+  const onAlertTypeSelect = (alertTypes: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        alertTypes,
+      }
+    })
+  }
+
+  const onSeveritySelect = (severities: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        severities,
+      }
+    })
+  }
+
+  const onCategorySelect = (categories: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        categories,
+      }
+    })
+  }
+
+  const onEventIdSelect = (eventIds: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        eventIds,
+      }
+    })
+  }
 
   const onEmailSelect = (emails: string[]) => {
     setPayload((prev) => {
@@ -80,6 +118,10 @@ export const useEditTriggersPayload = (
   return {
     isInitializing,
     payload,
+    onAlertTypeSelect,
+    onSeveritySelect,
+    onCategorySelect,
+    onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
     onNameChange,

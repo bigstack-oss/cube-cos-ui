@@ -1,11 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
-import {
-  CosButton,
-  CosCheckbox,
-  CosCheckboxGrid,
-  CosDropdown,
-  CosModal,
-} from '@cube-frontend/ui-library'
+import { CosButton, CosDropdown, CosModal } from '@cube-frontend/ui-library'
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
 import { AttributeCheckboxGroup } from './AttributeCheckboxGroup'
 
@@ -20,20 +14,46 @@ const attributeLabelMap: Record<AttributeType, string> = {
   eventId: 'Event Id',
 }
 
+const checkIsAllChecked = (
+  tempAttributes: string[],
+  options: string[],
+): boolean | null => {
+  if (tempAttributes.length === options.length) return true
+  if (tempAttributes.length === 0) return false
+  return null
+}
+
 type AddAttributeModalProps = {
   isModalOpen: boolean
+  alertTypes: string[]
   severities: string[]
+  categories: string[]
   eventIds: string[]
+  selectedAlertTypes: string[]
+  selectedSeverities: string[]
+  selectedCategories: string[]
+  selectedEventIds: string[]
   onModelOpen: () => void
   onModelClose: () => void
-  onActionClick: () => void
+  onActionClick: (attributes: {
+    alertTypes: string[]
+    severities: string[]
+    categories: string[]
+    eventIds: string[]
+  }) => void
 }
 
 export const AddAttributeModal = (props: AddAttributeModalProps) => {
   const {
     isModalOpen,
+    alertTypes,
     severities,
+    categories,
     eventIds,
+    selectedAlertTypes,
+    selectedCategories,
+    selectedEventIds,
+    selectedSeverities,
     onModelOpen,
     onModelClose: onModelCloseProp,
     onActionClick: onActionClickProp,
@@ -41,45 +61,113 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
 
   const [activeType, setActiveType] = useState<AttributeType | undefined>()
 
-  const [tempSeverities, setTempSeverities] = useState<string[]>([])
-
-  const [isAllTempSeveritiesChecked, setIsAllTempSeveritiesChecked] = useState<
-    boolean | null
-  >(false)
-
-  const [tempEventIds, setTempEventIds] = useState<string[]>([])
+  const [tempAttributes, setTempAttributes] = useState<{
+    alertTypes: string[]
+    severities: string[]
+    categories: string[]
+    eventIds: string[]
+  }>({
+    alertTypes: selectedAlertTypes,
+    severities: selectedCategories,
+    categories: selectedEventIds,
+    eventIds: selectedSeverities,
+  })
 
   useEffect(() => {
-    if (tempSeverities.length === severities.length) {
-      setIsAllTempSeveritiesChecked(true)
-    } else if (tempSeverities.length === 0) {
-      setIsAllTempSeveritiesChecked(false)
-    } else {
-      setIsAllTempSeveritiesChecked(null)
-    }
-  }, [severities.length, tempSeverities])
+    setTempAttributes({
+      alertTypes: selectedAlertTypes,
+      severities: selectedSeverities,
+      categories: selectedCategories,
+      eventIds: selectedEventIds,
+    })
+  }, [
+    selectedAlertTypes,
+    selectedSeverities,
+    selectedCategories,
+    selectedEventIds,
+  ])
 
-  const onTempSeveritiesChange = (severity: string) => {
-    const isSelected = tempSeverities.includes(severity)
-    setTempSeverities((prev) => {
-      return isSelected
-        ? prev.filter((s) => s !== severity)
-        : [...prev, severity]
+  const onTempAlertTypeChange = (alertType: string) => {
+    setTempAttributes((prev) => {
+      const { alertTypes } = prev
+      const updatedAlertTypes = alertTypes.includes(alertType)
+        ? alertTypes.filter((a) => a !== alertType)
+        : [...alertTypes, alertType]
+
+      return { ...prev, alertTypes: updatedAlertTypes }
+    })
+  }
+
+  const onAllTempAlertTypesChange = (): void => {
+    setTempAttributes((prev) => {
+      const updatedAlertTypes = checkIsAllChecked(prev.alertTypes, alertTypes)
+        ? []
+        : alertTypes
+
+      return { ...prev, alertTypes: updatedAlertTypes }
+    })
+  }
+
+  const onTempSeverityChange = (severity: string) => {
+    setTempAttributes((prev) => {
+      const { severities } = prev
+      const updatedSeverities = severities.includes(severity)
+        ? severities.filter((s) => s !== severity)
+        : [...severities, severity]
+
+      return { ...prev, severities: updatedSeverities }
     })
   }
 
   const onAllTempSeveritiesChange = (): void => {
-    if (isAllTempSeveritiesChecked) {
-      setTempSeverities([])
-    } else {
-      setTempSeverities(severities)
-    }
+    setTempAttributes((prev) => {
+      const updatedSeverities = checkIsAllChecked(prev.severities, severities)
+        ? []
+        : severities
+
+      return { ...prev, severities: updatedSeverities }
+    })
   }
 
-  const onTempEventIdsChange = (id: string) => {
-    const isSelected = tempEventIds.includes(id)
-    setTempEventIds((prev) => {
-      return isSelected ? prev.filter((i) => i !== id) : [...prev, id]
+  const onTempCategoryChange = (category: string) => {
+    setTempAttributes((prev) => {
+      const { categories } = prev
+      const updatedCategories = categories.includes(category)
+        ? categories.filter((c) => c !== category)
+        : [...categories, category]
+
+      return { ...prev, categories: updatedCategories }
+    })
+  }
+
+  const onAllTempCategoriesChange = (): void => {
+    setTempAttributes((prev) => {
+      const updatedCategories = checkIsAllChecked(prev.categories, categories)
+        ? []
+        : categories
+
+      return { ...prev, categories: updatedCategories }
+    })
+  }
+
+  const onTempEventIdChange = (eventId: string) => {
+    setTempAttributes((prev) => {
+      const { eventIds } = prev
+      const updatedEventIds = eventIds.includes(eventId)
+        ? eventIds.filter((e) => e !== eventId)
+        : [...eventIds, eventId]
+
+      return { ...prev, eventIds: updatedEventIds }
+    })
+  }
+
+  const onAllTempEventIdsChange = (): void => {
+    setTempAttributes((prev) => {
+      const updatedEventIds = checkIsAllChecked(prev.eventIds, eventIds)
+        ? []
+        : eventIds
+
+      return { ...prev, eventIds: updatedEventIds }
     })
   }
 
@@ -90,33 +178,50 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
 
   const onActionClick = () => {
     setActiveType(undefined)
-    onActionClickProp()
+    onActionClickProp(tempAttributes)
     onModelCloseProp()
   }
 
   const renderContentFnMap: Record<AttributeType, () => ReactNode> = {
-    alertType: () => <div>Alert Type</div>,
+    alertType: () => (
+      <AttributeCheckboxGroup
+        label={attributeLabelMap['alertType']}
+        isAllChecked={checkIsAllChecked(tempAttributes.alertTypes, alertTypes)}
+        attributes={alertTypes}
+        selectedAttributes={tempAttributes.alertTypes}
+        onAttributesChange={onTempAlertTypeChange}
+        onAllAttributesChange={onAllTempAlertTypesChange}
+      />
+    ),
     severity: () => (
       <AttributeCheckboxGroup
         label={attributeLabelMap['severity']}
-        isAllChecked={isAllTempSeveritiesChecked}
+        isAllChecked={checkIsAllChecked(tempAttributes.severities, severities)}
         attributes={severities}
-        selectedAttributes={tempSeverities}
-        onAttributesChange={onTempSeveritiesChange}
+        selectedAttributes={tempAttributes.severities}
+        onAttributesChange={onTempSeverityChange}
         onAllAttributesChange={onAllTempSeveritiesChange}
       />
     ),
-    category: () => <div>Category</div>,
+    category: () => (
+      <AttributeCheckboxGroup
+        label={attributeLabelMap['category']}
+        isAllChecked={checkIsAllChecked(tempAttributes.categories, categories)}
+        attributes={categories}
+        selectedAttributes={tempAttributes.categories}
+        onAttributesChange={onTempCategoryChange}
+        onAllAttributesChange={onAllTempCategoriesChange}
+      />
+    ),
     eventId: () => (
-      <CosCheckboxGrid direction="wrap">
-        {eventIds.map((id) => (
-          <CosCheckbox
-            label={id}
-            checked={tempEventIds.includes(id)}
-            onChange={() => onTempEventIdsChange(id)}
-          />
-        ))}
-      </CosCheckboxGrid>
+      <AttributeCheckboxGroup
+        label={attributeLabelMap['eventId']}
+        isAllChecked={checkIsAllChecked(tempAttributes.eventIds, eventIds)}
+        attributes={eventIds}
+        selectedAttributes={tempAttributes.eventIds}
+        onAttributesChange={onTempEventIdChange}
+        onAllAttributesChange={onAllTempEventIdsChange}
+      />
     ),
   }
 
@@ -138,6 +243,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         actionText="Set Response"
         onActionClick={onActionClick}
         onCloseClick={onModelClose}
+        className="h-[400px]"
       >
         <div className="mb-8 w-[186px]">
           <CosDropdown
@@ -165,7 +271,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
             </CosDropdown.Menu>
           </CosDropdown>
         </div>
-        <div>{renderContent()}</div>
+        {renderContent()}
       </CosModal>
     </div>
   )

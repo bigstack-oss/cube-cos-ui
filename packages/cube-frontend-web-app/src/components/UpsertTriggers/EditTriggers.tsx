@@ -1,9 +1,10 @@
 import { ReactNode, useContext } from 'react'
 import {
+  EventsApiGetEventFilterConditionsRequest,
   SettingsApiGetEmailRecipientsRequest,
   SettingsApiGetSlackChannelsRequest,
 } from '@cube-frontend/api'
-import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
+import { eventsApi, settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosStroke } from '@cube-frontend/ui-library'
@@ -33,6 +34,13 @@ export const EditTriggers = (props: EditTriggersProps) => {
 
   const { dataCenter } = useContext(DataCenterContext)
 
+  const { data: attributes } = useCosGetRequest(
+    eventsApi.getEventFilterConditions,
+    (): EventsApiGetEventFilterConditionsRequest => ({
+      dataCenter: dataCenter!.name,
+    }),
+  )
+
   const { data: emails = [] } = useCosGetRequest(
     settingsApi.getEmailRecipients,
     (): SettingsApiGetEmailRecipientsRequest => ({
@@ -50,17 +58,29 @@ export const EditTriggers = (props: EditTriggersProps) => {
   const {
     isInitializing,
     payload,
+    onAlertTypeSelect,
+    onSeveritySelect,
+    onCategorySelect,
+    onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
     onNameChange,
     onDescriptionChange,
-  } = useEditTriggersPayload(emails, slacks)
+  } = useEditTriggersPayload()
 
   const renderContentFnMap: Record<UpsertTriggersStep, () => ReactNode> = {
     selectEvents: () => (
       <SelectEvents
         isLoading={isInitializing}
         payload={payload}
+        severities={attributes?.system.severities ?? []}
+        alertTypes={['system', 'host', 'instance']}
+        categories={attributes?.system.categories ?? []}
+        eventIds={attributes?.instance.ids ?? []}
+        onAlertTypeSelect={onAlertTypeSelect}
+        onSeveritySelect={onSeveritySelect}
+        onCategorySelect={onCategorySelect}
+        onEventIdSelect={onEventIdSelect}
         onNextClick={goToSetResponse}
       />
     ),

@@ -57,6 +57,10 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
 
   const {
     payload,
+    onAlertTypeSelect,
+    onSeveritySelect,
+    onCategorySelect,
+    onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
     onNameChange,
@@ -69,7 +73,13 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
         isLoading={false}
         payload={payload}
         severities={attributes?.system.severities ?? []}
+        alertTypes={['system', 'host', 'instance']}
+        categories={attributes?.system.categories ?? []}
         eventIds={attributes?.instance.ids ?? []}
+        onAlertTypeSelect={onAlertTypeSelect}
+        onSeveritySelect={onSeveritySelect}
+        onCategorySelect={onCategorySelect}
+        onEventIdSelect={onEventIdSelect}
         onNextClick={goToSetResponse}
       />
     ),
@@ -87,7 +97,7 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     addDescription: () => (
       <AddDescription
         isLoading={false}
-        nextButtonText="Update"
+        nextButtonText="Create"
         payload={payload}
         onNameChange={onNameChange}
         onDescriptionChange={onDescriptionChange}

@@ -71,10 +71,7 @@ export const SetResponse = (props: SetResponseProps) => {
     return slacks.map(mapToSlackChannelTable)
   }, [slacks])
 
-  const notifications = payloadToNotification(
-    payload?.emails ?? [],
-    payload?.slacks ?? [],
-  )
+  const notifications = payloadToNotification(payload.emails, payload.slacks)
 
   const isValueValid = useMemo(() => {
     // TODO: Implement actual validation logic
@@ -118,8 +115,8 @@ export const SetResponse = (props: SetResponseProps) => {
               isModalOpen={isSendNotificationOpen}
               emailRows={emailRows}
               slackRows={slackRows}
-              selectedEmails={payload?.emails ?? []}
-              selectedSlacks={payload?.slacks ?? []}
+              selectedEmails={payload.emails}
+              selectedSlacks={payload.slacks}
               onEmailSelect={onEmailSelect}
               onSlackSelect={onSlackSelect}
               onModelOpen={() => setIsSendNotificationOpen(true)}

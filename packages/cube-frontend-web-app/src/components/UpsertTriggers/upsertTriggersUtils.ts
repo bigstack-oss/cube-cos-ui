@@ -1,5 +1,3 @@
-import { GetTriggersResponseDataInnerAttributesInner } from '@cube-frontend/api'
-
 export enum UpsertTriggersStep {
   SelectEvents = 'selectEvents',
   SetResponse = 'setResponse',
@@ -7,7 +5,10 @@ export enum UpsertTriggersStep {
 }
 
 export type UpsertTriggersPayload = {
-  events: GetTriggersResponseDataInnerAttributesInner[]
+  alertTypes: string[]
+  severities: string[]
+  categories: string[]
+  eventIds: string[]
   emails: string[]
   slacks: string[]
   personalizedScripts: string[]

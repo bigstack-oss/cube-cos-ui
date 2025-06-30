@@ -3,6 +3,10 @@ import { UpsertTriggersPayload } from '../upsertTriggersUtils'
 
 type UseCreateTriggersPayload = {
   payload: UpsertTriggersPayload
+  onAlertTypeSelect: (alertTypes: string[]) => void
+  onSeveritySelect: (severities: string[]) => void
+  onCategorySelect: (categories: string[]) => void
+  onEventIdSelect: (eventIds: string[]) => void
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
   onNameChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
@@ -11,7 +15,10 @@ type UseCreateTriggersPayload = {
 
 export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
   const [payload, setPayload] = useState<UpsertTriggersPayload>({
-    events: [],
+    alertTypes: [],
+    severities: [],
+    categories: [],
+    eventIds: [],
     emails: [],
     slacks: [],
     personalizedScripts: [],
@@ -19,9 +26,47 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     description: '',
   })
 
-  const onAttributeChange = (): void => {}
+  const onAlertTypeSelect = (alertTypes: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        alertTypes,
+      }
+    })
+  }
 
-  const onEmailSelect = (emails: string[]) => {
+  const onSeveritySelect = (severities: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        severities,
+      }
+    })
+  }
+
+  const onCategorySelect = (categories: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        categories,
+      }
+    })
+  }
+
+  const onEventIdSelect = (eventIds: string[]): void => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        eventIds,
+      }
+    })
+  }
+
+  const onEmailSelect = (emails: string[]): void => {
     setPayload((prev) => {
       if (!prev) return prev
       return {
@@ -69,6 +114,10 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
 
   return {
     payload,
+    onAlertTypeSelect,
+    onSeveritySelect,
+    onCategorySelect,
+    onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
     onNameChange,
