@@ -29,6 +29,7 @@ export const PersonalizedScriptModal = (
         actionText="Set Response"
         onActionClick={onActionClick}
         onCloseClick={onModelClose}
+        className="h-[400px]"
       >
         <Fragment key={onActionClick.toString()}>Personalized Script</Fragment>
       </CosModal>

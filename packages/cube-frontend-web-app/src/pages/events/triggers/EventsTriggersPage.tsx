@@ -2,6 +2,7 @@ import {
   CosButton,
   CosInlineNotification,
   CosLoadingSpinner,
+  CosPagination,
   CosStroke,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
@@ -76,6 +77,13 @@ export const EventsTriggersPage = () => {
           )}
         </TriggersTable.Column>
       </TriggersTable>
+      <CosPagination
+        totalItems={0}
+        currentPage={1}
+        itemsPerPage={25}
+        onPageChange={() => {}}
+        onItemsPerPageChange={() => {}}
+      />
     </div>
   )
 }

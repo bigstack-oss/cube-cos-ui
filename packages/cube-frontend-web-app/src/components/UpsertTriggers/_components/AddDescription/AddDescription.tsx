@@ -25,8 +25,9 @@ export const AddDescription = (props: AddDescriptionProps) => {
 
   const isValueValid = useMemo(() => {
     // TODO: Implement actual validation logic
+    if (!payload.name) return false
     return true
-  }, [])
+  }, [payload.name])
 
   const onPublishClick = () => {
     onPublishClickProp(payload)

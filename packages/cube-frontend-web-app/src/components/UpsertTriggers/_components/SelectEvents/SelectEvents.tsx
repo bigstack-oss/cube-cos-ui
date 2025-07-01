@@ -18,6 +18,7 @@ type SelectEventsProps = {
   onCategorySelect: (categories: string[]) => void
   onEventIdSelect: (eventIds: string[]) => void
   onNextClick: () => void
+  onResetClick: () => void
 }
 
 export const SelectEvents = (props: SelectEventsProps) => {
@@ -33,6 +34,7 @@ export const SelectEvents = (props: SelectEventsProps) => {
     onCategorySelect,
     onEventIdSelect,
     onNextClick,
+    onResetClick,
   } = props
 
   const [isOpen, setIsOpen] = useState(false)
@@ -52,8 +54,15 @@ export const SelectEvents = (props: SelectEventsProps) => {
 
   const isValueValid = useMemo(() => {
     // TODO: Implement actual validation logic
+    if (
+      payload.alertTypes.length === 0 &&
+      payload.severities.length === 0 &&
+      payload.categories.length === 0 &&
+      payload.eventIds.length === 0
+    )
+      return false
     return true
-  }, [])
+  }, [payload])
 
   const renderAlertTypeStackCard = () => {
     if (payload.alertTypes.length === 0) return null
@@ -121,7 +130,11 @@ export const SelectEvents = (props: SelectEventsProps) => {
             onModelClose={() => setIsOpen(false)}
             onActionClick={onActionClick}
           />
-          <CosButton type="ghost" disabled={true}>
+          <CosButton
+            type="ghost"
+            onClick={onResetClick}
+            disabled={!isValueValid}
+          >
             Reset
           </CosButton>
         </div>

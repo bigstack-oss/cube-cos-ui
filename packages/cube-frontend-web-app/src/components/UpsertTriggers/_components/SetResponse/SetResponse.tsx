@@ -9,8 +9,8 @@ import { StepBoard } from '@cube-frontend/web-app/components/StepBoard/StepBoard
 import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
 import { TriggersStackCard } from '../TriggersStackCard'
-import { SendNotificationModal } from './SendNotificationModal'
-import { PersonalizedScriptModal } from './PersonalizedScriptModal'
+import { SendNotificationModal } from './SendNotificationModal/SendNotificationModal'
+import { PersonalizedScriptModal } from './PersonalizedScriptModal/PersonalizedScriptModal'
 
 export type EmailRecipientTableRow = EmailRecipientResponse & CosTableRow
 
@@ -45,6 +45,7 @@ export type SetResponseProps = {
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
   onNextClick: () => void
+  onResetClick: () => void
 }
 
 export const SetResponse = (props: SetResponseProps) => {
@@ -56,6 +57,7 @@ export const SetResponse = (props: SetResponseProps) => {
     onEmailSelect,
     onSlackSelect,
     onNextClick,
+    onResetClick,
   } = props
 
   const [isSendNotificationOpen, setIsSendNotificationOpen] = useState(false)
@@ -75,8 +77,9 @@ export const SetResponse = (props: SetResponseProps) => {
 
   const isValueValid = useMemo(() => {
     // TODO: Implement actual validation logic
+    if (notifications.length === 0) return false
     return true
-  }, [])
+  }, [notifications])
 
   const renderNotificationStackCard = () => {
     if (notifications.length === 0) return null
@@ -129,7 +132,11 @@ export const SetResponse = (props: SetResponseProps) => {
               onActionClick={() => alert('Personalized Script Set!!')}
             />
           </div>
-          <CosButton type="ghost" disabled={true}>
+          <CosButton
+            type="ghost"
+            onClick={onResetClick}
+            disabled={!isValueValid}
+          >
             Reset
           </CosButton>
         </div>

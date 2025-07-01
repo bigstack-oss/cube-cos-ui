@@ -11,6 +11,8 @@ type UseCreateTriggersPayload = {
   onSlackSelect: (slacks: string[]) => void
   onNameChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
   onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  onEventsReset: () => void
+  onResponseReset: () => void
 }
 
 export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
@@ -112,6 +114,34 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     })
   }
 
+  const onEventsReset = (): void => {
+    setPayload((prev) => {
+      if (!prev) {
+        return prev
+      }
+      return {
+        ...prev,
+        alertTypes: [],
+        severities: [],
+        categories: [],
+        eventIds: [],
+      }
+    })
+  }
+
+  const onResponseReset = (): void => {
+    setPayload((prev) => {
+      if (!prev) {
+        return prev
+      }
+      return {
+        ...prev,
+        emails: [],
+        slacks: [],
+      }
+    })
+  }
+
   return {
     payload,
     onAlertTypeSelect,
@@ -122,5 +152,7 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     onSlackSelect,
     onNameChange,
     onDescriptionChange,
+    onEventsReset,
+    onResponseReset,
   }
 }

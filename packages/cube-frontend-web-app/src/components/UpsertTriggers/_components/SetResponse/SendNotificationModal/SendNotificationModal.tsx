@@ -111,6 +111,7 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
         actionText="Set Response"
         onActionClick={onActionClick}
         onCloseClick={onModelClose}
+        className="h-[400px]"
       >
         <div className="flex flex-col gap-y-8">
           <CosContentSwitcher variant="default">

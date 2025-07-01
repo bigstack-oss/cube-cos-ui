@@ -18,6 +18,10 @@ import {
   UpsertTriggersPayload,
   UpsertTriggersStep,
 } from './upsertTriggersUtils'
+import {
+  mockEmailRecipients,
+  mockSlackChannels,
+} from './_components/SetResponse/mockData'
 
 type CreateTriggersProps = {
   onPublishClick: (payload: UpsertTriggersPayload) => void
@@ -65,6 +69,8 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     onSlackSelect,
     onNameChange,
     onDescriptionChange,
+    onEventsReset,
+    onResponseReset,
   } = useCreateTriggersPayload()
 
   const renderContentFnMap: Record<UpsertTriggersStep, () => ReactNode> = {
@@ -81,17 +87,19 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
         onCategorySelect={onCategorySelect}
         onEventIdSelect={onEventIdSelect}
         onNextClick={goToSetResponse}
+        onResetClick={onEventsReset}
       />
     ),
     setResponse: () => (
       <SetResponse
         isLoading={false}
         payload={payload}
-        emails={emails}
-        slacks={slacks}
+        emails={mockEmailRecipients}
+        slacks={mockSlackChannels}
         onEmailSelect={onEmailSelect}
         onSlackSelect={onSlackSelect}
         onNextClick={goToAddDescription}
+        onResetClick={onResponseReset}
       />
     ),
     addDescription: () => (
