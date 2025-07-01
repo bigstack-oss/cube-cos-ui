@@ -15,6 +15,7 @@ import { NodeFilters } from './_components/NodeFilters'
 import { CreateSupportFilesModal } from './_components/CreateSupportFilesModal'
 import { useCreateSupportFilesModal } from './_components/useCreateSupportFilesModal'
 import { useNodeListQuery } from './_components/useNodeListQuery'
+import { canCreateSupportFile } from '@cube-frontend/web-app/utils/node'
 
 export const NodeListPage = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -64,6 +65,10 @@ export const NodeListPage = () => {
     return nodesData.nodes.filter((node) => selectedNodeIdSet.has(node.id))
   }, [nodesData, selectedNodeIds])
 
+  const disabledRowIds = useMemo<string[]>(() => {
+    return rows.filter((row) => !canCreateSupportFile(row)).map((row) => row.id)
+  }, [rows])
+
   const handleRowCheckChange = (nodeId: string, checked: boolean) => {
     setSelectedNodeIds((prev) => {
       if (checked) {
@@ -107,6 +112,7 @@ export const NodeListPage = () => {
           <NodeTable
             rows={rows}
             isLoading={isLoading}
+            disabledRowIds={disabledRowIds}
             skeletonRowCount={query.itemsPerPage}
             selectedRowIds={selectedNodeIds}
             showHeaderCheckbox={false}

@@ -9,7 +9,7 @@ export type CosStatusProps = {
 const statusCva = cva(
   [
     'flex h-[19px] w-fit cursor-default items-center rounded-[20px] border px-2.5',
-    'secondary-body6 font-semibold',
+    'secondary-body6 whitespace-nowrap font-semibold',
   ],
   {
     variants: {

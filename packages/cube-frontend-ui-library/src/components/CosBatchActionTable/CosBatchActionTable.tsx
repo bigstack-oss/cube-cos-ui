@@ -6,7 +6,10 @@ import {
   CosBasicTableProps,
   GetCosBasicTable,
 } from '../CosBasicTable/CosBasicTable'
-import { CosBatchActionTableRow } from '../CosBasicTable/cosTableUtils'
+import {
+  computeRowClassName,
+  CosBatchActionTableRow,
+} from '../CosBasicTable/cosTableUtils'
 import { CreateCosTableColumn } from '../CosBasicTable/rendering/CosTableColumn'
 import { CosCheckbox } from '../CosCheckbox/CosCheckbox'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
@@ -45,6 +48,7 @@ const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
   const {
     children,
     rows,
+    rowClassName,
     selectedRowIds,
     disabledRowIds = [],
     onCheckChange,
@@ -74,6 +78,16 @@ const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
     [rows, selectedRowIdSet, disabledRowIdSet],
   )
 
+  const evaluateRowClassName = (row: Row): string => {
+    return twMerge(
+      tableRow({
+        isChecked: selectedRowIdSet?.has(row.id),
+        isDisabled: disabledRowIdSet?.has(row.id),
+      }),
+      computeRowClassName(rowClassName, row),
+    )
+  }
+
   const checkboxStatus = useHeaderCheckboxStatus(
     convertedRows,
     selectedRowIdSet,
@@ -98,14 +112,7 @@ const CosBatchActionTable = <Row extends CosBatchActionTableRow>(
     <TypedBasicTable
       {...restProps}
       rows={convertedRows}
-      rowClassName={(row) =>
-        twMerge(
-          tableRow({
-            isChecked: selectedRowIdSet?.has(row.id),
-            isDisabled: disabledRowIdSet?.has(row.id),
-          }),
-        )
-      }
+      rowClassName={evaluateRowClassName}
     >
       <TypedBasicTable.Column label={renderHeaderCheckbox()} fitContent={true}>
         {(_, row) => {

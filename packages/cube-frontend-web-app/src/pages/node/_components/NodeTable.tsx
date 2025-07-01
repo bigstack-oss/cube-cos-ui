@@ -18,6 +18,7 @@ import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router'
 import { VipLabel } from './VipLabel'
+import { canCreateSupportFile } from '@cube-frontend/web-app/utils/node'
 
 const BatchActionNodeTable =
   GetCosBatchActionTable<GetNodesResponseData['nodes'][number]>()
@@ -26,7 +27,14 @@ export type NodeTableProps = ComponentProps<typeof BatchActionNodeTable>
 
 export const NodeTable = (props: NodeTableProps) => {
   return (
-    <BatchActionNodeTable {...props}>
+    <BatchActionNodeTable
+      {...props}
+      rowClassName={(row) =>
+        // Overwrite the built-in gray text style in the batch action table
+        // for disabled rows.
+        !canCreateSupportFile(row) && '[&>td]:text-functional-text'
+      }
+    >
       <BatchActionNodeTable.Column
         label="Hostname"
         property="hostname"

@@ -125,7 +125,7 @@ export const NodeDetailsHeader = (props: NodeDetailsHeaderProps) => {
         {node?.hostname ?? ''}
       </CosBackButton>
       {node?.ipmi.isSupported && (
-        <Link to={CosRoutesEnum.NODE_IPMI_CONTROL_PAGE(node?.hostname)}>
+        <Link to={CosRoutesEnum.NODE_IPMI_CONTROL_PAGE(node.hostname)}>
           <CosHyperlink variant="text-inline" onClick={noop}>
             IPMI Control
           </CosHyperlink>

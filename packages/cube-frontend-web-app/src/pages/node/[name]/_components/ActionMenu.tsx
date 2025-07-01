@@ -1,6 +1,7 @@
 import { Node } from '@cube-frontend/api'
 import { CosButton, CosOverflowMenu } from '@cube-frontend/ui-library'
 import Power from '@cube-frontend/ui-library/icons/monochrome/power.svg?react'
+import { canCreateSupportFile } from '@cube-frontend/web-app/utils/node'
 import { useIPMIOperations } from './useIPMIOperations'
 
 type ActionMenuProps = {
@@ -34,6 +35,7 @@ export const ActionMenu = (props: ActionMenuProps) => {
       <CosOverflowMenu.Item
         type="plain"
         title="Create support file"
+        disabled={!canCreateSupportFile(node)}
         onClick={onCreateSupportFileClick}
       />
       {node.ipmi.isConnected && (

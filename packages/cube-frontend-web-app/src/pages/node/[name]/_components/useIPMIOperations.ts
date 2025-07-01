@@ -5,6 +5,7 @@ import {
 } from '@cube-frontend/api'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { isInPoweringStatus } from '@cube-frontend/web-app/utils/node'
 import { useContext, useState } from 'react'
 
 type UseIPMIOperations = {
@@ -17,12 +18,6 @@ type UseIPMIOperations = {
   onPowerOffClick: () => Promise<void>
   onPowerCycleClick: () => Promise<void>
 }
-
-const poweringStatuses = new Set<NodeStatusEnum>([
-  NodeStatusEnum.PoweringOn,
-  NodeStatusEnum.PoweringOff,
-  NodeStatusEnum.PoweringCycle,
-])
 
 export const useIPMIOperations = (
   node: Node | undefined,
@@ -38,7 +33,7 @@ export const useIPMIOperations = (
     try {
       await nodesApi.operateNodeIpmi({
         dataCenter: dataCenter!.name,
-        nodeName: node?.hostname ?? '',
+        nodeName: node!.hostname,
         operation,
       })
     } catch (error) {
@@ -62,7 +57,7 @@ export const useIPMIOperations = (
 
   return {
     isIPMIOperating,
-    isInPoweringStatus: !!node && poweringStatuses.has(node?.status),
+    isInPoweringStatus: isInPoweringStatus(node),
     showPowerOn: node?.status === NodeStatusEnum.Down,
     showPowerOff: node?.status === NodeStatusEnum.Up,
     showPowerCycle: node?.status === NodeStatusEnum.Up,
