@@ -1,8 +1,4 @@
-import {
-  Node,
-  NodeLicenseCurrentStatus,
-  NodeStatusEnum,
-} from '@cube-frontend/api'
+import { Node, NodeStatusEnum } from '@cube-frontend/api'
 import {
   CosButton,
   CosSkeleton,
@@ -12,8 +8,10 @@ import {
 } from '@cube-frontend/ui-library'
 import Copy from '@cube-frontend/ui-library/icons/monochrome/copy.svg?react'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
-import { humanizeDuration } from '@cube-frontend/web-app/utils/date'
-import dayjs from 'dayjs'
+import {
+  humanizeDuration,
+  toLicenseExpirationDate,
+} from '@cube-frontend/web-app/utils/date'
 import { range } from 'lodash'
 import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -120,24 +118,6 @@ export const NodeSummary = (props: NodeSummaryProps) => {
     )
   }
 
-  const getLicenseExpiration = (): string => {
-    const {
-      status,
-      expiry: { date },
-    } = node.license
-
-    if (status.current === NodeLicenseCurrentStatus.Unlicense) {
-      return 'Unlicense'
-    }
-
-    if (!date) {
-      // `expiry.date` for nodes in powering on status will be empty string.
-      return ''
-    }
-
-    return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm')
-  }
-
   return (
     <Panel className="gap-y-6">
       <div className="flex items-center justify-between">
@@ -165,7 +145,10 @@ export const NodeSummary = (props: NodeSummaryProps) => {
               toReadableSizeString(node.memory.totalMiB, 'MiB'),
             )}
             {renderRow('Up Time', humanizeDuration(node.uptimeSeconds))}
-            {renderRow('License Expiration', getLicenseExpiration())}
+            {renderRow(
+              'License Expiration',
+              toLicenseExpirationDate(node.license, { includeTime: true }),
+            )}
             {renderRow(
               'Management IP',
               <div className="flex items-center gap-x-5">

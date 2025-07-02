@@ -69,7 +69,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column label="License Expiration" property="license">
-        {toLicenseExpirationDate}
+        {(license) => toLicenseExpirationDate(license)}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
         label="CPU"

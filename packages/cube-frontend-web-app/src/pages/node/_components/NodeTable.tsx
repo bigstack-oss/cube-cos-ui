@@ -81,7 +81,7 @@ export const NodeTable = (props: NodeTableProps) => {
         label="License Expiration"
         property="license"
       >
-        {toLicenseExpirationDate}
+        {(license) => toLicenseExpirationDate(license)}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
         label="CPU"

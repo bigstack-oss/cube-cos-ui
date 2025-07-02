@@ -14,12 +14,26 @@ export const formatPanelUpdateTime = (date: Dayjs) => {
   return date.format('YYYY/MM/DD HH:mm')
 }
 
-export const formatLicenseDate = (date: string) => {
-  return dayjs.respectTzOffset(date).format('YYYY/MM/DD')
+type FormatLicenseDateOptions = {
+  /**
+   * Whether to include time (`HH:mm`) in the output.
+   * @default false
+   */
+  includeTime?: boolean
+}
+
+export const formatLicenseDate = (
+  date: string,
+  options?: FormatLicenseDateOptions,
+) => {
+  const { includeTime = false } = options ?? {}
+  const format = includeTime ? 'YYYY/MM/DD HH:mm' : 'YYYY/MM/DD'
+  return dayjs.respectTzOffset(date).format(format)
 }
 
 export const toLicenseExpirationDate = (
   license: Pick<NodeLicense, 'status' | 'expiry'>,
+  options?: FormatLicenseDateOptions,
 ): string => {
   if (license.status.current === NodeLicenseCurrentStatus.Unlicense) {
     // TODO: i18n
@@ -30,7 +44,7 @@ export const toLicenseExpirationDate = (
     // `license.expiry.date` for nodes in powering on status will be empty string.
     return ''
   }
-  return formatLicenseDate(date)
+  return formatLicenseDate(date, options)
 }
 
 export const humanizeDuration = (durationSeconds: number) => {
