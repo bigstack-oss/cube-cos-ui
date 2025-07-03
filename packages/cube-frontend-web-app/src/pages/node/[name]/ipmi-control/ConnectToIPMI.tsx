@@ -161,8 +161,9 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
           disabled={isInputDisabled}
           onChange={(e) => onSetupChange('password', e.target.value)}
         />
-        <div className="flex items-center gap-x-6">
+        <div className="flex items-center gap-x-4">
           <CosButton
+            type="secondary"
             htmlType="submit"
             className="self-start"
             loading={isValidating}

@@ -9,16 +9,16 @@ import {
 } from '@cube-frontend/ui-library'
 import { CopyButton } from '@cube-frontend/web-app/components/CopyButton'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
-import {
-  humanizeDuration,
-  toLicenseExpirationDate,
-} from '@cube-frontend/web-app/utils/date'
+import { toLicenseExpirationDate } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
+import {
+  canCreateSupportFile,
+  formatUpTime,
+} from '@cube-frontend/web-app/utils/node'
 import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router'
 import { VipLabel } from './VipLabel'
-import { canCreateSupportFile } from '@cube-frontend/web-app/utils/node'
 
 const BatchActionNodeTable =
   GetCosBatchActionTable<GetNodesResponseData['nodes'][number]>()
@@ -117,7 +117,9 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column label="Running" property="uptimeSeconds">
-        {(uptimeSeconds) => humanizeDuration(uptimeSeconds)}
+        {(_, node) => (
+          <span className="whitespace-nowrap">{formatUpTime(node)}</span>
+        )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
         label="Status"

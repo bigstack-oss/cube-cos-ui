@@ -10,11 +10,9 @@ import {
 import { CopyButton } from '@cube-frontend/web-app/components/CopyButton'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { VipLabel } from '@cube-frontend/web-app/pages/node/_components/VipLabel'
-import {
-  humanizeDuration,
-  toLicenseExpirationDate,
-} from '@cube-frontend/web-app/utils/date'
+import { toLicenseExpirationDate } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
+import { formatUpTime } from '@cube-frontend/web-app/utils/node'
 import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router'
@@ -105,7 +103,9 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column label="Running" property="uptimeSeconds">
-        {(uptimeSeconds) => humanizeDuration(uptimeSeconds)}
+        {(_, node) => (
+          <span className="whitespace-nowrap">{formatUpTime(node)}</span>
+        )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
         label="Status"
