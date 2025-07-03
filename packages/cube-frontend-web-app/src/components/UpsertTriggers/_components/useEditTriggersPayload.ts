@@ -10,7 +10,7 @@ type UseEditTriggersPayload = {
   onEventIdSelect: (eventIds: string[]) => void
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
-  onNameChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  onNameChange: (e: ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
@@ -91,7 +91,7 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
 
   const onPersonalizedScriptChange = () => {}
 
-  const onNameChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+  const onNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setPayload((prev) => {
       if (!prev) {
         return prev

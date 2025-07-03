@@ -9,7 +9,7 @@ type UseCreateTriggersPayload = {
   onEventIdSelect: (eventIds: string[]) => void
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
-  onNameChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
   onEventsReset: () => void
   onResponseReset: () => void
@@ -90,7 +90,7 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
 
   const onPersonalizedScriptChange = () => {}
 
-  const onNameChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+  const onNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setPayload((prev) => {
       if (!prev) {
         return prev

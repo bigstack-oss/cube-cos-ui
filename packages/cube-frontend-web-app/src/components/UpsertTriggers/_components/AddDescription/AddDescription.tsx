@@ -1,5 +1,10 @@
 import { useMemo } from 'react'
-import { CosButton, CosStroke, CosTextArea } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosInput,
+  CosStroke,
+  CosTextArea,
+} from '@cube-frontend/ui-library'
 import { StepBoard } from '@cube-frontend/web-app/components/StepBoard/StepBoard'
 import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
@@ -8,7 +13,7 @@ type AddDescriptionProps = {
   isLoading: boolean
   nextButtonText: string
   payload: UpsertTriggersPayload
-  onNameChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   onPublishClick: (payload: UpsertTriggersPayload) => void
 }
@@ -36,6 +41,14 @@ export const AddDescription = (props: AddDescriptionProps) => {
   return (
     <div className="flex flex-col gap-4">
       <StepBoard>
+        <CosInput
+          isLoading={isLoading}
+          label="Trigger Name (used for identification)"
+          placeholder="Name"
+          value={payload?.name}
+          onChange={onNameChange}
+          className="max-w-[512px]"
+        />
         <CosTextArea
           isLoading={isLoading}
           label="Description"
@@ -43,14 +56,6 @@ export const AddDescription = (props: AddDescriptionProps) => {
           maxLength={100000000}
           value={payload?.description}
           onChange={onDescriptionChange}
-        />
-        <CosTextArea
-          isLoading={isLoading}
-          label="Trigger ID name"
-          placeholder="Trigger ID name"
-          maxLength={100}
-          value={payload?.name}
-          onChange={onNameChange}
         />
       </StepBoard>
       <CosStroke type="dot" />
