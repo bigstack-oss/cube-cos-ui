@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react'
-import { UpsertTriggersPayload } from '../upsertTriggersUtils'
+import { ScriptFile, UpsertTriggersPayload } from '../upsertTriggersUtils'
 
 type UseEditTriggersPayload = {
   isInitializing: boolean
@@ -10,7 +10,8 @@ type UseEditTriggersPayload = {
   onEventIdSelect: (eventIds: string[]) => void
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
-  onPersonalizedScriptSelect: (file: File) => void
+  onScriptChange: (file: ScriptFile) => void
+  onScriptRemove: () => void
   onNameChange: (e: ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
   onEventsReset: () => void
@@ -92,12 +93,22 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     })
   }
 
-  const onPersonalizedScriptSelect = (file: File) => {
+  const onScriptChange = (file: ScriptFile) => {
     setPayload((prev) => {
       if (!prev) return prev
       return {
         ...prev,
         script: file,
+      }
+    })
+  }
+
+  const onScriptRemove = () => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        script: undefined,
       }
     })
   }
@@ -164,7 +175,8 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
-    onPersonalizedScriptSelect,
+    onScriptChange,
+    onScriptRemove,
     onNameChange,
     onDescriptionChange,
     onEventsReset,

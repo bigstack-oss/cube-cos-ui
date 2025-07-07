@@ -68,7 +68,8 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
-    onPersonalizedScriptSelect,
+    onScriptChange,
+    onScriptRemove,
     onNameChange,
     onDescriptionChange,
     onEventsReset,
@@ -97,7 +98,8 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
         slacks={mockSlackChannels}
         onEmailSelect={onEmailSelect}
         onSlackSelect={onSlackSelect}
-        onPersonalizedScriptSelect={onPersonalizedScriptSelect}
+        onScriptChange={onScriptChange}
+        onScriptRemove={onScriptRemove}
         onNextClick={goToAddDescription}
         onResetClick={onResponseReset}
       />

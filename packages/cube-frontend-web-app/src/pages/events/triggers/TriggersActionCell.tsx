@@ -48,7 +48,7 @@ export const TriggersActionCell = (props: TriggersActionCellProps) => {
   }
 
   return (
-    <div className="flex items-center gap-x-4">
+    <div className="flex items-center justify-end gap-x-4">
       {renderEditButton()}
       {renderDeleteButton()}
     </div>

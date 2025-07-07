@@ -58,7 +58,9 @@ export const EventsTriggersPage = () => {
             </div>
           )}
         </TriggersTable.Column>
-        <TriggersTable.Column label="Description" property="description" />
+        <TriggersTable.Column label="Description" property="description">
+          {(description) => <span>{description || '-'}</span>}
+        </TriggersTable.Column>
         <TriggersTable.Column label="Response" property="response">
           {(response) => (
             <span className="whitespace-nowrap">

@@ -2,10 +2,12 @@ import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg
 import UploadIcon from '@cube-frontend/ui-library/icons/monochrome/upload.svg?react'
 import { CosButton, CosModal } from '@cube-frontend/ui-library'
 import { useUploadScript } from './useUploadScript'
+import { ScriptFile, UpsertTriggersPayload } from '../../../upsertTriggersUtils'
 
 type PersonalizedScriptModalProps = {
   isModalOpen: boolean
-  onPersonalizedScriptSelect: (file: File) => void
+  payload: UpsertTriggersPayload
+  onScriptChange: (file: ScriptFile) => void
   onModelOpen: () => void
   onModelClose: () => void
 }
@@ -13,7 +15,7 @@ type PersonalizedScriptModalProps = {
 export const PersonalizedScriptModal = (
   props: PersonalizedScriptModalProps,
 ) => {
-  const { isModalOpen, onPersonalizedScriptSelect, onModelOpen, onModelClose } =
+  const { isModalOpen, payload, onScriptChange, onModelOpen, onModelClose } =
     props
 
   const {
@@ -22,21 +24,25 @@ export const PersonalizedScriptModal = (
     showScriptTestResult,
     handleFileChange,
     handleUploadScriptButtonClick,
+    handleTestRunningButtonClick,
     clearFileInput,
-  } = useUploadScript()
+    clearScriptTestResult,
+  } = useUploadScript({ payload })
+
+  const isScriptValid = showScriptTestResult.status === 'testSucceeded'
 
   const onImportScriptModalClose = () => {
     clearFileInput()
+    clearScriptTestResult()
     onModelClose()
   }
 
   const onActionClick = () => {
-    const scriptFile = scriptFileInputRef.current?.files?.[0]
-    if (!scriptFile) {
+    if (!scriptInfo) {
       return
     }
-    onPersonalizedScriptSelect(scriptFile)
-    onImportScriptModalClose()
+    onScriptChange(scriptInfo)
+    onModelClose()
   }
 
   return (
@@ -55,6 +61,7 @@ export const PersonalizedScriptModal = (
         actionText="Set Response"
         onActionClick={onActionClick}
         onCloseClick={onImportScriptModalClose}
+        actionButtonProps={{ disabled: !isScriptValid }}
         className="h-[490px]"
       >
         <div className="flex flex-col gap-y-8">
@@ -73,21 +80,26 @@ export const PersonalizedScriptModal = (
                 ref={scriptFileInputRef}
                 type="file"
                 className="hidden"
-                // accept=".license"
                 onChange={handleFileChange}
               />
               <p className="primary-body2 text-functional-text">
                 OS: Alpine Linux
               </p>
             </div>
-            <p className="primary-body2 text-functional-text">{scriptInfo}</p>
+            <div className="primary-body2 w-full break-all text-functional-text">
+              {scriptInfo?.name || payload.script?.name}
+            </div>
           </div>
-          <CosButton size="lg" onClick={onModelOpen} className="w-fit">
+          <CosButton
+            size="lg"
+            onClick={handleTestRunningButtonClick}
+            className="w-fit"
+          >
             Test Running
           </CosButton>
           {showScriptTestResult && (
             <p className="primary-body2 text-functional-text">
-              {showScriptTestResult}
+              {showScriptTestResult.message}
             </p>
           )}
         </div>

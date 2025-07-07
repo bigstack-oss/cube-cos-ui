@@ -4,6 +4,11 @@ export enum UpsertTriggersStep {
   AddDescription = 'addDescription',
 }
 
+export type ScriptFile = {
+  name: string
+  base64: string
+}
+
 export type UpsertTriggersPayload = {
   alertTypes: string[]
   severities: string[]
@@ -11,7 +16,7 @@ export type UpsertTriggersPayload = {
   eventIds: string[]
   emails: string[]
   slacks: string[]
-  script?: File
+  script?: ScriptFile
   name: string
   description?: string
 }

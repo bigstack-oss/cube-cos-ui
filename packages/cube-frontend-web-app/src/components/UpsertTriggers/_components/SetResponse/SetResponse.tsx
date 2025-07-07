@@ -6,7 +6,7 @@ import {
 import { CosButton, CosStroke, CosTableRow } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { StepBoard } from '@cube-frontend/web-app/components/StepBoard/StepBoard'
-import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
+import { ScriptFile, UpsertTriggersPayload } from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
 import { TriggersStackCard } from '../TriggersStackCard'
 import { SendNotificationModal } from './SendNotificationModal/SendNotificationModal'
@@ -44,7 +44,8 @@ export type SetResponseProps = {
   slacks: SlackChannelGetResponse[]
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
-  onPersonalizedScriptSelect: (file: File) => void
+  onScriptChange: (file: ScriptFile) => void
+  onScriptRemove: () => void
   onNextClick: () => void
   onResetClick: () => void
 }
@@ -57,7 +58,8 @@ export const SetResponse = (props: SetResponseProps) => {
     slacks,
     onEmailSelect,
     onSlackSelect,
-    onPersonalizedScriptSelect,
+    onScriptChange,
+    onScriptRemove,
     onNextClick,
     onResetClick,
   } = props
@@ -79,14 +81,14 @@ export const SetResponse = (props: SetResponseProps) => {
 
   const isValueValid = useMemo(() => {
     // TODO: Implement actual validation logic
-    if (notifications.length === 0) return false
+    if (notifications.length === 0 && !payload.script) return false
     return true
-  }, [notifications])
+  }, [payload, notifications])
 
   const renderNotificationStackCard = () => {
     if (notifications.length === 0) return null
 
-    const removeNotification = () => {
+    const onNotificationRemove = () => {
       onEmailSelect([])
       onSlackSelect([])
     }
@@ -95,17 +97,18 @@ export const SetResponse = (props: SetResponseProps) => {
       <TriggersStackCard
         title="Notification"
         tags={notifications}
-        onRemoveClick={removeNotification}
+        onRemoveClick={onNotificationRemove}
       />
     )
   }
 
   const renderPersonalizedScriptStackCard = () => {
+    if (!payload.script) return null
     return (
       <TriggersStackCard
         title="Personalized Script"
-        tags={['response', 'response', 'response', 'response']}
-        onRemoveClick={() => window.alert('Remove!!!')}
+        tags={[payload.script.name]}
+        onRemoveClick={onScriptRemove}
       />
     )
   }
@@ -128,7 +131,8 @@ export const SetResponse = (props: SetResponseProps) => {
             />
             <PersonalizedScriptModal
               isModalOpen={isPersonalizedScriptOpen}
-              onPersonalizedScriptSelect={onPersonalizedScriptSelect}
+              payload={payload}
+              onScriptChange={onScriptChange}
               onModelOpen={() => setIsPersonalizedScriptOpen(true)}
               onModelClose={() => setIsPersonalizedScriptOpen(false)}
             />

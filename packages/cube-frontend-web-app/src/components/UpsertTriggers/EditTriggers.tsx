@@ -69,7 +69,8 @@ export const EditTriggers = (props: EditTriggersProps) => {
     onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
-    onPersonalizedScriptSelect,
+    onScriptChange,
+    onScriptRemove,
     onNameChange,
     onDescriptionChange,
     onEventsReset,
@@ -98,7 +99,8 @@ export const EditTriggers = (props: EditTriggersProps) => {
         slacks={mockSlackChannels}
         onEmailSelect={onEmailSelect}
         onSlackSelect={onSlackSelect}
-        onPersonalizedScriptSelect={onPersonalizedScriptSelect}
+        onScriptChange={onScriptChange}
+        onScriptRemove={onScriptRemove}
         onNextClick={goToAddDescription}
         onResetClick={onResponseReset}
       />
