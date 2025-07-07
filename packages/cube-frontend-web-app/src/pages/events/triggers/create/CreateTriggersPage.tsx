@@ -11,8 +11,7 @@ export const CreateTriggersPage = () => {
   return (
     <div className="flex flex-col gap-3">
       <CosBackButton
-        variant="title"
-        backLinkContainer={{
+        backButtonContainer={{
           Component: Link,
           props: {
             to: CosRoutesEnum.EVENTS_TRIGGERS_PAGE,

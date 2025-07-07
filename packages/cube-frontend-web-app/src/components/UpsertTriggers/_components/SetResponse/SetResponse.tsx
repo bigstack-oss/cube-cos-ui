@@ -44,6 +44,7 @@ export type SetResponseProps = {
   slacks: SlackChannelGetResponse[]
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
+  onPersonalizedScriptSelect: (file: File) => void
   onNextClick: () => void
   onResetClick: () => void
 }
@@ -56,6 +57,7 @@ export const SetResponse = (props: SetResponseProps) => {
     slacks,
     onEmailSelect,
     onSlackSelect,
+    onPersonalizedScriptSelect,
     onNextClick,
     onResetClick,
   } = props
@@ -116,10 +118,9 @@ export const SetResponse = (props: SetResponseProps) => {
             <SendNotificationModal
               isLoading={isLoading}
               isModalOpen={isSendNotificationOpen}
+              payload={payload}
               emailRows={emailRows}
               slackRows={slackRows}
-              selectedEmails={payload.emails}
-              selectedSlacks={payload.slacks}
               onEmailSelect={onEmailSelect}
               onSlackSelect={onSlackSelect}
               onModelOpen={() => setIsSendNotificationOpen(true)}
@@ -127,9 +128,9 @@ export const SetResponse = (props: SetResponseProps) => {
             />
             <PersonalizedScriptModal
               isModalOpen={isPersonalizedScriptOpen}
+              onPersonalizedScriptSelect={onPersonalizedScriptSelect}
               onModelOpen={() => setIsPersonalizedScriptOpen(true)}
               onModelClose={() => setIsPersonalizedScriptOpen(false)}
-              onActionClick={() => alert('Personalized Script Set!!')}
             />
           </div>
           <CosButton

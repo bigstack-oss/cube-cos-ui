@@ -1,5 +1,5 @@
 import { GetCosBatchActionTable } from '@cube-frontend/ui-library'
-import { SlackChannelTableRow } from './SetResponse'
+import { SlackChannelTableRow } from '../SetResponse'
 
 const SlackChannelTable = GetCosBatchActionTable<SlackChannelTableRow>()
 

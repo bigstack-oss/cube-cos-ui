@@ -10,8 +10,11 @@ type UseEditTriggersPayload = {
   onEventIdSelect: (eventIds: string[]) => void
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
+  onPersonalizedScriptSelect: (file: File) => void
   onNameChange: (e: ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  onEventsReset: () => void
+  onResponseReset: () => void
 }
 
 export const useEditTriggersPayload = (): UseEditTriggersPayload => {
@@ -24,7 +27,7 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     eventIds: [],
     emails: [],
     slacks: [],
-    personalizedScripts: [],
+    script: undefined,
     name: '',
     description: '',
   })
@@ -89,7 +92,15 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     })
   }
 
-  const onPersonalizedScriptChange = () => {}
+  const onPersonalizedScriptSelect = (file: File) => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        script: file,
+      }
+    })
+  }
 
   const onNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setPayload((prev) => {
@@ -115,6 +126,35 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     })
   }
 
+  const onEventsReset = (): void => {
+    setPayload((prev) => {
+      if (!prev) {
+        return prev
+      }
+      return {
+        ...prev,
+        alertTypes: [],
+        severities: [],
+        categories: [],
+        eventIds: [],
+      }
+    })
+  }
+
+  const onResponseReset = (): void => {
+    setPayload((prev) => {
+      if (!prev) {
+        return prev
+      }
+      return {
+        ...prev,
+        emails: [],
+        slacks: [],
+        script: undefined,
+      }
+    })
+  }
+
   return {
     isInitializing,
     payload,
@@ -124,7 +164,10 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
+    onPersonalizedScriptSelect,
     onNameChange,
     onDescriptionChange,
+    onEventsReset,
+    onResponseReset,
   }
 }

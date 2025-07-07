@@ -1,5 +1,3 @@
-import { z } from 'zod'
-
 export enum UpsertTriggersStep {
   SelectEvents = 'selectEvents',
   SetResponse = 'setResponse',
@@ -13,41 +11,22 @@ export type UpsertTriggersPayload = {
   eventIds: string[]
   emails: string[]
   slacks: string[]
-  personalizedScripts: string[]
+  script?: File
   name: string
   description?: string
 }
 
-// export enum UpsertTriggersRequestQueryKey {
-//   AlertTypes = 'alertTypes',
-//   Severities = 'severities',
-//   Categories = 'categories',
-//   EventIds = 'eventIds',
-//   Emails = 'emails',
-//   Slacks = 'slacks',
-//   PersonalizedScripts = 'personalizedScripts',
-//   Name = 'name',
-//   Description = 'description',
-// }
+export type TriggerAttributeKeys =
+  | 'alertTypes'
+  | 'severities'
+  | 'categories'
+  | 'eventIds'
 
-// const nullableStringArray = z
-//   .string()
-//   .array()
-//   .nullable()
-//   .transform((v) => v ?? [])
+export type TriggerAttributes = Record<TriggerAttributeKeys, string[]>
 
-// const _upsertTriggersRequestQuerySchema = z.object({
-//   [UpsertTriggersRequestQueryKey.AlertTypes]: nullableStringArray,
-//   [UpsertTriggersRequestQueryKey.Severities]: nullableStringArray,
-//   [UpsertTriggersRequestQueryKey.Categories]: nullableStringArray,
-//   [UpsertTriggersRequestQueryKey.EventIds]: nullableStringArray,
-//   [UpsertTriggersRequestQueryKey.Emails]: nullableStringArray,
-//   [UpsertTriggersRequestQueryKey.Slacks]: nullableStringArray,
-//   [UpsertTriggersRequestQueryKey.PersonalizedScripts]: nullableStringArray,
-//   [UpsertTriggersRequestQueryKey.Name]: z.string(),
-//   [UpsertTriggersRequestQueryKey.Description]: z.string().nullable(),
-// })
-
-// export type UpsertTriggersRequestQuery = z.output<
-//   typeof _upsertTriggersRequestQuerySchema
-// >
+export const attributeLabelMap: Record<TriggerAttributeKeys, string> = {
+  alertTypes: 'Alert Type',
+  severities: 'Severity',
+  categories: 'Category',
+  eventIds: 'Event Id',
+}

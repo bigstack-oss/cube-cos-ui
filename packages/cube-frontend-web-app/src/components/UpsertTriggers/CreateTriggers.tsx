@@ -22,6 +22,7 @@ import {
   mockEmailRecipients,
   mockSlackChannels,
 } from './_components/SetResponse/mockData'
+import { mockAttributes } from './_components/SelectEvents/mockData'
 
 type CreateTriggersProps = {
   onPublishClick: (payload: UpsertTriggersPayload) => void
@@ -67,6 +68,7 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
+    onPersonalizedScriptSelect,
     onNameChange,
     onDescriptionChange,
     onEventsReset,
@@ -78,10 +80,7 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
       <SelectEvents
         isLoading={false}
         payload={payload}
-        severities={attributes?.system.severities ?? []}
-        alertTypes={['system', 'host', 'instance']}
-        categories={attributes?.system.categories ?? []}
-        eventIds={attributes?.instance.ids ?? []}
+        attributes={mockAttributes}
         onAlertTypeSelect={onAlertTypeSelect}
         onSeveritySelect={onSeveritySelect}
         onCategorySelect={onCategorySelect}
@@ -98,6 +97,7 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
         slacks={mockSlackChannels}
         onEmailSelect={onEmailSelect}
         onSlackSelect={onSlackSelect}
+        onPersonalizedScriptSelect={onPersonalizedScriptSelect}
         onNextClick={goToAddDescription}
         onResetClick={onResponseReset}
       />

@@ -18,6 +18,11 @@ import {
   UpsertTriggersPayload,
   UpsertTriggersStep,
 } from './upsertTriggersUtils'
+import { mockAttributes } from './_components/SelectEvents/mockData'
+import {
+  mockEmailRecipients,
+  mockSlackChannels,
+} from './_components/SetResponse/mockData'
 
 type EditTriggersProps = {
   onPublishClick: (payload: UpsertTriggersPayload) => void
@@ -64,8 +69,11 @@ export const EditTriggers = (props: EditTriggersProps) => {
     onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
+    onPersonalizedScriptSelect,
     onNameChange,
     onDescriptionChange,
+    onEventsReset,
+    onResponseReset,
   } = useEditTriggersPayload()
 
   const renderContentFnMap: Record<UpsertTriggersStep, () => ReactNode> = {
@@ -73,26 +81,26 @@ export const EditTriggers = (props: EditTriggersProps) => {
       <SelectEvents
         isLoading={isInitializing}
         payload={payload}
-        severities={attributes?.system.severities ?? []}
-        alertTypes={['system', 'host', 'instance']}
-        categories={attributes?.system.categories ?? []}
-        eventIds={attributes?.instance.ids ?? []}
+        attributes={mockAttributes}
         onAlertTypeSelect={onAlertTypeSelect}
         onSeveritySelect={onSeveritySelect}
         onCategorySelect={onCategorySelect}
         onEventIdSelect={onEventIdSelect}
         onNextClick={goToSetResponse}
+        onResetClick={onEventsReset}
       />
     ),
     setResponse: () => (
       <SetResponse
         isLoading={false}
         payload={payload}
-        emails={emails}
-        slacks={slacks}
+        emails={mockEmailRecipients}
+        slacks={mockSlackChannels}
         onEmailSelect={onEmailSelect}
         onSlackSelect={onSlackSelect}
+        onPersonalizedScriptSelect={onPersonalizedScriptSelect}
         onNextClick={goToAddDescription}
+        onResetClick={onResponseReset}
       />
     ),
     addDescription: () => (

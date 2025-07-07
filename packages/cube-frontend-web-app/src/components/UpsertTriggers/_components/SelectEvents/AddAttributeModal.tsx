@@ -2,17 +2,12 @@ import { ReactNode, useEffect, useState } from 'react'
 import { CosButton, CosDropdown, CosModal } from '@cube-frontend/ui-library'
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
 import { AttributeCheckboxGroup } from './AttributeCheckboxGroup'
-
-const attributeTypes = ['alertType', 'severity', 'category', 'eventId'] as const
-
-type AttributeType = (typeof attributeTypes)[number]
-
-const attributeLabelMap: Record<AttributeType, string> = {
-  alertType: 'Alert Type',
-  severity: 'Severity',
-  category: 'Category',
-  eventId: 'Event Id',
-}
+import {
+  attributeLabelMap,
+  TriggerAttributeKeys,
+  TriggerAttributes,
+  UpsertTriggersPayload,
+} from '../../upsertTriggersUtils'
 
 const checkIsAllChecked = (
   tempAttributes: string[],
@@ -25,41 +20,37 @@ const checkIsAllChecked = (
 
 type AddAttributeModalProps = {
   isModalOpen: boolean
-  alertTypes: string[]
-  severities: string[]
-  categories: string[]
-  eventIds: string[]
-  selectedAlertTypes: string[]
-  selectedSeverities: string[]
-  selectedCategories: string[]
-  selectedEventIds: string[]
+  payload: UpsertTriggersPayload
+  attributes: TriggerAttributes
+  dropdownOptions: TriggerAttributeKeys[]
+  disabled: boolean
   onModelOpen: () => void
   onModelClose: () => void
-  onActionClick: (attributes: {
-    alertTypes: string[]
-    severities: string[]
-    categories: string[]
-    eventIds: string[]
-  }) => void
+  onActionClick: (attributes: TriggerAttributes) => void
 }
 
 export const AddAttributeModal = (props: AddAttributeModalProps) => {
   const {
     isModalOpen,
-    alertTypes,
-    severities,
-    categories,
-    eventIds,
-    selectedAlertTypes,
-    selectedCategories,
-    selectedEventIds,
-    selectedSeverities,
+    payload,
+    attributes,
+    dropdownOptions,
+    disabled,
     onModelOpen,
     onModelClose: onModelCloseProp,
     onActionClick: onActionClickProp,
   } = props
 
-  const [activeType, setActiveType] = useState<AttributeType | undefined>()
+  const { alertTypes, severities, categories, eventIds } = attributes
+
+  const {
+    alertTypes: selectedAlertTypes,
+    severities: selectedSeverities,
+    categories: selectedCategories,
+    eventIds: selectedEventIds,
+  } = payload
+
+  const [activeType, setActiveType] = useState<TriggerAttributeKeys>()
 
   const [tempAttributes, setTempAttributes] = useState<{
     alertTypes: string[]
@@ -173,6 +164,12 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
 
   const onModelClose = () => {
     setActiveType(undefined)
+    setTempAttributes({
+      alertTypes: selectedAlertTypes,
+      severities: selectedSeverities,
+      categories: selectedCategories,
+      eventIds: selectedEventIds,
+    })
     onModelCloseProp()
   }
 
@@ -182,10 +179,10 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     onModelCloseProp()
   }
 
-  const renderContentFnMap: Record<AttributeType, () => ReactNode> = {
-    alertType: () => (
+  const renderContentFnMap: Record<TriggerAttributeKeys, () => ReactNode> = {
+    alertTypes: () => (
       <AttributeCheckboxGroup
-        label={attributeLabelMap['alertType']}
+        label={attributeLabelMap['alertTypes']}
         isAllChecked={checkIsAllChecked(tempAttributes.alertTypes, alertTypes)}
         attributes={alertTypes}
         selectedAttributes={tempAttributes.alertTypes}
@@ -193,9 +190,9 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         onAllAttributesChange={onAllTempAlertTypesChange}
       />
     ),
-    severity: () => (
+    severities: () => (
       <AttributeCheckboxGroup
-        label={attributeLabelMap['severity']}
+        label={attributeLabelMap['severities']}
         isAllChecked={checkIsAllChecked(tempAttributes.severities, severities)}
         attributes={severities}
         selectedAttributes={tempAttributes.severities}
@@ -203,9 +200,9 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         onAllAttributesChange={onAllTempSeveritiesChange}
       />
     ),
-    category: () => (
+    categories: () => (
       <AttributeCheckboxGroup
-        label={attributeLabelMap['category']}
+        label={attributeLabelMap['categories']}
         isAllChecked={checkIsAllChecked(tempAttributes.categories, categories)}
         attributes={categories}
         selectedAttributes={tempAttributes.categories}
@@ -213,9 +210,9 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         onAllAttributesChange={onAllTempCategoriesChange}
       />
     ),
-    eventId: () => (
+    eventIds: () => (
       <AttributeCheckboxGroup
-        label={attributeLabelMap['eventId']}
+        label={attributeLabelMap['eventIds']}
         isAllChecked={checkIsAllChecked(tempAttributes.eventIds, eventIds)}
         attributes={eventIds}
         selectedAttributes={tempAttributes.eventIds}
@@ -234,6 +231,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         usage="icon-left"
         Icon={AddSquare}
         onClick={onModelOpen}
+        disabled={disabled}
       >
         Add Attribute
       </CosButton>
@@ -243,7 +241,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         actionText="Set Response"
         onActionClick={onActionClick}
         onCloseClick={onModelClose}
-        className="h-[400px]"
+        className="h-[490px]"
       >
         <div className="mb-8 w-[186px]">
           <CosDropdown
@@ -259,13 +257,13 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
                 : 'Choose an attribute'}
             </CosDropdown.Trigger>
             <CosDropdown.Menu>
-              {attributeTypes.map((type) => (
+              {dropdownOptions.map((option: TriggerAttributeKeys) => (
                 <CosDropdown.Item
-                  key={type}
-                  item={type}
-                  onClick={() => setActiveType(type)}
+                  key={option}
+                  item={option}
+                  onClick={() => setActiveType(option)}
                 >
-                  {attributeLabelMap[type]}
+                  {attributeLabelMap[option]}
                 </CosDropdown.Item>
               ))}
             </CosDropdown.Menu>

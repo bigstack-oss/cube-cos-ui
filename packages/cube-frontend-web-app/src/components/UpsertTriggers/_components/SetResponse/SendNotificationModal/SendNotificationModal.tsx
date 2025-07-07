@@ -5,19 +5,19 @@ import {
   CosModal,
 } from '@cube-frontend/ui-library'
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
+import { UpsertTriggersPayload } from '../../../upsertTriggersUtils'
 import { EmailBatchActionTable } from './EmailBatchActionTable'
 import { SlackBatchActionTable } from './SlackBatchActionTable'
-import { EmailRecipientTableRow, SlackChannelTableRow } from './SetResponse'
+import { EmailRecipientTableRow, SlackChannelTableRow } from '../SetResponse'
 
 type NotificationTab = 'Email' | 'Slack'
 
 type SendNotificationModalProps = {
   isLoading: boolean
   isModalOpen: boolean
+  payload: UpsertTriggersPayload
   emailRows: EmailRecipientTableRow[]
   slackRows: SlackChannelTableRow[]
-  selectedEmails: string[]
-  selectedSlacks: string[]
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
   onModelOpen: () => void
@@ -28,49 +28,64 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
   const {
     isLoading,
     isModalOpen,
+    payload,
     emailRows,
     slackRows,
-    selectedEmails,
-    selectedSlacks,
     onEmailSelect,
     onSlackSelect,
     onModelClose: onModelCloseProp,
     onModelOpen,
   } = props
 
+  const { emails: selectedEmails, slacks: selectedSlacks } = payload
+
   const [activeTab, setActiveTab] = useState<NotificationTab>('Email')
 
-  const [tempEmails, setTempEmails] = useState<string[]>(selectedEmails)
+  const [tempNotifications, setTempNotifications] = useState<{
+    emails: string[]
+    slacks: string[]
+  }>({ emails: selectedEmails, slacks: selectedSlacks })
 
-  const [tempSlacks, setTempSlacks] = useState<string[]>(selectedSlacks)
-
-  useEffect(() => setTempEmails(selectedEmails), [selectedEmails])
-
-  useEffect(() => setTempSlacks(selectedSlacks), [selectedSlacks])
+  useEffect(() => {
+    setTempNotifications({
+      emails: selectedEmails,
+      slacks: selectedSlacks,
+    })
+  }, [selectedEmails, selectedSlacks])
 
   const onTempEmailsChange = (email: string) => {
-    const isSelected = tempEmails.includes(email)
-    setTempEmails((prev) => {
-      return isSelected ? prev.filter((e) => e !== email) : [...prev, email]
+    setTempNotifications((prev) => {
+      const { emails } = prev
+      const updatedEmails = emails.includes(email)
+        ? emails.filter((e) => e !== email)
+        : [...emails, email]
+
+      return { ...prev, emails: updatedEmails }
     })
   }
 
   const onTempSlacksChange = (slack: string) => {
-    const isSelected = tempSlacks.includes(slack)
-    setTempSlacks((prev) => {
-      return isSelected ? prev.filter((s) => s !== slack) : [...prev, slack]
+    setTempNotifications((prev) => {
+      const { slacks } = prev
+      const updatedSlacks = slacks.includes(slack)
+        ? slacks.filter((s) => s !== slack)
+        : [...slacks, slack]
+
+      return { ...prev, slacks: updatedSlacks }
     })
   }
 
   const onModelClose = () => {
-    setTempEmails(selectedEmails)
-    setTempSlacks(selectedSlacks)
+    setTempNotifications({
+      emails: selectedEmails,
+      slacks: selectedSlacks,
+    })
     onModelCloseProp()
   }
 
   const onActionClick = () => {
-    onEmailSelect(tempEmails)
-    onSlackSelect(tempSlacks)
+    onEmailSelect(tempNotifications.emails)
+    onSlackSelect(tempNotifications.slacks)
     onModelCloseProp()
   }
 
@@ -79,7 +94,7 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
       <EmailBatchActionTable
         isLoading={isLoading}
         rows={emailRows}
-        selectedRowIds={tempEmails}
+        selectedRowIds={tempNotifications.emails}
         onCheckChange={onTempEmailsChange}
       />
     ),
@@ -87,7 +102,7 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
       <SlackBatchActionTable
         isLoading={isLoading}
         rows={slackRows}
-        selectedRowIds={tempSlacks}
+        selectedRowIds={tempNotifications.slacks}
         onCheckChange={onTempSlacksChange}
       />
     ),
@@ -111,7 +126,7 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
         actionText="Set Response"
         onActionClick={onActionClick}
         onCloseClick={onModelClose}
-        className="h-[400px]"
+        className="h-[490px]"
       >
         <div className="flex flex-col gap-y-8">
           <CosContentSwitcher variant="default">

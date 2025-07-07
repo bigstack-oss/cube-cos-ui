@@ -9,6 +9,7 @@ type UseCreateTriggersPayload = {
   onEventIdSelect: (eventIds: string[]) => void
   onEmailSelect: (emails: string[]) => void
   onSlackSelect: (slacks: string[]) => void
+  onPersonalizedScriptSelect: (file: File) => void
   onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
   onEventsReset: () => void
@@ -23,7 +24,7 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     eventIds: [],
     emails: [],
     slacks: [],
-    personalizedScripts: [],
+    script: undefined,
     name: '',
     description: '',
   })
@@ -88,7 +89,15 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     })
   }
 
-  const onPersonalizedScriptChange = () => {}
+  const onPersonalizedScriptSelect = (file: File) => {
+    setPayload((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        script: file,
+      }
+    })
+  }
 
   const onNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setPayload((prev) => {
@@ -138,6 +147,7 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
         ...prev,
         emails: [],
         slacks: [],
+        script: undefined,
       }
     })
   }
@@ -150,6 +160,7 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     onEventIdSelect,
     onEmailSelect,
     onSlackSelect,
+    onPersonalizedScriptSelect,
     onNameChange,
     onDescriptionChange,
     onEventsReset,
