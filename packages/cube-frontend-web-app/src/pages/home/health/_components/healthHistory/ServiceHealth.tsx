@@ -86,7 +86,7 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
         ref={elementRef}
         className="rounded-t-[5px] border border-functional-border-divider"
       >
-        <div className="secondary-body3 bg-scene-background px-4 py-2 text-functional-text-light">
+        <div className="secondary-body3 rounded-t-[5px] bg-scene-background px-4 py-2 text-functional-text-light">
           Health status
         </div>
         {service.modules.map((module) => (
