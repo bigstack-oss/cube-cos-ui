@@ -26,14 +26,15 @@ export type ChildrenDimensions = {
 
 export const computeSvgHeight = (
   baseHeight: number,
+  paddingTop: number,
   childrenDimensions: ChildrenDimensions | undefined,
 ): number => {
   if (!childrenDimensions) {
-    return baseHeight
+    return baseHeight + paddingTop
   }
   const { height: childrenHeight, marginTop: childrenMarginTop = 0 } =
     childrenDimensions
-  return baseHeight + childrenHeight + childrenMarginTop
+  return baseHeight + paddingTop + childrenHeight + childrenMarginTop
 }
 
 export const computeChildrenTransform = (

@@ -16,6 +16,7 @@ import { HealthBarSkeleton } from './HealthBarSkeleton'
 import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
 import { HealthTimeRange } from '../../healthTimeRangeUtils'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { dateTimeRangeFns } from '../../[module]/healthDetailsUtils'
 
 export type ModuleHealthProps = {
   moduleName: GetHealthHistoryModuleTypeEnum
@@ -38,6 +39,11 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
     [timeRange, now],
   )
 
+  const dateTimeRange = useMemo(
+    () => dateTimeRangeFns[timeRange](now),
+    [timeRange, now],
+  )
+
   return (
     <div className="border-t border-t-functional-border-divider px-12 py-7 pb-3">
       <Link to={detailPageLink}>
@@ -57,7 +63,7 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
         <HealthSegmentedBar
           className="mt-4"
           history={history}
-          timePoints={timePoints}
+          dateTimeRange={dateTimeRange}
           childrenDimensions={{
             height: timeTrackHeight,
             marginTop: 4,

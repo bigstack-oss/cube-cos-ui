@@ -327,6 +327,286 @@ export interface CreateTriggerResponse {
 /**
  * 
  * @export
+ * @interface DEV00001E
+ */
+export interface DEV00001E {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {DEV00001IAdditionalInfo}
+     * @memberof DEV00001E
+     */
+    'additionalInfo': DEV00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00001I
+ */
+export interface DEV00001I {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {DEV00001IAdditionalInfo}
+     * @memberof DEV00001I
+     */
+    'additionalInfo': DEV00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00001IAdditionalInfo
+ */
+export interface DEV00001IAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001IAdditionalInfo
+     */
+    'device': string;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00002E
+ */
+export interface DEV00002E {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {DEV00002IAdditionalInfo}
+     * @memberof DEV00002E
+     */
+    'additionalInfo': DEV00002IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00002I
+ */
+export interface DEV00002I {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {DEV00002IAdditionalInfo}
+     * @memberof DEV00002I
+     */
+    'additionalInfo': DEV00002IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00002IAdditionalInfo
+ */
+export interface DEV00002IAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002IAdditionalInfo
+     */
+    'device': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002IAdditionalInfo
+     */
+    'class': string;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00003E
+ */
+export interface DEV00003E {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00003E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00003E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00003E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {DEV00002IAdditionalInfo}
+     * @memberof DEV00003E
+     */
+    'additionalInfo': DEV00002IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00003I
+ */
+export interface DEV00003I {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00003I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00003I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00003I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {DEV00002IAdditionalInfo}
+     * @memberof DEV00003I
+     */
+    'additionalInfo': DEV00002IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00004E
+ */
+export interface DEV00004E {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00004E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00004E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00004E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {DEV00001IAdditionalInfo}
+     * @memberof DEV00004E
+     */
+    'additionalInfo': DEV00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00004I
+ */
+export interface DEV00004I {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00004I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00004I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00004I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {DEV00001IAdditionalInfo}
+     * @memberof DEV00004I
+     */
+    'additionalInfo': DEV00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
  * @interface DeleteEmailRecipient500Response
  */
 export interface DeleteEmailRecipient500Response {
@@ -4357,6 +4637,62 @@ export interface GetNodesResponseData {
 /**
  * 
  * @export
+ * @interface GetNotifications500Response
+ */
+export interface GetNotifications500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetNotifications500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNotifications500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNotifications500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetNotificationsResponse
+ */
+export interface GetNotificationsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetNotificationsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<Notification>}
+     * @memberof GetNotificationsResponse
+     */
+    'data': Array<Notification>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNotificationsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNotificationsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface GetOpenSearchDashboardLinkResponse
  */
 export interface GetOpenSearchDashboardLinkResponse {
@@ -7024,6 +7360,230 @@ export interface NodeNetworkInterfacesInner {
      * @memberof NodeNetworkInterfacesInner
      */
     'speed': string;
+}
+/**
+ * @type Notification
+ * @export
+ */
+export type Notification = { id: 'DEV00001E' } & DEV00001E | { id: 'DEV00001I' } & DEV00001I | { id: 'DEV00002E' } & DEV00002E | { id: 'DEV00002I' } & DEV00002I | { id: 'DEV00003E' } & DEV00003E | { id: 'DEV00003I' } & DEV00003I | { id: 'DEV00004E' } & DEV00004E | { id: 'DEV00004I' } & DEV00004I | { id: 'OSD00001E' } & OSD00001E | { id: 'OSD00001I' } & OSD00001I | { id: 'OSD00002E' } & OSD00002E | { id: 'OSD00002I' } & OSD00002I | { id: 'OSD00003E' } & OSD00003E | { id: 'OSD00003I' } & OSD00003I;
+
+/**
+ * 
+ * @export
+ * @interface OSD00001E
+ */
+export interface OSD00001E {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {OSD00001IAdditionalInfo}
+     * @memberof OSD00001E
+     */
+    'additionalInfo': OSD00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00001I
+ */
+export interface OSD00001I {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {OSD00001IAdditionalInfo}
+     * @memberof OSD00001I
+     */
+    'additionalInfo': OSD00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00001IAdditionalInfo
+ */
+export interface OSD00001IAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001IAdditionalInfo
+     */
+    'osdId': string;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00002E
+ */
+export interface OSD00002E {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {OSD00002IAdditionalInfo}
+     * @memberof OSD00002E
+     */
+    'additionalInfo': OSD00002IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00002I
+ */
+export interface OSD00002I {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {OSD00002IAdditionalInfo}
+     * @memberof OSD00002I
+     */
+    'additionalInfo': OSD00002IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00002IAdditionalInfo
+ */
+export interface OSD00002IAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002IAdditionalInfo
+     */
+    'osdId': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OSD00002IAdditionalInfo
+     */
+    'reweight': number;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00003E
+ */
+export interface OSD00003E {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00003E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00003E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00003E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {OSD00001IAdditionalInfo}
+     * @memberof OSD00003E
+     */
+    'additionalInfo': OSD00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00003I
+ */
+export interface OSD00003I {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00003I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00003I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00003I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {OSD00001IAdditionalInfo}
+     * @memberof OSD00003I
+     */
+    'additionalInfo': OSD00001IAdditionalInfo;
 }
 /**
  * 
@@ -15060,6 +15620,171 @@ export const OperateNodeIpmiOperationEnum = {
     Powercycle: 'powercycle'
 } as const;
 export type OperateNodeIpmiOperationEnum = typeof OperateNodeIpmiOperationEnum[keyof typeof OperateNodeIpmiOperationEnum];
+
+
+/**
+ * NotificationsApi - axios parameter creator
+ * @export
+ */
+export const NotificationsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Retrieve the notifications
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {string} [past] The past time of the notifications to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNotifications: async (dataCenter: string, start?: string, stop?: string, past?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getNotifications', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/notifications`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (start !== undefined) {
+                localVarQueryParameter['start'] = start;
+            }
+
+            if (stop !== undefined) {
+                localVarQueryParameter['stop'] = stop;
+            }
+
+            if (past !== undefined) {
+                localVarQueryParameter['past'] = past;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * NotificationsApi - functional programming interface
+ * @export
+ */
+export const NotificationsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = NotificationsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Retrieve the notifications
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+         * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
+         * @param {string} [past] The past time of the notifications to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getNotifications(dataCenter: string, start?: string, stop?: string, past?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNotificationsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotifications(dataCenter, start, stop, past, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotificationsApi.getNotifications']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * NotificationsApi - factory interface
+ * @export
+ */
+export const NotificationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = NotificationsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Retrieve the notifications
+         * @param {NotificationsApiGetNotificationsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNotifications(requestParameters: NotificationsApiGetNotificationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNotificationsResponse> {
+            return localVarFp.getNotifications(requestParameters.dataCenter, requestParameters.start, requestParameters.stop, requestParameters.past, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for getNotifications operation in NotificationsApi.
+ * @export
+ * @interface NotificationsApiGetNotificationsRequest
+ */
+export interface NotificationsApiGetNotificationsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NotificationsApiGetNotifications
+     */
+    readonly dataCenter: string
+
+    /**
+     * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
+     * @type {string}
+     * @memberof NotificationsApiGetNotifications
+     */
+    readonly start?: string
+
+    /**
+     * The end time of the event to query, the value should be in RFC3339 format (default is now).
+     * @type {string}
+     * @memberof NotificationsApiGetNotifications
+     */
+    readonly stop?: string
+
+    /**
+     * The past time of the notifications to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+     * @type {string}
+     * @memberof NotificationsApiGetNotifications
+     */
+    readonly past?: string
+}
+
+/**
+ * NotificationsApi - object-oriented interface
+ * @export
+ * @class NotificationsApi
+ * @extends {BaseAPI}
+ */
+export class NotificationsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Retrieve the notifications
+     * @param {NotificationsApiGetNotificationsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationsApi
+     */
+    public getNotifications(requestParameters: NotificationsApiGetNotificationsRequest, options?: RawAxiosRequestConfig) {
+        return NotificationsApiFp(this.configuration).getNotifications(requestParameters.dataCenter, requestParameters.start, requestParameters.stop, requestParameters.past, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 /**

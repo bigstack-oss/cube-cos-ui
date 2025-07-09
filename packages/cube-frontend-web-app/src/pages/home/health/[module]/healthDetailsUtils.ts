@@ -1,70 +1,45 @@
-import { GetServiceHealthHistoryResponseDataInnerHistoryInner } from '@cube-frontend/api'
-import {
-  createTimePoints,
-  TimePoint,
-} from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
-import { Dayjs } from 'dayjs'
+import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
+import dayjs, { Dayjs } from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import { HealthTimeRange } from '../healthTimeRangeUtils'
+import { DateTimeRange } from '@cube-frontend/web-app/components/HealthSegmentedBar/BrushFilter'
 
-export type HistoryRow =
-  GetServiceHealthHistoryResponseDataInnerHistoryInner & {
-    id: string
-  }
+export type HistoryRow = GetModuleHealthHistoryResponseDataHistoryInner & {
+  id: string
+}
 
 export const historyToTableRows = (
-  history: GetServiceHealthHistoryResponseDataInnerHistoryInner[],
+  history: GetModuleHealthHistoryResponseDataHistoryInner[],
 ): HistoryRow[] => {
   return history.map((entry) => ({
     ...entry,
-    id: entry.time,
+    id: `${entry.time} + ${entry.hostname}`,
   }))
+}
+
+export const filterHistory = (
+  history: GetModuleHealthHistoryResponseDataHistoryInner[] | undefined,
+  brushTimeRange: DateTimeRange | null,
+): GetModuleHealthHistoryResponseDataHistoryInner[] => {
+  if (!history) return []
+  if (!brushTimeRange) return history
+
+  const [start, end] = brushTimeRange
+  return history.filter((entry) => {
+    const entryTime = dayjs.respectTzOffset(entry.time)
+    return entryTime.isBetween(start, end, 'seconds', '[]')
+  })
 }
 
 export const widthTransitionClasses = twMerge('transition-[width] duration-300')
 
-export const timePointFns: Record<
+export const dateTimeRangeFns: Record<
   HealthTimeRange,
-  (now: Dayjs) => TimePoint[]
+  (now: Dayjs) => DateTimeRange
 > = {
-  '30d': (now) =>
-    createTimePoints({
-      now,
-      iteration: 15,
-      value: -2,
-      unit: 'days',
-      labelFormatters: ['MM/DD', 'HH:mm'],
-    }),
-  '14d': (now) =>
-    createTimePoints({
-      now,
-      iteration: 14,
-      value: -1,
-      unit: 'day',
-      labelFormatters: ['MM/DD', 'HH:mm'],
-    }),
-  '7d': (now) =>
-    createTimePoints({
-      now,
-      iteration: 14,
-      value: -12,
-      unit: 'hours',
-      labelFormatters: ['MM/DD', 'HH:mm'],
-    }),
-  '24h': (now) =>
-    createTimePoints({
-      now,
-      iteration: 12,
-      value: -2,
-      unit: 'hour',
-      labelFormatters: ['MM/DD', 'HH:mm'],
-    }),
-  '1h': (now) =>
-    createTimePoints({
-      now,
-      iteration: 12,
-      value: -5,
-      unit: 'minutes',
-      labelFormatters: ['MM/DD', 'HH:mm'],
-    }),
+  '30d': (now) => [now.subtract(30, 'day'), now],
+  '14d': (now) => [now.subtract(14, 'day'), now],
+  '7d': (now) => [now.subtract(7, 'day'), now],
+  '24h': (now) => [now.subtract(24, 'hour'), now],
+  '1h': (now) => [now.subtract(1, 'hour'), now],
 }

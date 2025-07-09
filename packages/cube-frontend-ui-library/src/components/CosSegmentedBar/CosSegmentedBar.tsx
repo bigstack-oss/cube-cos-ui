@@ -12,6 +12,8 @@ import {
 } from './cosSegmentedBarUtils'
 import { SegmentedRect } from './SegmentedRect'
 import { useSegmentedBarWidth } from './useSegmentedBarWidth'
+import { twMerge } from 'tailwind-merge'
+import { cubeTheme } from '@cube-frontend/ui-theme'
 
 export type CosSegmentedBarProps = PropsWithClassName & {
   /**
@@ -21,12 +23,19 @@ export type CosSegmentedBarProps = PropsWithClassName & {
    */
   width?: number
   /**
+   * The start and end x-ticks may be cut-off,
+   * so we have to add padding to ensure they are fully visible.
+   */
+  paddingX?: number
+  barMarginTop?: number
+  /**
    * @default false
    */
   rounded?: boolean
   segments: Segment[]
   onMouseEnterSegment?: (index: number, e: MouseEvent<SVGRectElement>) => void
   onMouseLeaveSegment?: (index: number, e: MouseEvent<SVGRectElement>) => void
+  overlay?: (barWidth: number, svgHeight: number) => ReactNode
 } & WithChildrenProps
 
 type WithChildrenProps =
@@ -44,12 +53,15 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
   const {
     className,
     width,
+    barMarginTop = 0,
+    paddingX = 0,
     rounded = false,
     segments,
     onMouseEnterSegment,
     onMouseLeaveSegment,
     childrenDimensions,
     children,
+    overlay,
   } = props
 
   if (width !== undefined && width <= 0) {
@@ -65,7 +77,8 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
     [segments],
   )
 
-  const { svgRef, barWidth } = useSegmentedBarWidth(width)
+  const { svgRef, barWidth: containerWidth } = useSegmentedBarWidth(width)
+  const contentWidth = containerWidth - paddingX * 2
 
   const totalColCount = useMemo<number>(
     () => displaySegments.reduce((sum, segment) => sum + segment.colCount, 0),
@@ -77,7 +90,7 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
     let accumulatedLeft = 0
 
     displaySegments.forEach((segment) => {
-      const width = barWidth * (segment.colCount / totalColCount)
+      const width = contentWidth * (segment.colCount / totalColCount)
 
       result.push({
         width,
@@ -88,7 +101,7 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
     })
 
     return result
-  }, [displaySegments, totalColCount, barWidth])
+  }, [displaySegments, totalColCount, contentWidth])
 
   const computeRoundedSide = (index: number): RoundedSide => {
     const isFirst = index === 0
@@ -115,45 +128,65 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
     }
   }, [rounded])
 
-  const svgHeight = computeSvgHeight(rectHeight, childrenDimensions)
+  const svgHeight = computeSvgHeight(
+    rectHeight,
+    barMarginTop,
+    childrenDimensions,
+  )
 
-  const childrenContent = children?.(barWidth)
+  const childrenContent = children?.(contentWidth)
+  const overlayContent = overlay?.(contentWidth, svgHeight)
 
   return (
     <svg
       ref={svgRef}
       className={className}
-      viewBox={`0 0 ${barWidth} ${svgHeight}`}
-      width={barWidth}
+      viewBox={`0 0 ${containerWidth} ${svgHeight}`}
+      width={containerWidth}
       height={svgHeight}
     >
-      {displaySegments.map((segment, index) => (
-        <CosTooltip
-          key={index}
-          placement="top-follow-cursor"
-          hoverContent={segment.hoverContent}
-        >
-          <SegmentedRect
-            color={segment.color}
-            radius={rectRadius}
-            dimensions={rectDimensions[index]}
-            roundedSide={computeRoundedSide(index)}
-            onMouseEnter={(e) => onMouseEnterSegment?.(index, e)}
-            onMouseLeave={(e) => onMouseLeaveSegment?.(index, e)}
-          />
-        </CosTooltip>
-      ))}
-      {!!childrenContent && (
-        <g
-          width="100%"
-          transform={computeChildrenTransform(
-            rectHeight,
-            childrenDimensions?.marginTop,
+      <g transform={`translate(${paddingX}, 0)`}>
+        <line
+          x1={0}
+          x2={contentWidth}
+          strokeWidth={2}
+          stroke={cubeTheme.colors.functional['border-divider']}
+        />
+        <g transform={`translate(0, ${barMarginTop})`}>
+          {displaySegments.map((segment, index) => (
+            <CosTooltip
+              key={index}
+              placement="top-follow-cursor"
+              hoverContent={segment.hoverContent}
+            >
+              <SegmentedRect
+                color={segment.color}
+                radius={rectRadius}
+                dimensions={rectDimensions[index]}
+                roundedSide={computeRoundedSide(index)}
+                onMouseEnter={(e) => onMouseEnterSegment?.(index, e)}
+                onMouseLeave={(e) => onMouseLeaveSegment?.(index, e)}
+              />
+            </CosTooltip>
+          ))}
+          {!!childrenContent && (
+            <g
+              width="100%"
+              transform={computeChildrenTransform(
+                rectHeight,
+                childrenDimensions?.marginTop,
+              )}
+            >
+              {childrenContent}
+            </g>
           )}
-        >
-          {childrenContent}
         </g>
-      )}
+        {overlayContent && (
+          <g width="100%" className="pointer-events-none absolute left-0 top-0">
+            {overlayContent}
+          </g>
+        )}
+      </g>
     </svg>
   )
 }

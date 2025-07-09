@@ -1,13 +1,16 @@
 import {
+  GetModuleHealthHistoryResponseDataHistoryInner,
   GetServiceHealthHistoryResponseDataInnerHistoryInner,
   GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum,
 } from '@cube-frontend/api'
 import { CosTooltipInformation, Segment } from '@cube-frontend/ui-library'
 import { FillColorClass } from '@cube-frontend/ui-theme'
 import dayjs, { Dayjs } from 'dayjs'
-import { TimePoint } from './createTimePoints'
+import { DateTimeRange } from './BrushFilter'
 
-type HistoryEntry = GetServiceHealthHistoryResponseDataInnerHistoryInner
+type HistoryEntry =
+  | GetModuleHealthHistoryResponseDataHistoryInner
+  | GetServiceHealthHistoryResponseDataInnerHistoryInner
 
 export type HealthSegment = Segment & HealthInfo
 
@@ -21,9 +24,10 @@ type HealthInfo = {
   endDateTime: Dayjs
 }
 
-const healthStatusColors: Record<HealthStatus, FillColorClass> = {
+export const healthStatusColors: Record<HealthStatus, FillColorClass> = {
   ok: 'fill-cosmos-secondary',
   ng: 'fill-status-negative',
+  fixing: 'fill-status-warning',
   blank: 'fill-grey-300',
 }
 
@@ -58,27 +62,20 @@ const checkHistoryEntriesSorting = (history: HistoryEntry[]): void => {
  */
 export const computeHealthSegments = (
   history: HistoryEntry[],
-  timePoints: TimePoint[],
+  dateTimeRange: DateTimeRange,
 ): HealthSegment[] => {
-  if (timePoints.length <= 1) {
-    throw new Error('There should be more than 1 time points')
-  }
-
   checkHistoryEntriesSorting(history)
 
-  const [startTimePoint, endTimePoint] = [
-    timePoints[0],
-    timePoints[timePoints.length - 1],
-  ]
+  const [startDateTime, endDateTime] = dateTimeRange
 
-  const segments = parseInitialSegments(history, startTimePoint, endTimePoint)
+  const segments = parseInitialSegments(history, startDateTime, endDateTime)
 
-  fillLeadingSegment(segments, startTimePoint, endTimePoint)
+  fillLeadingSegment(segments, startDateTime, endDateTime)
   fillTrailingSegment(
     segments,
     history[history.length - 1],
-    startTimePoint,
-    endTimePoint,
+    startDateTime,
+    endDateTime,
   )
 
   const mergedSegments = mergeSegments(segments)
@@ -91,8 +88,8 @@ export const computeHealthSegments = (
 
 const parseInitialSegments = (
   history: HistoryEntry[],
-  startTimePoint: TimePoint,
-  endTimePoint: TimePoint,
+  startDateTime: Dayjs,
+  endDateTime: Dayjs,
 ): HealthSegment[] => {
   if (history.length === 1) {
     // There's only 1 entry in the history.
@@ -100,7 +97,7 @@ const parseInitialSegments = (
     // The duration is not important because `fillTrailingSegment` will use
     // this segment's status to fill the rest of the bar.
     const entry = history[0]
-    const totalMilliseconds = endTimePoint.timestamp - startTimePoint.timestamp
+    const totalMilliseconds = startDateTime.valueOf() - endDateTime.valueOf()
     return [
       {
         color: healthStatusColors[entry.status],
@@ -118,8 +115,8 @@ const parseInitialSegments = (
     const segment = parseSegment(
       history[i],
       history[i + 1],
-      startTimePoint,
-      endTimePoint,
+      startDateTime,
+      endDateTime,
     )
     if (segment) {
       segments.push(segment)
@@ -132,15 +129,15 @@ const parseInitialSegments = (
 const parseSegment = (
   startHistoryEntry: HistoryEntry,
   endHistoryEntry: HistoryEntry,
-  startTimePoint: TimePoint,
-  endTimePoint: TimePoint,
+  startDateTime: Dayjs,
+  endDateTime: Dayjs,
 ): HealthSegment | undefined => {
   const startHistoryTime = dayjs.respectTzOffset(startHistoryEntry.time)
   const endHistoryTime = dayjs.respectTzOffset(endHistoryEntry.time)
 
   const isOverlapping = checkIsOverlapping(
     [startHistoryTime, endHistoryTime],
-    [startTimePoint.dateTime, endTimePoint.dateTime],
+    [startDateTime, endDateTime],
   )
 
   if (!isOverlapping) {
@@ -148,12 +145,12 @@ const parseSegment = (
   }
 
   const [overlappingStart, overlappingEnd] = [
-    dayjs.max(startHistoryTime, startTimePoint.dateTime),
-    dayjs.min(endHistoryTime, endTimePoint.dateTime),
+    dayjs.max(startHistoryTime, startDateTime),
+    dayjs.min(endHistoryTime, endDateTime),
   ]
 
   const overlappingMilliseconds = overlappingEnd.diff(overlappingStart)
-  const totalMilliseconds = endTimePoint.timestamp - startTimePoint.timestamp
+  const totalMilliseconds = endDateTime.valueOf() - startDateTime.valueOf()
 
   return createSegment({
     colCount: overlappingMilliseconds / totalMilliseconds,
@@ -168,7 +165,17 @@ const checkIsOverlapping = (
   rangeB: [Dayjs, Dayjs],
 ): boolean => {
   const [startA, endA] = rangeA
-  return startA.isBetween(...rangeB) || endA.isBetween(...rangeB)
+  if (startA.isBetween(...rangeB) || endA.isBetween(...rangeB)) {
+    return true
+  }
+
+  // Range A completely covers Range B.
+  // TODO: Draw Chart
+  if (startA.isBefore(rangeB[0]) && endA.isAfter(rangeB[1])) {
+    return true
+  }
+
+  return false
 }
 
 /**
@@ -176,8 +183,8 @@ const checkIsOverlapping = (
  */
 const fillLeadingSegment = (
   segments: HealthSegment[],
-  startTimePoint: TimePoint,
-  endTimePoint: TimePoint,
+  startDateTime: Dayjs,
+  endDateTime: Dayjs,
 ): void => {
   const firstSegment: HealthSegment | undefined = segments[0]
 
@@ -187,8 +194,8 @@ const fillLeadingSegment = (
       createSegment({
         colCount: 1,
         status: 'blank',
-        startDateTime: startTimePoint.dateTime,
-        endDateTime: endTimePoint.dateTime,
+        startDateTime,
+        endDateTime,
       }),
     )
     return
@@ -196,20 +203,19 @@ const fillLeadingSegment = (
 
   const startMilliseconds = firstSegment.startDateTime.valueOf()
 
-  if (startMilliseconds === startTimePoint.timestamp) {
-    // The first segment already started at the expected time.
+  // There's a gap before the first segment.
+  const gapMilliseconds = startMilliseconds - startDateTime.valueOf()
+  const totalMilliseconds = endDateTime.valueOf() - startDateTime.valueOf()
+
+  if (gapMilliseconds <= 0) {
     return
   }
-
-  // There's a gap before the first segment.
-  const gapMilliseconds = startMilliseconds - startTimePoint.timestamp
-  const totalMilliseconds = endTimePoint.timestamp - startTimePoint.timestamp
 
   segments.unshift(
     createSegment({
       colCount: gapMilliseconds / totalMilliseconds,
       status: 'blank',
-      startDateTime: startTimePoint.dateTime,
+      startDateTime,
       endDateTime: firstSegment.startDateTime,
     }),
   )
@@ -221,8 +227,8 @@ const fillLeadingSegment = (
 const fillTrailingSegment = (
   segments: HealthSegment[],
   lastHistoryEntry: HistoryEntry | undefined,
-  startTimePoint: TimePoint,
-  endTimePoint: TimePoint,
+  startDateTime: Dayjs,
+  endDateTime: Dayjs,
 ): void => {
   if (!segments.length) {
     throw new Error('segments count must be greater than 0')
@@ -232,23 +238,22 @@ const fillTrailingSegment = (
   }
 
   const lastSegment = segments[segments.length - 1]
-  const endMilliseconds = lastSegment.startDateTime.valueOf()
-
-  if (endMilliseconds === endTimePoint.timestamp) {
-    // The last segment already ended at the expected time.
-    return
-  }
+  const endMilliseconds = lastSegment.endDateTime.valueOf()
 
   // There's a gap after the last segment.
-  const gapMilliseconds = endTimePoint.timestamp - endMilliseconds
-  const totalMilliseconds = endTimePoint.timestamp - startTimePoint.timestamp
+  const gapMilliseconds = endDateTime.valueOf() - endMilliseconds
+  const totalMilliseconds = endDateTime.valueOf() - startDateTime.valueOf()
+
+  if (gapMilliseconds <= 0) {
+    return
+  }
 
   segments.push(
     createSegment({
       colCount: gapMilliseconds / totalMilliseconds,
       status: lastHistoryEntry.status,
       startDateTime: lastSegment.endDateTime,
-      endDateTime: endTimePoint.dateTime,
+      endDateTime,
     }),
   )
 }
