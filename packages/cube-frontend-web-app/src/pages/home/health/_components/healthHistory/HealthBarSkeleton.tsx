@@ -7,7 +7,7 @@ export const HealthBarSkeleton = () => {
       <CosSegmentedBarSkeleton />
       <div className="flex items-center justify-between">
         {range(0, 5).map((index) => (
-          <CosSkeleton key={index} className="h-4 w-16" />
+          <CosSkeleton key={index} className="h-[26px] w-16" />
         ))}
       </div>
     </div>
