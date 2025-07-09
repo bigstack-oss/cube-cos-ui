@@ -14,6 +14,7 @@ export type ErrorReportPanelProps = {
 
 const panel = cva(
   [
+    'sticky top-0',
     'flex flex-col overflow-hidden rounded-[5px]',
     'bg-grey-0 shadow-[0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]',
     widthTransitionClasses,
