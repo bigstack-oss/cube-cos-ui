@@ -1,19 +1,25 @@
-import { CosStroke } from '@cube-frontend/ui-library'
+import { CosStroke, DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { cva } from 'class-variance-authority'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { healthTimeRanges } from '../healthTimeRangeUtils'
-import { HistoryRow, widthTransitionClasses } from './healthDetailsUtils'
+import {
+  filterHistory,
+  HistoryRow,
+  widthTransitionClasses,
+} from './healthDetailsUtils'
 import { HealthHistoryPanelHeader } from './HealthHistoryPanelHeader'
 import { HealthHistoryTableSection } from './HealthHistoryTableSection'
-import { HealthTimeBar } from './HealthTimeBar'
+import { HealthTimeBar } from './HealthTimeBar/HealthTimeBar'
 import { HealthTimeBarSkeleton } from './HealthTimeBarSkeleton'
 import { useModuleHealthHistory } from './useModuleHealthHistory'
+import { DateTimeRange } from '@cube-frontend/web-app/components/HealthSegmentedBar/BrushFilter'
+import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 
 export type HealthHistoryPanelProps = {
   module: ModuleMetadata | undefined
@@ -57,12 +63,28 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
     defaultValue: '24h',
   })
 
-  const { historyResponse, getHealthHistory, startInterval, stopInterval } =
-    useModuleHealthHistory({
-      module,
-      past: timeRange,
-      autoRefresh,
-    })
+  const {
+    aggregatedHistoryResponse,
+    rawHistoryResponse,
+    getHealthHistory,
+    startInterval,
+    stopInterval,
+  } = useModuleHealthHistory({
+    module,
+    past: timeRange,
+    autoRefresh,
+  })
+
+  const [brushDateTimeRange, setBrushDateTimeRange] =
+    useState<DateTimeRange | null>(null)
+
+  const [throttledBrushDateTimeRange] = useDebounce(brushDateTimeRange, 50)
+
+  const tableHistory = useMemo(
+    () =>
+      filterHistory(rawHistoryResponse?.history, throttledBrushDateTimeRange),
+    [rawHistoryResponse?.history, throttledBrushDateTimeRange],
+  )
 
   // Use a separate loading state instead of `useCosMutationRequest`'s `isLoading`
   // to keep the Repair button in the loading state until the `getModuleHealthHistory`
@@ -92,34 +114,50 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
     }
   }
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_ITEMS_PER_PAGE)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [timeRange, brushDateTimeRange])
+
+  useEffect(() => {
+    setBrushDateTimeRange(null)
+  }, [timeRange])
+
   return (
     <div className={twMerge(container({ isDetailPanelOpen }))}>
       <HealthHistoryPanelHeader
         module={module}
-        isRepairable={!!historyResponse?.isRepairable}
-        isFixing={!!historyResponse?.status.isFixing || isCallingRepairApi}
+        isRepairable={!!aggregatedHistoryResponse?.isRepairable}
+        isFixing={
+          !!aggregatedHistoryResponse?.status.isFixing || isCallingRepairApi
+        }
         selectedTimeRange={timeRange}
         onTimeRangeChange={onTimeRangeChange}
         onToggleDetailPanel={onToggleDetailPanel}
         onRepairClick={onRepairClick}
       />
-      {!history ? (
+      {!aggregatedHistoryResponse || !tableHistory ? (
         <HealthTimeBarSkeleton />
       ) : (
         <HealthTimeBar
-          history={historyResponse?.history}
+          history={aggregatedHistoryResponse?.history}
           now={now}
-          selectedTimeRange={timeRange}
+          timeRange={timeRange}
+          brushDateTimeRange={brushDateTimeRange}
+          onBrushDateTimeRangeChange={setBrushDateTimeRange}
         />
       )}
       <CosStroke type="dot" />
       <HealthHistoryTableSection
-        // Use `key` to reset the `currentPage` state in pagination
-        // when `timeRange` changes.
-        key={timeRange}
-        history={historyResponse?.history}
+        history={tableHistory}
         activeRow={activeHistoryRow}
         onRowClick={onHistoryRowClick}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        onPageChange={setCurrentPage}
+        onItemsPerPageChange={setItemsPerPage}
       />
     </div>
   )

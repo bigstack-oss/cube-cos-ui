@@ -36,7 +36,7 @@ export const ErrorReportPanel = (props: ErrorReportPanelProps) => {
     if (!historyRow) {
       return 'No row selected'
     }
-    return dayjs(historyRow.time).format('YYYY/MM/DD hh:mm A')
+    return dayjs(historyRow.time).format('YYYY/MM/DD hh:mm:ss A')
   }
 
   return (
