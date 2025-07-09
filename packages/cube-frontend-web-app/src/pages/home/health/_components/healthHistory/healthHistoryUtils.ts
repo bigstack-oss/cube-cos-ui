@@ -32,6 +32,21 @@ export const groupServicesByCategory = (
   return Array.from(map.values())
 }
 
+const sortServicesByModuleCount = (
+  services: GetServicesResponseDataInner[],
+): GetServicesResponseDataInner[] => {
+  return [...services].sort((a, b) => a.modules.length - b.modules.length)
+}
+
+export const sortCategoryServicesByModuleCount = (
+  categories: ServiceCategory[],
+): ServiceCategory[] => {
+  return categories.map((category) => ({
+    ...category,
+    services: sortServicesByModuleCount(category.services),
+  }))
+}
+
 export const timePointFns: Record<
   HealthTimeRange,
   (now: Dayjs) => TimePoint[]
