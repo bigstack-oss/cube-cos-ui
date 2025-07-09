@@ -1,37 +1,67 @@
-import { GetServiceHealthHistoryResponseDataInnerHistoryInner } from '@cube-frontend/api'
+import {
+  GetModuleHealthHistoryResponseDataHistoryInner,
+  GetServiceHealthHistoryResponseDataInnerHistoryInner,
+} from '@cube-frontend/api'
 import {
   CosSegmentedBar,
   CosSegmentedBarProps,
 } from '@cube-frontend/ui-library'
 import { PropsWithClassName } from '@cube-frontend/utils'
-import { useMemo } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { computeHealthSegments, HealthSegment } from './computeHealthSegments'
-import { TimePoint } from './createTimePoints'
+import { DateTimeRange } from './BrushFilter'
 
-export type HealthSegmentedBarProps = PropsWithClassName & {
-  history: GetServiceHealthHistoryResponseDataInnerHistoryInner[]
-  timePoints: TimePoint[]
-} & Pick<CosSegmentedBarProps, 'width' | 'childrenDimensions' | 'children'>
+export type HealthSegmentedBarProps<
+  T extends
+    | GetModuleHealthHistoryResponseDataHistoryInner
+    | GetServiceHealthHistoryResponseDataInnerHistoryInner,
+> = PropsWithClassName & {
+  history: T[]
+  dateTimeRange: DateTimeRange
+  overlay?: (
+    barWidth: number,
+    svgHeight: number,
+    segments: HealthSegment[],
+  ) => ReactNode
+} & Pick<
+    CosSegmentedBarProps,
+    'width' | 'paddingX' | 'barMarginTop' | 'childrenDimensions' | 'children'
+  >
 
-export const HealthSegmentedBar = (props: HealthSegmentedBarProps) => {
+export const HealthSegmentedBar = <
+  T extends
+    | GetModuleHealthHistoryResponseDataHistoryInner
+    | GetServiceHealthHistoryResponseDataInnerHistoryInner,
+>(
+  props: HealthSegmentedBarProps<T>,
+) => {
   const {
     className,
     history,
-    timePoints,
+    dateTimeRange,
     width,
+    paddingX,
+    barMarginTop,
     childrenDimensions,
     children,
+    overlay,
   } = props
 
   const segments = useMemo<HealthSegment[]>(
-    () => computeHealthSegments(history, timePoints),
-    [history, timePoints],
+    () => computeHealthSegments(history, dateTimeRange),
+
+    [history, dateTimeRange],
   )
 
-  const commonSegmentedBarProps = {
+  const commonSegmentedBarProps: CosSegmentedBarProps = {
     className,
     width,
     segments,
+    barMarginTop: barMarginTop,
+    paddingX: paddingX,
+    overlay:
+      overlay &&
+      ((barWidth, svgHeight) => overlay(barWidth, svgHeight, segments)),
   }
 
   if (childrenDimensions && children) {

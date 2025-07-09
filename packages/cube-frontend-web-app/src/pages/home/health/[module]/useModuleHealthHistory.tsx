@@ -18,8 +18,12 @@ export type UseModuleHealthHistoryOptions = {
 }
 
 type UseModuleHealthHistory = {
-  historyResponse: GetModuleHealthHistoryResponseData | undefined
-  getHealthHistory: () => Promise<GetModuleHealthHistoryResponseData>
+  aggregatedHistoryResponse: GetModuleHealthHistoryResponseData | undefined
+  rawHistoryResponse: GetModuleHealthHistoryResponseData | undefined
+  getHealthHistory: () => Promise<{
+    aggregated: GetModuleHealthHistoryResponseData
+    raw: GetModuleHealthHistoryResponseData
+  }>
   startInterval: () => void
   stopInterval: () => void
 }
@@ -31,7 +35,9 @@ export const useModuleHealthHistory = (
 
   const { dataCenter } = useContext(DataCenterContext)
 
-  const getRequestParams = (): HealthApiGetHealthHistoryRequest | undefined => {
+  const getRequestParams = (
+    aggregate: boolean,
+  ): HealthApiGetHealthHistoryRequest | undefined => {
     if (!module) {
       return undefined
     }
@@ -40,24 +46,41 @@ export const useModuleHealthHistory = (
       serviceType: module.service,
       moduleType: module.name,
       past,
+      aggregate,
     }
   }
 
-  const { data: pollingResponse, getResource: getHealthHistoryByPolling } =
-    useCosGetRequest(
-      healthApi.getHealthHistory,
-      (): HealthApiGetHealthHistoryRequest | undefined => {
-        if (!shouldUsePollingData) {
-          return undefined
-        }
-        return getRequestParams()
-      },
-    )
+  const {
+    data: pollingAggregatedResponse,
+    getResource: getAggregatedHealthHistoryByPolling,
+  } = useCosGetRequest(
+    healthApi.getHealthHistory,
+    (): HealthApiGetHealthHistoryRequest | undefined => {
+      if (!shouldUsePollingData) {
+        return undefined
+      }
+      return getRequestParams(true)
+    },
+  )
+
+  const {
+    data: pollingRawResponse,
+    getResource: getRawHealthHistoryByPolling,
+  } = useCosGetRequest(
+    healthApi.getHealthHistory,
+    (): HealthApiGetHealthHistoryRequest | undefined => {
+      if (!shouldUsePollingData) {
+        return undefined
+      }
+      return getRequestParams(false)
+    },
+  )
 
   const { startInterval, stopInterval } = useSequentialInterval(
     () => {
       if (module && shouldUsePollingData) {
-        getHealthHistoryByPolling()
+        getAggregatedHealthHistoryByPolling()
+        getRawHealthHistoryByPolling()
       }
     },
     HOME_HEALTH_PAGE_POLLING_INTERVAL,
@@ -67,28 +90,61 @@ export const useModuleHealthHistory = (
   )
 
   const {
-    data: manualFetchResponse,
-    getResource: getHealthHistoryByManualFetch,
+    data: manualFetchAggregatedResponse,
+    getResource: getAggregatedHealthHistoryByManualFetch,
   } = useCosGetRequest(
     healthApi.getHealthHistory,
     (): HealthApiGetHealthHistoryRequest | undefined => {
       if (shouldUsePollingData) {
         return undefined
       }
-      return getRequestParams()
+      return getRequestParams(true)
+    },
+  )
+
+  const {
+    data: manualFetchRawResponse,
+    getResource: getRawHealthHistoryByManualFetch,
+  } = useCosGetRequest(
+    healthApi.getHealthHistory,
+    (): HealthApiGetHealthHistoryRequest | undefined => {
+      if (shouldUsePollingData) {
+        return undefined
+      }
+      return getRequestParams(false)
     },
   )
 
   // Use stream data if `autoFetch` is true. Otherwise, use manual fetch data.
-  const historyResponse = shouldUsePollingData
-    ? pollingResponse
-    : manualFetchResponse
+  const aggregatedHistoryResponse = shouldUsePollingData
+    ? pollingAggregatedResponse
+    : manualFetchAggregatedResponse
+
+  const rawHistoryResponse = shouldUsePollingData
+    ? pollingRawResponse
+    : manualFetchRawResponse
+
+  const getHealthHistory = async () => {
+    if (shouldUsePollingData) {
+      const [aggregated, raw] = await Promise.all([
+        getAggregatedHealthHistoryByPolling(),
+        getRawHealthHistoryByPolling(),
+      ])
+
+      return { aggregated, raw }
+    }
+    const [aggregated, raw] = await Promise.all([
+      getAggregatedHealthHistoryByManualFetch(),
+      getRawHealthHistoryByManualFetch(),
+    ])
+
+    return { aggregated, raw }
+  }
 
   return {
-    historyResponse,
-    getHealthHistory: shouldUsePollingData
-      ? getHealthHistoryByPolling
-      : getHealthHistoryByManualFetch,
+    aggregatedHistoryResponse,
+    rawHistoryResponse,
+    getHealthHistory,
     startInterval,
     stopInterval,
   }

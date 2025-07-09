@@ -26,6 +26,69 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface AddNodeDevice500Response
+ */
+export interface AddNodeDevice500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof AddNodeDevice500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddNodeDevice500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddNodeDevice500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface AddNodeDeviceRequest
+ */
+export interface AddNodeDeviceRequest {
+    /**
+     * The device path, e.g., sdc
+     * @type {string}
+     * @memberof AddNodeDeviceRequest
+     */
+    'device': string;
+}
+/**
+ * 
+ * @export
+ * @interface AddNodeDeviceResponse
+ */
+export interface AddNodeDeviceResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof AddNodeDeviceResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddNodeDeviceResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddNodeDeviceResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface CreateEmailRecipient500Response
  */
 export interface CreateEmailRecipient500Response {
@@ -170,6 +233,100 @@ export interface CreateSupportFilesResponse {
 /**
  * 
  * @export
+ * @interface CreateTriggerRequest
+ */
+export interface CreateTriggerRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateTriggerRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateTriggerRequest
+     */
+    'description': string;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataAttributeInner}
+     * @memberof CreateTriggerRequest
+     */
+    'attribute': GetTriggerMaterialsResponseDataAttributeInner;
+    /**
+     * 
+     * @type {CreateTriggerRequestResponse}
+     * @memberof CreateTriggerRequest
+     */
+    'response': CreateTriggerRequestResponse;
+}
+/**
+ * 
+ * @export
+ * @interface CreateTriggerRequestResponse
+ */
+export interface CreateTriggerRequestResponse {
+    /**
+     * 
+     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
+     * @memberof CreateTriggerRequestResponse
+     */
+    'script': GetTriggersResponseDataTriggersInnerResponseScript;
+    /**
+     * 
+     * @type {CreateTriggerRequestResponseNotifications}
+     * @memberof CreateTriggerRequestResponse
+     */
+    'notifications': CreateTriggerRequestResponseNotifications;
+}
+/**
+ * 
+ * @export
+ * @interface CreateTriggerRequestResponseNotifications
+ */
+export interface CreateTriggerRequestResponseNotifications {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateTriggerRequestResponseNotifications
+     */
+    'slacks': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateTriggerRequestResponseNotifications
+     */
+    'emails': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface CreateTriggerResponse
+ */
+export interface CreateTriggerResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateTriggerResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateTriggerResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateTriggerResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteEmailRecipient500Response
  */
 export interface DeleteEmailRecipient500Response {
@@ -239,6 +396,81 @@ export interface DeleteEmailSenderResponse {
      * 
      * @type {string}
      * @memberof DeleteEmailSenderResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteNodeOsd404Response
+ */
+export interface DeleteNodeOsd404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteNodeOsd404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsd404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsd404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteNodeOsd500Response
+ */
+export interface DeleteNodeOsd500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteNodeOsd500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsd500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsd500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteNodeOsdResponse
+ */
+export interface DeleteNodeOsdResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteNodeOsdResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsdResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsdResponse
      */
     'status': string;
 }
@@ -367,6 +599,95 @@ export interface DeleteSupportFiles500Response {
      */
     'status'?: string;
 }
+/**
+ * 
+ * @export
+ * @interface DeleteTrigger404Response
+ */
+export interface DeleteTrigger404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteTrigger404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTrigger404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTrigger404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteTrigger500Response
+ */
+export interface DeleteTrigger500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteTrigger500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTrigger500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTrigger500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteTriggerResponse
+ */
+export interface DeleteTriggerResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteTriggerResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTriggerResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTriggerResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const DeviceType = {
+    Ssd: 'SSD',
+    Hdd: 'HDD'
+} as const;
+
+export type DeviceType = typeof DeviceType[keyof typeof DeviceType];
+
+
 /**
  * 
  * @export
@@ -3654,6 +3975,12 @@ export interface GetModuleHealthHistoryResponseDataHistoryInner {
      * @type {string}
      * @memberof GetModuleHealthHistoryResponseDataHistoryInner
      */
+    'hostname'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
+     */
     'status': GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum;
     /**
      * 
@@ -3665,6 +3992,7 @@ export interface GetModuleHealthHistoryResponseDataHistoryInner {
 
 export const GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum = {
     Ok: 'ok',
+    Fixing: 'fixing',
     Ng: 'ng'
 } as const;
 
@@ -4085,6 +4413,106 @@ export interface GetOpenSearchRequestDashboard500Response {
 /**
  * 
  * @export
+ * @interface GetPredefinedEventFilterResponse
+ */
+export interface GetPredefinedEventFilterResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetPredefinedEventFilterResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetPredefinedEventFilterResponseData}
+     * @memberof GetPredefinedEventFilterResponse
+     */
+    'data': GetPredefinedEventFilterResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetPredefinedEventFilterResponseData
+ */
+export interface GetPredefinedEventFilterResponseData {
+    /**
+     * 
+     * @type {Array<GetPredefinedEventFilterResponseDataEventsInner>}
+     * @memberof GetPredefinedEventFilterResponseData
+     */
+    'events': Array<GetPredefinedEventFilterResponseDataEventsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetPredefinedEventFilterResponseDataEventsInner
+ */
+export interface GetPredefinedEventFilterResponseDataEventsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     */
+    'severity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     */
+    'category': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetPredefinedEvents500Response
+ */
+export interface GetPredefinedEvents500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetPredefinedEvents500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEvents500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEvents500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface GetRankedEventsResponse
  */
 export interface GetRankedEventsResponse {
@@ -4297,6 +4725,12 @@ export interface GetServiceHealthHistoryResponseDataInnerHistoryInner {
      * @type {string}
      * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInner
      */
+    'hostname': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInner
+     */
     'status': GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum;
     /**
      * 
@@ -4308,6 +4742,7 @@ export interface GetServiceHealthHistoryResponseDataInnerHistoryInner {
 
 export const GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum = {
     Ok: 'ok',
+    Fixing: 'fixing',
     Ng: 'ng'
 } as const;
 
@@ -4543,31 +4978,6 @@ export interface GetSettingResponseDataTitlePrefix {
      * @memberof GetSettingResponseDataTitlePrefix
      */
     'status': SettingStatus;
-}
-/**
- * 
- * @export
- * @interface GetSettings500Response
- */
-export interface GetSettings500Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetSettings500Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetSettings500Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetSettings500Response
-     */
-    'status'?: string;
 }
 /**
  * 
@@ -4822,6 +5232,213 @@ export interface GetTokensResponseDataExpires {
 /**
  * 
  * @export
+ * @interface GetTriggerMaterials500Response
+ */
+export interface GetTriggerMaterials500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetTriggerMaterials500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterials500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterials500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponse
+ */
+export interface GetTriggerMaterialsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetTriggerMaterialsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseData}
+     * @memberof GetTriggerMaterialsResponse
+     */
+    'data': GetTriggerMaterialsResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseData
+ */
+export interface GetTriggerMaterialsResponseData {
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataAttributeInner>}
+     * @memberof GetTriggerMaterialsResponseData
+     */
+    'attribute': Array<GetTriggerMaterialsResponseDataAttributeInner>;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponse}
+     * @memberof GetTriggerMaterialsResponseData
+     */
+    'response': GetTriggerMaterialsResponseDataResponse;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataAttributeInner
+ */
+export interface GetTriggerMaterialsResponseDataAttributeInner {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     */
+    'alertTypes': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     */
+    'severities': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     */
+    'categories': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     */
+    'eventIds': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponse
+ */
+export interface GetTriggerMaterialsResponseDataResponse {
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponseScriptTypes}
+     * @memberof GetTriggerMaterialsResponseDataResponse
+     */
+    'scriptTypes': GetTriggerMaterialsResponseDataResponseScriptTypes;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponseNotifications}
+     * @memberof GetTriggerMaterialsResponseDataResponse
+     */
+    'notifications': GetTriggerMaterialsResponseDataResponseNotifications;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseNotifications
+ */
+export interface GetTriggerMaterialsResponseDataResponseNotifications {
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotifications
+     */
+    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotifications
+     */
+    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
+ */
+export interface GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
+     */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
+     */
+    'note': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+ */
+export interface GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     */
+    'url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseScriptTypes
+ */
+export interface GetTriggerMaterialsResponseDataResponseScriptTypes {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypes
+     */
+    'types': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypes
+     */
+    'environments': Array<string>;
+}
+/**
+ * 
+ * @export
  * @interface GetTriggerResponse
  */
 export interface GetTriggerResponse {
@@ -4864,28 +5481,59 @@ export interface GetTriggerResponseData {
     'name': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof GetTriggerResponseData
+     */
+    'isBuiltIn': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof GetTriggerResponseData
      */
     'description': string;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerAttributesInner>}
+     * @type {GetTriggerMaterialsResponseDataAttributeInner}
      * @memberof GetTriggerResponseData
      */
-    'attributes': Array<GetTriggersResponseDataInnerAttributesInner>;
+    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
     /**
      * 
-     * @type {GetTriggersResponseDataInnerResponse}
+     * @type {GetTriggerResponseDataResponse}
      * @memberof GetTriggerResponseData
      */
-    'response': GetTriggersResponseDataInnerResponse;
+    'response': GetTriggerResponseDataResponse;
     /**
      * 
      * @type {boolean}
      * @memberof GetTriggerResponseData
      */
     'enabled': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerResponseDataResponse
+ */
+export interface GetTriggerResponseDataResponse {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'types': Array<string>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
 }
 /**
  * 
@@ -4926,10 +5574,10 @@ export interface GetTriggersResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInner>}
+     * @type {GetTriggersResponseData}
      * @memberof GetTriggersResponse
      */
-    'data': Array<GetTriggersResponseDataInner>;
+    'data': GetTriggersResponseData;
     /**
      * 
      * @type {string}
@@ -4946,174 +5594,137 @@ export interface GetTriggersResponse {
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInner
+ * @interface GetTriggersResponseData
  */
-export interface GetTriggersResponseDataInner {
+export interface GetTriggersResponseData {
+    /**
+     * 
+     * @type {Array<GetTriggersResponseDataTriggersInner>}
+     * @memberof GetTriggersResponseData
+     */
+    'triggers': Array<GetTriggersResponseDataTriggersInner>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof GetTriggersResponseData
+     */
+    'page': Page;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponseDataTriggersInner
+ */
+export interface GetTriggersResponseDataTriggersInner {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInner
+     * @memberof GetTriggersResponseDataTriggersInner
      */
     'name': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof GetTriggersResponseDataTriggersInner
+     */
+    'isBuiltIn': boolean;
+    /**
+     * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInner
+     * @memberof GetTriggersResponseDataTriggersInner
      */
     'description': string;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerAttributesInner>}
-     * @memberof GetTriggersResponseDataInner
+     * @type {GetTriggerMaterialsResponseDataAttributeInner}
+     * @memberof GetTriggersResponseDataTriggersInner
      */
-    'attributes': Array<GetTriggersResponseDataInnerAttributesInner>;
+    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
     /**
      * 
-     * @type {GetTriggersResponseDataInnerResponse}
-     * @memberof GetTriggersResponseDataInner
+     * @type {GetTriggersResponseDataTriggersInnerResponse}
+     * @memberof GetTriggersResponseDataTriggersInner
      */
-    'response': GetTriggersResponseDataInnerResponse;
+    'response': GetTriggersResponseDataTriggersInnerResponse;
     /**
      * 
-     * @type {GetTriggersResponseDataInnerStatus}
-     * @memberof GetTriggersResponseDataInner
+     * @type {GetTriggersResponseDataTriggersInnerStatus}
+     * @memberof GetTriggersResponseDataTriggersInner
      */
-    'status': GetTriggersResponseDataInnerStatus;
+    'status': GetTriggersResponseDataTriggersInnerStatus;
     /**
      * 
      * @type {boolean}
-     * @memberof GetTriggersResponseDataInner
+     * @memberof GetTriggersResponseDataTriggersInner
      */
     'enabled': boolean;
 }
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInnerAttributesInner
+ * @interface GetTriggersResponseDataTriggersInnerResponse
  */
-export interface GetTriggersResponseDataInnerAttributesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributesInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributesInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributesInner
-     */
-    'value': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerAttributesInner
-     */
-    'enabled': boolean;
-}
-/**
- * 
- * @export
- * @interface GetTriggersResponseDataInnerResponse
- */
-export interface GetTriggersResponseDataInnerResponse {
+export interface GetTriggersResponseDataTriggersInnerResponse {
     /**
      * 
      * @type {Array<string>}
-     * @memberof GetTriggersResponseDataInnerResponse
+     * @memberof GetTriggersResponseDataTriggersInnerResponse
      */
     'types': Array<string>;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerResponseSlacksInner>}
-     * @memberof GetTriggersResponseDataInnerResponse
+     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
+     * @memberof GetTriggersResponseDataTriggersInnerResponse
      */
-    'slacks': Array<GetTriggersResponseDataInnerResponseSlacksInner>;
+    'script': GetTriggersResponseDataTriggersInnerResponseScript;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerResponseEmailsInner>}
-     * @memberof GetTriggersResponseDataInnerResponse
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
+     * @memberof GetTriggersResponseDataTriggersInnerResponse
      */
-    'emails': Array<GetTriggersResponseDataInnerResponseEmailsInner>;
+    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
+     * @memberof GetTriggersResponseDataTriggersInnerResponse
+     */
+    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
 }
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInnerResponseEmailsInner
+ * @interface GetTriggersResponseDataTriggersInnerResponseScript
  */
-export interface GetTriggersResponseDataInnerResponseEmailsInner {
+export interface GetTriggersResponseDataTriggersInnerResponseScript {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
+     * @memberof GetTriggersResponseDataTriggersInnerResponseScript
      */
-    'address': string;
+    'filePath': string;
     /**
-     * 
+     * Base64 encoded script content
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
+     * @memberof GetTriggersResponseDataTriggersInnerResponseScript
      */
-    'note': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
-     */
-    'enabled': boolean;
+    'content': string;
 }
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInnerResponseSlacksInner
+ * @interface GetTriggersResponseDataTriggersInnerStatus
  */
-export interface GetTriggersResponseDataInnerResponseSlacksInner {
+export interface GetTriggersResponseDataTriggersInnerStatus {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
-     */
-    'url': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
-     */
-    'description': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
-     */
-    'enabled': boolean;
-}
-/**
- * 
- * @export
- * @interface GetTriggersResponseDataInnerStatus
- */
-export interface GetTriggersResponseDataInnerStatus {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerStatus
+     * @memberof GetTriggersResponseDataTriggersInnerStatus
      */
     'current'?: string;
     /**
      * 
      * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerStatus
+     * @memberof GetTriggersResponseDataTriggersInnerStatus
      */
     'isUpdating': boolean;
 }
@@ -5263,6 +5874,276 @@ export const ListLicenseStatusCurrentEnum = {
 } as const;
 
 export type ListLicenseStatusCurrentEnum = typeof ListLicenseStatusCurrentEnum[keyof typeof ListLicenseStatusCurrentEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListNodeDevices404Response
+ */
+export interface ListNodeDevices404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevices404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevices404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevices404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevices500Response
+ */
+export interface ListNodeDevices500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevices500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevices500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevices500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponse
+ */
+export interface ListNodeDevicesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListNodeDevicesResponseDataInner>}
+     * @memberof ListNodeDevicesResponse
+     */
+    'data': Array<ListNodeDevicesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInner
+ */
+export interface ListNodeDevicesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'serial': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'device': string;
+    /**
+     * 
+     * @type {DeviceType}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'class': DeviceType;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'sizeMiB': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'availability': ListNodeDevicesResponseDataInnerAvailabilityEnum;
+    /**
+     * 
+     * @type {ListNodeDevicesResponseDataInnerOsd}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'osd': ListNodeDevicesResponseDataInnerOsd;
+    /**
+     * 
+     * @type {ListNodeDevicesResponseDataInnerStatus}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'status': ListNodeDevicesResponseDataInnerStatus;
+}
+
+export const ListNodeDevicesResponseDataInnerAvailabilityEnum = {
+    Available: 'available',
+    InUse: 'in-use',
+    System: 'system'
+} as const;
+
+export type ListNodeDevicesResponseDataInnerAvailabilityEnum = typeof ListNodeDevicesResponseDataInnerAvailabilityEnum[keyof typeof ListNodeDevicesResponseDataInnerAvailabilityEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInnerOsd
+ */
+export interface ListNodeDevicesResponseDataInnerOsd {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponseDataInnerOsd
+     */
+    'pgs': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponseDataInnerOsd
+     */
+    'reweight': number;
+    /**
+     * 
+     * @type {Array<ListNodeDevicesResponseDataInnerOsdDaemonsInner>}
+     * @memberof ListNodeDevicesResponseDataInnerOsd
+     */
+    'daemons': Array<ListNodeDevicesResponseDataInnerOsdDaemonsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInnerOsdDaemonsInner
+ */
+export interface ListNodeDevicesResponseDataInnerOsdDaemonsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInner
+     */
+    'usagePercent': number;
+    /**
+     * 
+     * @type {ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInner
+     */
+    'status': ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus
+ */
+export interface ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus
+     */
+    'current': ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus
+     */
+    'isProcessing': boolean;
+}
+
+export const ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum = {
+    Up: 'up',
+    Down: 'down',
+    Warning: 'warning',
+    Error: 'error'
+} as const;
+
+export type ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum = typeof ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum[keyof typeof ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInnerStatus
+ */
+export interface ListNodeDevicesResponseDataInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'current': ListNodeDevicesResponseDataInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'isPromotable': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'isDemotable': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'isProcessing': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'description': string;
+}
+
+export const ListNodeDevicesResponseDataInnerStatusCurrentEnum = {
+    Ok: 'ok',
+    Warning: 'warning',
+    Fail: 'fail'
+} as const;
+
+export type ListNodeDevicesResponseDataInnerStatusCurrentEnum = typeof ListNodeDevicesResponseDataInnerStatusCurrentEnum[keyof typeof ListNodeDevicesResponseDataInnerStatusCurrentEnum];
 
 /**
  * 
@@ -5838,12 +6719,6 @@ export interface Node {
     'networkInterfaces': Array<NodeNetworkInterfacesInner>;
     /**
      * 
-     * @type {Array<NodeBlockDevicesInner>}
-     * @memberof Node
-     */
-    'blockDevices': Array<NodeBlockDevicesInner>;
-    /**
-     * 
      * @type {NodeIpmi}
      * @memberof Node
      */
@@ -5886,81 +6761,11 @@ export const NodeStatusEnum = {
     PoweringOn: 'powering on',
     PoweringOff: 'powering off',
     PoweringCycle: 'powering cycle',
+    Syncing: 'syncing',
     Unknown: 'unknown'
 } as const;
 
 export type NodeStatusEnum = typeof NodeStatusEnum[keyof typeof NodeStatusEnum];
-
-/**
- * 
- * @export
- * @interface NodeBlockDevicesInner
- */
-export interface NodeBlockDevicesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInner
-     */
-    'serial': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInner
-     */
-    'device': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof NodeBlockDevicesInner
-     */
-    'sizeMiB': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInner
-     */
-    'availability': string;
-    /**
-     * 
-     * @type {NodeBlockDevicesInnerStatus}
-     * @memberof NodeBlockDevicesInner
-     */
-    'status': NodeBlockDevicesInnerStatus;
-}
-/**
- * 
- * @export
- * @interface NodeBlockDevicesInnerStatus
- */
-export interface NodeBlockDevicesInnerStatus {
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInnerStatus
-     */
-    'current': NodeBlockDevicesInnerStatusCurrentEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInnerStatus
-     */
-    'description': string;
-}
-
-export const NodeBlockDevicesInnerStatusCurrentEnum = {
-    Ok: 'ok',
-    Warning: 'warning',
-    Fail: 'fail'
-} as const;
-
-export type NodeBlockDevicesInnerStatusCurrentEnum = typeof NodeBlockDevicesInnerStatusCurrentEnum[keyof typeof NodeBlockDevicesInnerStatusCurrentEnum];
 
 /**
  * 
@@ -6554,6 +7359,81 @@ export interface PutSlackChannelResponse {
 /**
  * 
  * @export
+ * @interface RemoveNodeDevice404Response
+ */
+export interface RemoveNodeDevice404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RemoveNodeDevice404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDevice404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDevice404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RemoveNodeDevice500Response
+ */
+export interface RemoveNodeDevice500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RemoveNodeDevice500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDevice500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDevice500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RemoveNodeDeviceResponse
+ */
+export interface RemoveNodeDeviceResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RemoveNodeDeviceResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDeviceResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDeviceResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface RepairAllModulesHealth409Response
  */
 export interface RepairAllModulesHealth409Response {
@@ -6636,6 +7516,56 @@ export interface ResetTuningResponse {
      * 
      * @type {string}
      * @memberof ResetTuningResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface RestartNodeOsd500Response
+ */
+export interface RestartNodeOsd500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RestartNodeOsd500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RestartNodeOsd500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RestartNodeOsd500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RestartNodeOsdResponse
+ */
+export interface RestartNodeOsdResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RestartNodeOsdResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RestartNodeOsdResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RestartNodeOsdResponse
      */
     'status': string;
 }
@@ -7303,6 +8233,159 @@ export interface UpdateEmailRecipient500Response {
 /**
  * 
  * @export
+ * @interface UpdateNodeDevice500Response
+ */
+export interface UpdateNodeDevice500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeDevice500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDevice500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDevice500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeDeviceOsds500Response
+ */
+export interface UpdateNodeDeviceOsds500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeDeviceOsds500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDeviceOsds500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDeviceOsds500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeDeviceRequest
+ */
+export interface UpdateNodeDeviceRequest {
+    /**
+     * 
+     * @type {DeviceType}
+     * @memberof UpdateNodeDeviceRequest
+     */
+    'class': DeviceType;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface UpdateNodeDeviceResponse
+ */
+export interface UpdateNodeDeviceResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeDeviceResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDeviceResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDeviceResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeOsd500Response
+ */
+export interface UpdateNodeOsd500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeOsd500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeOsd500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeOsd500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeOsdRequest
+ */
+export interface UpdateNodeOsdRequest {
+    /**
+     * The reweight value for the OSD. It\'s only allow to have two decimal places with a range of 0.0 to 1.0, for example, 0.5 or 0.75.
+     * @type {number}
+     * @memberof UpdateNodeOsdRequest
+     */
+    'reweight': number;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeOsdResponse
+ */
+export interface UpdateNodeOsdResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeOsdResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeOsdResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeOsdResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface UpdateTitlePrefix500Response
  */
 export interface UpdateTitlePrefix500Response {
@@ -7421,10 +8504,10 @@ export interface UpdateTrigger500Response {
 export interface UpdateTriggerRequest {
     /**
      * 
-     * @type {Array<UpdateTriggerRequestAttributesInner>}
+     * @type {GetTriggerMaterialsResponseDataAttributeInner}
      * @memberof UpdateTriggerRequest
      */
-    'attributes': Array<UpdateTriggerRequestAttributesInner>;
+    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
     /**
      * 
      * @type {UpdateTriggerRequestResponse}
@@ -7441,72 +8524,52 @@ export interface UpdateTriggerRequest {
 /**
  * 
  * @export
- * @interface UpdateTriggerRequestAttributesInner
- */
-export interface UpdateTriggerRequestAttributesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTriggerRequestAttributesInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTriggerRequestAttributesInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTriggerRequestAttributesInner
-     */
-    'value': string;
-}
-/**
- * 
- * @export
  * @interface UpdateTriggerRequestResponse
  */
 export interface UpdateTriggerRequestResponse {
     /**
      * 
-     * @type {Array<UpdateTriggerRequestResponseSlacksInner>}
+     * @type {UpdateTriggerRequestResponseScript}
      * @memberof UpdateTriggerRequestResponse
      */
-    'slacks': Array<UpdateTriggerRequestResponseSlacksInner>;
+    'script': UpdateTriggerRequestResponseScript;
     /**
      * 
-     * @type {Array<UpdateTriggerRequestResponseEmailsInner>}
+     * @type {Array<string>}
      * @memberof UpdateTriggerRequestResponse
      */
-    'emails': Array<UpdateTriggerRequestResponseEmailsInner>;
+    'slacks': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UpdateTriggerRequestResponse
+     */
+    'emails': Array<string>;
 }
 /**
  * 
  * @export
- * @interface UpdateTriggerRequestResponseEmailsInner
+ * @interface UpdateTriggerRequestResponseScript
  */
-export interface UpdateTriggerRequestResponseEmailsInner {
+export interface UpdateTriggerRequestResponseScript {
+    /**
+     * 
+     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
+     * @memberof UpdateTriggerRequestResponseScript
+     */
+    'script': GetTriggersResponseDataTriggersInnerResponseScript;
     /**
      * 
      * @type {string}
-     * @memberof UpdateTriggerRequestResponseEmailsInner
+     * @memberof UpdateTriggerRequestResponseScript
      */
-    'address': string;
-}
-/**
- * 
- * @export
- * @interface UpdateTriggerRequestResponseSlacksInner
- */
-export interface UpdateTriggerRequestResponseSlacksInner {
+    'filePath': string;
     /**
-     * 
+     * Base64 encoded script content
      * @type {string}
-     * @memberof UpdateTriggerRequestResponseSlacksInner
+     * @memberof UpdateTriggerRequestResponseScript
      */
-    'url': string;
+    'content': string;
 }
 /**
  * 
@@ -7849,6 +8912,44 @@ export type VerifyLicenseStatusCurrentEnum = typeof VerifyLicenseStatusCurrentEn
 /**
  * 
  * @export
+ * @interface VerifyMaterialScriptRequest
+ */
+export interface VerifyMaterialScriptRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyMaterialScriptRequest
+     */
+    'script': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyMaterialScriptResponse
+ */
+export interface VerifyMaterialScriptResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyMaterialScriptResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyMaterialScriptResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyMaterialScriptResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface VerifyNodeIpmi500Response
  */
 export interface VerifyNodeIpmi500Response {
@@ -7988,6 +9089,56 @@ export interface VerifyNodeIpmiResponseDataProduct {
      * @memberof VerifyNodeIpmiResponseDataProduct
      */
     'version': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyTriggerScript400Response
+ */
+export interface VerifyTriggerScript400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyTriggerScript400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyTriggerScript500Response
+ */
+export interface VerifyTriggerScript500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyTriggerScript500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript500Response
+     */
+    'status'?: string;
 }
 
 /**
@@ -8403,6 +9554,64 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @summary Retrieve the predefined events
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {Array<GetPredefinedEventsTypesEnum>} [types] The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+         * @param {Array<string>} [categories] The categories of the event to query.
+         * @param {Array<GetPredefinedEventsSeveritiesEnum>} [severities] The severities of the event to query.
+         * @param {Array<string>} [ids] The ids of the event to query.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPredefinedEvents: async (dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<string>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getPredefinedEvents', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/events/predefined`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (types) {
+                localVarQueryParameter['types'] = types;
+            }
+
+            if (categories) {
+                localVarQueryParameter['categories'] = categories;
+            }
+
+            if (severities) {
+                localVarQueryParameter['severities'] = severities;
+            }
+
+            if (ids) {
+                localVarQueryParameter['ids'] = ids;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the ranked events
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetRankedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
@@ -8581,6 +9790,23 @@ export const EventsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Retrieve the predefined events
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {Array<GetPredefinedEventsTypesEnum>} [types] The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+         * @param {Array<string>} [categories] The categories of the event to query.
+         * @param {Array<GetPredefinedEventsSeveritiesEnum>} [severities] The severities of the event to query.
+         * @param {Array<string>} [ids] The ids of the event to query.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPredefinedEvents(dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<string>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetPredefinedEventFilterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPredefinedEvents(dataCenter, types, categories, severities, ids, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['EventsApi.getPredefinedEvents']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the ranked events
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetRankedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
@@ -8645,6 +9871,16 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
          */
         getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
             return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.categories, requestParameters.severities, requestParameters.hosts, requestParameters.instances, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the predefined events
+         * @param {EventsApiGetPredefinedEventsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPredefinedEvents(requestParameters: EventsApiGetPredefinedEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetPredefinedEventFilterResponse> {
+            return localVarFp.getPredefinedEvents(requestParameters.dataCenter, requestParameters.types, requestParameters.categories, requestParameters.severities, requestParameters.ids, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8835,6 +10071,48 @@ export interface EventsApiGetEventsRequest {
 }
 
 /**
+ * Request parameters for getPredefinedEvents operation in EventsApi.
+ * @export
+ * @interface EventsApiGetPredefinedEventsRequest
+ */
+export interface EventsApiGetPredefinedEventsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly dataCenter: string
+
+    /**
+     * The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+     * @type {Array<'system' | 'host' | 'instance'>}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly types?: Array<GetPredefinedEventsTypesEnum>
+
+    /**
+     * The categories of the event to query.
+     * @type {Array<string>}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly categories?: Array<string>
+
+    /**
+     * The severities of the event to query.
+     * @type {Array<'Info' | 'Warning' | 'Critical' | 'Error'>}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly severities?: Array<GetPredefinedEventsSeveritiesEnum>
+
+    /**
+     * The ids of the event to query.
+     * @type {Array<string>}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly ids?: Array<string>
+}
+
+/**
  * Request parameters for getRankedEvents operation in EventsApi.
  * @export
  * @interface EventsApiGetRankedEventsRequest
@@ -8991,6 +10269,18 @@ export class EventsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Retrieve the predefined events
+     * @param {EventsApiGetPredefinedEventsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EventsApi
+     */
+    public getPredefinedEvents(requestParameters: EventsApiGetPredefinedEventsRequest, options?: RawAxiosRequestConfig) {
+        return EventsApiFp(this.configuration).getPredefinedEvents(requestParameters.dataCenter, requestParameters.types, requestParameters.categories, requestParameters.severities, requestParameters.ids, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve the ranked events
      * @param {EventsApiGetRankedEventsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -9039,6 +10329,25 @@ export const GetEventsSeveritiesEnum = {
     Error: 'Error'
 } as const;
 export type GetEventsSeveritiesEnum = typeof GetEventsSeveritiesEnum[keyof typeof GetEventsSeveritiesEnum];
+/**
+ * @export
+ */
+export const GetPredefinedEventsTypesEnum = {
+    System: 'system',
+    Host: 'host',
+    Instance: 'instance'
+} as const;
+export type GetPredefinedEventsTypesEnum = typeof GetPredefinedEventsTypesEnum[keyof typeof GetPredefinedEventsTypesEnum];
+/**
+ * @export
+ */
+export const GetPredefinedEventsSeveritiesEnum = {
+    Info: 'Info',
+    Warning: 'Warning',
+    Critical: 'Critical',
+    Error: 'Error'
+} as const;
+export type GetPredefinedEventsSeveritiesEnum = typeof GetPredefinedEventsSeveritiesEnum[keyof typeof GetPredefinedEventsSeveritiesEnum];
 /**
  * @export
  */
@@ -9748,10 +11057,11 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {boolean} [aggregate] If true, the health history will be aggregated by time and status(fixing related status &gt; ng related status &gt; ok related status), otherwise it will return the raw history data.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHealthHistory: async (dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getHealthHistory: async (dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, aggregate?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getHealthHistory', 'dataCenter', dataCenter)
             // verify required parameter 'serviceType' is not null or undefined
@@ -9791,6 +11101,10 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (watch !== undefined) {
                 localVarQueryParameter['watch'] = watch;
+            }
+
+            if (aggregate !== undefined) {
+                localVarQueryParameter['aggregate'] = aggregate;
             }
 
 
@@ -10018,11 +11332,12 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {boolean} [aggregate] If true, the health history will be aggregated by time and status(fixing related status &gt; ng related status &gt; ok related status), otherwise it will return the raw history data.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getHealthHistory(dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetModuleHealthHistoryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getHealthHistory(dataCenter, serviceType, moduleType, past, start, stop, watch, options);
+        async getHealthHistory(dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, aggregate?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetModuleHealthHistoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHealthHistory(dataCenter, serviceType, moduleType, past, start, stop, watch, aggregate, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['HealthApi.getHealthHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -10106,7 +11421,7 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getHealthHistory(requestParameters: HealthApiGetHealthHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetModuleHealthHistoryResponse> {
-            return localVarFp.getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, requestParameters.aggregate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10205,6 +11520,13 @@ export interface HealthApiGetHealthHistoryRequest {
      * @memberof HealthApiGetHealthHistory
      */
     readonly watch?: boolean
+
+    /**
+     * If true, the health history will be aggregated by time and status(fixing related status &gt; ng related status &gt; ok related status), otherwise it will return the raw history data.
+     * @type {boolean}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly aggregate?: boolean
 }
 
 /**
@@ -10342,7 +11664,7 @@ export class HealthApi extends BaseAPI {
      * @memberof HealthApi
      */
     public getHealthHistory(requestParameters: HealthApiGetHealthHistoryRequest, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return HealthApiFp(this.configuration).getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, requestParameters.aggregate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -12171,6 +13493,100 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
+         * @summary Add a device to the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {AddNodeDeviceRequest} addNodeDeviceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNodeDevice: async (dataCenter: string, nodeName: string, addNodeDeviceRequest: AddNodeDeviceRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('addNodeDevice', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('addNodeDevice', 'nodeName', nodeName)
+            // verify required parameter 'addNodeDeviceRequest' is not null or undefined
+            assertParamExists('addNodeDevice', 'addNodeDeviceRequest', addNodeDeviceRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addNodeDeviceRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteNodeOsd: async (dataCenter: string, nodeName: string, osdId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteNodeOsd', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('deleteNodeOsd', 'nodeName', nodeName)
+            // verify required parameter 'osdId' is not null or undefined
+            assertParamExists('deleteNodeOsd', 'osdId', osdId)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/osds/{osdId}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"osdId"}}`, encodeURIComponent(String(osdId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Disconnect the node IPMI control
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -12333,6 +13749,53 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Retrieve the node devices
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listNodeDevices: async (dataCenter: string, nodeName: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listNodeDevices', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('listNodeDevices', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Operate the node by IPMI
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -12351,6 +13814,98 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
                 .replace(`{${"operation"}}`, encodeURIComponent(String(operation)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Remove a device from the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeNodeDevice: async (dataCenter: string, nodeName: string, deviceName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('removeNodeDevice', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('removeNodeDevice', 'nodeName', nodeName)
+            // verify required parameter 'deviceName' is not null or undefined
+            assertParamExists('removeNodeDevice', 'deviceName', deviceName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices/{deviceName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"deviceName"}}`, encodeURIComponent(String(deviceName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Restart an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        restartNodeOsd: async (dataCenter: string, nodeName: string, osdId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('restartNodeOsd', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('restartNodeOsd', 'nodeName', nodeName)
+            // verify required parameter 'osdId' is not null or undefined
+            assertParamExists('restartNodeOsd', 'osdId', osdId)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/osds/{osdId}/restart`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"osdId"}}`, encodeURIComponent(String(osdId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -12427,6 +13982,162 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Update a device on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {UpdateNodeDeviceRequest} updateNodeDeviceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeDevice: async (dataCenter: string, nodeName: string, deviceName: string, updateNodeDeviceRequest: UpdateNodeDeviceRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateNodeDevice', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('updateNodeDevice', 'nodeName', nodeName)
+            // verify required parameter 'deviceName' is not null or undefined
+            assertParamExists('updateNodeDevice', 'deviceName', deviceName)
+            // verify required parameter 'updateNodeDeviceRequest' is not null or undefined
+            assertParamExists('updateNodeDevice', 'updateNodeDeviceRequest', updateNodeDeviceRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices/{deviceName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"deviceName"}}`, encodeURIComponent(String(deviceName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateNodeDeviceRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update OSDs on the node device
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {UpdateNodeOsdRequest} updateNodeOsdRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeDeviceOsds: async (dataCenter: string, nodeName: string, deviceName: string, updateNodeOsdRequest: UpdateNodeOsdRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateNodeDeviceOsds', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('updateNodeDeviceOsds', 'nodeName', nodeName)
+            // verify required parameter 'deviceName' is not null or undefined
+            assertParamExists('updateNodeDeviceOsds', 'deviceName', deviceName)
+            // verify required parameter 'updateNodeOsdRequest' is not null or undefined
+            assertParamExists('updateNodeDeviceOsds', 'updateNodeOsdRequest', updateNodeOsdRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices/{deviceName}/osds`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"deviceName"}}`, encodeURIComponent(String(deviceName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateNodeOsdRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {UpdateNodeOsdRequest} updateNodeOsdRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeOsd: async (dataCenter: string, nodeName: string, osdId: string, updateNodeOsdRequest: UpdateNodeOsdRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateNodeOsd', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('updateNodeOsd', 'nodeName', nodeName)
+            // verify required parameter 'osdId' is not null or undefined
+            assertParamExists('updateNodeOsd', 'osdId', osdId)
+            // verify required parameter 'updateNodeOsdRequest' is not null or undefined
+            assertParamExists('updateNodeOsd', 'updateNodeOsdRequest', updateNodeOsdRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/osds/{osdId}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"osdId"}}`, encodeURIComponent(String(osdId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateNodeOsdRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Verify the node IPMI setting
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -12485,6 +14196,36 @@ export const NodesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Add a device to the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {AddNodeDeviceRequest} addNodeDeviceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNodeDevice(dataCenter: string, nodeName: string, addNodeDeviceRequest: AddNodeDeviceRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddNodeDeviceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNodeDevice(dataCenter, nodeName, addNodeDeviceRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.addNodeDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteNodeOsd(dataCenter: string, nodeName: string, osdId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteNodeOsdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNodeOsd(dataCenter, nodeName, osdId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.deleteNodeOsd']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Disconnect the node IPMI control
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -12534,6 +14275,21 @@ export const NodesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Retrieve the node devices
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listNodeDevices(dataCenter: string, nodeName: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListNodeDevicesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listNodeDevices(dataCenter, nodeName, watch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.listNodeDevices']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Operate the node by IPMI
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -12549,6 +14305,36 @@ export const NodesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Remove a device from the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeNodeDevice(dataCenter: string, nodeName: string, deviceName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RemoveNodeDeviceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeNodeDevice(dataCenter, nodeName, deviceName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.removeNodeDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Restart an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async restartNodeOsd(dataCenter: string, nodeName: string, osdId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RestartNodeOsdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.restartNodeOsd(dataCenter, nodeName, osdId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.restartNodeOsd']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Set the node IPMI setting
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -12560,6 +14346,54 @@ export const NodesApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setNodeIpmi(dataCenter, nodeName, nodeIpmiSettingRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodesApi.setNodeIpmi']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update a device on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {UpdateNodeDeviceRequest} updateNodeDeviceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateNodeDevice(dataCenter: string, nodeName: string, deviceName: string, updateNodeDeviceRequest: UpdateNodeDeviceRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateNodeDeviceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateNodeDevice(dataCenter, nodeName, deviceName, updateNodeDeviceRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.updateNodeDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update OSDs on the node device
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {UpdateNodeOsdRequest} updateNodeOsdRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateNodeDeviceOsds(dataCenter: string, nodeName: string, deviceName: string, updateNodeOsdRequest: UpdateNodeOsdRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateNodeOsdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateNodeDeviceOsds(dataCenter, nodeName, deviceName, updateNodeOsdRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.updateNodeDeviceOsds']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {UpdateNodeOsdRequest} updateNodeOsdRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateNodeOsd(dataCenter: string, nodeName: string, osdId: string, updateNodeOsdRequest: UpdateNodeOsdRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateNodeOsdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateNodeOsd(dataCenter, nodeName, osdId, updateNodeOsdRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.updateNodeOsd']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -12587,6 +14421,26 @@ export const NodesApiFp = function(configuration?: Configuration) {
 export const NodesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = NodesApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary Add a device to the node
+         * @param {NodesApiAddNodeDeviceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNodeDevice(requestParameters: NodesApiAddNodeDeviceRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddNodeDeviceResponse> {
+            return localVarFp.addNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.addNodeDeviceRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete an OSD on the node
+         * @param {NodesApiDeleteNodeOsdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteNodeOsd(requestParameters: NodesApiDeleteNodeOsdRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteNodeOsdResponse> {
+            return localVarFp.deleteNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Disconnect the node IPMI control
@@ -12619,6 +14473,16 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Retrieve the node devices
+         * @param {NodesApiListNodeDevicesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listNodeDevices(requestParameters: NodesApiListNodeDevicesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListNodeDevicesResponse> {
+            return localVarFp.listNodeDevices(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Operate the node by IPMI
          * @param {NodesApiOperateNodeIpmiRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -12626,6 +14490,26 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
          */
         operateNodeIpmi(requestParameters: NodesApiOperateNodeIpmiRequest, options?: RawAxiosRequestConfig): AxiosPromise<OperateNodeIpmiResponse> {
             return localVarFp.operateNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.operation, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Remove a device from the node
+         * @param {NodesApiRemoveNodeDeviceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeNodeDevice(requestParameters: NodesApiRemoveNodeDeviceRequest, options?: RawAxiosRequestConfig): AxiosPromise<RemoveNodeDeviceResponse> {
+            return localVarFp.removeNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Restart an OSD on the node
+         * @param {NodesApiRestartNodeOsdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        restartNodeOsd(requestParameters: NodesApiRestartNodeOsdRequest, options?: RawAxiosRequestConfig): AxiosPromise<RestartNodeOsdResponse> {
+            return localVarFp.restartNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -12639,6 +14523,36 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Update a device on the node
+         * @param {NodesApiUpdateNodeDeviceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeDevice(requestParameters: NodesApiUpdateNodeDeviceRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateNodeDeviceResponse> {
+            return localVarFp.updateNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, requestParameters.updateNodeDeviceRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update OSDs on the node device
+         * @param {NodesApiUpdateNodeDeviceOsdsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeDeviceOsds(requestParameters: NodesApiUpdateNodeDeviceOsdsRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateNodeOsdResponse> {
+            return localVarFp.updateNodeDeviceOsds(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, requestParameters.updateNodeOsdRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update an OSD on the node
+         * @param {NodesApiUpdateNodeOsdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeOsd(requestParameters: NodesApiUpdateNodeOsdRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateNodeOsdResponse> {
+            return localVarFp.updateNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, requestParameters.updateNodeOsdRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Verify the node IPMI setting
          * @param {NodesApiVerifyNodeIpmiRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -12649,6 +14563,62 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         },
     };
 };
+
+/**
+ * Request parameters for addNodeDevice operation in NodesApi.
+ * @export
+ * @interface NodesApiAddNodeDeviceRequest
+ */
+export interface NodesApiAddNodeDeviceRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiAddNodeDevice
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiAddNodeDevice
+     */
+    readonly nodeName: string
+
+    /**
+     * 
+     * @type {AddNodeDeviceRequest}
+     * @memberof NodesApiAddNodeDevice
+     */
+    readonly addNodeDeviceRequest: AddNodeDeviceRequest
+}
+
+/**
+ * Request parameters for deleteNodeOsd operation in NodesApi.
+ * @export
+ * @interface NodesApiDeleteNodeOsdRequest
+ */
+export interface NodesApiDeleteNodeOsdRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiDeleteNodeOsd
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiDeleteNodeOsd
+     */
+    readonly nodeName: string
+
+    /**
+     * The OSD ID to operate
+     * @type {string}
+     * @memberof NodesApiDeleteNodeOsd
+     */
+    readonly osdId: string
+}
 
 /**
  * Request parameters for disconnectNodeIpmi operation in NodesApi.
@@ -12763,6 +14733,34 @@ export interface NodesApiGetNodesRequest {
 }
 
 /**
+ * Request parameters for listNodeDevices operation in NodesApi.
+ * @export
+ * @interface NodesApiListNodeDevicesRequest
+ */
+export interface NodesApiListNodeDevicesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiListNodeDevices
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiListNodeDevices
+     */
+    readonly nodeName: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof NodesApiListNodeDevices
+     */
+    readonly watch?: boolean
+}
+
+/**
  * Request parameters for operateNodeIpmi operation in NodesApi.
  * @export
  * @interface NodesApiOperateNodeIpmiRequest
@@ -12791,6 +14789,62 @@ export interface NodesApiOperateNodeIpmiRequest {
 }
 
 /**
+ * Request parameters for removeNodeDevice operation in NodesApi.
+ * @export
+ * @interface NodesApiRemoveNodeDeviceRequest
+ */
+export interface NodesApiRemoveNodeDeviceRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiRemoveNodeDevice
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiRemoveNodeDevice
+     */
+    readonly nodeName: string
+
+    /**
+     * The device name to remove from the node
+     * @type {string}
+     * @memberof NodesApiRemoveNodeDevice
+     */
+    readonly deviceName: string
+}
+
+/**
+ * Request parameters for restartNodeOsd operation in NodesApi.
+ * @export
+ * @interface NodesApiRestartNodeOsdRequest
+ */
+export interface NodesApiRestartNodeOsdRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiRestartNodeOsd
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiRestartNodeOsd
+     */
+    readonly nodeName: string
+
+    /**
+     * The OSD ID to operate
+     * @type {string}
+     * @memberof NodesApiRestartNodeOsd
+     */
+    readonly osdId: string
+}
+
+/**
  * Request parameters for setNodeIpmi operation in NodesApi.
  * @export
  * @interface NodesApiSetNodeIpmiRequest
@@ -12816,6 +14870,111 @@ export interface NodesApiSetNodeIpmiRequest {
      * @memberof NodesApiSetNodeIpmi
      */
     readonly nodeIpmiSettingRequest: NodeIpmiSettingRequest
+}
+
+/**
+ * Request parameters for updateNodeDevice operation in NodesApi.
+ * @export
+ * @interface NodesApiUpdateNodeDeviceRequest
+ */
+export interface NodesApiUpdateNodeDeviceRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDevice
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDevice
+     */
+    readonly nodeName: string
+
+    /**
+     * The device name to remove from the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDevice
+     */
+    readonly deviceName: string
+
+    /**
+     * 
+     * @type {UpdateNodeDeviceRequest}
+     * @memberof NodesApiUpdateNodeDevice
+     */
+    readonly updateNodeDeviceRequest: UpdateNodeDeviceRequest
+}
+
+/**
+ * Request parameters for updateNodeDeviceOsds operation in NodesApi.
+ * @export
+ * @interface NodesApiUpdateNodeDeviceOsdsRequest
+ */
+export interface NodesApiUpdateNodeDeviceOsdsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDeviceOsds
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDeviceOsds
+     */
+    readonly nodeName: string
+
+    /**
+     * The device name to remove from the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDeviceOsds
+     */
+    readonly deviceName: string
+
+    /**
+     * 
+     * @type {UpdateNodeOsdRequest}
+     * @memberof NodesApiUpdateNodeDeviceOsds
+     */
+    readonly updateNodeOsdRequest: UpdateNodeOsdRequest
+}
+
+/**
+ * Request parameters for updateNodeOsd operation in NodesApi.
+ * @export
+ * @interface NodesApiUpdateNodeOsdRequest
+ */
+export interface NodesApiUpdateNodeOsdRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiUpdateNodeOsd
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeOsd
+     */
+    readonly nodeName: string
+
+    /**
+     * The OSD ID to operate
+     * @type {string}
+     * @memberof NodesApiUpdateNodeOsd
+     */
+    readonly osdId: string
+
+    /**
+     * 
+     * @type {UpdateNodeOsdRequest}
+     * @memberof NodesApiUpdateNodeOsd
+     */
+    readonly updateNodeOsdRequest: UpdateNodeOsdRequest
 }
 
 /**
@@ -12855,6 +15014,30 @@ export interface NodesApiVerifyNodeIpmiRequest {
 export class NodesApi extends BaseAPI {
     /**
      * 
+     * @summary Add a device to the node
+     * @param {NodesApiAddNodeDeviceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public addNodeDevice(requestParameters: NodesApiAddNodeDeviceRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).addNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.addNodeDeviceRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete an OSD on the node
+     * @param {NodesApiDeleteNodeOsdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public deleteNodeOsd(requestParameters: NodesApiDeleteNodeOsdRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).deleteNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Disconnect the node IPMI control
      * @param {NodesApiDisconnectNodeIpmiRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -12891,6 +15074,18 @@ export class NodesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Retrieve the node devices
+     * @param {NodesApiListNodeDevicesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public listNodeDevices(requestParameters: NodesApiListNodeDevicesRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).listNodeDevices(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Operate the node by IPMI
      * @param {NodesApiOperateNodeIpmiRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -12903,6 +15098,30 @@ export class NodesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Remove a device from the node
+     * @param {NodesApiRemoveNodeDeviceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public removeNodeDevice(requestParameters: NodesApiRemoveNodeDeviceRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).removeNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Restart an OSD on the node
+     * @param {NodesApiRestartNodeOsdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public restartNodeOsd(requestParameters: NodesApiRestartNodeOsdRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).restartNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Set the node IPMI setting
      * @param {NodesApiSetNodeIpmiRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -12911,6 +15130,42 @@ export class NodesApi extends BaseAPI {
      */
     public setNodeIpmi(requestParameters: NodesApiSetNodeIpmiRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).setNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.nodeIpmiSettingRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update a device on the node
+     * @param {NodesApiUpdateNodeDeviceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public updateNodeDevice(requestParameters: NodesApiUpdateNodeDeviceRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).updateNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, requestParameters.updateNodeDeviceRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update OSDs on the node device
+     * @param {NodesApiUpdateNodeDeviceOsdsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public updateNodeDeviceOsds(requestParameters: NodesApiUpdateNodeDeviceOsdsRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).updateNodeDeviceOsds(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, requestParameters.updateNodeOsdRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update an OSD on the node
+     * @param {NodesApiUpdateNodeOsdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public updateNodeOsd(requestParameters: NodesApiUpdateNodeOsdRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).updateNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, requestParameters.updateNodeOsdRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -15635,9 +17890,95 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @summary Create trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {CreateTriggerRequest} createTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTrigger: async (dataCenter: string, createTriggerRequest: CreateTriggerRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createTrigger', 'dataCenter', dataCenter)
+            // verify required parameter 'createTriggerRequest' is not null or undefined
+            assertParamExists('createTrigger', 'createTriggerRequest', createTriggerRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createTriggerRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTrigger: async (dataCenter: string, triggerName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteTrigger', 'dataCenter', dataCenter)
+            // verify required parameter 'triggerName' is not null or undefined
+            assertParamExists('deleteTrigger', 'triggerName', triggerName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/{triggerName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"triggerName"}}`, encodeURIComponent(String(triggerName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Enable or disable a specific trigger
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} triggerName The name of the trigger to update.
+         * @param {string} triggerName The name of the trigger to operate
          * @param {EnableOrDisableTriggerRequest} enableOrDisableTriggerRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -15725,12 +18066,52 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary Retrieve all triggers
+         * @summary Retrieve all trigger materials
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTriggers: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getTriggerMaterials: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getTriggerMaterials', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/materials`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve all triggers
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTriggers: async (dataCenter: string, pageSize?: number, pageNum?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getTriggers', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers`
@@ -15749,6 +18130,14 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
             // authentication BearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
 
 
     
@@ -15809,6 +18198,50 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Verify trigger script
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {VerifyMaterialScriptRequest} verifyMaterialScriptRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyTriggerScript: async (dataCenter: string, verifyMaterialScriptRequest: VerifyMaterialScriptRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('verifyTriggerScript', 'dataCenter', dataCenter)
+            // verify required parameter 'verifyMaterialScriptRequest' is not null or undefined
+            assertParamExists('verifyTriggerScript', 'verifyMaterialScriptRequest', verifyMaterialScriptRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/materials/script/verify`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(verifyMaterialScriptRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -15821,9 +18254,37 @@ export const TriggersApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Create trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {CreateTriggerRequest} createTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createTrigger(dataCenter: string, createTriggerRequest: CreateTriggerRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTriggerResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createTrigger(dataCenter, createTriggerRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.createTrigger']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteTrigger(dataCenter: string, triggerName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteTriggerResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTrigger(dataCenter, triggerName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.deleteTrigger']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Enable or disable a specific trigger
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} triggerName The name of the trigger to update.
+         * @param {string} triggerName The name of the trigger to operate
          * @param {EnableOrDisableTriggerRequest} enableOrDisableTriggerRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -15850,13 +18311,28 @@ export const TriggersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Retrieve all triggers
+         * @summary Retrieve all trigger materials
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTriggers(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTriggersResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTriggers(dataCenter, options);
+        async getTriggerMaterials(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTriggerMaterialsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTriggerMaterials(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.getTriggerMaterials']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve all triggers
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTriggers(dataCenter: string, pageSize?: number, pageNum?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTriggersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTriggers(dataCenter, pageSize, pageNum, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TriggersApi.getTriggers']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -15876,6 +18352,20 @@ export const TriggersApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['TriggersApi.updateTrigger']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @summary Verify trigger script
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {VerifyMaterialScriptRequest} verifyMaterialScriptRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async verifyTriggerScript(dataCenter: string, verifyMaterialScriptRequest: VerifyMaterialScriptRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VerifyMaterialScriptResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyTriggerScript(dataCenter, verifyMaterialScriptRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.verifyTriggerScript']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -15886,6 +18376,26 @@ export const TriggersApiFp = function(configuration?: Configuration) {
 export const TriggersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = TriggersApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary Create trigger
+         * @param {TriggersApiCreateTriggerRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTrigger(requestParameters: TriggersApiCreateTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateTriggerResponse> {
+            return localVarFp.createTrigger(requestParameters.dataCenter, requestParameters.createTriggerRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete a specific trigger
+         * @param {TriggersApiDeleteTriggerRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTrigger(requestParameters: TriggersApiDeleteTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteTriggerResponse> {
+            return localVarFp.deleteTrigger(requestParameters.dataCenter, requestParameters.triggerName, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Enable or disable a specific trigger
@@ -15908,13 +18418,23 @@ export const TriggersApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @summary Retrieve all trigger materials
+         * @param {TriggersApiGetTriggerMaterialsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTriggerMaterials(requestParameters: TriggersApiGetTriggerMaterialsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetTriggerMaterialsResponse> {
+            return localVarFp.getTriggerMaterials(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve all triggers
          * @param {TriggersApiGetTriggersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getTriggers(requestParameters: TriggersApiGetTriggersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetTriggersResponse> {
-            return localVarFp.getTriggers(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+            return localVarFp.getTriggers(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -15926,8 +18446,60 @@ export const TriggersApiFactory = function (configuration?: Configuration, baseP
         updateTrigger(requestParameters: TriggersApiUpdateTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateTriggerResponse> {
             return localVarFp.updateTrigger(requestParameters.dataCenter, requestParameters.triggerName, requestParameters.updateTriggerRequest, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary Verify trigger script
+         * @param {TriggersApiVerifyTriggerScriptRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyTriggerScript(requestParameters: TriggersApiVerifyTriggerScriptRequest, options?: RawAxiosRequestConfig): AxiosPromise<VerifyMaterialScriptResponse> {
+            return localVarFp.verifyTriggerScript(requestParameters.dataCenter, requestParameters.verifyMaterialScriptRequest, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for createTrigger operation in TriggersApi.
+ * @export
+ * @interface TriggersApiCreateTriggerRequest
+ */
+export interface TriggersApiCreateTriggerRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiCreateTrigger
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {CreateTriggerRequest}
+     * @memberof TriggersApiCreateTrigger
+     */
+    readonly createTriggerRequest: CreateTriggerRequest
+}
+
+/**
+ * Request parameters for deleteTrigger operation in TriggersApi.
+ * @export
+ * @interface TriggersApiDeleteTriggerRequest
+ */
+export interface TriggersApiDeleteTriggerRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiDeleteTrigger
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the trigger to operate
+     * @type {string}
+     * @memberof TriggersApiDeleteTrigger
+     */
+    readonly triggerName: string
+}
 
 /**
  * Request parameters for enableOrDisableTrigger operation in TriggersApi.
@@ -15943,7 +18515,7 @@ export interface TriggersApiEnableOrDisableTriggerRequest {
     readonly dataCenter: string
 
     /**
-     * The name of the trigger to update.
+     * The name of the trigger to operate
      * @type {string}
      * @memberof TriggersApiEnableOrDisableTrigger
      */
@@ -15979,6 +18551,20 @@ export interface TriggersApiGetTriggerRequest {
 }
 
 /**
+ * Request parameters for getTriggerMaterials operation in TriggersApi.
+ * @export
+ * @interface TriggersApiGetTriggerMaterialsRequest
+ */
+export interface TriggersApiGetTriggerMaterialsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiGetTriggerMaterials
+     */
+    readonly dataCenter: string
+}
+
+/**
  * Request parameters for getTriggers operation in TriggersApi.
  * @export
  * @interface TriggersApiGetTriggersRequest
@@ -15990,6 +18576,20 @@ export interface TriggersApiGetTriggersRequest {
      * @memberof TriggersApiGetTriggers
      */
     readonly dataCenter: string
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof TriggersApiGetTriggers
+     */
+    readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof TriggersApiGetTriggers
+     */
+    readonly pageNum?: number
 }
 
 /**
@@ -16021,12 +18621,57 @@ export interface TriggersApiUpdateTriggerRequest {
 }
 
 /**
+ * Request parameters for verifyTriggerScript operation in TriggersApi.
+ * @export
+ * @interface TriggersApiVerifyTriggerScriptRequest
+ */
+export interface TriggersApiVerifyTriggerScriptRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiVerifyTriggerScript
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {VerifyMaterialScriptRequest}
+     * @memberof TriggersApiVerifyTriggerScript
+     */
+    readonly verifyMaterialScriptRequest: VerifyMaterialScriptRequest
+}
+
+/**
  * TriggersApi - object-oriented interface
  * @export
  * @class TriggersApi
  * @extends {BaseAPI}
  */
 export class TriggersApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create trigger
+     * @param {TriggersApiCreateTriggerRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public createTrigger(requestParameters: TriggersApiCreateTriggerRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).createTrigger(requestParameters.dataCenter, requestParameters.createTriggerRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete a specific trigger
+     * @param {TriggersApiDeleteTriggerRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public deleteTrigger(requestParameters: TriggersApiDeleteTriggerRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).deleteTrigger(requestParameters.dataCenter, requestParameters.triggerName, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Enable or disable a specific trigger
@@ -16053,6 +18698,18 @@ export class TriggersApi extends BaseAPI {
 
     /**
      * 
+     * @summary Retrieve all trigger materials
+     * @param {TriggersApiGetTriggerMaterialsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public getTriggerMaterials(requestParameters: TriggersApiGetTriggerMaterialsRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).getTriggerMaterials(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve all triggers
      * @param {TriggersApiGetTriggersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -16060,7 +18717,7 @@ export class TriggersApi extends BaseAPI {
      * @memberof TriggersApi
      */
     public getTriggers(requestParameters: TriggersApiGetTriggersRequest, options?: RawAxiosRequestConfig) {
-        return TriggersApiFp(this.configuration).getTriggers(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+        return TriggersApiFp(this.configuration).getTriggers(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -16073,6 +18730,18 @@ export class TriggersApi extends BaseAPI {
      */
     public updateTrigger(requestParameters: TriggersApiUpdateTriggerRequest, options?: RawAxiosRequestConfig) {
         return TriggersApiFp(this.configuration).updateTrigger(requestParameters.dataCenter, requestParameters.triggerName, requestParameters.updateTriggerRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Verify trigger script
+     * @param {TriggersApiVerifyTriggerScriptRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public verifyTriggerScript(requestParameters: TriggersApiVerifyTriggerScriptRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).verifyTriggerScript(requestParameters.dataCenter, requestParameters.verifyMaterialScriptRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
