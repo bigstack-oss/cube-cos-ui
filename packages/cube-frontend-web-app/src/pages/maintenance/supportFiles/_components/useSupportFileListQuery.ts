@@ -2,13 +2,28 @@ import { Dayjs } from 'dayjs'
 import { GetNodesRolesEnum } from '@cube-frontend/api'
 import { ItemsPerPage } from '@cube-frontend/ui-library'
 import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchParamsQuery'
-import { queryToSearchParams, searchParamsToQuery } from './utils'
+import {
+  queryToSearchParams,
+  searchParamsToQuery,
+  SupportFileListQuery,
+} from './utils'
+import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 
 export const useSupportFileListQuery = () => {
   const { query, setQuery } = useSearchParamsQuery({
     queryToSearchParams,
     searchParamsToQuery,
   })
+
+  const [debouncedKeyword, setDebouncedKeyword] = useDebounce(
+    query.keyword,
+    300,
+  )
+
+  const keywordDebouncedQuery: SupportFileListQuery = {
+    ...query,
+    keyword: debouncedKeyword,
+  }
 
   const onRolesChange = (roles: GetNodesRolesEnum[]) => {
     setQuery((prev) => ({
@@ -22,6 +37,15 @@ export const useSupportFileListQuery = () => {
     setQuery((prev) => ({
       ...prev,
       keyword: value,
+      currentPage: 1,
+    }))
+  }
+
+  const onKeywordClear = (): void => {
+    setDebouncedKeyword('')
+    setQuery((prev) => ({
+      ...prev,
+      keyword: '',
       currentPage: 1,
     }))
   }
@@ -58,10 +82,12 @@ export const useSupportFileListQuery = () => {
 
   return {
     query,
+    keywordDebouncedQuery,
     setQuery,
     onStartDateChange,
     onEndDateChange,
     onKeywordChange,
+    onKeywordClear,
     onRolesChange,
     onPageChange,
     onItemsPerPageChange,

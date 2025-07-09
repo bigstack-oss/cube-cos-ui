@@ -1,10 +1,6 @@
-import { useContext, useState } from 'react'
 import { Link } from 'react-router'
 import { noop } from 'lodash'
-import {
-  SupportFilesApiGetSupportFilesRequest,
-  SupportFileSet,
-} from '@cube-frontend/api'
+import { SupportFileSet } from '@cube-frontend/api'
 import {
   CosGeneralPanel,
   CosHyperlink,
@@ -13,24 +9,22 @@ import {
   CosTableRow,
 } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
-import { supportFilesApi } from '@cube-frontend/web-app/api/cosApi'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { SupportFilesFilters } from './_components/SupportFilesFilters'
 import { DownloadSupportFilesModal } from './_components/DownloadSupportFilesModal'
 import { SupportFilesTable } from './_components/SupportFilesTable'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useSupportFileListQuery } from './_components/useSupportFileListQuery'
+import { DeleteSupportFilesModal } from './_components/DeleteSupportFilesModal'
+import { useSupportFilesTable } from './_components/useSupportFilesTable'
 
 export type SupportFileRow = SupportFileSet & CosTableRow
 
 export const MaintenanceSupportFilesPage = () => {
-  const { dataCenter } = useContext(DataCenterContext)
-
   const {
     query,
+    keywordDebouncedQuery,
     onKeywordChange,
+    onKeywordClear,
     onRolesChange,
     onStartDateChange,
     onEndDateChange,
@@ -38,42 +32,8 @@ export const MaintenanceSupportFilesPage = () => {
     onItemsPerPageChange,
   } = useSupportFileListQuery()
 
-  const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
-    query.keyword,
-    300,
-  )
-
-  const onSearchKeywordClear = () => {
-    onKeywordChange('')
-    setDebounceSearchKeyword('')
-  }
-
-  const { data: supportFilesData, isLoading } = useCosGetRequest(
-    supportFilesApi.getSupportFiles,
-    () => {
-      return {
-        dataCenter: dataCenter!.name,
-        pageNum: query.currentPage,
-        pageSize: query.itemsPerPage,
-        keyword: debouncedSearchKeyword,
-        roles: query.roles,
-        start: query.startDate?.format(),
-        stop: query.endDate?.format(),
-      } satisfies SupportFilesApiGetSupportFilesRequest
-    },
-  )
-  const rows: SupportFileRow[] =
-    supportFilesData?.supportFileSet.map((supportFileSet) => ({
-      ...supportFileSet,
-      id: supportFileSet.name,
-    })) || []
-
-  const [downloadTarget, setDownloadTarget] = useState<SupportFileRow>()
-  const isDownloadModalOpen = downloadTarget !== undefined
-
-  const onCloseClick = () => {
-    setDownloadTarget(undefined)
-  }
+  const { rows, isLoading, supportFilesData, deleteModal, downloadModal } =
+    useSupportFilesTable(keywordDebouncedQuery)
 
   return (
     <>
@@ -94,7 +54,7 @@ export const MaintenanceSupportFilesPage = () => {
               <SupportFilesFilters
                 keyword={query.keyword}
                 handleSearchKeywordChange={onKeywordChange}
-                handleSearchKeywordClear={onSearchKeywordClear}
+                handleSearchKeywordClear={onKeywordClear}
                 roles={query.roles}
                 handleRolesSelect={onRolesChange}
                 startDate={query.startDate}
@@ -106,7 +66,8 @@ export const MaintenanceSupportFilesPage = () => {
                 rows={rows}
                 isLoading={isLoading}
                 skeletonRowCount={query.itemsPerPage}
-                onDownloadClick={setDownloadTarget}
+                onDownloadClick={downloadModal.open}
+                onDeleteClick={deleteModal.open}
               />
             </div>
             <CosPagination
@@ -120,11 +81,17 @@ export const MaintenanceSupportFilesPage = () => {
           </div>
         </div>
       </CosGeneralPanel>
-      {downloadTarget && (
+      <DeleteSupportFilesModal
+        supportFiles={deleteModal.target}
+        deleting={deleteModal.deleting}
+        onActionClick={deleteModal.confirm}
+        onCloseClick={deleteModal.close}
+      />
+      {downloadModal.target && (
         <DownloadSupportFilesModal
-          isOpen={isDownloadModalOpen}
-          supportFiles={downloadTarget}
-          onCloseClick={onCloseClick}
+          isOpen={downloadModal.isOpen}
+          supportFiles={downloadModal.target}
+          onCloseClick={downloadModal.close}
         />
       )}
     </>

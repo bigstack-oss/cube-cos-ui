@@ -23,7 +23,7 @@ export const useLicenseAttachmentTable = (isOpen: boolean) => {
   const [selectedNodeLicenseStatuses, setSelectedNodeLicenseStatuses] =
     useState<NodeLicenseCurrentStatus[]>([])
 
-  const [debouncedSearchKeyword, setDebounceSearchKeyword] = useDebounce(
+  const [debouncedSearchKeyword, setDebouncedSearchKeyword] = useDebounce(
     searchKeyword,
     300,
   )
@@ -52,7 +52,7 @@ export const useLicenseAttachmentTable = (isOpen: boolean) => {
 
   const clearKeyword = () => {
     setSearchKeyword('')
-    setDebounceSearchKeyword('')
+    setDebouncedSearchKeyword('')
   }
 
   const resetFilters = () => {

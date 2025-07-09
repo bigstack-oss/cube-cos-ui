@@ -3,6 +3,7 @@ import {
   CosLoadingSpinner,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
+import DeleteIcon from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
 import { formatSupportFilesTimestamp } from '@cube-frontend/web-app/utils/date'
 import { SupportFileRow } from '../MaintenanceSupportFilesPage'
@@ -13,10 +14,11 @@ export type SupportFilesTableProps = React.ComponentProps<
   typeof SupportFilesBasicTable
 > & {
   onDownloadClick: (row: SupportFileRow) => void
+  onDeleteClick: (row: SupportFileRow) => void
 }
 
 export const SupportFilesTable = (props: SupportFilesTableProps) => {
-  const { onDownloadClick, ...basicTableProps } = props
+  const { onDownloadClick, onDeleteClick, ...basicTableProps } = props
 
   return (
     <SupportFilesBasicTable {...basicTableProps}>
@@ -46,9 +48,17 @@ export const SupportFilesTable = (props: SupportFilesTableProps) => {
               </span>
             </div>
           ) : (
-            <CosButton type="ghost" onClick={() => onDownloadClick(row)}>
-              Download
-            </CosButton>
+            <div className="flex items-center">
+              <CosButton type="ghost" onClick={() => onDownloadClick(row)}>
+                Download
+              </CosButton>
+              <CosButton
+                type="ghost"
+                usage="icon-only"
+                Icon={DeleteIcon}
+                onClick={() => onDeleteClick(row)}
+              />
+            </div>
           )
         }
       </SupportFilesBasicTable.Column>
