@@ -15,6 +15,7 @@ import {
 
 export type CosStatusReactionProps = {
   status: Status
+  message?: string
 }
 
 const statusReaction = cva([baseClass, 'secondary-body3 font-semibold'], {
@@ -34,7 +35,7 @@ const iconMap: Record<StatusType, SvgComponent> = {
 }
 
 export const CosStatusReaction = (props: CosStatusReactionProps) => {
-  const { status } = props
+  const { status, message } = props
 
   const type = computeStatusType(status)
 
@@ -43,7 +44,7 @@ export const CosStatusReaction = (props: CosStatusReactionProps) => {
   return (
     <div className={statusReaction({ type })}>
       <Icon className="icon-md-sm shrink-0" />
-      <span>{upperFirst(status)}</span>
+      <span>{message || upperFirst(status)}</span>
     </div>
   )
 }

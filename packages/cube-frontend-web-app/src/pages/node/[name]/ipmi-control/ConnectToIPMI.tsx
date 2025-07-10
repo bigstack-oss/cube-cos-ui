@@ -9,6 +9,8 @@ import {
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+import { upperFirst } from 'lodash'
 import { FormEvent, useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { verifyIpmiResponseToLog } from './ipmiUtils'
@@ -21,8 +23,6 @@ type ConnectToIPMIProps = {
   onLogChange: (log: string) => void
   toggleValidationLog: (isOpen?: boolean) => void
 }
-
-type ValidationStatus = 'validating' | 'success' | 'failed' | undefined
 
 export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
   const { node, backHref, onLogChange, toggleValidationLog } = props
@@ -39,40 +39,47 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
     getParsedSetup,
   } = useIPMISetup(node?.ipmi.ip ?? '')
 
-  const [validationStatus, setValidationStatus] =
-    useState<ValidationStatus>(undefined)
+  const {
+    isLoading: isVerifying,
+    data: verifyResponseData,
+    errorState,
+    mutateResource: verifyNodeIpmi,
+  } = useCosMutationRequest(nodesApi.verifyNodeIpmi)
+
   const [isSaving, setIsSaving] = useState(false)
 
-  const isValidating = validationStatus === 'validating'
+  const isVerified = !!verifyResponseData
 
-  const onValidate = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  const onVerify = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
-    if (isValidating || !allFieldsValid) return
+    if (isVerifying || !allFieldsValid) return
 
     toggleValidationLog(true)
-    setValidationStatus('validating')
 
     try {
-      const { data: response } = await nodesApi.verifyNodeIpmi({
+      const data = await verifyNodeIpmi({
         dataCenter: dataCenter!.name,
         nodeName: node!.hostname,
         nodeIpmiSettingRequest: getParsedSetup(),
       })
-      setValidationStatus('success')
-      onLogChange(verifyIpmiResponseToLog(response.data))
+      onLogChange(verifyIpmiResponseToLog(data))
     } catch (error) {
-      console.error('Validate IPMI setup error: ', error)
-      setValidationStatus('failed')
+      console.error('Verify IPMI setup error: ', error)
       onLogChange('')
     }
   }
 
   const renderValidationResult = () => {
-    if (validationStatus === 'success')
-      return <CosStatusReaction status="success" />
-    if (validationStatus === 'failed')
-      return <CosStatusReaction status="failed" />
+    if (isVerified) return <CosStatusReaction status="success" />
+    if (errorState) {
+      return (
+        <CosStatusReaction
+          status="failed"
+          message={upperFirst(errorState.api?.msg)}
+        />
+      )
+    }
     return null
   }
 
@@ -95,7 +102,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
     }
   }
 
-  const isInputDisabled = isValidating || isSaving
+  const isInputDisabled = isVerifying || isSaving
 
   return (
     <div
@@ -120,7 +127,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
         Make sure the IPMI protocol and its associated port are accessible on
         both the host and the firewall.
       </p>
-      <form className="flex flex-col gap-y-4" onSubmit={onValidate}>
+      <form className="flex flex-col gap-y-4" onSubmit={onVerify}>
         <CosInput
           label="Port"
           placeholder="Port"
@@ -166,10 +173,10 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
             type="secondary"
             htmlType="submit"
             className="self-start"
-            loading={isValidating}
+            loading={isVerifying}
             disabled={!allFieldsValid || isSaving}
           >
-            Validate
+            Verify
           </CosButton>
           {renderValidationResult()}
         </div>
@@ -178,7 +185,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
       <div className="mt-3 flex items-center gap-x-4">
         <CosButton
           loading={isSaving}
-          disabled={!node || !allFieldsValid || validationStatus !== 'success'}
+          disabled={!node || !allFieldsValid || !isVerified}
           onClick={onConfirmClick}
         >
           Confirm
