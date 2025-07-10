@@ -14,9 +14,9 @@ type UseIPMIOperations = {
   showPowerOn: boolean
   showPowerOff: boolean
   showPowerCycle: boolean
-  onPowerOnClick: () => Promise<void>
-  onPowerOffClick: () => Promise<void>
-  onPowerCycleClick: () => Promise<void>
+  powerOn: () => Promise<void>
+  powerOff: () => Promise<void>
+  powerCycle: () => Promise<void>
 }
 
 export const useIPMIOperations = (
@@ -43,15 +43,15 @@ export const useIPMIOperations = (
     }
   }
 
-  const onPowerOnClick = async (): Promise<void> => {
+  const powerOn = async (): Promise<void> => {
     await operate(OperateNodeIpmiOperationEnum.Poweron)
   }
 
-  const onPowerOffClick = async (): Promise<void> => {
+  const powerOff = async (): Promise<void> => {
     await operate(OperateNodeIpmiOperationEnum.Poweroff)
   }
 
-  const onPowerCycleClick = async (): Promise<void> => {
+  const powerCycle = async (): Promise<void> => {
     await operate(OperateNodeIpmiOperationEnum.Powercycle)
   }
 
@@ -61,8 +61,8 @@ export const useIPMIOperations = (
     showPowerOn: node?.status === NodeStatusEnum.Down,
     showPowerOff: node?.status === NodeStatusEnum.Up,
     showPowerCycle: node?.status === NodeStatusEnum.Up,
-    onPowerOnClick,
-    onPowerOffClick,
-    onPowerCycleClick,
+    powerOn,
+    powerOff,
+    powerCycle,
   }
 }

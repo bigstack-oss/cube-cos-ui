@@ -1,7 +1,8 @@
-import { Node } from '@cube-frontend/api'
-import { CosButton, CosOverflowMenu } from '@cube-frontend/ui-library'
+import { Node, OperateNodeIpmiOperationEnum } from '@cube-frontend/api'
+import { CosButton, CosModal, CosOverflowMenu } from '@cube-frontend/ui-library'
 import Power from '@cube-frontend/ui-library/icons/monochrome/power.svg?react'
 import { canCreateSupportFile } from '@cube-frontend/web-app/utils/node'
+import { useConfirmOperationModal } from './useConfirmOperationModal'
 import { useIPMIOperations } from './useIPMIOperations'
 
 type ActionMenuProps = {
@@ -18,10 +19,31 @@ export const ActionMenu = (props: ActionMenuProps) => {
     showPowerOn,
     showPowerOff,
     showPowerCycle,
-    onPowerOnClick,
-    onPowerOffClick,
-    onPowerCycleClick,
+    powerOn,
+    powerOff,
+    powerCycle,
   } = useIPMIOperations(node)
+
+  const {
+    desiredOperation,
+    confirmationTitle,
+    confirmationText,
+    onOperationClick,
+    onConfirmModalClose,
+  } = useConfirmOperationModal(node.hostname)
+
+  const onOperationConfirmed = () => {
+    if (desiredOperation === OperateNodeIpmiOperationEnum.Poweron) {
+      powerOn()
+    } else if (desiredOperation === OperateNodeIpmiOperationEnum.Poweroff) {
+      powerOff()
+    } else if (desiredOperation === OperateNodeIpmiOperationEnum.Powercycle) {
+      powerCycle()
+    } else {
+      throw new Error(`Unhandled operation ${desiredOperation}`)
+    }
+    onConfirmModalClose()
+  }
 
   return (
     <CosOverflowMenu
@@ -46,7 +68,9 @@ export const ActionMenu = (props: ActionMenuProps) => {
             <CosOverflowMenu.Item
               type="plain"
               title="Power cycle"
-              onClick={onPowerCycleClick}
+              onClick={() =>
+                onOperationClick(OperateNodeIpmiOperationEnum.Powercycle)
+              }
             />
           )}
           {showPowerOn && (
@@ -54,7 +78,9 @@ export const ActionMenu = (props: ActionMenuProps) => {
               type="trailing-icon"
               title="Power on"
               TrailingIcon={Power}
-              onClick={onPowerOnClick}
+              onClick={() =>
+                onOperationClick(OperateNodeIpmiOperationEnum.Poweron)
+              }
             />
           )}
           {showPowerOff && (
@@ -62,11 +88,23 @@ export const ActionMenu = (props: ActionMenuProps) => {
               type="trailing-icon"
               title="Power off"
               TrailingIcon={Power}
-              onClick={onPowerOffClick}
+              onClick={() =>
+                onOperationClick(OperateNodeIpmiOperationEnum.Poweroff)
+              }
             />
           )}
         </>
       )}
+      <CosModal
+        title={confirmationTitle}
+        size="sm"
+        isOpen={!!desiredOperation}
+        actionText="Confirm"
+        onActionClick={onOperationConfirmed}
+        onCloseClick={onConfirmModalClose}
+      >
+        <p className="primary-body2 text-functional-text">{confirmationText}</p>
+      </CosModal>
     </CosOverflowMenu>
   )
 }
