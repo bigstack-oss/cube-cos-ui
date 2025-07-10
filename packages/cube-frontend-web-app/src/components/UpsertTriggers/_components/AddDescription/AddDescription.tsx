@@ -8,11 +8,17 @@ import {
 import { StepBoard } from '@cube-frontend/web-app/components/StepBoard/StepBoard'
 import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
+import { twMerge } from 'tailwind-merge'
 
 type AddDescriptionProps = {
   isLoading: boolean
+  /**
+   * @default false
+   */
+  isEditMode?: boolean
   nextButtonText: string
   payload: UpsertTriggersPayload
+  errorMessage?: string | undefined
   onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   onPublishClick: (payload: UpsertTriggersPayload) => void
@@ -21,15 +27,16 @@ type AddDescriptionProps = {
 export const AddDescription = (props: AddDescriptionProps) => {
   const {
     isLoading,
+    isEditMode = false,
     nextButtonText,
     payload,
+    errorMessage,
     onNameChange,
     onDescriptionChange,
     onPublishClick: onPublishClickProp,
   } = props
 
   const isValueValid = useMemo(() => {
-    // TODO: Implement actual validation logic
     if (!payload.name) return false
     return true
   }, [payload.name])
@@ -47,7 +54,11 @@ export const AddDescription = (props: AddDescriptionProps) => {
           placeholder="Name"
           value={payload?.name}
           onChange={onNameChange}
-          className="max-w-[512px]"
+          className={twMerge(
+            'max-w-[512px]',
+            isEditMode && 'cursor-not-allowed',
+          )}
+          disabled={isEditMode}
         />
         <CosTextArea
           isLoading={isLoading}
@@ -59,6 +70,9 @@ export const AddDescription = (props: AddDescriptionProps) => {
         />
       </StepBoard>
       <CosStroke type="dot" />
+      {errorMessage && (
+        <div className="primary-body3 text-status-negative">{errorMessage}</div>
+      )}
       <div className="flex items-center gap-x-4">
         <TriggersPreviousButton />
         <CosButton

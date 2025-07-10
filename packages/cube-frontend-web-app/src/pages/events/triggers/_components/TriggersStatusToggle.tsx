@@ -1,5 +1,5 @@
 import { CosToggle } from '@cube-frontend/ui-library'
-import { TriggerRow } from './utils'
+import { TriggerRow } from '../utils'
 
 type TriggersStatusToggleProps = {
   row: TriggerRow
@@ -13,7 +13,7 @@ export const TriggersStatusToggle = (props: TriggersStatusToggleProps) => {
     name,
     response: { types },
     enabled,
-    status: { isUpdating },
+    isUpdating,
   } = row
 
   const handleToggleChange = () => {

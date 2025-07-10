@@ -1,15 +1,17 @@
-import { uniqueId } from 'lodash'
+import { uniqueId, upperFirst } from 'lodash'
 import { CosButton, CosStackCard, CosTag } from '@cube-frontend/ui-library'
-import SubtractSquare from '@cube-frontend/ui-library/icons/monochrome/subtract_square.svg?react'
+import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
+import Delete from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 
 type TriggersStackCardProps = {
   title: string
   tags: string[]
+  onEditClick: () => void
   onRemoveClick: () => void
 }
 
 export const TriggersStackCard = (props: TriggersStackCardProps) => {
-  const { title, tags, onRemoveClick } = props
+  const { title, tags, onEditClick, onRemoveClick } = props
   return (
     <div className="flex items-center gap-4">
       <div className="grow">
@@ -17,20 +19,26 @@ export const TriggersStackCard = (props: TriggersStackCardProps) => {
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
               <CosTag key={uniqueId(tag)} color="blue" variant="stroke">
-                {tag}
+                {upperFirst(tag)}
               </CosTag>
             ))}
           </div>
         </CosStackCard>
       </div>
-      <CosButton
-        type="ghost"
-        usage="icon-left"
-        Icon={SubtractSquare}
-        onClick={onRemoveClick}
-      >
-        Remove
-      </CosButton>
+      <div className="flex items-center">
+        <CosButton
+          type="ghost"
+          usage="icon-only"
+          Icon={Edit}
+          onClick={onEditClick}
+        />
+        <CosButton
+          type="ghost"
+          usage="icon-only"
+          Icon={Delete}
+          onClick={onRemoveClick}
+        />
+      </div>
     </div>
   )
 }

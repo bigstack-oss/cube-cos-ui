@@ -6,12 +6,26 @@ const SlackChannelTable = GetCosBatchActionTable<SlackChannelTableRow>()
 type SlackBatchActionTableProps = {
   isLoading: boolean
   rows: SlackChannelTableRow[]
-  selectedRowIds: string[]
-  onCheckChange: (slack: string) => void
+  selectedRows: SlackChannelTableRow[]
+  onCheckChange: (slack: SlackChannelTableRow) => void
 }
 
 export const SlackBatchActionTable = (props: SlackBatchActionTableProps) => {
-  const { isLoading, rows, selectedRowIds, onCheckChange } = props
+  const {
+    isLoading,
+    rows,
+    selectedRows,
+    onCheckChange: onRowCheckChange,
+  } = props
+
+  const selectedRowIds = selectedRows.map((row) => row.id)
+
+  const onCheckChange = (id: string) => {
+    const selectedSlack = rows.find((slack) => slack.id === id)
+
+    if (!selectedSlack) return
+    onRowCheckChange(selectedSlack)
+  }
 
   return (
     <div className="flex flex-col gap-y-4">

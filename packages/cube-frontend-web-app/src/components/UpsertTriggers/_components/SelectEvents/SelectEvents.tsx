@@ -3,6 +3,11 @@ import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenS
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import {
+  GetPredefinedEventFilterResponseDataEventsInner,
+  GetPredefinedEventsSeveritiesEnum,
+  GetPredefinedEventsTypesEnum,
+} from '@cube-frontend/api'
+import {
   TriggerAttributes,
   UpsertTriggersPayload,
 } from '../../upsertTriggersUtils'
@@ -11,10 +16,12 @@ import { AttributeResultPanel } from './AttributeResultPanel'
 
 type SelectEventsProps = {
   isLoading: boolean
+  isPredefinedEventsLoading: boolean
   payload: UpsertTriggersPayload
   attributes: TriggerAttributes
-  onAlertTypeSelect: (alertTypes: string[]) => void
-  onSeveritySelect: (severities: string[]) => void
+  predefinedEvents: GetPredefinedEventFilterResponseDataEventsInner[]
+  onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
+  onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
   onCategorySelect: (categories: string[]) => void
   onEventIdSelect: (eventIds: string[]) => void
   onNextClick: () => void
@@ -24,8 +31,10 @@ type SelectEventsProps = {
 export const SelectEvents = (props: SelectEventsProps) => {
   const {
     isLoading,
+    isPredefinedEventsLoading,
     payload,
     attributes,
+    predefinedEvents,
     onAlertTypeSelect,
     onSeveritySelect,
     onCategorySelect,
@@ -40,16 +49,16 @@ export const SelectEvents = (props: SelectEventsProps) => {
     close: onPanelClose,
   } = useOpenState(true)
 
+  const predefinedEventIds = predefinedEvents.map((event) => event.id)
+
   const isValueValid = useMemo(() => {
-    // TODO: Implement actual validation logic
-    if (
-      payload.alertTypes.length === 0 &&
-      payload.severities.length === 0 &&
-      payload.categories.length === 0 &&
-      payload.eventIds.length === 0
+    const { alertTypes, severities, categories, eventIds } = payload
+    return (
+      alertTypes.length > 0 ||
+      severities.length > 0 ||
+      categories.length > 0 ||
+      eventIds.length > 0
     )
-      return false
-    return true
   }, [payload])
 
   return (
@@ -70,8 +79,9 @@ export const SelectEvents = (props: SelectEventsProps) => {
         />
         <AttributeResultPanel
           isPanelOpen={isPanelOpen}
+          isPredefinedEventsLoading={isPredefinedEventsLoading}
+          predefinedEventIds={predefinedEventIds}
           onPanelClose={onPanelClose}
-          resultIds={[]}
         />
       </div>
       <CosStroke type="dot" />

@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import {
   CosButton,
   CosInlineNotification,
@@ -7,13 +8,13 @@ import {
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
 import Plus from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
-import { useOperationErrors } from '@cube-frontend/web-app/hooks/useOperationErrors/useOperationErrors'
-import { useTriggerRows } from './useTriggerRows'
-import { TriggersStatusToggle } from './TriggersStatusToggle'
-import { TriggersActionCell } from './TriggersActionCell'
-import { getTriggerResponse, TriggerRow } from './utils'
-import { Link } from 'react-router'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { useOperationErrors } from '@cube-frontend/web-app/hooks/useOperationErrors/useOperationErrors'
+import { TriggersStatusToggle } from './_components/TriggersStatusToggle'
+import { TriggersActionCell } from './_components/TriggersActionCell'
+import { useTriggerRows } from './useTriggerRows'
+import { useListTriggerQuery } from './useListTriggerQuery'
+import { getTriggerResponse, TriggerRow } from './utils'
 
 const TriggersTable = GetCosBasicTable<TriggerRow>()
 
@@ -21,7 +22,10 @@ export const EventsTriggersPage = () => {
   const { operationErrors, onOperationErrorOccur, onOperationErrorClose } =
     useOperationErrors()
 
-  const { isLoading, rows, onToggleChange, handleEdit } = useTriggerRows({
+  const { query, onPageChange, onItemsPerPageChange } = useListTriggerQuery()
+
+  const { isLoading, rows, page, onToggleChange } = useTriggerRows({
+    query,
     onOperationErrorOccur,
   })
 
@@ -54,7 +58,7 @@ export const EventsTriggersPage = () => {
           {(name, row) => (
             <div className="flex items-center gap-2">
               {name}
-              {row.status.isUpdating && <CosLoadingSpinner variant="dot120" />}
+              {row.isUpdating && <CosLoadingSpinner variant="dot120" />}
             </div>
           )}
         </TriggersTable.Column>
@@ -74,17 +78,15 @@ export const EventsTriggersPage = () => {
           )}
         </TriggersTable.Column>
         <TriggersTable.Column>
-          {(_, row) => (
-            <TriggersActionCell row={row} onEditClick={handleEdit} />
-          )}
+          {(_, row) => <TriggersActionCell row={row} />}
         </TriggersTable.Column>
       </TriggersTable>
       <CosPagination
-        totalItems={0}
-        currentPage={1}
-        itemsPerPage={25}
-        onPageChange={() => {}}
-        onItemsPerPageChange={() => {}}
+        totalItems={page?.totalItemCount ?? 0}
+        currentPage={query.currentPage}
+        itemsPerPage={query.itemsPerPage}
+        onPageChange={onPageChange}
+        onItemsPerPageChange={onItemsPerPageChange}
       />
     </div>
   )

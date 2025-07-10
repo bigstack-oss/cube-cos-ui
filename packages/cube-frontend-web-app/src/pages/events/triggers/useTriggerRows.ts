@@ -1,23 +1,22 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
-import { TriggersApiGetTriggersRequest } from '@cube-frontend/api'
+import { Page, TriggersApiGetTriggersRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { mapToTriggerTableRow, TriggerRow } from './utils'
-import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { mapToTriggerTableRow, ListTriggersQuery, TriggerRow } from './utils'
 
 export type UseTriggerRowsOptions = {
+  query: ListTriggersQuery
   onOperationErrorOccur: (errorMessage: string) => void
 }
 
 export type UseTriggerRows = {
   isLoading: boolean
   rows: TriggerRow[]
+  page: Page | undefined
   onToggleChange: (triggerName: string) => Promise<void>
-  handleEdit: (triggerName: string) => void
 }
 
 export const useTriggerRows = (
@@ -25,11 +24,10 @@ export const useTriggerRows = (
 ): UseTriggerRows => {
   const { onOperationErrorOccur } = options
 
-  const navigate = useNavigate()
-
   const { dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<TriggerRow[]>([])
+
   const intervenedTriggerNamesRef = useRef<Set<string>>(new Set())
 
   const {
@@ -40,18 +38,20 @@ export const useTriggerRows = (
     triggersApi.getTriggers,
     (): TriggersApiGetTriggersRequest => ({
       dataCenter: dataCenter!.name,
+      pageNum: 1,
+      pageSize: 25,
     }),
   )
 
   useSequentialInterval(refreshTriggers, 5000)
 
   useEffect(() => {
-    const triggersFromApi = listTriggersResponse ?? []
+    const triggers = listTriggersResponse?.triggers ?? []
     setRows((oldRows) => {
       const oldRowsMap: Map<string, TriggerRow> = new Map(
         oldRows.map((row) => [row.name, row]),
       )
-      return triggersFromApi.map((trigger) => {
+      return triggers.map((trigger) => {
         const newRow = mapToTriggerTableRow(trigger)
         // For triggers with manual interventions, keep the state intact and
         // sync it using additional API calls.
@@ -96,10 +96,7 @@ export const useTriggerRows = (
 
     patchRow(triggerName, {
       enabled: newEnabled,
-      status: {
-        ...targetRow.status,
-        isUpdating: true,
-      },
+      isUpdating: true,
     })
 
     try {
@@ -118,10 +115,7 @@ export const useTriggerRows = (
        */
       patchRow(triggerName, {
         enabled: enabledBeforeToggle,
-        status: {
-          ...targetRow.status,
-          isUpdating: false,
-        },
+        isUpdating: false,
       })
       intervenedTriggerNamesRef.current.delete(triggerName)
       /**
@@ -135,20 +129,17 @@ export const useTriggerRows = (
     targetRow: TriggerRow,
   ): Promise<void> => {
     try {
-      const {
-        data: { data: triggers },
-      } = await triggersApi.getTriggers({
+      const response = await triggersApi.getTriggers({
         dataCenter: dataCenter!.name,
       })
 
-      const trigger = triggers.find(
+      const trigger = response.data.data.triggers.find(
         (trigger) => trigger.name === targetRow.name,
       )
       if (!trigger) return
 
-      patchRow(targetRow.name, {
-        status: trigger.status,
-      })
+      // TODO: Check status
+      patchRow(targetRow.name, { isUpdating: false })
     } catch (error) {
       console.error('Get trigger error when syncing intervened row: ', error)
     } finally {
@@ -156,17 +147,10 @@ export const useTriggerRows = (
     }
   }
 
-  const handleEdit = (triggerName: string) => {
-    /**
-     * Navigate to the Edit page for the selected trigger.
-     */
-    navigate(`${CosRoutesEnum.EVENTS_TRIGGERS_EDIT_PAGE}`)
-  }
-
   return {
     rows,
     isLoading: !hasResponseBeenReceived,
+    page: listTriggersResponse?.page,
     onToggleChange,
-    handleEdit,
   }
 }

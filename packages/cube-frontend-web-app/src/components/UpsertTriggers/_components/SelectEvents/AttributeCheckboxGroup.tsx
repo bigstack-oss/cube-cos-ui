@@ -1,4 +1,5 @@
 import { CosCheckbox, CosCheckboxGrid } from '@cube-frontend/ui-library'
+import { upperFirst } from 'lodash'
 
 type AttributeCheckboxGroupProps = {
   label: string
@@ -28,7 +29,7 @@ export const AttributeCheckboxGroup = (props: AttributeCheckboxGroupProps) => {
       {attributes.map((attribute) => (
         <CosCheckbox
           key={attribute}
-          label={attribute}
+          label={upperFirst(attribute)}
           checked={selectedAttributes.includes(attribute)}
           onChange={() => onAttributesChange(attribute)}
         />

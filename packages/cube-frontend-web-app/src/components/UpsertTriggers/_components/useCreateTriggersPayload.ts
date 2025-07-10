@@ -1,14 +1,22 @@
 import { ChangeEvent, useState } from 'react'
+import {
+  GetPredefinedEventsSeveritiesEnum,
+  GetPredefinedEventsTypesEnum,
+} from '@cube-frontend/api'
+import {
+  EmailRecipientTableRow,
+  SlackChannelTableRow,
+} from './SetResponse/SetResponse'
 import { ScriptFile, UpsertTriggersPayload } from '../upsertTriggersUtils'
 
 type UseCreateTriggersPayload = {
   payload: UpsertTriggersPayload
-  onAlertTypeSelect: (alertTypes: string[]) => void
-  onSeveritySelect: (severities: string[]) => void
+  onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
+  onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
   onCategorySelect: (categories: string[]) => void
   onEventIdSelect: (eventIds: string[]) => void
-  onEmailSelect: (emails: string[]) => void
-  onSlackSelect: (slacks: string[]) => void
+  onEmailSelect: (emails: EmailRecipientTableRow[]) => void
+  onSlackSelect: (slacks: SlackChannelTableRow[]) => void
   onScriptChange: (file: ScriptFile) => void
   onScriptRemove: () => void
   onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -30,7 +38,9 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     description: '',
   })
 
-  const onAlertTypeSelect = (alertTypes: string[]): void => {
+  const onAlertTypeSelect = (
+    alertTypes: GetPredefinedEventsTypesEnum[],
+  ): void => {
     setPayload((prev) => {
       if (!prev) return prev
       return {
@@ -40,7 +50,9 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     })
   }
 
-  const onSeveritySelect = (severities: string[]): void => {
+  const onSeveritySelect = (
+    severities: GetPredefinedEventsSeveritiesEnum[],
+  ): void => {
     setPayload((prev) => {
       if (!prev) return prev
       return {
@@ -70,7 +82,7 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     })
   }
 
-  const onEmailSelect = (emails: string[]): void => {
+  const onEmailSelect = (emails: EmailRecipientTableRow[]): void => {
     setPayload((prev) => {
       if (!prev) return prev
       return {
@@ -80,7 +92,7 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     })
   }
 
-  const onSlackSelect = (slacks: string[]): void => {
+  const onSlackSelect = (slacks: SlackChannelTableRow[]): void => {
     setPayload((prev) => {
       if (!prev) return prev
       return {

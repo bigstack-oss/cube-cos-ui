@@ -6,12 +6,26 @@ const EmailRecipientTable = GetCosBatchActionTable<EmailRecipientTableRow>()
 type EmailBatchActionTableProps = {
   isLoading: boolean
   rows: EmailRecipientTableRow[]
-  selectedRowIds: string[]
-  onCheckChange: (email: string) => void
+  selectedRows: EmailRecipientTableRow[]
+  onCheckChange: (email: EmailRecipientTableRow) => void
 }
 
 export const EmailBatchActionTable = (props: EmailBatchActionTableProps) => {
-  const { isLoading, rows, selectedRowIds, onCheckChange } = props
+  const {
+    isLoading,
+    rows,
+    selectedRows,
+    onCheckChange: onRowCheckChange,
+  } = props
+
+  const selectedRowIds = selectedRows.map((row) => row.id)
+
+  const onCheckChange = (id: string) => {
+    const selectedEmail = rows.find((email) => email.id === id)
+
+    if (!selectedEmail) return
+    onRowCheckChange(selectedEmail)
+  }
 
   return (
     <div className="flex flex-col gap-y-4">

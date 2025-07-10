@@ -1,8 +1,14 @@
+import { Link } from 'react-router'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import EditIcon from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import DeleteIcon from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
-import { TriggerRow } from './utils'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { useEditTriggersStore } from '@cube-frontend/web-app/stores/editTriggersStore'
+import { mockSpecificTrigger } from '@cube-frontend/web-app/components/UpsertTriggers/mockData'
+import { TriggerRow } from '../utils'
+
+const { setInitialData } = useEditTriggersStore.getState()
 
 const button = cva('icon-md text-functional-text', {
   variants: {
@@ -12,26 +18,28 @@ const button = cva('icon-md text-functional-text', {
 
 type TriggersActionCellProps = {
   row: TriggerRow
-  onEditClick: (triggerName: string) => void
 }
 
 export const TriggersActionCell = (props: TriggersActionCellProps) => {
-  const { row, onEditClick } = props
-
-  const {
-    name,
-    status: { isUpdating },
-  } = row
-
-  const handleEditButtonClick = () => {
-    onEditClick(name)
-  }
+  const { row } = props
 
   const renderEditButton = () => {
+    const iconElement = (
+      <EditIcon className={twMerge(button({ disabled: row.isUpdating }))} />
+    )
+
+    if (row.isUpdating) {
+      return iconElement
+    }
+
+    const onEditClick = (): void => {
+      setInitialData(mockSpecificTrigger)
+    }
+
     return (
-      <button disabled={isUpdating} onClick={handleEditButtonClick}>
-        <EditIcon className={twMerge(button({ disabled: isUpdating }))} />
-      </button>
+      <Link to={CosRoutesEnum.EVENTS_TRIGGERS_EDIT_PAGE} onClick={onEditClick}>
+        {iconElement}
+      </Link>
     )
   }
 

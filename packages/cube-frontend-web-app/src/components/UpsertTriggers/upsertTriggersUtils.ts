@@ -1,3 +1,15 @@
+import {
+  GetPredefinedEventsSeveritiesEnum,
+  GetPredefinedEventsTypesEnum,
+  GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner,
+  GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner,
+  GetTriggerMaterialsResponseDataResponseScriptTypes,
+} from '@cube-frontend/api'
+import {
+  EmailRecipientTableRow,
+  SlackChannelTableRow,
+} from './_components/SetResponse/SetResponse'
+
 export enum UpsertTriggersStep {
   SelectEvents = 'selectEvents',
   SetResponse = 'setResponse',
@@ -5,17 +17,17 @@ export enum UpsertTriggersStep {
 }
 
 export type ScriptFile = {
-  name: string
-  base64: string
+  filePath: string
+  content: string
 }
 
 export type UpsertTriggersPayload = {
-  alertTypes: string[]
-  severities: string[]
+  alertTypes: GetPredefinedEventsTypesEnum[]
+  severities: GetPredefinedEventsSeveritiesEnum[]
   categories: string[]
   eventIds: string[]
-  emails: string[]
-  slacks: string[]
+  emails: EmailRecipientTableRow[]
+  slacks: SlackChannelTableRow[]
   script?: ScriptFile
   name: string
   description?: string
@@ -27,7 +39,18 @@ export type TriggerAttributeKeys =
   | 'categories'
   | 'eventIds'
 
-export type TriggerAttributes = Record<TriggerAttributeKeys, string[]>
+export type TriggerAttributes = {
+  alertTypes: GetPredefinedEventsTypesEnum[]
+  severities: GetPredefinedEventsSeveritiesEnum[]
+  categories: string[]
+  eventIds: string[]
+}
+
+export type TriggerResponses = {
+  emails: GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner[]
+  slacks: GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner[]
+  scriptTypes: GetTriggerMaterialsResponseDataResponseScriptTypes | undefined
+}
 
 export const attributeLabelMap: Record<TriggerAttributeKeys, string> = {
   alertTypes: 'Alert Type',

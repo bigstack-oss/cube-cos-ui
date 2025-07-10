@@ -1,13 +1,16 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { CosButton, CosDropdown, CosModal } from '@cube-frontend/ui-library'
-import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
-import { AttributeCheckboxGroup } from './AttributeCheckboxGroup'
+import { CosDropdown, CosModal } from '@cube-frontend/ui-library'
+import {
+  GetPredefinedEventsSeveritiesEnum,
+  GetPredefinedEventsTypesEnum,
+} from '@cube-frontend/api'
 import {
   attributeLabelMap,
   TriggerAttributeKeys,
   TriggerAttributes,
   UpsertTriggersPayload,
 } from '../../upsertTriggersUtils'
+import { AttributeCheckboxGroup } from './AttributeCheckboxGroup'
 
 const checkIsAllChecked = (
   tempAttributes: string[],
@@ -22,10 +25,10 @@ type AddAttributeModalProps = {
   isModalOpen: boolean
   payload: UpsertTriggersPayload
   attributes: TriggerAttributes
+  activeType: TriggerAttributeKeys | undefined
   dropdownOptions: TriggerAttributeKeys[]
-  disabled: boolean
-  onModelOpen: () => void
   onModelClose: () => void
+  onActiveTypeChange: (type: TriggerAttributeKeys) => void
   onActionClick: (attributes: TriggerAttributes) => void
 }
 
@@ -34,10 +37,10 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     isModalOpen,
     payload,
     attributes,
+    activeType,
     dropdownOptions,
-    disabled,
-    onModelOpen,
     onModelClose: onModelCloseProp,
+    onActiveTypeChange,
     onActionClick: onActionClickProp,
   } = props
 
@@ -50,18 +53,11 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     eventIds: selectedEventIds,
   } = payload
 
-  const [activeType, setActiveType] = useState<TriggerAttributeKeys>()
-
-  const [tempAttributes, setTempAttributes] = useState<{
-    alertTypes: string[]
-    severities: string[]
-    categories: string[]
-    eventIds: string[]
-  }>({
+  const [tempAttributes, setTempAttributes] = useState<TriggerAttributes>({
     alertTypes: selectedAlertTypes,
-    severities: selectedCategories,
+    severities: selectedSeverities,
     categories: selectedEventIds,
-    eventIds: selectedSeverities,
+    eventIds: selectedEventIds,
   })
 
   useEffect(() => {
@@ -78,7 +74,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     selectedEventIds,
   ])
 
-  const onTempAlertTypeChange = (alertType: string) => {
+  const onTempAlertTypeChange = (alertType: GetPredefinedEventsTypesEnum) => {
     setTempAttributes((prev) => {
       const { alertTypes } = prev
       const updatedAlertTypes = alertTypes.includes(alertType)
@@ -99,7 +95,9 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     })
   }
 
-  const onTempSeverityChange = (severity: string) => {
+  const onTempSeverityChange = (
+    severity: GetPredefinedEventsSeveritiesEnum,
+  ) => {
     setTempAttributes((prev) => {
       const { severities } = prev
       const updatedSeverities = severities.includes(severity)
@@ -163,7 +161,6 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
   }
 
   const onModelClose = () => {
-    setActiveType(undefined)
     setTempAttributes({
       alertTypes: selectedAlertTypes,
       severities: selectedSeverities,
@@ -174,7 +171,6 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
   }
 
   const onActionClick = () => {
-    setActiveType(undefined)
     onActionClickProp(tempAttributes)
     onModelCloseProp()
   }
@@ -186,7 +182,9 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         isAllChecked={checkIsAllChecked(tempAttributes.alertTypes, alertTypes)}
         attributes={alertTypes}
         selectedAttributes={tempAttributes.alertTypes}
-        onAttributesChange={onTempAlertTypeChange}
+        onAttributesChange={
+          onTempAlertTypeChange as (attribute: string) => void
+        }
         onAllAttributesChange={onAllTempAlertTypesChange}
       />
     ),
@@ -196,7 +194,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         isAllChecked={checkIsAllChecked(tempAttributes.severities, severities)}
         attributes={severities}
         selectedAttributes={tempAttributes.severities}
-        onAttributesChange={onTempSeverityChange}
+        onAttributesChange={onTempSeverityChange as (attribute: string) => void}
         onAllAttributesChange={onAllTempSeveritiesChange}
       />
     ),
@@ -225,52 +223,39 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
   const renderContent = activeType ? renderContentFnMap[activeType] : () => null
 
   return (
-    <div>
-      <CosButton
-        type="ghost"
-        usage="icon-left"
-        Icon={AddSquare}
-        onClick={onModelOpen}
-        disabled={disabled}
-      >
-        Add Attribute
-      </CosButton>
-      <CosModal
-        isOpen={isModalOpen}
-        title="Add Attribute"
-        actionText="Set Response"
-        onActionClick={onActionClick}
-        onCloseClick={onModelClose}
-        className="h-[490px]"
-      >
-        <div className="mb-8 w-[186px]">
-          <CosDropdown
-            type="regular"
-            variant="default"
-            isLoading={false}
-            disabled={false}
-            selectedItems={[activeType]}
-          >
-            <CosDropdown.Trigger>
-              {activeType
-                ? attributeLabelMap[activeType]
-                : 'Choose an attribute'}
-            </CosDropdown.Trigger>
-            <CosDropdown.Menu>
-              {dropdownOptions.map((option: TriggerAttributeKeys) => (
-                <CosDropdown.Item
-                  key={option}
-                  item={option}
-                  onClick={() => setActiveType(option)}
-                >
-                  {attributeLabelMap[option]}
-                </CosDropdown.Item>
-              ))}
-            </CosDropdown.Menu>
-          </CosDropdown>
-        </div>
-        {renderContent()}
-      </CosModal>
-    </div>
+    <CosModal
+      isOpen={isModalOpen}
+      title="Add Attribute"
+      actionText="Set Response"
+      onActionClick={onActionClick}
+      onCloseClick={onModelClose}
+      className="h-[490px]"
+    >
+      <div className="mb-8 w-[186px]">
+        <CosDropdown
+          type="regular"
+          variant="default"
+          isLoading={false}
+          disabled={false}
+          selectedItems={[activeType]}
+        >
+          <CosDropdown.Trigger>
+            {activeType ? attributeLabelMap[activeType] : 'Choose an attribute'}
+          </CosDropdown.Trigger>
+          <CosDropdown.Menu>
+            {dropdownOptions.map((option: TriggerAttributeKeys) => (
+              <CosDropdown.Item
+                key={option}
+                item={option}
+                onClick={() => onActiveTypeChange(option)}
+              >
+                {attributeLabelMap[option]}
+              </CosDropdown.Item>
+            ))}
+          </CosDropdown.Menu>
+        </CosDropdown>
+      </div>
+      {renderContent()}
+    </CosModal>
   )
 }

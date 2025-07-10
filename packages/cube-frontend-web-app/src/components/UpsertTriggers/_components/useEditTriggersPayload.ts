@@ -1,15 +1,24 @@
 import { ChangeEvent, useState } from 'react'
+import {
+  GetPredefinedEventsSeveritiesEnum,
+  GetPredefinedEventsTypesEnum,
+  GetTriggerResponseData,
+} from '@cube-frontend/api'
+import {
+  EmailRecipientTableRow,
+  SlackChannelTableRow,
+} from './SetResponse/SetResponse'
 import { ScriptFile, UpsertTriggersPayload } from '../upsertTriggersUtils'
 
 type UseEditTriggersPayload = {
   isInitializing: boolean
   payload: UpsertTriggersPayload
-  onAlertTypeSelect: (alertTypes: string[]) => void
-  onSeveritySelect: (severities: string[]) => void
+  onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
+  onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
   onCategorySelect: (categories: string[]) => void
   onEventIdSelect: (eventIds: string[]) => void
-  onEmailSelect: (emails: string[]) => void
-  onSlackSelect: (slacks: string[]) => void
+  onEmailSelect: (emails: EmailRecipientTableRow[]) => void
+  onSlackSelect: (slacks: SlackChannelTableRow[]) => void
   onScriptChange: (file: ScriptFile) => void
   onScriptRemove: () => void
   onNameChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -18,22 +27,44 @@ type UseEditTriggersPayload = {
   onResponseReset: () => void
 }
 
-export const useEditTriggersPayload = (): UseEditTriggersPayload => {
+const initializePayload = (
+  initialData: GetTriggerResponseData,
+): UpsertTriggersPayload => {
+  const { name, description, attributes, response } = initialData
+  return {
+    name,
+    description,
+    alertTypes: attributes.alertTypes as GetPredefinedEventsTypesEnum[],
+    severities: attributes.severities as GetPredefinedEventsSeveritiesEnum[],
+    categories: attributes.categories,
+    eventIds: attributes.eventIds,
+    emails: response.emails.map((email) => ({
+      ...email,
+      id: email.address,
+    })),
+    slacks: response.slacks.map((slack) => ({
+      ...slack,
+      id: slack.url,
+    })),
+    script: {
+      filePath: 'fake.path',
+      content: '123',
+    },
+  }
+}
+
+export const useEditTriggersPayload = (
+  initialData: GetTriggerResponseData,
+): UseEditTriggersPayload => {
   const [isInitializing, setIsInitializing] = useState(true)
 
-  const [payload, setPayload] = useState<UpsertTriggersPayload>({
-    alertTypes: [],
-    severities: [],
-    categories: [],
-    eventIds: [],
-    emails: [],
-    slacks: [],
-    script: undefined,
-    name: '',
-    description: '',
-  })
+  const [payload, setPayload] = useState<UpsertTriggersPayload>(() =>
+    initializePayload(initialData),
+  )
 
-  const onAlertTypeSelect = (alertTypes: string[]): void => {
+  const onAlertTypeSelect = (
+    alertTypes: GetPredefinedEventsTypesEnum[],
+  ): void => {
     setPayload((prev) => {
       if (!prev) return prev
       return {
@@ -43,7 +74,9 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     })
   }
 
-  const onSeveritySelect = (severities: string[]): void => {
+  const onSeveritySelect = (
+    severities: GetPredefinedEventsSeveritiesEnum[],
+  ): void => {
     setPayload((prev) => {
       if (!prev) return prev
       return {
@@ -73,7 +106,7 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     })
   }
 
-  const onEmailSelect = (emails: string[]) => {
+  const onEmailSelect = (emails: EmailRecipientTableRow[]) => {
     setPayload((prev) => {
       if (!prev) return prev
       return {
@@ -83,7 +116,7 @@ export const useEditTriggersPayload = (): UseEditTriggersPayload => {
     })
   }
 
-  const onSlackSelect = (slacks: string[]): void => {
+  const onSlackSelect = (slacks: SlackChannelTableRow[]): void => {
     setPayload((prev) => {
       if (!prev) return prev
       return {

@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { fileToBase64 } from '@cube-frontend/web-app/utils/file'
+import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
 import { ScriptFile, UpsertTriggersPayload } from '../../../upsertTriggersUtils'
 
 type TestResult = {
@@ -16,31 +17,29 @@ type TestResult = {
 
 type UseUploadScriptOptions = {
   payload: UpsertTriggersPayload
+  onVerifyScriptSuccess: (file: ScriptFile) => void
 }
 
 type UseUploadScript = {
   fileInputRef: React.RefObject<HTMLInputElement | null>
   scriptInfo: ScriptFile | undefined
   showScriptTestResult: TestResult
-  handleFileChange: ChangeEventHandler<HTMLInputElement>
-  handleUploadScriptButtonClick: () => void
-  handleTestRunningButtonClick: () => void
-  clearFileInput: () => void
-  clearScriptTestResult: () => void
+  onFileChange: ChangeEventHandler<HTMLInputElement>
+  onUploadScriptButtonClick: () => void
+  onTestRunningButtonClick: () => void
+  onActionClick: () => void
+  onFileInputClear: () => void
 }
 
 export const useUploadScript = (
   options: UseUploadScriptOptions,
 ): UseUploadScript => {
-  const { payload } = options
+  const { payload, onVerifyScriptSuccess } = options
 
   const { dataCenter } = useContext(DataCenterContext)
 
-  // TODO: Upload script with useCosMutationRequest here
-
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // TODO: Handle script upload and test script logic here
   const [scriptInfo, setScriptInfo] = useState<ScriptFile | undefined>(
     payload.script,
   )
@@ -51,18 +50,25 @@ export const useUploadScript = (
   })
 
   useEffect(() => {
-    setScriptInfo(payload.script)
-    setShowScriptTestResult({
-      status: payload.script ? 'testSucceeded' : 'untested',
-      message: payload.script ? 'Script is ready.' : undefined,
-    })
+    /**
+     * Script needs to be tested successfully to be added to payload.
+     * If there is an existing script in payload, it means it's already been tested and passed.
+     * Thus, mark the test result as succeeded by default.
+     */
+    if (payload.script) {
+      setScriptInfo(payload.script)
+      setShowScriptTestResult({
+        status: 'testSucceeded',
+        message: undefined,
+      })
+    }
   }, [payload.script])
 
-  const handleUploadScriptButtonClick = () => {
+  const onUploadScriptButtonClick = () => {
     fileInputRef.current?.click()
   }
 
-  const handleFileChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
+  const onFileChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
     const scriptFile = e.target.files?.[0]
     if (!scriptFile) {
       return
@@ -71,8 +77,8 @@ export const useUploadScript = (
     try {
       const base64 = await fileToBase64(scriptFile)
       setScriptInfo({
-        name: scriptFile.name,
-        base64,
+        filePath: scriptFile.name,
+        content: base64,
       })
       setShowScriptTestResult({
         status: 'untested',
@@ -83,31 +89,38 @@ export const useUploadScript = (
     }
   }
 
-  const handleTestRunningButtonClick = () => {
+  const onTestRunningButtonClick = async () => {
+    if (!scriptInfo) return
     setShowScriptTestResult({
       status: 'testing',
       message: 'Running script test...',
     })
 
-    setTimeout(() => {
-      // Simulate script test result
-      const isSuccess = Math.random() > 0.5
-      const result: TestResult = isSuccess
-        ? { status: 'testSucceeded', message: 'Script test succeeded.' }
-        : { status: 'testFailed', message: 'Script test failed.' }
+    try {
+      const testResult = await triggersApi.verifyTriggerScript({
+        dataCenter: dataCenter!.name,
+        verifyMaterialScriptRequest: { script: scriptInfo.content },
+      })
 
-      setShowScriptTestResult(result)
-    }, 2000)
-  }
-
-  const clearFileInput = () => {
-    if (fileInputRef.current?.value) {
-      fileInputRef.current.value = ''
-      setScriptInfo(undefined)
+      setShowScriptTestResult({
+        status: testResult.data.code === 200 ? 'testSucceeded' : 'testFailed',
+        message: testResult.data.msg,
+      })
+    } catch (error) {
+      setShowScriptTestResult({
+        status: 'testFailed',
+        message: 'Error occurred when verifying script: ' + error,
+      })
     }
   }
 
-  const clearScriptTestResult = () => {
+  const onActionClick = () => {
+    if (!scriptInfo) return
+    onVerifyScriptSuccess(scriptInfo)
+  }
+
+  const onFileInputClear = () => {
+    setScriptInfo(undefined)
     setShowScriptTestResult({
       status: 'untested',
       message: undefined,
@@ -118,10 +131,10 @@ export const useUploadScript = (
     fileInputRef,
     scriptInfo,
     showScriptTestResult,
-    handleFileChange,
-    handleUploadScriptButtonClick,
-    handleTestRunningButtonClick,
-    clearFileInput,
-    clearScriptTestResult,
+    onFileChange,
+    onUploadScriptButtonClick,
+    onTestRunningButtonClick,
+    onActionClick,
+    onFileInputClear,
   }
 }

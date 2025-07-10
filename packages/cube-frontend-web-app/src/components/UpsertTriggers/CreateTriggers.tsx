@@ -1,13 +1,9 @@
 import { ReactNode, useContext } from 'react'
-import {
-  EventsApiGetEventFilterConditionsRequest,
-  SettingsApiGetEmailRecipientsRequest,
-  SettingsApiGetSlackChannelsRequest,
-} from '@cube-frontend/api'
-import { eventsApi, settingsApi } from '@cube-frontend/web-app/api/cosApi'
-import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosStroke } from '@cube-frontend/ui-library'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
+import { EventsApiGetPredefinedEventsRequest } from '@cube-frontend/api'
 import { useStepParam } from './_components/useStepParam'
 import { useCreateTriggersPayload } from './_components/useCreateTriggersPayload'
 import { UpsertTriggersSteps } from './_components/UpsertTriggersSteps'
@@ -18,18 +14,18 @@ import {
   UpsertTriggersPayload,
   UpsertTriggersStep,
 } from './upsertTriggersUtils'
-import {
-  mockEmailRecipients,
-  mockSlackChannels,
-} from './_components/SetResponse/mockData'
-import { mockAttributes } from './_components/SelectEvents/mockData'
+import { useTriggerMaterials } from './useTriggerMaterials'
+import { mockPredefinedEvents } from './mockData'
 
 type CreateTriggersProps = {
+  errorMessage?: string | undefined
   onPublishClick: (payload: UpsertTriggersPayload) => void
 }
 
 export const CreateTriggers = (props: CreateTriggersProps) => {
-  const { onPublishClick } = props
+  const { errorMessage, onPublishClick } = props
+
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { step, goToSetResponse, goToAddDescription } = useStepParam([
     UpsertTriggersStep.SelectEvents,
@@ -37,28 +33,7 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     UpsertTriggersStep.AddDescription,
   ])
 
-  const { dataCenter } = useContext(DataCenterContext)
-
-  const { data: attributes } = useCosGetRequest(
-    eventsApi.getEventFilterConditions,
-    (): EventsApiGetEventFilterConditionsRequest => ({
-      dataCenter: dataCenter!.name,
-    }),
-  )
-
-  const { data: emails = [] } = useCosGetRequest(
-    settingsApi.getEmailRecipients,
-    (): SettingsApiGetEmailRecipientsRequest => ({
-      dataCenter: dataCenter!.name,
-    }),
-  )
-
-  const { data: slacks = [] } = useCosGetRequest(
-    settingsApi.getSlackChannels,
-    (): SettingsApiGetSlackChannelsRequest => ({
-      dataCenter: dataCenter!.name,
-    }),
-  )
+  const { attributes, responses } = useTriggerMaterials()
 
   const {
     payload,
@@ -76,12 +51,29 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     onResponseReset,
   } = useCreateTriggersPayload()
 
+  const { isLoading: isPredefinedEventsLoading, data: predefinedEvents } =
+    useCosGetRequest(
+      eventsApi.getPredefinedEvents,
+      (): EventsApiGetPredefinedEventsRequest => ({
+        dataCenter: dataCenter!.name,
+        types: payload.alertTypes,
+        severities: payload.severities,
+        categories: payload.categories,
+        ids: payload.eventIds,
+      }),
+    )
+
   const renderContentFnMap: Record<UpsertTriggersStep, () => ReactNode> = {
     selectEvents: () => (
       <SelectEvents
         isLoading={false}
+        isPredefinedEventsLoading={false}
         payload={payload}
-        attributes={mockAttributes}
+        attributes={attributes}
+        /**
+         * TODO: Fetch data from API
+         */
+        predefinedEvents={mockPredefinedEvents}
         onAlertTypeSelect={onAlertTypeSelect}
         onSeveritySelect={onSeveritySelect}
         onCategorySelect={onCategorySelect}
@@ -94,8 +86,7 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
       <SetResponse
         isLoading={false}
         payload={payload}
-        emails={mockEmailRecipients}
-        slacks={mockSlackChannels}
+        responses={responses}
         onEmailSelect={onEmailSelect}
         onSlackSelect={onSlackSelect}
         onScriptChange={onScriptChange}
@@ -109,6 +100,7 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
         isLoading={false}
         nextButtonText="Create"
         payload={payload}
+        errorMessage={errorMessage}
         onNameChange={onNameChange}
         onDescriptionChange={onDescriptionChange}
         onPublishClick={onPublishClick}

@@ -1,49 +1,58 @@
 import { useMemo, useState } from 'react'
 import {
-  EmailRecipientResponse,
-  SlackChannelGetResponse,
+  GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner,
+  GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner,
 } from '@cube-frontend/api'
 import { CosButton, CosStroke, CosTableRow } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
+import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
 import { StepBoard } from '@cube-frontend/web-app/components/StepBoard/StepBoard'
-import { ScriptFile, UpsertTriggersPayload } from '../../upsertTriggersUtils'
+import {
+  ScriptFile,
+  TriggerResponses,
+  UpsertTriggersPayload,
+} from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
 import { TriggersStackCard } from '../TriggersStackCard'
 import { SendNotificationModal } from './SendNotificationModal/SendNotificationModal'
 import { PersonalizedScriptModal } from './PersonalizedScriptModal/PersonalizedScriptModal'
 
-export type EmailRecipientTableRow = EmailRecipientResponse & CosTableRow
+export type EmailRecipientTableRow =
+  GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner & CosTableRow
 
-export type SlackChannelTableRow = SlackChannelGetResponse & CosTableRow
+export type SlackChannelTableRow =
+  GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner & CosTableRow
 
 const mapToEmailRecipientTable = (
-  email: EmailRecipientResponse,
+  email: GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner,
 ): EmailRecipientTableRow => ({
   ...email,
   id: email.address,
 })
 
 const mapToSlackChannelTable = (
-  slack: SlackChannelGetResponse,
+  slack: GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner,
 ): SlackChannelTableRow => ({
   ...slack,
   id: slack.url,
 })
 
-const payloadToNotification = (
-  emails: string[],
-  slacks: string[],
+const payloadToNotificationDisplay = (
+  emailRows: EmailRecipientTableRow[],
+  slackRows: SlackChannelTableRow[],
 ): string[] => {
-  return [...emails, ...slacks]
+  const emailAddresses = emailRows.map((row) => row.address)
+  const slackNames = slackRows.map((row) => row.name)
+
+  return [...emailAddresses, ...slackNames]
 }
 
 export type SetResponseProps = {
   isLoading: boolean
   payload: UpsertTriggersPayload
-  emails: EmailRecipientResponse[]
-  slacks: SlackChannelGetResponse[]
-  onEmailSelect: (emails: string[]) => void
-  onSlackSelect: (slacks: string[]) => void
+  responses: TriggerResponses
+  onEmailSelect: (emails: EmailRecipientTableRow[]) => void
+  onSlackSelect: (slacks: SlackChannelTableRow[]) => void
   onScriptChange: (file: ScriptFile) => void
   onScriptRemove: () => void
   onNextClick: () => void
@@ -54,8 +63,7 @@ export const SetResponse = (props: SetResponseProps) => {
   const {
     isLoading,
     payload,
-    emails,
-    slacks,
+    responses,
     onEmailSelect,
     onSlackSelect,
     onScriptChange,
@@ -63,6 +71,8 @@ export const SetResponse = (props: SetResponseProps) => {
     onNextClick,
     onResetClick,
   } = props
+
+  const { emails, slacks, scriptTypes } = responses
 
   const [isSendNotificationOpen, setIsSendNotificationOpen] = useState(false)
 
@@ -77,13 +87,24 @@ export const SetResponse = (props: SetResponseProps) => {
     return slacks.map(mapToSlackChannelTable)
   }, [slacks])
 
-  const notifications = payloadToNotification(payload.emails, payload.slacks)
+  const notifications = payloadToNotificationDisplay(
+    payload.emails,
+    payload.slacks,
+  )
 
   const isValueValid = useMemo(() => {
     // TODO: Implement actual validation logic
     if (notifications.length === 0 && !payload.script) return false
     return true
   }, [payload, notifications])
+
+  const onSendNotificationButtonClick = () => {
+    setIsSendNotificationOpen(true)
+  }
+
+  const onPersonalizedScriptButtonClick = () => {
+    setIsPersonalizedScriptOpen(true)
+  }
 
   const renderNotificationStackCard = () => {
     if (notifications.length === 0) return null
@@ -97,6 +118,7 @@ export const SetResponse = (props: SetResponseProps) => {
       <TriggersStackCard
         title="Notification"
         tags={notifications}
+        onEditClick={onSendNotificationButtonClick}
         onRemoveClick={onNotificationRemove}
       />
     )
@@ -107,7 +129,8 @@ export const SetResponse = (props: SetResponseProps) => {
     return (
       <TriggersStackCard
         title="Personalized Script"
-        tags={[payload.script.name]}
+        tags={[payload.script.filePath]}
+        onEditClick={onPersonalizedScriptButtonClick}
         onRemoveClick={onScriptRemove}
       />
     )
@@ -118,24 +141,22 @@ export const SetResponse = (props: SetResponseProps) => {
       <StepBoard>
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
-            <SendNotificationModal
-              isLoading={isLoading}
-              isModalOpen={isSendNotificationOpen}
-              payload={payload}
-              emailRows={emailRows}
-              slackRows={slackRows}
-              onEmailSelect={onEmailSelect}
-              onSlackSelect={onSlackSelect}
-              onModelOpen={() => setIsSendNotificationOpen(true)}
-              onModelClose={() => setIsSendNotificationOpen(false)}
-            />
-            <PersonalizedScriptModal
-              isModalOpen={isPersonalizedScriptOpen}
-              payload={payload}
-              onScriptChange={onScriptChange}
-              onModelOpen={() => setIsPersonalizedScriptOpen(true)}
-              onModelClose={() => setIsPersonalizedScriptOpen(false)}
-            />
+            <CosButton
+              type="ghost"
+              usage="icon-left"
+              Icon={AddSquare}
+              onClick={() => setIsSendNotificationOpen(true)}
+            >
+              Send Notification
+            </CosButton>
+            <CosButton
+              type="ghost"
+              usage="icon-left"
+              Icon={AddSquare}
+              onClick={() => setIsPersonalizedScriptOpen(true)}
+            >
+              Personalized Script
+            </CosButton>
           </div>
           <CosButton
             type="ghost"
@@ -162,6 +183,23 @@ export const SetResponse = (props: SetResponseProps) => {
           Next
         </CosButton>
       </div>
+      <SendNotificationModal
+        isLoading={isLoading}
+        isModalOpen={isSendNotificationOpen}
+        payload={payload}
+        emailRows={emailRows}
+        slackRows={slackRows}
+        onEmailSelect={onEmailSelect}
+        onSlackSelect={onSlackSelect}
+        onModalClose={() => setIsSendNotificationOpen(false)}
+      />
+      <PersonalizedScriptModal
+        isModalOpen={isPersonalizedScriptOpen}
+        payload={payload}
+        scriptTypes={scriptTypes}
+        onScriptChange={onScriptChange}
+        onModalClose={() => setIsPersonalizedScriptOpen(false)}
+      />
     </div>
   )
 }
