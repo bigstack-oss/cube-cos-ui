@@ -6,7 +6,7 @@ export type CosDropdownType = 'radio' | 'checkbox'
 
 export type CosDropdownVariant = 'regular' | 'withFilter'
 
-export type OnAllCheckChange = (checked: boolean) => void
+export type OnAllCheckChange = () => void
 
 export type OnClearSelection = () => void
 

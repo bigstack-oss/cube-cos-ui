@@ -1,179 +1,107 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
-import { CosDropdownVariant } from '../../../components/CosDropdown/utils'
-
-type OptionType = {
-  code: string
-  name: string
-  disabled: boolean
-}
-
-const fruits = [
-  {
-    code: 'apple',
-    name: 'Apple apple apple apple apple',
-    disabled: false,
-  },
-  {
-    code: 'banana',
-    name: 'Banana',
-    disabled: false,
-  },
-  {
-    code: 'cherry',
-    name: 'Cherry',
-    disabled: false,
-  },
-  {
-    code: 'durian',
-    name: 'Durian',
-    disabled: true,
-  },
-  {
-    code: 'grape',
-    name: 'Grape',
-    disabled: false,
-  },
-  {
-    code: 'kiwi',
-    name: 'Kiwi',
-    disabled: false,
-  },
-  {
-    code: 'lemon',
-    name: 'Lemon',
-    disabled: false,
-  },
-  {
-    code: 'mango',
-    name: 'Mango',
-    disabled: false,
-  },
-  {
-    code: 'orange',
-    name: 'Orange',
-    disabled: false,
-  },
-  {
-    code: 'pear',
-    name: 'Pear',
-    disabled: false,
-  },
-  {
-    code: 'strawberry',
-    name: 'Strawberry',
-    disabled: false,
-  },
-  {
-    code: 'watermelon',
-    name: 'Watermelon watermelon watermelon',
-    disabled: false,
-  },
-]
+import {
+  CosDropdownSize,
+  CosDropdownVariant,
+} from '../../../components/CosDropdown/cosDropdownTypes'
+import { mockData, MockDataItem } from './mockData'
 
 type CheckboxDropdownProps = {
+  size: CosDropdownSize
   variant: CosDropdownVariant
-  isDisabled: boolean
-  hasDefaultValue: boolean
-  hasSearchbar: boolean
+  isLoading: boolean
+  selected: boolean
+  disabled: boolean
   label?: string
 }
 
 export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
-  const { variant, isDisabled, hasDefaultValue, hasSearchbar, label } = props
+  const { size, variant, isLoading, selected, disabled, label } = props
 
-  const [searchValue, setSearchValue] = useState('')
-  const [selectedFruits, setSelectedFruits] = useState<OptionType[]>(
-    hasDefaultValue ? [fruits[0]] : [],
+  const [selectedItems, setSelectedItems] = useState<MockDataItem[]>(() =>
+    selected ? [mockData[0]] : [],
   )
 
-  const handleFruitClick = (fruit: OptionType) => {
-    if (isDisabled) return
-
-    const fruitSet = new Set(selectedFruits.map((f) => f.code))
-
-    if (fruitSet.has(fruit.code)) {
-      setSelectedFruits(selectedFruits.filter((f) => f.code !== fruit.code))
+  const onItemClick = (item: MockDataItem) => {
+    if (disabled) return
+    if (selectedItems.includes(item)) {
+      setSelectedItems((prev) => prev.filter((i) => i !== item))
     } else {
-      setSelectedFruits([...selectedFruits, fruit])
+      setSelectedItems((prev) => [...prev, item])
     }
   }
 
-  const handleAllFruitsSelect = (checked: boolean) => {
-    if (isDisabled) return
-
-    if (checked) {
-      setSelectedFruits(fruits.filter((fruit) => !fruit.disabled))
+  const onAllCheckChange = () => {
+    if (disabled) return
+    if (selectedItems.length === 0) {
+      setSelectedItems(mockData.filter((item) => !item.disabled))
     } else {
-      setSelectedFruits([])
+      setSelectedItems([])
     }
   }
 
-  const handleClearClick = () => {
-    setSelectedFruits([])
+  const onClearSelection = () => {
+    setSelectedItems([])
   }
 
-  return hasSearchbar ? (
+  if (variant === 'regular')
+    return (
+      <CosDropdown
+        size={size}
+        type="checkbox"
+        variant="regular"
+        selectedItems={selectedItems}
+        isLoading={isLoading}
+        disabled={disabled}
+        label={label}
+        onAllCheckChange={onAllCheckChange}
+      >
+        <CosDropdown.Trigger placeholder="Select an Item">
+          {selectedItems.length > 0
+            ? selectedItems.map((item) => item.label).join(', ')
+            : undefined}
+        </CosDropdown.Trigger>
+        <CosDropdown.Menu>
+          {mockData.map((item) => (
+            <CosDropdown.Item
+              key={item.value}
+              item={item}
+              disabled={item.disabled}
+              onClick={() => onItemClick(item)}
+            >
+              {item.label}
+            </CosDropdown.Item>
+          ))}
+        </CosDropdown.Menu>
+      </CosDropdown>
+    )
+
+  return (
     <CosDropdown
-      size="md"
+      size={size}
       type="checkbox"
       variant="withFilter"
+      selectedItems={selectedItems}
+      isLoading={isLoading}
+      disabled={disabled}
       label={label}
-      selectedItems={selectedFruits}
-      onAllCheckChange={handleAllFruitsSelect}
-      onClearSelection={handleClearClick}
-      disabled={isDisabled}
+      onAllCheckChange={onAllCheckChange}
+      onClearSelection={onClearSelection}
     >
-      <CosDropdown.Trigger placeholder="Select Fruits">
-        {selectedFruits.length > 0 ? 'Fruits' : undefined}
-      </CosDropdown.Trigger>
-      <CosDropdown.Menu>
-        {fruits.map((fruit) => {
-          if (
-            searchValue &&
-            !fruit.name.toLowerCase().includes(searchValue.toLowerCase())
-          ) {
-            return null
-          }
-          return (
-            <CosDropdown.Item
-              key={fruit.code}
-              // checked={selectedFruits.some((f) => f.code === fruit.code)}
-              item={fruit}
-              disabled={fruit.disabled}
-              onClick={() => handleFruitClick(fruit)}
-            >
-              {fruit.name}
-            </CosDropdown.Item>
-          )
-        })}
-      </CosDropdown.Menu>
-    </CosDropdown>
-  ) : (
-    <CosDropdown
-      size="md"
-      type="checkbox"
-      variant="regular"
-      label={label}
-      selectedItems={selectedFruits}
-      onAllCheckChange={handleAllFruitsSelect}
-      disabled={isDisabled}
-    >
-      <CosDropdown.Trigger placeholder="Select Fruits">
-        {selectedFruits.length > 0
-          ? `${selectedFruits.length} selected`
+      <CosDropdown.Trigger placeholder="Select an Item">
+        {selectedItems.length > 0
+          ? selectedItems.map((item) => item.label).join(', ')
           : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {fruits.map((fruit) => (
+        {mockData.map((item) => (
           <CosDropdown.Item
-            key={fruit.code}
-            // checked={selectedFruits.some((f) => f.code === fruit.code)}
-            item={fruit}
-            disabled={fruit.disabled}
-            onClick={() => handleFruitClick(fruit)}
+            key={item.value}
+            item={item}
+            disabled={item.disabled}
+            onClick={() => onItemClick(item)}
           >
-            {fruit.name}
+            {item.label}
           </CosDropdown.Item>
         ))}
       </CosDropdown.Menu>
