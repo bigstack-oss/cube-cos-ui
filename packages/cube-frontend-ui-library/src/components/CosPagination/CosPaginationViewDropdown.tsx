@@ -20,8 +20,9 @@ export const CosPaginationViewDropdown = (
       <div className="p-[10px]">View</div>
       <div className="w-[104px]">
         <CosDropdown
-          variant="in-table"
-          type="regular"
+          size="sm"
+          type="radio"
+          variant="regular"
           selectedItems={[itemsPerPage]}
         >
           <CosDropdown.Trigger placeholder="Choose" className="h-7">

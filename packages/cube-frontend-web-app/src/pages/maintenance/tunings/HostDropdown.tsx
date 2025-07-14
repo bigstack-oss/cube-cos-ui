@@ -3,7 +3,7 @@ import { CosDropdown } from '@cube-frontend/ui-library'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { ChangeEvent, useContext, useMemo, useState } from 'react'
+import { useContext } from 'react'
 
 type HostDropdownProps = {
   selectedHosts: string[]
@@ -20,8 +20,6 @@ export const HostDropdown = (props: HostDropdownProps) => {
 
   const { dataCenter } = useContext(DataCenterContext)
 
-  const [searchValue, setSearchValue] = useState('')
-
   const { isLoading, data: getNodesData } = useCosGetRequest(
     nodesApi.getNodes,
     (): NodesApiGetNodesRequest => ({
@@ -29,21 +27,7 @@ export const HostDropdown = (props: HostDropdownProps) => {
     }),
   )
 
-  const matchedHosts = useMemo<Node[]>(() => {
-    const { nodes } = getNodesData ?? {}
-    if (!nodes) {
-      return []
-    }
-
-    if (!searchValue) {
-      return nodes
-    }
-
-    const loweredValue = searchValue.toLowerCase()
-    return nodes.filter((node) =>
-      node.hostname.toLowerCase().includes(loweredValue),
-    )
-  }, [getNodesData, searchValue])
+  const { nodes = [] } = getNodesData ?? {}
 
   const onAllCheckChange = (checked: boolean): void => {
     if (!getNodesData) {
@@ -56,30 +40,26 @@ export const HostDropdown = (props: HostDropdownProps) => {
     }
   }
 
-  const onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setSearchValue(e.target.value)
-  }
-
-  const onClearClick = (): void => {
+  const onClearSelection = (): void => {
     onAllCheckChangeProp([])
   }
 
   return (
     <CosDropdown
-      type="search-checkbox"
+      size="sm"
+      type="checkbox"
+      variant="withFilter"
       isLoading={isLoading}
       skeletonClassName="w-36"
       selectedItems={selectedHosts}
-      searchValue={searchValue}
       onAllCheckChange={onAllCheckChange}
-      onSearchChange={onSearchChange}
-      onClearClick={onClearClick}
+      onClearSelection={onClearSelection}
     >
-      <CosDropdown.Trigger className="h-[34px] w-36" placeholder="Hosts">
+      <CosDropdown.Trigger className="w-36" placeholder="Hosts">
         {selectedHosts.length ? 'Hosts' : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {matchedHosts.map((node) => (
+        {nodes.map((node) => (
           <CosDropdown.Item
             key={node.hostname}
             item={node.hostname}

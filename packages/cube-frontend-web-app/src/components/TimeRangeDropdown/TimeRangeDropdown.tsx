@@ -14,7 +14,11 @@ export const TimeRangeDropdown = <T extends readonly TimeRange[]>(
   const { disabled, timeRanges, selectedItem, onChange } = props
 
   return (
-    <CosDropdown selectedItems={[selectedItem]} disabled={disabled}>
+    <CosDropdown
+      type="radio"
+      selectedItems={[selectedItem]}
+      disabled={disabled}
+    >
       <CosDropdown.Trigger>{timeRangeLabels[selectedItem]}</CosDropdown.Trigger>
       <CosDropdown.Menu>
         {timeRanges.map((timeRange) => (

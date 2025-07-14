@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from 'react'
+import { useContext } from 'react'
 import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '../context/DataCenterContext'
@@ -18,12 +18,6 @@ export const RoleFilter = (props: RoleFilterProps) => {
   const { dataCenter } = useContext(DataCenterContext)
 
   const allRoles = dataCenter!.roles
-
-  const [searchValue, setSearchValue] = useState('')
-
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value)
-  }
 
   const handleAllSelect = (checked: boolean) => {
     if (checked) {
@@ -49,35 +43,26 @@ export const RoleFilter = (props: RoleFilterProps) => {
 
   return (
     <CosDropdown
-      type="search-checkbox"
-      variant="in-table"
+      size="sm"
+      type="checkbox"
+      variant="withFilter"
       selectedItems={selectedRoles}
-      searchValue={searchValue}
-      onSearchChange={handleSearchChange}
       onAllCheckChange={handleAllSelect}
-      onClearClick={handleClearRolesClick}
+      onClearSelection={handleClearRolesClick}
     >
       <CosDropdown.Trigger placeholder="Roles">
         {selectedRoles.length > 0 ? `Roles` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {allRoles.map((role) => {
-          if (
-            searchValue &&
-            !role.toLowerCase().includes(searchValue.toLowerCase())
-          ) {
-            return null
-          }
-          return (
-            <CosDropdown.Item
-              key={role}
-              item={role}
-              onClick={() => handleRoleClick(role)}
-            >
-              {role}
-            </CosDropdown.Item>
-          )
-        })}
+        {allRoles.map((role) => (
+          <CosDropdown.Item
+            key={role}
+            item={role}
+            onClick={() => handleRoleClick(role)}
+          >
+            {role}
+          </CosDropdown.Item>
+        ))}
       </CosDropdown.Menu>
     </CosDropdown>
   )

@@ -2,7 +2,7 @@ import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { upperFirst } from 'lodash'
-import { ChangeEvent, useContext, useMemo, useState } from 'react'
+import { useContext } from 'react'
 
 type RoleDropdownProps = {
   selectedRoles: GetDataCentersResponseDataInnerRolesEnum[]
@@ -16,28 +16,11 @@ export const RoleDropdown = (props: RoleDropdownProps) => {
 
   const roles = dataCenter!.roles
 
-  const [search, setSearch] = useState('')
-
-  const matchedRoles = useMemo<
-    GetDataCentersResponseDataInnerRolesEnum[]
-  >(() => {
-    const loweredSearch = search.toLowerCase()
-    if (!loweredSearch) {
-      return roles
-    }
-    return roles.filter((role) => role.toLowerCase().includes(loweredSearch))
-  }, [search, roles])
-
   const onAllCheckChange = (checked: boolean) => {
     onChange(checked ? roles : [])
   }
 
-  const onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { value } = e.target
-    setSearch(value)
-  }
-
-  const onClearClick = (): void => {
+  const onClearSelection = (): void => {
     onChange([])
   }
 
@@ -52,19 +35,18 @@ export const RoleDropdown = (props: RoleDropdownProps) => {
 
   return (
     <CosDropdown
-      type="search-checkbox"
-      variant="in-table"
+      size="sm"
+      type="checkbox"
+      variant="withFilter"
       selectedItems={selectedRoles}
       onAllCheckChange={onAllCheckChange}
-      searchValue={search}
-      onSearchChange={onSearchChange}
-      onClearClick={onClearClick}
+      onClearSelection={onClearSelection}
     >
       <CosDropdown.Trigger placeholder="Roles">
         {selectedRoles.length ? 'Roles' : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {matchedRoles.map((role) => (
+        {roles.map((role) => (
           <CosDropdown.Item
             key={role}
             item={role}

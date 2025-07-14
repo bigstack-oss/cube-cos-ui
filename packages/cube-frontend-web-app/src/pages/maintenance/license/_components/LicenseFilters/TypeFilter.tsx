@@ -1,7 +1,6 @@
 import { GetLicensesTypesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { upperFirst } from 'lodash'
-import { ChangeEvent, useState } from 'react'
 
 const licenseTypes = Object.values(GetLicensesTypesEnum)
 
@@ -17,12 +16,6 @@ export const TypeFilter = (props: TypeFilterProps) => {
     handleLicenseTypesSelect,
     handleClearLicenseTypesClick,
   } = props
-
-  const [licenseTypeSearchValue, setLicenseTypeSearchValue] = useState('')
-
-  const handleLicenseTypeSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLicenseTypeSearchValue(e.target.value)
-  }
 
   const handleSelectAllLicenseTypes = (checked: boolean) => {
     if (checked) {
@@ -46,37 +39,26 @@ export const TypeFilter = (props: TypeFilterProps) => {
 
   return (
     <CosDropdown
-      type="search-checkbox"
-      variant="default"
+      size="sm"
+      type="checkbox"
+      variant="withFilter"
       selectedItems={selectedLicenseTypes}
-      searchValue={licenseTypeSearchValue}
-      onSearchChange={handleLicenseTypeSearchChange}
       onAllCheckChange={handleSelectAllLicenseTypes}
-      onClearClick={handleClearLicenseTypesClick}
+      onClearSelection={handleClearLicenseTypesClick}
     >
       <CosDropdown.Trigger placeholder="Types">
         {selectedLicenseTypes.length > 0 ? `Types` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {licenseTypes.map((licenseType) => {
-          if (
-            licenseTypeSearchValue &&
-            !licenseType
-              .toLowerCase()
-              .includes(licenseTypeSearchValue.toLowerCase())
-          ) {
-            return null
-          }
-          return (
-            <CosDropdown.Item
-              key={licenseType}
-              item={licenseType}
-              onClick={() => handleLicenseTypeClick(licenseType)}
-            >
-              {upperFirst(licenseType)}
-            </CosDropdown.Item>
-          )
-        })}
+        {licenseTypes.map((licenseType) => (
+          <CosDropdown.Item
+            key={licenseType}
+            item={licenseType}
+            onClick={() => handleLicenseTypeClick(licenseType)}
+          >
+            {upperFirst(licenseType)}
+          </CosDropdown.Item>
+        ))}
       </CosDropdown.Menu>
     </CosDropdown>
   )

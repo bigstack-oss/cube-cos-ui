@@ -19,10 +19,10 @@ export const DropdownLayout = (
 
 export const DropdownRowHeader = () => (
   <>
-    <p className="primary-body2 col-span-1">Regular</p>
-    <p className="primary-body2 col-span-1">Regular w/Filter</p>
-    <p className="primary-body2 col-span-1">Checkbox</p>
-    <p className="primary-body2 col-span-1">Checkbox w/Filter</p>
+    <p className="primary-body2 col-span-1">Single Select</p>
+    <p className="primary-body2 col-span-1">Single Select w/Filter</p>
+    <p className="primary-body2 col-span-1">Multi Select</p>
+    <p className="primary-body2 col-span-1">Multi Select w/Filter</p>
   </>
 )
 

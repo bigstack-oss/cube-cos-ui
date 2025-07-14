@@ -1,6 +1,5 @@
 import { GetLicensesProductsEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
-import { ChangeEvent, useState } from 'react'
 
 const products = Object.values(GetLicensesProductsEnum)
 
@@ -13,12 +12,6 @@ export type ProductFilterProps = {
 export const ProductFilter = (props: ProductFilterProps) => {
   const { selectedProducts, handleProductsSelect, handleClearProductsClick } =
     props
-
-  const [productSearchValue, setProductSearchValue] = useState('')
-
-  const handleProductSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setProductSearchValue(e.target.value)
-  }
 
   const handleProductClick = (product: GetLicensesProductsEnum) => {
     const productSet = new Set(selectedProducts)
@@ -40,35 +33,26 @@ export const ProductFilter = (props: ProductFilterProps) => {
 
   return (
     <CosDropdown
-      type="search-checkbox"
-      variant="default"
+      size="sm"
+      type="checkbox"
+      variant="withFilter"
       selectedItems={selectedProducts}
-      searchValue={productSearchValue}
-      onSearchChange={handleProductSearchChange}
       onAllCheckChange={handleSelectAllProduct}
-      onClearClick={handleClearProductsClick}
+      onClearSelection={handleClearProductsClick}
     >
       <CosDropdown.Trigger placeholder="Products">
         {selectedProducts.length > 0 ? `Products` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {products.map((product) => {
-          if (
-            productSearchValue &&
-            !product.toLowerCase().includes(productSearchValue.toLowerCase())
-          ) {
-            return null
-          }
-          return (
-            <CosDropdown.Item
-              key={product}
-              item={product}
-              onClick={() => handleProductClick(product)}
-            >
-              {product}
-            </CosDropdown.Item>
-          )
-        })}
+        {products.map((product) => (
+          <CosDropdown.Item
+            key={product}
+            item={product}
+            onClick={() => handleProductClick(product)}
+          >
+            {product}
+          </CosDropdown.Item>
+        ))}
       </CosDropdown.Menu>
     </CosDropdown>
   )

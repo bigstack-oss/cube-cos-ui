@@ -2,8 +2,7 @@ import { PropsWithClassName } from '@cube-frontend/utils'
 import React, { cloneElement, PropsWithChildren } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CosButtonProps } from '../../CosButton/CosButton'
-import { CosDropdownProps } from '../../CosDropdown/CosDropdown'
-import { CosDropdownType } from '../../CosDropdown/utils'
+import { CosDropdownProps } from '../../CosDropdown/cosDropdownTypes'
 import { CosGeneralPanelContainer } from './CosGeneralPanelContainer'
 import {
   CosGeneralPanelTitleBar,
@@ -15,7 +14,7 @@ export type CosGeneralPanelContentProps = PropsWithChildren &
     topic?: string
     button?: React.ReactElement<CosButtonProps>
     icon?: React.ReactNode
-    dropdown?: React.ReactElement<CosDropdownProps<unknown, CosDropdownType>>
+    dropdown?: React.ReactElement<CosDropdownProps<unknown>>
     subtext?: string
     titleBarProps?: CosGeneralPanelTitleBarProps
   }

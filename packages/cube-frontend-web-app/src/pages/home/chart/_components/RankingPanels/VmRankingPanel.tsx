@@ -98,7 +98,7 @@ export const VmRankingPanel = () => {
         className="flex-1"
         topic="VM Ranking Top 10 (High to low)"
         dropdown={
-          <CosDropdown selectedItems={selectedItems}>
+          <CosDropdown type="radio" selectedItems={selectedItems}>
             <CosDropdown.Trigger>{selectedItems[0].name}</CosDropdown.Trigger>
             <CosDropdown.Menu>
               {vmRankingOptions.map((item) => (

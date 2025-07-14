@@ -57,17 +57,15 @@ export const FilterDropdown = <Key extends keyof FilterOptions>(
 
   return (
     <CosDropdown
+      size="sm"
       type="checkbox"
-      variant="in-table"
       selectedItems={selectedItems}
       onAllCheckChange={handleAllClick}
       disabled={false}
       isLoading={isLoading}
     >
       <CosDropdown.Trigger placeholder={filterLabel}>
-        {selectedValue?.length
-          ? `${filterLabel}: (${selectedValue?.length ?? 0})`
-          : undefined}
+        {selectedValue?.length ? filterLabel : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>{renderOptions()}</CosDropdown.Menu>
     </CosDropdown>

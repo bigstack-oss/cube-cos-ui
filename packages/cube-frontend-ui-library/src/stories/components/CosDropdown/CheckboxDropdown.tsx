@@ -31,17 +31,18 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
     }
   }
 
-  const onAllCheckChange = () => {
+  const onAllCheckChange = (checked: boolean) => {
     if (disabled) return
-    if (selectedItems.length === 0) {
-      setSelectedItems(mockData.filter((item) => !item.disabled))
+    const enabledItems = mockData.filter((item) => !item.disabled)
+    if (checked) {
+      setSelectedItems(enabledItems)
     } else {
       setSelectedItems([])
     }
   }
 
   const onClearSelection = () => {
-    setSelectedItems([])
+    onAllCheckChange(false)
   }
 
   if (variant === 'regular')

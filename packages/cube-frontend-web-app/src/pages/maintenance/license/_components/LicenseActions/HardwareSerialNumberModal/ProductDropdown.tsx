@@ -10,11 +10,7 @@ export const ProductDropdown = (props: ProductDropdownProps) => {
   const { selectedProduct, handleProductSelect } = props
 
   return (
-    <CosDropdown
-      type="regular"
-      variant="default"
-      selectedItems={[selectedProduct]}
-    >
+    <CosDropdown type="radio" selectedItems={[selectedProduct]}>
       <CosDropdown.Trigger placeholder="Product">
         {selectedProduct ? `${selectedProduct}` : 'Select a Product'}
       </CosDropdown.Trigger>

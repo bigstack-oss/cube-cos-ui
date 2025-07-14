@@ -1,6 +1,5 @@
 import { NodeLicenseCurrentStatus } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
-import { ChangeEvent, useState } from 'react'
 
 const nodeLicenseStatuses = Object.values(NodeLicenseCurrentStatus)
 
@@ -18,15 +17,6 @@ export const NodeLicenseStatusFilter = (props: LicenseStatusFilterProps) => {
     handleNodeLicenseStatusesSelect,
     handleClearNodeLicenseStatusesClick,
   } = props
-
-  const [nodeLicenseStatusSearchValue, setNodeLicenseStatusSearchValue] =
-    useState('')
-
-  const handleNodeLicenseStatusSearchChange = (
-    e: ChangeEvent<HTMLInputElement>,
-  ) => {
-    setNodeLicenseStatusSearchValue(e.target.value)
-  }
 
   const handleSelectAllLicenseStatuses = (checked: boolean) => {
     if (checked) {
@@ -55,37 +45,26 @@ export const NodeLicenseStatusFilter = (props: LicenseStatusFilterProps) => {
 
   return (
     <CosDropdown
-      type="search-checkbox"
-      variant="default"
+      size="sm"
+      type="checkbox"
+      variant="withFilter"
       selectedItems={selectedLicenseStatuses}
-      searchValue={nodeLicenseStatusSearchValue}
-      onSearchChange={handleNodeLicenseStatusSearchChange}
       onAllCheckChange={handleSelectAllLicenseStatuses}
-      onClearClick={handleClearNodeLicenseStatusesClick}
+      onClearSelection={handleClearNodeLicenseStatusesClick}
     >
       <CosDropdown.Trigger placeholder="Statuses">
         {selectedLicenseStatuses.length > 0 ? `Statuses` : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {nodeLicenseStatuses.map((licenseStatus) => {
-          if (
-            nodeLicenseStatusSearchValue &&
-            !licenseStatus
-              .toLowerCase()
-              .includes(nodeLicenseStatusSearchValue.toLowerCase())
-          ) {
-            return null
-          }
-          return (
-            <CosDropdown.Item
-              key={licenseStatus}
-              item={licenseStatus}
-              onClick={() => handleNodeLicenseStatusClick(licenseStatus)}
-            >
-              {licenseStatus}
-            </CosDropdown.Item>
-          )
-        })}
+        {nodeLicenseStatuses.map((licenseStatus) => (
+          <CosDropdown.Item
+            key={licenseStatus}
+            item={licenseStatus}
+            onClick={() => handleNodeLicenseStatusClick(licenseStatus)}
+          >
+            {licenseStatus}
+          </CosDropdown.Item>
+        ))}
       </CosDropdown.Menu>
     </CosDropdown>
   )

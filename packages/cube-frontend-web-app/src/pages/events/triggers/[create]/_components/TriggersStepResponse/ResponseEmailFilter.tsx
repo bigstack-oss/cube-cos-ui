@@ -12,16 +12,16 @@ export const ResponseEmailFilter = () => {
   return (
     <div className="mb-6 flex w-fit items-center gap-3">
       <CosDropdown
-        type="regular"
-        variant="in-table"
+        size="sm"
+        type="radio"
         selectedItems={[filter]}
         disabled={true}
       >
         <CosDropdown.Trigger>{filter}</CosDropdown.Trigger>
       </CosDropdown>
       <CosDropdown
-        type="regular"
-        variant="in-table"
+        size="sm"
+        type="radio"
         selectedItems={[email]}
         disabled={true}
       >

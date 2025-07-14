@@ -5,7 +5,7 @@ import InformationCircle from '../../../../components/CosIcon/monochrome/informa
 
 export const PanelDropdown = () => {
   return (
-    <CosDropdown selectedItems={['Option']}>
+    <CosDropdown type="radio" selectedItems={['Option']}>
       <CosDropdown.Trigger placeholder="Select a Country">
         Option
       </CosDropdown.Trigger>

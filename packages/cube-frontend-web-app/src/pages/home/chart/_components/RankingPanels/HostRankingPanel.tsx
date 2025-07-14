@@ -94,7 +94,7 @@ export const HostRankingPanel = () => {
         className="flex-1"
         topic="Host Ranking Top 10 (High to low)"
         dropdown={
-          <CosDropdown selectedItems={selectedItems}>
+          <CosDropdown type="radio" selectedItems={selectedItems}>
             <CosDropdown.Trigger>{selectedItems[0].name}</CosDropdown.Trigger>
             <CosDropdown.Menu>
               {hostRankingOptions.map((item) => (

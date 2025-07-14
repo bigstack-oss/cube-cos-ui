@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from 'react'
 import { upperFirst } from 'lodash'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { FilterOptions } from './useEventsQuery'
@@ -19,19 +18,6 @@ type FilterDropdownProps<Key extends keyof FilterOptions> = {
   onFieldClear: <Key extends keyof FilterOptions>(key: Key) => void
 }
 
-const filterOptionBySearchValue = <Key extends keyof FilterOptions>(
-  searchValue: string,
-  options: FilterOptions[Key],
-): string[] => {
-  if (searchValue === '') return options
-
-  const lowerSearchValue = searchValue.toLowerCase()
-
-  return options.filter((option) => {
-    return option.toLowerCase().includes(lowerSearchValue)
-  })
-}
-
 export const FilterDropdown = <Key extends keyof FilterOptions>(
   props: FilterDropdownProps<Key>,
 ) => {
@@ -45,56 +31,44 @@ export const FilterDropdown = <Key extends keyof FilterOptions>(
     onFieldClear,
   } = props
 
-  const [searchValue, setSearchValue] = useState('')
-
   const filterLabel = upperFirst(filterKey)
 
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value)
-  }
-
-  const handleAllCheckChange = () => {
-    const allChecked = selectedValue.length === options.length
-    if (allChecked) {
-      onFieldAllCheckChange(filterKey, [])
-    } else {
+  const onAllCheckChange = (checked: boolean) => {
+    if (checked) {
       onFieldAllCheckChange(filterKey, options)
+    } else {
+      onFieldAllCheckChange(filterKey, [])
     }
   }
 
-  const handleClearClick = () => {
+  const onClearSelection = () => {
     onFieldClear(filterKey)
-  }
-
-  const renderOptions = () => {
-    const filteredOptions = filterOptionBySearchValue(searchValue, options)
-
-    return filteredOptions.map((option) => (
-      <CosDropdown.Item
-        key={option}
-        item={option}
-        onClick={() => onFieldChange(filterKey, option)}
-      >
-        {option}
-      </CosDropdown.Item>
-    ))
   }
 
   return (
     <CosDropdown
-      type="search-checkbox"
-      variant="in-table"
+      size="sm"
+      type="checkbox"
+      variant="withFilter"
       isLoading={isLoading}
       selectedItems={selectedValue}
-      searchValue={searchValue}
-      onSearchChange={handleSearchChange}
-      onClearClick={handleClearClick}
-      onAllCheckChange={handleAllCheckChange}
+      onAllCheckChange={onAllCheckChange}
+      onClearSelection={onClearSelection}
     >
       <CosDropdown.Trigger placeholder={filterLabel}>
         {filterLabel}
       </CosDropdown.Trigger>
-      <CosDropdown.Menu>{renderOptions()}</CosDropdown.Menu>
+      <CosDropdown.Menu>
+        {options.map((option) => (
+          <CosDropdown.Item
+            key={option}
+            item={option}
+            onClick={() => onFieldChange(filterKey, option)}
+          >
+            {option}
+          </CosDropdown.Item>
+        ))}
+      </CosDropdown.Menu>
     </CosDropdown>
   )
 }
