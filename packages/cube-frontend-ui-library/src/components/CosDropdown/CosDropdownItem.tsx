@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react'
+import { useContext } from 'react'
 import { ItemCheckbox } from './_components/ItemCheckbox'
 import { ItemRadio } from './_components/ItemRadio'
 import { CosDropdownContext } from './cosDropdownContext'
@@ -32,18 +32,26 @@ export const CosDropdownItem = <Item,>(props: CosDropdownItemProps<Item>) => {
 
   const isSelected = selectedItems.includes(item)
 
-  const shouldDisplay = searchValue
-    ? label.toLowerCase().includes(searchValue.toLowerCase())
-    : true
+  const shouldDisplay = (): boolean => {
+    // Items in non-filter dropdowns should always be visible.
+    if (variant !== 'withFilter') return true
 
-  const onClick = useCallback(() => {
+    // If there isn't a search value, then show all the items.
+    if (!searchValue) return true
+
+    // If the item's label includes the search value (case-insensitive),
+    // then it should be visible; otherwise, it should be hidden.
+    return label.toLowerCase().includes(searchValue.toLowerCase())
+  }
+
+  const onClick = () => {
     if (disabled) return
 
     onClickProp()
     if (type === 'radio') toggleDropdownOpen()
-  }, [disabled, onClickProp, toggleDropdownOpen, type])
+  }
 
-  if (variant === 'withFilter' && !shouldDisplay) {
+  if (!shouldDisplay()) {
     return null
   }
 

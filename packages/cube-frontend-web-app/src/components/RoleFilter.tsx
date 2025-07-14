@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { upperFirst } from 'lodash'
 import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '../context/DataCenterContext'
@@ -19,26 +20,22 @@ export const RoleFilter = (props: RoleFilterProps) => {
 
   const allRoles = dataCenter!.roles
 
-  const handleAllSelect = (checked: boolean) => {
-    if (checked) {
-      handleRolesSelect(allRoles)
-    } else {
-      handleRolesSelect([])
-    }
+  const onAllCheckChange = (checked: boolean) => {
+    handleRolesSelect(checked ? allRoles : [])
   }
 
-  const handleClearRolesClick = () => {
+  const onClearSelection = () => {
     handleRolesSelect([])
   }
 
-  const handleRoleClick = (role: GetDataCentersResponseDataInnerRolesEnum) => {
-    const selectedRoleSet = new Set(selectedRoles)
+  const onRoleClick = (
+    role: GetDataCentersResponseDataInnerRolesEnum,
+  ): void => {
+    const nextRoles = selectedRoles.includes(role)
+      ? selectedRoles.filter((selectedRole) => selectedRole !== role)
+      : [...selectedRoles, role]
 
-    if (selectedRoleSet.has(role)) {
-      handleRolesSelect(selectedRoles.filter((sr) => sr !== role))
-    } else {
-      handleRolesSelect([...selectedRoles, role])
-    }
+    handleRolesSelect(nextRoles)
   }
 
   return (
@@ -47,20 +44,20 @@ export const RoleFilter = (props: RoleFilterProps) => {
       type="checkbox"
       variant="withFilter"
       selectedItems={selectedRoles}
-      onAllCheckChange={handleAllSelect}
-      onClearSelection={handleClearRolesClick}
+      onAllCheckChange={onAllCheckChange}
+      onClearSelection={onClearSelection}
     >
       <CosDropdown.Trigger placeholder="Roles">
-        {selectedRoles.length > 0 ? `Roles` : undefined}
+        {selectedRoles.length ? 'Roles' : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
         {allRoles.map((role) => (
           <CosDropdown.Item
             key={role}
             item={role}
-            onClick={() => handleRoleClick(role)}
+            onClick={() => onRoleClick(role)}
           >
-            {role}
+            {upperFirst(role)}
           </CosDropdown.Item>
         ))}
       </CosDropdown.Menu>

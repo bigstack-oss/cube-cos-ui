@@ -2,9 +2,9 @@ import { CosSearchBarFilter } from '@cube-frontend/ui-library'
 import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { ChangeEvent, useMemo } from 'react'
 import { IpRangeInputs } from './IpRangeInputs'
-import { RoleDropdown } from './RoleDropdown'
 import { HostFilterValue, IpRange } from './useHostFilter'
 import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
+import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
 
 type HostFilterProps = {
   filter: HostFilterValue
@@ -44,7 +44,10 @@ export const HostFilter = (props: HostFilterProps) => {
           onInputClear={onKeywordClear}
         />
       </div>
-      <RoleDropdown selectedRoles={selectedRoles} onChange={onRolesChange} />
+      <RoleFilter
+        selectedRoles={selectedRoles}
+        handleRolesSelect={onRolesChange}
+      />
       <IpRangeInputs ipRange={ipRange} onChange={onIpRangeChange} />
       {showClearButton && (
         <span className="ml-1 cursor-pointer p-2.5" onClick={onClearClick}>

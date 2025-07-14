@@ -37,9 +37,9 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
   const renderSelectedItemCount = () => {
     if (type === 'radio' || !isSelected) return null
     return (
-      <p
-        className={trigger.count({ variant, disabled })}
-      >{`(${selectedItems.length})`}</p>
+      <p className={trigger.count({ variant, disabled })}>
+        {`(${selectedItems.length})`}
+      </p>
     )
   }
 
