@@ -56,7 +56,7 @@ const initializePayload = (
 export const useEditTriggersPayload = (
   initialData: GetTriggerResponseData,
 ): UseEditTriggersPayload => {
-  const [isInitializing, setIsInitializing] = useState(true)
+  const [isInitializing, _] = useState(true)
 
   const [payload, setPayload] = useState<UpsertTriggersPayload>(() =>
     initializePayload(initialData),

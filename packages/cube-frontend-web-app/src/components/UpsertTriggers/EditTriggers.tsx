@@ -1,12 +1,15 @@
-import { ReactNode, useContext } from 'react'
+import {
+  ReactNode,
+  //useContext
+} from 'react'
 import { CosStroke } from '@cube-frontend/ui-library'
 import {
-  EventsApiGetPredefinedEventsRequest,
+  //  EventsApiGetPredefinedEventsRequest,
   GetTriggerResponseData,
 } from '@cube-frontend/api'
-import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+// import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+// import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
+// import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useStepParam } from './_components/useStepParam'
 import { useEditTriggersPayload } from './_components/useEditTriggersPayload'
 import { UpsertTriggersSteps } from './_components/UpsertTriggersSteps'
@@ -27,9 +30,9 @@ type EditTriggersProps = {
 }
 
 export const EditTriggers = (props: EditTriggersProps) => {
-  const { initialData, errorMessage, onPublishClick } = props
+  const { errorMessage, onPublishClick } = props
 
-  const { dataCenter } = useContext(DataCenterContext)
+  // const { dataCenter } = useContext(DataCenterContext)
 
   const { step, goToSetResponse, goToAddDescription } = useStepParam([
     UpsertTriggersStep.SelectEvents,
@@ -61,17 +64,17 @@ export const EditTriggers = (props: EditTriggersProps) => {
     mockSpecificTrigger,
   )
 
-  const { isLoading: isPredefinedEventsLoading, data: predefinedEvents } =
-    useCosGetRequest(
-      eventsApi.getPredefinedEvents,
-      (): EventsApiGetPredefinedEventsRequest => ({
-        dataCenter: dataCenter!.name,
-        types: payload.alertTypes,
-        severities: payload.severities,
-        categories: payload.categories,
-        ids: payload.eventIds,
-      }),
-    )
+  // const { isLoading: isPredefinedEventsLoading, data: predefinedEvents } =
+  //   useCosGetRequest(
+  //     eventsApi.getPredefinedEvents,
+  //     (): EventsApiGetPredefinedEventsRequest => ({
+  //       dataCenter: dataCenter!.name,
+  //       types: payload.alertTypes,
+  //       severities: payload.severities,
+  //       categories: payload.categories,
+  //       ids: payload.eventIds,
+  //     }),
+  //   )
 
   const renderContentFnMap: Record<UpsertTriggersStep, () => ReactNode> = {
     selectEvents: () => (
