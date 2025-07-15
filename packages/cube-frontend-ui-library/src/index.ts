@@ -59,6 +59,7 @@ export * from './components/CosNotification/CosInlineNotification/CosInlineNotif
 export * from './components/CosNotification/CosToastNotification/CosToastProvider'
 export * from './components/CosNotification/CosToastNotification/useToast'
 export { type CosToastType } from './components/CosNotification/CosToastNotification/utils'
+export { type CosNotificationType } from './components/CosNotification/cosNotificationTypes'
 export * from './components/CosPagination/CosPagination'
 export {
   DEFAULT_ITEMS_PER_PAGE,

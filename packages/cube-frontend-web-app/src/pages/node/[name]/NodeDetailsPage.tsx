@@ -6,9 +6,9 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { useContext } from 'react'
 import { Navigate, useParams } from 'react-router'
+import { NodeDevices } from './_components/devices/NodeDevices'
 import { NodeCharts } from './_components/NodeCharts'
 import { NodeDetailsHeader } from './_components/NodeDetailsHeader'
-import { NodeDevices } from './_components/NodeDevices'
 import { NodeEvents } from './_components/NodeEvents'
 import { NodeNetworks } from './_components/NodeNetworks'
 import { NodeSummary } from './_components/NodeSummary'
@@ -50,7 +50,7 @@ export const NodeDetailsPage = () => {
       {(!node || node.status === NodeStatusEnum.Up) && (
         <>
           <NodeNetworks node={node} />
-          <NodeDevices node={node} />
+          <NodeDevices hostname={node?.hostname} />
           <NodeCharts node={node} />
           <NodeEvents node={node} />
         </>
