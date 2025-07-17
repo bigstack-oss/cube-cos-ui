@@ -1,8 +1,12 @@
 import { z } from 'zod'
 import { upperFirst } from 'lodash'
-import { GetTriggersResponseDataTriggersInner } from '@cube-frontend/api'
+import {
+  CreateTriggerRequest,
+  GetTriggersResponseDataTriggersInner,
+} from '@cube-frontend/api'
 import { CosTableRow, DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
+import { UpsertTriggersPayload } from '@cube-frontend/web-app/components/UpsertTriggers/upsertTriggersUtils'
 
 export type TriggerRow = GetTriggersResponseDataTriggersInner & CosTableRow
 
@@ -66,3 +70,27 @@ export const searchParamsToQuery = (
     itemsPerPage: parsedQuery?.itemsPerPage ?? DEFAULT_ITEMS_PER_PAGE,
   }
 }
+
+export const payloadToCreateRequest = (
+  payload: UpsertTriggersPayload,
+): CreateTriggerRequest => ({
+  name: payload.name,
+  description: payload.description ?? '',
+  attribute: {
+    alertTypes: payload.alertTypes,
+    severities: payload.severities,
+    categories: payload.categories,
+    eventIds: payload.eventIds,
+  },
+  response: {
+    // TODO: Align script request type better to API schema
+    script: {
+      filePath: payload.script!.fileName,
+      content: payload.script!.content,
+    },
+    notifications: {
+      emails: payload.emails.map((email) => email.address),
+      slacks: payload.slacks.map((slack) => slack.url),
+    },
+  },
+})
