@@ -2,13 +2,15 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import xor from 'lodash/xor'
 import { CosDropdown, CosModal } from '@cube-frontend/ui-library'
 import {
+  GetPredefinedEventsCategoriesEnum,
+  GetPredefinedEventsIdsEnum,
   GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
 } from '@cube-frontend/api'
 import {
   attributeLabelMap,
   TriggerAttributeKeys,
-  TriggerAttributes,
+  TriggerAttribute,
   UpsertTriggersPayload,
 } from '../../upsertTriggersUtils'
 import { AttributeCheckboxGroup } from './AttributeCheckboxGroup'
@@ -25,8 +27,8 @@ const checkIsAllChecked = (
 
 const checkIsSelectionChanged = (
   dropdownOptions: TriggerAttributeKeys[],
-  defaultSelection: TriggerAttributes,
-  selection: TriggerAttributes,
+  defaultSelection: TriggerAttribute,
+  selection: TriggerAttribute,
 ): boolean => {
   return dropdownOptions.some((key) => {
     const defaultValue = defaultSelection[key]
@@ -38,19 +40,19 @@ const checkIsSelectionChanged = (
 type AddAttributeModalProps = {
   isModalOpen: boolean
   payload: UpsertTriggersPayload
-  attributes: TriggerAttributes
+  attribute: TriggerAttribute
   activeType: TriggerAttributeKeys | undefined
   dropdownOptions: TriggerAttributeKeys[]
   onModelClose: () => void
   onActiveTypeChange: (type: TriggerAttributeKeys) => void
-  onActionClick: (attributes: TriggerAttributes) => void
+  onActionClick: (attributes: TriggerAttribute) => void
 }
 
 export const AddAttributeModal = (props: AddAttributeModalProps) => {
   const {
     isModalOpen,
     payload,
-    attributes,
+    attribute,
     activeType,
     dropdownOptions,
     onModelClose: onModelCloseProp,
@@ -58,7 +60,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     onActionClick: onActionClickProp,
   } = props
 
-  const { alertTypes, severities, categories, eventIds } = attributes
+  const { alertTypes, severities, categories, eventIds } = attribute
 
   const {
     alertTypes: defaultSelectedAlertTypes,
@@ -69,7 +71,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
 
   // Clone values to avoid referencing the original payload fields directly
   // Prevents unintended shared mutations in state
-  const cloneAttributes = useCallback((): TriggerAttributes => {
+  const cloneAttributes = useCallback((): TriggerAttribute => {
     return structuredClone({
       alertTypes: defaultSelectedAlertTypes,
       severities: defaultSelectedSeverities,
@@ -84,7 +86,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
   ])
 
   const [selectedAttributes, setSelectedAttributes] =
-    useState<TriggerAttributes>(cloneAttributes)
+    useState<TriggerAttribute>(cloneAttributes)
 
   useEffect(() => {
     setSelectedAttributes(cloneAttributes())
@@ -137,7 +139,9 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     })
   }
 
-  const onSelectedCategoryChange = (category: string) => {
+  const onSelectedCategoryChange = (
+    category: GetPredefinedEventsCategoriesEnum,
+  ) => {
     setSelectedAttributes((prev) => ({
       ...prev,
       categories: xor(prev.categories, [category]),
@@ -154,7 +158,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     })
   }
 
-  const onSelectedEventIdChange = (eventId: string) => {
+  const onSelectedEventIdChange = (eventId: GetPredefinedEventsIdsEnum) => {
     setSelectedAttributes((prev) => ({
       ...prev,
       eventIds: xor(prev.eventIds, [eventId]),
@@ -196,9 +200,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         )}
         attributes={alertTypes}
         selectedAttributes={selectedAttributes.alertTypes}
-        onAttributesChange={
-          onSelectedAlertTypeChange as (attribute: string) => void
-        }
+        onAttributesChange={onSelectedAlertTypeChange}
         onAllAttributesChange={onAllSelectedAlertTypesChange}
       />
     ),
@@ -211,9 +213,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
         )}
         attributes={severities}
         selectedAttributes={selectedAttributes.severities}
-        onAttributesChange={
-          onSelectedSeverityChange as (attribute: string) => void
-        }
+        onAttributesChange={onSelectedSeverityChange}
         onAllAttributesChange={onAllSelectedSeveritiesChange}
       />
     ),

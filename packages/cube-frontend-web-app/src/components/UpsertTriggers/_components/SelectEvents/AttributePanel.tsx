@@ -1,17 +1,20 @@
 import { useState } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
-import { CosButton, CosStroke } from '@cube-frontend/ui-library'
+import { isEmpty } from 'lodash'
+import { CosButton, CosSkeleton, CosStroke } from '@cube-frontend/ui-library'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
 import {
+  GetPredefinedEventsCategoriesEnum,
+  GetPredefinedEventsIdsEnum,
   GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
 } from '@cube-frontend/api'
 import {
   attributeLabelMap,
+  TriggerAttribute,
   TriggerAttributeKeys,
-  TriggerAttributes,
   UpsertTriggersPayload,
 } from '../../upsertTriggersUtils'
 import { TriggersStackCard } from '../TriggersStackCard'
@@ -21,7 +24,7 @@ const panel = cva(
   [
     'flex flex-col gap-y-4',
     'rounded-[5px] bg-grey-0 p-6 shadow-[0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]',
-    'transition-[width] duration-300',
+    'transition-all duration-300',
   ],
   {
     variants: {
@@ -34,8 +37,10 @@ const panel = cva(
 )
 
 const filterUnselectedAttributeOptions = (
-  payload: UpsertTriggersPayload,
+  payload: UpsertTriggersPayload | undefined,
 ): TriggerAttributeKeys[] => {
+  if (!payload) return []
+
   const optionKeys: TriggerAttributeKeys[] = [
     'alertTypes',
     'severities',
@@ -50,25 +55,30 @@ const filterUnselectedAttributeOptions = (
 }
 
 type AttributePanelProps = {
+  isBuiltIn: boolean
   isPanelOpen: boolean
-  isLoading: boolean
-  payload: UpsertTriggersPayload
-  attributes: TriggerAttributes
-  isValueValid: boolean
+  isInitialDataLoading: boolean
+  isMaterialsLoading: boolean
+  isAttributeChanged: boolean
+  payload: UpsertTriggersPayload | undefined
+  attribute: TriggerAttribute
   onTogglePanel: () => void
   onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
   onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
-  onCategorySelect: (categories: string[]) => void
-  onEventIdSelect: (eventIds: string[]) => void
+  onCategorySelect: (categories: GetPredefinedEventsCategoriesEnum[]) => void
+  onEventIdSelect: (eventIds: GetPredefinedEventsIdsEnum[]) => void
   onResetClick: () => void
 }
 
 export const AttributePanel = (props: AttributePanelProps) => {
   const {
+    isBuiltIn,
     isPanelOpen,
+    isInitialDataLoading,
+    isMaterialsLoading,
+    isAttributeChanged,
     payload,
-    attributes,
-    isValueValid,
+    attribute,
     onTogglePanel,
     onAlertTypeSelect,
     onSeveritySelect,
@@ -93,7 +103,7 @@ export const AttributePanel = (props: AttributePanelProps) => {
     return unselectedAttributeOptions.length === 0
   }
 
-  const onActionClick = (attributes: TriggerAttributes) => {
+  const onActionClick = (attributes: TriggerAttribute) => {
     const { alertTypes, severities, categories, eventIds } = attributes
     onAlertTypeSelect(alertTypes)
     onSeveritySelect(severities)
@@ -124,55 +134,88 @@ export const AttributePanel = (props: AttributePanelProps) => {
     setIsModelOpen(true)
   }
 
-  const renderAlertTypeStackCard = () => {
-    if (payload.alertTypes.length === 0) return null
+  const renderAlertTypeStackCard = (
+    alertTypes: GetPredefinedEventsTypesEnum[],
+  ) => {
+    if (isEmpty(alertTypes)) return null
 
     return (
       <TriggersStackCard
         title={attributeLabelMap.alertTypes}
-        tags={payload.alertTypes}
+        tags={alertTypes}
+        actionsDisabled={isBuiltIn}
         onEditClick={() => onEditAttributeButtonClick('alertTypes')}
         onRemoveClick={() => onAlertTypeSelect([])}
       />
     )
   }
 
-  const renderSeverityStackCard = () => {
-    if (payload.severities.length === 0) return null
+  const renderSeverityStackCard = (
+    severities: GetPredefinedEventsSeveritiesEnum[],
+  ) => {
+    if (isEmpty(severities)) return null
 
     return (
       <TriggersStackCard
         title={attributeLabelMap.severities}
-        tags={payload.severities}
+        tags={severities}
+        actionsDisabled={isBuiltIn}
         onEditClick={() => onEditAttributeButtonClick('severities')}
         onRemoveClick={() => onSeveritySelect([])}
       />
     )
   }
 
-  const renderCategoryStackCard = () => {
-    if (payload.categories.length === 0) return null
+  const renderCategoryStackCard = (categories: string[]) => {
+    if (isEmpty(categories)) return null
 
     return (
       <TriggersStackCard
         title={attributeLabelMap.categories}
-        tags={payload.categories}
+        tags={categories}
+        actionsDisabled={isBuiltIn}
         onEditClick={() => onEditAttributeButtonClick('categories')}
         onRemoveClick={() => onCategorySelect([])}
       />
     )
   }
 
-  const renderEventIdStackCard = () => {
-    if (payload.eventIds.length === 0) return null
+  const renderEventIdStackCard = (eventIds: string[]) => {
+    if (isEmpty(eventIds)) return null
 
     return (
       <TriggersStackCard
         title={attributeLabelMap.eventIds}
-        tags={payload.eventIds}
+        tags={eventIds}
+        actionsDisabled={isBuiltIn}
         onEditClick={() => onEditAttributeButtonClick('eventIds')}
         onRemoveClick={() => onEventIdSelect([])}
       />
+    )
+  }
+
+  const renderStackCards = () => {
+    if (isInitialDataLoading) {
+      return (
+        <div className="flex items-center gap-4">
+          <CosSkeleton className="h-[103px] w-full grow" />
+          <div className="flex items-center gap-2">
+            <CosSkeleton className="size-[34px]" />
+            <CosSkeleton className="size-[34px]" />
+          </div>
+        </div>
+      )
+    }
+
+    if (!payload) return
+
+    return (
+      <>
+        {renderAlertTypeStackCard(payload.alertTypes)}
+        {renderSeverityStackCard(payload.severities)}
+        {renderCategoryStackCard(payload.categories)}
+        {renderEventIdStackCard(payload.eventIds)}
+      </>
     )
   }
 
@@ -182,13 +225,13 @@ export const AttributePanel = (props: AttributePanelProps) => {
         <h4 className="secondary-h4 text-functional-title">
           Add Attributes to Select Events
         </h4>
-        <CosButton
-          className="rounded-full"
-          type="ghost"
-          usage="icon-only"
-          Icon={InformationCircle}
+        <button
+          type="button"
+          className="inline-flex size-[26px] cursor-pointer items-center justify-center rounded-full bg-blue-150"
           onClick={onTogglePanel}
-        />
+        >
+          <InformationCircle className="icon-lg text-functional-text" />
+        </button>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <CosButton
@@ -196,7 +239,12 @@ export const AttributePanel = (props: AttributePanelProps) => {
           usage="icon-left"
           Icon={AddSquare}
           onClick={onAddAttributeButtonClick}
-          disabled={checkIsAllSelected()}
+          disabled={
+            isInitialDataLoading ||
+            isMaterialsLoading ||
+            isBuiltIn ||
+            checkIsAllSelected()
+          }
         >
           Add Attributes
         </CosButton>
@@ -205,27 +253,26 @@ export const AttributePanel = (props: AttributePanelProps) => {
           <CosButton
             type="ghost"
             onClick={onResetClick}
-            disabled={!isValueValid}
+            disabled={isInitialDataLoading || isBuiltIn || !isAttributeChanged}
           >
             Reset
           </CosButton>
         </div>
       </div>
       <CosStroke />
-      {renderAlertTypeStackCard()}
-      {renderSeverityStackCard()}
-      {renderCategoryStackCard()}
-      {renderEventIdStackCard()}
-      <AddAttributeModal
-        isModalOpen={isModelOpen}
-        payload={payload}
-        attributes={attributes}
-        activeType={activeType}
-        dropdownOptions={dropdownOptions}
-        onModelClose={onModalClose}
-        onActiveTypeChange={onActiveTypeChange}
-        onActionClick={onActionClick}
-      />
+      {renderStackCards()}
+      {!!payload && (
+        <AddAttributeModal
+          isModalOpen={isModelOpen}
+          payload={payload}
+          attribute={attribute}
+          activeType={activeType}
+          dropdownOptions={dropdownOptions}
+          onModelClose={onModalClose}
+          onActiveTypeChange={onActiveTypeChange}
+          onActionClick={onActionClick}
+        />
+      )}
     </div>
   )
 }

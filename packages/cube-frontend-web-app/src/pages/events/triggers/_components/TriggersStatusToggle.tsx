@@ -13,18 +13,21 @@ export const TriggersStatusToggle = (props: TriggersStatusToggleProps) => {
     name,
     response: { types },
     enabled,
-    status: { isUpdating },
+    isProcessing,
   } = row
 
-  const handleToggleChange = () => {
-    onChange(name)
-  }
+  /**
+   * Prevents user interaction with the status toggle when:
+   * 1. The trigger has just been created, edited, or deleted
+   * 2. Until the trigger's `response` field has been successfully set
+   */
+  const isDisabled = isProcessing || types.length === 0
 
   return (
     <CosToggle
       isOn={!!enabled}
-      onChange={handleToggleChange}
-      disabled={isUpdating || types.length === 0}
+      onChange={() => onChange(name)}
+      disabled={isDisabled}
     />
   )
 }

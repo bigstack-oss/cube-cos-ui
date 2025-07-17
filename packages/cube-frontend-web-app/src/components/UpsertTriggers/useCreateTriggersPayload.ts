@@ -1,13 +1,16 @@
 import { ChangeEvent, useState } from 'react'
 import {
+  GetPredefinedEventsCategoriesEnum,
+  GetPredefinedEventsIdsEnum,
   GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
+  TriggerResponseScript,
 } from '@cube-frontend/api'
 import {
   EmailRecipientTableRow,
   SlackChannelTableRow,
 } from './_components/SetResponse/SetResponse'
-import { ScriptFile, UpsertTriggersPayload } from './upsertTriggersUtils'
+import { UpsertTriggersPayload } from './upsertTriggersUtils'
 
 const getInitialPayload = (): UpsertTriggersPayload => {
   return {
@@ -27,11 +30,11 @@ type UseCreateTriggersPayload = {
   payload: UpsertTriggersPayload
   onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
   onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
-  onCategorySelect: (categories: string[]) => void
-  onEventIdSelect: (eventIds: string[]) => void
+  onCategorySelect: (categories: GetPredefinedEventsCategoriesEnum[]) => void
+  onEventIdSelect: (eventIds: GetPredefinedEventsIdsEnum[]) => void
   onEmailSelect: (emails: EmailRecipientTableRow[]) => void
   onSlackSelect: (slacks: SlackChannelTableRow[]) => void
-  onScriptChange: (file: ScriptFile) => void
+  onScriptChange: (file: TriggerResponseScript) => void
   onScriptRemove: () => void
   onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
@@ -61,14 +64,16 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     }))
   }
 
-  const onCategorySelect = (categories: string[]): void => {
+  const onCategorySelect = (
+    categories: GetPredefinedEventsCategoriesEnum[],
+  ): void => {
     setPayload((prev) => ({
       ...prev,
       categories,
     }))
   }
 
-  const onEventIdSelect = (eventIds: string[]): void => {
+  const onEventIdSelect = (eventIds: GetPredefinedEventsIdsEnum[]): void => {
     setPayload((prev) => ({
       ...prev,
       eventIds,
@@ -89,7 +94,7 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     }))
   }
 
-  const onScriptChange = (file: ScriptFile) => {
+  const onScriptChange = (file: TriggerResponseScript) => {
     setPayload((prev) => ({
       ...prev,
       script: file,

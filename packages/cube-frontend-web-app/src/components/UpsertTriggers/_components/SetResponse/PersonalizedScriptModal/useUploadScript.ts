@@ -8,7 +8,7 @@ import {
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { fileToBase64 } from '@cube-frontend/web-app/utils/file'
 import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
-import { ScriptFile, UpsertTriggersPayload } from '../../../upsertTriggersUtils'
+import { TriggerResponseScript } from '@cube-frontend/api'
 
 const MAX_SIZE_IN_BYTES = 10 * 1024 * 1024 // 10 MiB
 
@@ -18,103 +18,110 @@ type TestResult = {
 }
 
 type UseUploadScriptOptions = {
-  payload: UpsertTriggersPayload
-  onVerifyScriptSuccess: (file: ScriptFile) => void
+  isModalOpen: boolean
+  script: TriggerResponseScript | undefined
+  onVerifyScriptSuccess: (file: TriggerResponseScript) => void
 }
 
 type UseUploadScript = {
   fileInputRef: React.RefObject<HTMLInputElement | null>
-  scriptInfo: ScriptFile | undefined
+  scriptInfo: TriggerResponseScript | undefined
   errorMessage: string
   showScriptTestResult: TestResult
   onFileChange: ChangeEventHandler<HTMLInputElement>
   onUploadScriptButtonClick: () => void
   onTestRunningButtonClick: () => void
   onActionClick: () => void
-  onFileInputClear: () => void
+  onScriptClear: () => void
 }
 
 export const useUploadScript = (
   options: UseUploadScriptOptions,
 ): UseUploadScript => {
-  const { payload, onVerifyScriptSuccess } = options
+  const { isModalOpen, script, onVerifyScriptSuccess } = options
 
   const { dataCenter } = useContext(DataCenterContext)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const [scriptInfo, setScriptInfo] = useState<ScriptFile | undefined>(
-    payload.script,
-  )
+  const [scriptInfo, setScriptInfo] = useState<TriggerResponseScript>()
 
   const [errorMessage, setErrorMessage] = useState('')
 
   const [showScriptTestResult, setShowScriptTestResult] = useState<TestResult>({
     status: 'untested',
-    message: undefined,
   })
 
+  /**
+   * Sync script info when modal opens or script changes.
+   * - If script is undefined: reset state.
+   * - If script exists (already tested): mark as succeeded.
+   */
   useEffect(() => {
-    // Script needs to be tested successfully to be added to payload.
-    // If there is an existing script in payload, it means it's already been tested and passed.
-    // Thus, mark the test result as succeeded by default.
-    if (payload.script) {
-      setScriptInfo(payload.script)
-      setShowScriptTestResult({
-        status: 'testSucceeded',
-        message: undefined,
-      })
+    if (!script) {
+      onScriptClear()
+      return
     }
-  }, [payload.script])
+
+    setScriptInfo(script)
+    setShowScriptTestResult({ status: 'testSucceeded', message: undefined })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isModalOpen, script])
+
+  const onFileInputClear = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  const onScriptClear = () => {
+    setScriptInfo(undefined)
+    setShowScriptTestResult({ status: 'untested', message: undefined })
+    setErrorMessage('')
+    onFileInputClear()
+  }
 
   const onUploadScriptButtonClick = () => {
     fileInputRef.current?.click()
   }
 
+  /**
+   * Handle file input change:
+   * - Reject if no file or size exceeds limit
+   * - Convert to base64 and update state
+   * - Reset test status
+   */
   const onFileChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
     setErrorMessage('')
-
     const scriptFile = e.target.files?.[0]
-    if (!scriptFile) {
-      return
-    }
+
+    if (!scriptFile) return
 
     if (scriptFile.size > MAX_SIZE_IN_BYTES) {
+      onScriptClear()
       setErrorMessage('File is too large. Maximum allowed size is 10MiB.')
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
-        setScriptInfo(undefined)
-        setShowScriptTestResult({
-          status: 'untested',
-          message: undefined,
-        })
-      }
       return
     }
 
     try {
       const base64 = await fileToBase64(scriptFile)
-      setScriptInfo({
-        fileName: scriptFile.name,
-        content: base64,
-      })
-      setShowScriptTestResult({
-        status: 'untested',
-        message: undefined,
-      })
+      setScriptInfo({ name: scriptFile.name, content: base64 })
+      setShowScriptTestResult({ status: 'untested' })
     } catch {
       setErrorMessage('Failed to read script file.')
     } finally {
-      const input = fileInputRef.current
-      if (input) {
-        // Clear input to allow re-uploading the same file
-        input.value = ''
-      }
+      // Allow re-uploading the same file
+      onFileInputClear()
     }
   }
 
+  /**
+   * Verify script content,
+   * and update result based on response.
+   */
   const onTestRunningButtonClick = async () => {
     if (!scriptInfo) return
+
     setShowScriptTestResult({
       status: 'testing',
       message: 'Running script test...',
@@ -126,9 +133,11 @@ export const useUploadScript = (
         verifyMaterialScriptRequest: { script: scriptInfo.content },
       })
 
+      const formattedResult = `Script:\n${testResult.data.data}\n\nResult:\n${testResult.data.msg}`
+
       setShowScriptTestResult({
         status: 'testSucceeded',
-        message: testResult.data.msg,
+        message: formattedResult,
       })
     } catch (error) {
       setShowScriptTestResult({
@@ -143,15 +152,6 @@ export const useUploadScript = (
     onVerifyScriptSuccess(scriptInfo)
   }
 
-  const onFileInputClear = () => {
-    setScriptInfo(undefined)
-    setErrorMessage('')
-    setShowScriptTestResult({
-      status: 'untested',
-      message: undefined,
-    })
-  }
-
   return {
     fileInputRef,
     scriptInfo,
@@ -161,6 +161,6 @@ export const useUploadScript = (
     onUploadScriptButtonClick,
     onTestRunningButtonClick,
     onActionClick,
-    onFileInputClear,
+    onScriptClear,
   }
 }

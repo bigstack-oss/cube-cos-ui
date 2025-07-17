@@ -1,15 +1,16 @@
-import { useMemo } from 'react'
 import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import {
-  GetPredefinedEventFilterResponseDataEventsInner,
+  GetPredefinedEventFilterResponseDataInner,
+  GetPredefinedEventsCategoriesEnum,
+  GetPredefinedEventsIdsEnum,
   GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
 } from '@cube-frontend/api'
 import {
   isEventsValid,
-  TriggerAttributes,
+  TriggerAttribute,
   UpsertTriggersPayload,
 } from '../../upsertTriggersUtils'
 import { AttributePanel } from './AttributePanel'
@@ -17,26 +18,35 @@ import { AttributeResultPanel } from './AttributeResultPanel'
 import { isEmpty } from 'lodash'
 
 type SelectEventsProps = {
-  isLoading: boolean
-  isPredefinedEventsLoading: boolean
-  payload: UpsertTriggersPayload
-  attributes: TriggerAttributes
-  predefinedEvents: GetPredefinedEventFilterResponseDataEventsInner[]
+  /**
+   * @default false
+   */
+  isBuiltIn?: boolean
+  isInitialDataLoading: boolean
+  isMatchingEventsLoading: boolean
+  isMaterialsLoading: boolean
+  isAttributeChanged: boolean
+  payload: UpsertTriggersPayload | undefined
+  attribute: TriggerAttribute
+  matchingEvents: GetPredefinedEventFilterResponseDataInner[]
   onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
   onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
-  onCategorySelect: (categories: string[]) => void
-  onEventIdSelect: (eventIds: string[]) => void
+  onCategorySelect: (categories: GetPredefinedEventsCategoriesEnum[]) => void
+  onEventIdSelect: (eventIds: GetPredefinedEventsIdsEnum[]) => void
   onNextClick: () => void
   onResetClick: () => void
 }
 
 export const SelectEvents = (props: SelectEventsProps) => {
   const {
-    isLoading,
-    isPredefinedEventsLoading,
+    isBuiltIn = false,
+    isInitialDataLoading,
+    isMatchingEventsLoading,
+    isMaterialsLoading,
+    isAttributeChanged,
     payload,
-    attributes,
-    predefinedEvents,
+    attribute,
+    matchingEvents,
     onAlertTypeSelect,
     onSeveritySelect,
     onCategorySelect,
@@ -51,21 +61,20 @@ export const SelectEvents = (props: SelectEventsProps) => {
     close: onPanelClose,
   } = useOpenState(true)
 
-  const predefinedEventIds = predefinedEvents.map((event) => event.id)
-
-  const isValueValid = useMemo(() => {
-    return isEventsValid(payload) && !isEmpty(predefinedEvents)
-  }, [payload, predefinedEvents])
+  const isValueValid =
+    !!payload && isEventsValid(payload) && !isEmpty(matchingEvents)
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-start justify-between gap-x-3">
         <AttributePanel
+          isBuiltIn={isBuiltIn}
           isPanelOpen={isPanelOpen}
-          isLoading={isLoading}
+          isInitialDataLoading={isInitialDataLoading}
+          isMaterialsLoading={isMaterialsLoading}
+          isAttributeChanged={isAttributeChanged}
           payload={payload}
-          attributes={attributes}
-          isValueValid={isValueValid}
+          attribute={attribute}
           onTogglePanel={onTogglePanel}
           onAlertTypeSelect={onAlertTypeSelect}
           onSeveritySelect={onSeveritySelect}
@@ -75,8 +84,8 @@ export const SelectEvents = (props: SelectEventsProps) => {
         />
         <AttributeResultPanel
           isPanelOpen={isPanelOpen}
-          isLoading={isPredefinedEventsLoading}
-          matchingEventIds={predefinedEventIds}
+          isMatchingEventsLoading={isMatchingEventsLoading}
+          matchingEvents={matchingEvents ?? []}
           onPanelClose={onPanelClose}
         />
       </div>
@@ -85,7 +94,7 @@ export const SelectEvents = (props: SelectEventsProps) => {
         className="self-start"
         usage="icon-right"
         Icon={ChevronRight}
-        disabled={!isValueValid}
+        disabled={isInitialDataLoading || !isValueValid}
         onClick={onNextClick}
       >
         Next

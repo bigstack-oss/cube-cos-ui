@@ -1,11 +1,11 @@
 import { Link } from 'react-router'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
+import { noop } from 'lodash'
 import EditIcon from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import DeleteIcon from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { TriggerRow } from '../utils'
-import { noop } from 'lodash'
 
 const button = cva('icon-md text-functional-text', {
   variants: {
@@ -21,21 +21,18 @@ export const TriggersActionCell = (props: TriggersActionCellProps) => {
   const { row } = props
 
   const renderEditButton = () => {
+    const isProcessing = row.status?.current !== 'ok' || row.status.isProcessing
+
     const iconElement = (
-      <EditIcon
-        className={twMerge(button({ disabled: row.status.isUpdating }))}
-      />
+      <EditIcon className={twMerge(button({ disabled: isProcessing }))} />
     )
 
-    if (row.status.isUpdating) {
-      return iconElement
-    }
+    if (isProcessing) return iconElement
 
     return (
-      /**
-       * TODO: implement edit triggers
-       */
-      <Link to={CosRoutesEnum.EVENTS_TRIGGERS_EDIT_PAGE}>{iconElement}</Link>
+      <Link to={`${CosRoutesEnum.EVENTS_TRIGGERS_EDIT_PAGE}?name=${row.id}`}>
+        {iconElement}
+      </Link>
     )
   }
 

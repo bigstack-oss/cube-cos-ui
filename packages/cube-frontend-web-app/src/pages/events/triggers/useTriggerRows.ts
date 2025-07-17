@@ -104,10 +104,7 @@ export const useTriggerRows = (
 
     patchRow(triggerName, {
       enabled: newEnabled,
-      status: {
-        ...targetRow.status,
-        isUpdating: true,
-      },
+      isProcessing: true,
     })
 
     try {
@@ -126,10 +123,7 @@ export const useTriggerRows = (
        */
       patchRow(triggerName, {
         enabled: enabledBeforeToggle,
-        status: {
-          ...targetRow.status,
-          isUpdating: false,
-        },
+        isProcessing: false,
       })
       intervenedTriggerNamesRef.current.delete(triggerName)
       /**

@@ -60,9 +60,7 @@ export const EventsTriggersPage = () => {
             {(name, row) => (
               <div className="flex items-center gap-2">
                 {name}
-                {row.status.isUpdating && (
-                  <CosLoadingSpinner variant="dot120" />
-                )}
+                {row.isProcessing && <CosLoadingSpinner variant="dot120" />}
               </div>
             )}
           </TriggersTable.Column>

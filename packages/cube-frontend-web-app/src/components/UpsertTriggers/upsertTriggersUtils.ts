@@ -1,10 +1,10 @@
 import { isEmpty } from 'lodash'
 import {
+  GetPredefinedEventsCategoriesEnum,
+  GetPredefinedEventsIdsEnum,
   GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
-  GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner,
-  GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner,
-  GetTriggerMaterialsResponseDataResponseScriptTypes,
+  TriggerResponseScript,
 } from '@cube-frontend/api'
 import {
   EmailRecipientTableRow,
@@ -17,23 +17,16 @@ export enum UpsertTriggersStep {
   AddDescription = 'addDescription',
 }
 
-export type ScriptFile = {
-  // Browsers obscure the full file path for security reasons,
-  // so only the file name is exposed.
-  fileName: string
-  content: string
-}
-
 export type UpsertTriggersPayload = {
   alertTypes: GetPredefinedEventsTypesEnum[]
   severities: GetPredefinedEventsSeveritiesEnum[]
-  categories: string[]
-  eventIds: string[]
+  categories: GetPredefinedEventsCategoriesEnum[]
+  eventIds: GetPredefinedEventsIdsEnum[]
   emails: EmailRecipientTableRow[]
   slacks: SlackChannelTableRow[]
-  script?: ScriptFile
+  script?: TriggerResponseScript
   name: string
-  description?: string
+  description: string
 }
 
 export type TriggerAttributeKeys =
@@ -42,17 +35,11 @@ export type TriggerAttributeKeys =
   | 'categories'
   | 'eventIds'
 
-export type TriggerAttributes = {
+export type TriggerAttribute = {
   alertTypes: GetPredefinedEventsTypesEnum[]
   severities: GetPredefinedEventsSeveritiesEnum[]
-  categories: string[]
-  eventIds: string[]
-}
-
-export type TriggerResponses = {
-  emails: GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner[]
-  slacks: GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner[]
-  scriptTypes: GetTriggerMaterialsResponseDataResponseScriptTypes | undefined
+  categories: GetPredefinedEventsCategoriesEnum[]
+  eventIds: GetPredefinedEventsIdsEnum[]
 }
 
 export const attributeLabelMap: Record<TriggerAttributeKeys, string> = {
@@ -95,4 +82,14 @@ export const shouldRedirectToListPage = (
     return true
   }
   return false
+}
+
+export const filterEnumValues = <T extends string>(
+  rawValues: string[] | undefined,
+  enumObject: Record<string, T>,
+): T[] => {
+  const enumSet = new Set(Object.values(enumObject))
+  return (rawValues ?? []).filter((value): value is T =>
+    enumSet.has(value as T),
+  )
 }

@@ -247,13 +247,13 @@ export interface CreateTriggerRequest {
      * @type {string}
      * @memberof CreateTriggerRequest
      */
-    'description': string;
+    'description'?: string;
     /**
      * 
-     * @type {GetTriggerMaterialsResponseDataAttributeInner}
+     * @type {GetTriggerMaterialsResponseDataAttribute}
      * @memberof CreateTriggerRequest
      */
-    'attribute': GetTriggerMaterialsResponseDataAttributeInner;
+    'attribute': GetTriggerMaterialsResponseDataAttribute;
     /**
      * 
      * @type {CreateTriggerRequestResponse}
@@ -269,35 +269,41 @@ export interface CreateTriggerRequest {
 export interface CreateTriggerRequestResponse {
     /**
      * 
-     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
+     * @type {CreateTriggerRequestResponseScript}
      * @memberof CreateTriggerRequestResponse
      */
-    'script': GetTriggersResponseDataTriggersInnerResponseScript;
+    'script': CreateTriggerRequestResponseScript;
     /**
      * 
-     * @type {CreateTriggerRequestResponseNotifications}
+     * @type {Array<string>}
      * @memberof CreateTriggerRequestResponse
      */
-    'notifications': CreateTriggerRequestResponseNotifications;
+    'emails': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateTriggerRequestResponse
+     */
+    'slacks': Array<string>;
 }
 /**
  * 
  * @export
- * @interface CreateTriggerRequestResponseNotifications
+ * @interface CreateTriggerRequestResponseScript
  */
-export interface CreateTriggerRequestResponseNotifications {
+export interface CreateTriggerRequestResponseScript {
     /**
      * 
-     * @type {Array<string>}
-     * @memberof CreateTriggerRequestResponseNotifications
+     * @type {string}
+     * @memberof CreateTriggerRequestResponseScript
      */
-    'slacks': Array<string>;
+    'name': string;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof CreateTriggerRequestResponseNotifications
+     * Base64 encoded script content
+     * @type {string}
+     * @memberof CreateTriggerRequestResponseScript
      */
-    'emails': Array<string>;
+    'content': string;
 }
 /**
  * 
@@ -2967,6 +2973,171 @@ export type GetHostSupportFilesResponseDataInnerStatusCurrentEnum = typeof GetHo
 /**
  * 
  * @export
+ * @interface GetIntegratedApplications500Response
+ */
+export interface GetIntegratedApplications500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetIntegratedApplications500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedApplications500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedApplications500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetIntegratedApplicationsResponse
+ */
+export interface GetIntegratedApplicationsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetIntegratedApplicationsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<GetIntegrationsResponseDataInner>}
+     * @memberof GetIntegratedApplicationsResponse
+     */
+    'data': Array<GetIntegrationsResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedApplicationsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedApplicationsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetIntegratedStoragesResponse
+ */
+export interface GetIntegratedStoragesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetIntegratedStoragesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<GetIntegratedStoragesResponseDataInner>}
+     * @memberof GetIntegratedStoragesResponse
+     */
+    'data': Array<GetIntegratedStoragesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedStoragesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedStoragesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetIntegratedStoragesResponseDataInner
+ */
+export interface GetIntegratedStoragesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedStoragesResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedStoragesResponseDataInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetIntegratedStoragesResponseDataInner
+     */
+    'isDefault': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedStoragesResponseDataInner
+     */
+    'vendor': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedStoragesResponseDataInner
+     */
+    'managementIp': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedStoragesResponseDataInner
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {GetIntegratedStoragesResponseDataInnerStatus}
+     * @memberof GetIntegratedStoragesResponseDataInner
+     */
+    'status': GetIntegratedStoragesResponseDataInnerStatus;
+}
+/**
+ * 
+ * @export
+ * @interface GetIntegratedStoragesResponseDataInnerStatus
+ */
+export interface GetIntegratedStoragesResponseDataInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegratedStoragesResponseDataInnerStatus
+     */
+    'current': GetIntegratedStoragesResponseDataInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetIntegratedStoragesResponseDataInnerStatus
+     */
+    'isProcessing': boolean;
+}
+
+export const GetIntegratedStoragesResponseDataInnerStatusCurrentEnum = {
+    Ok: 'ok',
+    Integrating: 'integrating',
+    Updating: 'updating',
+    Deleting: 'deleting'
+} as const;
+
+export type GetIntegratedStoragesResponseDataInnerStatusCurrentEnum = typeof GetIntegratedStoragesResponseDataInnerStatusCurrentEnum[keyof typeof GetIntegratedStoragesResponseDataInnerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
  * @interface GetIntegrations500Response
  */
 export interface GetIntegrations500Response {
@@ -4760,10 +4931,10 @@ export interface GetPredefinedEventFilterResponse {
     'code': number;
     /**
      * 
-     * @type {GetPredefinedEventFilterResponseData}
+     * @type {Array<GetPredefinedEventFilterResponseDataInner>}
      * @memberof GetPredefinedEventFilterResponse
      */
-    'data': GetPredefinedEventFilterResponseData;
+    'data': Array<GetPredefinedEventFilterResponseDataInner>;
     /**
      * 
      * @type {string}
@@ -4780,46 +4951,39 @@ export interface GetPredefinedEventFilterResponse {
 /**
  * 
  * @export
- * @interface GetPredefinedEventFilterResponseData
+ * @interface GetPredefinedEventFilterResponseDataInner
  */
-export interface GetPredefinedEventFilterResponseData {
-    /**
-     * 
-     * @type {Array<GetPredefinedEventFilterResponseDataEventsInner>}
-     * @memberof GetPredefinedEventFilterResponseData
-     */
-    'events': Array<GetPredefinedEventFilterResponseDataEventsInner>;
-}
-/**
- * 
- * @export
- * @interface GetPredefinedEventFilterResponseDataEventsInner
- */
-export interface GetPredefinedEventFilterResponseDataEventsInner {
+export interface GetPredefinedEventFilterResponseDataInner {
     /**
      * 
      * @type {string}
-     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     * @memberof GetPredefinedEventFilterResponseDataInner
      */
     'type': string;
     /**
      * 
      * @type {string}
-     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     * @memberof GetPredefinedEventFilterResponseDataInner
      */
     'id': string;
     /**
      * 
      * @type {string}
-     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     * @memberof GetPredefinedEventFilterResponseDataInner
      */
     'severity': string;
     /**
      * 
      * @type {string}
-     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     * @memberof GetPredefinedEventFilterResponseDataInner
      */
     'category': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataInner
+     */
+    'description': string;
 }
 /**
  * 
@@ -5629,10 +5793,10 @@ export interface GetTriggerMaterialsResponse {
 export interface GetTriggerMaterialsResponseData {
     /**
      * 
-     * @type {Array<GetTriggerMaterialsResponseDataAttributeInner>}
+     * @type {GetTriggerMaterialsResponseDataAttribute}
      * @memberof GetTriggerMaterialsResponseData
      */
-    'attribute': Array<GetTriggerMaterialsResponseDataAttributeInner>;
+    'attribute': GetTriggerMaterialsResponseDataAttribute;
     /**
      * 
      * @type {GetTriggerMaterialsResponseDataResponse}
@@ -5643,31 +5807,31 @@ export interface GetTriggerMaterialsResponseData {
 /**
  * 
  * @export
- * @interface GetTriggerMaterialsResponseDataAttributeInner
+ * @interface GetTriggerMaterialsResponseDataAttribute
  */
-export interface GetTriggerMaterialsResponseDataAttributeInner {
+export interface GetTriggerMaterialsResponseDataAttribute {
     /**
      * 
      * @type {Array<string>}
-     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     * @memberof GetTriggerMaterialsResponseDataAttribute
      */
     'alertTypes': Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     * @memberof GetTriggerMaterialsResponseDataAttribute
      */
     'severities': Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     * @memberof GetTriggerMaterialsResponseDataAttribute
      */
     'categories': Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     * @memberof GetTriggerMaterialsResponseDataAttribute
      */
     'eventIds': Array<string>;
 }
@@ -5679,98 +5843,85 @@ export interface GetTriggerMaterialsResponseDataAttributeInner {
 export interface GetTriggerMaterialsResponseDataResponse {
     /**
      * 
-     * @type {GetTriggerMaterialsResponseDataResponseScriptTypes}
+     * @type {GetTriggerMaterialsResponseDataResponseScriptType}
      * @memberof GetTriggerMaterialsResponseDataResponse
      */
-    'scriptTypes': GetTriggerMaterialsResponseDataResponseScriptTypes;
+    'scriptType': GetTriggerMaterialsResponseDataResponseScriptType;
     /**
      * 
-     * @type {GetTriggerMaterialsResponseDataResponseNotifications}
+     * @type {Array<GetTriggerMaterialsResponseDataResponseSlacksInner>}
      * @memberof GetTriggerMaterialsResponseDataResponse
      */
-    'notifications': GetTriggerMaterialsResponseDataResponseNotifications;
+    'slacks': Array<GetTriggerMaterialsResponseDataResponseSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseEmailsInner>}
+     * @memberof GetTriggerMaterialsResponseDataResponse
+     */
+    'emails': Array<GetTriggerMaterialsResponseDataResponseEmailsInner>;
 }
 /**
  * 
  * @export
- * @interface GetTriggerMaterialsResponseDataResponseNotifications
+ * @interface GetTriggerMaterialsResponseDataResponseEmailsInner
  */
-export interface GetTriggerMaterialsResponseDataResponseNotifications {
-    /**
-     * 
-     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
-     * @memberof GetTriggerMaterialsResponseDataResponseNotifications
-     */
-    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
-    /**
-     * 
-     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
-     * @memberof GetTriggerMaterialsResponseDataResponseNotifications
-     */
-    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
-}
-/**
- * 
- * @export
- * @interface GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
- */
-export interface GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner {
+export interface GetTriggerMaterialsResponseDataResponseEmailsInner {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
+     * @memberof GetTriggerMaterialsResponseDataResponseEmailsInner
      */
     'address': string;
     /**
      * 
      * @type {string}
-     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
+     * @memberof GetTriggerMaterialsResponseDataResponseEmailsInner
      */
     'note': string;
 }
 /**
  * 
  * @export
- * @interface GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+ * @interface GetTriggerMaterialsResponseDataResponseScriptType
  */
-export interface GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner {
+export interface GetTriggerMaterialsResponseDataResponseScriptType {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptType
+     */
+    'language': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptType
+     */
+    'environment': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseSlacksInner
+ */
+export interface GetTriggerMaterialsResponseDataResponseSlacksInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseSlacksInner
      */
     'name': string;
     /**
      * 
      * @type {string}
-     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     * @memberof GetTriggerMaterialsResponseDataResponseSlacksInner
      */
     'url': string;
     /**
      * 
      * @type {string}
-     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     * @memberof GetTriggerMaterialsResponseDataResponseSlacksInner
      */
     'description': string;
-}
-/**
- * 
- * @export
- * @interface GetTriggerMaterialsResponseDataResponseScriptTypes
- */
-export interface GetTriggerMaterialsResponseDataResponseScriptTypes {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypes
-     */
-    'types': Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypes
-     */
-    'environments': Array<string>;
 }
 /**
  * 
@@ -5786,10 +5937,10 @@ export interface GetTriggerResponse {
     'code': number;
     /**
      * 
-     * @type {GetTriggerResponseData}
+     * @type {Trigger}
      * @memberof GetTriggerResponse
      */
-    'data': GetTriggerResponseData;
+    'data': Trigger;
     /**
      * 
      * @type {string}
@@ -5802,74 +5953,6 @@ export interface GetTriggerResponse {
      * @memberof GetTriggerResponse
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface GetTriggerResponseData
- */
-export interface GetTriggerResponseData {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggerResponseData
-     */
-    'name': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggerResponseData
-     */
-    'isBuiltIn': boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggerResponseData
-     */
-    'description': string;
-    /**
-     * 
-     * @type {GetTriggerMaterialsResponseDataAttributeInner}
-     * @memberof GetTriggerResponseData
-     */
-    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
-    /**
-     * 
-     * @type {GetTriggerResponseDataResponse}
-     * @memberof GetTriggerResponseData
-     */
-    'response': GetTriggerResponseDataResponse;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggerResponseData
-     */
-    'enabled': boolean;
-}
-/**
- * 
- * @export
- * @interface GetTriggerResponseDataResponse
- */
-export interface GetTriggerResponseDataResponse {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetTriggerResponseDataResponse
-     */
-    'types': Array<string>;
-    /**
-     * 
-     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
-     * @memberof GetTriggerResponseDataResponse
-     */
-    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
-    /**
-     * 
-     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
-     * @memberof GetTriggerResponseDataResponse
-     */
-    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
 }
 /**
  * 
@@ -5935,134 +6018,16 @@ export interface GetTriggersResponse {
 export interface GetTriggersResponseData {
     /**
      * 
-     * @type {Array<GetTriggersResponseDataTriggersInner>}
+     * @type {Array<Trigger>}
      * @memberof GetTriggersResponseData
      */
-    'triggers': Array<GetTriggersResponseDataTriggersInner>;
+    'triggers': Array<Trigger>;
     /**
      * 
      * @type {Page}
      * @memberof GetTriggersResponseData
      */
     'page': Page;
-}
-/**
- * 
- * @export
- * @interface GetTriggersResponseDataTriggersInner
- */
-export interface GetTriggersResponseDataTriggersInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataTriggersInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataTriggersInner
-     */
-    'isBuiltIn': boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataTriggersInner
-     */
-    'description': string;
-    /**
-     * 
-     * @type {GetTriggerMaterialsResponseDataAttributeInner}
-     * @memberof GetTriggersResponseDataTriggersInner
-     */
-    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
-    /**
-     * 
-     * @type {GetTriggersResponseDataTriggersInnerResponse}
-     * @memberof GetTriggersResponseDataTriggersInner
-     */
-    'response': GetTriggersResponseDataTriggersInnerResponse;
-    /**
-     * 
-     * @type {GetTriggersResponseDataTriggersInnerStatus}
-     * @memberof GetTriggersResponseDataTriggersInner
-     */
-    'status': GetTriggersResponseDataTriggersInnerStatus;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataTriggersInner
-     */
-    'enabled': boolean;
-}
-/**
- * 
- * @export
- * @interface GetTriggersResponseDataTriggersInnerResponse
- */
-export interface GetTriggersResponseDataTriggersInnerResponse {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetTriggersResponseDataTriggersInnerResponse
-     */
-    'types': Array<string>;
-    /**
-     * 
-     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
-     * @memberof GetTriggersResponseDataTriggersInnerResponse
-     */
-    'script': GetTriggersResponseDataTriggersInnerResponseScript;
-    /**
-     * 
-     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
-     * @memberof GetTriggersResponseDataTriggersInnerResponse
-     */
-    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
-    /**
-     * 
-     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
-     * @memberof GetTriggersResponseDataTriggersInnerResponse
-     */
-    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
-}
-/**
- * 
- * @export
- * @interface GetTriggersResponseDataTriggersInnerResponseScript
- */
-export interface GetTriggersResponseDataTriggersInnerResponseScript {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataTriggersInnerResponseScript
-     */
-    'filePath': string;
-    /**
-     * Base64 encoded script content
-     * @type {string}
-     * @memberof GetTriggersResponseDataTriggersInnerResponseScript
-     */
-    'content': string;
-}
-/**
- * 
- * @export
- * @interface GetTriggersResponseDataTriggersInnerStatus
- */
-export interface GetTriggersResponseDataTriggersInnerStatus {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataTriggersInnerStatus
-     */
-    'current'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataTriggersInnerStatus
-     */
-    'isUpdating': boolean;
 }
 /**
  * 
@@ -6142,6 +6107,56 @@ export interface ImportClusterLicense500Response {
 /**
  * 
  * @export
+ * @interface ImportImage202Response
+ */
+export interface ImportImage202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ImportImage202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImportImage202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImportImage202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ImportImage500Response
+ */
+export interface ImportImage500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ImportImage500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImportImage500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImportImage500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface LicenseIssue
  */
 export interface LicenseIssue {
@@ -6170,6 +6185,282 @@ export interface LicenseIssue {
      */
     'date': string;
 }
+/**
+ * 
+ * @export
+ * @interface ListImageMaterials500Response
+ */
+export interface ListImageMaterials500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListImageMaterials500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterials500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterials500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListImageMaterialsResponse
+ */
+export interface ListImageMaterialsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListImageMaterialsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {ListImageMaterialsResponseData}
+     * @memberof ListImageMaterialsResponse
+     */
+    'data': ListImageMaterialsResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListImageMaterialsResponseData
+ */
+export interface ListImageMaterialsResponseData {
+    /**
+     * 
+     * @type {Array<ListImageMaterialsResponseDataReservedImagesInner>}
+     * @memberof ListImageMaterialsResponseData
+     */
+    'reservedImages': Array<ListImageMaterialsResponseDataReservedImagesInner>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ListImageMaterialsResponseData
+     */
+    'projects': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ListImageMaterialsResponseData
+     */
+    'oses': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ListImageMaterialsResponseData
+     */
+    'destinations': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ListImageMaterialsResponseData
+     */
+    'domains': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ListImageMaterialsResponseData
+     */
+    'visibilities': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface ListImageMaterialsResponseDataReservedImagesInner
+ */
+export interface ListImageMaterialsResponseDataReservedImagesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'file': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'os': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'destination': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'domain': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'project': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'sourceFromAnotherHypervisor': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'visibility': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListImages500Response
+ */
+export interface ListImages500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListImages500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImages500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImages500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListImagesResponse
+ */
+export interface ListImagesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListImagesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListImagesResponseDataInner>}
+     * @memberof ListImagesResponse
+     */
+    'data': Array<ListImagesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListImagesResponseDataInner
+ */
+export interface ListImagesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataInner
+     */
+    'os': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataInner
+     */
+    'destination': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataInner
+     */
+    'domain': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataInner
+     */
+    'project': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataInner
+     */
+    'visibility': ListImagesResponseDataInnerVisibilityEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataInner
+     */
+    'createdAt': string;
+}
+
+export const ListImagesResponseDataInnerVisibilityEnum = {
+    Public: 'public',
+    Private: 'private',
+    Shared: 'shared',
+    Community: 'community',
+    Unknown: 'unknown'
+} as const;
+
+export type ListImagesResponseDataInnerVisibilityEnum = typeof ListImagesResponseDataInnerVisibilityEnum[keyof typeof ListImagesResponseDataInnerVisibilityEnum];
+
 /**
  * 
  * @export
@@ -8564,6 +8855,143 @@ export interface TitlePrefix {
 /**
  * 
  * @export
+ * @interface Trigger
+ */
+export interface Trigger {
+    /**
+     * 
+     * @type {string}
+     * @memberof Trigger
+     */
+    'name': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Trigger
+     */
+    'isBuiltIn': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof Trigger
+     */
+    'description': string;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataAttribute}
+     * @memberof Trigger
+     */
+    'attribute': GetTriggerMaterialsResponseDataAttribute;
+    /**
+     * 
+     * @type {TriggerResponse}
+     * @memberof Trigger
+     */
+    'response': TriggerResponse;
+    /**
+     * 
+     * @type {TriggerStatus}
+     * @memberof Trigger
+     */
+    'status'?: TriggerStatus;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Trigger
+     */
+    'enabled': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface TriggerResponse
+ */
+export interface TriggerResponse {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TriggerResponse
+     */
+    'types': Array<TriggerResponseTypesEnum>;
+    /**
+     * 
+     * @type {TriggerResponseScript}
+     * @memberof TriggerResponse
+     */
+    'script': TriggerResponseScript;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseSlacksInner>}
+     * @memberof TriggerResponse
+     */
+    'slacks': Array<GetTriggerMaterialsResponseDataResponseSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseEmailsInner>}
+     * @memberof TriggerResponse
+     */
+    'emails': Array<GetTriggerMaterialsResponseDataResponseEmailsInner>;
+}
+
+export const TriggerResponseTypesEnum = {
+    Script: 'script',
+    Email: 'email',
+    Slack: 'slack'
+} as const;
+
+export type TriggerResponseTypesEnum = typeof TriggerResponseTypesEnum[keyof typeof TriggerResponseTypesEnum];
+
+/**
+ * 
+ * @export
+ * @interface TriggerResponseScript
+ */
+export interface TriggerResponseScript {
+    /**
+     * 
+     * @type {string}
+     * @memberof TriggerResponseScript
+     */
+    'name': string;
+    /**
+     * require the Base64 encoded string
+     * @type {string}
+     * @memberof TriggerResponseScript
+     */
+    'content': string;
+}
+/**
+ * 
+ * @export
+ * @interface TriggerStatus
+ */
+export interface TriggerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof TriggerStatus
+     */
+    'current': TriggerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TriggerStatus
+     */
+    'isProcessing': boolean;
+}
+
+export const TriggerStatusCurrentEnum = {
+    Ok: 'ok',
+    Creating: 'creating',
+    Updating: 'updating',
+    Deleting: 'deleting'
+} as const;
+
+export type TriggerStatusCurrentEnum = typeof TriggerStatusCurrentEnum[keyof typeof TriggerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
  * @interface TryEmailRecipient400Response
  */
 export interface TryEmailRecipient400Response {
@@ -9039,10 +9467,10 @@ export interface UpdateTrigger500Response {
 export interface UpdateTriggerRequest {
     /**
      * 
-     * @type {GetTriggerMaterialsResponseDataAttributeInner}
+     * @type {GetTriggerMaterialsResponseDataAttribute}
      * @memberof UpdateTriggerRequest
      */
-    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
+    'attribute': GetTriggerMaterialsResponseDataAttribute;
     /**
      * 
      * @type {UpdateTriggerRequestResponse}
@@ -9054,7 +9482,7 @@ export interface UpdateTriggerRequest {
      * @type {string}
      * @memberof UpdateTriggerRequest
      */
-    'description': string;
+    'description'?: string;
 }
 /**
  * 
@@ -9064,10 +9492,10 @@ export interface UpdateTriggerRequest {
 export interface UpdateTriggerRequestResponse {
     /**
      * 
-     * @type {UpdateTriggerRequestResponseScript}
+     * @type {CreateTriggerRequestResponseScript}
      * @memberof UpdateTriggerRequestResponse
      */
-    'script': UpdateTriggerRequestResponseScript;
+    'script': CreateTriggerRequestResponseScript;
     /**
      * 
      * @type {Array<string>}
@@ -9080,31 +9508,6 @@ export interface UpdateTriggerRequestResponse {
      * @memberof UpdateTriggerRequestResponse
      */
     'emails': Array<string>;
-}
-/**
- * 
- * @export
- * @interface UpdateTriggerRequestResponseScript
- */
-export interface UpdateTriggerRequestResponseScript {
-    /**
-     * 
-     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
-     * @memberof UpdateTriggerRequestResponseScript
-     */
-    'script': GetTriggersResponseDataTriggersInnerResponseScript;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTriggerRequestResponseScript
-     */
-    'filePath': string;
-    /**
-     * Base64 encoded script content
-     * @type {string}
-     * @memberof UpdateTriggerRequestResponseScript
-     */
-    'content': string;
 }
 /**
  * 
@@ -9474,6 +9877,12 @@ export interface VerifyMaterialScriptResponse {
      * @type {string}
      * @memberof VerifyMaterialScriptResponse
      */
+    'data': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyMaterialScriptResponse
+     */
     'msg': string;
     /**
      * 
@@ -9642,11 +10051,48 @@ export interface VerifyTriggerScript400Response {
      * @type {string}
      * @memberof VerifyTriggerScript400Response
      */
+    'data'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript400Response
+     */
     'msg'?: string;
     /**
      * 
      * @type {string}
      * @memberof VerifyTriggerScript400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyTriggerScript401Response
+ */
+export interface VerifyTriggerScript401Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyTriggerScript401Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript401Response
+     */
+    'data'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript401Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript401Response
      */
     'status'?: string;
 }
@@ -9662,6 +10108,12 @@ export interface VerifyTriggerScript500Response {
      * @memberof VerifyTriggerScript500Response
      */
     'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript500Response
+     */
+    'data'?: string;
     /**
      * 
      * @type {string}
@@ -10088,17 +10540,17 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * 
+         * Please note that if the \'types\', \'categories\', \'severities\', or \'ids\' query parameters are not specified, then \'NO\' any predefined events will be returned.
          * @summary Retrieve the predefined events
          * @param {string} dataCenter The name of the data center to operate
          * @param {Array<GetPredefinedEventsTypesEnum>} [types] The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-         * @param {Array<string>} [categories] The categories of the event to query.
+         * @param {Array<GetPredefinedEventsCategoriesEnum>} [categories] The categories of the event to query.
          * @param {Array<GetPredefinedEventsSeveritiesEnum>} [severities] The severities of the event to query.
-         * @param {Array<string>} [ids] The ids of the event to query.
+         * @param {Array<GetPredefinedEventsIdsEnum>} [ids] The ids of the event to query.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPredefinedEvents: async (dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<string>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getPredefinedEvents: async (dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<GetPredefinedEventsCategoriesEnum>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<GetPredefinedEventsIdsEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getPredefinedEvents', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/events/predefined`
@@ -10324,17 +10776,17 @@ export const EventsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * Please note that if the \'types\', \'categories\', \'severities\', or \'ids\' query parameters are not specified, then \'NO\' any predefined events will be returned.
          * @summary Retrieve the predefined events
          * @param {string} dataCenter The name of the data center to operate
          * @param {Array<GetPredefinedEventsTypesEnum>} [types] The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-         * @param {Array<string>} [categories] The categories of the event to query.
+         * @param {Array<GetPredefinedEventsCategoriesEnum>} [categories] The categories of the event to query.
          * @param {Array<GetPredefinedEventsSeveritiesEnum>} [severities] The severities of the event to query.
-         * @param {Array<string>} [ids] The ids of the event to query.
+         * @param {Array<GetPredefinedEventsIdsEnum>} [ids] The ids of the event to query.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPredefinedEvents(dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<string>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetPredefinedEventFilterResponse>> {
+        async getPredefinedEvents(dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<GetPredefinedEventsCategoriesEnum>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<GetPredefinedEventsIdsEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetPredefinedEventFilterResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPredefinedEvents(dataCenter, types, categories, severities, ids, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EventsApi.getPredefinedEvents']?.[localVarOperationServerIndex]?.url;
@@ -10408,7 +10860,7 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.categories, requestParameters.severities, requestParameters.hosts, requestParameters.instances, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Please note that if the \'types\', \'categories\', \'severities\', or \'ids\' query parameters are not specified, then \'NO\' any predefined events will be returned.
          * @summary Retrieve the predefined events
          * @param {EventsApiGetPredefinedEventsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -10627,24 +11079,24 @@ export interface EventsApiGetPredefinedEventsRequest {
 
     /**
      * The categories of the event to query.
-     * @type {Array<string>}
+     * @type {Array<'PLC' | 'BSP' | 'RUG' | 'KSN' | 'CMP' | 'CEP' | 'NET' | 'SRV' | 'SDN' | 'VRT' | 'ETH' | 'CPU' | 'DSK' | 'MEM' | 'DEV'>}
      * @memberof EventsApiGetPredefinedEvents
      */
-    readonly categories?: Array<string>
+    readonly categories?: Array<GetPredefinedEventsCategoriesEnum>
 
     /**
      * The severities of the event to query.
-     * @type {Array<'Info' | 'Warning' | 'Critical' | 'Error'>}
+     * @type {Array<'INFO' | 'WARNING' | 'CRITICAL'>}
      * @memberof EventsApiGetPredefinedEvents
      */
     readonly severities?: Array<GetPredefinedEventsSeveritiesEnum>
 
     /**
      * The ids of the event to query.
-     * @type {Array<string>}
+     * @type {Array<'PLC00001I' | 'PLC00002I' | 'BSP00001I' | 'RUG00001I' | 'KSN00001I' | 'KSN00002I' | 'CMP01001I' | 'CMP01002I' | 'CMP02001I' | 'CMP02002I' | 'CMP02003I' | 'CEP00001I' | 'CEP00002W' | 'NET00001I' | 'NET00002W' | 'NET00003I' | 'NET00004W' | 'SRV00001I' | 'SRV00002W' | 'SRV00003C' | 'SRV01001I' | 'SRV01002I' | 'SDN00001I' | 'SDN00002I' | 'VRT00001I' | 'VRT00002W' | 'VRT00003C' | 'ETH00001I' | 'ETH00002W' | 'CPU00001I' | 'CPU00002W' | 'CPU00003C' | 'DSK00001I' | 'DSK00002W' | 'DSK00003C' | 'MEM00001I' | 'MEM00002W' | 'MEM00003C' | 'DEV00001I' | 'DEV00002W' | 'CPU00004I' | 'CPU00005W' | 'CPU00006C' | 'CPU00007I' | 'MEM00004I' | 'MEM00005W' | 'MEM00006C' | 'MEM00007I'>}
      * @memberof EventsApiGetPredefinedEvents
      */
-    readonly ids?: Array<string>
+    readonly ids?: Array<GetPredefinedEventsIdsEnum>
 }
 
 /**
@@ -10803,7 +11255,7 @@ export class EventsApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Please note that if the \'types\', \'categories\', \'severities\', or \'ids\' query parameters are not specified, then \'NO\' any predefined events will be returned.
      * @summary Retrieve the predefined events
      * @param {EventsApiGetPredefinedEventsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -10876,13 +11328,87 @@ export type GetPredefinedEventsTypesEnum = typeof GetPredefinedEventsTypesEnum[k
 /**
  * @export
  */
+export const GetPredefinedEventsCategoriesEnum = {
+    Plc: 'PLC',
+    Bsp: 'BSP',
+    Rug: 'RUG',
+    Ksn: 'KSN',
+    Cmp: 'CMP',
+    Cep: 'CEP',
+    Net: 'NET',
+    Srv: 'SRV',
+    Sdn: 'SDN',
+    Vrt: 'VRT',
+    Eth: 'ETH',
+    Cpu: 'CPU',
+    Dsk: 'DSK',
+    Mem: 'MEM',
+    Dev: 'DEV'
+} as const;
+export type GetPredefinedEventsCategoriesEnum = typeof GetPredefinedEventsCategoriesEnum[keyof typeof GetPredefinedEventsCategoriesEnum];
+/**
+ * @export
+ */
 export const GetPredefinedEventsSeveritiesEnum = {
-    Info: 'Info',
-    Warning: 'Warning',
-    Critical: 'Critical',
-    Error: 'Error'
+    Info: 'INFO',
+    Warning: 'WARNING',
+    Critical: 'CRITICAL'
 } as const;
 export type GetPredefinedEventsSeveritiesEnum = typeof GetPredefinedEventsSeveritiesEnum[keyof typeof GetPredefinedEventsSeveritiesEnum];
+/**
+ * @export
+ */
+export const GetPredefinedEventsIdsEnum = {
+    Plc00001I: 'PLC00001I',
+    Plc00002I: 'PLC00002I',
+    Bsp00001I: 'BSP00001I',
+    Rug00001I: 'RUG00001I',
+    Ksn00001I: 'KSN00001I',
+    Ksn00002I: 'KSN00002I',
+    Cmp01001I: 'CMP01001I',
+    Cmp01002I: 'CMP01002I',
+    Cmp02001I: 'CMP02001I',
+    Cmp02002I: 'CMP02002I',
+    Cmp02003I: 'CMP02003I',
+    Cep00001I: 'CEP00001I',
+    Cep00002W: 'CEP00002W',
+    Net00001I: 'NET00001I',
+    Net00002W: 'NET00002W',
+    Net00003I: 'NET00003I',
+    Net00004W: 'NET00004W',
+    Srv00001I: 'SRV00001I',
+    Srv00002W: 'SRV00002W',
+    Srv00003C: 'SRV00003C',
+    Srv01001I: 'SRV01001I',
+    Srv01002I: 'SRV01002I',
+    Sdn00001I: 'SDN00001I',
+    Sdn00002I: 'SDN00002I',
+    Vrt00001I: 'VRT00001I',
+    Vrt00002W: 'VRT00002W',
+    Vrt00003C: 'VRT00003C',
+    Eth00001I: 'ETH00001I',
+    Eth00002W: 'ETH00002W',
+    Cpu00001I: 'CPU00001I',
+    Cpu00002W: 'CPU00002W',
+    Cpu00003C: 'CPU00003C',
+    Dsk00001I: 'DSK00001I',
+    Dsk00002W: 'DSK00002W',
+    Dsk00003C: 'DSK00003C',
+    Mem00001I: 'MEM00001I',
+    Mem00002W: 'MEM00002W',
+    Mem00003C: 'MEM00003C',
+    Dev00001I: 'DEV00001I',
+    Dev00002W: 'DEV00002W',
+    Cpu00004I: 'CPU00004I',
+    Cpu00005W: 'CPU00005W',
+    Cpu00006C: 'CPU00006C',
+    Cpu00007I: 'CPU00007I',
+    Mem00004I: 'MEM00004I',
+    Mem00005W: 'MEM00005W',
+    Mem00006C: 'MEM00006C',
+    Mem00007I: 'MEM00007I'
+} as const;
+export type GetPredefinedEventsIdsEnum = typeof GetPredefinedEventsIdsEnum[keyof typeof GetPredefinedEventsIdsEnum];
 /**
  * @export
  */
@@ -12502,11 +13028,595 @@ export type RepairModuleHealthModuleTypeEnum = typeof RepairModuleHealthModuleTy
 
 
 /**
+ * ImagesApi - axios parameter creator
+ * @export
+ */
+export const ImagesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Import an image
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} file Name of the file to store
+         * @param {string} name Human-readable name of the image
+         * @param {ImportImageOsEnum} os Operating system of the image
+         * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
+         * @param {string} domain Domain name for the project
+         * @param {string} project Project name or ID
+         * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
+         * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/your-image\&#39;.
+         * @param {ImportImageVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        importImage: async (dataCenter: string, file: string, name: string, os: ImportImageOsEnum, destination: string, domain: string, project: string, sourceFromAnotherHypervisor: boolean, body: File, visibility?: ImportImageVisibilityEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('importImage', 'dataCenter', dataCenter)
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('importImage', 'file', file)
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('importImage', 'name', name)
+            // verify required parameter 'os' is not null or undefined
+            assertParamExists('importImage', 'os', os)
+            // verify required parameter 'destination' is not null or undefined
+            assertParamExists('importImage', 'destination', destination)
+            // verify required parameter 'domain' is not null or undefined
+            assertParamExists('importImage', 'domain', domain)
+            // verify required parameter 'project' is not null or undefined
+            assertParamExists('importImage', 'project', project)
+            // verify required parameter 'sourceFromAnotherHypervisor' is not null or undefined
+            assertParamExists('importImage', 'sourceFromAnotherHypervisor', sourceFromAnotherHypervisor)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('importImage', 'body', body)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/images`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (file !== undefined) {
+                localVarQueryParameter['file'] = file;
+            }
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (os !== undefined) {
+                localVarQueryParameter['os'] = os;
+            }
+
+            if (destination !== undefined) {
+                localVarQueryParameter['destination'] = destination;
+            }
+
+            if (domain !== undefined) {
+                localVarQueryParameter['domain'] = domain;
+            }
+
+            if (project !== undefined) {
+                localVarQueryParameter['project'] = project;
+            }
+
+            if (sourceFromAnotherHypervisor !== undefined) {
+                localVarQueryParameter['sourceFromAnotherHypervisor'] = sourceFromAnotherHypervisor;
+            }
+
+            if (visibility !== undefined) {
+                localVarQueryParameter['visibility'] = visibility;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/octet-stream';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List image materials
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listImageMaterials: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listImageMaterials', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/images/materials`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List images
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listImages: async (dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listImages', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/images`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ImagesApi - functional programming interface
+ * @export
+ */
+export const ImagesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ImagesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Import an image
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} file Name of the file to store
+         * @param {string} name Human-readable name of the image
+         * @param {ImportImageOsEnum} os Operating system of the image
+         * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
+         * @param {string} domain Domain name for the project
+         * @param {string} project Project name or ID
+         * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
+         * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/your-image\&#39;.
+         * @param {ImportImageVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async importImage(dataCenter: string, file: string, name: string, os: ImportImageOsEnum, destination: string, domain: string, project: string, sourceFromAnotherHypervisor: boolean, body: File, visibility?: ImportImageVisibilityEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImportImage202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.importImage(dataCenter, file, name, os, destination, domain, project, sourceFromAnotherHypervisor, body, visibility, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ImagesApi.importImage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List image materials
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listImageMaterials(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListImageMaterialsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listImageMaterials(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ImagesApi.listImageMaterials']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List images
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listImages(dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListImagesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listImages(dataCenter, watch, pageSize, pageNum, keyword, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ImagesApi.listImages']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * ImagesApi - factory interface
+ * @export
+ */
+export const ImagesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ImagesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Import an image
+         * @param {ImagesApiImportImageRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        importImage(requestParameters: ImagesApiImportImageRequest, options?: RawAxiosRequestConfig): AxiosPromise<ImportImage202Response> {
+            return localVarFp.importImage(requestParameters.dataCenter, requestParameters.file, requestParameters.name, requestParameters.os, requestParameters.destination, requestParameters.domain, requestParameters.project, requestParameters.sourceFromAnotherHypervisor, requestParameters.body, requestParameters.visibility, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List image materials
+         * @param {ImagesApiListImageMaterialsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listImageMaterials(requestParameters: ImagesApiListImageMaterialsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListImageMaterialsResponse> {
+            return localVarFp.listImageMaterials(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List images
+         * @param {ImagesApiListImagesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listImages(requestParameters: ImagesApiListImagesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListImagesResponse> {
+            return localVarFp.listImages(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for importImage operation in ImagesApi.
+ * @export
+ * @interface ImagesApiImportImageRequest
+ */
+export interface ImagesApiImportImageRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof ImagesApiImportImage
+     */
+    readonly dataCenter: string
+
+    /**
+     * Name of the file to store
+     * @type {string}
+     * @memberof ImagesApiImportImage
+     */
+    readonly file: string
+
+    /**
+     * Human-readable name of the image
+     * @type {string}
+     * @memberof ImagesApiImportImage
+     */
+    readonly name: string
+
+    /**
+     * Operating system of the image
+     * @type {'CentOS' | 'Fedora' | 'Ubuntu' | 'Debian' | 'Windows' | 'Rocky' | 'FreeBSD' | 'CoreOS' | 'Arch' | 'Others'}
+     * @memberof ImagesApiImportImage
+     */
+    readonly os: ImportImageOsEnum
+
+    /**
+     * Target storage destination. Refer the GET /images/materials endpoint for available options
+     * @type {string}
+     * @memberof ImagesApiImportImage
+     */
+    readonly destination: string
+
+    /**
+     * Domain name for the project
+     * @type {string}
+     * @memberof ImagesApiImportImage
+     */
+    readonly domain: string
+
+    /**
+     * Project name or ID
+     * @type {string}
+     * @memberof ImagesApiImportImage
+     */
+    readonly project: string
+
+    /**
+     * Whether the source image comes from another hypervisor
+     * @type {boolean}
+     * @memberof ImagesApiImportImage
+     */
+    readonly sourceFromAnotherHypervisor: boolean
+
+    /**
+     * for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/your-image\&#39;.
+     * @type {File}
+     * @memberof ImagesApiImportImage
+     */
+    readonly body: File
+
+    /**
+     * Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
+     * @type {'private' | 'public'}
+     * @memberof ImagesApiImportImage
+     */
+    readonly visibility?: ImportImageVisibilityEnum
+}
+
+/**
+ * Request parameters for listImageMaterials operation in ImagesApi.
+ * @export
+ * @interface ImagesApiListImageMaterialsRequest
+ */
+export interface ImagesApiListImageMaterialsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof ImagesApiListImageMaterials
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for listImages operation in ImagesApi.
+ * @export
+ * @interface ImagesApiListImagesRequest
+ */
+export interface ImagesApiListImagesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof ImagesApiListImages
+     */
+    readonly dataCenter: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof ImagesApiListImages
+     */
+    readonly watch?: boolean
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof ImagesApiListImages
+     */
+    readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof ImagesApiListImages
+     */
+    readonly pageNum?: number
+
+    /**
+     * The keyword to search, can be any string
+     * @type {string}
+     * @memberof ImagesApiListImages
+     */
+    readonly keyword?: string
+}
+
+/**
+ * ImagesApi - object-oriented interface
+ * @export
+ * @class ImagesApi
+ * @extends {BaseAPI}
+ */
+export class ImagesApi extends BaseAPI {
+    /**
+     * 
+     * @summary Import an image
+     * @param {ImagesApiImportImageRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImagesApi
+     */
+    public importImage(requestParameters: ImagesApiImportImageRequest, options?: RawAxiosRequestConfig) {
+        return ImagesApiFp(this.configuration).importImage(requestParameters.dataCenter, requestParameters.file, requestParameters.name, requestParameters.os, requestParameters.destination, requestParameters.domain, requestParameters.project, requestParameters.sourceFromAnotherHypervisor, requestParameters.body, requestParameters.visibility, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List image materials
+     * @param {ImagesApiListImageMaterialsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImagesApi
+     */
+    public listImageMaterials(requestParameters: ImagesApiListImageMaterialsRequest, options?: RawAxiosRequestConfig) {
+        return ImagesApiFp(this.configuration).listImageMaterials(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List images
+     * @param {ImagesApiListImagesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImagesApi
+     */
+    public listImages(requestParameters: ImagesApiListImagesRequest, options?: RawAxiosRequestConfig) {
+        return ImagesApiFp(this.configuration).listImages(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const ImportImageOsEnum = {
+    CentOs: 'CentOS',
+    Fedora: 'Fedora',
+    Ubuntu: 'Ubuntu',
+    Debian: 'Debian',
+    Windows: 'Windows',
+    Rocky: 'Rocky',
+    FreeBsd: 'FreeBSD',
+    CoreOs: 'CoreOS',
+    Arch: 'Arch',
+    Others: 'Others'
+} as const;
+export type ImportImageOsEnum = typeof ImportImageOsEnum[keyof typeof ImportImageOsEnum];
+/**
+ * @export
+ */
+export const ImportImageVisibilityEnum = {
+    Private: 'private',
+    Public: 'public'
+} as const;
+export type ImportImageVisibilityEnum = typeof ImportImageVisibilityEnum[keyof typeof ImportImageVisibilityEnum];
+
+
+/**
  * IntegrationsApi - axios parameter creator
  * @export
  */
 export const IntegrationsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary Retrieve the list of integrated applications
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getIntegratedApplications: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getIntegratedApplications', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/applications`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integrated storages
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getIntegratedStorages: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getIntegratedStorages', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Retrieve the list of integrated applications
@@ -12562,6 +13672,32 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async getIntegratedApplications(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetIntegratedApplicationsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getIntegratedApplications(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.getIntegratedApplications']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integrated storages
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getIntegratedStorages(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetIntegratedStoragesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getIntegratedStorages(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.getIntegratedStorages']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integrated applications
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async getIntegrations(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetIntegrationsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getIntegrations(dataCenter, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -12581,6 +13717,26 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
         /**
          * 
          * @summary Retrieve the list of integrated applications
+         * @param {IntegrationsApiGetIntegratedApplicationsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getIntegratedApplications(requestParameters: IntegrationsApiGetIntegratedApplicationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetIntegratedApplicationsResponse> {
+            return localVarFp.getIntegratedApplications(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integrated storages
+         * @param {IntegrationsApiGetIntegratedStoragesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getIntegratedStorages(requestParameters: IntegrationsApiGetIntegratedStoragesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetIntegratedStoragesResponse> {
+            return localVarFp.getIntegratedStorages(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integrated applications
          * @param {IntegrationsApiGetIntegrationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -12590,6 +13746,34 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
         },
     };
 };
+
+/**
+ * Request parameters for getIntegratedApplications operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiGetIntegratedApplicationsRequest
+ */
+export interface IntegrationsApiGetIntegratedApplicationsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiGetIntegratedApplications
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for getIntegratedStorages operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiGetIntegratedStoragesRequest
+ */
+export interface IntegrationsApiGetIntegratedStoragesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiGetIntegratedStorages
+     */
+    readonly dataCenter: string
+}
 
 /**
  * Request parameters for getIntegrations operation in IntegrationsApi.
@@ -12612,6 +13796,30 @@ export interface IntegrationsApiGetIntegrationsRequest {
  * @extends {BaseAPI}
  */
 export class IntegrationsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Retrieve the list of integrated applications
+     * @param {IntegrationsApiGetIntegratedApplicationsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public getIntegratedApplications(requestParameters: IntegrationsApiGetIntegratedApplicationsRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).getIntegratedApplications(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve the list of integrated storages
+     * @param {IntegrationsApiGetIntegratedStoragesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public getIntegratedStorages(requestParameters: IntegrationsApiGetIntegratedStoragesRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).getIntegratedStorages(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Retrieve the list of integrated applications

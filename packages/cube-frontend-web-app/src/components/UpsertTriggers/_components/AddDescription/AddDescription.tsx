@@ -11,6 +11,7 @@ import { twMerge } from 'tailwind-merge'
 
 type AddDescriptionProps = {
   isLoading: boolean
+  isPublishing: boolean
   /**
    * @default false
    */
@@ -20,26 +21,23 @@ type AddDescriptionProps = {
   errorMessage?: string | undefined
   onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
-  onPublishClick: (payload: UpsertTriggersPayload) => void
+  onPublishClick: (payload: UpsertTriggersPayload) => Promise<void>
 }
 
 export const AddDescription = (props: AddDescriptionProps) => {
   const {
     isLoading,
+    isPublishing,
     isEditMode = false,
     nextButtonText,
     payload,
     errorMessage,
     onNameChange,
     onDescriptionChange,
-    onPublishClick: onPublishClickProp,
+    onPublishClick,
   } = props
 
   const isValueValid = !!payload.name
-
-  const onPublishClick = () => {
-    onPublishClickProp(payload)
-  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -72,9 +70,10 @@ export const AddDescription = (props: AddDescriptionProps) => {
       <div className="flex items-center gap-x-4">
         <TriggersPreviousButton />
         <CosButton
-          className="self-start"
+          loading={isPublishing}
           disabled={!isValueValid}
-          onClick={onPublishClick}
+          onClick={() => onPublishClick(payload)}
+          className="self-start"
         >
           {nextButtonText}
         </CosButton>

@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
+import { assignRefValue } from '@cube-frontend/utils'
 import { CosTextAreaSkeleton } from './CosTextAreaSkeleton'
 import { calculateValueLength } from './cosTextAreaUtils'
 import { useVisibleRowsCount } from './useVisibleRowsCount'
-import { assignRefValue } from '@cube-frontend/utils'
 
 const textarea = cva(
   [
@@ -88,7 +88,8 @@ export const CosTextArea = (props: CosTextAreaProps) => {
           {label}
         </label>
         <div className="secondary-body4 text-functional-text-light">
-          {charCount}/{maxLength}
+          {charCount.toLocaleString('en-US')}/
+          {maxLength.toLocaleString('en-US')}
         </div>
       </div>
       <textarea

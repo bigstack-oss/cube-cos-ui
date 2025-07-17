@@ -6,7 +6,6 @@ const STEP_PARAM_KEY = 'step'
 
 type UseStepParam = {
   step: UpsertTriggersStep
-  goToSelectEvents: () => void
   goToSetResponse: () => void
   goToAddDescription: () => void
 }
@@ -29,30 +28,24 @@ export const useStepParam = (
     return stepParam
   }, [searchParams, validSteps, validStepsSet])
 
-  const goToSelectEvents = () => {
-    setSearchParams((prev) => ({
-      ...prev,
-      [STEP_PARAM_KEY]: UpsertTriggersStep.SelectEvents,
-    }))
-  }
-
   const goToSetResponse = () => {
-    setSearchParams((prev) => ({
-      ...prev,
-      [STEP_PARAM_KEY]: UpsertTriggersStep.SetResponse,
-    }))
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      next.set(STEP_PARAM_KEY, UpsertTriggersStep.SetResponse)
+      return next
+    })
   }
 
   const goToAddDescription = () => {
-    setSearchParams((prev) => ({
-      ...prev,
-      [STEP_PARAM_KEY]: UpsertTriggersStep.AddDescription,
-    }))
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      next.set(STEP_PARAM_KEY, UpsertTriggersStep.AddDescription)
+      return next
+    })
   }
 
   return {
     step,
-    goToSelectEvents,
     goToSetResponse,
     goToAddDescription,
   }

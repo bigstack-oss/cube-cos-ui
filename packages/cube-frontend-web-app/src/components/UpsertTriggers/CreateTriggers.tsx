@@ -1,14 +1,11 @@
-import {
-  ReactNode,
-  //useContext
-} from 'react'
+import { ReactNode, useContext } from 'react'
 import { Navigate } from 'react-router'
 import { CosStroke } from '@cube-frontend/ui-library'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
-// import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-// import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-// import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
-// import { EventsApiGetPredefinedEventsRequest } from '@cube-frontend/api'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
+import { EventsApiGetPredefinedEventsRequest } from '@cube-frontend/api'
 import { useStepParam } from './_components/useStepParam'
 import { useCreateTriggersPayload } from './useCreateTriggersPayload'
 import { UpsertTriggersSteps } from './_components/UpsertTriggersSteps'
@@ -17,30 +14,29 @@ import { SetResponse } from './_components/SetResponse/SetResponse'
 import { AddDescription } from './_components/AddDescription/AddDescription'
 import {
   isEventsValid,
+  isResponseValid,
   shouldRedirectToListPage,
   UpsertTriggersPayload,
   UpsertTriggersStep,
 } from './upsertTriggersUtils'
 import { useTriggerMaterials } from './useTriggerMaterials'
-import { mockPredefinedEvents } from './mockData'
 
 type CreateTriggersProps = {
+  isPublishing: boolean
   errorMessage?: string | undefined
-  onPublishClick: (payload: UpsertTriggersPayload) => void
+  onCreateClick: (payload: UpsertTriggersPayload) => Promise<void>
 }
 
 export const CreateTriggers = (props: CreateTriggersProps) => {
-  const { errorMessage, onPublishClick } = props
+  const { isPublishing, errorMessage, onCreateClick } = props
 
-  // const { dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
   const { step, goToSetResponse, goToAddDescription } = useStepParam([
     UpsertTriggersStep.SelectEvents,
     UpsertTriggersStep.SetResponse,
     UpsertTriggersStep.AddDescription,
   ])
-
-  const { attributes, responses } = useTriggerMaterials()
 
   const {
     payload,
@@ -58,29 +54,37 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     onResponseReset,
   } = useCreateTriggersPayload()
 
-  // TODO: replace mock data with data from API
-  const predefinedEvents = isEventsValid(payload) ? mockPredefinedEvents : []
+  const { isMaterialsLoading, materials } = useTriggerMaterials()
 
-  // const { isLoading: isPredefinedEventsLoading, data: predefinedEvents } =
-  //   useCosGetRequest(
-  //     eventsApi.getPredefinedEvents,
-  //     (): EventsApiGetPredefinedEventsRequest => ({
-  //       dataCenter: dataCenter!.name,
-  //       types: payload.alertTypes,
-  //       severities: payload.severities,
-  //       categories: payload.categories,
-  //       ids: payload.eventIds,
-  //     }),
-  //   )
+  const { isLoading: isMatchingEventsLoading, data: matchingEvents } =
+    useCosGetRequest(
+      eventsApi.getPredefinedEvents,
+      () => {
+        if (!payload) return null
+
+        return {
+          dataCenter: dataCenter!.name,
+          types: payload.alertTypes,
+          severities: payload.severities,
+          categories: payload.categories,
+          ids: payload.eventIds,
+        } satisfies EventsApiGetPredefinedEventsRequest
+      },
+      {
+        fetchOnMount: false,
+      },
+    )
 
   const renderContentFnMap: Record<UpsertTriggersStep, () => ReactNode> = {
     selectEvents: () => (
       <SelectEvents
-        isLoading={false}
-        isPredefinedEventsLoading={false}
+        isInitialDataLoading={false}
+        isMatchingEventsLoading={isMatchingEventsLoading}
+        isMaterialsLoading={isMaterialsLoading}
+        isAttributeChanged={isEventsValid(payload)}
         payload={payload}
-        attributes={attributes}
-        predefinedEvents={predefinedEvents}
+        attribute={materials.attribute}
+        matchingEvents={matchingEvents ?? []}
         onAlertTypeSelect={onAlertTypeSelect}
         onSeveritySelect={onSeveritySelect}
         onCategorySelect={onCategorySelect}
@@ -92,8 +96,9 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     setResponse: () => (
       <SetResponse
         isLoading={false}
+        isResponseChanged={isResponseValid(payload)}
         payload={payload}
-        responses={responses}
+        response={materials.response}
         onEmailSelect={onEmailSelect}
         onSlackSelect={onSlackSelect}
         onScriptChange={onScriptChange}
@@ -105,12 +110,13 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
     addDescription: () => (
       <AddDescription
         isLoading={false}
+        isPublishing={isPublishing}
         nextButtonText="Create"
         payload={payload}
         errorMessage={errorMessage}
         onNameChange={onNameChange}
         onDescriptionChange={onDescriptionChange}
-        onPublishClick={onPublishClick}
+        onPublishClick={onCreateClick}
       />
     ),
   }

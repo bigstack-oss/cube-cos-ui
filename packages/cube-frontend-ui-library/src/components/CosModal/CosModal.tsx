@@ -26,6 +26,7 @@ export type CosModalProps = {
    */
   actionText?: string
   actionButtonProps?: Pick<CosButtonProps, 'loading' | 'disabled'>
+  bodyRef?: React.RefObject<HTMLDivElement | null>
   onActionClick?: () => void
   onCloseClick: () => void
 } & PropsWithClassName
@@ -43,6 +44,7 @@ export const CosModal = (props: CosModalProps) => {
     isActionButtonVisible = true,
     actionText = 'Action',
     actionButtonProps,
+    bodyRef,
     onActionClick,
     onCloseClick,
   } = props
@@ -90,7 +92,9 @@ export const CosModal = (props: CosModalProps) => {
               onClick={onCloseClick}
             />
           </div>
-          <div className="flex-1 overflow-auto p-7">{children}</div>
+          <div ref={bodyRef} className="flex-1 overflow-auto p-7">
+            {children}
+          </div>
           <div className="flex items-center justify-end gap-x-2.5 border-t border-functional-border-divider px-7 py-4">
             {renderFooterMessage(footerMessage)}
             <CosButton

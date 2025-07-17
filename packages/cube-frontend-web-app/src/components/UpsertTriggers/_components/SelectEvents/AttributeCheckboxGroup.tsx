@@ -1,16 +1,18 @@
 import { CosCheckbox, CosCheckboxGrid } from '@cube-frontend/ui-library'
 import { upperFirst } from 'lodash'
 
-type AttributeCheckboxGroupProps = {
+type AttributeCheckboxGroupProps<T extends string> = {
   label: string
   isAllChecked: boolean | null
-  attributes: string[]
-  selectedAttributes: string[]
-  onAttributesChange: (attribute: string) => void
+  attributes: T[]
+  selectedAttributes: T[]
+  onAttributesChange: (attribute: T) => void
   onAllAttributesChange: () => void
 }
 
-export const AttributeCheckboxGroup = (props: AttributeCheckboxGroupProps) => {
+export const AttributeCheckboxGroup = <T extends string>(
+  props: AttributeCheckboxGroupProps<T>,
+) => {
   const {
     label,
     isAllChecked,

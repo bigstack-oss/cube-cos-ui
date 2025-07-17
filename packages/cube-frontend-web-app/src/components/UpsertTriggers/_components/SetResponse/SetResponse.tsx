@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 import {
-  GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner,
-  GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner,
+  GetTriggerMaterialsResponseDataResponse,
+  GetTriggerMaterialsResponseDataResponseEmailsInner,
+  GetTriggerMaterialsResponseDataResponseSlacksInner,
+  TriggerResponseScript,
 } from '@cube-frontend/api'
 import { CosButton, CosStroke, CosTableRow } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
@@ -9,8 +11,6 @@ import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg
 import { StepBoard } from '@cube-frontend/web-app/components/StepBoard'
 import {
   isResponseValid,
-  ScriptFile,
-  TriggerResponses,
   UpsertTriggersPayload,
 } from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
@@ -19,20 +19,20 @@ import { SendNotificationModal } from './SendNotificationModal/SendNotificationM
 import { PersonalizedScriptModal } from './PersonalizedScriptModal/PersonalizedScriptModal'
 
 export type EmailRecipientTableRow =
-  GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner & CosTableRow
+  GetTriggerMaterialsResponseDataResponseEmailsInner & CosTableRow
 
 export type SlackChannelTableRow =
-  GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner & CosTableRow
+  GetTriggerMaterialsResponseDataResponseSlacksInner & CosTableRow
 
 const mapToEmailRecipientTable = (
-  email: GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner,
+  email: GetTriggerMaterialsResponseDataResponseEmailsInner,
 ): EmailRecipientTableRow => ({
   ...email,
   id: email.address,
 })
 
 const mapToSlackChannelTable = (
-  slack: GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner,
+  slack: GetTriggerMaterialsResponseDataResponseSlacksInner,
 ): SlackChannelTableRow => ({
   ...slack,
   id: slack.url,
@@ -50,11 +50,12 @@ const payloadToNotificationDisplay = (
 
 export type SetResponseProps = {
   isLoading: boolean
+  isResponseChanged: boolean
   payload: UpsertTriggersPayload
-  responses: TriggerResponses
+  response: GetTriggerMaterialsResponseDataResponse
   onEmailSelect: (emails: EmailRecipientTableRow[]) => void
   onSlackSelect: (slacks: SlackChannelTableRow[]) => void
-  onScriptChange: (file: ScriptFile) => void
+  onScriptChange: (file: TriggerResponseScript) => void
   onScriptRemove: () => void
   onNextClick: () => void
   onResetClick: () => void
@@ -63,8 +64,9 @@ export type SetResponseProps = {
 export const SetResponse = (props: SetResponseProps) => {
   const {
     isLoading,
+    isResponseChanged,
     payload,
-    responses,
+    response,
     onEmailSelect,
     onSlackSelect,
     onScriptChange,
@@ -73,7 +75,7 @@ export const SetResponse = (props: SetResponseProps) => {
     onResetClick,
   } = props
 
-  const { emails, slacks, scriptTypes } = responses
+  const { scriptType, emails, slacks } = response
 
   const [isSendNotificationOpen, setIsSendNotificationOpen] = useState(false)
 
@@ -122,11 +124,11 @@ export const SetResponse = (props: SetResponseProps) => {
   }
 
   const renderPersonalizedScriptStackCard = () => {
-    if (!payload.script) return null
+    if (!payload.script?.name && !payload.script?.content) return null
     return (
       <TriggersStackCard
         title="Personalized Script"
-        tags={[payload.script.fileName]}
+        tags={[payload.script.name]}
         onEditClick={onPersonalizedScriptButtonClick}
         onRemoveClick={onScriptRemove}
       />
@@ -151,6 +153,7 @@ export const SetResponse = (props: SetResponseProps) => {
               usage="icon-left"
               Icon={AddSquare}
               onClick={() => setIsPersonalizedScriptOpen(true)}
+              disabled={!!payload.script?.content || !!payload.script?.name}
             >
               Personalized Script
             </CosButton>
@@ -158,7 +161,7 @@ export const SetResponse = (props: SetResponseProps) => {
           <CosButton
             type="ghost"
             onClick={onResetClick}
-            disabled={!isValueValid}
+            disabled={!isResponseChanged}
           >
             Reset
           </CosButton>
@@ -193,7 +196,7 @@ export const SetResponse = (props: SetResponseProps) => {
       <PersonalizedScriptModal
         isModalOpen={isPersonalizedScriptOpen}
         payload={payload}
-        scriptTypes={scriptTypes}
+        scriptType={scriptType}
         onScriptChange={onScriptChange}
         onModalClose={() => setIsPersonalizedScriptOpen(false)}
       />

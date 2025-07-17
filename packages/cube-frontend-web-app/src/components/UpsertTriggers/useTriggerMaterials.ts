@@ -1,53 +1,72 @@
-// import { useContext } from 'react'
-// import { TriggersApiGetTriggerMaterialsRequest } from '@cube-frontend/api'
-// import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
-// import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-// import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { TriggerAttributes, TriggerResponses } from './upsertTriggersUtils'
+import { useContext } from 'react'
 import {
-  mockAlertTypes,
-  mockCategories,
-  mockEmails,
-  mockEventIds,
-  mockScriptTypes,
-  mockSeverities,
-  mockSlacks,
-} from './mockData'
+  GetPredefinedEventsCategoriesEnum,
+  GetPredefinedEventsIdsEnum,
+  GetPredefinedEventsSeveritiesEnum,
+  GetPredefinedEventsTypesEnum,
+  GetTriggerMaterialsResponseDataResponse,
+  TriggersApiGetTriggerMaterialsRequest,
+} from '@cube-frontend/api'
+import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
+import { filterEnumValues, TriggerAttribute } from './upsertTriggersUtils'
 
 type UseTriggerMaterials = {
-  attributes: TriggerAttributes
-  responses: TriggerResponses
+  isMaterialsLoading: boolean
+  materials: {
+    attribute: TriggerAttribute
+    response: GetTriggerMaterialsResponseDataResponse
+  }
 }
 
 export const useTriggerMaterials = (): UseTriggerMaterials => {
-  // const { dataCenter } = useContext(DataCenterContext)
+  const { dataCenter } = useContext(DataCenterContext)
 
-  // const { data: materials } = useCosGetRequest(
-  //   triggersApi.getTriggerMaterials,
-  //   (): TriggersApiGetTriggerMaterialsRequest => ({
-  //     dataCenter: dataCenter!.name,
-  //   }),
-  // )
+  const { isLoading: isMaterialsLoading, data: materials } = useCosGetRequest(
+    triggersApi.getTriggerMaterials,
+    (): TriggersApiGetTriggerMaterialsRequest => ({
+      dataCenter: dataCenter!.name,
+    }),
+  )
 
-  /**
-   * TODO: Fetch data from API
-   */
-  const alertTypes = mockAlertTypes
+  const alertTypes = filterEnumValues(
+    materials?.attribute.alertTypes,
+    GetPredefinedEventsTypesEnum,
+  )
 
-  const severities = mockSeverities
+  const severities = filterEnumValues(
+    materials?.attribute.severities,
+    GetPredefinedEventsSeveritiesEnum,
+  )
 
-  const categories = mockCategories
+  const categories = filterEnumValues(
+    materials?.attribute.categories,
+    GetPredefinedEventsCategoriesEnum,
+  )
 
-  const eventIds = mockEventIds
-
-  const emails = mockEmails
-
-  const slacks = mockSlacks
-
-  const scriptTypes = mockScriptTypes
+  const eventIds = filterEnumValues(
+    materials?.attribute.eventIds,
+    GetPredefinedEventsIdsEnum,
+  )
 
   return {
-    attributes: { alertTypes, severities, categories, eventIds },
-    responses: { emails, slacks, scriptTypes },
+    isMaterialsLoading,
+    materials: {
+      attribute: {
+        alertTypes,
+        severities,
+        categories,
+        eventIds,
+      },
+      response: {
+        emails: materials?.response.emails ?? [],
+        slacks: materials?.response.slacks ?? [],
+        scriptType: materials?.response.scriptType ?? {
+          language: '-',
+          environment: '-',
+        },
+      },
+    },
   }
 }
