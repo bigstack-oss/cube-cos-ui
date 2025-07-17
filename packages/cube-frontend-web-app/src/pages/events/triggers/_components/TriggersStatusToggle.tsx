@@ -1,5 +1,5 @@
 import { CosToggle } from '@cube-frontend/ui-library'
-import { TriggerRow } from './utils'
+import { TriggerRow } from '../utils'
 
 type TriggersStatusToggleProps = {
   row: TriggerRow

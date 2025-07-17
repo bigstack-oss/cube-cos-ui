@@ -1,35 +1,33 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
-import { TriggersApiGetTriggersRequest } from '@cube-frontend/api'
+import { Page, TriggersApiGetTriggersRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
-import { mapToTriggerTableRow, TriggerRow } from './utils'
-import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { TriggersQuery, TriggerRow, mapToTriggerTableRow } from './utils'
 
 export type UseTriggerRowsOptions = {
+  query: TriggersQuery
   onOperationErrorOccur: (errorMessage: string) => void
 }
 
 export type UseTriggerRows = {
   isLoading: boolean
   rows: TriggerRow[]
-  handleStatusChange: (triggerName: string) => Promise<void>
-  handleEdit: (triggerName: string) => void
+  page: Page | undefined
+  onToggleChange: (triggerName: string) => Promise<void>
 }
 
 export const useTriggerRows = (
   options: UseTriggerRowsOptions,
 ): UseTriggerRows => {
-  const { onOperationErrorOccur } = options
-
-  const navigate = useNavigate()
+  const { query, onOperationErrorOccur } = options
 
   const { dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<TriggerRow[]>([])
+
   const intervenedTriggerNamesRef = useRef<Set<string>>(new Set())
 
   const {
@@ -40,18 +38,28 @@ export const useTriggerRows = (
     triggersApi.getTriggers,
     (): TriggersApiGetTriggersRequest => ({
       dataCenter: dataCenter!.name,
+      pageNum: query.currentPage,
+      pageSize: query.itemsPerPage,
     }),
   )
 
   useSequentialInterval(refreshTriggers, 5000)
 
   useEffect(() => {
-    const triggersFromApi = listTriggersResponse ?? []
+    const triggers = listTriggersResponse?.triggers ?? []
+
+    // Built-in triggers appear at the beginning of the row list
+    const sortedTriggers = [...triggers].sort((a, b) => {
+      if (a.isBuiltIn === b.isBuiltIn) return 0
+      return a.isBuiltIn ? -1 : 1
+    })
+
     setRows((oldRows) => {
       const oldRowsMap: Map<string, TriggerRow> = new Map(
         oldRows.map((row) => [row.name, row]),
       )
-      return triggersFromApi.map((trigger) => {
+
+      return sortedTriggers.map((trigger) => {
         const newRow = mapToTriggerTableRow(trigger)
         // For triggers with manual interventions, keep the state intact and
         // sync it using additional API calls.
@@ -82,7 +90,7 @@ export const useTriggerRows = (
     })
   }
 
-  const handleStatusChange = async (triggerName: string): Promise<void> => {
+  const onToggleChange = async (triggerName: string): Promise<void> => {
     const targetRow = rows.find((row) => row.name === triggerName)
 
     if (!targetRow) {
@@ -135,13 +143,11 @@ export const useTriggerRows = (
     targetRow: TriggerRow,
   ): Promise<void> => {
     try {
-      const {
-        data: { data: triggers },
-      } = await triggersApi.getTriggers({
+      const response = await triggersApi.getTriggers({
         dataCenter: dataCenter!.name,
       })
 
-      const trigger = triggers.find(
+      const trigger = response.data.data.triggers.find(
         (trigger) => trigger.name === targetRow.name,
       )
       if (!trigger) return
@@ -156,17 +162,10 @@ export const useTriggerRows = (
     }
   }
 
-  const handleEdit = (triggerName: string) => {
-    /**
-     * Navigate to the Edit page for the selected trigger.
-     */
-    navigate(`${CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}?name=${triggerName}`)
-  }
-
   return {
     rows,
     isLoading: !hasResponseBeenReceived,
-    handleStatusChange,
-    handleEdit,
+    page: listTriggersResponse?.page,
+    onToggleChange,
   }
 }

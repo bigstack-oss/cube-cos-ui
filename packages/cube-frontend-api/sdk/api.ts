@@ -170,6 +170,100 @@ export interface CreateSupportFilesResponse {
 /**
  * 
  * @export
+ * @interface CreateTriggerRequest
+ */
+export interface CreateTriggerRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateTriggerRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateTriggerRequest
+     */
+    'description': string;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataAttributeInner}
+     * @memberof CreateTriggerRequest
+     */
+    'attribute': GetTriggerMaterialsResponseDataAttributeInner;
+    /**
+     * 
+     * @type {CreateTriggerRequestResponse}
+     * @memberof CreateTriggerRequest
+     */
+    'response': CreateTriggerRequestResponse;
+}
+/**
+ * 
+ * @export
+ * @interface CreateTriggerRequestResponse
+ */
+export interface CreateTriggerRequestResponse {
+    /**
+     * 
+     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
+     * @memberof CreateTriggerRequestResponse
+     */
+    'script': GetTriggersResponseDataTriggersInnerResponseScript;
+    /**
+     * 
+     * @type {CreateTriggerRequestResponseNotifications}
+     * @memberof CreateTriggerRequestResponse
+     */
+    'notifications': CreateTriggerRequestResponseNotifications;
+}
+/**
+ * 
+ * @export
+ * @interface CreateTriggerRequestResponseNotifications
+ */
+export interface CreateTriggerRequestResponseNotifications {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateTriggerRequestResponseNotifications
+     */
+    'slacks': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateTriggerRequestResponseNotifications
+     */
+    'emails': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface CreateTriggerResponse
+ */
+export interface CreateTriggerResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateTriggerResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateTriggerResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateTriggerResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteEmailRecipient500Response
  */
 export interface DeleteEmailRecipient500Response {
@@ -366,6 +460,81 @@ export interface DeleteSupportFiles500Response {
      * @memberof DeleteSupportFiles500Response
      */
     'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteTrigger404Response
+ */
+export interface DeleteTrigger404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteTrigger404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTrigger404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTrigger404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteTrigger500Response
+ */
+export interface DeleteTrigger500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteTrigger500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTrigger500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTrigger500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteTriggerResponse
+ */
+export interface DeleteTriggerResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteTriggerResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTriggerResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteTriggerResponse
+     */
+    'status': string;
 }
 /**
  * 
@@ -4085,6 +4254,106 @@ export interface GetOpenSearchRequestDashboard500Response {
 /**
  * 
  * @export
+ * @interface GetPredefinedEventFilterResponse
+ */
+export interface GetPredefinedEventFilterResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetPredefinedEventFilterResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetPredefinedEventFilterResponseData}
+     * @memberof GetPredefinedEventFilterResponse
+     */
+    'data': GetPredefinedEventFilterResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetPredefinedEventFilterResponseData
+ */
+export interface GetPredefinedEventFilterResponseData {
+    /**
+     * 
+     * @type {Array<GetPredefinedEventFilterResponseDataEventsInner>}
+     * @memberof GetPredefinedEventFilterResponseData
+     */
+    'events': Array<GetPredefinedEventFilterResponseDataEventsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetPredefinedEventFilterResponseDataEventsInner
+ */
+export interface GetPredefinedEventFilterResponseDataEventsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     */
+    'severity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEventFilterResponseDataEventsInner
+     */
+    'category': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetPredefinedEvents500Response
+ */
+export interface GetPredefinedEvents500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetPredefinedEvents500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEvents500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetPredefinedEvents500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface GetRankedEventsResponse
  */
 export interface GetRankedEventsResponse {
@@ -4822,6 +5091,213 @@ export interface GetTokensResponseDataExpires {
 /**
  * 
  * @export
+ * @interface GetTriggerMaterials500Response
+ */
+export interface GetTriggerMaterials500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetTriggerMaterials500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterials500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterials500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponse
+ */
+export interface GetTriggerMaterialsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetTriggerMaterialsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseData}
+     * @memberof GetTriggerMaterialsResponse
+     */
+    'data': GetTriggerMaterialsResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseData
+ */
+export interface GetTriggerMaterialsResponseData {
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataAttributeInner>}
+     * @memberof GetTriggerMaterialsResponseData
+     */
+    'attribute': Array<GetTriggerMaterialsResponseDataAttributeInner>;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponse}
+     * @memberof GetTriggerMaterialsResponseData
+     */
+    'response': GetTriggerMaterialsResponseDataResponse;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataAttributeInner
+ */
+export interface GetTriggerMaterialsResponseDataAttributeInner {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     */
+    'alertTypes': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     */
+    'severities': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     */
+    'categories': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataAttributeInner
+     */
+    'eventIds': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponse
+ */
+export interface GetTriggerMaterialsResponseDataResponse {
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponseScriptTypes}
+     * @memberof GetTriggerMaterialsResponseDataResponse
+     */
+    'scriptTypes': GetTriggerMaterialsResponseDataResponseScriptTypes;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponseNotifications}
+     * @memberof GetTriggerMaterialsResponseDataResponse
+     */
+    'notifications': GetTriggerMaterialsResponseDataResponseNotifications;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseNotifications
+ */
+export interface GetTriggerMaterialsResponseDataResponseNotifications {
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotifications
+     */
+    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotifications
+     */
+    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
+ */
+export interface GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
+     */
+    'address': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner
+     */
+    'note': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+ */
+export interface GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     */
+    'url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseScriptTypes
+ */
+export interface GetTriggerMaterialsResponseDataResponseScriptTypes {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypes
+     */
+    'types': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypes
+     */
+    'environments': Array<string>;
+}
+/**
+ * 
+ * @export
  * @interface GetTriggerResponse
  */
 export interface GetTriggerResponse {
@@ -4864,28 +5340,59 @@ export interface GetTriggerResponseData {
     'name': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof GetTriggerResponseData
+     */
+    'isBuiltIn': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof GetTriggerResponseData
      */
     'description': string;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerAttributesInner>}
+     * @type {GetTriggerMaterialsResponseDataAttributeInner}
      * @memberof GetTriggerResponseData
      */
-    'attributes': Array<GetTriggersResponseDataInnerAttributesInner>;
+    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
     /**
      * 
-     * @type {GetTriggersResponseDataInnerResponse}
+     * @type {GetTriggerResponseDataResponse}
      * @memberof GetTriggerResponseData
      */
-    'response': GetTriggersResponseDataInnerResponse;
+    'response': GetTriggerResponseDataResponse;
     /**
      * 
      * @type {boolean}
      * @memberof GetTriggerResponseData
      */
     'enabled': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerResponseDataResponse
+ */
+export interface GetTriggerResponseDataResponse {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'types': Array<string>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
+     * @memberof GetTriggerResponseDataResponse
+     */
+    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
 }
 /**
  * 
@@ -4926,10 +5433,10 @@ export interface GetTriggersResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInner>}
+     * @type {GetTriggersResponseData}
      * @memberof GetTriggersResponse
      */
-    'data': Array<GetTriggersResponseDataInner>;
+    'data': GetTriggersResponseData;
     /**
      * 
      * @type {string}
@@ -4946,174 +5453,137 @@ export interface GetTriggersResponse {
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInner
+ * @interface GetTriggersResponseData
  */
-export interface GetTriggersResponseDataInner {
+export interface GetTriggersResponseData {
+    /**
+     * 
+     * @type {Array<GetTriggersResponseDataTriggersInner>}
+     * @memberof GetTriggersResponseData
+     */
+    'triggers': Array<GetTriggersResponseDataTriggersInner>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof GetTriggersResponseData
+     */
+    'page': Page;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggersResponseDataTriggersInner
+ */
+export interface GetTriggersResponseDataTriggersInner {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInner
+     * @memberof GetTriggersResponseDataTriggersInner
      */
     'name': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof GetTriggersResponseDataTriggersInner
+     */
+    'isBuiltIn': boolean;
+    /**
+     * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInner
+     * @memberof GetTriggersResponseDataTriggersInner
      */
     'description': string;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerAttributesInner>}
-     * @memberof GetTriggersResponseDataInner
+     * @type {GetTriggerMaterialsResponseDataAttributeInner}
+     * @memberof GetTriggersResponseDataTriggersInner
      */
-    'attributes': Array<GetTriggersResponseDataInnerAttributesInner>;
+    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
     /**
      * 
-     * @type {GetTriggersResponseDataInnerResponse}
-     * @memberof GetTriggersResponseDataInner
+     * @type {GetTriggersResponseDataTriggersInnerResponse}
+     * @memberof GetTriggersResponseDataTriggersInner
      */
-    'response': GetTriggersResponseDataInnerResponse;
+    'response': GetTriggersResponseDataTriggersInnerResponse;
     /**
      * 
-     * @type {GetTriggersResponseDataInnerStatus}
-     * @memberof GetTriggersResponseDataInner
+     * @type {GetTriggersResponseDataTriggersInnerStatus}
+     * @memberof GetTriggersResponseDataTriggersInner
      */
-    'status': GetTriggersResponseDataInnerStatus;
+    'status': GetTriggersResponseDataTriggersInnerStatus;
     /**
      * 
      * @type {boolean}
-     * @memberof GetTriggersResponseDataInner
+     * @memberof GetTriggersResponseDataTriggersInner
      */
     'enabled': boolean;
 }
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInnerAttributesInner
+ * @interface GetTriggersResponseDataTriggersInnerResponse
  */
-export interface GetTriggersResponseDataInnerAttributesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributesInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributesInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerAttributesInner
-     */
-    'value': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerAttributesInner
-     */
-    'enabled': boolean;
-}
-/**
- * 
- * @export
- * @interface GetTriggersResponseDataInnerResponse
- */
-export interface GetTriggersResponseDataInnerResponse {
+export interface GetTriggersResponseDataTriggersInnerResponse {
     /**
      * 
      * @type {Array<string>}
-     * @memberof GetTriggersResponseDataInnerResponse
+     * @memberof GetTriggersResponseDataTriggersInnerResponse
      */
     'types': Array<string>;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerResponseSlacksInner>}
-     * @memberof GetTriggersResponseDataInnerResponse
+     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
+     * @memberof GetTriggersResponseDataTriggersInnerResponse
      */
-    'slacks': Array<GetTriggersResponseDataInnerResponseSlacksInner>;
+    'script': GetTriggersResponseDataTriggersInnerResponseScript;
     /**
      * 
-     * @type {Array<GetTriggersResponseDataInnerResponseEmailsInner>}
-     * @memberof GetTriggersResponseDataInnerResponse
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>}
+     * @memberof GetTriggersResponseDataTriggersInnerResponse
      */
-    'emails': Array<GetTriggersResponseDataInnerResponseEmailsInner>;
+    'slacks': Array<GetTriggerMaterialsResponseDataResponseNotificationsSlacksInner>;
+    /**
+     * 
+     * @type {Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>}
+     * @memberof GetTriggersResponseDataTriggersInnerResponse
+     */
+    'emails': Array<GetTriggerMaterialsResponseDataResponseNotificationsEmailsInner>;
 }
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInnerResponseEmailsInner
+ * @interface GetTriggersResponseDataTriggersInnerResponseScript
  */
-export interface GetTriggersResponseDataInnerResponseEmailsInner {
+export interface GetTriggersResponseDataTriggersInnerResponseScript {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
+     * @memberof GetTriggersResponseDataTriggersInnerResponseScript
      */
-    'address': string;
+    'filePath': string;
     /**
-     * 
+     * Base64 encoded script content
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
+     * @memberof GetTriggersResponseDataTriggersInnerResponseScript
      */
-    'note': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerResponseEmailsInner
-     */
-    'enabled': boolean;
+    'content': string;
 }
 /**
  * 
  * @export
- * @interface GetTriggersResponseDataInnerResponseSlacksInner
+ * @interface GetTriggersResponseDataTriggersInnerStatus
  */
-export interface GetTriggersResponseDataInnerResponseSlacksInner {
+export interface GetTriggersResponseDataTriggersInnerStatus {
     /**
      * 
      * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
-     */
-    'url': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
-     */
-    'description': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerResponseSlacksInner
-     */
-    'enabled': boolean;
-}
-/**
- * 
- * @export
- * @interface GetTriggersResponseDataInnerStatus
- */
-export interface GetTriggersResponseDataInnerStatus {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetTriggersResponseDataInnerStatus
+     * @memberof GetTriggersResponseDataTriggersInnerStatus
      */
     'current'?: string;
     /**
      * 
      * @type {boolean}
-     * @memberof GetTriggersResponseDataInnerStatus
+     * @memberof GetTriggersResponseDataTriggersInnerStatus
      */
     'isUpdating': boolean;
 }
@@ -5886,6 +6356,7 @@ export const NodeStatusEnum = {
     PoweringOn: 'powering on',
     PoweringOff: 'powering off',
     PoweringCycle: 'powering cycle',
+    Syncing: 'syncing',
     Unknown: 'unknown'
 } as const;
 
@@ -7421,10 +7892,10 @@ export interface UpdateTrigger500Response {
 export interface UpdateTriggerRequest {
     /**
      * 
-     * @type {Array<UpdateTriggerRequestAttributesInner>}
+     * @type {GetTriggerMaterialsResponseDataAttributeInner}
      * @memberof UpdateTriggerRequest
      */
-    'attributes': Array<UpdateTriggerRequestAttributesInner>;
+    'attributes': GetTriggerMaterialsResponseDataAttributeInner;
     /**
      * 
      * @type {UpdateTriggerRequestResponse}
@@ -7441,72 +7912,52 @@ export interface UpdateTriggerRequest {
 /**
  * 
  * @export
- * @interface UpdateTriggerRequestAttributesInner
- */
-export interface UpdateTriggerRequestAttributesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTriggerRequestAttributesInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTriggerRequestAttributesInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateTriggerRequestAttributesInner
-     */
-    'value': string;
-}
-/**
- * 
- * @export
  * @interface UpdateTriggerRequestResponse
  */
 export interface UpdateTriggerRequestResponse {
     /**
      * 
-     * @type {Array<UpdateTriggerRequestResponseSlacksInner>}
+     * @type {UpdateTriggerRequestResponseScript}
      * @memberof UpdateTriggerRequestResponse
      */
-    'slacks': Array<UpdateTriggerRequestResponseSlacksInner>;
+    'script': UpdateTriggerRequestResponseScript;
     /**
      * 
-     * @type {Array<UpdateTriggerRequestResponseEmailsInner>}
+     * @type {Array<string>}
      * @memberof UpdateTriggerRequestResponse
      */
-    'emails': Array<UpdateTriggerRequestResponseEmailsInner>;
+    'slacks': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UpdateTriggerRequestResponse
+     */
+    'emails': Array<string>;
 }
 /**
  * 
  * @export
- * @interface UpdateTriggerRequestResponseEmailsInner
+ * @interface UpdateTriggerRequestResponseScript
  */
-export interface UpdateTriggerRequestResponseEmailsInner {
+export interface UpdateTriggerRequestResponseScript {
+    /**
+     * 
+     * @type {GetTriggersResponseDataTriggersInnerResponseScript}
+     * @memberof UpdateTriggerRequestResponseScript
+     */
+    'script': GetTriggersResponseDataTriggersInnerResponseScript;
     /**
      * 
      * @type {string}
-     * @memberof UpdateTriggerRequestResponseEmailsInner
+     * @memberof UpdateTriggerRequestResponseScript
      */
-    'address': string;
-}
-/**
- * 
- * @export
- * @interface UpdateTriggerRequestResponseSlacksInner
- */
-export interface UpdateTriggerRequestResponseSlacksInner {
+    'filePath': string;
     /**
-     * 
+     * Base64 encoded script content
      * @type {string}
-     * @memberof UpdateTriggerRequestResponseSlacksInner
+     * @memberof UpdateTriggerRequestResponseScript
      */
-    'url': string;
+    'content': string;
 }
 /**
  * 
@@ -7849,6 +8300,44 @@ export type VerifyLicenseStatusCurrentEnum = typeof VerifyLicenseStatusCurrentEn
 /**
  * 
  * @export
+ * @interface VerifyMaterialScriptRequest
+ */
+export interface VerifyMaterialScriptRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyMaterialScriptRequest
+     */
+    'script': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyMaterialScriptResponse
+ */
+export interface VerifyMaterialScriptResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyMaterialScriptResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyMaterialScriptResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyMaterialScriptResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface VerifyNodeIpmi500Response
  */
 export interface VerifyNodeIpmi500Response {
@@ -7988,6 +8477,56 @@ export interface VerifyNodeIpmiResponseDataProduct {
      * @memberof VerifyNodeIpmiResponseDataProduct
      */
     'version': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyTriggerScript400Response
+ */
+export interface VerifyTriggerScript400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyTriggerScript400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyTriggerScript500Response
+ */
+export interface VerifyTriggerScript500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyTriggerScript500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyTriggerScript500Response
+     */
+    'status'?: string;
 }
 
 /**
@@ -8403,6 +8942,64 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @summary Retrieve the predefined events
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {Array<GetPredefinedEventsTypesEnum>} [types] The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+         * @param {Array<string>} [categories] The categories of the event to query.
+         * @param {Array<GetPredefinedEventsSeveritiesEnum>} [severities] The severities of the event to query.
+         * @param {Array<string>} [ids] The ids of the event to query.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPredefinedEvents: async (dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<string>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getPredefinedEvents', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/events/predefined`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (types) {
+                localVarQueryParameter['types'] = types;
+            }
+
+            if (categories) {
+                localVarQueryParameter['categories'] = categories;
+            }
+
+            if (severities) {
+                localVarQueryParameter['severities'] = severities;
+            }
+
+            if (ids) {
+                localVarQueryParameter['ids'] = ids;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the ranked events
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetRankedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
@@ -8581,6 +9178,23 @@ export const EventsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Retrieve the predefined events
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {Array<GetPredefinedEventsTypesEnum>} [types] The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+         * @param {Array<string>} [categories] The categories of the event to query.
+         * @param {Array<GetPredefinedEventsSeveritiesEnum>} [severities] The severities of the event to query.
+         * @param {Array<string>} [ids] The ids of the event to query.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPredefinedEvents(dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<string>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetPredefinedEventFilterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPredefinedEvents(dataCenter, types, categories, severities, ids, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['EventsApi.getPredefinedEvents']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the ranked events
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetRankedEventsTypeEnum} type The type of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
@@ -8645,6 +9259,16 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
          */
         getEvents(requestParameters: EventsApiGetEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
             return localVarFp.getEvents(requestParameters.dataCenter, requestParameters.type, requestParameters.keyword, requestParameters.id, requestParameters.categories, requestParameters.severities, requestParameters.hosts, requestParameters.instances, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.pageSize, requestParameters.pageNum, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the predefined events
+         * @param {EventsApiGetPredefinedEventsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPredefinedEvents(requestParameters: EventsApiGetPredefinedEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetPredefinedEventFilterResponse> {
+            return localVarFp.getPredefinedEvents(requestParameters.dataCenter, requestParameters.types, requestParameters.categories, requestParameters.severities, requestParameters.ids, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8835,6 +9459,48 @@ export interface EventsApiGetEventsRequest {
 }
 
 /**
+ * Request parameters for getPredefinedEvents operation in EventsApi.
+ * @export
+ * @interface EventsApiGetPredefinedEventsRequest
+ */
+export interface EventsApiGetPredefinedEventsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly dataCenter: string
+
+    /**
+     * The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
+     * @type {Array<'system' | 'host' | 'instance'>}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly types?: Array<GetPredefinedEventsTypesEnum>
+
+    /**
+     * The categories of the event to query.
+     * @type {Array<string>}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly categories?: Array<string>
+
+    /**
+     * The severities of the event to query.
+     * @type {Array<'Info' | 'Warning' | 'Critical' | 'Error'>}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly severities?: Array<GetPredefinedEventsSeveritiesEnum>
+
+    /**
+     * The ids of the event to query.
+     * @type {Array<string>}
+     * @memberof EventsApiGetPredefinedEvents
+     */
+    readonly ids?: Array<string>
+}
+
+/**
  * Request parameters for getRankedEvents operation in EventsApi.
  * @export
  * @interface EventsApiGetRankedEventsRequest
@@ -8991,6 +9657,18 @@ export class EventsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Retrieve the predefined events
+     * @param {EventsApiGetPredefinedEventsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EventsApi
+     */
+    public getPredefinedEvents(requestParameters: EventsApiGetPredefinedEventsRequest, options?: RawAxiosRequestConfig) {
+        return EventsApiFp(this.configuration).getPredefinedEvents(requestParameters.dataCenter, requestParameters.types, requestParameters.categories, requestParameters.severities, requestParameters.ids, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve the ranked events
      * @param {EventsApiGetRankedEventsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -9039,6 +9717,25 @@ export const GetEventsSeveritiesEnum = {
     Error: 'Error'
 } as const;
 export type GetEventsSeveritiesEnum = typeof GetEventsSeveritiesEnum[keyof typeof GetEventsSeveritiesEnum];
+/**
+ * @export
+ */
+export const GetPredefinedEventsTypesEnum = {
+    System: 'system',
+    Host: 'host',
+    Instance: 'instance'
+} as const;
+export type GetPredefinedEventsTypesEnum = typeof GetPredefinedEventsTypesEnum[keyof typeof GetPredefinedEventsTypesEnum];
+/**
+ * @export
+ */
+export const GetPredefinedEventsSeveritiesEnum = {
+    Info: 'Info',
+    Warning: 'Warning',
+    Critical: 'Critical',
+    Error: 'Error'
+} as const;
+export type GetPredefinedEventsSeveritiesEnum = typeof GetPredefinedEventsSeveritiesEnum[keyof typeof GetPredefinedEventsSeveritiesEnum];
 /**
  * @export
  */
@@ -15635,9 +16332,95 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @summary Create trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {CreateTriggerRequest} createTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTrigger: async (dataCenter: string, createTriggerRequest: CreateTriggerRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createTrigger', 'dataCenter', dataCenter)
+            // verify required parameter 'createTriggerRequest' is not null or undefined
+            assertParamExists('createTrigger', 'createTriggerRequest', createTriggerRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createTriggerRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTrigger: async (dataCenter: string, triggerName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteTrigger', 'dataCenter', dataCenter)
+            // verify required parameter 'triggerName' is not null or undefined
+            assertParamExists('deleteTrigger', 'triggerName', triggerName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/{triggerName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"triggerName"}}`, encodeURIComponent(String(triggerName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Enable or disable a specific trigger
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} triggerName The name of the trigger to update.
+         * @param {string} triggerName The name of the trigger to operate
          * @param {EnableOrDisableTriggerRequest} enableOrDisableTriggerRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -15725,12 +16508,52 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary Retrieve all triggers
+         * @summary Retrieve all trigger materials
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTriggers: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getTriggerMaterials: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getTriggerMaterials', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/materials`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve all triggers
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTriggers: async (dataCenter: string, pageSize?: number, pageNum?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getTriggers', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers`
@@ -15749,6 +16572,14 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
             // authentication BearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
 
 
     
@@ -15809,6 +16640,50 @@ export const TriggersApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Verify trigger script
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {VerifyMaterialScriptRequest} verifyMaterialScriptRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyTriggerScript: async (dataCenter: string, verifyMaterialScriptRequest: VerifyMaterialScriptRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('verifyTriggerScript', 'dataCenter', dataCenter)
+            // verify required parameter 'verifyMaterialScriptRequest' is not null or undefined
+            assertParamExists('verifyTriggerScript', 'verifyMaterialScriptRequest', verifyMaterialScriptRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/triggers/materials/script/verify`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(verifyMaterialScriptRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -15821,9 +16696,37 @@ export const TriggersApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Create trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {CreateTriggerRequest} createTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createTrigger(dataCenter: string, createTriggerRequest: CreateTriggerRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTriggerResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createTrigger(dataCenter, createTriggerRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.createTrigger']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete a specific trigger
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} triggerName The name of the trigger to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteTrigger(dataCenter: string, triggerName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteTriggerResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTrigger(dataCenter, triggerName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.deleteTrigger']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Enable or disable a specific trigger
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} triggerName The name of the trigger to update.
+         * @param {string} triggerName The name of the trigger to operate
          * @param {EnableOrDisableTriggerRequest} enableOrDisableTriggerRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -15850,13 +16753,28 @@ export const TriggersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Retrieve all triggers
+         * @summary Retrieve all trigger materials
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTriggers(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTriggersResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTriggers(dataCenter, options);
+        async getTriggerMaterials(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTriggerMaterialsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTriggerMaterials(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.getTriggerMaterials']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve all triggers
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTriggers(dataCenter: string, pageSize?: number, pageNum?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTriggersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTriggers(dataCenter, pageSize, pageNum, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TriggersApi.getTriggers']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -15876,6 +16794,20 @@ export const TriggersApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['TriggersApi.updateTrigger']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @summary Verify trigger script
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {VerifyMaterialScriptRequest} verifyMaterialScriptRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async verifyTriggerScript(dataCenter: string, verifyMaterialScriptRequest: VerifyMaterialScriptRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VerifyMaterialScriptResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyTriggerScript(dataCenter, verifyMaterialScriptRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TriggersApi.verifyTriggerScript']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -15886,6 +16818,26 @@ export const TriggersApiFp = function(configuration?: Configuration) {
 export const TriggersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = TriggersApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary Create trigger
+         * @param {TriggersApiCreateTriggerRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTrigger(requestParameters: TriggersApiCreateTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateTriggerResponse> {
+            return localVarFp.createTrigger(requestParameters.dataCenter, requestParameters.createTriggerRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete a specific trigger
+         * @param {TriggersApiDeleteTriggerRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTrigger(requestParameters: TriggersApiDeleteTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteTriggerResponse> {
+            return localVarFp.deleteTrigger(requestParameters.dataCenter, requestParameters.triggerName, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Enable or disable a specific trigger
@@ -15908,13 +16860,23 @@ export const TriggersApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @summary Retrieve all trigger materials
+         * @param {TriggersApiGetTriggerMaterialsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTriggerMaterials(requestParameters: TriggersApiGetTriggerMaterialsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetTriggerMaterialsResponse> {
+            return localVarFp.getTriggerMaterials(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve all triggers
          * @param {TriggersApiGetTriggersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getTriggers(requestParameters: TriggersApiGetTriggersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetTriggersResponse> {
-            return localVarFp.getTriggers(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+            return localVarFp.getTriggers(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -15926,8 +16888,60 @@ export const TriggersApiFactory = function (configuration?: Configuration, baseP
         updateTrigger(requestParameters: TriggersApiUpdateTriggerRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateTriggerResponse> {
             return localVarFp.updateTrigger(requestParameters.dataCenter, requestParameters.triggerName, requestParameters.updateTriggerRequest, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary Verify trigger script
+         * @param {TriggersApiVerifyTriggerScriptRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyTriggerScript(requestParameters: TriggersApiVerifyTriggerScriptRequest, options?: RawAxiosRequestConfig): AxiosPromise<VerifyMaterialScriptResponse> {
+            return localVarFp.verifyTriggerScript(requestParameters.dataCenter, requestParameters.verifyMaterialScriptRequest, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for createTrigger operation in TriggersApi.
+ * @export
+ * @interface TriggersApiCreateTriggerRequest
+ */
+export interface TriggersApiCreateTriggerRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiCreateTrigger
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {CreateTriggerRequest}
+     * @memberof TriggersApiCreateTrigger
+     */
+    readonly createTriggerRequest: CreateTriggerRequest
+}
+
+/**
+ * Request parameters for deleteTrigger operation in TriggersApi.
+ * @export
+ * @interface TriggersApiDeleteTriggerRequest
+ */
+export interface TriggersApiDeleteTriggerRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiDeleteTrigger
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the trigger to operate
+     * @type {string}
+     * @memberof TriggersApiDeleteTrigger
+     */
+    readonly triggerName: string
+}
 
 /**
  * Request parameters for enableOrDisableTrigger operation in TriggersApi.
@@ -15943,7 +16957,7 @@ export interface TriggersApiEnableOrDisableTriggerRequest {
     readonly dataCenter: string
 
     /**
-     * The name of the trigger to update.
+     * The name of the trigger to operate
      * @type {string}
      * @memberof TriggersApiEnableOrDisableTrigger
      */
@@ -15979,6 +16993,20 @@ export interface TriggersApiGetTriggerRequest {
 }
 
 /**
+ * Request parameters for getTriggerMaterials operation in TriggersApi.
+ * @export
+ * @interface TriggersApiGetTriggerMaterialsRequest
+ */
+export interface TriggersApiGetTriggerMaterialsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiGetTriggerMaterials
+     */
+    readonly dataCenter: string
+}
+
+/**
  * Request parameters for getTriggers operation in TriggersApi.
  * @export
  * @interface TriggersApiGetTriggersRequest
@@ -15990,6 +17018,20 @@ export interface TriggersApiGetTriggersRequest {
      * @memberof TriggersApiGetTriggers
      */
     readonly dataCenter: string
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof TriggersApiGetTriggers
+     */
+    readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof TriggersApiGetTriggers
+     */
+    readonly pageNum?: number
 }
 
 /**
@@ -16021,12 +17063,57 @@ export interface TriggersApiUpdateTriggerRequest {
 }
 
 /**
+ * Request parameters for verifyTriggerScript operation in TriggersApi.
+ * @export
+ * @interface TriggersApiVerifyTriggerScriptRequest
+ */
+export interface TriggersApiVerifyTriggerScriptRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof TriggersApiVerifyTriggerScript
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {VerifyMaterialScriptRequest}
+     * @memberof TriggersApiVerifyTriggerScript
+     */
+    readonly verifyMaterialScriptRequest: VerifyMaterialScriptRequest
+}
+
+/**
  * TriggersApi - object-oriented interface
  * @export
  * @class TriggersApi
  * @extends {BaseAPI}
  */
 export class TriggersApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create trigger
+     * @param {TriggersApiCreateTriggerRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public createTrigger(requestParameters: TriggersApiCreateTriggerRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).createTrigger(requestParameters.dataCenter, requestParameters.createTriggerRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete a specific trigger
+     * @param {TriggersApiDeleteTriggerRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public deleteTrigger(requestParameters: TriggersApiDeleteTriggerRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).deleteTrigger(requestParameters.dataCenter, requestParameters.triggerName, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Enable or disable a specific trigger
@@ -16053,6 +17140,18 @@ export class TriggersApi extends BaseAPI {
 
     /**
      * 
+     * @summary Retrieve all trigger materials
+     * @param {TriggersApiGetTriggerMaterialsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public getTriggerMaterials(requestParameters: TriggersApiGetTriggerMaterialsRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).getTriggerMaterials(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve all triggers
      * @param {TriggersApiGetTriggersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -16060,7 +17159,7 @@ export class TriggersApi extends BaseAPI {
      * @memberof TriggersApi
      */
     public getTriggers(requestParameters: TriggersApiGetTriggersRequest, options?: RawAxiosRequestConfig) {
-        return TriggersApiFp(this.configuration).getTriggers(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+        return TriggersApiFp(this.configuration).getTriggers(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -16073,6 +17172,18 @@ export class TriggersApi extends BaseAPI {
      */
     public updateTrigger(requestParameters: TriggersApiUpdateTriggerRequest, options?: RawAxiosRequestConfig) {
         return TriggersApiFp(this.configuration).updateTrigger(requestParameters.dataCenter, requestParameters.triggerName, requestParameters.updateTriggerRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Verify trigger script
+     * @param {TriggersApiVerifyTriggerScriptRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TriggersApi
+     */
+    public verifyTriggerScript(requestParameters: TriggersApiVerifyTriggerScriptRequest, options?: RawAxiosRequestConfig) {
+        return TriggersApiFp(this.configuration).verifyTriggerScript(requestParameters.dataCenter, requestParameters.verifyMaterialScriptRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

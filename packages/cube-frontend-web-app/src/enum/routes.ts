@@ -25,6 +25,7 @@ export const CosRoutesEnum = {
   EVENTS_PAGE: '/events',
   EVENTS_TRIGGERS_PAGE: '/events/triggers',
   EVENTS_TRIGGERS_CREATE_PAGE: '/events/triggers/create',
+  EVENTS_TRIGGERS_EDIT_PAGE: '/events/triggers/edit',
   EVENTS_CHART_PAGE: '/events/chart',
   /** Settings Page */
   SETTINGS_PAGE: '/settings',
