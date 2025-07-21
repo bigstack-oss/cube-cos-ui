@@ -1,6 +1,6 @@
 import { EmailSenderPostRequest } from '@cube-frontend/api'
 import { useMemo } from 'react'
-import { ErrorRecord, validateBySchema } from '../../validateBySchema'
+import { ErrorRecord, validateBySchema } from '@cube-frontend/web-app/utils/zod'
 import {
   EmailSenderForUi,
   EmailSenderRow,
