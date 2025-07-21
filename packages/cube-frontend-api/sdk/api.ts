@@ -26,6 +26,69 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface AddNodeDevice500Response
+ */
+export interface AddNodeDevice500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof AddNodeDevice500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddNodeDevice500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddNodeDevice500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface AddNodeDeviceRequest
+ */
+export interface AddNodeDeviceRequest {
+    /**
+     * The device path, e.g., sdc
+     * @type {string}
+     * @memberof AddNodeDeviceRequest
+     */
+    'device': string;
+}
+/**
+ * 
+ * @export
+ * @interface AddNodeDeviceResponse
+ */
+export interface AddNodeDeviceResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof AddNodeDeviceResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddNodeDeviceResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddNodeDeviceResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface CreateEmailRecipient500Response
  */
 export interface CreateEmailRecipient500Response {
@@ -339,6 +402,81 @@ export interface DeleteEmailSenderResponse {
 /**
  * 
  * @export
+ * @interface DeleteNodeOsd404Response
+ */
+export interface DeleteNodeOsd404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteNodeOsd404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsd404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsd404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteNodeOsd500Response
+ */
+export interface DeleteNodeOsd500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteNodeOsd500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsd500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsd500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteNodeOsdResponse
+ */
+export interface DeleteNodeOsdResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteNodeOsdResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsdResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteNodeOsdResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteSlackChannel500Response
  */
 export interface DeleteSlackChannel500Response {
@@ -536,6 +674,20 @@ export interface DeleteTriggerResponse {
      */
     'status': string;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const DeviceType = {
+    Ssd: 'SSD',
+    Hdd: 'HDD'
+} as const;
+
+export type DeviceType = typeof DeviceType[keyof typeof DeviceType];
+
+
 /**
  * 
  * @export
@@ -3823,6 +3975,12 @@ export interface GetModuleHealthHistoryResponseDataHistoryInner {
      * @type {string}
      * @memberof GetModuleHealthHistoryResponseDataHistoryInner
      */
+    'hostname'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetModuleHealthHistoryResponseDataHistoryInner
+     */
     'status': GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum;
     /**
      * 
@@ -3834,6 +3992,7 @@ export interface GetModuleHealthHistoryResponseDataHistoryInner {
 
 export const GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum = {
     Ok: 'ok',
+    Fixing: 'fixing',
     Ng: 'ng'
 } as const;
 
@@ -4566,6 +4725,12 @@ export interface GetServiceHealthHistoryResponseDataInnerHistoryInner {
      * @type {string}
      * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInner
      */
+    'hostname': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetServiceHealthHistoryResponseDataInnerHistoryInner
+     */
     'status': GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum;
     /**
      * 
@@ -4577,6 +4742,7 @@ export interface GetServiceHealthHistoryResponseDataInnerHistoryInner {
 
 export const GetServiceHealthHistoryResponseDataInnerHistoryInnerStatusEnum = {
     Ok: 'ok',
+    Fixing: 'fixing',
     Ng: 'ng'
 } as const;
 
@@ -4812,31 +4978,6 @@ export interface GetSettingResponseDataTitlePrefix {
      * @memberof GetSettingResponseDataTitlePrefix
      */
     'status': SettingStatus;
-}
-/**
- * 
- * @export
- * @interface GetSettings500Response
- */
-export interface GetSettings500Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetSettings500Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetSettings500Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetSettings500Response
-     */
-    'status'?: string;
 }
 /**
  * 
@@ -5737,6 +5878,276 @@ export type ListLicenseStatusCurrentEnum = typeof ListLicenseStatusCurrentEnum[k
 /**
  * 
  * @export
+ * @interface ListNodeDevices404Response
+ */
+export interface ListNodeDevices404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevices404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevices404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevices404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevices500Response
+ */
+export interface ListNodeDevices500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevices500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevices500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevices500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponse
+ */
+export interface ListNodeDevicesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListNodeDevicesResponseDataInner>}
+     * @memberof ListNodeDevicesResponse
+     */
+    'data': Array<ListNodeDevicesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInner
+ */
+export interface ListNodeDevicesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'serial': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'device': string;
+    /**
+     * 
+     * @type {DeviceType}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'class': DeviceType;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'sizeMiB': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'availability': ListNodeDevicesResponseDataInnerAvailabilityEnum;
+    /**
+     * 
+     * @type {ListNodeDevicesResponseDataInnerOsd}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'osd': ListNodeDevicesResponseDataInnerOsd;
+    /**
+     * 
+     * @type {ListNodeDevicesResponseDataInnerStatus}
+     * @memberof ListNodeDevicesResponseDataInner
+     */
+    'status': ListNodeDevicesResponseDataInnerStatus;
+}
+
+export const ListNodeDevicesResponseDataInnerAvailabilityEnum = {
+    Available: 'available',
+    InUse: 'in-use',
+    System: 'system'
+} as const;
+
+export type ListNodeDevicesResponseDataInnerAvailabilityEnum = typeof ListNodeDevicesResponseDataInnerAvailabilityEnum[keyof typeof ListNodeDevicesResponseDataInnerAvailabilityEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInnerOsd
+ */
+export interface ListNodeDevicesResponseDataInnerOsd {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponseDataInnerOsd
+     */
+    'pgs': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponseDataInnerOsd
+     */
+    'reweight': number;
+    /**
+     * 
+     * @type {Array<ListNodeDevicesResponseDataInnerOsdDaemonsInner>}
+     * @memberof ListNodeDevicesResponseDataInnerOsd
+     */
+    'daemons': Array<ListNodeDevicesResponseDataInnerOsdDaemonsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInnerOsdDaemonsInner
+ */
+export interface ListNodeDevicesResponseDataInnerOsdDaemonsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInner
+     */
+    'usagePercent': number;
+    /**
+     * 
+     * @type {ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInner
+     */
+    'status': ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus
+ */
+export interface ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus
+     */
+    'current': ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatus
+     */
+    'isProcessing': boolean;
+}
+
+export const ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum = {
+    Up: 'up',
+    Down: 'down',
+    Warning: 'warning',
+    Error: 'error'
+} as const;
+
+export type ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum = typeof ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum[keyof typeof ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListNodeDevicesResponseDataInnerStatus
+ */
+export interface ListNodeDevicesResponseDataInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'current': ListNodeDevicesResponseDataInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'isPromotable': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'isDemotable': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'isProcessing': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeDevicesResponseDataInnerStatus
+     */
+    'description': string;
+}
+
+export const ListNodeDevicesResponseDataInnerStatusCurrentEnum = {
+    Ok: 'ok',
+    Warning: 'warning',
+    Fail: 'fail'
+} as const;
+
+export type ListNodeDevicesResponseDataInnerStatusCurrentEnum = typeof ListNodeDevicesResponseDataInnerStatusCurrentEnum[keyof typeof ListNodeDevicesResponseDataInnerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
  * @interface ListTuningResponse
  */
 export interface ListTuningResponse {
@@ -6308,12 +6719,6 @@ export interface Node {
     'networkInterfaces': Array<NodeNetworkInterfacesInner>;
     /**
      * 
-     * @type {Array<NodeBlockDevicesInner>}
-     * @memberof Node
-     */
-    'blockDevices': Array<NodeBlockDevicesInner>;
-    /**
-     * 
      * @type {NodeIpmi}
      * @memberof Node
      */
@@ -6361,77 +6766,6 @@ export const NodeStatusEnum = {
 } as const;
 
 export type NodeStatusEnum = typeof NodeStatusEnum[keyof typeof NodeStatusEnum];
-
-/**
- * 
- * @export
- * @interface NodeBlockDevicesInner
- */
-export interface NodeBlockDevicesInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInner
-     */
-    'serial': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInner
-     */
-    'device': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof NodeBlockDevicesInner
-     */
-    'sizeMiB': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInner
-     */
-    'availability': string;
-    /**
-     * 
-     * @type {NodeBlockDevicesInnerStatus}
-     * @memberof NodeBlockDevicesInner
-     */
-    'status': NodeBlockDevicesInnerStatus;
-}
-/**
- * 
- * @export
- * @interface NodeBlockDevicesInnerStatus
- */
-export interface NodeBlockDevicesInnerStatus {
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInnerStatus
-     */
-    'current': NodeBlockDevicesInnerStatusCurrentEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof NodeBlockDevicesInnerStatus
-     */
-    'description': string;
-}
-
-export const NodeBlockDevicesInnerStatusCurrentEnum = {
-    Ok: 'ok',
-    Warning: 'warning',
-    Fail: 'fail'
-} as const;
-
-export type NodeBlockDevicesInnerStatusCurrentEnum = typeof NodeBlockDevicesInnerStatusCurrentEnum[keyof typeof NodeBlockDevicesInnerStatusCurrentEnum];
 
 /**
  * 
@@ -7025,6 +7359,81 @@ export interface PutSlackChannelResponse {
 /**
  * 
  * @export
+ * @interface RemoveNodeDevice404Response
+ */
+export interface RemoveNodeDevice404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RemoveNodeDevice404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDevice404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDevice404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RemoveNodeDevice500Response
+ */
+export interface RemoveNodeDevice500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RemoveNodeDevice500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDevice500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDevice500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RemoveNodeDeviceResponse
+ */
+export interface RemoveNodeDeviceResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RemoveNodeDeviceResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDeviceResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveNodeDeviceResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface RepairAllModulesHealth409Response
  */
 export interface RepairAllModulesHealth409Response {
@@ -7107,6 +7516,56 @@ export interface ResetTuningResponse {
      * 
      * @type {string}
      * @memberof ResetTuningResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface RestartNodeOsd500Response
+ */
+export interface RestartNodeOsd500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RestartNodeOsd500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RestartNodeOsd500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RestartNodeOsd500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RestartNodeOsdResponse
+ */
+export interface RestartNodeOsdResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RestartNodeOsdResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RestartNodeOsdResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RestartNodeOsdResponse
      */
     'status': string;
 }
@@ -7770,6 +8229,134 @@ export interface UpdateEmailRecipient500Response {
      * @memberof UpdateEmailRecipient500Response
      */
     'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeDevice500Response
+ */
+export interface UpdateNodeDevice500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeDevice500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDevice500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDevice500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeDeviceRequest
+ */
+export interface UpdateNodeDeviceRequest {
+    /**
+     * 
+     * @type {DeviceType}
+     * @memberof UpdateNodeDeviceRequest
+     */
+    'class': DeviceType;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface UpdateNodeDeviceResponse
+ */
+export interface UpdateNodeDeviceResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeDeviceResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDeviceResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeDeviceResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeOsd500Response
+ */
+export interface UpdateNodeOsd500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeOsd500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeOsd500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeOsd500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeOsdRequest
+ */
+export interface UpdateNodeOsdRequest {
+    /**
+     * The reweight value for the OSD. It\'s only allow to have two decimal places with a range of 0.0 to 1.0, for example, 0.5 or 0.75.
+     * @type {number}
+     * @memberof UpdateNodeOsdRequest
+     */
+    'reweight': number;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeOsdResponse
+ */
+export interface UpdateNodeOsdResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeOsdResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeOsdResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeOsdResponse
+     */
+    'status': string;
 }
 /**
  * 
@@ -10445,10 +11032,11 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {boolean} [aggregate] If true, the health history will be aggregated by time and status(fixing related status &gt; ng related status &gt; ok related status), otherwise it will return the raw history data.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHealthHistory: async (dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getHealthHistory: async (dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, aggregate?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getHealthHistory', 'dataCenter', dataCenter)
             // verify required parameter 'serviceType' is not null or undefined
@@ -10488,6 +11076,10 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (watch !== undefined) {
                 localVarQueryParameter['watch'] = watch;
+            }
+
+            if (aggregate !== undefined) {
+                localVarQueryParameter['aggregate'] = aggregate;
             }
 
 
@@ -10715,11 +11307,12 @@ export const HealthApiFp = function(configuration?: Configuration) {
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {boolean} [aggregate] If true, the health history will be aggregated by time and status(fixing related status &gt; ng related status &gt; ok related status), otherwise it will return the raw history data.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getHealthHistory(dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetModuleHealthHistoryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getHealthHistory(dataCenter, serviceType, moduleType, past, start, stop, watch, options);
+        async getHealthHistory(dataCenter: string, serviceType: GetHealthHistoryServiceTypeEnum, moduleType: GetHealthHistoryModuleTypeEnum, past?: GetHealthHistoryPastEnum, start?: string, stop?: string, watch?: boolean, aggregate?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetModuleHealthHistoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHealthHistory(dataCenter, serviceType, moduleType, past, start, stop, watch, aggregate, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['HealthApi.getHealthHistory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -10803,7 +11396,7 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getHealthHistory(requestParameters: HealthApiGetHealthHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetModuleHealthHistoryResponse> {
-            return localVarFp.getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(axios, basePath));
+            return localVarFp.getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, requestParameters.aggregate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10902,6 +11495,13 @@ export interface HealthApiGetHealthHistoryRequest {
      * @memberof HealthApiGetHealthHistory
      */
     readonly watch?: boolean
+
+    /**
+     * If true, the health history will be aggregated by time and status(fixing related status &gt; ng related status &gt; ok related status), otherwise it will return the raw history data.
+     * @type {boolean}
+     * @memberof HealthApiGetHealthHistory
+     */
+    readonly aggregate?: boolean
 }
 
 /**
@@ -11039,7 +11639,7 @@ export class HealthApi extends BaseAPI {
      * @memberof HealthApi
      */
     public getHealthHistory(requestParameters: HealthApiGetHealthHistoryRequest, options?: RawAxiosRequestConfig) {
-        return HealthApiFp(this.configuration).getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+        return HealthApiFp(this.configuration).getHealthHistory(requestParameters.dataCenter, requestParameters.serviceType, requestParameters.moduleType, requestParameters.past, requestParameters.start, requestParameters.stop, requestParameters.watch, requestParameters.aggregate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -12868,6 +13468,100 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
+         * @summary Add a device to the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {AddNodeDeviceRequest} addNodeDeviceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNodeDevice: async (dataCenter: string, nodeName: string, addNodeDeviceRequest: AddNodeDeviceRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('addNodeDevice', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('addNodeDevice', 'nodeName', nodeName)
+            // verify required parameter 'addNodeDeviceRequest' is not null or undefined
+            assertParamExists('addNodeDevice', 'addNodeDeviceRequest', addNodeDeviceRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addNodeDeviceRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteNodeOsd: async (dataCenter: string, nodeName: string, osdId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteNodeOsd', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('deleteNodeOsd', 'nodeName', nodeName)
+            // verify required parameter 'osdId' is not null or undefined
+            assertParamExists('deleteNodeOsd', 'osdId', osdId)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/osds/{osdId}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"osdId"}}`, encodeURIComponent(String(osdId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Disconnect the node IPMI control
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -13030,6 +13724,53 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Retrieve the node devices
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listNodeDevices: async (dataCenter: string, nodeName: string, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listNodeDevices', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('listNodeDevices', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Operate the node by IPMI
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -13048,6 +13789,98 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
                 .replace(`{${"operation"}}`, encodeURIComponent(String(operation)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Remove a device from the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeNodeDevice: async (dataCenter: string, nodeName: string, deviceName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('removeNodeDevice', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('removeNodeDevice', 'nodeName', nodeName)
+            // verify required parameter 'deviceName' is not null or undefined
+            assertParamExists('removeNodeDevice', 'deviceName', deviceName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices/{deviceName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"deviceName"}}`, encodeURIComponent(String(deviceName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Restart an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        restartNodeOsd: async (dataCenter: string, nodeName: string, osdId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('restartNodeOsd', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('restartNodeOsd', 'nodeName', nodeName)
+            // verify required parameter 'osdId' is not null or undefined
+            assertParamExists('restartNodeOsd', 'osdId', osdId)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/osds/{osdId}/restart`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"osdId"}}`, encodeURIComponent(String(osdId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -13124,6 +13957,110 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Update a device on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {UpdateNodeDeviceRequest} updateNodeDeviceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeDevice: async (dataCenter: string, nodeName: string, deviceName: string, updateNodeDeviceRequest: UpdateNodeDeviceRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateNodeDevice', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('updateNodeDevice', 'nodeName', nodeName)
+            // verify required parameter 'deviceName' is not null or undefined
+            assertParamExists('updateNodeDevice', 'deviceName', deviceName)
+            // verify required parameter 'updateNodeDeviceRequest' is not null or undefined
+            assertParamExists('updateNodeDevice', 'updateNodeDeviceRequest', updateNodeDeviceRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/devices/{deviceName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"deviceName"}}`, encodeURIComponent(String(deviceName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateNodeDeviceRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {UpdateNodeOsdRequest} updateNodeOsdRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeOsd: async (dataCenter: string, nodeName: string, osdId: string, updateNodeOsdRequest: UpdateNodeOsdRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateNodeOsd', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('updateNodeOsd', 'nodeName', nodeName)
+            // verify required parameter 'osdId' is not null or undefined
+            assertParamExists('updateNodeOsd', 'osdId', osdId)
+            // verify required parameter 'updateNodeOsdRequest' is not null or undefined
+            assertParamExists('updateNodeOsd', 'updateNodeOsdRequest', updateNodeOsdRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/osds/{osdId}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"osdId"}}`, encodeURIComponent(String(osdId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateNodeOsdRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Verify the node IPMI setting
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -13182,6 +14119,36 @@ export const NodesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Add a device to the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {AddNodeDeviceRequest} addNodeDeviceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNodeDevice(dataCenter: string, nodeName: string, addNodeDeviceRequest: AddNodeDeviceRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddNodeDeviceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNodeDevice(dataCenter, nodeName, addNodeDeviceRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.addNodeDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteNodeOsd(dataCenter: string, nodeName: string, osdId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteNodeOsdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNodeOsd(dataCenter, nodeName, osdId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.deleteNodeOsd']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Disconnect the node IPMI control
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -13231,6 +14198,21 @@ export const NodesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Retrieve the node devices
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listNodeDevices(dataCenter: string, nodeName: string, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListNodeDevicesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listNodeDevices(dataCenter, nodeName, watch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.listNodeDevices']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Operate the node by IPMI
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -13246,6 +14228,36 @@ export const NodesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Remove a device from the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeNodeDevice(dataCenter: string, nodeName: string, deviceName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RemoveNodeDeviceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeNodeDevice(dataCenter, nodeName, deviceName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.removeNodeDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Restart an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async restartNodeOsd(dataCenter: string, nodeName: string, osdId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RestartNodeOsdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.restartNodeOsd(dataCenter, nodeName, osdId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.restartNodeOsd']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Set the node IPMI setting
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -13257,6 +14269,38 @@ export const NodesApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setNodeIpmi(dataCenter, nodeName, nodeIpmiSettingRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodesApi.setNodeIpmi']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update a device on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} deviceName The device name to remove from the node
+         * @param {UpdateNodeDeviceRequest} updateNodeDeviceRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateNodeDevice(dataCenter: string, nodeName: string, deviceName: string, updateNodeDeviceRequest: UpdateNodeDeviceRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateNodeDeviceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateNodeDevice(dataCenter, nodeName, deviceName, updateNodeDeviceRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.updateNodeDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update an OSD on the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} osdId The OSD ID to operate
+         * @param {UpdateNodeOsdRequest} updateNodeOsdRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateNodeOsd(dataCenter: string, nodeName: string, osdId: string, updateNodeOsdRequest: UpdateNodeOsdRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateNodeOsdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateNodeOsd(dataCenter, nodeName, osdId, updateNodeOsdRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.updateNodeOsd']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -13284,6 +14328,26 @@ export const NodesApiFp = function(configuration?: Configuration) {
 export const NodesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = NodesApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary Add a device to the node
+         * @param {NodesApiAddNodeDeviceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNodeDevice(requestParameters: NodesApiAddNodeDeviceRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddNodeDeviceResponse> {
+            return localVarFp.addNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.addNodeDeviceRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete an OSD on the node
+         * @param {NodesApiDeleteNodeOsdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteNodeOsd(requestParameters: NodesApiDeleteNodeOsdRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteNodeOsdResponse> {
+            return localVarFp.deleteNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Disconnect the node IPMI control
@@ -13316,6 +14380,16 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Retrieve the node devices
+         * @param {NodesApiListNodeDevicesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listNodeDevices(requestParameters: NodesApiListNodeDevicesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListNodeDevicesResponse> {
+            return localVarFp.listNodeDevices(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Operate the node by IPMI
          * @param {NodesApiOperateNodeIpmiRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -13323,6 +14397,26 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
          */
         operateNodeIpmi(requestParameters: NodesApiOperateNodeIpmiRequest, options?: RawAxiosRequestConfig): AxiosPromise<OperateNodeIpmiResponse> {
             return localVarFp.operateNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.operation, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Remove a device from the node
+         * @param {NodesApiRemoveNodeDeviceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeNodeDevice(requestParameters: NodesApiRemoveNodeDeviceRequest, options?: RawAxiosRequestConfig): AxiosPromise<RemoveNodeDeviceResponse> {
+            return localVarFp.removeNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Restart an OSD on the node
+         * @param {NodesApiRestartNodeOsdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        restartNodeOsd(requestParameters: NodesApiRestartNodeOsdRequest, options?: RawAxiosRequestConfig): AxiosPromise<RestartNodeOsdResponse> {
+            return localVarFp.restartNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -13336,6 +14430,26 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Update a device on the node
+         * @param {NodesApiUpdateNodeDeviceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeDevice(requestParameters: NodesApiUpdateNodeDeviceRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateNodeDeviceResponse> {
+            return localVarFp.updateNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, requestParameters.updateNodeDeviceRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update an OSD on the node
+         * @param {NodesApiUpdateNodeOsdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeOsd(requestParameters: NodesApiUpdateNodeOsdRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateNodeOsdResponse> {
+            return localVarFp.updateNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, requestParameters.updateNodeOsdRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Verify the node IPMI setting
          * @param {NodesApiVerifyNodeIpmiRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -13346,6 +14460,62 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         },
     };
 };
+
+/**
+ * Request parameters for addNodeDevice operation in NodesApi.
+ * @export
+ * @interface NodesApiAddNodeDeviceRequest
+ */
+export interface NodesApiAddNodeDeviceRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiAddNodeDevice
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiAddNodeDevice
+     */
+    readonly nodeName: string
+
+    /**
+     * 
+     * @type {AddNodeDeviceRequest}
+     * @memberof NodesApiAddNodeDevice
+     */
+    readonly addNodeDeviceRequest: AddNodeDeviceRequest
+}
+
+/**
+ * Request parameters for deleteNodeOsd operation in NodesApi.
+ * @export
+ * @interface NodesApiDeleteNodeOsdRequest
+ */
+export interface NodesApiDeleteNodeOsdRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiDeleteNodeOsd
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiDeleteNodeOsd
+     */
+    readonly nodeName: string
+
+    /**
+     * The OSD ID to operate
+     * @type {string}
+     * @memberof NodesApiDeleteNodeOsd
+     */
+    readonly osdId: string
+}
 
 /**
  * Request parameters for disconnectNodeIpmi operation in NodesApi.
@@ -13460,6 +14630,34 @@ export interface NodesApiGetNodesRequest {
 }
 
 /**
+ * Request parameters for listNodeDevices operation in NodesApi.
+ * @export
+ * @interface NodesApiListNodeDevicesRequest
+ */
+export interface NodesApiListNodeDevicesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiListNodeDevices
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiListNodeDevices
+     */
+    readonly nodeName: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof NodesApiListNodeDevices
+     */
+    readonly watch?: boolean
+}
+
+/**
  * Request parameters for operateNodeIpmi operation in NodesApi.
  * @export
  * @interface NodesApiOperateNodeIpmiRequest
@@ -13488,6 +14686,62 @@ export interface NodesApiOperateNodeIpmiRequest {
 }
 
 /**
+ * Request parameters for removeNodeDevice operation in NodesApi.
+ * @export
+ * @interface NodesApiRemoveNodeDeviceRequest
+ */
+export interface NodesApiRemoveNodeDeviceRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiRemoveNodeDevice
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiRemoveNodeDevice
+     */
+    readonly nodeName: string
+
+    /**
+     * The device name to remove from the node
+     * @type {string}
+     * @memberof NodesApiRemoveNodeDevice
+     */
+    readonly deviceName: string
+}
+
+/**
+ * Request parameters for restartNodeOsd operation in NodesApi.
+ * @export
+ * @interface NodesApiRestartNodeOsdRequest
+ */
+export interface NodesApiRestartNodeOsdRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiRestartNodeOsd
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiRestartNodeOsd
+     */
+    readonly nodeName: string
+
+    /**
+     * The OSD ID to operate
+     * @type {string}
+     * @memberof NodesApiRestartNodeOsd
+     */
+    readonly osdId: string
+}
+
+/**
  * Request parameters for setNodeIpmi operation in NodesApi.
  * @export
  * @interface NodesApiSetNodeIpmiRequest
@@ -13513,6 +14767,76 @@ export interface NodesApiSetNodeIpmiRequest {
      * @memberof NodesApiSetNodeIpmi
      */
     readonly nodeIpmiSettingRequest: NodeIpmiSettingRequest
+}
+
+/**
+ * Request parameters for updateNodeDevice operation in NodesApi.
+ * @export
+ * @interface NodesApiUpdateNodeDeviceRequest
+ */
+export interface NodesApiUpdateNodeDeviceRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDevice
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDevice
+     */
+    readonly nodeName: string
+
+    /**
+     * The device name to remove from the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeDevice
+     */
+    readonly deviceName: string
+
+    /**
+     * 
+     * @type {UpdateNodeDeviceRequest}
+     * @memberof NodesApiUpdateNodeDevice
+     */
+    readonly updateNodeDeviceRequest: UpdateNodeDeviceRequest
+}
+
+/**
+ * Request parameters for updateNodeOsd operation in NodesApi.
+ * @export
+ * @interface NodesApiUpdateNodeOsdRequest
+ */
+export interface NodesApiUpdateNodeOsdRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiUpdateNodeOsd
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeOsd
+     */
+    readonly nodeName: string
+
+    /**
+     * The OSD ID to operate
+     * @type {string}
+     * @memberof NodesApiUpdateNodeOsd
+     */
+    readonly osdId: string
+
+    /**
+     * 
+     * @type {UpdateNodeOsdRequest}
+     * @memberof NodesApiUpdateNodeOsd
+     */
+    readonly updateNodeOsdRequest: UpdateNodeOsdRequest
 }
 
 /**
@@ -13552,6 +14876,30 @@ export interface NodesApiVerifyNodeIpmiRequest {
 export class NodesApi extends BaseAPI {
     /**
      * 
+     * @summary Add a device to the node
+     * @param {NodesApiAddNodeDeviceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public addNodeDevice(requestParameters: NodesApiAddNodeDeviceRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).addNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.addNodeDeviceRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete an OSD on the node
+     * @param {NodesApiDeleteNodeOsdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public deleteNodeOsd(requestParameters: NodesApiDeleteNodeOsdRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).deleteNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Disconnect the node IPMI control
      * @param {NodesApiDisconnectNodeIpmiRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -13588,6 +14936,18 @@ export class NodesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Retrieve the node devices
+     * @param {NodesApiListNodeDevicesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public listNodeDevices(requestParameters: NodesApiListNodeDevicesRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).listNodeDevices(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Operate the node by IPMI
      * @param {NodesApiOperateNodeIpmiRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -13600,6 +14960,30 @@ export class NodesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Remove a device from the node
+     * @param {NodesApiRemoveNodeDeviceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public removeNodeDevice(requestParameters: NodesApiRemoveNodeDeviceRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).removeNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Restart an OSD on the node
+     * @param {NodesApiRestartNodeOsdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public restartNodeOsd(requestParameters: NodesApiRestartNodeOsdRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).restartNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Set the node IPMI setting
      * @param {NodesApiSetNodeIpmiRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -13608,6 +14992,30 @@ export class NodesApi extends BaseAPI {
      */
     public setNodeIpmi(requestParameters: NodesApiSetNodeIpmiRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).setNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.nodeIpmiSettingRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update a device on the node
+     * @param {NodesApiUpdateNodeDeviceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public updateNodeDevice(requestParameters: NodesApiUpdateNodeDeviceRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).updateNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, requestParameters.updateNodeDeviceRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update an OSD on the node
+     * @param {NodesApiUpdateNodeOsdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public updateNodeOsd(requestParameters: NodesApiUpdateNodeOsdRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).updateNodeOsd(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.osdId, requestParameters.updateNodeOsdRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
