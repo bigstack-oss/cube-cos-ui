@@ -99,6 +99,8 @@ export { UseFloatingExternalContextProvider } from './internal/utils/floating/ex
 export * from './components/CosStepProcess/CosStepProcess'
 export * from './components/CosStepProcess/CosStepProcessItem'
 export * from './components/CosSearchBar/CosSearchBarFilter/CosSearchBarFilter'
+export * from './components/CosSearchBar/CosSearchBarGlobal/CosSearchBarGlobal'
+export { type CosSearchBarGlobalItemProps } from './components/CosSearchBar/CosSearchBarGlobal/CosSearchBarGlobalItem'
 export * from './components/CosOverflowMenu/CosOverflowMenu'
 export { type CosOverflowMenuItemProps } from './components/CosOverflowMenu/cosOverflowMenuItemUtils'
 export * from './components/CosDetailsTable/CosDetailsTable'

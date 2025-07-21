@@ -30,3 +30,21 @@ export const mockOptions = [
     description: 'Description',
   },
 ]
+
+export const mockCategories = ['Category 1', 'Category 2', 'Category 3']
+
+export const mockSuggestions: {
+  type: 'suggestion'
+  value: string
+}[] = [
+  { type: 'suggestion', value: 'Suggestion 1' },
+  { type: 'suggestion', value: 'Suggestion 2' },
+]
+
+export const mockRecentSuggestions: {
+  type: 'recentSuggestion'
+  value: string
+}[] = [
+  { type: 'recentSuggestion', value: 'Recent Suggestion 1' },
+  { type: 'recentSuggestion', value: 'Recent Suggestion 2' },
+]

@@ -1,4 +1,15 @@
+import { cva } from 'class-variance-authority'
+import { twMerge } from 'tailwind-merge'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
+
+const skeleton = cva('h-[34px] w-full', {
+  variants: {
+    variant: {
+      global: 'rounded-full',
+      filter: 'rounded-[5px]',
+    },
+  },
+})
 
 type CosSearchBarSkeletonProps = {
   variant: 'global' | 'filter'
@@ -6,11 +17,5 @@ type CosSearchBarSkeletonProps = {
 
 export const CosSearchBarSkeleton = (props: CosSearchBarSkeletonProps) => {
   const { variant } = props
-
-  const className =
-    variant === 'global'
-      ? 'rounded-[20px] w-[320px] h-[34px]'
-      : 'rounded-[5px] w-[480px] h-[34px]'
-
-  return <CosSkeleton className={className} />
+  return <CosSkeleton className={twMerge(skeleton({ variant }))} />
 }

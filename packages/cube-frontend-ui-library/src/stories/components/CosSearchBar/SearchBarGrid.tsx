@@ -10,7 +10,7 @@ export const SearchBarGrid = (props: SearchBarGridProps) => {
   return (
     <div className="mt-6 grid grid-cols-4 items-center gap-12">
       <div className="primary-body2 col-span-1 font-medium">{title}</div>
-      <div className="col-span-3">{children}</div>
+      <div className="col-span-3 w-[480px]">{children}</div>
     </div>
   )
 }
