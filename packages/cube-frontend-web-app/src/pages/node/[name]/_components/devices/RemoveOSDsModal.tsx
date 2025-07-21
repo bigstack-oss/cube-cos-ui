@@ -1,9 +1,11 @@
 import { CosModal } from '@cube-frontend/ui-library'
-import { useState } from 'react'
+import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useContext, useState } from 'react'
 import { DeviceRow } from './nodeDevicesUtils'
-import { useDeviceActionToast } from './useDeviceActionToast'
 
 type RemoveOSDsModalProps = {
+  nodeName: string | undefined
   isOpen: boolean
   targetRow: DeviceRow | undefined
   onAccepted: () => void
@@ -11,30 +13,28 @@ type RemoveOSDsModalProps = {
 }
 
 export const RemoveOSDsModal = (props: RemoveOSDsModalProps) => {
-  const { isOpen, targetRow, onAccepted, onCloseClick } = props
+  const { nodeName, isOpen, targetRow, onAccepted, onCloseClick } = props
+
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const { showSuccessToast, showFailedToast } = useDeviceActionToast()
-
   const onActionClick = async (): Promise<void> => {
-    if (!targetRow) return
-
+    if (!nodeName || !targetRow) return
     setIsLoading(true)
-
     try {
-      // TODO: Call remove OSD API for each OSD.
-      setTimeout(() => {
-        setIsLoading(false)
-        onAccepted()
-      }, 1000)
-
-      setTimeout(() => {
-        showSuccessToast('OSDs removed successfully.', targetRow)
-      }, 3000)
+      const promises: Promise<unknown>[] = targetRow.osd.daemons.map((daemon) =>
+        nodesApi.deleteNodeOsd({
+          dataCenter: dataCenter!.name,
+          nodeName,
+          osdId: daemon.id,
+        }),
+      )
+      await Promise.all(promises)
+      setIsLoading(false)
+      onAccepted()
     } catch (error) {
       console.error('Remove OSDs error: ', error)
-      showFailedToast('Failed to remove OSDs.', targetRow)
       setIsLoading(false)
     }
   }

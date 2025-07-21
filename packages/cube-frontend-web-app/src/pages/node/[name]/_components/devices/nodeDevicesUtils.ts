@@ -1,57 +1,50 @@
-import { NodeBlockDevicesInner } from '@cube-frontend/api'
+import {
+  DeviceType,
+  ListNodeDevicesResponseDataInner,
+} from '@cube-frontend/api'
 import { CosTableRow, GetCosBasicTable } from '@cube-frontend/ui-library'
 import { z } from 'zod'
 
-export type NodeBlockDeviceInnerWaitingForApiUpdate = Omit<
-  NodeBlockDevicesInner,
-  'status'
-> & {
-  class: 'SSD' | 'HDD'
-  osd: {
-    pgs: number
-    reweight: number
-    daemons: {
-      id: string
-      usagePercent: number
-      status: {
-        current: string
-      }
-    }[]
-  }
-  status: NodeBlockDevicesInner['status'] & {
-    isPromotable: boolean
-    isDemotable: boolean
-  }
-}
-
-type DeviceEditableData = {
-  definedClass: NodeBlockDeviceInnerWaitingForApiUpdate['class']
+export type DeviceEditableData = {
+  definedClass: DeviceType
   osdReweight: string
 }
 
 export type DeviceRow = CosTableRow &
-  NodeBlockDeviceInnerWaitingForApiUpdate & {
+  ListNodeDevicesResponseDataInner & {
     isEditing: boolean
+    /**
+     * Whether the `updateNodeDevice` and `updateNodeOsd` APIs are still calling.
+     */
     isSaving: boolean
+    isSavingDone: boolean
     dataForEdit: DeviceEditableData
   }
 
 export const DeviceTable = GetCosBasicTable<DeviceRow>()
 
 export const blockDeviceToRow = (
-  blockDevice: NodeBlockDeviceInnerWaitingForApiUpdate,
-): DeviceRow => {
-  return {
-    id: blockDevice.device,
-    ...blockDevice,
-    isEditing: false,
-    isSaving: false,
-    dataForEdit: createEditableData(blockDevice),
-  }
+  blockDevice: ListNodeDevicesResponseDataInner,
+): DeviceRow => ({
+  ...blockDevice,
+  id: blockDevice.device,
+  isEditing: false,
+  isSaving: false,
+  isSavingDone: false,
+  dataForEdit: createEditableData(blockDevice),
+})
+
+export const isDeviceOrOsdProcessing = (
+  blockDevice: ListNodeDevicesResponseDataInner,
+): boolean => {
+  return (
+    blockDevice.status.isProcessing ||
+    blockDevice.osd.daemons.some((osd) => osd.status.isProcessing)
+  )
 }
 
 export const createEditableData = (
-  blockDevice: NodeBlockDeviceInnerWaitingForApiUpdate,
+  blockDevice: ListNodeDevicesResponseDataInner,
 ): DeviceEditableData => {
   return {
     definedClass: blockDevice.class,
@@ -59,97 +52,37 @@ export const createEditableData = (
   }
 }
 
-export const mockDevices: NodeBlockDeviceInnerWaitingForApiUpdate[] = [
-  {
-    serial: '57T0A05UF5YE',
-    device: 'sda',
-    type: 'HDD',
-    class: 'HDD',
-    sizeMiB: 533008.5754,
-    osd: {
-      pgs: 123,
-      reweight: 1.0,
-      daemons: [
-        {
-          id: 'OSD.0',
-          usagePercent: 70,
-          status: {
-            current: 'up',
-          },
-        },
-      ],
-    },
-    availability: 'in-use',
-    status: {
-      current: 'ok',
-      description: '',
-      isPromotable: true,
-      isDemotable: true,
-    },
-  },
-  {
-    serial: '1230A05UF6G3',
-    device: 'sdb',
-    type: 'SSD',
-    class: 'SSD',
-    sizeMiB: 123456.78,
-    osd: {
-      pgs: 456,
-      reweight: 0.5,
-      daemons: [
-        {
-          id: 'OSD.0',
-          usagePercent: 25,
-          status: {
-            current: 'up',
-          },
-        },
-        {
-          id: 'OSD.1',
-          usagePercent: 70,
-          status: {
-            current: 'down',
-          },
-        },
-      ],
-    },
-    availability: 'in-use',
-    status: {
-      current: 'ok',
-      description: '',
-      isPromotable: true,
-      isDemotable: false,
-    },
-  },
-  {
-    serial: '4560A05UF6G3',
-    device: 'sdc',
-    type: 'HDD',
-    class: 'HDD',
-    sizeMiB: 345678.9,
-    osd: {
-      pgs: 0,
-      reweight: 0,
-      daemons: [],
-    },
-    availability: 'can be added',
-    status: {
-      current: 'ok',
-      description: '',
-      isPromotable: false,
-      isDemotable: false,
-    },
-  },
-]
+// TODO: Replace it with i18n.
+const reweightErrorMessage =
+  'Reweight must be a number between 0.0 and 1.0, with a maximum of two decimal places.'
 
-const deviceEditableDataSchema = z.object({
-  definedClass: z.enum(['SSD', 'HDD']),
-  osdReweight: z.number().min(0).max(1),
+export const deviceEditableDataSchema = z.object({
+  definedClass: z.nativeEnum(DeviceType),
+  osdReweight: z
+    .string()
+    .regex(/^[01](\.\d{1,2})?$/, reweightErrorMessage)
+    .refine((str) => {
+      const float = parseFloat(str)
+      return 0 <= float && float <= 1
+    }, reweightErrorMessage)
+    .transform((str) => parseFloat(str)),
 })
 
-export const parseDeviceEditableData = (
-  data: DeviceEditableData,
-): z.infer<typeof deviceEditableDataSchema> | undefined => {
-  const parsed = deviceEditableDataSchema.safeParse(data)
-  return parsed.data
+export const formatOSDUsage = (usagePercent: number): string => {
+  if (usagePercent === 0) return '0%'
+  const rounded = Math.round(usagePercent)
+  return `${Math.min(1, rounded)}%`
+}
+
+export const formatOSDReweight = (reweight: number): string => {
+  const reweightStr = reweight.toString()
+  const hasTwoDecimalPlaces = /\.\d{2}$/.test(reweightStr)
+
+  if (hasTwoDecimalPlaces) {
+    return reweightStr
+  }
+
+  // For numbers with no decimal places or just one, format it to
+  // one decimal place.
+  return reweight.toFixed(1)
 }

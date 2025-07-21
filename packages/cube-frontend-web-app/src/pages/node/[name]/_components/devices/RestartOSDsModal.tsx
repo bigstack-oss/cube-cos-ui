@@ -1,9 +1,11 @@
 import { CosModal } from '@cube-frontend/ui-library'
-import { useState } from 'react'
+import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useContext, useState } from 'react'
 import { DeviceRow } from './nodeDevicesUtils'
-import { useDeviceActionToast } from './useDeviceActionToast'
 
 type RestartOSDsModalProps = {
+  nodeName: string | undefined
   isOpen: boolean
   targetRow: DeviceRow | undefined
   onAccepted: () => void
@@ -11,30 +13,28 @@ type RestartOSDsModalProps = {
 }
 
 export const RestartOSDsModal = (props: RestartOSDsModalProps) => {
-  const { isOpen, targetRow, onAccepted, onCloseClick } = props
+  const { nodeName, isOpen, targetRow, onAccepted, onCloseClick } = props
+
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const { showSuccessToast, showFailedToast } = useDeviceActionToast()
-
   const onActionClick = async (): Promise<void> => {
-    if (!targetRow) return
-
+    if (!nodeName || !targetRow) return
     setIsLoading(true)
-
     try {
-      // TODO: Call restart OSD API for each OSD.
-      setTimeout(() => {
-        setIsLoading(false)
-        onAccepted()
-      }, 1000)
-
-      setTimeout(() => {
-        showSuccessToast('OSDs restartd successfully.', targetRow)
-      }, 3000)
+      const promises: Promise<unknown>[] = targetRow.osd.daemons.map((daemon) =>
+        nodesApi.restartNodeOsd({
+          dataCenter: dataCenter!.name,
+          nodeName,
+          osdId: daemon.id,
+        }),
+      )
+      await Promise.all(promises)
+      setIsLoading(false)
+      onAccepted()
     } catch (error) {
       console.error('Restart OSDs error: ', error)
-      showFailedToast('Failed to restart OSDs.', targetRow)
       setIsLoading(false)
     }
   }
@@ -52,7 +52,8 @@ export const RestartOSDsModal = (props: RestartOSDsModalProps) => {
       onCloseClick={onCloseClick}
     >
       <p className="primary-body2 text-functional-text">
-        Do you want to restart OSDs?
+        Do you want to restart the OSDs for{' '}
+        <span className="font-bold">{targetRow?.device}</span>?
       </p>
     </CosModal>
   )

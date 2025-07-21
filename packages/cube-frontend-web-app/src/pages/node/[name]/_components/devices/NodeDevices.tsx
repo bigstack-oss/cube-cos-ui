@@ -1,27 +1,30 @@
 import {
+  ListNodeDevicesResponseDataInnerAvailabilityEnum,
+  ListNodeDevicesResponseDataInnerOsd,
+} from '@cube-frontend/api'
+import {
   CosButton,
-  CosDropdown,
-  CosPagination,
+  CosLoadingSpinner,
   CosStatus,
   CosTableInput,
-  DEFAULT_ITEMS_PER_PAGE,
-  ItemsPerPage,
 } from '@cube-frontend/ui-library'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
 import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
-import { upperFirst } from 'lodash'
-import { useState } from 'react'
+import { isEmpty, upperFirst } from 'lodash'
 import { twMerge } from 'tailwind-merge'
 import { Panel } from '../Panel'
 import { AddDiskModal } from './AddDiskModal'
 import { DaemonsInfo } from './DaemonsInfo'
+import { DefinedClassCell } from './DefinedClassCell'
 import { DeviceOverflowMenu } from './DeviceOverflowMenu'
 import {
   DeviceRow,
   DeviceTable,
-  NodeBlockDeviceInnerWaitingForApiUpdate,
+  formatOSDReweight,
+  formatOSDUsage,
+  isDeviceOrOsdProcessing,
 } from './nodeDevicesUtils'
 import { RemoveDiskModal } from './RemoveDiskModal'
 import { RemoveOSDsModal } from './RemoveOSDsModal'
@@ -39,6 +42,7 @@ export const NodeDevices = (props: NodeDevicesProps) => {
   const {
     isLoading,
     rows,
+    rowsFieldError,
     onDefinedClassChange,
     onOSDReweightChange,
     onEditClick,
@@ -46,41 +50,25 @@ export const NodeDevices = (props: NodeDevicesProps) => {
     onCancelEditClick,
   } = useDeviceRows(hostname)
 
-  const [paginationState, setPaginationState] = useState({
-    page: 1,
-    itemsPerPage: DEFAULT_ITEMS_PER_PAGE,
-  })
-
-  const onPageChange = (page: number): void => {
-    setPaginationState((prev) => ({
-      ...prev,
-      page,
-    }))
-  }
-
-  const onItemsPerPageChange = (itemsPerPage: ItemsPerPage): void => {
-    setPaginationState({
-      page: 1,
-      itemsPerPage,
-    })
-  }
-
-  const renderOSDUsages = (
-    osd: NodeBlockDeviceInnerWaitingForApiUpdate['osd'],
-  ) => {
+  const renderOSDUsages = (osd: ListNodeDevicesResponseDataInnerOsd) => {
     return (
       <div className="flex flex-col gap-y-1.5">
         {osd.daemons.map((daemon) => (
           <div key={daemon.id} className="primary-body4 text-functional-text">
-            {`${daemon.usagePercent}%`}
+            {formatOSDUsage(daemon.usagePercent)}
           </div>
         ))}
       </div>
     )
   }
 
-  const renderAvailability = (availability: string) => {
-    if (availability === 'can be added') {
+  const renderAvailability = (
+    availability: ListNodeDevicesResponseDataInnerAvailabilityEnum,
+  ) => {
+    if (
+      availability ===
+      ListNodeDevicesResponseDataInnerAvailabilityEnum.Available
+    ) {
       return (
         <div className="flex items-center gap-x-2 whitespace-nowrap">
           <span className="primary-body4 font-medium text-status-positive-text">
@@ -122,46 +110,75 @@ export const NodeDevices = (props: NodeDevicesProps) => {
     onClose: onRestartOSDsModalClose,
   } = useDeviceActionModal()
 
-  const renderEditingActions = (row: DeviceRow) => {
+  const renderActions = (row: DeviceRow, rowIndex: number) => {
+    if (
+      row.availability ===
+      ListNodeDevicesResponseDataInnerAvailabilityEnum.System
+    ) {
+      // Users are not allowed to operate system disk.
+      return null
+    }
+    if (row.isEditing) return renderEditingActions(row, rowIndex)
+    return renderNonEditingActions(row)
+  }
+
+  const renderEditingActions = (row: DeviceRow, rowIndex: number) => {
+    const isProcessing = isDeviceOrOsdProcessing(row)
     return (
       <div className="flex items-center gap-x-2">
-        <CosButton
-          type="ghost"
-          usage="text-only"
-          loading={row.isSaving}
-          onClick={() => onSaveClick(row)}
-        >
-          Save
-        </CosButton>
-        <X
-          className={twMerge(
-            'icon-md cursor-pointer text-functional-title',
-            row.isSaving && 'cursor-default',
-          )}
-          onClick={() => {
-            if (!row.isSaving) {
-              onCancelEditClick(row)
-            }
-          }}
-        />
+        {isProcessing ? (
+          <CosLoadingSpinner variant="dot120" />
+        ) : (
+          <>
+            <CosButton
+              type="ghost"
+              usage="text-only"
+              loading={row.isSaving}
+              disabled={!isEmpty(rowsFieldError[rowIndex])}
+              onClick={() => onSaveClick(row)}
+            >
+              Save
+            </CosButton>
+            {!row.isSaving && (
+              <X
+                className={twMerge(
+                  'icon-md cursor-pointer text-functional-title',
+                )}
+                onClick={() => onCancelEditClick(row)}
+              />
+            )}
+          </>
+        )}
       </div>
     )
   }
 
   const renderNonEditingActions = (row: DeviceRow) => {
+    const isProcessing = isDeviceOrOsdProcessing(row)
+    const canEdit =
+      row.availability ===
+      ListNodeDevicesResponseDataInnerAvailabilityEnum.InUse
     return (
       <div className="flex items-center gap-x-4">
-        <Edit
-          className="icon-md cursor-pointer text-functional-text"
-          onClick={() => onEditClick(row)}
-        />
-        <DeviceOverflowMenu
-          row={row}
-          onAddDiskClick={() => onAddDiskModalOpen(row)}
-          onRemoveDiskClick={() => onRemoveDiskModalOpen(row)}
-          onRemoveOSDsClick={() => onRemoveOSDsModalOpen(row)}
-          onRestartOSDsClick={() => onRestartOSDsModalOpen(row)}
-        />
+        {isProcessing ? (
+          <CosLoadingSpinner variant="dot120" />
+        ) : (
+          <>
+            {canEdit && (
+              <Edit
+                className="icon-md cursor-pointer text-functional-text"
+                onClick={() => onEditClick(row)}
+              />
+            )}
+            <DeviceOverflowMenu
+              row={row}
+              onAddDiskClick={() => onAddDiskModalOpen(row)}
+              onRemoveDiskClick={() => onRemoveDiskModalOpen(row)}
+              onRemoveOSDsClick={() => onRemoveOSDsModalOpen(row)}
+              onRestartOSDsClick={() => onRestartOSDsModalOpen(row)}
+            />
+          </>
+        )}
       </div>
     )
   }
@@ -173,39 +190,20 @@ export const NodeDevices = (props: NodeDevicesProps) => {
         <DeviceTable.Column label="Device" property="device" emphasize={true} />
         <DeviceTable.Column label="Serial number" property="serial" />
         <DeviceTable.Column label="Size" property="sizeMiB">
-          {(sizeMiB) => toReadableSizeString(sizeMiB, 'MiB')}
+          {(sizeMiB) => (
+            <span className="whitespace-nowrap">
+              {toReadableSizeString(sizeMiB, 'MiB')}
+            </span>
+          )}
         </DeviceTable.Column>
         <DeviceTable.Column label="Detected Type" property="type" />
         <DeviceTable.Column label="Defined Class" property="class">
-          {(definedClass, row) =>
-            row.isEditing ? (
-              <CosDropdown
-                variant="in-table"
-                selectedItems={[row.dataForEdit.definedClass]}
-                disabled={row.isSaving}
-              >
-                <CosDropdown.Trigger>
-                  {row.dataForEdit.definedClass}
-                </CosDropdown.Trigger>
-                <CosDropdown.Menu>
-                  <CosDropdown.Item
-                    item="SSD"
-                    onClick={() => onDefinedClassChange(row, 'SSD')}
-                  >
-                    SSD
-                  </CosDropdown.Item>
-                  <CosDropdown.Item
-                    item="HDD"
-                    onClick={() => onDefinedClassChange(row, 'HDD')}
-                  >
-                    HDD
-                  </CosDropdown.Item>
-                </CosDropdown.Menu>
-              </CosDropdown>
-            ) : (
-              definedClass
-            )
-          }
+          {(_, row) => (
+            <DefinedClassCell
+              row={row}
+              onChange={(type) => onDefinedClassChange(row, type)}
+            />
+          )}
         </DeviceTable.Column>
         <DeviceTable.Column label="OSD ID" property="osd">
           {(osd) => <DaemonsInfo daemons={osd.daemons} />}
@@ -214,17 +212,18 @@ export const NodeDevices = (props: NodeDevicesProps) => {
           {renderOSDUsages}
         </DeviceTable.Column>
         <DeviceTable.Column label="OSD Reweight" property="osd">
-          {(osd, row) =>
+          {(osd, row, rowIndex) =>
             row.isEditing ? (
               <CosTableInput
                 className="w-[50px]"
                 placeholder="OSD reweight"
                 value={row.dataForEdit.osdReweight}
+                errorMessage={rowsFieldError[rowIndex].osdReweight}
                 disabled={row.isSaving}
                 onChange={(e) => onOSDReweightChange(row, e)}
               />
             ) : (
-              osd.reweight.toFixed(1)
+              formatOSDReweight(osd.reweight)
             )
           }
         </DeviceTable.Column>
@@ -235,40 +234,32 @@ export const NodeDevices = (props: NodeDevicesProps) => {
           {(status) => <CosStatus status={status.current} />}
         </DeviceTable.Column>
         <DeviceTable.Column label="Actions">
-          {(_, row) =>
-            row.isEditing
-              ? renderEditingActions(row)
-              : renderNonEditingActions(row)
-          }
+          {(_, row, rowIndex) => renderActions(row, rowIndex)}
         </DeviceTable.Column>
       </DeviceTable>
-      <CosPagination
-        isLoading={isLoading}
-        totalItems={rows.length ?? 0}
-        currentPage={paginationState.page}
-        itemsPerPage={paginationState.itemsPerPage}
-        onPageChange={onPageChange}
-        onItemsPerPageChange={onItemsPerPageChange}
-      />
       <AddDiskModal
+        nodeName={hostname}
         isOpen={isAddDiskModalOpen}
         targetRow={addDiskModalTargetRow}
         onAccepted={onAddDiskModalClose}
         onCloseClick={onAddDiskModalClose}
       />
       <RemoveDiskModal
+        nodeName={hostname}
         isOpen={isRemoveDiskModalOpen}
         targetRow={removeDiskModalTargetRow}
         onAccepted={onRemoveDiskModalClose}
         onCloseClick={onRemoveDiskModalClose}
       />
       <RemoveOSDsModal
+        nodeName={hostname}
         isOpen={isRemoveOSDsModalOpen}
         targetRow={removeOSDsModalTargetRow}
         onAccepted={onRemoveOSDsModalClose}
         onCloseClick={onRemoveOSDsModalClose}
       />
       <RestartOSDsModal
+        nodeName={hostname}
         isOpen={isRestartOSDsModalOpen}
         targetRow={restartOSDsModalTargetRow}
         onAccepted={onRestartOSDsModalClose}

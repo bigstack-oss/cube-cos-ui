@@ -3,6 +3,7 @@ import { ValueOfSet } from '@cube-frontend/utils'
 // TODO: Align these values with the backend status constants.
 const neutralStatuses = new Set(['neutral', 'in-use', 'finished'] as const)
 const successStatuses = new Set([
+  'ok',
   'success',
   'active',
   'available',
@@ -11,6 +12,7 @@ const successStatuses = new Set([
 const warningStatuses = new Set([
   'warning',
   'error',
+  'fail',
   'failed',
   'stopped',
   'powering off',

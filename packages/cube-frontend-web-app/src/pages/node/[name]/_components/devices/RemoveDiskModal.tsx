@@ -1,11 +1,14 @@
-import { CosCheckbox, CosModal, CosNagging } from '@cube-frontend/ui-library'
+import { CosModal, CosNagging } from '@cube-frontend/ui-library'
+import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
-import { ChangeEvent, useState } from 'react'
+import { useContext } from 'react'
 import { DaemonsInfo } from './DaemonsInfo'
 import { DeviceRow, DeviceTable } from './nodeDevicesUtils'
-import { useDeviceActionToast } from './useDeviceActionToast'
 
 type RemoveDiskModalProps = {
+  nodeName: string | undefined
   isOpen: boolean
   targetRow: DeviceRow | undefined
   onAccepted: () => void
@@ -13,38 +16,25 @@ type RemoveDiskModalProps = {
 }
 
 export const RemoveDiskModal = (props: RemoveDiskModalProps) => {
-  const { isOpen, targetRow, onAccepted, onCloseClick } = props
+  const { nodeName, isOpen, targetRow, onAccepted, onCloseClick } = props
 
-  const [gracefulRemove, setGracefulRemove] = useState(false)
+  const { dataCenter } = useContext(DataCenterContext)
 
-  // TODO: Replace the mock loading state with the `useCosMutationRequest` hook.
-  const [isRemoving, setIsRemoving] = useState(false)
-
-  const { showSuccessToast, showFailedToast } = useDeviceActionToast()
-
-  const onGracefulRemoveChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setGracefulRemove(e.target.checked)
-  }
+  const { isLoading, mutateResource: removeDisk } = useCosMutationRequest(
+    nodesApi.removeNodeDevice,
+  )
 
   const onActionClick = async (): Promise<void> => {
-    if (!targetRow) return
-
-    setIsRemoving(true)
-
+    if (!nodeName || !targetRow) return
     try {
-      // TODO: Call remove disk API.
-      setTimeout(() => {
-        setIsRemoving(false)
-        onAccepted()
-      }, 1000)
-
-      setTimeout(() => {
-        showSuccessToast('Your device has been removed.', targetRow)
-      }, 3000)
+      await removeDisk({
+        dataCenter: dataCenter!.name,
+        nodeName,
+        deviceName: targetRow.device,
+      })
+      onAccepted()
     } catch (error) {
       console.error('Remove disk error: ', error)
-      showFailedToast('Failed to remove disk.', targetRow)
-      setIsRemoving(false)
     }
   }
 
@@ -52,10 +42,11 @@ export const RemoveDiskModal = (props: RemoveDiskModalProps) => {
     <CosModal
       isOpen={isOpen}
       size="sm"
+      className="min-w-[720px]"
       title={`Remove Disk ${targetRow?.device}`}
       actionText="Remove"
       actionButtonProps={{
-        loading: isRemoving,
+        loading: isLoading,
       }}
       onActionClick={onActionClick}
       onCloseClick={onCloseClick}
@@ -76,7 +67,11 @@ export const RemoveDiskModal = (props: RemoveDiskModalProps) => {
               />
               <DeviceTable.Column label="Serial Number" property="serial" />
               <DeviceTable.Column label="Size" property="sizeMiB">
-                {(sizeMiB) => toReadableSizeString(sizeMiB, 'MiB')}
+                {(sizeMiB) => (
+                  <span className="whitespace-nowrap">
+                    {toReadableSizeString(sizeMiB, 'MiB')}
+                  </span>
+                )}
               </DeviceTable.Column>
               <DeviceTable.Column label="Defined Class" property="class" />
               <DeviceTable.Column label="OSD Status" property="osd">
@@ -91,19 +86,15 @@ export const RemoveDiskModal = (props: RemoveDiskModalProps) => {
               <span className="font-bold">{targetRow?.device}</span> from the
               pool?
             </div>
-            <CosCheckbox
-              label="Wait for data migration before removing the disk."
-              labelClassName="max-w-none"
-              checked={gracefulRemove}
-              onChange={onGracefulRemoveChange}
-            />
-            <CosNagging
-              className="w-full"
-              type="warning"
-              variant="top"
-              title={`There is still data in the disk (${targetRow.osd.pgs.toLocaleString('en-US')} pgs).`}
-              description="Recommendation: set reweight to 0 and wait for data to be fully drained."
-            />
+            {targetRow.osd.pgs > 0 && (
+              <CosNagging
+                className="w-full"
+                type="warning"
+                variant="top"
+                title={`There is still data in the disk (${targetRow.osd.pgs.toLocaleString('en-US')} pgs).`}
+                description="Recommendation: set reweight to 0 and wait for data to be fully drained."
+              />
+            )}
           </>
         )}
       </div>

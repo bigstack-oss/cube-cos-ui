@@ -1,22 +1,25 @@
+import { DeviceType, NodesApiListNodeDevicesRequest } from '@cube-frontend/api'
 import { DeepPartial } from '@cube-frontend/utils'
+import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { Nullish } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { useCosStreamRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosStreamRequest'
+import { ErrorRecord, validateBySchema } from '@cube-frontend/web-app/utils/zod'
 import { merge } from 'lodash'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useMemo, useState } from 'react'
 import {
-  blockDeviceToRow,
   createEditableData,
+  DeviceEditableData,
+  deviceEditableDataSchema,
   DeviceRow,
-  mockDevices,
-  NodeBlockDeviceInnerWaitingForApiUpdate,
-  parseDeviceEditableData,
 } from './nodeDevicesUtils'
+import { useSyncDeviceRows } from './useSyncDeviceRows'
 
 type UseDeviceRows = {
   isLoading: boolean
   rows: DeviceRow[]
-  onDefinedClassChange: (
-    row: DeviceRow,
-    definedClass: NodeBlockDeviceInnerWaitingForApiUpdate['class'],
-  ) => void
+  rowsFieldError: ErrorRecord<DeviceEditableData>[]
+  onDefinedClassChange: (row: DeviceRow, definedClass: DeviceType) => void
   onOSDReweightChange: (
     row: DeviceRow,
     e: ChangeEvent<HTMLInputElement>,
@@ -26,19 +29,29 @@ type UseDeviceRows = {
   onCancelEditClick: (row: DeviceRow) => void
 }
 
-export const useDeviceRows = (hostname: string | undefined): UseDeviceRows => {
-  // TODO: Replace this loading state with `useCosGetRequest` + useSequentialInterval.
-  const [isLoading, setIsLoading] = useState(true)
+export const useDeviceRows = (nodeName: string | undefined): UseDeviceRows => {
+  const { dataCenter } = useContext(DataCenterContext)
 
   const [rows, setRows] = useState<DeviceRow[]>([])
 
-  useEffect(() => {
-    if (hostname) {
-      console.log(`TODO: Fetch devices with hostname: ${hostname}`)
-      setRows(mockDevices.map(blockDeviceToRow))
-      setIsLoading(false)
-    }
-  }, [hostname])
+  const { isLoading, data: devices } = useCosStreamRequest(
+    nodesApi.listNodeDevices,
+    (): Nullish<NodesApiListNodeDevicesRequest> => {
+      if (!nodeName) return null
+      return {
+        dataCenter: dataCenter!.name,
+        nodeName,
+      }
+    },
+  )
+
+  useSyncDeviceRows(devices, setRows)
+
+  const rowsFieldError = useMemo<ErrorRecord<DeviceEditableData>[]>(() => {
+    return rows.map((row) =>
+      validateBySchema(deviceEditableDataSchema, row.dataForEdit),
+    )
+  }, [rows])
 
   const patchRow = (rowId: string, payload: DeepPartial<DeviceRow>): void => {
     setRows((prev) => {
@@ -52,7 +65,7 @@ export const useDeviceRows = (hostname: string | undefined): UseDeviceRows => {
 
   const onDefinedClassChange = (
     row: DeviceRow,
-    definedClass: NodeBlockDeviceInnerWaitingForApiUpdate['class'],
+    definedClass: DeviceType,
   ): void => {
     patchRow(row.id, {
       dataForEdit: {
@@ -79,32 +92,24 @@ export const useDeviceRows = (hostname: string | undefined): UseDeviceRows => {
   }
 
   const onSaveClick = async (row: DeviceRow): Promise<void> => {
-    const parsedData = parseDeviceEditableData(row.dataForEdit)
-    console.log({
-      dataForEdit: row.dataForEdit,
-      parsedData,
-    })
+    const parsedData = deviceEditableDataSchema.safeParse(row.dataForEdit).data
     if (!parsedData) return
 
     patchRow(row.id, {
       isSaving: true,
     })
 
+    const osdIds: string[] = row.osd.daemons.map((daemon) => daemon.id)
+
     try {
-      if (row.class !== row.dataForEdit.definedClass) {
-        await promoteOrDemoteDevice(row.device, parsedData.definedClass)
-      }
-
-      if (row.osd.reweight !== parsedData.osdReweight) {
-        await reweightOsds(
-          row.osd.daemons.map((daemon) => daemon.id),
-          parsedData.osdReweight,
-        )
-      }
-
+      await Promise.all([
+        updateNodeDevice(row.device, parsedData.definedClass),
+        reweightOsds(osdIds, parsedData.osdReweight),
+      ])
+      // Keep row in editing & saving state while awaiting device info sync via
+      // HTTP chunked transfer (watch).
       patchRow(row.id, {
-        isSaving: false,
-        isEditing: false,
+        isSavingDone: true,
       })
     } catch {
       patchRow(row.id, {
@@ -113,16 +118,23 @@ export const useDeviceRows = (hostname: string | undefined): UseDeviceRows => {
     }
   }
 
-  const promoteOrDemoteDevice = async (
-    deviceId: string,
-    definedClass: NodeBlockDeviceInnerWaitingForApiUpdate['class'],
-  ): Promise<boolean> => {
+  const updateNodeDevice = async (
+    deviceName: string,
+    definedClass: DeviceType,
+  ): Promise<void> => {
+    if (!nodeName) return
     try {
-      // TODO: Call promote/demote API.
-      return true
+      await nodesApi.updateNodeDevice({
+        dataCenter: dataCenter!.name,
+        nodeName,
+        deviceName,
+        updateNodeDeviceRequest: {
+          class: definedClass,
+        },
+      })
     } catch (error) {
-      console.error('Promote/demote device error: ', error)
-      return false
+      console.error('Update node device error: ', error)
+      throw error
     }
   }
 
@@ -130,10 +142,22 @@ export const useDeviceRows = (hostname: string | undefined): UseDeviceRows => {
     osdIds: string[],
     reweight: number,
   ): Promise<void> => {
+    if (!nodeName) return
     try {
-      // TODO: Call reweight OSDs API for each OSD.
+      const promises: Promise<unknown>[] = osdIds.map((osdId) =>
+        nodesApi.updateNodeOsd({
+          dataCenter: dataCenter!.name,
+          nodeName,
+          osdId,
+          updateNodeOsdRequest: {
+            reweight,
+          },
+        }),
+      )
+      await Promise.all(promises)
     } catch (error) {
-      console.error('Reweight device OSDs error: ', error)
+      console.error('Update node device OSDs error: ', error)
+      throw error
     }
   }
 
@@ -147,6 +171,7 @@ export const useDeviceRows = (hostname: string | undefined): UseDeviceRows => {
   return {
     isLoading,
     rows,
+    rowsFieldError,
     onDefinedClassChange,
     onOSDReweightChange,
     onEditClick,

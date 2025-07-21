@@ -1,10 +1,13 @@
 import { CosModal } from '@cube-frontend/ui-library'
+import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
-import { useState } from 'react'
+import { useContext } from 'react'
 import { DeviceRow, DeviceTable } from './nodeDevicesUtils'
-import { useDeviceActionToast } from './useDeviceActionToast'
 
 type AddDiskModalProps = {
+  nodeName: string | undefined
   isOpen: boolean
   targetRow: DeviceRow | undefined
   onAccepted: () => void
@@ -12,32 +15,27 @@ type AddDiskModalProps = {
 }
 
 export const AddDiskModal = (props: AddDiskModalProps) => {
-  const { isOpen, targetRow, onAccepted, onCloseClick } = props
+  const { nodeName, isOpen, targetRow, onAccepted, onCloseClick } = props
 
-  // TODO: Replace the mock loading state with the `useCosMutationRequest` hook.
-  const [isAdding, setIsAdding] = useState(false)
+  const { dataCenter } = useContext(DataCenterContext)
 
-  const { showSuccessToast, showFailedToast } = useDeviceActionToast()
+  const { isLoading, mutateResource: addDisk } = useCosMutationRequest(
+    nodesApi.addNodeDevice,
+  )
 
   const onActionClick = async (): Promise<void> => {
-    if (!targetRow) return
-
-    setIsAdding(true)
-
+    if (!nodeName || !targetRow) return
     try {
-      // TODO: Call add disk API.
-      setTimeout(() => {
-        setIsAdding(false)
-        onAccepted()
-      }, 1000)
-
-      setTimeout(() => {
-        showSuccessToast('Your device has been added.', targetRow)
-      }, 3000)
+      await addDisk({
+        dataCenter: dataCenter!.name,
+        nodeName,
+        addNodeDeviceRequest: {
+          device: targetRow.device,
+        },
+      })
+      onAccepted()
     } catch (error) {
       console.error('Add disk error: ', error)
-      showFailedToast('Failed to add disk.', targetRow)
-      setIsAdding(false)
     }
   }
 
@@ -48,7 +46,7 @@ export const AddDiskModal = (props: AddDiskModalProps) => {
       title={`Add Disk ${targetRow?.device}`}
       actionText="Add"
       actionButtonProps={{
-        loading: isAdding,
+        loading: isLoading,
       }}
       onActionClick={onActionClick}
       onCloseClick={onCloseClick}
