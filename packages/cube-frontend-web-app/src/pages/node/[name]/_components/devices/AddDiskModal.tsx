@@ -10,12 +10,11 @@ type AddDiskModalProps = {
   nodeName: string | undefined
   isOpen: boolean
   targetRow: DeviceRow | undefined
-  onAccepted: () => void
   onCloseClick: () => void
 }
 
 export const AddDiskModal = (props: AddDiskModalProps) => {
-  const { nodeName, isOpen, targetRow, onAccepted, onCloseClick } = props
+  const { nodeName, isOpen, targetRow, onCloseClick } = props
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -33,7 +32,7 @@ export const AddDiskModal = (props: AddDiskModalProps) => {
           device: targetRow.device,
         },
       })
-      onAccepted()
+      onCloseClick()
     } catch (error) {
       console.error('Add disk error: ', error)
     }

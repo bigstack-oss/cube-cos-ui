@@ -215,7 +215,7 @@ export const NodeDevices = (props: NodeDevicesProps) => {
           {(osd, row, rowIndex) =>
             row.isEditing ? (
               <CosTableInput
-                className="w-[50px]"
+                className="h-[34px] w-[50px]"
                 placeholder="OSD reweight"
                 value={row.dataForEdit.osdReweight}
                 errorMessage={rowsFieldError[rowIndex].osdReweight}
@@ -241,28 +241,24 @@ export const NodeDevices = (props: NodeDevicesProps) => {
         nodeName={hostname}
         isOpen={isAddDiskModalOpen}
         targetRow={addDiskModalTargetRow}
-        onAccepted={onAddDiskModalClose}
         onCloseClick={onAddDiskModalClose}
       />
       <RemoveDiskModal
         nodeName={hostname}
         isOpen={isRemoveDiskModalOpen}
         targetRow={removeDiskModalTargetRow}
-        onAccepted={onRemoveDiskModalClose}
         onCloseClick={onRemoveDiskModalClose}
       />
       <RemoveOSDsModal
         nodeName={hostname}
         isOpen={isRemoveOSDsModalOpen}
         targetRow={removeOSDsModalTargetRow}
-        onAccepted={onRemoveOSDsModalClose}
         onCloseClick={onRemoveOSDsModalClose}
       />
       <RestartOSDsModal
         nodeName={hostname}
         isOpen={isRestartOSDsModalOpen}
         targetRow={restartOSDsModalTargetRow}
-        onAccepted={onRestartOSDsModalClose}
         onCloseClick={onRestartOSDsModalClose}
       />
     </Panel>

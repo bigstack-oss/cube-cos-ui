@@ -8,12 +8,11 @@ type RemoveOSDsModalProps = {
   nodeName: string | undefined
   isOpen: boolean
   targetRow: DeviceRow | undefined
-  onAccepted: () => void
   onCloseClick: () => void
 }
 
 export const RemoveOSDsModal = (props: RemoveOSDsModalProps) => {
-  const { nodeName, isOpen, targetRow, onAccepted, onCloseClick } = props
+  const { nodeName, isOpen, targetRow, onCloseClick } = props
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -32,7 +31,7 @@ export const RemoveOSDsModal = (props: RemoveOSDsModalProps) => {
       )
       await Promise.all(promises)
       setIsLoading(false)
-      onAccepted()
+      onCloseClick()
     } catch (error) {
       console.error('Remove OSDs error: ', error)
       setIsLoading(false)

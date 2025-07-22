@@ -24,6 +24,7 @@ export const DefinedClassCell = (props: DefinedClassCellProps) => {
 
   return (
     <CosDropdown
+      size="sm"
       type="radio"
       selectedItems={[dataForEdit.definedClass]}
       disabled={isSaving}

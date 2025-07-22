@@ -8,12 +8,11 @@ type RestartOSDsModalProps = {
   nodeName: string | undefined
   isOpen: boolean
   targetRow: DeviceRow | undefined
-  onAccepted: () => void
   onCloseClick: () => void
 }
 
 export const RestartOSDsModal = (props: RestartOSDsModalProps) => {
-  const { nodeName, isOpen, targetRow, onAccepted, onCloseClick } = props
+  const { nodeName, isOpen, targetRow, onCloseClick } = props
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -32,7 +31,7 @@ export const RestartOSDsModal = (props: RestartOSDsModalProps) => {
       )
       await Promise.all(promises)
       setIsLoading(false)
-      onAccepted()
+      onCloseClick()
     } catch (error) {
       console.error('Restart OSDs error: ', error)
       setIsLoading(false)
