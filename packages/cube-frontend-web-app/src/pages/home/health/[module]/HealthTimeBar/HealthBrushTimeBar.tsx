@@ -5,7 +5,7 @@ import {
 } from '@cube-frontend/web-app/components/HealthSegmentedBar/BrushFilter'
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
 import { TIME_AXIS_HEIGHT, TimeAxis } from './TimeAxis'
-import { HealthIndicators } from './NgIndicators'
+import { HealthIndicators } from './HealthIndicators'
 import { cubeTheme } from '@cube-frontend/ui-theme'
 
 export type HealthBrushTimeBarProps = {
