@@ -6,6 +6,7 @@ import {
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
 import { TIME_AXIS_HEIGHT, TimeAxis } from './TimeAxis'
 import { HealthIndicators } from './NgIndicators'
+import { cubeTheme } from '@cube-frontend/ui-theme'
 
 export type HealthBrushTimeBarProps = {
   paddingX: number
@@ -39,6 +40,12 @@ export const HealthBrushTimeBar = (props: HealthBrushTimeBarProps) => {
       }}
       overlay={(width, height, segments) => (
         <>
+          <line
+            x1={0}
+            x2={width}
+            strokeWidth={2}
+            stroke={cubeTheme.colors.functional['border-divider']}
+          />
           <g transform={`translate(0, ${BAR_PADDING_Y - INDICATOR_SIZE} )`}>
             <HealthIndicators
               segments={segments}

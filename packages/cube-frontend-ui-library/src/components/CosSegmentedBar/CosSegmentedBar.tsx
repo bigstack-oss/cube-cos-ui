@@ -12,8 +12,6 @@ import {
 } from './cosSegmentedBarUtils'
 import { SegmentedRect } from './SegmentedRect'
 import { useSegmentedBarWidth } from './useSegmentedBarWidth'
-import { twMerge } from 'tailwind-merge'
-import { cubeTheme } from '@cube-frontend/ui-theme'
 
 export type CosSegmentedBarProps = PropsWithClassName & {
   /**
@@ -146,12 +144,6 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
       height={svgHeight}
     >
       <g transform={`translate(${paddingX}, 0)`}>
-        <line
-          x1={0}
-          x2={contentWidth}
-          strokeWidth={2}
-          stroke={cubeTheme.colors.functional['border-divider']}
-        />
         <g transform={`translate(0, ${barMarginTop})`}>
           {displaySegments.map((segment, index) => (
             <CosTooltip
