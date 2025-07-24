@@ -7,7 +7,7 @@ import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosReques
 import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
 import { useContext, useState } from 'react'
 import { HOME_HEALTH_PAGE_POLLING_INTERVAL } from '../../homeHealthPageUtils'
-import { AvailableStatus, HealthStatusBadge } from './HealthStatusBadge'
+import { HealthStatusBadge } from './HealthStatusBadge'
 import { NgService } from './NgService'
 
 export const HealthCheck = () => {
@@ -79,11 +79,7 @@ export const HealthCheck = () => {
         {isLoadingHealth ? (
           <CosLoadingSpinner variant="dot45" />
         ) : (
-          <HealthStatusBadge
-            status={
-              overallHealth.overall.status.current satisfies AvailableStatus
-            }
-          />
+          <HealthStatusBadge status={overallHealth.overall.status.current} />
         )}
       </div>
       {renderNgServices()}

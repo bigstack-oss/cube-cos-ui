@@ -1,12 +1,10 @@
-import { HealthStatus } from '@cube-frontend/web-app/components/HealthSegmentedBar/computeHealthSegments'
+import { GetHealthsResponseDataOverallStatusCurrentEnum } from '@cube-frontend/api'
 import { cva } from 'class-variance-authority'
 import { ClassValue } from 'class-variance-authority/types'
 
 export type HealthStatusBadgeProps = {
-  status: AvailableStatus
+  status: GetHealthsResponseDataOverallStatusCurrentEnum
 }
-
-export type AvailableStatus = Exclude<HealthStatus, 'blank'>
 
 const badge = cva(
   [
@@ -18,7 +16,10 @@ const badge = cva(
       status: {
         ok: 'bg-status-positive',
         ng: 'bg-status-negative',
-      } satisfies Record<AvailableStatus, ClassValue>,
+      } satisfies Record<
+        GetHealthsResponseDataOverallStatusCurrentEnum,
+        ClassValue
+      >,
     },
   },
 )
