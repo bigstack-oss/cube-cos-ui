@@ -76,7 +76,7 @@ export const CosSegmentedBar = (props: CosSegmentedBarProps) => {
   )
 
   const { svgRef, barWidth: containerWidth } = useSegmentedBarWidth(width)
-  const contentWidth = containerWidth - paddingX * 2
+  const contentWidth = Math.max(containerWidth - paddingX * 2, 0)
 
   const totalColCount = useMemo<number>(
     () => displaySegments.reduce((sum, segment) => sum + segment.colCount, 0),
