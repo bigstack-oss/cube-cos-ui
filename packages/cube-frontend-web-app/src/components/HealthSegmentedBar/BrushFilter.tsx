@@ -53,6 +53,12 @@ export const BrushFilter = (props: BrushFilter) => {
 
       const brushSelection = selection as [number, number]
 
+      /**
+       * Developers may see a `maximum update depth exceeded` error in the browser console,
+       * because the brush event is triggered multiple times in a short period and updates the state.
+       * Debounce or throttle are not suitable here, as they would affect the interaction experience.
+       * We can safely ignore this for now, since the brush selection is updated correctly.
+       */
       setHandleXOffset({
         left: brushSelection[0],
         right: brushSelection[1],
