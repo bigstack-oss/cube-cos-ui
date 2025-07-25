@@ -60,7 +60,7 @@ export const CosToast = (props: CosToastProps) => {
   return (
     <div className={toastStyles({ type })}>
       <div className="flex gap-4">
-        <div className="flex flex-1 flex-col gap-3">
+        <div className="flex flex-1 flex-col gap-3 break-all">
           {renderHeader()}
           {message}
         </div>

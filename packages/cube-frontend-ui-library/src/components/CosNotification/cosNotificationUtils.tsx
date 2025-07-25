@@ -3,8 +3,11 @@ import WarningFilled from '../../components/CosIcon/monochrome/warning_filled.sv
 import WarningAltFilled from '../../components/CosIcon/monochrome/warning_alt_filled.svg?react'
 import CloseIcon from '../../components/CosIcon/monochrome/x_small.svg?react'
 import { CosHyperlink } from '../CosHyperlink/CosHyperlink'
-
-import { CosNotificationType } from './cosNotificationTypes'
+import {
+  CosNotificationType,
+  CosNotificationBaseProps,
+} from './cosNotificationTypes'
+import { cloneElement } from 'react'
 
 export const renderIcon = (type: CosNotificationType) => {
   switch (type) {
@@ -28,15 +31,26 @@ export const renderTitle = (title?: string) => {
   return <div className="font-semibold text-functional-title">{title}</div>
 }
 
-export const renderLink = (link?: { text: string; href: string }) => {
+export const renderLink = (link?: CosNotificationBaseProps['link']) => {
   if (!link) {
     return null
   }
-  return (
-    <CosHyperlink size="sm" variant="text-inline" href={link.href}>
-      {link.text}
+
+  const { href, onClick, Container, text } = link
+
+  const cosHyperlink = (
+    <CosHyperlink size="sm" variant="text-inline" href={href} onClick={onClick}>
+      {text}
     </CosHyperlink>
   )
+
+  if (Container) {
+    return cloneElement(Container, {
+      children: cosHyperlink,
+    })
+  }
+
+  return cosHyperlink
 }
 
 export const renderCloseButton = (handleClose: () => void) => {

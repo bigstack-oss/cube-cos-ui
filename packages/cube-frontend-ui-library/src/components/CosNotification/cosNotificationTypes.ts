@@ -1,3 +1,6 @@
+import { PropsWithChildren, ReactElement } from 'react'
+import { CosHyperlinkProps } from '../CosHyperlink/CosHyperlink'
+
 export type CosNotificationType = 'neutral' | 'positive' | 'warning' | 'error'
 
 export type CosNotificationBaseProps = {
@@ -6,9 +9,9 @@ export type CosNotificationBaseProps = {
    */
   type?: CosNotificationType
   title?: string
-  link?: {
+  link?: Pick<CosHyperlinkProps, 'href' | 'onClick'> & {
+    Container?: ReactElement<PropsWithChildren>
     text: string
-    href: string
   }
   onClose?: () => void
 }
