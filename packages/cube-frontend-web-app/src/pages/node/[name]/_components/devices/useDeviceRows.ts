@@ -104,7 +104,7 @@ export const useDeviceRows = (nodeName: string | undefined): UseDeviceRows => {
     try {
       await Promise.all([
         updateNodeDevice(row.device, parsedData.definedClass),
-        reweightOsds(osdIds, parsedData.osdReweight),
+        reweightOSDs(osdIds, parsedData.osdReweight),
       ])
       // Keep row in editing & saving state while awaiting device info sync via
       // HTTP chunked transfer (watch).
@@ -138,7 +138,7 @@ export const useDeviceRows = (nodeName: string | undefined): UseDeviceRows => {
     }
   }
 
-  const reweightOsds = async (
+  const reweightOSDs = async (
     osdIds: string[],
     reweight: number,
   ): Promise<void> => {

@@ -24,7 +24,7 @@ import {
   DeviceTable,
   formatOSDReweight,
   formatOSDUsage,
-  isDeviceOrOsdProcessing,
+  isDeviceOrOSDProcessing,
 } from './nodeDevicesUtils'
 import { RemoveDiskModal } from './RemoveDiskModal'
 import { RemoveOSDsModal } from './RemoveOSDsModal'
@@ -123,7 +123,7 @@ export const NodeDevices = (props: NodeDevicesProps) => {
   }
 
   const renderEditingActions = (row: DeviceRow, rowIndex: number) => {
-    const isProcessing = isDeviceOrOsdProcessing(row)
+    const isProcessing = isDeviceOrOSDProcessing(row)
     return (
       <div className="flex items-center gap-x-2">
         {isProcessing ? (
@@ -154,7 +154,7 @@ export const NodeDevices = (props: NodeDevicesProps) => {
   }
 
   const renderNonEditingActions = (row: DeviceRow) => {
-    const isProcessing = isDeviceOrOsdProcessing(row)
+    const isProcessing = isDeviceOrOSDProcessing(row)
     const canEdit =
       row.availability ===
       ListNodeDevicesResponseDataInnerAvailabilityEnum.InUse

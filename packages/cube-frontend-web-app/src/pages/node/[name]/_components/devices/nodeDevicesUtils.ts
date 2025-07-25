@@ -34,7 +34,7 @@ export const blockDeviceToRow = (
   dataForEdit: createEditableData(blockDevice),
 })
 
-export const isDeviceOrOsdProcessing = (
+export const isDeviceOrOSDProcessing = (
   blockDevice: ListNodeDevicesResponseDataInner,
 ): boolean => {
   return (
@@ -48,7 +48,7 @@ export const createEditableData = (
 ): DeviceEditableData => {
   return {
     definedClass: blockDevice.class,
-    osdReweight: blockDevice.osd.reweight.toFixed(1),
+    osdReweight: formatOSDReweight(blockDevice.osd.reweight),
   }
 }
 

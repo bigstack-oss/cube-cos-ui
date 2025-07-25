@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 import {
   blockDeviceToRow,
   DeviceRow,
-  isDeviceOrOsdProcessing,
+  isDeviceOrOSDProcessing,
 } from './nodeDevicesUtils'
 
 export const useSyncDeviceRows = (
@@ -33,7 +33,7 @@ const syncDeviceRows = (
 
     if (uiRow?.isEditing) {
       const shouldUseApiRow =
-        uiRow.isSavingDone || isDeviceOrOsdProcessing(deviceFromApi)
+        uiRow.isSavingDone || isDeviceOrOSDProcessing(deviceFromApi)
       newRows.push(shouldUseApiRow ? apiRow : uiRow)
     } else {
       newRows.push(apiRow)
