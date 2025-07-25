@@ -11,6 +11,7 @@ import { useSidebarBottomLinks } from './useSidebarBottomLinks'
 import { useSideBarNagging } from './useSideBarNagging'
 import { useSidebarOptions } from './useSidebarOptions'
 import { IntegrationKey, integrationUIData } from '../utils/integration'
+import { usePollNotifications } from '../hooks/usePollNotifications/usePollNotifications'
 
 const Layout = (props: PropsWithChildren) => {
   const { children } = props
@@ -47,6 +48,8 @@ const Layout = (props: PropsWithChildren) => {
   })
 
   const functionBarItems = useFunctionBarItems()
+
+  usePollNotifications()
 
   return (
     <div className="h-svh min-w-full overflow-hidden bg-scene-background">

@@ -49,7 +49,11 @@ export const useSequentialInterval = (
     }
 
     if (immediate) {
-      sequentialRun()
+      // Wrap immediate sequential run in a 0ms timeout to correctly stop the
+      // first run in strict mode.
+      firstRunTimerIdRef.current = setTimeout(() => {
+        sequentialRun()
+      }, 0)
     } else {
       firstRunTimerIdRef.current = setTimeout(() => {
         sequentialRun()
