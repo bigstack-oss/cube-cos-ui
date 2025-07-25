@@ -17,6 +17,7 @@ import {
   SupportFilesApi,
   TriggersApi,
   GrafanaApi,
+  NotificationsApi,
 } from '@cube-frontend/api'
 import {
   devAccessTokenRequestInterceptor,
@@ -79,6 +80,7 @@ export const licenseApi = createApiInstance(LicensesApi)
 export const supportFilesApi = createApiInstance(SupportFilesApi)
 export const triggersApi = createApiInstance(TriggersApi)
 export const grafanaApi = createApiInstance(GrafanaApi)
+export const notificationsApi = createApiInstance(NotificationsApi)
 
 if (import.meta.env.DEV) {
   cosApi.interceptors.request.use(devAccessTokenRequestInterceptor)
