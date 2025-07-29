@@ -16,8 +16,8 @@ const getLastNotificationTime = (
     username,
     dataCenterName,
   )
-  const time = localStorage.getItem(key)
-  const dateTime = dayjs(time)
+  const time = localStorage.getItem(key) ?? ''
+  const dateTime = dayjs.respectTzOffset(time)
   if (!time || !dateTime.isValid()) {
     return null
   }
