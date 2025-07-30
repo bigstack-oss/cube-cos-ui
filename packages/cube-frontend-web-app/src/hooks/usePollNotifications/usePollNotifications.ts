@@ -68,9 +68,9 @@ export const usePollNotifications = (): void => {
 
   const showNotification = (notification: Notification): void => {
     const notificationId = notification.id
-    const type: CosNotificationType = notificationId.endsWith('I')
-      ? 'positive'
-      : 'neutral'
+    const type: CosNotificationType = notificationId.endsWith('E')
+      ? 'error'
+      : 'positive'
     addToast({
       id: createId(),
       type,
