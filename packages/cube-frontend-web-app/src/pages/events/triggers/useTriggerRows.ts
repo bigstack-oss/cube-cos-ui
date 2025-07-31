@@ -17,6 +17,7 @@ export type UseTriggerRows = {
   rows: TriggerRow[]
   page: Page | undefined
   onToggleChange: (triggerName: string) => Promise<void>
+  onTriggerDelete: (triggerName: string) => Promise<void>
 }
 
 export const useTriggerRows = (
@@ -92,10 +93,7 @@ export const useTriggerRows = (
 
   const onToggleChange = async (triggerName: string): Promise<void> => {
     const targetRow = rows.find((row) => row.name === triggerName)
-
-    if (!targetRow) {
-      return
-    }
+    if (!targetRow) return
 
     const enabledBeforeToggle = !!targetRow?.enabled
     const newEnabled = !enabledBeforeToggle
@@ -133,6 +131,32 @@ export const useTriggerRows = (
     }
   }
 
+  const onTriggerDelete = async (triggerName: string): Promise<void> => {
+    const targetRow = rows.find((row) => row.name === triggerName)
+    if (!targetRow) return
+
+    intervenedTriggerNamesRef.current.add(triggerName)
+
+    patchRow(triggerName, {
+      isProcessing: true,
+    })
+
+    try {
+      await triggersApi.deleteTrigger({
+        dataCenter: dataCenter!.name,
+        triggerName,
+      })
+      await syncIntervenedRowStatus(targetRow)
+    } catch (error) {
+      console.error('Trigger delete error: ', error)
+      patchRow(triggerName, {
+        isProcessing: false,
+      })
+      intervenedTriggerNamesRef.current.delete(triggerName)
+      onError(error)
+    }
+  }
+
   const syncIntervenedRowStatus = async (
     targetRow: TriggerRow,
   ): Promise<void> => {
@@ -161,5 +185,6 @@ export const useTriggerRows = (
     isLoading: !hasResponseBeenReceived,
     page: listTriggersResponse?.page,
     onToggleChange,
+    onTriggerDelete,
   }
 }

@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
 import {
   CosButton,
   CosGeneralPanel,
   CosInlineNotification,
   CosLoadingSpinner,
+  CosModal,
   CosPagination,
   CosStroke,
   GetCosBasicTable,
@@ -20,15 +22,35 @@ import { getTriggerResponse, TriggerRow } from './utils'
 const TriggersTable = GetCosBasicTable<TriggerRow>()
 
 export const EventsTriggersPage = () => {
+  const [toBeDeletedRowId, setToBeDeletedRowId] = useState<string | undefined>(
+    undefined,
+  )
+
   const { operationErrors, onOperationErrorOccur, onOperationErrorClose } =
     useOperationErrors()
 
   const { query, onPageChange, onItemsPerPageChange } = useListTriggerQuery()
 
-  const { isLoading, rows, page, onToggleChange } = useTriggerRows({
-    query,
-    onOperationErrorOccur,
-  })
+  const { isLoading, rows, page, onToggleChange, onTriggerDelete } =
+    useTriggerRows({
+      query,
+      onOperationErrorOccur,
+    })
+
+  const onDeleteClick = (rowId: string): void => {
+    setToBeDeletedRowId(rowId)
+  }
+
+  const onCloseDeleteModal = (): void => {
+    setToBeDeletedRowId(undefined)
+  }
+
+  const onConfirmDelete = async (): Promise<void> => {
+    if (toBeDeletedRowId) {
+      onCloseDeleteModal()
+      await onTriggerDelete(toBeDeletedRowId)
+    }
+  }
 
   return (
     <CosGeneralPanel topic="Triggers">
@@ -80,7 +102,9 @@ export const EventsTriggersPage = () => {
             )}
           </TriggersTable.Column>
           <TriggersTable.Column>
-            {(_, row) => <TriggersActionCell row={row} />}
+            {(_, row) => (
+              <TriggersActionCell row={row} onDeleteClick={onDeleteClick} />
+            )}
           </TriggersTable.Column>
         </TriggersTable>
         <CosPagination
@@ -90,6 +114,19 @@ export const EventsTriggersPage = () => {
           onPageChange={onPageChange}
           onItemsPerPageChange={onItemsPerPageChange}
         />
+        <CosModal
+          title="Delete Trigger"
+          size="sm"
+          isOpen={!!toBeDeletedRowId}
+          actionText="Delete"
+          onActionClick={onConfirmDelete}
+          onCloseClick={onCloseDeleteModal}
+        >
+          <div className="primary-body4 text-functional-text">
+            Are you sure you want to delete this trigger:&nbsp;
+            <span className="font-semibold">{toBeDeletedRowId}</span>?
+          </div>
+        </CosModal>
       </div>
     </CosGeneralPanel>
   )

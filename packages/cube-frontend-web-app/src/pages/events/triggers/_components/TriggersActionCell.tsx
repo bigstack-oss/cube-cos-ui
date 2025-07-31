@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
-import { noop } from 'lodash'
+import { CosTooltip } from '@cube-frontend/ui-library'
 import EditIcon from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import DeleteIcon from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
@@ -15,19 +15,23 @@ const button = cva('icon-md text-functional-text', {
 
 type TriggersActionCellProps = {
   row: TriggerRow
+  onDeleteClick: (rowId: string) => void
 }
 
 export const TriggersActionCell = (props: TriggersActionCellProps) => {
-  const { row } = props
+  const { row, onDeleteClick } = props
+
+  const { name, isBuiltIn, status, isProcessing } = row
+
+  const isRowProcessing =
+    status?.current !== 'ok' || status.isProcessing || isProcessing
 
   const renderEditButton = () => {
-    const isProcessing = row.status?.current !== 'ok' || row.status.isProcessing
-
     const iconElement = (
-      <EditIcon className={twMerge(button({ disabled: isProcessing }))} />
+      <EditIcon className={twMerge(button({ disabled: isRowProcessing }))} />
     )
 
-    if (isProcessing) return iconElement
+    if (isRowProcessing) return iconElement
 
     return (
       <Link to={`${CosRoutesEnum.EVENTS_TRIGGERS_EDIT_PAGE}?name=${row.id}`}>
@@ -37,12 +41,22 @@ export const TriggersActionCell = (props: TriggersActionCellProps) => {
   }
 
   const renderDeleteButton = () => {
+    const disabled = isBuiltIn || isRowProcessing
+
+    const deleteIcon = <DeleteIcon className={twMerge(button({ disabled }))} />
+
+    if (isBuiltIn)
+      return (
+        <CosTooltip
+          hoverContent={{ message: 'Built-in trigger cannot be deleted' }}
+        >
+          {deleteIcon}
+        </CosTooltip>
+      )
+
     return (
-      /**
-       * TODO: implement delete triggers
-       */
-      <button disabled={true} onClick={noop}>
-        <DeleteIcon className={twMerge(button({ disabled: true }))} />
+      <button disabled={disabled} onClick={() => onDeleteClick(name)}>
+        {deleteIcon}
       </button>
     )
   }
