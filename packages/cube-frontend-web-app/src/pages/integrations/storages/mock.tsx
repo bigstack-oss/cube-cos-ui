@@ -4,7 +4,7 @@ import { GetIntegratedStoragesResponseDataInner } from '@cube-frontend/api'
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export const mockIntegrationsStoragesApi = async ({
+export const mockGetIntegrationsStoragesApi = async ({
   dataCenter: _dataCenter,
 }: {
   dataCenter: string
@@ -56,6 +56,57 @@ export const mockIntegrationsStoragesApi = async ({
           },
         },
       ],
+    },
+  })
+}
+
+export type GetIntegratedStorageDetailsResponseData = {
+  name: string
+  type: string
+  vendor: string
+  managementIp: string
+  updatedAt: string
+  isDefault: boolean
+  model: string
+  port: string
+  ip: string
+  username: string
+  status: {
+    current: string
+    isProcessing: boolean
+  }
+}
+
+export const mockGetIntegrationsStorageDetailsApi = async ({
+  dataCenter: _dataCenter,
+}: {
+  dataCenter: string
+}): AxiosPromise<{
+  code: number
+  data: GetIntegratedStorageDetailsResponseData
+}> => {
+  await sleep(1000)
+  // @ts-expect-error - Temporarily using mock data until backend API is ready
+  return Promise.resolve({
+    code: 200,
+    data: {
+      code: 200,
+      data: {
+        name: 'Storage 2',
+        type: 'External',
+        vendor: 'NetApp',
+        model: 'AFF A250',
+        port: '8080',
+        ip: '192.168.1.2',
+        username: 'admin',
+        managementIp: '192.168.1.2',
+        updatedAt: dayjs().format(),
+        isDefault: true,
+        status: {
+          current: 'ok',
+          isProcessing: false,
+        },
+      },
     },
   })
 }
@@ -143,10 +194,10 @@ export const mockStorageMaterials: StorageMaterial[] = [
     ],
   },
   {
-    vendor: 'Power Raven',
+    vendor: 'Power',
     models: [
       {
-        name: 'AFF A280 Raven',
+        name: 'AFF A250 Power',
         protocol: 'NFS',
         attributes: {
           managementIp: {
@@ -176,7 +227,7 @@ export const mockStorageMaterials: StorageMaterial[] = [
         },
       },
       {
-        name: 'AFF A280 Raven',
+        name: 'AFF A280 Power',
         protocol: 'ISCSI',
         attributes: {
           managementIp: {
@@ -217,5 +268,37 @@ export const mockFetchStorageMaterials = async (): AxiosPromise<{
       code: 200,
       data: mockStorageMaterials,
     },
+  })
+}
+
+export type ValidateStoragesResponseData = {
+  status: string
+}
+
+export const mockValidateStorages = async (): AxiosPromise<{
+  code: number
+  data: ValidateStoragesResponseData
+}> => {
+  await sleep(3000)
+  // @ts-expect-error: Mock function for testing
+  return Promise.resolve({
+    code: 200,
+    data: {
+      code: 200,
+      data: {
+        status: 'success',
+      },
+    },
+  })
+}
+
+export const mockUpsertStorage = async (): AxiosPromise<{
+  code: number
+}> => {
+  await sleep(3000)
+  // @ts-expect-error: Mock function for testing
+  return Promise.resolve({
+    code: 200,
+    data: {},
   })
 }

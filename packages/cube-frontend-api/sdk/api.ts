@@ -89,6 +89,56 @@ export interface AddNodeDeviceResponse {
 /**
  * 
  * @export
+ * @interface ConvertImageToVolume202Response
+ */
+export interface ConvertImageToVolume202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ConvertImageToVolume202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ConvertImageToVolume202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ConvertImageToVolume202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ConvertImageToVolume500Response
+ */
+export interface ConvertImageToVolume500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ConvertImageToVolume500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ConvertImageToVolume500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ConvertImageToVolume500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface CreateEmailRecipient500Response
  */
 export interface CreateEmailRecipient500Response {
@@ -6367,6 +6417,31 @@ export interface ListImages500Response {
 /**
  * 
  * @export
+ * @interface ListImagesAsCsv500Response
+ */
+export interface ListImagesAsCsv500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListImagesAsCsv500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesAsCsv500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesAsCsv500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ListImagesResponse
  */
 export interface ListImagesResponse {
@@ -6378,10 +6453,10 @@ export interface ListImagesResponse {
     'code': number;
     /**
      * 
-     * @type {Array<ListImagesResponseDataInner>}
+     * @type {ListImagesResponseData}
      * @memberof ListImagesResponse
      */
-    'data': Array<ListImagesResponseDataInner>;
+    'data': ListImagesResponseData;
     /**
      * 
      * @type {string}
@@ -6398,60 +6473,91 @@ export interface ListImagesResponse {
 /**
  * 
  * @export
- * @interface ListImagesResponseDataInner
+ * @interface ListImagesResponseData
  */
-export interface ListImagesResponseDataInner {
+export interface ListImagesResponseData {
+    /**
+     * 
+     * @type {Array<ListImagesResponseDataImagesInner>}
+     * @memberof ListImagesResponseData
+     */
+    'images': Array<ListImagesResponseDataImagesInner>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof ListImagesResponseData
+     */
+    'page': Page;
+}
+/**
+ * 
+ * @export
+ * @interface ListImagesResponseDataImagesInner
+ */
+export interface ListImagesResponseDataImagesInner {
     /**
      * 
      * @type {string}
-     * @memberof ListImagesResponseDataInner
+     * @memberof ListImagesResponseDataImagesInner
      */
     'id': string;
     /**
      * 
      * @type {string}
-     * @memberof ListImagesResponseDataInner
+     * @memberof ListImagesResponseDataImagesInner
      */
     'name': string;
     /**
      * 
      * @type {string}
-     * @memberof ListImagesResponseDataInner
+     * @memberof ListImagesResponseDataImagesInner
      */
     'os': string;
     /**
      * 
      * @type {string}
-     * @memberof ListImagesResponseDataInner
+     * @memberof ListImagesResponseDataImagesInner
      */
     'destination': string;
     /**
      * 
      * @type {string}
-     * @memberof ListImagesResponseDataInner
+     * @memberof ListImagesResponseDataImagesInner
      */
     'domain': string;
     /**
      * 
      * @type {string}
-     * @memberof ListImagesResponseDataInner
+     * @memberof ListImagesResponseDataImagesInner
      */
     'project': string;
     /**
      * 
      * @type {string}
-     * @memberof ListImagesResponseDataInner
+     * @memberof ListImagesResponseDataImagesInner
      */
-    'visibility': ListImagesResponseDataInnerVisibilityEnum;
+    'visibility': ListImagesResponseDataImagesInnerVisibilityEnum;
     /**
      * 
      * @type {string}
-     * @memberof ListImagesResponseDataInner
+     * @memberof ListImagesResponseDataImagesInner
      */
     'createdAt': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListImagesResponseDataImagesInner
+     */
+    'sizeMiB': number;
+    /**
+     * 
+     * @type {ListImagesResponseDataImagesInnerStatus}
+     * @memberof ListImagesResponseDataImagesInner
+     */
+    'status': ListImagesResponseDataImagesInnerStatus;
 }
 
-export const ListImagesResponseDataInnerVisibilityEnum = {
+export const ListImagesResponseDataImagesInnerVisibilityEnum = {
     Public: 'public',
     Private: 'private',
     Shared: 'shared',
@@ -6459,7 +6565,47 @@ export const ListImagesResponseDataInnerVisibilityEnum = {
     Unknown: 'unknown'
 } as const;
 
-export type ListImagesResponseDataInnerVisibilityEnum = typeof ListImagesResponseDataInnerVisibilityEnum[keyof typeof ListImagesResponseDataInnerVisibilityEnum];
+export type ListImagesResponseDataImagesInnerVisibilityEnum = typeof ListImagesResponseDataImagesInnerVisibilityEnum[keyof typeof ListImagesResponseDataImagesInnerVisibilityEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListImagesResponseDataImagesInnerStatus
+ */
+export interface ListImagesResponseDataImagesInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerStatus
+     */
+    'current': ListImagesResponseDataImagesInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListImagesResponseDataImagesInnerStatus
+     */
+    'isProcessing': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListImagesResponseDataImagesInnerStatus
+     */
+    'processPercent'?: number;
+}
+
+export const ListImagesResponseDataImagesInnerStatusCurrentEnum = {
+    Queued: 'queued',
+    Saving: 'saving',
+    Uploading: 'uploading',
+    Importing: 'importing',
+    Active: 'active',
+    Deactivated: 'deactivated',
+    Killed: 'killed',
+    Deleted: 'deleted',
+    PendingDelete: 'pending_delete'
+} as const;
+
+export type ListImagesResponseDataImagesInnerStatusCurrentEnum = typeof ListImagesResponseDataImagesInnerStatusCurrentEnum[keyof typeof ListImagesResponseDataImagesInnerStatusCurrentEnum];
 
 /**
  * 
@@ -7179,6 +7325,223 @@ export interface ListTunings500Response {
      */
     'status'?: string;
 }
+/**
+ * 
+ * @export
+ * @interface ListVolumes500Response
+ */
+export interface ListVolumes500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListVolumes500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumes500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumes500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListVolumesAsCsv500Response
+ */
+export interface ListVolumesAsCsv500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListVolumesAsCsv500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesAsCsv500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesAsCsv500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListVolumesResponse
+ */
+export interface ListVolumesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListVolumesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {ListVolumesResponseData}
+     * @memberof ListVolumesResponse
+     */
+    'data': ListVolumesResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListVolumesResponseData
+ */
+export interface ListVolumesResponseData {
+    /**
+     * 
+     * @type {Array<ListVolumesResponseDataVolumesInner>}
+     * @memberof ListVolumesResponseData
+     */
+    'volumes': Array<ListVolumesResponseDataVolumesInner>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof ListVolumesResponseData
+     */
+    'page': Page;
+}
+/**
+ * 
+ * @export
+ * @interface ListVolumesResponseDataVolumesInner
+ */
+export interface ListVolumesResponseDataVolumesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'diskTag': ListVolumesResponseDataVolumesInnerDiskTagEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'attachedTo': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'bootable': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'shared': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'sizeMiB'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {ListVolumesResponseDataVolumesInnerStatus}
+     * @memberof ListVolumesResponseDataVolumesInner
+     */
+    'status': ListVolumesResponseDataVolumesInnerStatus;
+}
+
+export const ListVolumesResponseDataVolumesInnerDiskTagEnum = {
+    OsDisk: 'os disk',
+    DataDisk: 'data disk'
+} as const;
+
+export type ListVolumesResponseDataVolumesInnerDiskTagEnum = typeof ListVolumesResponseDataVolumesInnerDiskTagEnum[keyof typeof ListVolumesResponseDataVolumesInnerDiskTagEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListVolumesResponseDataVolumesInnerStatus
+ */
+export interface ListVolumesResponseDataVolumesInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListVolumesResponseDataVolumesInnerStatus
+     */
+    'current': ListVolumesResponseDataVolumesInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListVolumesResponseDataVolumesInnerStatus
+     */
+    'isProcessing': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListVolumesResponseDataVolumesInnerStatus
+     */
+    'processPercent'?: number;
+}
+
+export const ListVolumesResponseDataVolumesInnerStatusCurrentEnum = {
+    Uploading: 'uploading',
+    Importing: 'importing',
+    Available: 'available',
+    Creating: 'creating',
+    Attaching: 'attaching',
+    Detaching: 'detaching',
+    Deleting: 'deleting',
+    Reserved: 'reserved',
+    Maintenance: 'maintenance',
+    BackingUp: 'backing-up',
+    RestoringBackup: 'restoring-backup'
+} as const;
+
+export type ListVolumesResponseDataVolumesInnerStatusCurrentEnum = typeof ListVolumesResponseDataVolumesInnerStatusCurrentEnum[keyof typeof ListVolumesResponseDataVolumesInnerStatusCurrentEnum];
+
 /**
  * 
  * @export
@@ -13042,9 +13405,9 @@ export const ImagesApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {ImportImageOsEnum} os Operating system of the image
          * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
          * @param {string} domain Domain name for the project
-         * @param {string} project Project name or ID
+         * @param {string} project The project name to filter volumes
          * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
-         * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/your-image\&#39;.
+         * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
          * @param {ImportImageVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13227,6 +13590,59 @@ export const ImagesApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary List images as CSV
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listImagesAsCsv: async (dataCenter: string, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listImagesAsCsv', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/images.csv`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -13246,9 +13662,9 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          * @param {ImportImageOsEnum} os Operating system of the image
          * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
          * @param {string} domain Domain name for the project
-         * @param {string} project Project name or ID
+         * @param {string} project The project name to filter volumes
          * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
-         * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/your-image\&#39;.
+         * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
          * @param {ImportImageVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13287,6 +13703,22 @@ export const ImagesApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listImages(dataCenter, watch, pageSize, pageNum, keyword, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ImagesApi.listImages']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List images as CSV
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listImagesAsCsv(dataCenter: string, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listImagesAsCsv(dataCenter, pageSize, pageNum, keyword, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ImagesApi.listImagesAsCsv']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -13328,6 +13760,16 @@ export const ImagesApiFactory = function (configuration?: Configuration, basePat
          */
         listImages(requestParameters: ImagesApiListImagesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListImagesResponse> {
             return localVarFp.listImages(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List images as CSV
+         * @param {ImagesApiListImagesAsCsvRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listImagesAsCsv(requestParameters: ImagesApiListImagesAsCsvRequest, options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.listImagesAsCsv(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -13381,7 +13823,7 @@ export interface ImagesApiImportImageRequest {
     readonly domain: string
 
     /**
-     * Project name or ID
+     * The project name to filter volumes
      * @type {string}
      * @memberof ImagesApiImportImage
      */
@@ -13395,7 +13837,7 @@ export interface ImagesApiImportImageRequest {
     readonly sourceFromAnotherHypervisor: boolean
 
     /**
-     * for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/your-image\&#39;.
+     * for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
      * @type {File}
      * @memberof ImagesApiImportImage
      */
@@ -13466,6 +13908,41 @@ export interface ImagesApiListImagesRequest {
 }
 
 /**
+ * Request parameters for listImagesAsCsv operation in ImagesApi.
+ * @export
+ * @interface ImagesApiListImagesAsCsvRequest
+ */
+export interface ImagesApiListImagesAsCsvRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof ImagesApiListImagesAsCsv
+     */
+    readonly dataCenter: string
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof ImagesApiListImagesAsCsv
+     */
+    readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof ImagesApiListImagesAsCsv
+     */
+    readonly pageNum?: number
+
+    /**
+     * The keyword to search, can be any string
+     * @type {string}
+     * @memberof ImagesApiListImagesAsCsv
+     */
+    readonly keyword?: string
+}
+
+/**
  * ImagesApi - object-oriented interface
  * @export
  * @class ImagesApi
@@ -13506,6 +13983,18 @@ export class ImagesApi extends BaseAPI {
      */
     public listImages(requestParameters: ImagesApiListImagesRequest, options?: RawAxiosRequestConfig) {
         return ImagesApiFp(this.configuration).listImages(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List images as CSV
+     * @param {ImagesApiListImagesAsCsvRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImagesApi
+     */
+    public listImagesAsCsv(requestParameters: ImagesApiListImagesAsCsvRequest, options?: RawAxiosRequestConfig) {
+        return ImagesApiFp(this.configuration).listImagesAsCsv(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -21284,5 +21773,582 @@ export class UserInfoApi extends BaseAPI {
     }
 }
 
+
+
+/**
+ * VolumesApi - axios parameter creator
+ * @export
+ */
+export const VolumesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Import a volume from an image
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} file Name of the file to store
+         * @param {string} name Human-readable name of the image
+         * @param {ConvertImageToVolumeOsEnum} os Operating system of the image
+         * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
+         * @param {string} domain Domain name for the project
+         * @param {string} project The project name to filter volumes
+         * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
+         * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
+         * @param {ConvertImageToVolumeVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        convertImageToVolume: async (dataCenter: string, file: string, name: string, os: ConvertImageToVolumeOsEnum, destination: string, domain: string, project: string, sourceFromAnotherHypervisor: boolean, body: File, visibility?: ConvertImageToVolumeVisibilityEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('convertImageToVolume', 'dataCenter', dataCenter)
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('convertImageToVolume', 'file', file)
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('convertImageToVolume', 'name', name)
+            // verify required parameter 'os' is not null or undefined
+            assertParamExists('convertImageToVolume', 'os', os)
+            // verify required parameter 'destination' is not null or undefined
+            assertParamExists('convertImageToVolume', 'destination', destination)
+            // verify required parameter 'domain' is not null or undefined
+            assertParamExists('convertImageToVolume', 'domain', domain)
+            // verify required parameter 'project' is not null or undefined
+            assertParamExists('convertImageToVolume', 'project', project)
+            // verify required parameter 'sourceFromAnotherHypervisor' is not null or undefined
+            assertParamExists('convertImageToVolume', 'sourceFromAnotherHypervisor', sourceFromAnotherHypervisor)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('convertImageToVolume', 'body', body)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/volumes/images`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (file !== undefined) {
+                localVarQueryParameter['file'] = file;
+            }
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (os !== undefined) {
+                localVarQueryParameter['os'] = os;
+            }
+
+            if (destination !== undefined) {
+                localVarQueryParameter['destination'] = destination;
+            }
+
+            if (domain !== undefined) {
+                localVarQueryParameter['domain'] = domain;
+            }
+
+            if (project !== undefined) {
+                localVarQueryParameter['project'] = project;
+            }
+
+            if (sourceFromAnotherHypervisor !== undefined) {
+                localVarQueryParameter['sourceFromAnotherHypervisor'] = sourceFromAnotherHypervisor;
+            }
+
+            if (visibility !== undefined) {
+                localVarQueryParameter['visibility'] = visibility;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/octet-stream';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List volumes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} project The project name to filter volumes
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listVolumes: async (dataCenter: string, project: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listVolumes', 'dataCenter', dataCenter)
+            // verify required parameter 'project' is not null or undefined
+            assertParamExists('listVolumes', 'project', project)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/volumes`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (project !== undefined) {
+                localVarQueryParameter['project'] = project;
+            }
+
+            if (watch !== undefined) {
+                localVarQueryParameter['watch'] = watch;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List volumes as CSV
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} project The project name to filter volumes
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listVolumesAsCsv: async (dataCenter: string, project: string, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listVolumesAsCsv', 'dataCenter', dataCenter)
+            // verify required parameter 'project' is not null or undefined
+            assertParamExists('listVolumesAsCsv', 'project', project)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/volumes.csv`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (project !== undefined) {
+                localVarQueryParameter['project'] = project;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * VolumesApi - functional programming interface
+ * @export
+ */
+export const VolumesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = VolumesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Import a volume from an image
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} file Name of the file to store
+         * @param {string} name Human-readable name of the image
+         * @param {ConvertImageToVolumeOsEnum} os Operating system of the image
+         * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
+         * @param {string} domain Domain name for the project
+         * @param {string} project The project name to filter volumes
+         * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
+         * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
+         * @param {ConvertImageToVolumeVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async convertImageToVolume(dataCenter: string, file: string, name: string, os: ConvertImageToVolumeOsEnum, destination: string, domain: string, project: string, sourceFromAnotherHypervisor: boolean, body: File, visibility?: ConvertImageToVolumeVisibilityEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConvertImageToVolume202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.convertImageToVolume(dataCenter, file, name, os, destination, domain, project, sourceFromAnotherHypervisor, body, visibility, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['VolumesApi.convertImageToVolume']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List volumes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} project The project name to filter volumes
+         * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listVolumes(dataCenter: string, project: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListVolumesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listVolumes(dataCenter, project, watch, pageSize, pageNum, keyword, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['VolumesApi.listVolumes']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List volumes as CSV
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} project The project name to filter volumes
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listVolumesAsCsv(dataCenter: string, project: string, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listVolumesAsCsv(dataCenter, project, pageSize, pageNum, keyword, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['VolumesApi.listVolumesAsCsv']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * VolumesApi - factory interface
+ * @export
+ */
+export const VolumesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = VolumesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Import a volume from an image
+         * @param {VolumesApiConvertImageToVolumeRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        convertImageToVolume(requestParameters: VolumesApiConvertImageToVolumeRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConvertImageToVolume202Response> {
+            return localVarFp.convertImageToVolume(requestParameters.dataCenter, requestParameters.file, requestParameters.name, requestParameters.os, requestParameters.destination, requestParameters.domain, requestParameters.project, requestParameters.sourceFromAnotherHypervisor, requestParameters.body, requestParameters.visibility, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List volumes
+         * @param {VolumesApiListVolumesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listVolumes(requestParameters: VolumesApiListVolumesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListVolumesResponse> {
+            return localVarFp.listVolumes(requestParameters.dataCenter, requestParameters.project, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List volumes as CSV
+         * @param {VolumesApiListVolumesAsCsvRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listVolumesAsCsv(requestParameters: VolumesApiListVolumesAsCsvRequest, options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.listVolumesAsCsv(requestParameters.dataCenter, requestParameters.project, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for convertImageToVolume operation in VolumesApi.
+ * @export
+ * @interface VolumesApiConvertImageToVolumeRequest
+ */
+export interface VolumesApiConvertImageToVolumeRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly dataCenter: string
+
+    /**
+     * Name of the file to store
+     * @type {string}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly file: string
+
+    /**
+     * Human-readable name of the image
+     * @type {string}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly name: string
+
+    /**
+     * Operating system of the image
+     * @type {'CentOS' | 'Fedora' | 'Ubuntu' | 'Debian' | 'Windows' | 'Rocky' | 'FreeBSD' | 'CoreOS' | 'Arch' | 'Others'}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly os: ConvertImageToVolumeOsEnum
+
+    /**
+     * Target storage destination. Refer the GET /images/materials endpoint for available options
+     * @type {string}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly destination: string
+
+    /**
+     * Domain name for the project
+     * @type {string}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly domain: string
+
+    /**
+     * The project name to filter volumes
+     * @type {string}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly project: string
+
+    /**
+     * Whether the source image comes from another hypervisor
+     * @type {boolean}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly sourceFromAnotherHypervisor: boolean
+
+    /**
+     * for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
+     * @type {File}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly body: File
+
+    /**
+     * Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
+     * @type {'private' | 'public'}
+     * @memberof VolumesApiConvertImageToVolume
+     */
+    readonly visibility?: ConvertImageToVolumeVisibilityEnum
+}
+
+/**
+ * Request parameters for listVolumes operation in VolumesApi.
+ * @export
+ * @interface VolumesApiListVolumesRequest
+ */
+export interface VolumesApiListVolumesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof VolumesApiListVolumes
+     */
+    readonly dataCenter: string
+
+    /**
+     * The project name to filter volumes
+     * @type {string}
+     * @memberof VolumesApiListVolumes
+     */
+    readonly project: string
+
+    /**
+     * The toggle to enable http chunked transfer for continuous server push.
+     * @type {boolean}
+     * @memberof VolumesApiListVolumes
+     */
+    readonly watch?: boolean
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof VolumesApiListVolumes
+     */
+    readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof VolumesApiListVolumes
+     */
+    readonly pageNum?: number
+
+    /**
+     * The keyword to search, can be any string
+     * @type {string}
+     * @memberof VolumesApiListVolumes
+     */
+    readonly keyword?: string
+}
+
+/**
+ * Request parameters for listVolumesAsCsv operation in VolumesApi.
+ * @export
+ * @interface VolumesApiListVolumesAsCsvRequest
+ */
+export interface VolumesApiListVolumesAsCsvRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof VolumesApiListVolumesAsCsv
+     */
+    readonly dataCenter: string
+
+    /**
+     * The project name to filter volumes
+     * @type {string}
+     * @memberof VolumesApiListVolumesAsCsv
+     */
+    readonly project: string
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof VolumesApiListVolumesAsCsv
+     */
+    readonly pageSize?: number
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof VolumesApiListVolumesAsCsv
+     */
+    readonly pageNum?: number
+
+    /**
+     * The keyword to search, can be any string
+     * @type {string}
+     * @memberof VolumesApiListVolumesAsCsv
+     */
+    readonly keyword?: string
+}
+
+/**
+ * VolumesApi - object-oriented interface
+ * @export
+ * @class VolumesApi
+ * @extends {BaseAPI}
+ */
+export class VolumesApi extends BaseAPI {
+    /**
+     * 
+     * @summary Import a volume from an image
+     * @param {VolumesApiConvertImageToVolumeRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VolumesApi
+     */
+    public convertImageToVolume(requestParameters: VolumesApiConvertImageToVolumeRequest, options?: RawAxiosRequestConfig) {
+        return VolumesApiFp(this.configuration).convertImageToVolume(requestParameters.dataCenter, requestParameters.file, requestParameters.name, requestParameters.os, requestParameters.destination, requestParameters.domain, requestParameters.project, requestParameters.sourceFromAnotherHypervisor, requestParameters.body, requestParameters.visibility, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List volumes
+     * @param {VolumesApiListVolumesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VolumesApi
+     */
+    public listVolumes(requestParameters: VolumesApiListVolumesRequest, options?: RawAxiosRequestConfig) {
+        return VolumesApiFp(this.configuration).listVolumes(requestParameters.dataCenter, requestParameters.project, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List volumes as CSV
+     * @param {VolumesApiListVolumesAsCsvRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VolumesApi
+     */
+    public listVolumesAsCsv(requestParameters: VolumesApiListVolumesAsCsvRequest, options?: RawAxiosRequestConfig) {
+        return VolumesApiFp(this.configuration).listVolumesAsCsv(requestParameters.dataCenter, requestParameters.project, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const ConvertImageToVolumeOsEnum = {
+    CentOs: 'CentOS',
+    Fedora: 'Fedora',
+    Ubuntu: 'Ubuntu',
+    Debian: 'Debian',
+    Windows: 'Windows',
+    Rocky: 'Rocky',
+    FreeBsd: 'FreeBSD',
+    CoreOs: 'CoreOS',
+    Arch: 'Arch',
+    Others: 'Others'
+} as const;
+export type ConvertImageToVolumeOsEnum = typeof ConvertImageToVolumeOsEnum[keyof typeof ConvertImageToVolumeOsEnum];
+/**
+ * @export
+ */
+export const ConvertImageToVolumeVisibilityEnum = {
+    Private: 'private',
+    Public: 'public'
+} as const;
+export type ConvertImageToVolumeVisibilityEnum = typeof ConvertImageToVolumeVisibilityEnum[keyof typeof ConvertImageToVolumeVisibilityEnum];
 
 

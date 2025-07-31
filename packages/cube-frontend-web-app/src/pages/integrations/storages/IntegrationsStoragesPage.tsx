@@ -13,7 +13,7 @@ import { upperFirst } from 'lodash'
 import { useContext, useMemo } from 'react'
 import { StorageRowActions } from './_components/StorageRowActions'
 import { StorageTableActions } from './_components/StorageTableActions'
-import { mockIntegrationsStoragesApi } from './mock'
+import { mockGetIntegrationsStoragesApi } from './mock'
 
 export type StorageRow = CosTableRow & GetIntegratedStoragesResponseDataInner
 
@@ -30,7 +30,7 @@ export const IntegrationsStoragesPage = () => {
   const { data, isLoading } = useCosGetRequest(
     // integrationsApi.getIntegratedStorages,
     // @ts-expect-error - Temporarily using mock data until backend API is ready
-    mockIntegrationsStoragesApi,
+    mockGetIntegrationsStoragesApi,
     () => ({
       dataCenter: dataCenter!.name,
     }),
@@ -62,7 +62,7 @@ export const IntegrationsStoragesPage = () => {
           <StorageTable.Column label="Update Time" property="updatedAt">
             {renderUpdateTime}
           </StorageTable.Column>
-          <StorageTable.Column label="Management Ip" property="managementIp" />
+          <StorageTable.Column label="Management IP" property="managementIp" />
           <StorageTable.Column>
             {(_, row) => <StorageRowActions row={row} />}
           </StorageTable.Column>

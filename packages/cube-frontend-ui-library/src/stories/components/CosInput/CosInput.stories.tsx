@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import InformationCircleFilled from '@cube-frontend/ui-library/icons/monochrome/information_circle_filled.svg?react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosInput, CosInputProps } from '../../../components/CosInput/CosInput'
 import { CosPasswordInput } from '../../../components/CosInput/CosPasswordInput'
+import { CosTooltip } from '../../../components/CosTooltip/CosTooltip'
+import { CosTooltipInformation } from '../../../components/CosTooltip/types'
 import { InputBox } from './InputBox'
 import { ChangeEventHandler, useState } from 'react'
 import { fn } from '@storybook/test'
@@ -23,6 +26,11 @@ const INPUT_DATA = {
     'Display an ellipsis when a long message is entered in the input field.',
   errorMessage: 'Error message here',
   helpMessage: 'Helper message here',
+  tooltipHoverContent: {
+    title: 'Title',
+    message:
+      'This is a tooltip message that provides additional information about the input field.',
+  } satisfies CosTooltipInformation,
 }
 
 export const Gallery: StoryObj = {
@@ -53,6 +61,15 @@ export const Gallery: StoryObj = {
       setTextLongDefault(e.target.value)
       if (onChange) onChange(e)
     }
+
+    const tooltip = (
+      <CosTooltip
+        hoverContent={INPUT_DATA.tooltipHoverContent}
+        placement="top-right"
+      >
+        <InformationCircleFilled className="icon-md text-functional-border-divider" />
+      </CosTooltip>
+    )
 
     return (
       <StoryLayout title="Text Input">
@@ -118,6 +135,30 @@ export const Gallery: StoryObj = {
               />
               <CosPasswordInput
                 required
+                label={INPUT_DATA.label}
+                placeholder={INPUT_DATA.placeholder}
+                value={text}
+                onChange={handleTextChange}
+              />
+            </InputBox>
+            <InputBox title="Tooltip">
+              <CosInput
+                label={INPUT_DATA.label}
+                tooltip={tooltip}
+                placeholder={INPUT_DATA.placeholder}
+                value={text}
+                onChange={handleTextChange}
+              />
+              <CosPasswordInput
+                label={INPUT_DATA.label}
+                tooltip={tooltip}
+                placeholder={INPUT_DATA.placeholder}
+                initialShowPassword={true}
+                value={text}
+                onChange={handleTextChange}
+              />
+              <CosPasswordInput
+                tooltip={tooltip}
                 label={INPUT_DATA.label}
                 placeholder={INPUT_DATA.placeholder}
                 value={text}

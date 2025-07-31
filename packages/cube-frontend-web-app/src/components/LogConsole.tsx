@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge'
 import { CosHyperlink, CosTooltip } from '@cube-frontend/ui-library'
 
 export type LogConsoleProps = {
-  title: {
+  title?: {
     label: string
     href?: string
   }
@@ -20,6 +20,11 @@ export const LogConsole = (props: LogConsoleProps) => {
   }
 
   const renderTitle = () => {
+    if (!title) {
+      // Empty span used as a placeholder to maintain the layout.
+      return <span />
+    }
+
     if (title.href) {
       return (
         <CosHyperlink variant="text-only" href={title.href} target="_blank">

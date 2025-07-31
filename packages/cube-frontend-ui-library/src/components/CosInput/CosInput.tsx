@@ -8,6 +8,7 @@ import WarningFilled from '../CosIcon/monochrome/warning_filled.svg?react'
 export type CosInputProps = InputHTMLAttributes<HTMLInputElement> & {
   isLoading?: boolean
   label?: string
+  tooltip?: React.ReactNode
   helpMessage?: string
   errorMessage?: string | boolean
   trailingIcon?: SvgElement
@@ -63,6 +64,7 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
       required = false,
       isLoading = false,
       label,
+      tooltip,
       helpMessage,
       errorMessage,
       trailingIcon,
@@ -78,16 +80,20 @@ export const CosInput = forwardRef<HTMLInputElement, CosInputProps>(
     const hasIcon = !!trailingIcon
 
     const renderLabel = () => {
-      if (!label) return null
+      if (!label && !tooltip) return null
 
       return isLoading ? (
         <CosInputSkeleton type="label" />
       ) : (
-        <div className="primary-body2 flex space-x-1">
-          <label htmlFor={inputId} className="font-semibold">
+        <div className="primary-body2 flex items-center space-x-1">
+          <label
+            htmlFor={inputId}
+            className="font-semibold text-functional-title"
+          >
             {label}
           </label>
           {required && <span className="text-status-negative">*</span>}
+          {tooltip}
         </div>
       )
     }

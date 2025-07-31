@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 // ====================================
 // Dropdown Label Style
 // ====================================
-export const label = cva('primary-body3 font-semibold', {
+export const label = cva('primary-body3 font-semibold text-functional-title', {
   variants: {
     size: {
       md: 'mb-2',
