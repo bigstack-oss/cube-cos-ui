@@ -14,6 +14,11 @@ export const CosRoutesEnum = {
     `/nodes/${hostname}/ipmi-control` as const,
   /** Integrations Page */
   INTEGRATIONS_PAGE: '/integrations',
+  INTEGRATIONS_APPLICATIONS_PAGE: '/integrations/applications',
+  INTEGRATIONS_STORAGES_PAGE: '/integrations/storages',
+  INTEGRATIONS_STORAGES_CREATE_PAGE: '/integrations/storages/create',
+  INTEGRATIONS_STORAGES_EDIT_PAGE: (storageName = ':name') =>
+    `/integrations/storages/${storageName}/edit`,
   /** Maintenance Page */
   MAINTENANCE_PAGE: '/maintenance',
   MAINTENANCE_SUPPORT_FILES_PAGE: '/maintenance/support-files',

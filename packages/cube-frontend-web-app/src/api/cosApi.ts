@@ -1,23 +1,23 @@
 import axios, { AxiosInstance } from 'axios'
 import { BaseAPI } from '@cube-frontend/api/sdk/base'
 import {
-  NodesApi,
-  HealthApi,
-  EventsApi,
-  LogoutApi,
-  DataCentersApi,
-  MetricsApi,
-  IntegrationsApi,
-  UserInfoApi,
   Configuration,
+  DataCentersApi,
+  EventsApi,
+  GrafanaApi,
+  HealthApi,
+  IntegrationsApi,
+  LicensesApi,
+  LogoutApi,
+  MetricsApi,
+  NodesApi,
+  NotificationsApi,
   ServicesApi,
   SettingsApi,
-  TuningsApi,
-  LicensesApi,
   SupportFilesApi,
   TriggersApi,
-  GrafanaApi,
-  NotificationsApi,
+  TuningsApi,
+  UserInfoApi,
 } from '@cube-frontend/api'
 import {
   devAccessTokenRequestInterceptor,
@@ -65,22 +65,22 @@ const createApiInstance = <T extends BaseAPI>(
   return apiInstance
 }
 
-export const userInfoApi = createApiInstance(UserInfoApi)
-export const logoutApi = createApiInstance(LogoutApi)
 export const dataCentersApi = createApiInstance(DataCentersApi)
-export const integrationsApi = createApiInstance(IntegrationsApi)
-export const metricsApi = createApiInstance(MetricsApi)
-export const healthApi = createApiInstance(HealthApi)
-export const nodesApi = createApiInstance(NodesApi)
 export const eventsApi = createApiInstance(EventsApi)
+export const grafanaApi = createApiInstance(GrafanaApi)
+export const healthApi = createApiInstance(HealthApi)
+export const integrationsApi = createApiInstance(IntegrationsApi)
+export const licenseApi = createApiInstance(LicensesApi)
+export const logoutApi = createApiInstance(LogoutApi)
+export const metricsApi = createApiInstance(MetricsApi)
+export const nodesApi = createApiInstance(NodesApi)
+export const notificationsApi = createApiInstance(NotificationsApi)
 export const servicesApi = createApiInstance(ServicesApi)
 export const settingsApi = createApiInstance(SettingsApi)
-export const tuningsApi = createApiInstance(TuningsApi)
-export const licenseApi = createApiInstance(LicensesApi)
 export const supportFilesApi = createApiInstance(SupportFilesApi)
 export const triggersApi = createApiInstance(TriggersApi)
-export const grafanaApi = createApiInstance(GrafanaApi)
-export const notificationsApi = createApiInstance(NotificationsApi)
+export const tuningsApi = createApiInstance(TuningsApi)
+export const userInfoApi = createApiInstance(UserInfoApi)
 
 if (import.meta.env.DEV) {
   cosApi.interceptors.request.use(devAccessTokenRequestInterceptor)

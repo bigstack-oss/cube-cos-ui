@@ -6,6 +6,7 @@ import MaintenanceIcon from '@cube-frontend/ui-library/icons/monochrome/maintena
 import NodeIcon from '@cube-frontend/ui-library/icons/monochrome/node.svg?react'
 import SettingsIcon from '@cube-frontend/ui-library/icons/monochrome/settings.svg?react'
 import { useLocation, useNavigate } from 'react-router'
+import { CosRoutesEnum } from '../enum/routes'
 
 export const useSidebarOptions = (): SideBarComboboxOptionProps[] => {
   const { pathname } = useLocation()
@@ -16,38 +17,38 @@ export const useSidebarOptions = (): SideBarComboboxOptionProps[] => {
     {
       Icon: HomeIcon,
       label: 'Home',
-      isSelected: pathname.startsWith('/home'),
-      onClick: () => navigate('/home'),
+      isSelected: pathname.startsWith(CosRoutesEnum.HOME_PAGE),
+      onClick: () => navigate(CosRoutesEnum.HOME_PAGE),
     },
     {
       Icon: NodeIcon,
       label: 'Nodes',
-      isSelected: pathname.startsWith('/nodes'),
-      onClick: () => navigate('/nodes'),
+      isSelected: pathname.startsWith(CosRoutesEnum.NODES_PAGE),
+      onClick: () => navigate(CosRoutesEnum.NODES_PAGE),
     },
     {
       Icon: IntegrationsIcon,
       label: 'Integrations',
-      isSelected: pathname.startsWith('/integrations'),
-      onClick: () => navigate('/integrations'),
+      isSelected: pathname.startsWith(CosRoutesEnum.INTEGRATIONS_PAGE),
+      onClick: () => navigate(CosRoutesEnum.INTEGRATIONS_APPLICATIONS_PAGE),
     },
     {
       Icon: MaintenanceIcon,
       label: 'Maintenance',
-      isSelected: pathname.startsWith('/maintenance'),
-      onClick: () => navigate('/maintenance/support-files'),
+      isSelected: pathname.startsWith(CosRoutesEnum.MAINTENANCE_PAGE),
+      onClick: () => navigate(CosRoutesEnum.MAINTENANCE_SUPPORT_FILES_PAGE),
     },
     {
       Icon: EventsIcon,
       label: 'Events',
-      isSelected: pathname.startsWith('/events'),
-      onClick: () => navigate('/events'),
+      isSelected: pathname.startsWith(CosRoutesEnum.EVENTS_PAGE),
+      onClick: () => navigate(CosRoutesEnum.EVENTS_PAGE),
     },
     {
       Icon: SettingsIcon,
       label: 'Settings',
-      isSelected: pathname.startsWith('/settings'),
-      onClick: () => navigate('/settings'),
+      isSelected: pathname.startsWith(CosRoutesEnum.SETTINGS_PAGE),
+      onClick: () => navigate(CosRoutesEnum.SETTINGS_PAGE),
     },
   ]
 

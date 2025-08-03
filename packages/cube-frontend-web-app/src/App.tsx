@@ -7,7 +7,7 @@ import '@fontsource/urbanist/600.css'
 import '@fontsource/urbanist/800.css'
 import { CosToastProvider } from '@cube-frontend/ui-library'
 import { DataCenterProvider } from './context/DataCenterProvider'
-import { IntegrationsContextProvider } from './context/IntegrationsContextProvider'
+import { ApplicationIntegrationsContextProvider } from './context/ApplicationIntegrationsContextProvider'
 import { UserContextProvider } from './context/UserContextProvider'
 import { CosTimeZoneProvider } from './context/CosTimeZoneProvider'
 import { CosRoutes } from './CosRoutes'
@@ -21,7 +21,7 @@ function App() {
     // TODO: inject global css, setup global store here.
     <DataCenterProvider>
       <UserContextProvider>
-        <IntegrationsContextProvider>
+        <ApplicationIntegrationsContextProvider>
           <CosTimeZoneProvider>
             <CosToastProvider>
               <Layout>
@@ -29,7 +29,7 @@ function App() {
               </Layout>
             </CosToastProvider>
           </CosTimeZoneProvider>
-        </IntegrationsContextProvider>
+        </ApplicationIntegrationsContextProvider>
       </UserContextProvider>
     </DataCenterProvider>
   )

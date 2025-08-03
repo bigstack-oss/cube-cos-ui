@@ -3,7 +3,7 @@ import KeycloakIcon from '@cube-frontend/ui-library/icons/colored/keycloak.svg?r
 import OpenStackIcon from '@cube-frontend/ui-library/icons/colored/openstack.svg?react'
 import RancherIcon from '@cube-frontend/ui-library/icons/colored/rancher.svg?react'
 
-export const integrationUIData = {
+export const applicationIntegrationUIData = {
   keycloak: {
     Icon: KeycloakIcon,
     displayName: 'Keycloak',
@@ -22,4 +22,5 @@ export const integrationUIData = {
   },
 } as const
 
-export type IntegrationKey = keyof typeof integrationUIData
+export type ApplicationIntegrationKey =
+  keyof typeof applicationIntegrationUIData

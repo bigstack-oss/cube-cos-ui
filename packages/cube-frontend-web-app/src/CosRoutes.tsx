@@ -8,7 +8,7 @@ import { HealthDetailsPage } from './pages/home/health/[module]/HealthDetailsPag
 import { NodeListPage } from './pages/node/NodeListPage'
 import { NodeDetailsPage } from './pages/node/[name]/NodeDetailsPage'
 import { NodeIPMIControlPage } from './pages/node/[name]/ipmi-control/NodeIPMIControlPage'
-import { IntegrationsPage } from './pages/integrations/IntegrationsPage'
+import { IntegrationsApplicationsPage } from './pages/integrations/applications/IntegrationsApplicationsPage'
 import { MaintenanceLayout } from './pages/maintenance/MaintenanceLayout'
 import { MaintenanceSupportFilesPage } from './pages/maintenance/supportFiles/MaintenanceSupportFilesPage'
 import { MaintenanceTuningsPage } from './pages/maintenance/tunings/MaintenanceTuningsPage'
@@ -23,6 +23,8 @@ import { EditTriggersPage } from './pages/events/triggers/edit/EditTriggersPage'
 import { EventsChartPage } from './pages/events/chart/EventsChartPage'
 import { SettingsPage } from './pages/settings/SettingsPage'
 import { HttpErrorDisplay } from './components/ErrorDisplay/HttpErrorDisplay'
+import { IntegrationsStoragesPage } from './pages/integrations/storages/IntegrationsStoragesPage'
+import { IntegrationsLayout } from './pages/integrations/IntegrationsLayout'
 
 export const CosRoutes = () => {
   return (
@@ -58,8 +60,17 @@ export const CosRoutes = () => {
       />
       <Route
         path={CosRoutesEnum.INTEGRATIONS_PAGE}
-        element={<IntegrationsPage />}
-      />
+        element={<IntegrationsLayout />}
+      >
+        <Route
+          path={CosRoutesEnum.INTEGRATIONS_APPLICATIONS_PAGE}
+          element={<IntegrationsApplicationsPage />}
+        />
+        <Route
+          path={CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE}
+          element={<IntegrationsStoragesPage />}
+        />
+      </Route>
       <Route
         path={CosRoutesEnum.MAINTENANCE_PAGE}
         element={<MaintenanceLayout />}

@@ -2,7 +2,7 @@ import { PropsWithChildren, useContext } from 'react'
 import { Link } from 'react-router'
 import { CosHeader, CosSideBar } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '../context/DataCenterContext'
-import { IntegrationsContext } from '../context/IntegrationsContext'
+import { ApplicationIntegrationsContext } from '../context/ApplicationIntegrationsContext'
 import { UserContext } from '../context/UserContext'
 import { CosRoutesEnum } from '../enum/routes'
 import Content from './Content'
@@ -10,7 +10,10 @@ import { useFunctionBarItems } from './useFunctionBarItems'
 import { useSidebarBottomLinks } from './useSidebarBottomLinks'
 import { useSideBarNagging } from './useSideBarNagging'
 import { useSidebarOptions } from './useSidebarOptions'
-import { IntegrationKey, integrationUIData } from '../utils/integration'
+import {
+  ApplicationIntegrationKey,
+  applicationIntegrationUIData,
+} from '../utils/applicationIntegration'
 import { usePollNotifications } from '../hooks/usePollNotifications/usePollNotifications'
 
 const Layout = (props: PropsWithChildren) => {
@@ -25,27 +28,33 @@ const Layout = (props: PropsWithChildren) => {
 
   const { userInfo, isLoading: isUserInfoLoading } = useContext(UserContext)
 
-  const { integrations, isLoading: isIntegrationsLoading } =
-    useContext(IntegrationsContext)
+  const {
+    applicationIntegrations,
+    isLoading: isApplicationIntegrationsLoading,
+  } = useContext(ApplicationIntegrationsContext)
 
   const sideBarNaggingProps = useSideBarNagging(
     dataCenter?.additional.nodeLicenseStatus,
   )
 
-  const quickAccesses = integrations.map((integration) => {
-    const key = integration.name as IntegrationKey
-    const uiData = integrationUIData[key]
+  const quickAccesses = applicationIntegrations.map(
+    (applicationIntegration) => {
+      const key = applicationIntegration.name as ApplicationIntegrationKey
+      const uiData = applicationIntegrationUIData[key]
 
-    if (!uiData) {
-      console.warn(`No UI data is defined for integration: ${integration.name}`)
-    }
+      if (!uiData) {
+        console.warn(
+          `No UI data is defined for application integration: ${applicationIntegration.name}`,
+        )
+      }
 
-    return {
-      Icon: uiData.Icon,
-      hoverMessage: uiData.displayName,
-      href: integration.url,
-    }
-  })
+      return {
+        Icon: uiData.Icon,
+        hoverMessage: uiData.displayName,
+        href: applicationIntegration.url,
+      }
+    },
+  )
 
   const functionBarItems = useFunctionBarItems()
 
@@ -66,7 +75,7 @@ const Layout = (props: PropsWithChildren) => {
         />
         <div className="max-w-[calc(100svw_-_200px)] flex-1">
           <CosHeader
-            isLoading={isIntegrationsLoading}
+            isLoading={isApplicationIntegrationsLoading}
             quickAccesses={quickAccesses}
             functionBarItems={functionBarItems}
           />
