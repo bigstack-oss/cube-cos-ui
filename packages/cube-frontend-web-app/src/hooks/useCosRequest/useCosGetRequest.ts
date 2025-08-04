@@ -1,8 +1,13 @@
 import { useSyncedRef } from '@cube-frontend/utils'
-import { isEqual } from 'lodash'
-import { useCallback, useEffect, useRef } from 'react'
-import { CosGetApiResponse } from './cosGetRequestUtils'
-import { GetParamFn, isNullish, Nullish } from './cosRequestUtils'
+import { RawAxiosRequestConfig } from 'axios'
+import { useCallback, useEffect } from 'react'
+import {
+  CosGetApiResponse,
+  CosGetRequestMiddleware,
+} from './cosGetRequestUtils'
+import { GetParamFn, Nullish } from './cosRequestUtils'
+import { fetchOnMount } from './getRequestMiddlewares/fetchOnMount'
+import { fetchOnParamChanges } from './getRequestMiddlewares/fetchOnParamChanges'
 import {
   INTERNAL_useCosRequestHandler,
   UseCosRequestHandler,
@@ -10,12 +15,19 @@ import {
 
 export type UseCosGetRequest<Data> = Omit<
   UseCosRequestHandler<Data>,
-  'oversee'
+  'abortControllerRef' | 'oversee'
 > & {
+  /**
+   * The reference of this function is stable.
+   */
   getResource: () => Promise<Data>
+  /**
+   * The reference of this function is unstable.
+   */
+  getParam: GetParamFn<unknown> | undefined
 }
 
-export type UseCosGetRequestOptions = {
+type UseCosGetRequestOptions = {
   /**
    * Whether to automatically fetch data on component mount.
    * @default true
@@ -28,8 +40,13 @@ export type UseCosGetRequestOptions = {
   fetchOnParamChanges?: boolean
 }
 
-type NullaryRequest<T> = () => Promise<CosGetApiResponse<T>>
-type UnaryRequest<T, Param> = (param: Param) => Promise<CosGetApiResponse<T>>
+type NullaryRequest<T> = (
+  config?: RawAxiosRequestConfig,
+) => Promise<CosGetApiResponse<T>>
+type UnaryRequest<T, Param> = (
+  param: Param,
+  config?: RawAxiosRequestConfig,
+) => Promise<CosGetApiResponse<T>>
 
 type UseCosGetRequestHook = {
   <Data>(
@@ -51,93 +68,87 @@ export const useCosGetRequest: UseCosGetRequestHook = <Data, Param>(
    * Dynamic request functions are discouraged and not supported.
    */
   request: NullaryRequest<Data> | UnaryRequest<Data, Param>,
-  getParamOrOptions?: GetParamFn<Param> | UseCosGetRequestOptions,
+  optionsOrGetParam?: UseCosGetRequestOptions | GetParamFn<Param>,
   options?: UseCosGetRequestOptions,
 ) => {
-  const { fetchOnMount = true, fetchOnParamChanges = true } =
-    ((options ?? getParamOrOptions) as UseCosGetRequestOptions | undefined) ??
+  const {
+    fetchOnMount: fetchOnMountOption = true,
+    fetchOnParamChanges: fetchOnParamChangesOption = true,
+  } =
+    ((options ?? optionsOrGetParam) as UseCosGetRequestOptions | undefined) ??
     {}
 
-  const computeGetParamFn = useCallback((): GetParamFn<Param> | undefined => {
-    if (typeof getParamOrOptions === 'function') {
-      return getParamOrOptions
-    } else {
-      return undefined
-    }
-  }, [getParamOrOptions])
-
-  const isMountedRef = useRef(false)
-  const getParamFnRef = useSyncedRef<GetParamFn<Param> | undefined>(
-    computeGetParamFn(),
-  )
-  const prevParamRef = useRef<Nullish<Param>>(undefined)
-
-  const { oversee, ...requestHandlerAttrs } =
+  const { abortControllerRef, oversee, ...requestHandlerAttrs } =
     INTERNAL_useCosRequestHandler<Data>({
       defaultIsLoading: true,
     })
 
+  const getGetParamFn = (): GetParamFn<Param> | undefined => {
+    if (typeof optionsOrGetParam === 'function') {
+      return optionsOrGetParam
+    }
+    return undefined
+  }
+
+  const getMiddlewares = (): CosGetRequestMiddleware[] => {
+    const middlewares: CosGetRequestMiddleware[] = []
+
+    if (fetchOnMountOption) {
+      middlewares.push(fetchOnMount)
+    }
+
+    if (fetchOnParamChangesOption) {
+      middlewares.push(fetchOnParamChanges)
+    }
+
+    return middlewares
+  }
+
+  const getParamFnRef = useSyncedRef<GetParamFn<Param> | undefined>(
+    getGetParamFn(),
+  )
+
   // Dynamic request functions are discouraged and not supported.
   const getResource = useCallback((): Promise<Data> => {
+    // Abort the previous request.
+    abortControllerRef.current.abort()
+    // Create a new abort controller for the next request.
+    abortControllerRef.current = new AbortController()
+
     const getParamFn = getParamFnRef.current
+    const config: RawAxiosRequestConfig = {
+      signal: abortControllerRef.current.signal,
+    }
+
     if (getParamFn) {
-      return oversee(() => request(getParamFn() as Param))
+      return oversee(() =>
+        (request as UnaryRequest<Data, Param>)(getParamFn() as Param, config),
+      )
     } else {
-      return oversee(() => (request as NullaryRequest<Data>)())
+      return oversee(() => (request as NullaryRequest<Data>)(config))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const silentGetResource = useCallback(async (): Promise<void> => {
-    try {
-      await getResource()
-    } catch (error) {
-      // Ignore auto-fetch errors because they can't be caught
-      // unless an error boundary is used.
-      console.error(error)
-    }
-  }, [getResource])
-
-  // Effect for getting resource on param changes.
+  // Abort request on unmount.
   useEffect(() => {
-    if (isMountedRef.current && fetchOnParamChanges) {
-      const newParam = getParamFnRef.current?.()
-      if (!isNullish(newParam) && !isEqual(prevParamRef.current, newParam)) {
-        silentGetResource()
-      }
-      prevParamRef.current = newParam
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchOnParamChanges, computeGetParamFn])
-
-  // Effect for getting resource on mount.
-  useEffect(() => {
-    if (!isMountedRef.current) {
-      isMountedRef.current = true
-      if (fetchOnMount) {
-        const getParamFn = getParamFnRef.current
-        if (getParamFn) {
-          const param = getParamFn()
-          if (!isNullish(param)) {
-            silentGetResource()
-          }
-          prevParamRef.current = param
-        } else {
-          silentGetResource()
-        }
-      }
-    }
-
     return () => {
-      // Reset `isMounted` back to `false` for Strict Mode, as another effect
-      // for getting resource on param changes relies on this flag.
-      isMountedRef.current = false
+      abortControllerRef.current.abort()
+      // Create a new abort controller for StrictMode.
+      abortControllerRef.current = new AbortController()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [abortControllerRef])
 
-  return {
+  const returnValue: ReturnType<UseCosGetRequestHook> = {
     ...requestHandlerAttrs,
     getResource,
+    getParam: getGetParamFn(),
   }
+
+  getMiddlewares()?.reduce(
+    (prevReturn, middleware) => middleware(prevReturn),
+    returnValue,
+  )
+
+  return returnValue
 }

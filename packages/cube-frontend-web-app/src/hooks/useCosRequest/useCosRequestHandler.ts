@@ -1,5 +1,5 @@
-import { isAxiosError } from 'axios'
-import { useCallback, useState } from 'react'
+import { isAxiosError, isCancel } from 'axios'
+import { RefObject, useCallback, useRef, useState } from 'react'
 import { CosGetApiRequest } from './cosGetRequestUtils'
 import { CosMutationApiRequest } from './cosMutationRequestUtils'
 import {
@@ -17,6 +17,7 @@ export type UseCosRequestHandler<Data> = {
   hasResponseBeenReceived: boolean
   data: Data | undefined
   errorState: CosRequestError | undefined
+  abortControllerRef: RefObject<AbortController>
   oversee: (
     request: CosGetApiRequest<Data> | CosMutationApiRequest<Data>,
   ) => Promise<Data>
@@ -37,6 +38,8 @@ export const INTERNAL_useCosRequestHandler = <Data>(
   const [data, setData] = useState<Data | undefined>()
   const [errorState, setErrorState] = useState<CosRequestError | undefined>()
 
+  const abortControllerRef = useRef(new AbortController())
+
   const oversee = async (
     request: CosGetApiRequest<Data> | CosMutationApiRequest<Data>,
   ): Promise<Data> => {
@@ -47,6 +50,7 @@ export const INTERNAL_useCosRequestHandler = <Data>(
       const response = await request()
       setData(response.data.data)
       setHasResponseBeenReceived(true)
+      setIsLoading(false)
       return response.data.data as Data
     } catch (error) {
       if (isAxiosError(error) && isCosApiResponse(error.response)) {
@@ -67,17 +71,16 @@ export const INTERNAL_useCosRequestHandler = <Data>(
         setData(undefined)
 
         throw nextErrorState
-      } else {
+      } else if (!isCancel(error)) {
         setErrorState({
           native: getNativeError(error),
           api: undefined,
         })
         setData(undefined)
+        setIsLoading(false)
       }
 
       throw error
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -90,6 +93,7 @@ export const INTERNAL_useCosRequestHandler = <Data>(
     hasResponseBeenReceived,
     data,
     errorState,
+    abortControllerRef,
     oversee,
     clearError,
   }

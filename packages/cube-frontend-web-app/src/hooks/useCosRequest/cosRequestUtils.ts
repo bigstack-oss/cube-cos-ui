@@ -1,4 +1,4 @@
-import { HttpStatusCode } from 'axios'
+import { HttpStatusCode, isCancel } from 'axios'
 import { isObject } from 'lodash'
 import { CosGetApiResponse } from './cosGetRequestUtils'
 import { CosMutationApiResponse } from './cosMutationRequestUtils'
@@ -47,5 +47,19 @@ export const getNativeError = (error: unknown): Error => {
     return new Error(JSON.stringify(error))
   } catch {
     return new Error(String(error))
+  }
+}
+
+/**
+ * Executes a promise and suppresses any errors that occur.
+ */
+export const silentPromise = async (
+  callback: () => Promise<unknown>,
+): Promise<void> => {
+  try {
+    await callback()
+  } catch (error) {
+    if (isCancel(error)) return
+    console.error(error)
   }
 }

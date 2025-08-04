@@ -1,4 +1,5 @@
 import { AxiosResponse, HttpStatusCode } from 'axios'
+import { UseCosGetRequest } from './useCosGetRequest'
 
 export type CosGetApiRequest<T> = () => Promise<CosGetApiResponse<T>>
 
@@ -10,3 +11,7 @@ export type CosGetApiInnerResponse<T> = {
   status: string
   data: T
 }
+
+export type CosGetRequestMiddleware = <Data>(
+  getRequestHook: UseCosGetRequest<Data>,
+) => UseCosGetRequest<Data>
