@@ -1,4 +1,7 @@
-import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
+import {
+  GetModuleHealthHistoryResponseDataHistoryInner,
+  GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum,
+} from '@cube-frontend/api'
 import {
   CosPagination,
   GetCosBasicTable,
@@ -6,7 +9,7 @@ import {
 } from '@cube-frontend/ui-library'
 import { cva } from 'class-variance-authority'
 import dayjs from 'dayjs'
-import { upperCase } from 'lodash'
+import { upperCase, upperFirst } from 'lodash'
 import { useMemo } from 'react'
 import { HistoryRow, historyToTableRows } from './healthDetailsUtils'
 
@@ -55,6 +58,16 @@ export const HealthHistoryTableSection = (
     )
   }, [history, currentPage, itemsPerPage])
 
+  const renderStatus = (status: string) => {
+    const { Ok, Ng } = GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum
+    if (status === Ok || status === Ng) {
+      // Use upperCase for OK and NG statuses since they are abbreviations.
+      return upperCase(status)
+    }
+
+    return upperFirst(status)
+  }
+
   return (
     <div className="flex flex-col gap-y-2">
       <h6 className="primary-h5 text-functional-title">Health History</h6>
@@ -73,7 +86,7 @@ export const HealthHistoryTableSection = (
           {(time) => dayjs(time).format('YYYY/MM/DD HH:mm:ss')}
         </HistoryTable.Column>
         <HistoryTable.Column label="Status" property="status">
-          {upperCase}
+          {renderStatus}
         </HistoryTable.Column>
         <HistoryTable.Column label="Host" property="hostname" />
         <HistoryTable.Column label="Reason" property="error">
