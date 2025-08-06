@@ -84,7 +84,7 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
       </div>
       <div
         ref={elementRef}
-        className="rounded-t-[5px] border border-functional-border-divider"
+        className="rounded-[5px] border border-functional-border-divider"
       >
         <div className="secondary-body3 rounded-t-[5px] bg-scene-background px-4 py-2 text-functional-text-light">
           Health status
