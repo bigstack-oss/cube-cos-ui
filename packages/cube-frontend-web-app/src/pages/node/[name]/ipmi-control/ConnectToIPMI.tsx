@@ -14,18 +14,18 @@ import { upperFirst } from 'lodash'
 import { FormEvent, useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { verifyIpmiResponseToLog } from './ipmiUtils'
-import { useIPMISetup } from './useIPMISetup'
+import { IPMISetup, useIPMISetup } from './useIPMISetup'
 
 type ConnectToIPMIProps = {
   node: Node | undefined
   backHref: string
-  isValidationLogOpen: boolean
+  isVerified: boolean
   onLogChange: (log: string) => void
   toggleValidationLog: (isOpen?: boolean) => void
 }
 
 export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
-  const { node, backHref, onLogChange, toggleValidationLog } = props
+  const { node, backHref, isVerified, onLogChange, toggleValidationLog } = props
 
   const navigate = useNavigate()
 
@@ -41,14 +41,11 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
 
   const {
     isLoading: isVerifying,
-    data: verifyResponseData,
     errorState,
     mutateResource: verifyNodeIpmi,
   } = useCosMutationRequest(nodesApi.verifyNodeIpmi)
 
   const [isSaving, setIsSaving] = useState(false)
-
-  const isVerified = !!verifyResponseData
 
   const onVerify = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
@@ -85,6 +82,11 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
 
   const goBack = (): void => {
     navigate(backHref)
+  }
+
+  const handleSetupChange = (field: keyof IPMISetup, value: string): void => {
+    onSetupChange(field, value)
+    onLogChange('')
   }
 
   const onConfirmClick = async (): Promise<void> => {
@@ -135,7 +137,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
           errorMessage={!!setup.port && !fieldsValidity.port && 'Invalid port'}
           isLoading={!node}
           disabled={isInputDisabled}
-          onChange={(e) => onSetupChange('port', e.target.value)}
+          onChange={(e) => handleSetupChange('port', e.target.value)}
         />
         <CosInput
           label="IP"
@@ -144,7 +146,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
           errorMessage={!!setup.ip && !fieldsValidity.ip && 'Invalid IP'}
           isLoading={!node}
           disabled={isInputDisabled}
-          onChange={(e) => onSetupChange('ip', e.target.value)}
+          onChange={(e) => handleSetupChange('ip', e.target.value)}
         />
         <CosInput
           label="Username"
@@ -155,7 +157,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
           }
           isLoading={!node}
           disabled={isInputDisabled}
-          onChange={(e) => onSetupChange('username', e.target.value)}
+          onChange={(e) => handleSetupChange('username', e.target.value)}
         />
         <CosPasswordInput
           label="Password"
@@ -166,7 +168,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
           }
           isLoading={!node}
           disabled={isInputDisabled}
-          onChange={(e) => onSetupChange('password', e.target.value)}
+          onChange={(e) => handleSetupChange('password', e.target.value)}
         />
         <div className="flex items-center gap-x-4">
           <CosButton

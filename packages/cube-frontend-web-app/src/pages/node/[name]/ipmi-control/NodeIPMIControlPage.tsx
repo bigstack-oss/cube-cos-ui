@@ -45,6 +45,8 @@ export const NodeIPMIControlPage = () => {
     setValidationLog(log)
   }
 
+  const isVerified = !!validationLog
+
   return (
     <div className="flex flex-col gap-y-4">
       <CosBackButton
@@ -64,7 +66,7 @@ export const NodeIPMIControlPage = () => {
           <ConnectToIPMI
             node={node}
             backHref={backHref}
-            isValidationLogOpen={isValidationLogOpen}
+            isVerified={isVerified}
             toggleValidationLog={onValidationLogToggled}
             onLogChange={onValidated}
           />
