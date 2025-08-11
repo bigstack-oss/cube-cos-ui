@@ -1,13 +1,11 @@
 import { useNavigate } from 'react-router'
-import { GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus } from '@cube-frontend/api'
+import { DataCenterAdditionalNodeLicenseStatus } from '@cube-frontend/api'
 import { CosSideBarProps } from '@cube-frontend/ui-library'
 import { getInvalidMessageList } from '../utils/license'
 import { links } from '../pages/maintenance/links'
 
 export const useSideBarNagging = (
-  nodeLicenseStatus:
-    | GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
-    | undefined,
+  nodeLicenseStatus: DataCenterAdditionalNodeLicenseStatus | undefined,
 ): CosSideBarProps['naggingProps'] => {
   const navigation = useNavigate()
 

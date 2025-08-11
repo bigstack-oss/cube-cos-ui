@@ -58,7 +58,10 @@ export * from './components/CosNagging/CosNagging'
 export * from './components/CosNotification/CosInlineNotification/CosInlineNotification'
 export * from './components/CosNotification/CosToastNotification/CosToastProvider'
 export * from './components/CosNotification/CosToastNotification/useToast'
-export { type CosToastType } from './components/CosNotification/CosToastNotification/utils'
+export {
+  type CosToastType,
+  MAX_VISIBLE_TOASTS_AMOUNT,
+} from './components/CosNotification/CosToastNotification/utils'
 export { type CosNotificationType } from './components/CosNotification/cosNotificationTypes'
 export * from './components/CosPagination/CosPagination'
 export {

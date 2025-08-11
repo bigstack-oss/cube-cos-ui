@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import pluralize from 'pluralize'
 import {
-  GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus,
+  DataCenterAdditionalNodeLicenseStatus,
   GetLicenseAttachmentsResponseDataInner,
   GetLicensesProductsEnum,
   GetLicensesResponseDataLicensesInnerExpiry,
@@ -14,7 +14,7 @@ import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 import { BatchLicenseAttachmentTableRow } from './LicenseActions/HardwareSerialNumberModal/LicenseAttachmentTable'
 
 export type InvalidLicenseMessageKey = Exclude<
-  keyof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus,
+  keyof DataCenterAdditionalNodeLicenseStatus,
   'valid'
 >
 
@@ -35,7 +35,7 @@ export const invalidLicenseMessageMap: Record<
 }
 
 export const getInvalidMessageList = (
-  nodeLicenseStatus: GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus,
+  nodeLicenseStatus: DataCenterAdditionalNodeLicenseStatus,
 ) => {
   const errorMessageList: string[] = []
 

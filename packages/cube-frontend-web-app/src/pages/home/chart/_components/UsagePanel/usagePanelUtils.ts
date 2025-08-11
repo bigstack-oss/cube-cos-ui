@@ -1,5 +1,5 @@
 import {
-  GetDataCentersResponseDataInnerTypeEnum,
+  DataCenterTypeEnum,
   GetMetricsResponseData,
   RoleUsage,
 } from '@cube-frontend/api'
@@ -11,10 +11,10 @@ export type RoleGroup = {
 
 export const metricsToRoleGroups = (
   metrics: GetMetricsResponseData,
-  dataCenterType: GetDataCentersResponseDataInnerTypeEnum,
+  dataCenterType: DataCenterTypeEnum,
 ): RoleGroup[] => {
   const mapFns: Record<
-    GetDataCentersResponseDataInnerTypeEnum,
+    DataCenterTypeEnum,
     (metrics: GetMetricsResponseData) => RoleGroup[]
   > = {
     cloud: mapCloudRoleGroups,

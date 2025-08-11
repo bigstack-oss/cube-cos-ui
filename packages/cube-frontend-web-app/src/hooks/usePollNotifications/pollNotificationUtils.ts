@@ -1,4 +1,4 @@
-import { GetDataCentersResponseDataInner } from '@cube-frontend/api'
+import { DataCenter } from '@cube-frontend/api'
 import dayjs from 'dayjs'
 
 export const computeLastNotificationTimeLocalStorageKey = (
@@ -17,16 +17,17 @@ const getLastNotificationTime = (
     dataCenterName,
   )
   const time = localStorage.getItem(key) ?? ''
+  if (!time) return null
+
   const dateTime = dayjs.respectTzOffset(time)
-  if (!time || !dateTime.isValid()) {
-    return null
-  }
+  if (!dateTime.isValid()) return null
+
   return dateTime
 }
 
 export const computeStartFrom = (
   username: string,
-  dataCenter: GetDataCentersResponseDataInner,
+  dataCenter: DataCenter,
 ): string => {
   const lastNotificationTime = getLastNotificationTime(
     username,

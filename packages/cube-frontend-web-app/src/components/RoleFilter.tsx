@@ -1,12 +1,12 @@
 import { useContext } from 'react'
 import { upperFirst } from 'lodash'
-import { GetDataCentersResponseDataInnerRolesEnum } from '@cube-frontend/api'
+import { DataCenterRolesEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '../context/DataCenterContext'
 
 export type RoleFilterProps = {
-  selectedRoles: GetDataCentersResponseDataInnerRolesEnum[]
-  handleRolesSelect: (roles: GetDataCentersResponseDataInnerRolesEnum[]) => void
+  selectedRoles: DataCenterRolesEnum[]
+  handleRolesSelect: (roles: DataCenterRolesEnum[]) => void
 }
 
 /**
@@ -28,9 +28,7 @@ export const RoleFilter = (props: RoleFilterProps) => {
     handleRolesSelect([])
   }
 
-  const onRoleClick = (
-    role: GetDataCentersResponseDataInnerRolesEnum,
-  ): void => {
+  const onRoleClick = (role: DataCenterRolesEnum): void => {
     const nextRoles = selectedRoles.includes(role)
       ? selectedRoles.filter((selectedRole) => selectedRole !== role)
       : [...selectedRoles, role]

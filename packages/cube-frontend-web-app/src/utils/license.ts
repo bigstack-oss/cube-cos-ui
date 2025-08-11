@@ -1,10 +1,10 @@
-import { GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus } from '@cube-frontend/api'
+import { DataCenterAdditionalNodeLicenseStatus } from '@cube-frontend/api'
 import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { isNil } from 'lodash'
 import pluralize from 'pluralize'
 
 export type InvalidLicenseMessageKey = Exclude<
-  keyof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus,
+  keyof DataCenterAdditionalNodeLicenseStatus,
   'valid'
 >
 
@@ -26,9 +26,7 @@ export const invalidLicenseMessageMap: Record<
 }
 
 export const getInvalidMessageList = (
-  nodeLicenseStatus:
-    | GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
-    | undefined,
+  nodeLicenseStatus: DataCenterAdditionalNodeLicenseStatus | undefined,
 ) => {
   const errorMessageList: string[] = []
   if (isNil(nodeLicenseStatus)) {

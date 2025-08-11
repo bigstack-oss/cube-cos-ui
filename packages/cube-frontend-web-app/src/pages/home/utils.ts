@@ -1,5 +1,5 @@
 import {
-  GetDataCentersResponseDataInnerRolesEnum,
+  DataCenterRolesEnum,
   GetMetricsResponseData,
   RoleUsage,
 } from '@cube-frontend/api'
@@ -9,7 +9,7 @@ import { upperFirst } from 'lodash'
 
 export const toMetricsChart = (
   metrics: GetMetricsResponseData,
-  availableRoles: GetDataCentersResponseDataInnerRolesEnum[],
+  availableRoles: DataCenterRolesEnum[],
 ) => {
   const vmCountInfos: CosCountSegmentedChartCountInfo[] = [
     {
@@ -41,32 +41,32 @@ export const toMetricsChart = (
 
   const allRoleCountInfos = [
     {
-      name: GetDataCentersResponseDataInnerRolesEnum.ControlConverged,
+      name: DataCenterRolesEnum.ControlConverged,
       color: 'fill-chart-1',
       count: metrics.host.role.controlConverged.count,
     },
     {
-      name: GetDataCentersResponseDataInnerRolesEnum.Control,
+      name: DataCenterRolesEnum.Control,
       color: 'fill-chart-2',
       count: metrics.host.role.control.count,
     },
     {
-      name: GetDataCentersResponseDataInnerRolesEnum.Compute,
+      name: DataCenterRolesEnum.Compute,
       color: 'fill-chart-3',
       count: metrics.host.role.compute.count,
     },
     {
-      name: GetDataCentersResponseDataInnerRolesEnum.Storage,
+      name: DataCenterRolesEnum.Storage,
       color: 'fill-chart-5',
       count: metrics.host.role.storage.count,
     },
     {
-      name: GetDataCentersResponseDataInnerRolesEnum.EdgeCore,
+      name: DataCenterRolesEnum.EdgeCore,
       color: 'fill-chart-8',
       count: metrics.host.role.edgeCore.count,
     },
     {
-      name: GetDataCentersResponseDataInnerRolesEnum.Moderator,
+      name: DataCenterRolesEnum.Moderator,
       color: 'fill-chart-9',
       count: metrics.host.role.moderator.count,
     },

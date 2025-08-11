@@ -63,6 +63,27 @@ export const useTriggerMaterials = (): UseTriggerMaterials => {
         emails: materials?.response.emails ?? [],
         slacks: materials?.response.slacks ?? [],
         scriptType: materials?.response.scriptType ?? {
+          builtInVariable: {
+            name: '',
+            type: '',
+            description: '',
+            value: {
+              id: '',
+              message: '',
+              details: '',
+              duration: 0,
+              level: '',
+              previousLevel: '',
+              recoverable: false,
+              data: {
+                time: '',
+                name: '',
+                group: '',
+                tags: {},
+                fields: {},
+              },
+            },
+          },
           language: '-',
           environment: '-',
         },

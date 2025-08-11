@@ -1,7 +1,4 @@
-import {
-  GetDataCentersResponseDataInnerRolesEnum,
-  Node,
-} from '@cube-frontend/api'
+import { DataCenterRolesEnum, Node } from '@cube-frontend/api'
 import { isIPv4 } from '@cube-frontend/web-app/utils/ip'
 import { HostWithRole } from '../../upsertTuningsUtils'
 import { HostFilterValue } from './useHostFilter'
@@ -15,10 +12,10 @@ const filterByKeyword = (hosts: Node[], keyword: string): Node[] => {
 
 const filterByRole = (
   hosts: Node[],
-  selectedRoles: Set<GetDataCentersResponseDataInnerRolesEnum>,
+  selectedRoles: Set<DataCenterRolesEnum>,
 ): Node[] => {
   return hosts.filter((host) =>
-    selectedRoles.has(host.role as GetDataCentersResponseDataInnerRolesEnum),
+    selectedRoles.has(host.role as DataCenterRolesEnum),
   )
 }
 

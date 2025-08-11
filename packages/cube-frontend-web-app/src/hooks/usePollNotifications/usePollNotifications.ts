@@ -1,8 +1,9 @@
+import { DataCenter, Notification } from '@cube-frontend/api'
 import {
-  GetDataCentersResponseDataInner,
-  Notification,
-} from '@cube-frontend/api'
-import { CosNotificationType, useToast } from '@cube-frontend/ui-library'
+  CosNotificationType,
+  MAX_VISIBLE_TOASTS_AMOUNT,
+  useToast,
+} from '@cube-frontend/ui-library'
 import { UserContext } from '@cube-frontend/web-app/context/UserContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import dayjs from 'dayjs'
@@ -49,17 +50,19 @@ export const usePollNotifications = (): void => {
 
   const getNotifications = async (
     username: string,
-    dataCenter: GetDataCentersResponseDataInner,
+    dataCenter: DataCenter,
   ): Promise<Notification[]> => {
     const start = computeStartFrom(username, dataCenter)
     try {
       const {
-        data: { data: notifications },
+        data: { data: pagedNotifications },
       } = await notificationsApi.getNotifications({
         dataCenter: dataCenter.name,
         start,
+        pageNum: 1,
+        pageSize: MAX_VISIBLE_TOASTS_AMOUNT,
       })
-      return notifications
+      return pagedNotifications.notifications
     } catch (error) {
       console.error('Get notifications error: ', error)
       throw error

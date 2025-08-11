@@ -1,11 +1,9 @@
 import { createContext } from 'react'
-import { GetDataCentersResponseDataInner } from '@cube-frontend/api'
+import { DataCenter } from '@cube-frontend/api'
 
 type DataCenterContextValue = {
-  dataCenter: GetDataCentersResponseDataInner | undefined
-  fetchDataCenters:
-    | (() => Promise<GetDataCentersResponseDataInner[]>)
-    | undefined
+  dataCenter: DataCenter | undefined
+  fetchDataCenters: (() => Promise<DataCenter[]>) | undefined
   isLoading: boolean
 }
 
