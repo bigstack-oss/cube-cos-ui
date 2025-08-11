@@ -16,8 +16,7 @@ export const DataCenterProvider = (props: PropsWithChildren) => {
    * In Phase 1, there is only 1 data center.
    */
   const dataCenter = dataCenters?.[0]
-
-  if (!isLoading && !dataCenter) {
+  if (!isLoading && dataCenters && !dataCenter) {
     throw new Error('A data center is required.')
   }
 
