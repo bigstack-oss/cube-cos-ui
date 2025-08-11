@@ -406,10 +406,29 @@ export interface DEV00001E {
     'time': string;
     /**
      * 
-     * @type {DEV00001IAdditionalInfo}
+     * @type {DEV00001EAdditionalInfo}
      * @memberof DEV00001E
      */
-    'additionalInfo': DEV00001IAdditionalInfo;
+    'additionalInfo': DEV00001EAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00001EAdditionalInfo
+ */
+export interface DEV00001EAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001EAdditionalInfo
+     */
+    'device': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00001EAdditionalInfo
+     */
+    'description'?: string;
 }
 /**
  * 
@@ -481,10 +500,35 @@ export interface DEV00002E {
     'time': string;
     /**
      * 
-     * @type {DEV00002IAdditionalInfo}
+     * @type {DEV00002EAdditionalInfo}
      * @memberof DEV00002E
      */
-    'additionalInfo': DEV00002IAdditionalInfo;
+    'additionalInfo': DEV00002EAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DEV00002EAdditionalInfo
+ */
+export interface DEV00002EAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002EAdditionalInfo
+     */
+    'device': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002EAdditionalInfo
+     */
+    'class': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DEV00002EAdditionalInfo
+     */
+    'description'?: string;
 }
 /**
  * 
@@ -562,10 +606,10 @@ export interface DEV00003E {
     'time': string;
     /**
      * 
-     * @type {DEV00002IAdditionalInfo}
+     * @type {DEV00002EAdditionalInfo}
      * @memberof DEV00003E
      */
-    'additionalInfo': DEV00002IAdditionalInfo;
+    'additionalInfo': DEV00002EAdditionalInfo;
 }
 /**
  * 
@@ -624,10 +668,10 @@ export interface DEV00004E {
     'time': string;
     /**
      * 
-     * @type {DEV00001IAdditionalInfo}
+     * @type {DEV00001EAdditionalInfo}
      * @memberof DEV00004E
      */
-    'additionalInfo': DEV00001IAdditionalInfo;
+    'additionalInfo': DEV00001EAdditionalInfo;
 }
 /**
  * 
@@ -659,6 +703,135 @@ export interface DEV00004I {
      * @memberof DEV00004I
      */
     'additionalInfo': DEV00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface DataCenter
+ */
+export interface DataCenter {
+    /**
+     * 
+     * @type {string}
+     * @memberof DataCenter
+     */
+    'type': DataCenterTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof DataCenter
+     */
+    'name': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof DataCenter
+     */
+    'roles': Array<DataCenterRolesEnum>;
+    /**
+     * 
+     * @type {string}
+     * @memberof DataCenter
+     */
+    'version': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DataCenter
+     */
+    'virtualIp': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DataCenter
+     */
+    'isHaEnabled': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DataCenter
+     */
+    'isLocal': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof DataCenter
+     */
+    'utcTimeZone': string;
+    /**
+     * 
+     * @type {DataCenterAdditional}
+     * @memberof DataCenter
+     */
+    'additional': DataCenterAdditional;
+}
+
+export const DataCenterTypeEnum = {
+    Cloud: 'cloud',
+    Edge: 'edge'
+} as const;
+
+export type DataCenterTypeEnum = typeof DataCenterTypeEnum[keyof typeof DataCenterTypeEnum];
+export const DataCenterRolesEnum = {
+    ControlConverged: 'control-converged',
+    Control: 'control',
+    Compute: 'compute',
+    Storage: 'storage',
+    EdgeCore: 'edge-core',
+    Moderator: 'moderator'
+} as const;
+
+export type DataCenterRolesEnum = typeof DataCenterRolesEnum[keyof typeof DataCenterRolesEnum];
+
+/**
+ * 
+ * @export
+ * @interface DataCenterAdditional
+ */
+export interface DataCenterAdditional {
+    /**
+     * 
+     * @type {string}
+     * @memberof DataCenterAdditional
+     */
+    'helpUrl': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DataCenterAdditional
+     */
+    'v1ApiDocUrl': string;
+    /**
+     * 
+     * @type {DataCenterAdditionalNodeLicenseStatus}
+     * @memberof DataCenterAdditional
+     */
+    'nodeLicenseStatus': DataCenterAdditionalNodeLicenseStatus;
+}
+/**
+ * 
+ * @export
+ * @interface DataCenterAdditionalNodeLicenseStatus
+ */
+export interface DataCenterAdditionalNodeLicenseStatus {
+    /**
+     * 
+     * @type {number}
+     * @memberof DataCenterAdditionalNodeLicenseStatus
+     */
+    'valid': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DataCenterAdditionalNodeLicenseStatus
+     */
+    'expired': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DataCenterAdditionalNodeLicenseStatus
+     */
+    'unlicense': number;
 }
 /**
  * 
@@ -1617,10 +1790,10 @@ export interface GetDataCenterResponse {
     'code': number;
     /**
      * 
-     * @type {GetDataCentersResponseDataInner}
+     * @type {DataCenter}
      * @memberof GetDataCenterResponse
      */
-    'data': GetDataCentersResponseDataInner;
+    'data': DataCenter;
     /**
      * 
      * @type {string}
@@ -1673,10 +1846,10 @@ export interface GetDataCentersResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetDataCentersResponseDataInner>}
+     * @type {Array<DataCenter>}
      * @memberof GetDataCentersResponse
      */
-    'data': Array<GetDataCentersResponseDataInner>;
+    'data': Array<DataCenter>;
     /**
      * 
      * @type {string}
@@ -1689,129 +1862,6 @@ export interface GetDataCentersResponse {
      * @memberof GetDataCentersResponse
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface GetDataCentersResponseDataInner
- */
-export interface GetDataCentersResponseDataInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'type': GetDataCentersResponseDataInnerTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'roles': Array<GetDataCentersResponseDataInnerRolesEnum>;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'version': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'virtualIp': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'isHaEnabled': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'isLocal': boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'utcTimeZone': string;
-    /**
-     * 
-     * @type {GetDataCentersResponseDataInnerAdditional}
-     * @memberof GetDataCentersResponseDataInner
-     */
-    'additional': GetDataCentersResponseDataInnerAdditional;
-}
-
-export const GetDataCentersResponseDataInnerTypeEnum = {
-    Cloud: 'cloud',
-    Edge: 'edge'
-} as const;
-
-export type GetDataCentersResponseDataInnerTypeEnum = typeof GetDataCentersResponseDataInnerTypeEnum[keyof typeof GetDataCentersResponseDataInnerTypeEnum];
-export const GetDataCentersResponseDataInnerRolesEnum = {
-    ControlConverged: 'control-converged',
-    Control: 'control',
-    Compute: 'compute',
-    Storage: 'storage',
-    EdgeCore: 'edge-core',
-    Moderator: 'moderator'
-} as const;
-
-export type GetDataCentersResponseDataInnerRolesEnum = typeof GetDataCentersResponseDataInnerRolesEnum[keyof typeof GetDataCentersResponseDataInnerRolesEnum];
-
-/**
- * 
- * @export
- * @interface GetDataCentersResponseDataInnerAdditional
- */
-export interface GetDataCentersResponseDataInnerAdditional {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetDataCentersResponseDataInnerAdditional
-     */
-    'helpUrl': string;
-    /**
-     * 
-     * @type {GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus}
-     * @memberof GetDataCentersResponseDataInnerAdditional
-     */
-    'nodeLicenseStatus': GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus;
-}
-/**
- * 
- * @export
- * @interface GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
- */
-export interface GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
-     */
-    'valid': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
-     */
-    'expired': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDataCentersResponseDataInnerAdditionalNodeLicenseStatus
-     */
-    'unlicense': number;
 }
 /**
  * 
@@ -4894,10 +4944,10 @@ export interface GetNotificationsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<Notification>}
+     * @type {GetNotificationsResponseData}
      * @memberof GetNotificationsResponse
      */
-    'data': Array<Notification>;
+    'data': GetNotificationsResponseData;
     /**
      * 
      * @type {string}
@@ -4910,6 +4960,25 @@ export interface GetNotificationsResponse {
      * @memberof GetNotificationsResponse
      */
     'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetNotificationsResponseData
+ */
+export interface GetNotificationsResponseData {
+    /**
+     * 
+     * @type {Array<Notification>}
+     * @memberof GetNotificationsResponseData
+     */
+    'notifications': Array<Notification>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof GetNotificationsResponseData
+     */
+    'page': Page;
 }
 /**
  * 
@@ -5947,6 +6016,135 @@ export interface GetTriggerMaterialsResponseDataResponseScriptType {
      * @memberof GetTriggerMaterialsResponseDataResponseScriptType
      */
     'environment': string;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariable}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptType
+     */
+    'builtInVariable': GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariable;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariable
+ */
+export interface GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariable {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariable
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariable
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariable
+     */
+    'description': string;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariable
+     */
+    'value': GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+ */
+export interface GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+     */
+    'message': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+     */
+    'details': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+     */
+    'duration': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+     */
+    'level': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+     */
+    'previousLevel': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+     */
+    'recoverable': boolean;
+    /**
+     * 
+     * @type {GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValue
+     */
+    'data': GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData;
+}
+/**
+ * 
+ * @export
+ * @interface GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData
+ */
+export interface GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData
+     */
+    'time': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData
+     */
+    'group': string;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData
+     */
+    'tags': { [key: string]: string; };
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof GetTriggerMaterialsResponseDataResponseScriptTypeBuiltInVariableValueData
+     */
+    'fields': { [key: string]: string; };
 }
 /**
  * 
@@ -8047,10 +8245,29 @@ export interface OSD00001E {
     'time': string;
     /**
      * 
-     * @type {OSD00001IAdditionalInfo}
+     * @type {OSD00001EAdditionalInfo}
      * @memberof OSD00001E
      */
-    'additionalInfo': OSD00001IAdditionalInfo;
+    'additionalInfo': OSD00001EAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00001EAdditionalInfo
+ */
+export interface OSD00001EAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001EAdditionalInfo
+     */
+    'osdId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00001EAdditionalInfo
+     */
+    'description'?: string;
 }
 /**
  * 
@@ -8122,10 +8339,35 @@ export interface OSD00002E {
     'time': string;
     /**
      * 
-     * @type {OSD00002IAdditionalInfo}
+     * @type {OSD00002EAdditionalInfo}
      * @memberof OSD00002E
      */
-    'additionalInfo': OSD00002IAdditionalInfo;
+    'additionalInfo': OSD00002EAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface OSD00002EAdditionalInfo
+ */
+export interface OSD00002EAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002EAdditionalInfo
+     */
+    'osdId': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OSD00002EAdditionalInfo
+     */
+    'reweight': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OSD00002EAdditionalInfo
+     */
+    'description'?: string;
 }
 /**
  * 
@@ -8203,10 +8445,10 @@ export interface OSD00003E {
     'time': string;
     /**
      * 
-     * @type {OSD00001IAdditionalInfo}
+     * @type {OSD00001EAdditionalInfo}
      * @memberof OSD00003E
      */
-    'additionalInfo': OSD00001IAdditionalInfo;
+    'additionalInfo': OSD00001EAdditionalInfo;
 }
 /**
  * 
@@ -17332,10 +17574,13 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {string} [past] The past time of the notifications to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifications: async (dataCenter: string, start?: string, stop?: string, past?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNotifications: async (dataCenter: string, start?: string, stop?: string, past?: string, keyword?: string, pageNum?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getNotifications', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/notifications`
@@ -17367,6 +17612,18 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
                 localVarQueryParameter['past'] = past;
             }
 
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
+            }
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -17395,11 +17652,14 @@ export const NotificationsApiFp = function(configuration?: Configuration) {
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {string} [past] The past time of the notifications to query, click \&#39;try it out\&#39; to see a few options, but can specify with the \&#39;s\&#39;(second), \&#39;m\&#39;(minute), \&#39;h\&#39;(hour), and \&#39;d\&#39;(day) suffix for other time ranges.
+         * @param {string} [keyword] The keyword to search, can be any string
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNotifications(dataCenter: string, start?: string, stop?: string, past?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNotificationsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotifications(dataCenter, start, stop, past, options);
+        async getNotifications(dataCenter: string, start?: string, stop?: string, past?: string, keyword?: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNotificationsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotifications(dataCenter, start, stop, past, keyword, pageNum, pageSize, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NotificationsApi.getNotifications']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -17422,7 +17682,7 @@ export const NotificationsApiFactory = function (configuration?: Configuration, 
          * @throws {RequiredError}
          */
         getNotifications(requestParameters: NotificationsApiGetNotificationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNotificationsResponse> {
-            return localVarFp.getNotifications(requestParameters.dataCenter, requestParameters.start, requestParameters.stop, requestParameters.past, options).then((request) => request(axios, basePath));
+            return localVarFp.getNotifications(requestParameters.dataCenter, requestParameters.start, requestParameters.stop, requestParameters.past, requestParameters.keyword, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -17460,6 +17720,27 @@ export interface NotificationsApiGetNotificationsRequest {
      * @memberof NotificationsApiGetNotifications
      */
     readonly past?: string
+
+    /**
+     * The keyword to search, can be any string
+     * @type {string}
+     * @memberof NotificationsApiGetNotifications
+     */
+    readonly keyword?: string
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof NotificationsApiGetNotifications
+     */
+    readonly pageNum?: number
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof NotificationsApiGetNotifications
+     */
+    readonly pageSize?: number
 }
 
 /**
@@ -17478,7 +17759,7 @@ export class NotificationsApi extends BaseAPI {
      * @memberof NotificationsApi
      */
     public getNotifications(requestParameters: NotificationsApiGetNotificationsRequest, options?: RawAxiosRequestConfig) {
-        return NotificationsApiFp(this.configuration).getNotifications(requestParameters.dataCenter, requestParameters.start, requestParameters.stop, requestParameters.past, options).then((request) => request(this.axios, this.basePath));
+        return NotificationsApiFp(this.configuration).getNotifications(requestParameters.dataCenter, requestParameters.start, requestParameters.stop, requestParameters.past, requestParameters.keyword, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
