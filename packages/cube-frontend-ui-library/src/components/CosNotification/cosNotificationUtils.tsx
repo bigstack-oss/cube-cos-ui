@@ -36,10 +36,16 @@ export const renderLink = (link?: CosNotificationBaseProps['link']) => {
     return null
   }
 
-  const { href, onClick, Container, text } = link
+  const { className, href, onClick, Container, text } = link
 
   const cosHyperlink = (
-    <CosHyperlink size="sm" variant="text-inline" href={href} onClick={onClick}>
+    <CosHyperlink
+      size="sm"
+      variant="text-inline"
+      className={className}
+      href={href}
+      onClick={onClick}
+    >
       {text}
     </CosHyperlink>
   )

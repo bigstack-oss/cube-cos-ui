@@ -9,7 +9,7 @@ export type CosNotificationBaseProps = {
    */
   type?: CosNotificationType
   title?: string
-  link?: Pick<CosHyperlinkProps, 'href' | 'onClick'> & {
+  link?: Pick<CosHyperlinkProps, 'className' | 'href' | 'onClick'> & {
     Container?: ReactElement<PropsWithChildren>
     text: string
   }
