@@ -50,6 +50,7 @@ export const INTERNAL_useCosRequestHandler = <Data>(
       const response = await request()
       setData(response.data.data)
       setHasResponseBeenReceived(true)
+      setIsLoading(false)
       return response.data.data as Data
     } catch (error) {
       if (isAxiosError(error) && isCosApiResponse(error.response)) {
@@ -68,6 +69,7 @@ export const INTERNAL_useCosRequestHandler = <Data>(
 
         setErrorState(nextErrorState)
         setData(undefined)
+        setIsLoading(false)
 
         throw nextErrorState
       } else if (!isCancel(error)) {
@@ -76,11 +78,10 @@ export const INTERNAL_useCosRequestHandler = <Data>(
           api: undefined,
         })
         setData(undefined)
+        setIsLoading(false)
       }
 
       throw error
-    } finally {
-      setIsLoading(false)
     }
   }
 
