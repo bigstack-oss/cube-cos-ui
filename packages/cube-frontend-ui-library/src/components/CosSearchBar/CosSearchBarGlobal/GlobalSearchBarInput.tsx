@@ -85,6 +85,7 @@ export const GlobalSearchBarInput = (props: GlobalSearchBarInputProps) => {
   )
 
   const renderMenu = () => {
+    if (!children) return null
     return createPortal(
       <div
         ref={elementRef}

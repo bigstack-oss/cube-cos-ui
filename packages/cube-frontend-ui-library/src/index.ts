@@ -63,6 +63,7 @@ export {
   MAX_VISIBLE_TOASTS_AMOUNT,
 } from './components/CosNotification/CosToastNotification/utils'
 export { type CosNotificationType } from './components/CosNotification/cosNotificationTypes'
+export { renderLink as renderCosNotificationLink } from './components/CosNotification/cosNotificationUtils'
 export * from './components/CosPagination/CosPagination'
 export {
   DEFAULT_ITEMS_PER_PAGE,

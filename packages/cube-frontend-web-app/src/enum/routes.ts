@@ -34,4 +34,6 @@ export const CosRoutesEnum = {
   EVENTS_CHART_PAGE: '/events/chart',
   /** Settings Page */
   SETTINGS_PAGE: '/settings',
+  // Notifications
+  NOTIFICATIONS_PAGE: '/notifications',
 } as const

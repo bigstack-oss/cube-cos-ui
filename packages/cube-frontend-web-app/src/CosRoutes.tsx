@@ -27,6 +27,7 @@ import { IntegrationsStoragesPage } from './pages/integrations/storages/Integrat
 import { IntegrationsLayout } from './pages/integrations/IntegrationsLayout'
 import { CreateStoragePage } from './pages/integrations/storages/create/CreateStoragePage'
 import { EditStoragePage } from './pages/integrations/storages/edit/EditStoragePage'
+import { NotificationsPage } from './pages/notifications/NotificationsPage'
 
 export const CosRoutes = () => {
   return (
@@ -134,6 +135,10 @@ export const CosRoutes = () => {
         element={<EditTriggersPage />}
       />
       <Route path={CosRoutesEnum.SETTINGS_PAGE} element={<SettingsPage />} />
+      <Route
+        path={CosRoutesEnum.NOTIFICATIONS_PAGE}
+        element={<NotificationsPage />}
+      />
       <Route
         path="*"
         element={

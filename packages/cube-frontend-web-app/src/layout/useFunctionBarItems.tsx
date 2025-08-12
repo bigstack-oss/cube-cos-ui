@@ -9,11 +9,11 @@ export const useFunctionBarItems = (): FunctionBarItem[] => {
   const notification: FunctionBarItem<LinkProps> = {
     Icon: NotificationIcon,
     // TODO: i18n.
-    hoverMessage: 'Events',
+    hoverMessage: 'Notifications',
     container: {
       Component: Link,
       props: {
-        to: CosRoutesEnum.EVENTS_PAGE,
+        to: CosRoutesEnum.NOTIFICATIONS_PAGE,
       },
     },
   }

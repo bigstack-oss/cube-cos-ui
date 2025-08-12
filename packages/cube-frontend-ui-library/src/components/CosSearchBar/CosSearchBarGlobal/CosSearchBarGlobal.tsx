@@ -32,8 +32,9 @@ export const CosSearchBarGlobal = (props: CosSearchBarGlobalProps) => {
         {...omitNonInputProps(props)}
         variant={variant}
         onInputClear={onInputClear}
-        children={children}
-      />
+      >
+        {children}
+      </GlobalSearchBarInput>
       {renderSortingDropdown()}
     </div>
   )

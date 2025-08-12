@@ -34,20 +34,24 @@ export const DetailCell = (props: DetailCellProps) => {
   return (
     <div className={container({ isExpanded })}>
       {title && (
-        <div className="primary-body4 text-functional-text-light">{title}</div>
+        <div className="primary-body4 overflow-x-auto whitespace-pre text-wrap text-functional-text-light">
+          {title}
+        </div>
       )}
-      <div className="flex flex-wrap gap-4">
-        {items.map((item, index) => (
-          <div key={index} className="flex items-center gap-x-4">
-            <span className="primary-body4 w-[80px] text-functional-text">
-              {item.title}
-            </span>
-            <span className="primary-body5 w-[164px] text-functional-text-light">
-              {item.value}
-            </span>
-          </div>
-        ))}
-      </div>
+      {items.length > 0 && (
+        <div className="flex flex-wrap gap-4">
+          {items.map((item, index) => (
+            <div key={index} className="flex items-center gap-x-4">
+              <span className="primary-body4 w-[80px] text-functional-text">
+                {item.title}
+              </span>
+              <span className="primary-body5 w-[164px] text-functional-text-light">
+                {item.value}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
