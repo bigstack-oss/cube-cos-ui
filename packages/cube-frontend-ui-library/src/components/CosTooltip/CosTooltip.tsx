@@ -98,12 +98,13 @@ export const CosTooltip = (props: CosTooltipProps) => {
     <>
       {clonedAnchor}
       {visibilityState !== undefined &&
+        infoMap[visibilityState] &&
         createPortal(
           <InfoBox
             // Assign a key to remount the InfoBox to prevent layout shifts
             // when switching from hover content to click content.
             key={visibilityState}
-            information={infoMap[visibilityState]!}
+            information={infoMap[visibilityState]}
             placement={placement}
             mouseX={mouseX}
             anchorRef={anchorRef}
