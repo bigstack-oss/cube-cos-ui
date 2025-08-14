@@ -1,8 +1,8 @@
 import { ItemsPerPage } from '@cube-frontend/ui-library'
-import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeUtils'
 import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchParamsQuery'
 import {
+  ListNotificationsPastEnum,
   ListNotificationsQuery,
   queryToSearchParams,
   searchParamsToQuery,
@@ -11,7 +11,7 @@ import {
 type UseListNotificationsQuery = {
   query: ListNotificationsQuery
   debouncedKeyword: string
-  onTimeRangeChange: (timeRange: TimeRange) => void
+  onTimeRangeChange: (timeRange: ListNotificationsPastEnum) => void
   onKeywordChange: (keyword: string) => void
   onKeywordClear: () => void
   onPageChange: (page: number) => void
@@ -26,7 +26,7 @@ export const useListNotificationsQuery = (): UseListNotificationsQuery => {
 
   const [debouncedKeyword, setDebounceKeyword] = useDebounce(query.keyword, 300)
 
-  const onTimeRangeChange = (timeRange: TimeRange): void => {
+  const onTimeRangeChange = (timeRange: ListNotificationsPastEnum): void => {
     setQuery((prev) => ({
       ...prev,
       timeRange,

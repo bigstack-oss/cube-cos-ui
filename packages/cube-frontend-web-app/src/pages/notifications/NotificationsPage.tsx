@@ -8,13 +8,13 @@ import {
   useExpandedRowIdSet,
 } from '@cube-frontend/ui-library'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
-import { timeRanges } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeUtils'
 import { mockI18n } from '@cube-frontend/web-app/hooks/usePollNotifications/mockI18n'
 import { notificationToToastArgs } from '@cube-frontend/web-app/utils/notification'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import {
+  listNotificationsPastEnums,
   NotificationRow,
   notificationToTableRow,
 } from './notificationsPageUtils'
@@ -47,13 +47,11 @@ export const NotificationsPage = () => {
   const { expandedRowIdSet, onExpandChange } = useExpandedRowIdSet()
 
   const computeDetailTitle = (row: NotificationRow): string => {
-    let description: string = ''
+    let description: string = 'No details'
 
-    if ('description' in row.additionalInfo) {
+    if ('additionalInfo' in row && 'description' in row.additionalInfo) {
       description = row.additionalInfo.description ?? ''
     }
-
-    description ||= 'No details'
 
     return description
   }
@@ -91,7 +89,7 @@ export const NotificationsPage = () => {
       }
       dropdown={
         <TimeRangeDropdown
-          timeRanges={timeRanges}
+          timeRanges={listNotificationsPastEnums}
           selectedItem={query.timeRange}
           onChange={onTimeRangeChange}
         />
