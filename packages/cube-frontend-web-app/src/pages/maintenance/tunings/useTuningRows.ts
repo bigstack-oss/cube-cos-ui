@@ -2,15 +2,18 @@ import { Page, TuningsApiListTuningsRequest } from '@cube-frontend/api'
 import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
 import { isEqual } from 'lodash'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { TuningRow, tuningToRow } from './tuningsUtils'
 import { ListTuningsQuery } from './useListTuningsQuery'
 
+const TUNINGS_POLLING_INTERVAL = 5 * 1000
+
 type UseTuningRows = {
-  isLoading: boolean
+  showLoading: boolean
   rows: TuningRow[]
   hasModifiedTuning: boolean
   page: Page | undefined
@@ -30,6 +33,7 @@ export const useTuningRows = (
 
   const {
     data: listTuningsResponse,
+    isLoading,
     hasResponseBeenReceived,
     getResource: listTunings,
   } = useCosGetRequest(
@@ -44,13 +48,16 @@ export const useTuningRows = (
     }),
   )
 
-  const { startInterval, stopInterval } = useSequentialInterval(
+  const { isPolling, startPolling, stopPolling } = usePolling(
     listTunings,
-    5000,
-    {
-      immediate: false,
-    },
+    TUNINGS_POLLING_INTERVAL,
   )
+
+  const showLoading = shouldDisplayLoading({
+    isLoading,
+    isPolling,
+    hasResponseBeenReceived,
+  })
 
   useEffect(() => {
     const tunings = listTuningsResponse?.tunings ?? []
@@ -116,7 +123,7 @@ export const useTuningRows = (
       // Pause polling until the API responds to prevent users from seeing
       // intermediate tunings (e.g., a single tuning split into two due to
       // the fact that COS can only update tunings for 1 host at a time).
-      stopInterval()
+      startPolling()
       await tuningsApi.enableOrDisableTuning({
         dataCenter: dataCenter!.name,
         parameterName: row.name,
@@ -125,7 +132,7 @@ export const useTuningRows = (
           hosts: row.hosts.map((host) => host.name),
         },
       })
-      startInterval()
+      stopPolling()
       await syncIntervenedRowStatus(row)
     } catch (error) {
       console.error('Toggle tuning error: ', error)
@@ -158,7 +165,7 @@ export const useTuningRows = (
       // Pause polling until the API responds to prevent users from seeing
       // intermediate tunings (e.g., a single tuning split into two due to
       // the fact that COS can only update tunings for 1 host at a time).
-      stopInterval()
+      startPolling()
       await tuningsApi.resetTuning({
         dataCenter: dataCenter!.name,
         parameterName: row.name,
@@ -166,7 +173,7 @@ export const useTuningRows = (
           hosts: row.hosts.map((host) => host.name),
         },
       })
-      startInterval()
+      stopPolling()
       await syncIntervenedRowStatus(row)
     } catch (error) {
       console.error('Reset tuning error: ', error)
@@ -215,7 +222,7 @@ export const useTuningRows = (
   }
 
   return {
-    isLoading: !hasResponseBeenReceived,
+    showLoading,
     rows,
     hasModifiedTuning,
     page: listTuningsResponse?.page,

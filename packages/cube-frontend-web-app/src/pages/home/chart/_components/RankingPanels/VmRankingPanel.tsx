@@ -5,7 +5,8 @@ import {
 } from '@cube-frontend/api'
 import { CosDropdown, CosGeneralPanel } from '@cube-frontend/ui-library'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import { useMetricsParams } from '../StoragePanels/useMetricsParams'
 import {
   CHART_PAGE_POLLING_INTERVAL,
@@ -75,11 +76,13 @@ export const VmRankingPanel = () => {
     }),
   )
 
-  useSequentialInterval(getResource, CHART_PAGE_POLLING_INTERVAL, {
-    immediate: false,
-  })
+  const { isPolling } = usePolling(getResource, CHART_PAGE_POLLING_INTERVAL)
 
-  const showLoading = !hasResponseBeenReceived && isLoading
+  const showLoading = shouldDisplayLoading({
+    isLoading,
+    isPolling,
+    hasResponseBeenReceived,
+  })
 
   const { data: grafanaLinkResponse } = useCosGetRequest(
     grafanaApi.getGrafanaTopInstances,

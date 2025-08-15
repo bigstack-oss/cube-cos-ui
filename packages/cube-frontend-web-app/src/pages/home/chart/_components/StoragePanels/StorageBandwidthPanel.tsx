@@ -8,7 +8,8 @@ import {
 import { useMetricsParams } from './useMetricsParams'
 import { toAbbreviation } from '@cube-frontend/web-app/utils/number'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 
 export const StorageBandwidthPanel = () => {
   const getMetricsParams = useMetricsParams()
@@ -26,11 +27,13 @@ export const StorageBandwidthPanel = () => {
     getMetricsParams(getDiskBandwidthHistoryTypeParams),
   )
 
-  useSequentialInterval(getResource, CHART_PAGE_POLLING_INTERVAL, {
-    immediate: false,
-  })
+  const { isPolling } = usePolling(getResource, CHART_PAGE_POLLING_INTERVAL)
 
-  const showLoading = !hasResponseBeenReceived && isLoading
+  const showLoading = shouldDisplayLoading({
+    hasResponseBeenReceived,
+    isLoading,
+    isPolling,
+  })
 
   return (
     <CosGeneralPanel topic="Storage Bandwidth" className="flex-1">

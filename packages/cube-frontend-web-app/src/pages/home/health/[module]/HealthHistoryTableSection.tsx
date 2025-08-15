@@ -14,6 +14,7 @@ import { useMemo } from 'react'
 import { HistoryRow, historyToTableRows } from './healthDetailsUtils'
 
 export type HealthHistoryTableSectionProps = {
+  isLoading: boolean
   history: GetModuleHealthHistoryResponseDataHistoryInner[] | undefined
   activeRow: HistoryRow | undefined
   onRowClick: (row: HistoryRow) => void
@@ -38,6 +39,7 @@ export const HealthHistoryTableSection = (
   props: HealthHistoryTableSectionProps,
 ) => {
   const {
+    isLoading,
     history,
     activeRow,
     onRowClick,
@@ -73,7 +75,7 @@ export const HealthHistoryTableSection = (
       <h6 className="primary-h5 text-functional-title">Health History</h6>
       <HistoryTable
         rows={pagedRows}
-        isLoading={!history}
+        isLoading={isLoading}
         skeletonRowCount={10}
         rowClassName={(row) =>
           tableRow({
@@ -94,7 +96,7 @@ export const HealthHistoryTableSection = (
         </HistoryTable.Column>
       </HistoryTable>
       <CosPagination
-        isLoading={!history}
+        isLoading={isLoading}
         totalItems={history?.length ?? 0}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

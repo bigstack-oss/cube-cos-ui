@@ -4,7 +4,7 @@ import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
 import { noop } from 'lodash'
 import { useContext, useMemo, useState } from 'react'
@@ -31,12 +31,9 @@ const HealthPanel = () => {
 
   const isLoading = !hasResponseBeenReceived
 
-  const { startInterval, stopInterval } = useSequentialInterval(
+  const { startPolling, stopPolling } = usePolling(
     getHealths,
     HOME_OVERVIEW_PAGE_POLLING_INTERVAL,
-    {
-      immediate: false,
-    },
   )
 
   const updateTime = useUpdateTime(healths, isLoading)
@@ -59,7 +56,7 @@ const HealthPanel = () => {
   )
 
   const handleRepair = async () => {
-    stopInterval()
+    stopPolling()
     setIsCallingRepairApi(true)
     try {
       const errorServiceNames = errorServices.map((service) => service.name)
@@ -71,7 +68,7 @@ const HealthPanel = () => {
       console.error('Repair data center health error: ', error)
     } finally {
       await getHealths()
-      startInterval()
+      startPolling()
       setIsCallingRepairApi(false)
     }
   }

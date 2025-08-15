@@ -3,7 +3,8 @@ import { MetricsApiGetMetricsOverviewRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import { UsagePanel } from './_components/UsagePanel/UsagePanel'
 import { ChartPanel } from './_components/ChartPanel/ChartPanel'
 import { RankingPanels } from './_components/RankingPanels/RankingPanels'
@@ -18,7 +19,7 @@ export const HomeChartPage = () => {
   const {
     data: metrics = defaultMetrics,
     isLoading: isMetricsLoading,
-    hasResponseBeenReceived,
+    hasResponseBeenReceived: hasMetricsResponseBeenReceived,
     getResource: getMetrics,
   } = useCosGetRequest(metricsApi.getMetricsOverview, () => {
     return {
@@ -26,11 +27,16 @@ export const HomeChartPage = () => {
     } satisfies MetricsApiGetMetricsOverviewRequest
   })
 
-  useSequentialInterval(getMetrics, CHART_PAGE_POLLING_INTERVAL, {
-    immediate: false,
-  })
+  const { isPolling: isMetricsPolling } = usePolling(
+    getMetrics,
+    CHART_PAGE_POLLING_INTERVAL,
+  )
 
-  const showMetricsLoading = !hasResponseBeenReceived && isMetricsLoading
+  const showMetricsLoading = shouldDisplayLoading({
+    isLoading: isMetricsLoading,
+    isPolling: isMetricsPolling,
+    hasResponseBeenReceived: hasMetricsResponseBeenReceived,
+  })
 
   return (
     <div className="mt-6 flex flex-col gap-y-4">

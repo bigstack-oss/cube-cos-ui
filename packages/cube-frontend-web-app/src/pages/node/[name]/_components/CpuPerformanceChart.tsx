@@ -4,9 +4,10 @@ import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDr
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { useContext, useMemo } from 'react'
 import { Line } from 'react-chartjs-2'
+import { NODE_DETAILS_POLLING_INTERVAL } from '../NodeDetailsPageUtils'
 import { Panel } from './Panel'
 import {
   chartTimeRanges,
@@ -18,6 +19,7 @@ type CpuPerformanceChartProps = {
   node: Node | undefined
 }
 
+// TODO: extract polling interval to prop
 export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
   const { node } = props
 
@@ -43,17 +45,11 @@ export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
     },
   )
 
-  useSequentialInterval(
-    () => {
-      if (node) {
-        getMetrics()
-      }
-    },
-    5000,
-    {
-      immediate: false,
-    },
-  )
+  usePolling(async () => {
+    if (node) {
+      await getMetrics()
+    }
+  }, NODE_DETAILS_POLLING_INTERVAL)
 
   const chartData = useMemo(
     () => computeChartData(metricsData, 'cpu'),

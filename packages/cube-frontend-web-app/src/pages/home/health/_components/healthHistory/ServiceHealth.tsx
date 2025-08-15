@@ -9,7 +9,8 @@ import {
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import { Dayjs } from 'dayjs'
 import { useContext, useMemo } from 'react'
 import {
@@ -34,34 +35,38 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
 
   const { elementRef, isVisible } = useIsVisible<HTMLDivElement>()
 
-  const { data: moduleHealths, getResource: getServiceHealthHistory } =
-    useCosGetRequest(
-      healthApi.getServiceHealthHistory,
-      (): HealthApiGetServiceHealthHistoryRequest | undefined => {
-        // Don't send the request when the container is not visible to avoid
-        // hitting the browser's connection limit.
-        if (!isVisible) {
-          return undefined
-        }
-        return {
-          dataCenter: dataCenter!.name,
-          serviceType: service.name as GetServiceHealthHistoryServiceTypeEnum,
-          past,
-        }
-      },
-    )
-
-  useSequentialInterval(
-    () => {
-      if (isVisible) {
-        getServiceHealthHistory()
+  const {
+    data: moduleHealths,
+    isLoading,
+    hasResponseBeenReceived,
+    getResource: getServiceHealthHistory,
+  } = useCosGetRequest(
+    healthApi.getServiceHealthHistory,
+    (): HealthApiGetServiceHealthHistoryRequest | undefined => {
+      // Don't send the request when the container is not visible to avoid
+      // hitting the browser's connection limit.
+      if (!isVisible) {
+        return undefined
+      }
+      return {
+        dataCenter: dataCenter!.name,
+        serviceType: service.name as GetServiceHealthHistoryServiceTypeEnum,
+        past,
       }
     },
-    HOME_HEALTH_PAGE_POLLING_INTERVAL,
-    {
-      immediate: false,
-    },
   )
+
+  const { isPolling } = usePolling(async () => {
+    if (isVisible) {
+      await getServiceHealthHistory()
+    }
+  }, HOME_HEALTH_PAGE_POLLING_INTERVAL)
+
+  const showLoading = shouldDisplayLoading({
+    hasResponseBeenReceived,
+    isLoading,
+    isPolling,
+  })
 
   const moduleHistoriesMap = useMemo<
     Map<
@@ -93,7 +98,7 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
           <ModuleHealth
             key={module.name}
             moduleName={module.name as GetHealthHistoryModuleTypeEnum}
-            isLoading={!moduleHealths}
+            isLoading={showLoading}
             history={
               moduleHistoriesMap.get(
                 module.name as GetHealthHistoryModuleTypeEnum,

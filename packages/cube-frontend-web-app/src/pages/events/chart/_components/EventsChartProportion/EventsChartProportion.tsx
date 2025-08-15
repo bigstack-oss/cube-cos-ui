@@ -78,7 +78,8 @@ export const EventsChartProportion = (props: EventsChartProportionProps) => {
   }
 
   const renderChart = () => {
-    if (rankedEvents.length === 0) return <ChartEmpty />
+    if (!isRankedEventsLoading && rankedEvents.length === 0)
+      return <ChartEmpty />
 
     return (
       <PieChart

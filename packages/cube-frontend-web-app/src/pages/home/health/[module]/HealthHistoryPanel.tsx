@@ -16,7 +16,7 @@ import {
 import { HealthHistoryPanelHeader } from './HealthHistoryPanelHeader'
 import { HealthHistoryTableSection } from './HealthHistoryTableSection'
 import { HealthTimeBar } from './HealthTimeBar/HealthTimeBar'
-import { HealthTimeBarSkeleton } from './HealthTimeBarSkeleton'
+import { HealthTimeBarSkeleton } from './HealthTimeBar/HealthTimeBarSkeleton'
 import { useModuleHealthHistory } from './useModuleHealthHistory'
 import { DateTimeRange } from '@cube-frontend/web-app/components/HealthSegmentedBar/BrushFilter'
 import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
@@ -64,11 +64,13 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
   })
 
   const {
+    showAggregatedHistoryLoading,
     aggregatedHistoryResponse,
+    showRawHistoryLoading,
     rawHistoryResponse,
     getHealthHistory,
-    startInterval,
-    stopInterval,
+    startPolling,
+    stopPolling,
   } = useModuleHealthHistory({
     module,
     past: timeRange,
@@ -97,7 +99,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
 
   const onRepairClick = async () => {
     if (!module) return
-    stopInterval()
+    stopPolling()
     setIsCallingRepairApi(true)
     try {
       await repairModuleHealth({
@@ -109,7 +111,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
       console.error('Repair module health error: ', error)
     } finally {
       await getHealthHistory()
-      startInterval()
+      startPolling()
       setIsCallingRepairApi(false)
     }
   }
@@ -138,7 +140,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
         onToggleDetailPanel={onToggleDetailPanel}
         onRepairClick={onRepairClick}
       />
-      {!aggregatedHistoryResponse || !tableHistory ? (
+      {showAggregatedHistoryLoading ? (
         <HealthTimeBarSkeleton />
       ) : (
         <HealthTimeBar
@@ -151,6 +153,7 @@ export const HealthHistoryPanel = (props: HealthHistoryPanelProps) => {
       )}
       <CosStroke type="dot" />
       <HealthHistoryTableSection
+        isLoading={showRawHistoryLoading}
         history={tableHistory}
         activeRow={activeHistoryRow}
         onRowClick={onHistoryRowClick}

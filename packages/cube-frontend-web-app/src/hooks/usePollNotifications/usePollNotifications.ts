@@ -6,7 +6,7 @@ import { uniqueId } from 'lodash'
 import { useContext } from 'react'
 import { notificationsApi } from '../../api/cosApi'
 import { DataCenterContext } from '../../context/DataCenterContext'
-import { useSequentialInterval } from '../useSequentialInterval/useSequentialInterval'
+import { usePolling } from '../usePolling'
 import { mockI18n } from './mockI18n'
 import {
   computeLastNotificationTimeLocalStorageKey,
@@ -83,5 +83,5 @@ export const usePollNotifications = (): void => {
     })
   }
 
-  useSequentialInterval(pollAndShow, 3000)
+  usePolling(pollAndShow, 3000, { immediate: true })
 }

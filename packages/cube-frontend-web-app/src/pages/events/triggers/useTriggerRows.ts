@@ -4,7 +4,7 @@ import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
 import { Page, TriggersApiGetTriggersRequest } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { parseErrorMessage } from '@cube-frontend/web-app/utils/errorMessage'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { TriggersQuery, TriggerRow, mapToTriggerTableRow } from './utils'
 
 export type UseTriggerRowsOptions = {
@@ -44,7 +44,7 @@ export const useTriggerRows = (
     }),
   )
 
-  useSequentialInterval(refreshTriggers, 5000)
+  usePolling(refreshTriggers, 5000)
 
   useEffect(() => {
     const triggers = listTriggersResponse?.triggers ?? []

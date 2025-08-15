@@ -12,7 +12,8 @@ import { eventsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
 import { noop } from 'lodash'
@@ -46,6 +47,7 @@ export const EventPanel = () => {
 
   const {
     data: eventsData,
+    isLoading,
     hasResponseBeenReceived,
     getResource: getAbstractedEvents,
   } = useCosGetRequest(eventsApi.getAbstractedEvents, () => {
@@ -56,21 +58,22 @@ export const EventPanel = () => {
     } satisfies EventsApiGetAbstractedEventsRequest
   })
 
-  const isLoading = !hasResponseBeenReceived
-
-  useSequentialInterval(
+  const { isPolling } = usePolling(
     getAbstractedEvents,
     HOME_OVERVIEW_PAGE_POLLING_INTERVAL,
-    {
-      immediate: false,
-    },
   )
+
+  const showLoading = shouldDisplayLoading({
+    isLoading,
+    isPolling,
+    hasResponseBeenReceived,
+  })
 
   const rows = useMemo<TableEvent[]>(() => {
     return eventsData?.events.map(mapToTableEvent) || []
   }, [eventsData?.events])
 
-  const updateTime = useUpdateTime(eventsData, isLoading)
+  const updateTime = useUpdateTime(eventsData, showLoading)
 
   return (
     <CosDashboardPanel
@@ -79,7 +82,7 @@ export const EventPanel = () => {
       hyperLinkProps={{ onClick: noop }}
       HyperLinkContainer={<Link to={CosRoutesEnum.EVENTS_PAGE} />}
       useContentWrapper={false}
-      isTimeLoading={isLoading}
+      isTimeLoading={showLoading}
     >
       <div className="flex flex-col gap-y-3">
         <CosContentSwitcher variant="default" size="sm">
@@ -102,7 +105,7 @@ export const EventPanel = () => {
             Instance
           </CosContentSwitcher.Item>
         </CosContentSwitcher>
-        <EventTable rows={rows} isLoading={isLoading}>
+        <EventTable rows={rows} isLoading={showLoading}>
           <EventTable.Column label="Severity" property="severity" />
           <EventTable.Column
             label="Event ID"

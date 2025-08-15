@@ -43,7 +43,7 @@ export const MaintenanceTuningsPage = () => {
     useOperationErrors()
 
   const {
-    isLoading,
+    showLoading,
     rows,
     page,
     hasModifiedTuning,
@@ -115,7 +115,7 @@ export const MaintenanceTuningsPage = () => {
         onNodeItemClick={onNodeItemClick}
         onNodesAllCheckChange={onNodesAllCheckChange}
       />
-      <TuningTable isLoading={isLoading} rows={rows}>
+      <TuningTable isLoading={showLoading} rows={rows}>
         <TuningTable.Column
           property="name"
           label="Name (Keys)"

@@ -3,7 +3,7 @@ import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { useContext } from 'react'
 import { Navigate, useParams } from 'react-router'
 import { NodeDevices } from './_components/devices/NodeDevices'
@@ -12,6 +12,7 @@ import { NodeDetailsHeader } from './_components/NodeDetailsHeader'
 import { NodeEvents } from './_components/NodeEvents'
 import { NodeNetworks } from './_components/NodeNetworks'
 import { NodeSummary } from './_components/NodeSummary'
+import { NODE_DETAILS_POLLING_INTERVAL } from './NodeDetailsPageUtils'
 
 export const NodeDetailsPage = () => {
   const { name: nodeName } = useParams()
@@ -34,9 +35,7 @@ export const NodeDetailsPage = () => {
     }),
   )
 
-  useSequentialInterval(getNodeDetails, 5000, {
-    immediate: false,
-  })
+  usePolling(getNodeDetails, NODE_DETAILS_POLLING_INTERVAL)
 
   if (!isLoading && !node) {
     // Node not found.

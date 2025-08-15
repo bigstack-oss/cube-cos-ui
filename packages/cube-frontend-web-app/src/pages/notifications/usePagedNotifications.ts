@@ -5,12 +5,13 @@ import {
 import { notificationsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import { useContext } from 'react'
 import { ListNotificationsQuery } from './notificationsPageUtils'
 
 type UsePagedNotifications = {
-  isLoading: boolean
+  showLoading: boolean
   pagedNotifications: GetNotificationsResponseData | undefined
 }
 
@@ -21,6 +22,7 @@ export const usePagedNotifications = (
   const { dataCenter } = useContext(DataCenterContext)
 
   const {
+    isLoading,
     hasResponseBeenReceived,
     data: pagedNotifications,
     getResource: listNotifications,
@@ -35,10 +37,16 @@ export const usePagedNotifications = (
     }),
   )
 
-  useSequentialInterval(listNotifications, 5000)
+  const { isPolling } = usePolling(listNotifications, 5000)
+
+  const showLoading = shouldDisplayLoading({
+    isLoading,
+    isPolling,
+    hasResponseBeenReceived,
+  })
 
   return {
-    isLoading: !hasResponseBeenReceived,
+    showLoading,
     pagedNotifications,
   }
 }

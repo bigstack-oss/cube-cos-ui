@@ -14,9 +14,11 @@ import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDr
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import dayjs from 'dayjs'
 import { useContext, useMemo, useState } from 'react'
+import { NODE_DETAILS_POLLING_INTERVAL } from '../NodeDetailsPageUtils'
 import { chartTimeRanges } from './nodeChartsUtils'
 import { Panel } from './Panel'
 
@@ -59,7 +61,12 @@ export const NodeEvents = (props: NodeEventsProps) => {
     })
   }
 
-  const { data: response, getResource: getNodeEvents } = useCosGetRequest(
+  const {
+    data: response,
+    isLoading,
+    hasResponseBeenReceived,
+    getResource: getNodeEvents,
+  } = useCosGetRequest(
     eventsApi.getEvents,
     (): EventsApiGetEventsRequest | undefined => {
       if (!node) return undefined
@@ -74,17 +81,17 @@ export const NodeEvents = (props: NodeEventsProps) => {
     },
   )
 
-  useSequentialInterval(
-    () => {
-      if (node) {
-        getNodeEvents()
-      }
-    },
-    5000,
-    {
-      immediate: false,
-    },
-  )
+  const { isPolling } = usePolling(async () => {
+    if (node) {
+      await getNodeEvents()
+    }
+  }, NODE_DETAILS_POLLING_INTERVAL)
+
+  const showLoading = shouldDisplayLoading({
+    isLoading,
+    isPolling,
+    hasResponseBeenReceived,
+  })
 
   const rows = useMemo<EventRow[]>(() => {
     const events = response?.events ?? []
@@ -110,7 +117,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
           onChange={onTimeRangeChange}
         />
       </div>
-      <EventTable isLoading={!node} rows={rows} skeletonRowCount={10}>
+      <EventTable isLoading={showLoading} rows={rows} skeletonRowCount={10}>
         <EventTable.Column label="Severity" property="severity" />
         <EventTable.Column label="Event ID" property="eventId" />
         <EventTable.Column label="Timestamp" property="time">
@@ -124,7 +131,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
         </EventTable.Column>
       </EventTable>
       <CosPagination
-        isLoading={!node}
+        isLoading={showLoading}
         totalItems={response?.page.totalItemCount ?? 0}
         currentPage={paginationParams.page}
         itemsPerPage={paginationParams.itemsPerPage}

@@ -5,7 +5,7 @@ import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useSequentialInterval } from '@cube-frontend/web-app/hooks/useSequentialInterval/useSequentialInterval'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 import { NodeTable } from './NodeTable'
 import { noop, uniqueId } from 'lodash'
@@ -31,9 +31,7 @@ export const NodePanel = () => {
 
   const isLoading = !hasResponseBeenReceived
 
-  useSequentialInterval(getNodes, HOME_OVERVIEW_PAGE_POLLING_INTERVAL, {
-    immediate: false,
-  })
+  usePolling(getNodes, HOME_OVERVIEW_PAGE_POLLING_INTERVAL)
 
   const updateTime = useUpdateTime(nodesData, isLoading)
 

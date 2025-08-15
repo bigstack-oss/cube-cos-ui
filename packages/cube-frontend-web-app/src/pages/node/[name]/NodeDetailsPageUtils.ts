@@ -1,0 +1,1 @@
+export const NODE_DETAILS_POLLING_INTERVAL = 5 * 1000

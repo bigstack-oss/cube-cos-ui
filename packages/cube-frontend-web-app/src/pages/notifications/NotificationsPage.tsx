@@ -34,7 +34,7 @@ export const NotificationsPage = () => {
     onItemsPerPageChange,
   } = useListNotificationsQuery()
 
-  const { isLoading, pagedNotifications } = usePagedNotifications(
+  const { showLoading, pagedNotifications } = usePagedNotifications(
     query,
     debouncedKeyword,
   )
@@ -97,7 +97,7 @@ export const NotificationsPage = () => {
     >
       <div className="flex flex-col gap-y-4">
         <NotificationsTable
-          isLoading={isLoading}
+          isLoading={showLoading}
           rows={rows}
           expandedRowIdSet={expandedRowIdSet}
           onExpandChange={onExpandChange}
@@ -131,7 +131,7 @@ export const NotificationsPage = () => {
           </NotificationsTable.Column>
         </NotificationsTable>
         <CosPagination
-          isLoading={isLoading}
+          isLoading={showLoading}
           totalItems={pagedNotifications?.page.totalItemCount ?? 0}
           currentPage={query.currentPage}
           itemsPerPage={query.itemsPerPage}
