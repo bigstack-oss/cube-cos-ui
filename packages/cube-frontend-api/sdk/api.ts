@@ -754,6 +754,18 @@ export interface DataCenter {
     'isLocal': boolean;
     /**
      * 
+     * @type {SystemVersionDetails}
+     * @memberof DataCenter
+     */
+    'firmware': SystemVersionDetails;
+    /**
+     * 
+     * @type {SystemVersionDetails}
+     * @memberof DataCenter
+     */
+    'fixpack': SystemVersionDetails;
+    /**
+     * 
      * @type {string}
      * @memberof DataCenter
      */
@@ -3331,6 +3343,31 @@ export interface GetIntegrationsResponseDataInner {
 /**
  * 
  * @export
+ * @interface GetLastNotification500Response
+ */
+export interface GetLastNotification500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetLastNotification500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLastNotification500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLastNotification500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface GetLicenseAttachments500Response
  */
 export interface GetLicenseAttachments500Response {
@@ -4908,6 +4945,37 @@ export interface GetNodesResponseData {
 /**
  * 
  * @export
+ * @interface GetNotificationResponse
+ */
+export interface GetNotificationResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetNotificationResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Notification}
+     * @memberof GetNotificationResponse
+     */
+    'data': Notification;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNotificationResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetNotificationResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface GetNotifications500Response
  */
 export interface GetNotifications500Response {
@@ -4929,56 +4997,6 @@ export interface GetNotifications500Response {
      * @memberof GetNotifications500Response
      */
     'status'?: string;
-}
-/**
- * 
- * @export
- * @interface GetNotificationsResponse
- */
-export interface GetNotificationsResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNotificationsResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {GetNotificationsResponseData}
-     * @memberof GetNotificationsResponse
-     */
-    'data': GetNotificationsResponseData;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNotificationsResponse
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNotificationsResponse
-     */
-    'status': string;
-}
-/**
- * 
- * @export
- * @interface GetNotificationsResponseData
- */
-export interface GetNotificationsResponseData {
-    /**
-     * 
-     * @type {Array<Notification>}
-     * @memberof GetNotificationsResponseData
-     */
-    'notifications': Array<Notification>;
-    /**
-     * 
-     * @type {Page}
-     * @memberof GetNotificationsResponseData
-     */
-    'page': Page;
 }
 /**
  * 
@@ -6436,6 +6454,146 @@ export interface LicenseIssue {
 /**
  * 
  * @export
+ * @interface ListFirmwares500Response
+ */
+export interface ListFirmwares500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFirmwares500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwares500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwares500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwaresResponse
+ */
+export interface ListFirmwaresResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFirmwaresResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {ListFirmwaresResponseData}
+     * @memberof ListFirmwaresResponse
+     */
+    'data': ListFirmwaresResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwaresResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwaresResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwaresResponseData
+ */
+export interface ListFirmwaresResponseData {
+    /**
+     * 
+     * @type {Array<ListFirmwaresResponseDataFirmwaresInner>}
+     * @memberof ListFirmwaresResponseData
+     */
+    'firmwares': Array<ListFirmwaresResponseDataFirmwaresInner>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof ListFirmwaresResponseData
+     */
+    'page': Page;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwaresResponseDataFirmwaresInner
+ */
+export interface ListFirmwaresResponseDataFirmwaresInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwaresResponseDataFirmwaresInner
+     */
+    'version': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwaresResponseDataFirmwaresInner
+     */
+    'releaseNotes': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwaresResponseDataFirmwaresInner
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {ListFirmwaresResponseDataFirmwaresInnerStatus}
+     * @memberof ListFirmwaresResponseDataFirmwaresInner
+     */
+    'status': ListFirmwaresResponseDataFirmwaresInnerStatus;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwaresResponseDataFirmwaresInnerStatus
+ */
+export interface ListFirmwaresResponseDataFirmwaresInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwaresResponseDataFirmwaresInnerStatus
+     */
+    'current': ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListFirmwaresResponseDataFirmwaresInnerStatus
+     */
+    'isUpdatable': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListFirmwaresResponseDataFirmwaresInnerStatus
+     */
+    'isProcessing': boolean;
+}
+
+export const ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = {
+    Available: 'available',
+    Processing: 'processing',
+    Updated: 'updated'
+} as const;
+
+export type ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = typeof ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum[keyof typeof ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
  * @interface ListImageMaterials500Response
  */
 export interface ListImageMaterials500Response {
@@ -6543,12 +6701,6 @@ export interface ListImageMaterialsResponseDataReservedImagesInner {
      * @type {string}
      * @memberof ListImageMaterialsResponseDataReservedImagesInner
      */
-    'file': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListImageMaterialsResponseDataReservedImagesInner
-     */
     'name': string;
     /**
      * 
@@ -6586,6 +6738,25 @@ export interface ListImageMaterialsResponseDataReservedImagesInner {
      * @memberof ListImageMaterialsResponseDataReservedImagesInner
      */
     'visibility': string;
+    /**
+     * 
+     * @type {ListImageMaterialsResponseDataReservedImagesInnerReserved}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInner
+     */
+    'reserved': ListImageMaterialsResponseDataReservedImagesInnerReserved;
+}
+/**
+ * 
+ * @export
+ * @interface ListImageMaterialsResponseDataReservedImagesInnerReserved
+ */
+export interface ListImageMaterialsResponseDataReservedImagesInnerReserved {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataReservedImagesInnerReserved
+     */
+    'prefix': string;
 }
 /**
  * 
@@ -7116,6 +7287,56 @@ export const ListNodeDevicesResponseDataInnerStatusCurrentEnum = {
 
 export type ListNodeDevicesResponseDataInnerStatusCurrentEnum = typeof ListNodeDevicesResponseDataInnerStatusCurrentEnum[keyof typeof ListNodeDevicesResponseDataInnerStatusCurrentEnum];
 
+/**
+ * 
+ * @export
+ * @interface ListNotificationsResponse
+ */
+export interface ListNotificationsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNotificationsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {ListNotificationsResponseData}
+     * @memberof ListNotificationsResponse
+     */
+    'data': ListNotificationsResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNotificationsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNotificationsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNotificationsResponseData
+ */
+export interface ListNotificationsResponseData {
+    /**
+     * 
+     * @type {Array<Notification>}
+     * @memberof ListNotificationsResponseData
+     */
+    'notifications': Array<Notification>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof ListNotificationsResponseData
+     */
+    'page': Page;
+}
 /**
  * 
  * @export
@@ -9422,6 +9643,25 @@ export interface SupportFileSetStatus {
 /**
  * 
  * @export
+ * @interface SystemVersionDetails
+ */
+export interface SystemVersionDetails {
+    /**
+     * 
+     * @type {string}
+     * @memberof SystemVersionDetails
+     */
+    'version': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SystemVersionDetails
+     */
+    'updatedAt': string;
+}
+/**
+ * 
+ * @export
  * @interface TimeValuePair
  */
 export interface TimeValuePair {
@@ -10236,6 +10476,156 @@ export interface UpdateTuningResponse {
 /**
  * 
  * @export
+ * @interface UploadFirmware200Response
+ */
+export interface UploadFirmware200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFirmware200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmware200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmware200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFirmware409Response
+ */
+export interface UploadFirmware409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFirmware409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmware409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmware409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFirmware500Response
+ */
+export interface UploadFirmware500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFirmware500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmware500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmware500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFirmwareMd5Sum200Response
+ */
+export interface UploadFirmwareMd5Sum200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFirmwareMd5Sum200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmwareMd5Sum200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmwareMd5Sum200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFirmwareMd5Sum409Response
+ */
+export interface UploadFirmwareMd5Sum409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFirmwareMd5Sum409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmwareMd5Sum409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmwareMd5Sum409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFirmwareMd5Sum500Response
+ */
+export interface UploadFirmwareMd5Sum500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFirmwareMd5Sum500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmwareMd5Sum500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFirmwareMd5Sum500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface VerifyLicense500Response
  */
 export interface VerifyLicense500Response {
@@ -10729,6 +11119,131 @@ export interface VerifyTriggerScript500Response {
      * 
      * @type {string}
      * @memberof VerifyTriggerScript500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VierfyFirmwareMd5Sum200Response
+ */
+export interface VierfyFirmwareMd5Sum200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VierfyFirmwareMd5Sum200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VierfyFirmwareMd5Sum200ResponseData}
+     * @memberof VierfyFirmwareMd5Sum200Response
+     */
+    'data': VierfyFirmwareMd5Sum200ResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VierfyFirmwareMd5Sum200ResponseData
+ */
+export interface VierfyFirmwareMd5Sum200ResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum200ResponseData
+     */
+    'firmwareMd5'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum200ResponseData
+     */
+    'expectedMd5'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VierfyFirmwareMd5Sum400Response
+ */
+export interface VierfyFirmwareMd5Sum400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VierfyFirmwareMd5Sum400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VierfyFirmwareMd5Sum400ResponseData}
+     * @memberof VierfyFirmwareMd5Sum400Response
+     */
+    'data': VierfyFirmwareMd5Sum400ResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VierfyFirmwareMd5Sum400ResponseData
+ */
+export interface VierfyFirmwareMd5Sum400ResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum400ResponseData
+     */
+    'firmwareMd5'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum400ResponseData
+     */
+    'expectedMd5'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VierfyFirmwareMd5Sum409Response
+ */
+export interface VierfyFirmwareMd5Sum409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VierfyFirmwareMd5Sum409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VierfyFirmwareMd5Sum409Response
      */
     'status'?: string;
 }
@@ -12033,6 +12548,462 @@ export const GetRankedEventsPastEnum = {
     _14d: '14d'
 } as const;
 export type GetRankedEventsPastEnum = typeof GetRankedEventsPastEnum[keyof typeof GetRankedEventsPastEnum];
+
+
+/**
+ * FirmwaresApi - axios parameter creator
+ * @export
+ */
+export const FirmwaresApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary List firmwares
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFirmwares: async (dataCenter: string, pageNum?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listFirmwares', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Upload a firmware
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} file Name of the file to store
+         * @param {File} body for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFirmware: async (dataCenter: string, file: string, body: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('uploadFirmware', 'dataCenter', dataCenter)
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('uploadFirmware', 'file', file)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('uploadFirmware', 'body', body)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (file !== undefined) {
+                localVarQueryParameter['file'] = file;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/octet-stream';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Upload a firmware MD5 sum
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} body for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFirmwareMd5Sum: async (dataCenter: string, body: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('uploadFirmwareMd5Sum', 'dataCenter', dataCenter)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('uploadFirmwareMd5Sum', 'body', body)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/md5sum`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/octet-stream';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Verify the firmware MD5 sum
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        vierfyFirmwareMd5Sum: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('vierfyFirmwareMd5Sum', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/md5sum/verify`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FirmwaresApi - functional programming interface
+ * @export
+ */
+export const FirmwaresApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FirmwaresApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary List firmwares
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listFirmwares(dataCenter: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListFirmwaresResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listFirmwares(dataCenter, pageNum, pageSize, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.listFirmwares']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Upload a firmware
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} file Name of the file to store
+         * @param {File} body for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadFirmware(dataCenter: string, file: string, body: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UploadFirmware200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFirmware(dataCenter, file, body, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.uploadFirmware']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Upload a firmware MD5 sum
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} body for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadFirmwareMd5Sum(dataCenter: string, body: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UploadFirmwareMd5Sum200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFirmwareMd5Sum(dataCenter, body, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.uploadFirmwareMd5Sum']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Verify the firmware MD5 sum
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async vierfyFirmwareMd5Sum(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VierfyFirmwareMd5Sum200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.vierfyFirmwareMd5Sum(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.vierfyFirmwareMd5Sum']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * FirmwaresApi - factory interface
+ * @export
+ */
+export const FirmwaresApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FirmwaresApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary List firmwares
+         * @param {FirmwaresApiListFirmwaresRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFirmwares(requestParameters: FirmwaresApiListFirmwaresRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListFirmwaresResponse> {
+            return localVarFp.listFirmwares(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upload a firmware
+         * @param {FirmwaresApiUploadFirmwareRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFirmware(requestParameters: FirmwaresApiUploadFirmwareRequest, options?: RawAxiosRequestConfig): AxiosPromise<UploadFirmware200Response> {
+            return localVarFp.uploadFirmware(requestParameters.dataCenter, requestParameters.file, requestParameters.body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upload a firmware MD5 sum
+         * @param {FirmwaresApiUploadFirmwareMd5SumRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFirmwareMd5Sum(requestParameters: FirmwaresApiUploadFirmwareMd5SumRequest, options?: RawAxiosRequestConfig): AxiosPromise<UploadFirmwareMd5Sum200Response> {
+            return localVarFp.uploadFirmwareMd5Sum(requestParameters.dataCenter, requestParameters.body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Verify the firmware MD5 sum
+         * @param {FirmwaresApiVierfyFirmwareMd5SumRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        vierfyFirmwareMd5Sum(requestParameters: FirmwaresApiVierfyFirmwareMd5SumRequest, options?: RawAxiosRequestConfig): AxiosPromise<VierfyFirmwareMd5Sum200Response> {
+            return localVarFp.vierfyFirmwareMd5Sum(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for listFirmwares operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiListFirmwaresRequest
+ */
+export interface FirmwaresApiListFirmwaresRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiListFirmwares
+     */
+    readonly dataCenter: string
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof FirmwaresApiListFirmwares
+     */
+    readonly pageNum?: number
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof FirmwaresApiListFirmwares
+     */
+    readonly pageSize?: number
+}
+
+/**
+ * Request parameters for uploadFirmware operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiUploadFirmwareRequest
+ */
+export interface FirmwaresApiUploadFirmwareRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiUploadFirmware
+     */
+    readonly dataCenter: string
+
+    /**
+     * Name of the file to store
+     * @type {string}
+     * @memberof FirmwaresApiUploadFirmware
+     */
+    readonly file: string
+
+    /**
+     * for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+     * @type {File}
+     * @memberof FirmwaresApiUploadFirmware
+     */
+    readonly body: File
+}
+
+/**
+ * Request parameters for uploadFirmwareMd5Sum operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiUploadFirmwareMd5SumRequest
+ */
+export interface FirmwaresApiUploadFirmwareMd5SumRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiUploadFirmwareMd5Sum
+     */
+    readonly dataCenter: string
+
+    /**
+     * for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+     * @type {File}
+     * @memberof FirmwaresApiUploadFirmwareMd5Sum
+     */
+    readonly body: File
+}
+
+/**
+ * Request parameters for vierfyFirmwareMd5Sum operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiVierfyFirmwareMd5SumRequest
+ */
+export interface FirmwaresApiVierfyFirmwareMd5SumRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiVierfyFirmwareMd5Sum
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * FirmwaresApi - object-oriented interface
+ * @export
+ * @class FirmwaresApi
+ * @extends {BaseAPI}
+ */
+export class FirmwaresApi extends BaseAPI {
+    /**
+     * 
+     * @summary List firmwares
+     * @param {FirmwaresApiListFirmwaresRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public listFirmwares(requestParameters: FirmwaresApiListFirmwaresRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).listFirmwares(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upload a firmware
+     * @param {FirmwaresApiUploadFirmwareRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public uploadFirmware(requestParameters: FirmwaresApiUploadFirmwareRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).uploadFirmware(requestParameters.dataCenter, requestParameters.file, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upload a firmware MD5 sum
+     * @param {FirmwaresApiUploadFirmwareMd5SumRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public uploadFirmwareMd5Sum(requestParameters: FirmwaresApiUploadFirmwareMd5SumRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).uploadFirmwareMd5Sum(requestParameters.dataCenter, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Verify the firmware MD5 sum
+     * @param {FirmwaresApiVierfyFirmwareMd5SumRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public vierfyFirmwareMd5Sum(requestParameters: FirmwaresApiVierfyFirmwareMd5SumRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).vierfyFirmwareMd5Sum(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 /**
@@ -17569,6 +18540,44 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
     return {
         /**
          * 
+         * @summary Retrieve the last notification
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLastNotification: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getLastNotification', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/notifications/last`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the notifications
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
@@ -17647,6 +18656,19 @@ export const NotificationsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Retrieve the last notification
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLastNotification(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNotificationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLastNotification(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotificationsApi.getLastNotification']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the notifications
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
@@ -17658,7 +18680,7 @@ export const NotificationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNotifications(dataCenter: string, start?: string, stop?: string, past?: string, keyword?: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNotificationsResponse>> {
+        async getNotifications(dataCenter: string, start?: string, stop?: string, past?: string, keyword?: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListNotificationsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNotifications(dataCenter, start, stop, past, keyword, pageNum, pageSize, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NotificationsApi.getNotifications']?.[localVarOperationServerIndex]?.url;
@@ -17676,16 +18698,40 @@ export const NotificationsApiFactory = function (configuration?: Configuration, 
     return {
         /**
          * 
+         * @summary Retrieve the last notification
+         * @param {NotificationsApiGetLastNotificationRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLastNotification(requestParameters: NotificationsApiGetLastNotificationRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNotificationResponse> {
+            return localVarFp.getLastNotification(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve the notifications
          * @param {NotificationsApiGetNotificationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifications(requestParameters: NotificationsApiGetNotificationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNotificationsResponse> {
+        getNotifications(requestParameters: NotificationsApiGetNotificationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListNotificationsResponse> {
             return localVarFp.getNotifications(requestParameters.dataCenter, requestParameters.start, requestParameters.stop, requestParameters.past, requestParameters.keyword, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for getLastNotification operation in NotificationsApi.
+ * @export
+ * @interface NotificationsApiGetLastNotificationRequest
+ */
+export interface NotificationsApiGetLastNotificationRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NotificationsApiGetLastNotification
+     */
+    readonly dataCenter: string
+}
 
 /**
  * Request parameters for getNotifications operation in NotificationsApi.
@@ -17750,6 +18796,18 @@ export interface NotificationsApiGetNotificationsRequest {
  * @extends {BaseAPI}
  */
 export class NotificationsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Retrieve the last notification
+     * @param {NotificationsApiGetLastNotificationRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationsApi
+     */
+    public getLastNotification(requestParameters: NotificationsApiGetLastNotificationRequest, options?: RawAxiosRequestConfig) {
+        return NotificationsApiFp(this.configuration).getLastNotification(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Retrieve the notifications
