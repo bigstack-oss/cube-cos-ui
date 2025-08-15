@@ -1,5 +1,5 @@
 import {
-  GetNotificationsResponseData,
+  ListNotificationsResponseData,
   NotificationsApiGetNotificationsRequest,
 } from '@cube-frontend/api'
 import { notificationsApi } from '@cube-frontend/web-app/api/cosApi'
@@ -11,8 +11,9 @@ import { useContext } from 'react'
 import { ListNotificationsQuery } from './notificationsPageUtils'
 
 type UsePagedNotifications = {
+  isFetching: boolean
   showLoading: boolean
-  pagedNotifications: GetNotificationsResponseData | undefined
+  pagedNotifications: ListNotificationsResponseData | undefined
 }
 
 export const usePagedNotifications = (
@@ -46,6 +47,7 @@ export const usePagedNotifications = (
   })
 
   return {
+    isFetching: isLoading,
     showLoading,
     pagedNotifications,
   }

@@ -8,10 +8,15 @@ import {
   useExpandedRowIdSet,
 } from '@cube-frontend/ui-library'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
+import { UnreadNotificationDot } from '@cube-frontend/web-app/components/UnreadNotificationDot'
+import { NotificationsContext } from '@cube-frontend/web-app/context/NotificationsContext'
 import { mockI18n } from '@cube-frontend/web-app/hooks/usePollNotifications/mockI18n'
-import { notificationToToastArgs } from '@cube-frontend/web-app/utils/notification'
+import {
+  checkIsNotificationUnread,
+  notificationToToastArgs,
+} from '@cube-frontend/web-app/utils/notification'
 import dayjs from 'dayjs'
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import {
   listNotificationsPastEnums,
@@ -20,6 +25,7 @@ import {
 } from './notificationsPageUtils'
 import { useListNotificationsQuery } from './useListNotificationsQuery'
 import { usePagedNotifications } from './usePagedNotifications'
+import { useUpdateLastAccessedAt } from './useUpdateLastAccessedAt'
 
 const NotificationsTable = GetCosViewDetailsTable<NotificationRow>()
 
@@ -34,7 +40,7 @@ export const NotificationsPage = () => {
     onItemsPerPageChange,
   } = useListNotificationsQuery()
 
-  const { showLoading, pagedNotifications } = usePagedNotifications(
+  const { isFetching, showLoading, pagedNotifications } = usePagedNotifications(
     query,
     debouncedKeyword,
   )
@@ -46,6 +52,16 @@ export const NotificationsPage = () => {
 
   const { expandedRowIdSet, onExpandChange } = useExpandedRowIdSet()
 
+  const { lastAccessedAt } = useContext(NotificationsContext)
+
+  useUpdateLastAccessedAt(isFetching)
+
+  const hasUnreadRows = useMemo<boolean>(
+    () =>
+      rows.some((row) => checkIsNotificationUnread(row.time, lastAccessedAt)),
+    [rows, lastAccessedAt],
+  )
+
   const computeDetailTitle = (row: NotificationRow): string => {
     let description: string = 'No details'
 
@@ -54,6 +70,21 @@ export const NotificationsPage = () => {
     }
 
     return description
+  }
+
+  const renderUnreadDot = (row: NotificationRow) => {
+    // Render nothing when all rows are read to prevent showing an empty, fixed-size span on every row.
+    if (!hasUnreadRows) return null
+
+    const isCreatedAfterLastAccessed = dayjs
+      .respectTzOffset(row.time)
+      .isAfter(lastAccessedAt)
+
+    return (
+      <span className="inline-flex size-4 items-center justify-center">
+        {isCreatedAfterLastAccessed && <UnreadNotificationDot />}
+      </span>
+    )
   }
 
   const renderMessage = (row: NotificationRow) => {
@@ -103,6 +134,7 @@ export const NotificationsPage = () => {
           onExpandChange={onExpandChange}
           getDetailItems={() => []}
           detailTitle={computeDetailTitle}
+          beforeExpandButton={renderUnreadDot}
         >
           <NotificationsTable.Column
             label="Timestamp"

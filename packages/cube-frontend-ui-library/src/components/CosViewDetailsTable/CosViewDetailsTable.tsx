@@ -1,5 +1,6 @@
 import ChevronDown from '@cube-frontend/ui-library/icons/monochrome/chevron_down.svg?react'
 import { cva } from 'class-variance-authority'
+import { ReactNode } from 'react'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 import {
   CosBasicTable,
@@ -21,6 +22,7 @@ export type CosViewDetailsTableProps<ParentRow extends CosTableRow> = Omit<
     onExpandChange: (parentRowId: string, value: boolean) => void
     detailTitle?: string | ((parentRow: ParentRow) => string)
     getDetailItems: (parentRow: ParentRow) => CosViewDetailsTableDetailItem[]
+    beforeExpandButton?: (parentRow: ParentRow) => ReactNode
   },
   'rowClassName'
 >
@@ -43,6 +45,7 @@ const CosViewDetailsTable = <ParentRow extends CosTableRow>(
     onExpandChange: onExpandChangeProp,
     detailTitle,
     getDetailItems,
+    beforeExpandButton,
     ...restProps
   } = props
 
@@ -92,15 +95,18 @@ const CosViewDetailsTable = <ParentRow extends CosTableRow>(
     <TypedBasicTable {...restProps} rowClassName={computeParentRowClassName}>
       <TypedBasicTable.Column skeletonVariant="icon-only" fitContent={true}>
         {(_, parentRow) => (
-          <button
-            type="button"
-            className={expandButton({
-              isExpanded: isExpanded(parentRow.id),
-            })}
-            onClick={() => onExpandChange(parentRow.id)}
-          >
-            <ChevronDown className="icon-md text-functional-text" />
-          </button>
+          <div className="flex items-center">
+            {beforeExpandButton?.(parentRow)}
+            <button
+              type="button"
+              className={expandButton({
+                isExpanded: isExpanded(parentRow.id),
+              })}
+              onClick={() => onExpandChange(parentRow.id)}
+            >
+              <ChevronDown className="icon-md text-functional-text" />
+            </button>
+          </div>
         )}
       </TypedBasicTable.Column>
       {children}

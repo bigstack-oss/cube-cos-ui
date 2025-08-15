@@ -56,3 +56,11 @@ const getI18nArgs = (notification: Notification): Record<string, unknown> => {
 
   return args
 }
+
+export const checkIsNotificationUnread = (
+  notificationCreatedAt: string,
+  lastAccessedAt: number,
+): boolean => {
+  const createdAt = dayjs.respectTzOffset(notificationCreatedAt)
+  return createdAt.isSame(lastAccessedAt) || createdAt.isAfter(lastAccessedAt)
+}
