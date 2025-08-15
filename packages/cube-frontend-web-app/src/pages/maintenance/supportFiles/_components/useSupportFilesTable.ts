@@ -5,6 +5,10 @@ import { supportFilesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { SupportFilesApiGetSupportFilesRequest } from '@cube-frontend/api'
 import { SupportFileListQuery } from './utils'
+import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
+
+export const SUPPORT_FILES_POLLING_INTERVAL = 30 * 1000
 
 export const useSupportFilesTable = (query: SupportFileListQuery) => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -12,7 +16,8 @@ export const useSupportFilesTable = (query: SupportFileListQuery) => {
   const {
     data: supportFilesData,
     isLoading,
-    getResource: refetchSupportFiles,
+    hasResponseBeenReceived,
+    getResource: fetchSupportFiles,
   } = useCosGetRequest(supportFilesApi.getSupportFiles, () => {
     return {
       dataCenter: dataCenter!.name,
@@ -23,6 +28,17 @@ export const useSupportFilesTable = (query: SupportFileListQuery) => {
       start: query.startDate?.format(),
       stop: query.endDate?.format(),
     } satisfies SupportFilesApiGetSupportFilesRequest
+  })
+
+  const { isPolling } = usePolling(
+    fetchSupportFiles,
+    SUPPORT_FILES_POLLING_INTERVAL,
+  )
+
+  const showLoading = shouldDisplayLoading({
+    isLoading,
+    isPolling,
+    hasResponseBeenReceived,
   })
 
   const rows: SupportFileRow[] =
@@ -60,7 +76,7 @@ export const useSupportFilesTable = (query: SupportFileListQuery) => {
     } catch (error) {
       console.error('Delete support files error: ', error)
     } finally {
-      refetchSupportFiles()
+      fetchSupportFiles()
       setDeleting(false)
       closeDeleteModal()
     }
@@ -76,7 +92,7 @@ export const useSupportFilesTable = (query: SupportFileListQuery) => {
 
   return {
     rows,
-    isLoading,
+    showLoading,
     supportFilesData,
     deleteModal,
     downloadModal,

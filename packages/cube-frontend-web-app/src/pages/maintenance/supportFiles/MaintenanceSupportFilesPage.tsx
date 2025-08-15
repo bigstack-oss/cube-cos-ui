@@ -32,7 +32,7 @@ export const MaintenanceSupportFilesPage = () => {
     onItemsPerPageChange,
   } = useSupportFileListQuery()
 
-  const { rows, isLoading, supportFilesData, deleteModal, downloadModal } =
+  const { rows, showLoading, supportFilesData, deleteModal, downloadModal } =
     useSupportFilesTable(keywordDebouncedQuery)
 
   return (
@@ -64,14 +64,14 @@ export const MaintenanceSupportFilesPage = () => {
               />
               <SupportFilesTable
                 rows={rows}
-                isLoading={isLoading}
+                isLoading={showLoading}
                 skeletonRowCount={query.itemsPerPage}
                 onDownloadClick={downloadModal.open}
                 onDeleteClick={deleteModal.open}
               />
             </div>
             <CosPagination
-              isLoading={isLoading}
+              isLoading={showLoading}
               totalItems={supportFilesData?.page.totalItemCount ?? 0}
               currentPage={query.currentPage}
               itemsPerPage={query.itemsPerPage}
