@@ -15,11 +15,11 @@ export const useUpdateLastAccessedAt = (isFetching: boolean): void => {
     },
   )
 
-  // When a user changes the query parameters, a new API request is sent, and the
-  // response might include unread notifications. If we don't stop the `accessedAt`
-  // updating interval in this situation, those unread notifications could be marked
-  // as read immediately after they appear, or even before the server responds if
-  // the timing is just right.
+  // When the notifications are being fetched (either triggered by request param
+  // changes or polling), a new API request is sent, and the response might include
+  // unread notifications. If we don't stop the `accessedAt` updating interval in
+  // this situation, those unread notifications could be marked as read immediately
+  // after they appear, or even before the server responds if the timing is just right.
   useEffect(() => {
     if (isFetching) {
       // API still firing. Stop the updating interval.
