@@ -1,4 +1,9 @@
-import { ComponentType, createElement, PropsWithChildren } from 'react'
+import {
+  ComponentType,
+  createElement,
+  PropsWithChildren,
+  ReactNode,
+} from 'react'
 import { CosButton } from '../CosButton/CosButton'
 import { SvgComponent } from '../CosIcon/CosIcon'
 import { CosTooltip } from '../CosTooltip/CosTooltip'
@@ -17,13 +22,14 @@ export type FunctionBarItem<
     Component: ComponentType<ContainerProps>
     props: ContainerProps
   }
+  additionalElements?: ReactNode[]
 }
 
 export const FunctionBar = (props: FunctionBarProps) => {
   const { items } = props
 
   const renderItem = (item: FunctionBarItem) => {
-    const { Icon, onClick, container } = item
+    const { Icon, onClick, container, additionalElements = [] } = item
 
     const button = (
       <CosButton
@@ -39,7 +45,12 @@ export const FunctionBar = (props: FunctionBarProps) => {
       return button
     }
 
-    return createElement(container.Component, container.props, button)
+    return createElement(
+      container.Component,
+      container.props,
+      button,
+      ...additionalElements,
+    )
   }
 
   return (
