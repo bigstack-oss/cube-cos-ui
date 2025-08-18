@@ -31,6 +31,9 @@ export const Gallery: StoryObj = {
       <StoryLayout.Section title="Dynamic Content">
         <DynamicContent />
       </StoryLayout.Section>
+      <StoryLayout.Section title="Custom Content Before Expand Button">
+        <CustomContentBeforeExpandButton />
+      </StoryLayout.Section>
       <StoryLayout.Section title="Skeleton">
         <Skeleton />
       </StoryLayout.Section>
@@ -183,6 +186,54 @@ const DynamicContent = () => {
       onExpandChange={onExpandChange}
       detailTitle={getDetailTitle}
       getDetailItems={getDetailItems}
+    >
+      <LicenseTable.Column label="Product" property="product" />
+      <LicenseTable.Column label="License name" property="name" />
+      <LicenseTable.Column label="Hosts" property="hosts">
+        {(hosts) => hosts.join(', ')}
+      </LicenseTable.Column>
+      <LicenseTable.Column label="Issue date" property="issueDate" />
+      <LicenseTable.Column label="Expire date" property="expireDate" />
+      <LicenseTable.Column label="Expired" property="expired" />
+      <LicenseTable.Column label="Type" property="type" />
+    </LicenseTable>
+  )
+}
+
+const CustomContentBeforeExpandButton = () => {
+  const { expandedRowIdSet, onExpandChange } = useExpandedRowIdSet()
+
+  const getDetailItems = (
+    license: MockLicense,
+  ): CosViewDetailsTableDetailItem[] => {
+    return [
+      {
+        title: 'Quantity',
+        value: license.quantity,
+      },
+      {
+        title: 'Support Plan',
+        value: license.supportPlan,
+      },
+      {
+        title: 'Feature',
+        value: upperFirst(license.feature),
+      },
+    ]
+  }
+
+  return (
+    <LicenseTable
+      rows={mockLicenses}
+      expandedRowIdSet={expandedRowIdSet}
+      onExpandChange={onExpandChange}
+      detailTitle="License Detail"
+      getDetailItems={getDetailItems}
+      beforeExpandButton={() => (
+        <span className="inline-flex size-4 items-center justify-center">
+          <span className="size-[4.5px] rounded-full bg-cosmos-secondary" />
+        </span>
+      )}
     >
       <LicenseTable.Column label="Product" property="product" />
       <LicenseTable.Column label="License name" property="name" />
