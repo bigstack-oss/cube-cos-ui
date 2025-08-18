@@ -7,11 +7,15 @@ import NodeIcon from '@cube-frontend/ui-library/icons/monochrome/node.svg?react'
 import SettingsIcon from '@cube-frontend/ui-library/icons/monochrome/settings.svg?react'
 import { useLocation, useNavigate } from 'react-router'
 import { CosRoutesEnum } from '../enum/routes'
+// import { useContext } from 'react'
+// import { GlobalSearchContext } from '../context/GlobalSearchContext'
 
 export const useSidebarOptions = (): SideBarComboboxOptionProps[] => {
   const { pathname } = useLocation()
 
   const navigate = useNavigate()
+
+  // const { keyword, setKeyword, clearKeyword } = useContext(GlobalSearchContext)
 
   const options: SideBarComboboxOptionProps[] = [
     {

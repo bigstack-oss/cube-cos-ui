@@ -15,6 +15,8 @@ import {
   applicationIntegrationUIData,
 } from '../utils/applicationIntegration'
 import { usePollNotifications } from '../hooks/usePollNotifications/usePollNotifications'
+import { GlobalSearchContext } from '../context/GlobalSearchContext'
+import { SearchPage } from './SearchPage'
 
 const Layout = (props: PropsWithChildren) => {
   const { children } = props
@@ -27,6 +29,8 @@ const Layout = (props: PropsWithChildren) => {
     useContext(DataCenterContext)
 
   const { userInfo, isLoading: isUserInfoLoading } = useContext(UserContext)
+  const { keyword, suggestions, setKeyword, clearKeyword, removeSuggestion } =
+    useContext(GlobalSearchContext)
 
   const {
     applicationIntegrations,
@@ -76,6 +80,11 @@ const Layout = (props: PropsWithChildren) => {
         <div className="max-w-[calc(100svw_-_200px)] flex-1">
           <CosHeader
             isLoading={isApplicationIntegrationsLoading}
+            keyword={keyword}
+            suggestions={suggestions}
+            onKeywordChange={setKeyword}
+            onKeywordClear={clearKeyword}
+            onRemoveSuggestion={removeSuggestion}
             quickAccesses={quickAccesses}
             functionBarItems={functionBarItems}
           />
@@ -83,7 +92,9 @@ const Layout = (props: PropsWithChildren) => {
            * Only render <Content> when `dataCenter` is available,
            * ensuring it always has access to a valid `dataCenter` value.
            */}
-          {dataCenter && <Content>{children}</Content>}
+          {dataCenter && (
+            <Content>{keyword ? <SearchPage /> : children}</Content>
+          )}
         </div>
       </div>
     </div>

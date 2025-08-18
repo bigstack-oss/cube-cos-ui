@@ -8,7 +8,7 @@ import { container } from './cosSearchBarGlobalStyles'
 import { omitNonInputProps } from './cosSearchBarGlobalUtils'
 
 export const CosSearchBarGlobal = (props: CosSearchBarGlobalProps) => {
-  const { variant, isLoading = false, onInputClear, children } = props
+  const { ref, variant, isLoading = false, onInputClear, children } = props
 
   if (isLoading) return <CosSearchBarSkeleton variant="global" />
 
@@ -29,6 +29,7 @@ export const CosSearchBarGlobal = (props: CosSearchBarGlobalProps) => {
   return (
     <div className={twMerge(container)}>
       <GlobalSearchBarInput
+        ref={ref}
         {...omitNonInputProps(props)}
         variant={variant}
         onInputClear={onInputClear}

@@ -10,6 +10,7 @@ import { DataCenterProvider } from './context/DataCenterProvider'
 import { ApplicationIntegrationsContextProvider } from './context/ApplicationIntegrationsContextProvider'
 import { UserContextProvider } from './context/UserContextProvider'
 import { CosTimeZoneProvider } from './context/CosTimeZoneProvider'
+import { GlobalSearchContextProvider } from './context/GlobalSearchContextProvider'
 import { CosRoutes } from './CosRoutes'
 import Layout from './layout/Layout'
 
@@ -24,9 +25,11 @@ function App() {
         <ApplicationIntegrationsContextProvider>
           <CosTimeZoneProvider>
             <CosToastProvider>
-              <Layout>
-                <CosRoutes />
-              </Layout>
+              <GlobalSearchContextProvider>
+                <Layout>
+                  <CosRoutes />
+                </Layout>
+              </GlobalSearchContextProvider>
             </CosToastProvider>
           </CosTimeZoneProvider>
         </ApplicationIntegrationsContextProvider>
