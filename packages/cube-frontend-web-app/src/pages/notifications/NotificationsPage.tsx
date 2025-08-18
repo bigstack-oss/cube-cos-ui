@@ -13,13 +13,13 @@ import { NotificationsContext } from '@cube-frontend/web-app/context/Notificatio
 import { mockI18n } from '@cube-frontend/web-app/hooks/usePollNotifications/mockI18n'
 import {
   checkIsNotificationUnread,
+  ListNotificationsPastEnum,
   notificationToToastArgs,
 } from '@cube-frontend/web-app/utils/notification'
 import dayjs from 'dayjs'
 import { useContext, useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import {
-  listNotificationsPastEnums,
   NotificationRow,
   notificationToTableRow,
 } from './notificationsPageUtils'
@@ -28,6 +28,8 @@ import { usePagedNotifications } from './usePagedNotifications'
 import { useUpdateLastAccessedAt } from './useUpdateLastAccessedAt'
 
 const NotificationsTable = GetCosViewDetailsTable<NotificationRow>()
+
+const pastEnums = Object.values(ListNotificationsPastEnum)
 
 export const NotificationsPage = () => {
   const {
@@ -120,7 +122,7 @@ export const NotificationsPage = () => {
       }
       dropdown={
         <TimeRangeDropdown
-          timeRanges={listNotificationsPastEnums}
+          timeRanges={pastEnums}
           selectedItem={query.timeRange}
           onChange={onTimeRangeChange}
         />

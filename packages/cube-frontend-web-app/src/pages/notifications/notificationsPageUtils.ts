@@ -1,5 +1,6 @@
 import { Notification } from '@cube-frontend/api'
 import { CosTableRow, DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
+import { ListNotificationsPastEnum } from '@cube-frontend/web-app/utils/notification'
 import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 import { z } from 'zod'
 
@@ -10,19 +11,7 @@ enum ParamKeyEnum {
   ItemsPerPage = 'pageSize',
 }
 
-export enum ListNotificationsPastEnum {
-  '1h' = '1h',
-  '24h' = '24h',
-  '7d' = '7d',
-  '14d' = '14d',
-  '30d' = '30d',
-}
-
-const DEFAULT_TIME_RANGE = ListNotificationsPastEnum['24h']
-
-export const listNotificationsPastEnums = Object.values(
-  ListNotificationsPastEnum,
-)
+export const DEFAULT_TIME_RANGE = ListNotificationsPastEnum['30d']
 
 const schema = paginationQuerySchema.extend({
   timeRange: z

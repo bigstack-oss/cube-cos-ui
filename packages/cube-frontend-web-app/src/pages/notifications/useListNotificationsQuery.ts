@@ -1,8 +1,8 @@
 import { ItemsPerPage } from '@cube-frontend/ui-library'
 import { useDebounce } from '@cube-frontend/web-app/hooks/useDebounce'
 import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchParamsQuery'
+import { ListNotificationsPastEnum } from '@cube-frontend/web-app/utils/notification'
 import {
-  ListNotificationsPastEnum,
   ListNotificationsQuery,
   queryToSearchParams,
   searchParamsToQuery,

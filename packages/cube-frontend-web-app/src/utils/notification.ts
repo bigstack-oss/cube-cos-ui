@@ -64,3 +64,28 @@ export const checkIsNotificationUnread = (
   const createdAt = dayjs.respectTzOffset(notificationCreatedAt)
   return createdAt.isSame(lastAccessedAt) || createdAt.isAfter(lastAccessedAt)
 }
+
+export enum ListNotificationsPastEnum {
+  '1h' = '1h',
+  '24h' = '24h',
+  '7d' = '7d',
+  '14d' = '14d',
+  '30d' = '30d',
+}
+
+export const checkIsNotificationWithin = (
+  createdAt: string,
+  pastEnum: ListNotificationsPastEnum,
+): boolean => {
+  // E.g., ['30d', '30', 'd']
+  const [, value, unit] = /(^\d+)(\w$)/.exec(pastEnum) ?? []
+  if (!value || !unit) throw new Error(`Malformed past enum: ${pastEnum}`)
+
+  const pastValue = parseInt(value, 10)
+  const pastUnit = unit as dayjs.ManipulateType
+
+  const createdDate = dayjs.respectTzOffset(createdAt)
+  const minDate = dayjs().subtract(pastValue, pastUnit)
+
+  return createdDate.isSame(minDate) || createdDate.isAfter(minDate)
+}
