@@ -19,7 +19,6 @@ import './tailwind.css'
 
 function App() {
   return (
-    // TODO: inject global css, setup global store here.
     <DataCenterProvider>
       <UserContextProvider>
         <ApplicationIntegrationsContextProvider>

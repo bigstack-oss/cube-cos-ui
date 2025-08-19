@@ -60,6 +60,17 @@ const Layout = (props: PropsWithChildren) => {
 
   usePollNotifications()
 
+  /**
+   * The UI should display an empty screen until the user's authentication status is confirmed,
+   * instead of showing the header and sidebar skeletons, since users may have security concerns.
+   *
+   * The token is cookie-based, so the UI cannot access its expiration time in the browser.
+   * We can only rely on the `userInfoApi.getMe` response to determine the user's authentication status.
+   */
+  if (!userInfo) {
+    return null
+  }
+
   return (
     <div className="h-svh min-w-full overflow-hidden bg-scene-background">
       <div className="flex h-svh flex-row">
