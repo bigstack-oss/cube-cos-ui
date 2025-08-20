@@ -4,7 +4,12 @@ import {
   GetTriggerMaterialsResponseDataResponseScriptType,
   TriggerResponseScript,
 } from '@cube-frontend/api'
-import { CosButton, CosModal, CosStroke } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosModal,
+  CosStroke,
+  CosHyperlink,
+} from '@cube-frontend/ui-library'
 import { LogConsole } from '@cube-frontend/web-app/components/LogConsole'
 import { UpsertTriggersPayload } from '../../../upsertTriggersUtils'
 import { FilePathCard } from './FilePathCard'
@@ -117,26 +122,35 @@ export const PersonalizedScriptModal = (
     >
       <div className="flex flex-col gap-y-8">
         <div className="flex flex-col gap-y-2">
-          <div className="flex items-center gap-x-4">
-            <CosButton
-              size="lg"
-              type="secondary"
-              usage="icon-left"
-              Icon={UploadIcon}
-              disabled={isValidating}
-              onClick={onUploadScriptButtonClick}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-x-4">
+              <CosButton
+                size="lg"
+                type="secondary"
+                usage="icon-left"
+                Icon={UploadIcon}
+                disabled={isValidating}
+                onClick={onUploadScriptButtonClick}
+              >
+                {`Upload ${scriptType.language} Script`}
+              </CosButton>
+              <input
+                ref={scriptFileInputRef}
+                type="file"
+                className="hidden"
+                onChange={onFileChange}
+              />
+              <p className="primary-body2 text-functional-text">
+                {`OS: ${scriptType.environment}`}
+              </p>
+            </div>
+            <CosHyperlink
+              variant="text-inline"
+              href="https://bigstack-oss.github.io/bigstack-document/docs/knowledge-base/cubecos/custom-scripts-for-triggers#sample-script-and-enviornment-information"
+              target="_blank"
             >
-              {`Upload ${scriptType.language} Script`}
-            </CosButton>
-            <input
-              ref={scriptFileInputRef}
-              type="file"
-              className="hidden"
-              onChange={onFileChange}
-            />
-            <p className="primary-body2 text-functional-text">
-              {`OS: ${scriptType.environment}`}
-            </p>
+              View example
+            </CosHyperlink>
           </div>
           {errorMessage && (
             <p className="primary-body3 text-status-negative">{errorMessage}</p>
