@@ -58,7 +58,7 @@ export const AddDescription = (props: AddDescriptionProps) => {
           isLoading={isLoading}
           label="Description"
           placeholder="Description"
-          maxLength={100000000}
+          maxLength={200}
           value={payload?.description}
           onChange={onDescriptionChange}
         />
