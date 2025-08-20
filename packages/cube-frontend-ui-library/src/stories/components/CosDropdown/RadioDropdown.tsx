@@ -12,11 +12,13 @@ type RadioDropdownProps = {
   isLoading: boolean
   selected: boolean
   disabled: boolean
+  isNoData: boolean
   label?: string
 }
 
 export const RadioDropdown = (props: RadioDropdownProps) => {
-  const { size, variant, isLoading, selected, disabled, label } = props
+  const { size, variant, isLoading, selected, disabled, isNoData, label } =
+    props
 
   const [selectedItems, setSelectedItems] = useState<MockDataItem[]>(() =>
     selected ? [mockData[0]] : [],
@@ -45,16 +47,18 @@ export const RadioDropdown = (props: RadioDropdownProps) => {
         {selectedItems.length > 0 ? selectedItems[0].label : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {mockData.map((item) => (
-          <CosDropdown.Item
-            key={item.value}
-            item={item}
-            disabled={item.disabled}
-            onClick={() => onItemClick(item)}
-          >
-            {item.label}
-          </CosDropdown.Item>
-        ))}
+        {isNoData
+          ? null
+          : mockData.map((item) => (
+              <CosDropdown.Item
+                key={item.value}
+                item={item}
+                disabled={item.disabled}
+                onClick={() => onItemClick(item)}
+              >
+                {item.label}
+              </CosDropdown.Item>
+            ))}
       </CosDropdown.Menu>
     </CosDropdown>
   )

@@ -29,6 +29,7 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={false}
               disabled={false}
+              isNoData={false}
             />
           </DropdownLayout>
           <DropdownLayout title="sm">
@@ -37,6 +38,7 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={false}
               disabled={false}
+              isNoData={false}
             />
           </DropdownLayout>
         </StoryLayout.Section>
@@ -50,6 +52,7 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={false}
               disabled={false}
+              isNoData={false}
             />
           </DropdownLayout>
           <DropdownLayout title="Unselected + Disabled">
@@ -58,6 +61,7 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={false}
               disabled={true}
+              isNoData={false}
             />
           </DropdownLayout>
           <DropdownLayout title="Selected">
@@ -66,6 +70,7 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={true}
               disabled={false}
+              isNoData={false}
             />
           </DropdownLayout>
           <DropdownLayout title="Selected  + Disabled">
@@ -74,6 +79,16 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={true}
               disabled={true}
+              isNoData={false}
+            />
+          </DropdownLayout>
+          <DropdownLayout title="No Data">
+            <DropdownRow
+              size="md"
+              isLoading={false}
+              selected={false}
+              disabled={false}
+              isNoData={true}
             />
           </DropdownLayout>
           <DropdownLayout title="Loading">
@@ -82,6 +97,7 @@ export const Default: StoryObj = {
               isLoading={true}
               selected={true}
               disabled={true}
+              isNoData={false}
             />
           </DropdownLayout>
         </StoryLayout.Section>
@@ -95,6 +111,7 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={false}
               disabled={false}
+              isNoData={false}
               label="Label"
             />
           </DropdownLayout>
@@ -104,6 +121,7 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={false}
               disabled={true}
+              isNoData={false}
               label="Label"
             />
           </DropdownLayout>
@@ -113,6 +131,7 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={true}
               disabled={false}
+              isNoData={false}
               label="Label"
             />
           </DropdownLayout>
@@ -122,6 +141,17 @@ export const Default: StoryObj = {
               isLoading={false}
               selected={true}
               disabled={true}
+              isNoData={false}
+              label="Label"
+            />
+          </DropdownLayout>
+          <DropdownLayout title="No Data">
+            <DropdownRow
+              size="md"
+              isLoading={false}
+              selected={false}
+              disabled={false}
+              isNoData={true}
               label="Label"
             />
           </DropdownLayout>
@@ -131,6 +161,7 @@ export const Default: StoryObj = {
               isLoading={true}
               selected={true}
               disabled={true}
+              isNoData={false}
               label="Label"
             />
           </DropdownLayout>

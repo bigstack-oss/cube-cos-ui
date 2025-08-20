@@ -31,6 +31,7 @@ export const DropdownRow = (props: {
   isLoading: boolean
   selected: boolean
   disabled: boolean
+  isNoData: boolean
   label?: string
 }) => {
   return (

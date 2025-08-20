@@ -303,52 +303,76 @@ export const filter = {
 // Dropdown Item Style
 // ====================================
 export const item = {
-  radio: cva('cursor-pointer truncate hover:bg-functional-hover-grey', {
+  radio: cva(
+    'cursor-pointer truncate text-functional-text hover:bg-functional-hover-grey',
+    {
+      variants: {
+        size: {
+          md: 'primary-body3',
+          sm: 'primary-body4',
+        },
+        variant: {
+          regular: '',
+          withFilter: '',
+        },
+        isSelected: {
+          true: 'font-semibold',
+        },
+        disabled: {
+          true: 'cursor-default text-functional-disable-text hover:bg-white',
+        },
+      },
+      compoundVariants: [
+        { size: 'md', variant: 'regular', class: 'px-[24px] py-[10px]' },
+        { size: 'md', variant: 'withFilter', class: 'px-[24px] py-[10px]' },
+        { size: 'sm', variant: 'regular', class: 'px-[24px] py-[9px]' },
+        { size: 'sm', variant: 'withFilter', class: 'px-[24px] py-[9px]' },
+      ],
+    },
+  ),
+  checkbox: cva(
+    'truncate text-functional-text hover:bg-functional-hover-grey',
+    {
+      variants: {
+        size: {
+          md: 'primary-body3',
+          sm: 'primary-body4',
+        },
+        variant: {
+          regular: '',
+          withFilter: '',
+        },
+        isSelected: {
+          true: 'font-semibold',
+        },
+        disabled: {
+          true: 'cursor-default text-functional-disable-text hover:bg-white',
+        },
+      },
+      compoundVariants: [
+        { size: 'md', variant: 'regular', class: 'px-[22px] py-[11px]' },
+        { size: 'md', variant: 'withFilter', class: 'px-[22px] py-[11px]' },
+        { size: 'sm', variant: 'regular', class: 'px-[16px] py-[9.5px]' },
+        { size: 'sm', variant: 'withFilter', class: 'px-[16px] py-[9.5px]' },
+      ],
+    },
+  ),
+  noData: cva('text-functional-text', {
     variants: {
       size: {
         md: 'primary-body3',
         sm: 'primary-body4',
       },
-      variant: {
-        regular: '',
-        withFilter: '',
-      },
-      isSelected: {
-        true: 'font-semibold',
-      },
-      disabled: {
-        true: 'cursor-default text-functional-disable-text hover:bg-white',
+      type: {
+        radio: '',
+        checkbox: '',
       },
     },
     compoundVariants: [
-      { size: 'md', variant: 'regular', class: 'px-[24px] py-[10px]' },
-      { size: 'md', variant: 'withFilter', class: 'px-[24px] py-[10px]' },
-      { size: 'sm', variant: 'regular', class: 'px-[24px] py-[9px]' },
-      { size: 'sm', variant: 'withFilter', class: 'px-[24px] py-[9px]' },
-    ],
-  }),
-  checkbox: cva('truncate hover:bg-functional-hover-grey', {
-    variants: {
-      size: {
-        md: 'primary-body3',
-        sm: 'primary-body4',
-      },
-      variant: {
-        regular: '',
-        withFilter: '',
-      },
-      isSelected: {
-        true: 'font-semibold',
-      },
-      disabled: {
-        true: 'cursor-default text-functional-disable-text hover:bg-white',
-      },
-    },
-    compoundVariants: [
-      { size: 'md', variant: 'regular', class: 'px-[22px] py-[11px]' },
-      { size: 'md', variant: 'withFilter', class: 'px-[22px] py-[11px]' },
-      { size: 'sm', variant: 'regular', class: 'px-[16px] py-[9.5px]' },
-      { size: 'sm', variant: 'withFilter', class: 'px-[16px] py-[9.5px]' },
+      { size: 'md', type: 'radio', class: 'px-[24px] py-[10px]' },
+      { size: 'md', type: 'checkbox', class: 'px-[22px] py-[11px]' },
+      { size: 'sm', type: 'radio', class: 'px-[24px] py-[9px]' },
+      { size: 'sm', type: 'checkbox', class: 'px-[16px] py-[9.5px]' },
     ],
   }),
 }

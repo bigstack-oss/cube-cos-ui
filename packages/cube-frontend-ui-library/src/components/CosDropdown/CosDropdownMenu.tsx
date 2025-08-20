@@ -1,10 +1,12 @@
-import { ReactNode, useCallback, useContext, useMemo } from 'react'
+import { Children, ReactNode, useCallback, useContext, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
 import { ItemCheckbox } from './_components/ItemCheckbox'
+import { ItemNoData } from './_components/ItemNoData'
 import { CosDropdownFilter } from './CosDropdownFilter'
 import { CosDropdownContext } from './cosDropdownContext'
 import { menu } from './cosDropdownStyles'
+import { checkIsCosDropdownItemElement } from './cosDropdownUtils'
 
 export type CosDropdownMenuProps = {
   children: ReactNode
@@ -41,7 +43,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
   }
 
   const renderSelectAllCheckbox = () => {
-    if (type === 'radio' || searchValue) return null
+    if (type === 'radio' || searchValue || !children) return null
 
     return (
       <ItemCheckbox
@@ -56,6 +58,26 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     )
   }
 
+  const renderMenuItems = () => {
+    const allItems = Children.toArray(children).filter(
+      checkIsCosDropdownItemElement,
+    )
+
+    const visibleItems =
+      variant !== 'withFilter' || !searchValue
+        ? allItems
+        : allItems.filter((child) =>
+            String(child.props.children)
+              .toLowerCase()
+              .includes(searchValue.toLowerCase()),
+          )
+
+    if (visibleItems.length === 0)
+      return <ItemNoData size={size} type={type} variant={variant} />
+
+    return visibleItems
+  }
+
   return createPortal(
     <div
       ref={elementRef}
@@ -64,7 +86,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     >
       {renderFilter()}
       {renderSelectAllCheckbox()}
-      {children}
+      {renderMenuItems()}
     </div>,
     document.body,
   )

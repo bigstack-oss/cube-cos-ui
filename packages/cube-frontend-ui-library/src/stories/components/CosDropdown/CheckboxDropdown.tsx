@@ -12,11 +12,13 @@ type CheckboxDropdownProps = {
   isLoading: boolean
   selected: boolean
   disabled: boolean
+  isNoData: boolean
   label?: string
 }
 
 export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
-  const { size, variant, isLoading, selected, disabled, label } = props
+  const { size, variant, isLoading, selected, disabled, isNoData, label } =
+    props
 
   const [selectedItems, setSelectedItems] = useState<MockDataItem[]>(() =>
     selected ? [mockData[0]] : [],
@@ -63,16 +65,18 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
             : undefined}
         </CosDropdown.Trigger>
         <CosDropdown.Menu>
-          {mockData.map((item) => (
-            <CosDropdown.Item
-              key={item.value}
-              item={item}
-              disabled={item.disabled}
-              onClick={() => onItemClick(item)}
-            >
-              {item.label}
-            </CosDropdown.Item>
-          ))}
+          {isNoData
+            ? null
+            : mockData.map((item) => (
+                <CosDropdown.Item
+                  key={item.value}
+                  item={item}
+                  disabled={item.disabled}
+                  onClick={() => onItemClick(item)}
+                >
+                  {item.label}
+                </CosDropdown.Item>
+              ))}
         </CosDropdown.Menu>
       </CosDropdown>
     )
@@ -95,16 +99,18 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
           : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
-        {mockData.map((item) => (
-          <CosDropdown.Item
-            key={item.value}
-            item={item}
-            disabled={item.disabled}
-            onClick={() => onItemClick(item)}
-          >
-            {item.label}
-          </CosDropdown.Item>
-        ))}
+        {isNoData
+          ? null
+          : mockData.map((item) => (
+              <CosDropdown.Item
+                key={item.value}
+                item={item}
+                disabled={item.disabled}
+                onClick={() => onItemClick(item)}
+              >
+                {item.label}
+              </CosDropdown.Item>
+            ))}
       </CosDropdown.Menu>
     </CosDropdown>
   )
