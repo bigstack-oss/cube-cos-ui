@@ -29,7 +29,7 @@ export const UpsertTriggersSteps = (props: UpsertTriggersStepsProps) => {
         <CosStepProcess.Item
           key={stepItem.step}
           label={stepItem.label}
-          serialNumber={index + 1}
+          stepNumber={index + 1}
           isActive={step === stepItem.step}
         />
       ))}

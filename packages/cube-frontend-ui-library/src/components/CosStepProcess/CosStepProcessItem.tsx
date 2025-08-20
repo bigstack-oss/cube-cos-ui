@@ -24,22 +24,22 @@ const item = {
   }),
 }
 
-type CosStepProcessItemProps = {
+export type CosStepProcessItemProps = {
   /**
    * The step serial number (1-based) that represents this step in the process.
    */
-  serialNumber: number
+  stepNumber: number
   label: string
   isActive: boolean
 }
 
 export const CosStepProcessItem = (props: CosStepProcessItemProps) => {
-  const { serialNumber, label, isActive } = props
+  const { stepNumber, label, isActive } = props
   return (
     <div className="group flex items-center gap-3">
       <div className="flex items-center gap-3">
         <div className={twMerge(item.number({ isActive }))}>
-          {serialNumber.toString()}
+          {stepNumber.toString()}
         </div>
         <p className={twMerge(item.label({ isActive }))}>{label}</p>
       </div>

@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosStepProcess } from '../../../components/CosStepProcess/CosStepProcess'
+import { CosStepProcessItemProps } from '../../../components/CosStepProcess/CosStepProcessItem'
 import { StepProcessGrid } from './StepProcessGrid'
 
 const meta = {
@@ -9,12 +10,14 @@ const meta = {
 
 export default meta
 
-const steps = [
-  { serialNumber: 1, label: 'Step Title 1' },
-  { serialNumber: 2, label: 'Step Title 2' },
-  { serialNumber: 3, label: 'Step Title 3' },
-  { serialNumber: 4, label: 'Step Title 4' },
-  { serialNumber: 5, label: 'Step Title 5' },
+type CosStepProcessItemType = Omit<CosStepProcessItemProps, 'isActive'>
+
+const steps: CosStepProcessItemType[] = [
+  { stepNumber: 1, label: 'Step Title 1' },
+  { stepNumber: 2, label: 'Step Title 2' },
+  { stepNumber: 3, label: 'Step Title 3' },
+  { stepNumber: 4, label: 'Step Title 4' },
+  { stepNumber: 5, label: 'Step Title 5' },
 ]
 
 export const Gallery: StoryObj = {
@@ -28,7 +31,7 @@ export const Gallery: StoryObj = {
               {steps.map((step) => (
                 <CosStepProcess.Item
                   key={`default-${step.label}`}
-                  serialNumber={step.serialNumber}
+                  stepNumber={step.stepNumber}
                   label={step.label}
                   isActive={false}
                 />
@@ -40,7 +43,7 @@ export const Gallery: StoryObj = {
               {steps.map((step) => (
                 <CosStepProcess.Item
                   key={`active-${step.label}`}
-                  serialNumber={step.serialNumber}
+                  stepNumber={step.stepNumber}
                   label={step.label}
                   isActive={true}
                 />
@@ -54,7 +57,7 @@ export const Gallery: StoryObj = {
               {steps.map((step) => (
                 <CosStepProcess.Item
                   key={`current-head-${step.label}`}
-                  serialNumber={step.serialNumber}
+                  stepNumber={step.stepNumber}
                   label={step.label}
                   isActive={step === steps[0]}
                 />
@@ -66,7 +69,7 @@ export const Gallery: StoryObj = {
               {steps.map((step) => (
                 <CosStepProcess.Item
                   key={`current-middle-${step.label}`}
-                  serialNumber={step.serialNumber}
+                  stepNumber={step.stepNumber}
                   label={step.label}
                   isActive={step === steps[2]}
                 />
@@ -78,7 +81,7 @@ export const Gallery: StoryObj = {
               {steps.map((step) => (
                 <CosStepProcess.Item
                   key={`current-final-${step.label}`}
-                  serialNumber={step.serialNumber}
+                  stepNumber={step.stepNumber}
                   label={step.label}
                   isActive={step === steps[4]}
                 />
