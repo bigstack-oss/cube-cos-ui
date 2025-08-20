@@ -1,4 +1,4 @@
-import { CosStepProcess, CosStepProcessItem } from '@cube-frontend/ui-library'
+import { CosStepProcess } from '@cube-frontend/ui-library'
 import { UpsertTriggersStep } from '../upsertTriggersUtils'
 
 type UpsertTriggersStepsProps = {
@@ -26,7 +26,7 @@ export const UpsertTriggersSteps = (props: UpsertTriggersStepsProps) => {
   return (
     <CosStepProcess>
       {stepItems.map((stepItem, index) => (
-        <CosStepProcessItem
+        <CosStepProcess.Item
           key={stepItem.step}
           label={stepItem.label}
           serialNumber={index + 1}

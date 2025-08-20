@@ -1,4 +1,4 @@
-import { CosStepProcess, CosStepProcessItem } from '@cube-frontend/ui-library'
+import { CosStepProcess } from '@cube-frontend/ui-library'
 import { UpsertTuningsStep } from '../upsertTuningsUtils'
 
 type UpsertTuningsStepsProps = {
@@ -26,7 +26,7 @@ export const UpsertTuningsSteps = (props: UpsertTuningsStepsProps) => {
   return (
     <CosStepProcess className="mt-3">
       {stepItems.map((stepItem, index) => (
-        <CosStepProcessItem
+        <CosStepProcess.Item
           key={stepItem.step}
           label={stepItem.label}
           serialNumber={index + 1}
