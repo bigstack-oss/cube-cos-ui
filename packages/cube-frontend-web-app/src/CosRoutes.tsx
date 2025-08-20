@@ -28,6 +28,8 @@ import { IntegrationsLayout } from './pages/integrations/IntegrationsLayout'
 import { CreateStoragePage } from './pages/integrations/storages/create/CreateStoragePage'
 import { EditStoragePage } from './pages/integrations/storages/edit/EditStoragePage'
 import { NotificationsPage } from './pages/notifications/NotificationsPage'
+import { MaintenanceUpdateFirmwarePage } from './pages/maintenance/update/firmware/MaintenanceUpdateFirmwarePage'
+import { MaintenanceUpdateFixpackPage } from './pages/maintenance/update/fixpack/MaintenanceUpdateFixpackPage'
 
 export const CosRoutes = () => {
   return (
@@ -97,6 +99,14 @@ export const CosRoutes = () => {
         <Route
           path={CosRoutesEnum.MAINTENANCE_LICENSE_PAGE}
           element={<MaintenanceLicensePage />}
+        />
+        <Route
+          path={CosRoutesEnum.MAINTENANCE_UPDATE_FIRMWARE_PAGE}
+          element={<MaintenanceUpdateFirmwarePage />}
+        />
+        <Route
+          path={CosRoutesEnum.MAINTENANCE_UPDATE_FIXPACK_PAGE}
+          element={<MaintenanceUpdateFixpackPage />}
         />
       </Route>
       <Route path={CosRoutesEnum.EVENTS_PAGE} element={<EventsLayout />}>

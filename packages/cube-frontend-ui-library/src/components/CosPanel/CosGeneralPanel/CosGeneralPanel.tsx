@@ -11,6 +11,7 @@ import {
 
 export type CosGeneralPanelContentProps = PropsWithChildren &
   PropsWithClassName & {
+    containerClassName?: string
     topic?: string
     button?: React.ReactElement<CosButtonProps>
     icon?: React.ReactNode
@@ -23,6 +24,7 @@ export const CosGeneralPanel = (props: CosGeneralPanelContentProps) => {
   const {
     children,
     className: classNameProps,
+    containerClassName,
     topic,
     button,
     icon,
@@ -59,7 +61,7 @@ export const CosGeneralPanel = (props: CosGeneralPanelContentProps) => {
   }
 
   return (
-    <CosGeneralPanelContainer>
+    <CosGeneralPanelContainer className={containerClassName}>
       {titleBarProps && <CosGeneralPanelTitleBar {...titleBarProps} />}
       <div
         className={twMerge(

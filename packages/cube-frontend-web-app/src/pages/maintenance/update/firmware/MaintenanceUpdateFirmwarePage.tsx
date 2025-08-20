@@ -1,0 +1,115 @@
+import {
+  CosButton,
+  CosGeneralPanel,
+  CosPagination,
+  GetCosBasicTable,
+} from '@cube-frontend/ui-library'
+import Trash from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
+import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import dayjs from 'dayjs'
+import { useContext } from 'react'
+import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
+import { ReleaseNotePanel } from '../_components/ReleaseNotePanel'
+import { useReleaseNotePanel } from '../_components/useReleaseNotePanel'
+import { FirmwareRow } from './listFirmwaresUtils'
+import { useListFirmwares } from './useListFirmwares'
+import { useListFirmwaresQuery } from './useListFirmwaresQuery'
+
+const FirmwareTable = GetCosBasicTable<FirmwareRow>()
+
+export const MaintenanceUpdateFirmwarePage = () => {
+  const { dataCenter } = useContext(DataCenterContext)
+
+  const { query, onPageChange, onItemsPerPageChange } = useListFirmwaresQuery()
+
+  const { showLoading, rows, totalItemCount } = useListFirmwares(query)
+
+  const {
+    rowForReleaseNote,
+    isReleaseNotePanelOpen,
+    showReleaseNoteFor,
+    onReleaseNotePanelClose,
+    toggleReleaseNotePanel,
+  } = useReleaseNotePanel<FirmwareRow>()
+
+  const formatUpdatedAt = (updatedAt: string): string => {
+    return dayjs.respectTzOffset(updatedAt).format('YYYY/MM/DD')
+  }
+
+  return (
+    <MaintenanceUpdateLayout
+      currentVersion={dataCenter!.firmware.version}
+      lastUpdated={dataCenter!.firmware.updatedAt}
+    >
+      <div className="flex items-start gap-x-4">
+        <CosGeneralPanel
+          containerClassName="grow"
+          topic="Firmware List"
+          dropdown={
+            <div className="flex items-center gap-x-4">
+              <CosButton disabled={showLoading}>Upload PKG File</CosButton>
+              <button
+                type="button"
+                className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
+                onClick={toggleReleaseNotePanel}
+              >
+                <InformationCircle className="icon-md text-functional-text" />
+              </button>
+            </div>
+          }
+        >
+          <div className="flex flex-col gap-y-6">
+            <FirmwareTable rows={rows} isLoading={showLoading}>
+              <FirmwareTable.Column
+                label="Firmware"
+                property="version"
+                fitContent={true}
+                emphasize={true}
+              >
+                {(version, row) => (
+                  <span
+                    className="cursor-pointer whitespace-nowrap text-primary"
+                    onClick={() => showReleaseNoteFor(row)}
+                  >
+                    {version}
+                  </span>
+                )}
+              </FirmwareTable.Column>
+              <FirmwareTable.Column label="Last Updated" property="updatedAt">
+                {formatUpdatedAt}
+              </FirmwareTable.Column>
+              <FirmwareTable.Column label="Note" property="releaseNotes" />
+              <FirmwareTable.Column
+                fitContent={true}
+                skeletonVariant="icon-right"
+              >
+                {() => (
+                  <div className="flex items-center">
+                    <CosButton type="ghost">Update</CosButton>
+                    <CosButton type="ghost" usage="icon-only" Icon={Trash} />
+                  </div>
+                )}
+              </FirmwareTable.Column>
+            </FirmwareTable>
+            <CosPagination
+              isLoading={showLoading}
+              totalItems={totalItemCount}
+              currentPage={query.page}
+              itemsPerPage={query.pageSize}
+              onPageChange={onPageChange}
+              onItemsPerPageChange={onItemsPerPageChange}
+            />
+          </div>
+        </CosGeneralPanel>
+        <ReleaseNotePanel
+          isOpen={isReleaseNotePanelOpen}
+          fallbackTitle="Firmware Version"
+          version={rowForReleaseNote?.version}
+          releaseNote={rowForReleaseNote?.releaseNotes}
+          onClose={onReleaseNotePanelClose}
+        />
+      </div>
+    </MaintenanceUpdateLayout>
+  )
+}

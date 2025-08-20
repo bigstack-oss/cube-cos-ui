@@ -26,6 +26,9 @@ export const CosRoutesEnum = {
   MAINTENANCE_TUNINGS_CREATE_PAGE: '/maintenance/tunings/create',
   MAINTENANCE_TUNINGS_EDIT_PAGE: '/maintenance/tunings/edit',
   MAINTENANCE_LICENSE_PAGE: '/maintenance/license',
+  MAINTENANCE_UPDATE_PAGE: '/maintenance/update',
+  MAINTENANCE_UPDATE_FIRMWARE_PAGE: '/maintenance/update/firmware',
+  MAINTENANCE_UPDATE_FIXPACK_PAGE: '/maintenance/update/fixpack',
   /** Events Page */
   EVENTS_PAGE: '/events',
   EVENTS_TRIGGERS_PAGE: '/events/triggers',
