@@ -36,9 +36,17 @@ export const Gallery: StoryObj = {
     return (
       <StoryLayout title="Checkbox">
         <StoryLayout.Section title="Checkbox">
-          <CheckboxGrid title="Master">
-            <CosCheckbox label={checkboxText} />
-          </CheckboxGrid>
+          <div className="flex flex-col gap-y-8">
+            <CheckboxGrid title="md">
+              <CosCheckbox label={checkboxText} />
+            </CheckboxGrid>
+            <CheckboxGrid title="sm">
+              <CosCheckbox label={checkboxText} size="sm" />
+            </CheckboxGrid>
+            <CheckboxGrid title="xs">
+              <CosCheckbox label={checkboxText} size="xs" />
+            </CheckboxGrid>
+          </div>
         </StoryLayout.Section>
         <StoryLayout.Section title="Variants">
           <div className="flex flex-col gap-y-8">

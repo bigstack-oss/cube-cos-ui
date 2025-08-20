@@ -12,16 +12,22 @@ export type CosCheckboxColor =
   | 'secondary'
   | 'secondary-dark'
 
+export type CosCheckboxSize = 'md' | 'sm' | 'xs'
+
 export type CosCheckboxStatus = 'unselected' | 'selected' | 'indeterminate'
 
 export type CosCheckboxProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  'checked' | 'defaultChecked'
+  'checked' | 'defaultChecked' | 'size'
 > & {
   /**
    * @default primary
    */
   color?: CosCheckboxColor
+  /**
+   * @default md
+   */
+  size?: CosCheckboxSize
   label?: string
   labelClassName?: string
   /**
@@ -39,6 +45,7 @@ export type CosCheckboxProps = Omit<
 export const CosCheckbox = (props: CosCheckboxProps) => {
   const {
     color = 'primary',
+    size = 'md',
     label,
     labelClassName,
     id,
@@ -76,6 +83,12 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
       return effectiveChecked ? CheckboxSelected : CheckboxUnselected
     })()
 
+    const iconSize = () => {
+      if (size === 'xs') return 'icon-sm'
+      if (size === 'sm') return 'icon-md-sm'
+      return 'icon-md'
+    }
+
     return (
       <div
         className={twMerge(
@@ -86,7 +99,7 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
           }),
         )}
       >
-        <IconComponent className="icon-md" />
+        <IconComponent className={iconSize()} />
       </div>
     )
   }
@@ -94,7 +107,10 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
   if (isLoading) return <CosCheckboxSkeleton />
 
   return (
-    <label htmlFor={id} className={twMerge(checkbox.container({ disabled }))}>
+    <label
+      htmlFor={id}
+      className={twMerge(checkbox.container({ size, disabled }))}
+    >
       <input
         {...restProps}
         id={id}
