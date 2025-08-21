@@ -32,7 +32,6 @@ export const TuningSpecTableSection = (props: TuningSpecTableSectionProps) => {
           placeholder="Search key or description"
           value={filter.keyword}
           isLoading={isLoading}
-          showDropdown={false}
           onChange={onKeywordChange}
           onInputClear={onKeywordClear}
         />

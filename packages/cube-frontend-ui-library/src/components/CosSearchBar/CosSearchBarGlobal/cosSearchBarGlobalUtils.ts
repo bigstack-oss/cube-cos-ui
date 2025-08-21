@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react'
 import {
   CosSearchBarGlobalProps,
-  SortingSearchBarGlobalProps,
+  CategorySearchBarGlobalProps,
 } from './cosSearchBarGlobalTypes'
 
 export const omitNonInputProps = (
@@ -9,9 +9,9 @@ export const omitNonInputProps = (
 ): ComponentProps<'input'> => {
   const { variant, isLoading, children, onInputClear, ...restProps } = props
 
-  if (variant === 'sorting') {
+  if (variant === 'category') {
     const { categories, selectedCategory, onCategoryClick, ...inputProps } =
-      restProps as SortingSearchBarGlobalProps
+      restProps as CategorySearchBarGlobalProps
     return inputProps
   }
 

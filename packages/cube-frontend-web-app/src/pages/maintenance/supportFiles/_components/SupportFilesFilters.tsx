@@ -79,7 +79,6 @@ export const SupportFilesFilters = (props: SupportFilesFiltersProps) => {
           value={keyword}
           onChange={(e) => handleSearchKeywordChange(e.target.value)}
           onInputClear={handleSearchKeywordClear}
-          showDropdown={false}
         />
         <RoleFilter
           selectedRoles={roles}

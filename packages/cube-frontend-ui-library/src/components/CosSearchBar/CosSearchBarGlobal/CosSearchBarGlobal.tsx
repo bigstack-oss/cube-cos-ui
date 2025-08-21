@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge'
 import { CosSearchBarSkeleton } from '../CosSearchBarSkeleton'
 import { CosSearchBarGlobalItem } from './CosSearchBarGlobalItem'
 import { GlobalSearchBarInput } from './GlobalSearchBarInput'
-import { GlobalSearchBarSorting } from './GlobalSearchBarSorting'
+import { GlobalSearchBarCategory } from './GlobalSearchBarCategory'
 import { CosSearchBarGlobalProps } from './cosSearchBarGlobalTypes'
 import { container } from './cosSearchBarGlobalStyles'
 import { omitNonInputProps } from './cosSearchBarGlobalUtils'
@@ -12,13 +12,13 @@ export const CosSearchBarGlobal = (props: CosSearchBarGlobalProps) => {
 
   if (isLoading) return <CosSearchBarSkeleton variant="global" />
 
-  const renderSortingDropdown = () => {
-    if (variant !== 'sorting') return null
+  const renderCategoryDropdown = () => {
+    if (variant !== 'category') return null
 
     const { categories, selectedCategory, onCategoryClick } = props
 
     return (
-      <GlobalSearchBarSorting
+      <GlobalSearchBarCategory
         categories={categories}
         selectedCategory={selectedCategory}
         onCategoryClick={onCategoryClick}
@@ -35,7 +35,7 @@ export const CosSearchBarGlobal = (props: CosSearchBarGlobalProps) => {
       >
         {children}
       </GlobalSearchBarInput>
-      {renderSortingDropdown()}
+      {renderCategoryDropdown()}
     </div>
   )
 }

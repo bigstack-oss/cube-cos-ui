@@ -2,45 +2,48 @@ import { Fragment, useCallback, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ChevronDown from '../../CosIcon/monochrome/chevron_down.svg?react'
 import { useFloating } from '../../../internal/utils/floating/useFloating'
-import { sorting } from './cosSearchBarGlobalStyles'
+import { category } from './cosSearchBarGlobalStyles'
 import { createPortal } from 'react-dom'
 
-type GlobalSearchBarSortingProps = {
+type GlobalSearchBarCategoryProps = {
   categories: string[]
   selectedCategory: string | undefined
   onCategoryClick: (category: string) => void
 }
 
-export const GlobalSearchBarSorting = (props: GlobalSearchBarSortingProps) => {
+export const GlobalSearchBarCategory = (
+  props: GlobalSearchBarCategoryProps,
+) => {
   const {
     categories,
     selectedCategory,
     onCategoryClick: onCategoryClickProp,
   } = props
 
-  const [sortingDropdownOpen, setSortingDropdownOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const toggleDropdownOpen = () => {
-    setSortingDropdownOpen((prev) => !prev)
+    setDropdownOpen((prev) => !prev)
   }
 
   const onCategoryClick = (cate: string) => {
     onCategoryClickProp(cate)
-    setSortingDropdownOpen(false)
+    setDropdownOpen(false)
   }
 
-  const sortingDropdownFloatingProps = useFloating<
+  const categoryDropdownFloatingProps = useFloating<
     HTMLDivElement,
     HTMLDivElement
   >({
-    isOpen: sortingDropdownOpen,
+    isOpen: dropdownOpen,
     placement: 'bottom-right',
     offsets: {
       y: 8,
     },
   })
 
-  const { anchorRef, elementRef, resolvedStyles } = sortingDropdownFloatingProps
+  const { anchorRef, elementRef, resolvedStyles } =
+    categoryDropdownFloatingProps
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
@@ -50,10 +53,10 @@ export const GlobalSearchBarSorting = (props: GlobalSearchBarSortingProps) => {
       const isMenu = elementRef.current?.contains(target)
 
       if (!isTrigger && !isMenu) {
-        setSortingDropdownOpen(false)
+        setDropdownOpen(false)
       }
     },
-    [anchorRef, elementRef, setSortingDropdownOpen],
+    [anchorRef, elementRef, setDropdownOpen],
   )
 
   useEffect(() => {
@@ -63,22 +66,32 @@ export const GlobalSearchBarSorting = (props: GlobalSearchBarSortingProps) => {
     }
   }, [handleClickOutside])
 
+  const renderItems = () => {
+    const hasData = categories.length !== 0
+
+    if (!hasData)
+      return (
+        <div className={twMerge(category.item({ hasData }))}>No Category</div>
+      )
+    return categories.map((cate) => (
+      <div
+        key={cate}
+        className={twMerge(category.item({ hasData }))}
+        onClick={() => onCategoryClick(cate)}
+      >
+        {cate}
+      </div>
+    ))
+  }
+
   const renderMenu = () => {
     return createPortal(
       <div
         ref={elementRef}
-        className={twMerge(sorting.menu)}
+        className={twMerge(category.menu)}
         style={resolvedStyles?.floatingStyle}
       >
-        {categories.map((cate) => (
-          <div
-            key={cate}
-            className={twMerge(sorting.item)}
-            onClick={() => onCategoryClick(cate)}
-          >
-            {cate}
-          </div>
-        ))}
+        {renderItems()}
       </div>,
       document.body,
     )
@@ -88,13 +101,13 @@ export const GlobalSearchBarSorting = (props: GlobalSearchBarSortingProps) => {
     <Fragment>
       <div className="h-[20px] w-px border-l border-functional-border-divider" />
       <div ref={anchorRef}>
-        <div className={twMerge(sorting.trigger)} onClick={toggleDropdownOpen}>
+        <div className={twMerge(category.trigger)} onClick={toggleDropdownOpen}>
           <div className="primary-body2 max-w-[100px] truncate">
             {selectedCategory ?? 'Category'}
           </div>
           <ChevronDown
-            className={sorting.triggerIcon({
-              isOpen: sortingDropdownOpen,
+            className={category.triggerIcon({
+              isOpen: dropdownOpen,
             })}
           />
         </div>

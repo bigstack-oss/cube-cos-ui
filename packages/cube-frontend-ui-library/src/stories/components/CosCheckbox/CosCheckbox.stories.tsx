@@ -37,15 +37,25 @@ export const Gallery: StoryObj = {
       <StoryLayout title="Checkbox">
         <StoryLayout.Section title="Checkbox">
           <div className="flex flex-col gap-y-8">
+            <CheckboxGrid title="">
+              <div className="primary-body2">Label Size</div>
+              <div className="primary-body2">Checkbox</div>
+            </CheckboxGrid>
             <CheckboxGrid title="md">
+              <div className="primary-body2">14px (default)</div>
               <CosCheckbox label={checkboxText} />
             </CheckboxGrid>
             <CheckboxGrid title="sm">
-              <CosCheckbox label={checkboxText} size="sm" />
+              <div className="primary-body2">13px</div>
+              <CosCheckbox label={checkboxText} labelSize="sm" />
             </CheckboxGrid>
             <CheckboxGrid title="xs">
-              <CosCheckbox label={checkboxText} size="xs" />
+              <div className="primary-body2">12px</div>
+              <CosCheckbox label={checkboxText} labelSize="xs" />
             </CheckboxGrid>
+            <p className="primary-body2 text-grey-850">
+              The `sm` and `xs` sizes are used in the dropdown component.
+            </p>
           </div>
         </StoryLayout.Section>
         <StoryLayout.Section title="Variants">

@@ -67,13 +67,14 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
       variant !== 'withFilter' || !searchValue
         ? allItems
         : allItems.filter((child) =>
-            String(child.props.children)
+            child.props.children
               .toLowerCase()
               .includes(searchValue.toLowerCase()),
           )
 
-    if (visibleItems.length === 0)
-      return <ItemNoData size={size} type={type} variant={variant} />
+    if (visibleItems.length === 0) {
+      return <ItemNoData size={size} type={type} />
+    }
 
     return visibleItems
   }

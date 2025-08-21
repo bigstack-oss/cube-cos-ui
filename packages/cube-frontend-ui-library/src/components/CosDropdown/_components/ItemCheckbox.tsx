@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge'
 import {
   CosCheckbox,
   CosCheckboxColor,
-  CosCheckboxSize,
+  CosCheckboxLabelSize,
 } from '../../CosCheckbox/CosCheckbox'
 import { CosDropdownSize, CosDropdownVariant } from '../cosDropdownTypes'
 import { item } from '../cosDropdownStyles'
@@ -39,9 +39,8 @@ export const ItemCheckbox = (props: ItemCheckboxProps) => {
     }
   }
 
-  const getSize = (): CosCheckboxSize => {
-    if (size === 'md') return 'sm'
-    return 'xs'
+  const getLabelSize = (): CosCheckboxLabelSize => {
+    return size === 'md' ? 'sm' : 'xs'
   }
 
   return (
@@ -57,7 +56,7 @@ export const ItemCheckbox = (props: ItemCheckboxProps) => {
         checked={isSelected}
         onChange={onClick}
         color={getColor()}
-        size={getSize()}
+        labelSize={getLabelSize()}
       />
     </div>
   )

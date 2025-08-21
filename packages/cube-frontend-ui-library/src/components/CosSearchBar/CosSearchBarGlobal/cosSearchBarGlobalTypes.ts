@@ -6,7 +6,7 @@ export type CosSearchBarGlobalItemType = 'suggestion' | 'recentSuggestion'
 export type CosSearchBarGlobalVariant = CosSearchBarGlobalProps['variant']
 
 type BaseSearchBarGlobalProps = ComponentProps<'input'> & {
-  variant: 'regular' | 'sorting'
+  variant: 'regular' | 'category'
   /**
    * @default false
    */
@@ -25,8 +25,8 @@ type RegularSearchBarGlobalProp = BaseSearchBarGlobalProps & {
   variant: 'regular'
 }
 
-export type SortingSearchBarGlobalProps = BaseSearchBarGlobalProps & {
-  variant: 'sorting'
+export type CategorySearchBarGlobalProps = BaseSearchBarGlobalProps & {
+  variant: 'category'
   categories: string[]
   selectedCategory: string | undefined
   onCategoryClick: (category: string) => void
@@ -34,4 +34,4 @@ export type SortingSearchBarGlobalProps = BaseSearchBarGlobalProps & {
 
 export type CosSearchBarGlobalProps =
   | RegularSearchBarGlobalProp
-  | SortingSearchBarGlobalProps
+  | CategorySearchBarGlobalProps

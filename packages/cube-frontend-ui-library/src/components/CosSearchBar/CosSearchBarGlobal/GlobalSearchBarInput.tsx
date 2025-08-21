@@ -1,4 +1,10 @@
-import { ComponentProps, useCallback, useEffect, useState } from 'react'
+import {
+  ComponentProps,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
 import Search from '../../CosIcon/monochrome/search.svg?react'
@@ -6,11 +12,15 @@ import Clear from '../../CosIcon/monochrome/x_small.svg?react'
 import { useFloating } from '../../../internal/utils/floating/useFloating'
 import { keyword } from './cosSearchBarGlobalStyles'
 import { CosSearchBarGlobalVariant } from './cosSearchBarGlobalTypes'
+import { checkIsDropdownChildValid } from '../utils'
+import { CosSearchBarGlobalItem } from './CosSearchBarGlobalItem'
 
 type GlobalSearchBarInputProps = ComponentProps<'input'> & {
   variant: CosSearchBarGlobalVariant
   onInputClear: () => void
-  children?: React.ReactNode
+  children?:
+    | ReactElement<typeof CosSearchBarGlobalItem>[]
+    | ReactElement<typeof CosSearchBarGlobalItem>
 }
 
 export const GlobalSearchBarInput = (props: GlobalSearchBarInputProps) => {
@@ -30,19 +40,20 @@ export const GlobalSearchBarInput = (props: GlobalSearchBarInputProps) => {
 
   const hasInputValue = typeof value === 'string' && value.trim() !== ''
 
+  const hasMenuItems = checkIsDropdownChildValid(
+    children,
+    CosSearchBarGlobalItem,
+  )
+
   useEffect(() => {
-    if (hasInputValue) {
-      setKeywordDropdownOpen(true)
-    } else {
-      setKeywordDropdownOpen(false)
-    }
+    setKeywordDropdownOpen(hasInputValue)
   }, [hasInputValue, setKeywordDropdownOpen])
 
   const keywordDropdownFloatingProps = useFloating<
     HTMLDivElement,
     HTMLDivElement
   >({
-    isOpen: keywordDropdownOpen,
+    isOpen: hasMenuItems && hasInputValue && keywordDropdownOpen,
     placement: 'bottom-left',
     offsets: {
       y: 8,

@@ -15,6 +15,7 @@ import Clear from '../../CosIcon/monochrome/x_small.svg?react'
 import { CosSearchBarSkeleton } from '../CosSearchBarSkeleton'
 import { FilterDropdownMenu } from './FilterDropdownMenu'
 import { FilterDropdownItem } from './FilterDropdownItem'
+import { checkIsDropdownChildValid } from '../utils'
 
 const input = cva(
   [
@@ -39,7 +40,6 @@ export type CosSearchBarFilterProps = DetailedHTMLProps<
 > & {
   isLoading?: boolean
   onInputClear?: () => void
-  showDropdown?: boolean
   /**
    * `children` is used to render menu content items,
    * it should be `FilterDropdownItem` components.
@@ -55,7 +55,6 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
     ref: inputRef,
     isLoading,
     onInputClear,
-    showDropdown = true,
     value,
     onChange: onInputChange,
     className,
@@ -71,16 +70,14 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
 
   const hasInputValue = value !== ''
 
+  const hasMenuItems = checkIsDropdownChildValid(children, FilterDropdownItem)
+
   useEffect(() => {
-    if (hasInputValue) {
-      setDropdownOpen(true)
-    } else {
-      setDropdownOpen(false)
-    }
+    setDropdownOpen(hasInputValue)
   }, [hasInputValue])
 
   const floatingProps = useFloating<HTMLDivElement, HTMLDivElement>({
-    isOpen: showDropdown && dropdownOpen,
+    isOpen: hasMenuItems && hasInputValue && dropdownOpen,
     placement: 'bottom-left',
     offsets: {
       y: 8,
@@ -141,6 +138,7 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
           value={value}
           onChange={onInputChange}
           placeholder={placeholder}
+          autoComplete="off"
           className={twMerge(input({ hasInputValue }), className)}
         />
         {renderIcon()}

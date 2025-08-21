@@ -56,7 +56,6 @@ export const LicenseAttachmentFilters = (
           value={searchKeyword}
           onChange={(e) => handleSearchKeywordChange(e.target.value)}
           onInputClear={handleSearchKeywordClear}
-          showDropdown={false}
         />
         <RoleFilter
           selectedRoles={selectedRoles}

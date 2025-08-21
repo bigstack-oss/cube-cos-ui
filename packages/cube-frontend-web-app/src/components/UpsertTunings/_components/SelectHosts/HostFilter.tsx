@@ -39,7 +39,6 @@ export const HostFilter = (props: HostFilterProps) => {
       <div className="w-[288px]">
         <CosSearchBarFilter
           value={keyword}
-          showDropdown={false}
           onChange={onKeywordChange}
           onInputClear={onKeywordClear}
         />

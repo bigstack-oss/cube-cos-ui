@@ -138,7 +138,6 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
             value={keyword}
             onChange={(e) => onKeywordChange(e.target.value)}
             onInputClear={() => onKeywordChange('')}
-            showDropdown={false}
           />
         </div>
         {eventsFilter &&

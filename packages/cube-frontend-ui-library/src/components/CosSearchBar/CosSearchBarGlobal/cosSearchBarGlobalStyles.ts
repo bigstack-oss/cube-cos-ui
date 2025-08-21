@@ -15,7 +15,7 @@ export const keyword = {
       variants: {
         variant: {
           regular: 'rounded-full',
-          sorting: 'rounded-l-full',
+          category: 'rounded-l-full',
         },
         hasInputValue: {
           true: 'pr-[64px]',
@@ -41,7 +41,7 @@ export const keyword = {
   ),
 }
 
-export const sorting = {
+export const category = {
   trigger: [
     'flex h-[34px] cursor-pointer items-center justify-between gap-x-[6px] rounded-r-full',
     'primary-body2 shrink-0 px-5 py-[7px] text-functional-text',
@@ -56,5 +56,12 @@ export const sorting = {
     'z-10 min-w-[160px] overflow-y-auto rounded-[5px] border bg-white py-2',
     'shadow-[0_0_2px_0_rgba(0,0,0,0.2)]',
   ],
-  item: 'primary-body3 cursor-pointer px-6 py-[10px] text-functional-text hover:bg-functional-hover-secondary',
+  item: cva('primary-body3 px-6 py-[10px] text-functional-text', {
+    variants: {
+      hasData: {
+        true: 'cursor-pointer hover:bg-functional-hover-secondary',
+        false: '',
+      },
+    },
+  }),
 }
