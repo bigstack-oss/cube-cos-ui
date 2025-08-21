@@ -20,6 +20,7 @@ import { CreateSupportFilesModal } from '../../_components/CreateSupportFilesMod
 import { useCreateSupportFilesModal } from '../../_components/useCreateSupportFilesModal'
 import { VipLabel } from '../../_components/VipLabel'
 import { ActionMenu } from './ActionMenu'
+import { useTranslation } from 'react-i18next'
 
 type NodeSummaryProps = {
   node: Node | undefined
@@ -27,6 +28,8 @@ type NodeSummaryProps = {
 
 export const NodeSummary = (props: NodeSummaryProps) => {
   const { node } = props
+
+  const { t } = useTranslation()
 
   const {
     isCreateSupportFilesModalOpen,
@@ -148,10 +151,10 @@ export const NodeSummary = (props: NodeSummaryProps) => {
                 'Memory Spec',
                 toReadableSizeString(node.memory.totalMiB, 'MiB'),
               )}
-              {renderRow('Up Time', humanizeDuration(node.uptimeSeconds))}
+              {renderRow('Up Time', humanizeDuration(t, node.uptimeSeconds))}
               {renderRow(
                 'License Expiration',
-                toLicenseExpirationDate(node.license, { includeTime: true }),
+                toLicenseExpirationDate(node.license, t, { includeTime: true }),
               )}
               {renderRow(
                 'Management IP',

@@ -25,22 +25,27 @@
   ],
   "cSpell.words": [
     "autoprefixer",
+    "barchart",
     "Bigstack",
     "chartjs",
     "Datacenters",
+    "firmwares",
+    "fixpacks",
     "fontsource",
+    "hoverable",
     "keyclock",
     "Nullary",
+    "reweight",
+    "reweighted",
+    "rollbackability",
+    "rollbackable",
     "svgr",
     "Svgs",
     "tseslint",
-    "vcpu",
-    "vite",
-    "firmwares",
-    "fixpacks",
-    "rollbackable",
     "unrollbackable",
-    "rollbackability",
-    "hoverable"
-  ]
+    "vcpu",
+    "vite"
+  ],
+  "i18n-ally.localesPaths": ["packages/cube-frontend-web-app/src/i18n/locales"],
+  "i18n-ally.keystyle": "nested"
 }

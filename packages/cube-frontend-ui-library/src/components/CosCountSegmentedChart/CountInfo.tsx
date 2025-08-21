@@ -5,13 +5,15 @@ import { ColorDot } from './ColorDot'
 type CountInfoProps = Optional<CosCountSegmentedChartCountInfo, 'color'>
 
 export const CountInfo = (props: CountInfoProps) => {
-  const { name, color, count } = props
+  const { displayName, color, count } = props
 
   return (
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between gap-x-1">
         {color && <ColorDot color={color} />}
-        <span className="primary-body5 text-functional-text-light">{name}</span>
+        <span className="primary-body5 text-functional-text-light">
+          {displayName}
+        </span>
       </div>
       <span className="primary-body1 self-end font-semibold text-functional-text">
         {count}

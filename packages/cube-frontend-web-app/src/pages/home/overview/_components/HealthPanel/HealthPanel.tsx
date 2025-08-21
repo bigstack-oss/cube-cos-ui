@@ -15,9 +15,12 @@ import { HealthError } from './HealthError'
 import { HealthStatus } from './HealthStatus/HealthStatus'
 import { useDelayedRepairState } from './HealthStatus/useDelayedRepairState'
 import { toHealthUIData } from './utils'
+import { useTranslation } from 'react-i18next'
 
 const HealthPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   const {
     data: healths,
@@ -78,7 +81,7 @@ const HealthPanel = () => {
 
   return (
     <CosDashboardPanel
-      title="Health"
+      title={t('home.tabs.health')}
       time={updateTime}
       errorCount={errorCount}
       hyperLinkProps={{ onClick: noop }}

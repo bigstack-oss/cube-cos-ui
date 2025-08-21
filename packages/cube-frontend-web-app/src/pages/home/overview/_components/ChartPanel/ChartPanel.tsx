@@ -5,7 +5,6 @@ import {
   CosPercentagePieChart,
 } from '@cube-frontend/ui-library'
 
-import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -21,8 +20,11 @@ import { links } from '../../../links'
 import { toMetricsChart } from '../../../utils'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 import { defaultMetrics } from './utils'
+import { useTranslation } from 'react-i18next'
 
 const ChartPanel = () => {
+  const { t } = useTranslation()
+
   const { dataCenter } = useContext(DataCenterContext)
 
   const roles = dataCenter!.roles
@@ -55,25 +57,25 @@ const ChartPanel = () => {
     cpuPieChart,
     memoryPieChart,
     storagePieChart,
-  } = useMemo(() => toMetricsChart(metrics, roles), [metrics, roles])
+  } = useMemo(() => toMetricsChart(metrics, roles, t), [metrics, roles, t])
 
   const updateTime = useUpdateTime(metrics, showLoading)
 
   const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
 
   const vmAllocationPanelItem = (
-    <CosDashboardPanel.Item topic="VM allocation">
+    <CosDashboardPanel.Item topic={t('home.overview.chart.vmAllocation')}>
       <div className="flex flex-row justify-around gap-x-7">
         <CpuPercentagePieChart isLoading={showLoading} {...cpuPieChart} />
         <CosPercentagePieChart
-          title="Memory"
-          overThresholdText="Over Limit"
+          title={t('home.overview.chart.memory')}
+          overThresholdText={t('home.overview.chart.overLimit')}
           isLoading={showLoading}
           {...memoryPieChart}
         />
         <CosPercentagePieChart
-          title="Storage"
-          overThresholdText="Over Limit"
+          title={t('home.overview.chart.storage')}
+          overThresholdText={t('home.overview.chart.overLimit')}
           isLoading={showLoading}
           {...storagePieChart}
         />
@@ -83,7 +85,7 @@ const ChartPanel = () => {
 
   return (
     <CosDashboardPanel
-      title="Chart"
+      title={t('home.overview.chart.totalVm')}
       time={updateTime}
       hyperLinkProps={{ onClick: noop }}
       HyperLinkContainer={<Link to={links.chart} />}
@@ -92,20 +94,23 @@ const ChartPanel = () => {
       <CosDashboardPanel.Row className="[&>*]:min-w-[500px]">
         <CosDashboardPanel.Col className="flex-1">
           <CosDashboardPanel.Item
-            topic="VM Summary"
-            subtext={toPluralizeDisplay(vmBarChart.count, 'Instance')}
+            topic={t('home.overview.chart.vmSummary')}
+            subtext={`${vmBarChart.count} ${t('home.overview.chart.instance', { count: vmBarChart.count })}`}
             isSubtextLoading={showLoading}
           >
             <CosCountSegmentedChart
-              overview={{ name: 'Total VM', count: vmBarChart.count }}
+              overview={{
+                displayName: t('home.overview.chart.totalVm'),
+                count: vmBarChart.count,
+              }}
               countInfos={vmBarChart.countInfos}
               isLoading={showLoading}
               skeletonCount={6}
             />
           </CosDashboardPanel.Item>
           <CosDashboardPanel.Item
-            topic="Role Summary"
-            subtext={toPluralizeDisplay(roleBarChart.count, 'Role')}
+            topic={t('home.overview.chart.roleSummary')}
+            subtext={`${roleBarChart.count} ${t('home.overview.chart.role', { count: roleBarChart.count })}`}
             isSubtextLoading={showLoading}
           >
             <CosCountSegmentedChart

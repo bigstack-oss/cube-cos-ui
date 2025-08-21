@@ -17,8 +17,10 @@
     "@fontsource/inter": "catalog:",
     "@fontsource/urbanist": "catalog:",
     "class-variance-authority": "catalog:",
+    "i18next": "^25.3.6",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-i18next": "^15.6.1",
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {

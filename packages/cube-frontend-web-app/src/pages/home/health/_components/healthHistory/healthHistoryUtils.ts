@@ -49,25 +49,27 @@ export const sortCategoryServicesByModuleCount = (
 
 export const timePointFns: Record<
   HealthTimeRange,
-  (now: Dayjs) => TimePoint[]
+  (now: Dayjs, nowLabel: string) => TimePoint[]
 > = {
-  '30d': (now) =>
+  '30d': (now, nowLabel) =>
     createTimePoints({
       now,
       iteration: 2,
       value: -15,
       unit: 'days',
       labelFormatters: ['MM/DD', 'HH:mm A'],
+      nowLabel,
     }),
-  '14d': (now) =>
+  '14d': (now, nowLabel) =>
     createTimePoints({
       now,
       iteration: 2,
       value: -7,
       unit: 'days',
       labelFormatters: ['MM/DD', 'HH:mm A'],
+      nowLabel,
     }),
-  '7d': (now) =>
+  '7d': (now, nowLabel) =>
     createTimePoints({
       now,
       iteration: 2,
@@ -75,21 +77,24 @@ export const timePointFns: Record<
       value: -3.5 * 24,
       unit: 'hours',
       labelFormatters: ['MM/DD', 'HH:mm A'],
+      nowLabel,
     }),
-  '24h': (now) =>
+  '24h': (now, nowLabel) =>
     createTimePoints({
       now,
       iteration: 2,
       value: -12,
       unit: 'hours',
       labelFormatters: ['HH:mm A'],
+      nowLabel,
     }),
-  '1h': (now) =>
+  '1h': (now, nowLabel) =>
     createTimePoints({
       now,
       iteration: 2,
       value: -30,
       unit: 'minutes',
       labelFormatters: ['HH:mm A'],
+      nowLabel,
     }),
 }

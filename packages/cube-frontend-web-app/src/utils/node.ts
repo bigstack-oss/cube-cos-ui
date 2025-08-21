@@ -1,5 +1,6 @@
 import { Node, NodeStatusEnum } from '@cube-frontend/api'
 import { humanizeDuration } from './date'
+import { TFunction } from 'i18next'
 
 const poweringStatuses = new Set<NodeStatusEnum>([
   NodeStatusEnum.PoweringOn,
@@ -16,10 +17,11 @@ export const canCreateSupportFile = (node?: Pick<Node, 'status'>): boolean => {
 }
 
 export const formatUpTime = (
+  t: TFunction<'translation', undefined>,
   node?: Pick<Node, 'status' | 'uptimeSeconds'>,
 ): string => {
   if (node?.status !== NodeStatusEnum.Up) {
     return ''
   }
-  return humanizeDuration(node.uptimeSeconds)
+  return humanizeDuration(t, node.uptimeSeconds)
 }

@@ -12,7 +12,7 @@ const containerClass = twJoin('flex flex-col gap-y-3')
 
 export type CosCountSegmentedChartOverview = Pick<
   CosCountSegmentedChartCountInfo,
-  'name' | 'count'
+  'displayName' | 'count'
 >
 
 export type CosCountSegmentedChartProps = {

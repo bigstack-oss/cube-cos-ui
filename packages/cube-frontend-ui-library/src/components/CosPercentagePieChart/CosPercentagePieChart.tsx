@@ -2,6 +2,7 @@ import { StrokeColorClass } from '@cube-frontend/ui-theme'
 import { PercentagePie } from './PercentagePie'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 import { twJoin } from 'tailwind-merge'
+import { useTranslation } from 'react-i18next'
 
 export type CosPercentagePieChartProps = {
   title: string
@@ -60,6 +61,8 @@ export const CosPercentagePieChart = (props: CosPercentagePieChartProps) => {
     isLoading = false,
   } = props
 
+  const { t } = useTranslation()
+
   const getChartPercentage = () => {
     const percentage = percentageProp ?? calculatePercentage(used, total)
 
@@ -117,7 +120,7 @@ export const CosPercentagePieChart = (props: CosPercentagePieChartProps) => {
               </div>
             </div>
           </div>
-          <span className="primary-body5 text-functional-text-light">{`${used}/${total} ${unit} Used`}</span>
+          <span className="primary-body5 text-functional-text-light">{`${used}/${total} ${unit} ${t('component.percentagePieChart.used')}`}</span>
         </>
       )}
     </div>

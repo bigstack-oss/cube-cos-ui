@@ -15,18 +15,21 @@ import {
   applicationIntegrationUIData,
 } from '../utils/applicationIntegration'
 import { usePollNotifications } from '../hooks/usePollNotifications/usePollNotifications'
+import { useTranslation } from 'react-i18next'
+import { LanguageDropdown } from '../components/LanguageDropdown'
 
 const Layout = (props: PropsWithChildren) => {
   const { children } = props
-
-  const sideBarOptions = useSidebarOptions()
-
-  const sideBarBottomLinks = useSidebarBottomLinks()
 
   const { dataCenter, isLoading: isDataCenterLoading } =
     useContext(DataCenterContext)
 
   const { userInfo, isLoading: isUserInfoLoading } = useContext(UserContext)
+
+  const { t } = useTranslation()
+
+  const sideBarOptions = useSidebarOptions()
+  const sideBarBottomLinks = useSidebarBottomLinks()
 
   const {
     applicationIntegrations,
@@ -83,12 +86,14 @@ const Layout = (props: PropsWithChildren) => {
           options={sideBarOptions}
           utcTimeZone={dataCenter?.utcTimeZone}
           links={sideBarBottomLinks}
+          dataCenterTimeLabel={t('sidebar.dataCenterTime')}
         />
         <div className="max-w-[calc(100svw_-_200px)] flex-1">
           <CosHeader
             isLoading={isApplicationIntegrationsLoading}
             quickAccesses={quickAccesses}
             functionBarItems={functionBarItems}
+            languageDropdown={<LanguageDropdown />}
           />
           {/**
            * Only render <Content> when `dataCenter` is available,

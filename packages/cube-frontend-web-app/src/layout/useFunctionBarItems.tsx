@@ -7,14 +7,16 @@ import { logoutApi } from '../api/cosApi'
 import { UnreadNotificationDot } from '../components/UnreadNotificationDot'
 import { CosRoutesEnum } from '../enum/routes'
 import { useHasUnreadNotifications } from '../hooks/usePollNotifications/useHasUnreadNotifications'
+import { useTranslation } from 'react-i18next'
 
 export const useFunctionBarItems = (): FunctionBarItem[] => {
+  const { t } = useTranslation()
+
   const hasUnreadNotifications = useHasUnreadNotifications()
 
   const notification: FunctionBarItem<LinkProps> = {
     Icon: hasUnreadNotifications ? NotificationClippedIcon : NotificationIcon,
-    // TODO: i18n.
-    hoverMessage: 'Notifications',
+    hoverMessage: t('header.notifications'),
     container: {
       Component: Link,
       props: {
@@ -31,8 +33,7 @@ export const useFunctionBarItems = (): FunctionBarItem[] => {
 
   const logout: FunctionBarItem = {
     Icon: LogoutIcon,
-    // TODO: i18n.
-    hoverMessage: 'Logout',
+    hoverMessage: t('header.logout'),
     onClick: () => {
       logoutApi.logout()
     },

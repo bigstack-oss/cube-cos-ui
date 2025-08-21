@@ -16,6 +16,7 @@ import { HostListModal } from '@cube-frontend/web-app/components/HostPreviewTabl
 import { renderExpiredDays } from './utils'
 import { useLicenseHostsModal } from './useLicenseHostsModal'
 import { ExpiryIconText } from './ExpiryIconText'
+import { useTranslation } from 'react-i18next'
 
 export type LicenseRow = GetLicensesResponseDataLicensesInner & CosTableRow
 
@@ -25,6 +26,8 @@ export type LicenseTableProps = CosBasicTableProps<LicenseRow>
 
 export const LicenseTable = (props: LicenseTableProps) => {
   const { rows } = props
+
+  const { t } = useTranslation()
 
   const {
     isHostsModalOpen,
@@ -85,7 +88,7 @@ export const LicenseTable = (props: LicenseTableProps) => {
           {(issue) => formatLicenseDate(issue.date)}
         </LicenseViewDetailsTable.Column>
         <LicenseViewDetailsTable.Column label="Expire date" property="expiry">
-          {(_, license) => toLicenseExpirationDate(license)}
+          {(_, license) => toLicenseExpirationDate(license, t)}
         </LicenseViewDetailsTable.Column>
         <LicenseViewDetailsTable.Column label="Expired" property="expiry">
           {renderExpiredDays}

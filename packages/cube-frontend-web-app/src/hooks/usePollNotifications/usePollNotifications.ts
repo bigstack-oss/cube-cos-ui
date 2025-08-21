@@ -7,17 +7,19 @@ import { useContext } from 'react'
 import { notificationsApi } from '../../api/cosApi'
 import { DataCenterContext } from '../../context/DataCenterContext'
 import { usePolling } from '../usePolling'
-import { mockI18n } from './mockI18n'
 import {
   computeLastNotificationTimeLocalStorageKey,
   computeStartFrom,
 } from './pollNotificationUtils'
+import { useTranslation } from 'react-i18next'
 
 const createId = (): string => {
   return uniqueId('cos-notification')
 }
 
 export const usePollNotifications = (): void => {
+  const { t } = useTranslation()
+
   const { userInfo } = useContext(UserContext)
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -71,13 +73,13 @@ export const usePollNotifications = (): void => {
       messageI18nKey,
       linkProps,
       time,
-    } = notificationToToastArgs(notification)
+    } = notificationToToastArgs(notification, t)
 
     addToast({
       id: createId(),
       type,
-      title: mockI18n(titleI18nKey),
-      message: mockI18n(messageI18nKey, messageI18nArgs),
+      title: t(titleI18nKey),
+      message: t(messageI18nKey, messageI18nArgs),
       link: linkProps,
       time,
     })

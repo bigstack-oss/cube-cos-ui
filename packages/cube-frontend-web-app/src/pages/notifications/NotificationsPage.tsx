@@ -10,7 +10,6 @@ import {
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
 import { UnreadNotificationDot } from '@cube-frontend/web-app/components/UnreadNotificationDot'
 import { NotificationsContext } from '@cube-frontend/web-app/context/NotificationsContext'
-import { mockI18n } from '@cube-frontend/web-app/hooks/usePollNotifications/mockI18n'
 import {
   checkIsNotificationUnread,
   ListNotificationsPastEnum,
@@ -26,12 +25,15 @@ import {
 import { useListNotificationsQuery } from './useListNotificationsQuery'
 import { usePagedNotifications } from './usePagedNotifications'
 import { useUpdateLastAccessedAt } from './useUpdateLastAccessedAt'
+import { Trans, useTranslation } from 'react-i18next'
 
 const NotificationsTable = GetCosViewDetailsTable<NotificationRow>()
 
 const pastEnums = Object.values(ListNotificationsPastEnum)
 
 export const NotificationsPage = () => {
+  const { t } = useTranslation()
+
   const {
     query,
     debouncedKeyword,
@@ -65,7 +67,7 @@ export const NotificationsPage = () => {
   )
 
   const computeDetailTitle = (row: NotificationRow): string => {
-    let description: string = 'No details'
+    let description: string = t('notifications.noDetails')
 
     if ('additionalInfo' in row && 'description' in row.additionalInfo) {
       description = row.additionalInfo.description ?? ''
@@ -91,14 +93,21 @@ export const NotificationsPage = () => {
 
   const renderMessage = (row: NotificationRow) => {
     const { messageI18nKey, messageI18nArgs, linkProps } =
-      notificationToToastArgs({
-        ...row,
-        id: row.eventId,
-      } as Notification)
+      notificationToToastArgs(
+        {
+          ...row,
+          id: row.eventId,
+        } as Notification,
+        t,
+      )
 
     return (
       <div className="text-wrap">
-        {mockI18n(messageI18nKey, messageI18nArgs)}
+        <Trans
+          i18nKey={messageI18nKey}
+          values={messageI18nArgs}
+          components={{ bold: <strong /> }}
+        />
         {!!linkProps &&
           renderCosNotificationLink({
             ...linkProps,
@@ -110,12 +119,12 @@ export const NotificationsPage = () => {
 
   return (
     <CosGeneralPanel
-      topic="Notifications"
+      topic={t('notifications.title')}
       rightSlot={
         <>
           <CosSearchBarGlobal
             variant="regular"
-            placeholder="Search"
+            placeholder={t('notifications.searchBar.placeholder')}
             value={query.keyword}
             onChange={(e) => onKeywordChange(e.target.value)}
             onInputClear={onKeywordClear}
@@ -139,7 +148,7 @@ export const NotificationsPage = () => {
           beforeExpandButton={renderUnreadDot}
         >
           <NotificationsTable.Column
-            label="Timestamp"
+            label={t('notifications.timestamp')}
             property="time"
             fitContent={true}
           >
@@ -150,17 +159,22 @@ export const NotificationsPage = () => {
             )}
           </NotificationsTable.Column>
           <NotificationsTable.Column
-            label="Type"
+            label={t('notifications.type')}
             property="eventId"
             fitContent={true}
           >
             {(eventId) => (
               <span className="whitespace-nowrap">
-                {eventId.endsWith('E') ? 'Error / Failure' : 'Success'}
+                {eventId.endsWith('E')
+                  ? t('notifications.type.error')
+                  : t('notifications.type.success')}
               </span>
             )}
           </NotificationsTable.Column>
-          <NotificationsTable.Column label="Message" property="additionalInfo">
+          <NotificationsTable.Column
+            label={t('notifications.message')}
+            property="additionalInfo"
+          >
             {(_, row) => renderMessage(row)}
           </NotificationsTable.Column>
         </NotificationsTable>

@@ -16,10 +16,11 @@ export type CreateTimeOptions = {
   value: number
   unit: ManipulateType
   labelFormatters: string[]
+  nowLabel: string
 }
 
 export const createTimePoints = (options: CreateTimeOptions): TimePoint[] => {
-  const { now, iteration, value, unit, labelFormatters } = options
+  const { now, iteration, value, unit, labelFormatters, nowLabel } = options
 
   const timePoints: TimePoint[] = range(0, iteration)
     .map((_, index) => {
@@ -35,8 +36,7 @@ export const createTimePoints = (options: CreateTimeOptions): TimePoint[] => {
   timePoints.push({
     dateTime: now,
     timestamp: now.valueOf(),
-    // TODO: Integrate 'NOW' with i18n.
-    labels: ['NOW'],
+    labels: [nowLabel],
   })
 
   return timePoints

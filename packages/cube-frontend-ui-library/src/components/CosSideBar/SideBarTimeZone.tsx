@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useTimeZoneTime } from '../../internal/utils/timeZone/useTimeZoneTime'
 import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 import { CosTag } from '../CosTag/CosTag'
@@ -11,6 +12,8 @@ type SideBarTimeZoneProps = {
 
 const SideBarTimeZone = (props: SideBarTimeZoneProps) => {
   const { isLoading, utcTimeZone } = props
+
+  const { t } = useTranslation()
 
   const now = useTimeZoneTime(utcTimeZone, 1000)
 
@@ -42,7 +45,7 @@ const SideBarTimeZone = (props: SideBarTimeZoneProps) => {
   return (
     <SideBarBlock className="flex flex-col px-[22px] py-4">
       <p className="primary-body6 mb-1 text-functional-text">
-        Data Center Time:
+        {t('sidebar.dataCenterTime', 'Data Center Time')}
       </p>
       {renderTime()}
       {renderTimeZone()}

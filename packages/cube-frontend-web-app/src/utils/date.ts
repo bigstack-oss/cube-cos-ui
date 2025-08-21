@@ -1,6 +1,6 @@
 import { NodeLicense, NodeLicenseCurrentStatus } from '@cube-frontend/api'
-import { toPluralizeDisplay } from '@cube-frontend/utils'
 import dayjs, { Dayjs } from 'dayjs'
+import { TFunction } from 'i18next'
 
 export const formatEventTime = (date: string) => {
   return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm')
@@ -33,11 +33,11 @@ export const formatLicenseDate = (
 
 export const toLicenseExpirationDate = (
   license: Pick<NodeLicense, 'status' | 'expiry'>,
+  t: TFunction<'translation', undefined>,
   options?: FormatLicenseDateOptions,
 ): string => {
   if (license.status.current === NodeLicenseCurrentStatus.Unlicense) {
-    // TODO: i18n
-    return 'Unlicense'
+    return t('home.overview.nodes.unlicense')
   }
   const { date } = license.expiry
   if (!date) {
@@ -47,25 +47,28 @@ export const toLicenseExpirationDate = (
   return formatLicenseDate(date, options)
 }
 
-export const humanizeDuration = (durationSeconds: number) => {
+export const humanizeDuration = (
+  t: TFunction<'translation', undefined>,
+  durationSeconds: number,
+) => {
   const duration = dayjs.duration(durationSeconds, 'seconds')
 
   if (duration.asDays() >= 1) {
     const value = Math.floor(duration.asDays())
-    return toPluralizeDisplay(value, 'day')
+    return `${value} ${t('home.overview.nodes.day', { count: value })}`
   }
 
   if (duration.asHours() >= 1) {
     const value = Math.floor(duration.asHours())
-    return toPluralizeDisplay(value, 'hour')
+    return `${value} ${t('home.overview.nodes.hour', { count: value })}`
   }
 
   if (duration.asMinutes() >= 1) {
     const value = Math.floor(duration.asMinutes())
-    return toPluralizeDisplay(value, 'minute')
+    return `${value} ${t('home.overview.nodes.minute', { count: value })}`
   }
 
-  return toPluralizeDisplay(durationSeconds, 'second')
+  return `${durationSeconds} ${t('home.overview.nodes.second', { count: durationSeconds })}`
 }
 
 export const formatChartXAxisTime = (time: string) => {

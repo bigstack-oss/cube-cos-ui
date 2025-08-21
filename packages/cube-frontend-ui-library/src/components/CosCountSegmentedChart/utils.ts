@@ -3,6 +3,7 @@ import { Segment } from '../CosSegmentedBar/cosSegmentedBarUtils'
 
 export type CosCountSegmentedChartCountInfo = {
   name: string
+  displayName?: string
   count: number
   color: FillColorClass
 }

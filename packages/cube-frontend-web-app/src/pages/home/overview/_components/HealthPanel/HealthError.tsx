@@ -15,6 +15,7 @@ import { cva } from 'class-variance-authority'
 import { ClassValue } from 'class-variance-authority/types'
 import { range } from 'lodash'
 import { serviceNameToLabel } from '../../../health/homeHealthPageUtils'
+import { useTranslation } from 'react-i18next'
 
 type ServiceErrorProps = {
   service: GetHealthsResponseDataServicesInner
@@ -35,6 +36,8 @@ const nameLabel = cva('primary-body3 font-semibold', {
 const ServiceError = (props: ServiceErrorProps) => {
   const { service } = props
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex items-center gap-x-5">
       <div className="flex items-center gap-x-2">
@@ -51,8 +54,7 @@ const ServiceError = (props: ServiceErrorProps) => {
       </div>
       <div className="primary-body4 text-functional-text-light">
         {service.status.isFixing
-          ? // TODO: i18n
-            'Fixing...'
+          ? `${t('home.overview.health.fixing')}...`
           : service.modules
               .map((module) => {
                 const name = module.name
@@ -93,6 +95,8 @@ export const HealthError = (props: HealthErrorProps) => {
     onRepairClick,
   } = props
 
+  const { t } = useTranslation()
+
   const renderErrorServices = () => {
     if (isLoading) {
       return range(2).map((i) => <ErrorServiceSkeleton key={i} />)
@@ -111,7 +115,7 @@ export const HealthError = (props: HealthErrorProps) => {
     if (isRepairDone) {
       return (
         <span className="secondary-body3 font-semibold text-status-positive">
-          Done!
+          {t('home.overview.health.done')}!
         </span>
       )
     }
@@ -122,13 +126,13 @@ export const HealthError = (props: HealthErrorProps) => {
         loading={isRepairButtonLoading}
         onClick={onRepairClick}
       >
-        Repair
+        {t('home.overview.health.repair')}
       </CosButton>
     )
   }
 
   return (
-    <CosDashboardPanel.Item topic="Error">
+    <CosDashboardPanel.Item topic={t('home.overview.health.error')}>
       <div className="flex items-center justify-between gap-x-5">
         <div className="flex flex-1 flex-col gap-y-2">
           {renderErrorServices()}

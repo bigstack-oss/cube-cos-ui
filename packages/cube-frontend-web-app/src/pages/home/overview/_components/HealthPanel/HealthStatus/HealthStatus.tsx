@@ -3,6 +3,7 @@ import { CosDashboardPanel } from '@cube-frontend/ui-library'
 import { range } from 'lodash'
 import { ServiceHealthStatus } from './ServiceHealthStatus'
 import { ServiceHealthStatusSkeleton } from './ServiceHealthStatusSkeleton'
+import { useTranslation } from 'react-i18next'
 
 export type HealthStatusProps = {
   services: GetHealthsResponseDataServicesInner[] | undefined
@@ -11,8 +12,13 @@ export type HealthStatusProps = {
 export const HealthStatus = (props: HealthStatusProps) => {
   const { services } = props
 
+  const { t } = useTranslation()
+
   return (
-    <CosDashboardPanel.Item topic="Status" className="overflow-x-auto">
+    <CosDashboardPanel.Item
+      topic={t('home.overview.health.status')}
+      className="overflow-x-auto"
+    >
       <div className="grid grid-flow-col grid-rows-4 gap-x-3 gap-y-2">
         {!services
           ? range(20).map((i) => <ServiceHealthStatusSkeleton key={i} />)

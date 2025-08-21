@@ -11,11 +11,14 @@ import { NodeTable } from './NodeTable'
 import { noop, uniqueId } from 'lodash'
 import { Link } from 'react-router'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { useTranslation } from 'react-i18next'
 
 const HOME_PAGE_NODE_ROW_LIMIT = 5
 
 export const NodePanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   const {
     data: nodesData,
@@ -46,7 +49,7 @@ export const NodePanel = () => {
 
   return (
     <CosDashboardPanel
-      title="Nodes"
+      title={t('home.overview.nodes.title')}
       time={updateTime}
       hyperLinkProps={{ onClick: noop }}
       HyperLinkContainer={<Link to={CosRoutesEnum.NODES_PAGE} />}

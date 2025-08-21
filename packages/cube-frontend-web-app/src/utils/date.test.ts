@@ -3,6 +3,7 @@ import { respectTz } from '@cube-frontend/utils'
 import dayjs from 'dayjs'
 import { describe, expect, it, suite } from 'vitest'
 import { formatLicenseDate, toLicenseExpirationDate } from './date'
+import i18n from '../i18n/i18n'
 
 dayjs.extend(respectTz)
 
@@ -59,7 +60,7 @@ describe('Date Utils', () => {
         NodeLicenseCurrentStatus.Valid,
         sampleExpiryDate,
       )
-      expect(toLicenseExpirationDate(license)).toEqual('2025/07/02')
+      expect(toLicenseExpirationDate(license, i18n.t)).toEqual('2025/07/02')
     })
 
     it('returns `YYYY-MM-DD` when the includeTime option is not provided', () => {
@@ -67,7 +68,7 @@ describe('Date Utils', () => {
         NodeLicenseCurrentStatus.Valid,
         sampleExpiryDate,
       )
-      expect(toLicenseExpirationDate(license, {})).toEqual('2025/07/02')
+      expect(toLicenseExpirationDate(license, i18n.t, {})).toEqual('2025/07/02')
     })
 
     it('returns `YYYY-MM-DD` when the includeTime option is false', () => {
@@ -76,7 +77,7 @@ describe('Date Utils', () => {
         sampleExpiryDate,
       )
       expect(
-        toLicenseExpirationDate(license, {
+        toLicenseExpirationDate(license, i18n.t, {
           includeTime: false,
         }),
       ).toEqual('2025/07/02')
@@ -88,7 +89,7 @@ describe('Date Utils', () => {
         sampleExpiryDate,
       )
       expect(
-        toLicenseExpirationDate(license, {
+        toLicenseExpirationDate(license, i18n.t, {
           includeTime: true,
         }),
       ).toEqual('2025/07/02 12:34')
@@ -96,7 +97,7 @@ describe('Date Utils', () => {
 
     it('returns empty string when expiry.date is empty', () => {
       const license = createLicense(NodeLicenseCurrentStatus.Valid, '')
-      expect(toLicenseExpirationDate(license)).toEqual('')
+      expect(toLicenseExpirationDate(license, i18n.t)).toEqual('')
     })
 
     it("returns 'Unlicense' for license in unlicense status", () => {
@@ -104,12 +105,12 @@ describe('Date Utils', () => {
         NodeLicenseCurrentStatus.Unlicense,
         '2025-07-02T12:34:56.789+08:00',
       )
-      expect(toLicenseExpirationDate(license)).toEqual('Unlicense')
+      expect(toLicenseExpirationDate(license, i18n.t)).toEqual('Unlicense')
     })
 
     it('returns empty string when expiry.date is empty', () => {
       const license = createLicense(NodeLicenseCurrentStatus.Valid, '')
-      expect(toLicenseExpirationDate(license)).toEqual('')
+      expect(toLicenseExpirationDate(license, i18n.t)).toEqual('')
     })
   })
 })

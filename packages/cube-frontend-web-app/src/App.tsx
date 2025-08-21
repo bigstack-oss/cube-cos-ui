@@ -16,6 +16,8 @@ import Layout from './layout/Layout'
 
 import './App.css'
 import './tailwind.css'
+import { I18nextProvider } from 'react-i18next'
+import i18n from './i18n/i18n'
 
 function App() {
   return (
@@ -25,9 +27,11 @@ function App() {
           <CosTimeZoneProvider>
             <CosToastProvider>
               <NotificationsContextProvider>
-                <Layout>
-                  <CosRoutes />
-                </Layout>
+                <I18nextProvider i18n={i18n}>
+                  <Layout>
+                    <CosRoutes />
+                  </Layout>
+                </I18nextProvider>
               </NotificationsContextProvider>
             </CosToastProvider>
           </CosTimeZoneProvider>

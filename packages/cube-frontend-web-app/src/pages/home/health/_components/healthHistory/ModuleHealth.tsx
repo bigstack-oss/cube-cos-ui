@@ -17,6 +17,7 @@ import { HealthTimeTrack, timeTrackHeight } from './HealthTimeTrack'
 import { HealthTimeRange } from '../../healthTimeRangeUtils'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { dateTimeRangeFns } from '../../[module]/healthDetailsUtils'
+import { useTranslation } from 'react-i18next'
 
 export type ModuleHealthProps = {
   moduleName: GetHealthHistoryModuleTypeEnum
@@ -34,9 +35,11 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
     [moduleName],
   )
 
+  const { t } = useTranslation()
+
   const timePoints = useMemo<TimePoint[]>(
-    () => timePointFns[timeRange](now),
-    [timeRange, now],
+    () => timePointFns[timeRange](now, t('page.health.now')),
+    [timeRange, now, t],
   )
 
   const dateTimeRange = useMemo(
