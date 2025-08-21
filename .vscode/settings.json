@@ -36,5 +36,6 @@
     "tseslint",
     "vcpu",
     "vite"
-  ]
+  ],
+  "i18n-ally.localesPaths": ["packages/cube-frontend-web-app/src/i18n/locales"]
 }

@@ -21,8 +21,11 @@ import { links } from '../../../links'
 import { toMetricsChart } from '../../../utils'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 import { defaultMetrics } from './utils'
+import { useTranslation } from 'react-i18next'
 
 const ChartPanel = () => {
+  const { t } = useTranslation()
+
   const { dataCenter } = useContext(DataCenterContext)
 
   const roles = dataCenter!.roles
@@ -83,7 +86,7 @@ const ChartPanel = () => {
 
   return (
     <CosDashboardPanel
-      title="Chart"
+      title={t('common.tabs.chart')}
       time={updateTime}
       hyperLinkProps={{ onClick: noop }}
       HyperLinkContainer={<Link to={links.chart} />}
@@ -92,20 +95,20 @@ const ChartPanel = () => {
       <CosDashboardPanel.Row className="[&>*]:min-w-[500px]">
         <CosDashboardPanel.Col className="flex-1">
           <CosDashboardPanel.Item
-            topic="VM Summary"
+            topic={t('common.vmSummary')}
             subtext={toPluralizeDisplay(vmBarChart.count, 'Instance')}
             isSubtextLoading={showLoading}
           >
             <CosCountSegmentedChart
-              overview={{ name: 'Total VM', count: vmBarChart.count }}
+              overview={{ name: t('common.totalVm'), count: vmBarChart.count }}
               countInfos={vmBarChart.countInfos}
               isLoading={showLoading}
               skeletonCount={6}
             />
           </CosDashboardPanel.Item>
           <CosDashboardPanel.Item
-            topic="Role Summary"
-            subtext={toPluralizeDisplay(roleBarChart.count, 'Role')}
+            topic={t('common.roleSummary')}
+            subtext={t('common.role', { count: 2 })}
             isSubtextLoading={showLoading}
           >
             <CosCountSegmentedChart

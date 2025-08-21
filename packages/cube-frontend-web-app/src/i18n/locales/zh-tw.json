@@ -1,0 +1,14 @@
+{
+  "common": {
+    "tabs": {
+      "overview": "概覽",
+      "chart": "圖表",
+      "health": "健康"
+    }
+  },
+  "page": {
+    "home": {
+      "welcome": "歡迎來到 React 和 react-i18next"
+    }
+  }
+}

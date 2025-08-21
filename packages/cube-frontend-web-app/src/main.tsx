@@ -9,6 +9,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import App from './App.tsx'
 import { CosErrorBoundary } from './components/ErrorDisplay/CosErrorBoundary.tsx'
+import './i18n/i18n.ts'
 
 dayjs.extend(duration)
 dayjs.extend(isBetween)

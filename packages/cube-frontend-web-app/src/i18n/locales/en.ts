@@ -1,0 +1,20 @@
+export default {
+  common: {
+    tabs: {
+      overview: 'Overview',
+      chart: 'Chart',
+      health: 'Health',
+    },
+    vmSummary: 'VM Summary',
+    roleSummary: 'Role Summary',
+    totalVm: 'Total VM',
+    role: '{{count}} Role',
+    role_one: '{{count}} Role',
+    role_other: '{{count}} Roles',
+  },
+  page: {
+    home: {
+      welcome: 'Welcome to React and react-i18next',
+    },
+  },
+}
