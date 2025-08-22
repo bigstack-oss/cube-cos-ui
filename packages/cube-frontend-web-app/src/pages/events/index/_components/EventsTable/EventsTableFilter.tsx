@@ -14,10 +14,10 @@ import { useEventsFilter } from './useEventsFilter'
 import { EventsQuery, EventsParamKeyEnum } from './utils'
 
 const filterKeyMapping: Record<string, FilterKeys> = {
-  categories: EventsParamKeyEnum.Category,
-  severities: EventsParamKeyEnum.Severity,
-  names: EventsParamKeyEnum.Host,
-  ids: EventsParamKeyEnum.Instance,
+  categories: EventsParamKeyEnum.Categories,
+  severities: EventsParamKeyEnum.Severities,
+  names: EventsParamKeyEnum.Hosts,
+  ids: EventsParamKeyEnum.Instances,
 }
 
 const mapFilterToFilterKey = (key: string): FilterKeys | undefined => {
@@ -54,12 +54,12 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
   const {
     type,
     keyword,
-    category,
+    categories,
+    severities,
+    hosts,
+    instances,
     startDate,
     endDate,
-    severity,
-    host,
-    instance,
   } = eventsQuery
 
   const { isLoading: isEventsFilterLoading, getEventsFilter } =
@@ -121,10 +121,10 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
     keyword,
     start: startDate,
     stop: endDate,
-    category,
-    severity,
-    host,
-    instance,
+    categories,
+    severities,
+    hosts,
+    instances,
   }).some((value) => !!value)
 
   return (

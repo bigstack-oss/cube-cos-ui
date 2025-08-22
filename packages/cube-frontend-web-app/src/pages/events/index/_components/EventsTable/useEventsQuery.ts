@@ -5,7 +5,7 @@ import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchPara
 
 export type FilterKeys = Extract<
   keyof EventsQuery,
-  'category' | 'severity' | 'host' | 'instance'
+  'categories' | 'severities' | 'hosts' | 'instances'
 >
 
 export type FilterOptions = {

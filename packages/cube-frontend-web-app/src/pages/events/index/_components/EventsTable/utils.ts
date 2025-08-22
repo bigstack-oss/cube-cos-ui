@@ -14,10 +14,10 @@ import { transformDate } from '@cube-frontend/web-app/utils/date'
 export enum EventsParamKeyEnum {
   Type = 'type',
   Keyword = 'keyword',
-  Category = 'category',
-  Severity = 'severity',
-  Host = 'host',
-  Instance = 'instance',
+  Categories = 'categories',
+  Severities = 'severities',
+  Hosts = 'hosts',
+  Instances = 'instances',
   StartDate = 'startDate',
   EndDate = 'endDate',
   CurrentPage = 'page',
@@ -32,22 +32,22 @@ const _eventsQuerySchema = paginationQuerySchema.extend({
     .string()
     .nullable()
     .transform((value) => value ?? ''),
-  [EventsParamKeyEnum.Category]: z
+  [EventsParamKeyEnum.Categories]: z
     .string()
     .array()
     .nullable()
     .transform((array) => array ?? []),
-  [EventsParamKeyEnum.Severity]: z
+  [EventsParamKeyEnum.Severities]: z
     .nativeEnum(GetEventsSeveritiesEnum)
     .array()
     .nullable()
     .transform((array) => array ?? []),
-  [EventsParamKeyEnum.Host]: z
+  [EventsParamKeyEnum.Hosts]: z
     .string()
     .array()
     .nullable()
     .transform((array) => array ?? []),
-  [EventsParamKeyEnum.Instance]: z
+  [EventsParamKeyEnum.Instances]: z
     .string()
     .array()
     .nullable()
@@ -83,10 +83,10 @@ export const searchParamsToQuery = (
   const typeFromURL = searchParams.get(EventsParamKeyEnum.Type)
   const type = getValidType(typeFromURL)
   const keyword = searchParams.get(EventsParamKeyEnum.Keyword)
-  const category = searchParams.getAll(EventsParamKeyEnum.Category)
-  const severity = searchParams.getAll(EventsParamKeyEnum.Severity)
-  const host = searchParams.getAll(EventsParamKeyEnum.Host)
-  const instance = searchParams.getAll(EventsParamKeyEnum.Instance)
+  const categories = searchParams.getAll(EventsParamKeyEnum.Categories)
+  const severities = searchParams.getAll(EventsParamKeyEnum.Severities)
+  const hosts = searchParams.getAll(EventsParamKeyEnum.Hosts)
+  const instances = searchParams.getAll(EventsParamKeyEnum.Instances)
   const startDate = searchParams.get(EventsParamKeyEnum.StartDate)
   const endDate = searchParams.get(EventsParamKeyEnum.EndDate)
   const currentPage = searchParams.get(EventsParamKeyEnum.CurrentPage)
@@ -95,10 +95,10 @@ export const searchParamsToQuery = (
   const parsedQuery = _eventsQuerySchema.safeParse({
     type,
     keyword,
-    category,
-    severity,
-    host,
-    instance,
+    categories,
+    severities,
+    hosts,
+    instances,
     startDate,
     endDate,
     currentPage,
@@ -108,10 +108,10 @@ export const searchParamsToQuery = (
   return {
     type: parsedQuery?.type ?? GetEventsTypeEnum.System,
     keyword: parsedQuery?.keyword ?? '',
-    category: parsedQuery?.category ?? [],
-    severity: parsedQuery?.severity ?? [],
-    host: parsedQuery?.host ?? [],
-    instance: parsedQuery?.instance ?? [],
+    categories: parsedQuery?.categories ?? [],
+    severities: parsedQuery?.severities ?? [],
+    hosts: parsedQuery?.hosts ?? [],
+    instances: parsedQuery?.instances ?? [],
     startDate: parsedQuery?.startDate,
     endDate: parsedQuery?.endDate,
     currentPage: parsedQuery?.currentPage ?? 1,
@@ -123,10 +123,10 @@ export const queryToSearchParams = (query: EventsQuery): URLSearchParams => {
   const {
     type,
     keyword,
-    category,
-    severity,
-    host,
-    instance,
+    categories,
+    severities,
+    hosts,
+    instances,
     startDate,
     endDate,
     currentPage,
@@ -134,43 +134,42 @@ export const queryToSearchParams = (query: EventsQuery): URLSearchParams => {
   } = query
   const nextSearchParams = new URLSearchParams()
 
+  //
   nextSearchParams.set(EventsParamKeyEnum.Type, type)
+
+  nextSearchParams.set(EventsParamKeyEnum.CurrentPage, currentPage.toString())
+
+  nextSearchParams.set(EventsParamKeyEnum.ItemsPerPage, itemsPerPage.toString())
 
   if (keyword) {
     nextSearchParams.set(EventsParamKeyEnum.Keyword, keyword)
   }
 
-  category.forEach((category) => {
-    nextSearchParams.append(EventsParamKeyEnum.Category, category)
-  })
+  if (categories?.length !== 0)
+    categories.forEach((category) => {
+      nextSearchParams.append(EventsParamKeyEnum.Categories, category)
+    })
 
-  severity.forEach((severity) => {
-    nextSearchParams.append(EventsParamKeyEnum.Severity, severity)
-  })
+  if (severities?.length !== 0)
+    severities.forEach((severity) => {
+      nextSearchParams.append(EventsParamKeyEnum.Severities, severity)
+    })
 
-  host.forEach((host) => {
-    nextSearchParams.append(EventsParamKeyEnum.Host, host)
-  })
+  if (hosts?.length !== 0)
+    hosts.forEach((host) => {
+      nextSearchParams.append(EventsParamKeyEnum.Hosts, host)
+    })
 
-  instance.forEach((instance) => {
-    nextSearchParams.append(EventsParamKeyEnum.Instance, instance)
-  })
+  if (instances?.length !== 0)
+    instances.forEach((instance) => {
+      nextSearchParams.append(EventsParamKeyEnum.Instances, instance)
+    })
 
   if (startDate)
     nextSearchParams.set(EventsParamKeyEnum.StartDate, startDate.format())
 
   if (endDate)
     nextSearchParams.set(EventsParamKeyEnum.EndDate, endDate.format())
-
-  if (currentPage) {
-    nextSearchParams.set(EventsParamKeyEnum.CurrentPage, currentPage.toString())
-  }
-  if (itemsPerPage) {
-    nextSearchParams.set(
-      EventsParamKeyEnum.ItemsPerPage,
-      itemsPerPage.toString(),
-    )
-  }
 
   return nextSearchParams
 }

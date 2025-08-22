@@ -40,10 +40,10 @@ export const useEvents = (query: EventsQuery): UseEvents => {
       keyword: debouncedSearchKeyword,
       start: formattedDates.start,
       stop: formattedDates.stop,
-      categories: query.category,
-      severities: query.severity,
-      hosts: query.host,
-      instances: query.instance,
+      categories: query.categories,
+      severities: query.severities,
+      hosts: query.hosts,
+      instances: query.instances,
     } satisfies EventsApiGetEventsRequest
   })
 
