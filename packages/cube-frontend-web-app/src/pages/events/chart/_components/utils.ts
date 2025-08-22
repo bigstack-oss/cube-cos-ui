@@ -176,19 +176,12 @@ export const getRedirectUrl = (
   const endDate = dayjs()
   const startDate = endDate.add(value, unit)
 
-  const { id, severity, category, host, instanceId } = targetEvent
-
   const searchParams = new URLSearchParams({
     type: chartQuery.type,
-    keyword: id,
-    start: startDate.format(),
-    stop: endDate.format(),
+    keyword: targetEvent.id,
+    startDate: startDate.format(),
+    endDate: endDate.format(),
   })
-
-  if (category) searchParams.set('category', category)
-  if (severity) searchParams.set('severity', severity)
-  if (host) searchParams.set('host', host)
-  if (instanceId) searchParams.set('instance', instanceId)
 
   return `${CosRoutesEnum.EVENTS_PAGE}?${searchParams.toString()}`
 }
