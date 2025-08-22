@@ -134,7 +134,6 @@ export const queryToSearchParams = (query: EventsQuery): URLSearchParams => {
   } = query
   const nextSearchParams = new URLSearchParams()
 
-  //
   nextSearchParams.set(EventsParamKeyEnum.Type, type)
 
   nextSearchParams.set(EventsParamKeyEnum.CurrentPage, currentPage.toString())
@@ -145,25 +144,21 @@ export const queryToSearchParams = (query: EventsQuery): URLSearchParams => {
     nextSearchParams.set(EventsParamKeyEnum.Keyword, keyword)
   }
 
-  if (categories?.length !== 0)
-    categories.forEach((category) => {
-      nextSearchParams.append(EventsParamKeyEnum.Categories, category)
-    })
+  categories?.forEach((category) => {
+    nextSearchParams.append(EventsParamKeyEnum.Categories, category)
+  })
 
-  if (severities?.length !== 0)
-    severities.forEach((severity) => {
-      nextSearchParams.append(EventsParamKeyEnum.Severities, severity)
-    })
+  severities?.forEach((severity) => {
+    nextSearchParams.append(EventsParamKeyEnum.Severities, severity)
+  })
 
-  if (hosts?.length !== 0)
-    hosts.forEach((host) => {
-      nextSearchParams.append(EventsParamKeyEnum.Hosts, host)
-    })
+  hosts?.forEach((host) => {
+    nextSearchParams.append(EventsParamKeyEnum.Hosts, host)
+  })
 
-  if (instances?.length !== 0)
-    instances.forEach((instance) => {
-      nextSearchParams.append(EventsParamKeyEnum.Instances, instance)
-    })
+  instances?.forEach((instance) => {
+    nextSearchParams.append(EventsParamKeyEnum.Instances, instance)
+  })
 
   if (startDate)
     nextSearchParams.set(EventsParamKeyEnum.StartDate, startDate.format())

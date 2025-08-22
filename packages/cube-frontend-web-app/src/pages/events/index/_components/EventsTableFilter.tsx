@@ -1,4 +1,6 @@
+import { isEmpty } from 'lodash'
 import XIcon from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
+import { useEventsFilter } from '@cube-frontend/web-app/hooks/events/useEventsFilter'
 import {
   CosDatePicker,
   CosIconFrame,
@@ -10,7 +12,6 @@ import { GetEventsTypeEnum } from '@cube-frontend/api'
 import { EventsContentSwitcher } from './EventsContentSwitcher'
 import { FilterDropdown } from './FilterDropdown'
 import { FilterKeys, FilterOptions } from './useEventsQuery'
-import { useEventsFilter } from './useEventsFilter'
 import { EventsQuery, EventsParamKeyEnum } from './utils'
 
 const filterKeyMapping: Record<string, FilterKeys> = {
@@ -62,10 +63,7 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
     endDate,
   } = eventsQuery
 
-  const { isLoading: isEventsFilterLoading, getEventsFilter } =
-    useEventsFilter()
-
-  const eventsFilter = getEventsFilter(type)
+  const { isEventsFilterLoading, eventsFilter } = useEventsFilter(type)
 
   const {
     displayDates,
@@ -125,7 +123,7 @@ export const EventsTableFilter = (props: EventsTableFilterProps) => {
     severities,
     hosts,
     instances,
-  }).some((value) => !!value)
+  }).some((value) => !isEmpty(value))
 
   return (
     <>

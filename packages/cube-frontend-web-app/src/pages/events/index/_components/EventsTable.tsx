@@ -48,7 +48,7 @@ type EventsTableSelectionProps = {
   onPageSizeChange: (pageSize: ItemsPerPage) => void
 }
 
-export const EventsTableSelection = (props: EventsTableSelectionProps) => {
+export const EventsTable = (props: EventsTableSelectionProps) => {
   const {
     isEventsLoading,
     events,
