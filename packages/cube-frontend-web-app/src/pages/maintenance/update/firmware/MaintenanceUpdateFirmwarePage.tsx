@@ -60,23 +60,27 @@ export const MaintenanceUpdateFirmwarePage = () => {
           }
         >
           <div className="flex flex-col gap-y-6">
-            <FirmwareTable rows={rows} isLoading={showLoading}>
+            <FirmwareTable
+              rows={rows}
+              isLoading={showLoading}
+              rowClassName="cursor-pointer"
+              onRowClick={showReleaseNoteFor}
+            >
               <FirmwareTable.Column
                 label="Firmware"
                 property="version"
                 fitContent={true}
                 emphasize={true}
               >
-                {(version, row) => (
-                  <span
-                    className="cursor-pointer whitespace-nowrap text-primary"
-                    onClick={() => showReleaseNoteFor(row)}
-                  >
-                    {version}
-                  </span>
+                {(version) => (
+                  <div className="whitespace-nowrap">{version}</div>
                 )}
               </FirmwareTable.Column>
-              <FirmwareTable.Column label="Last Updated" property="updatedAt">
+              <FirmwareTable.Column
+                label="Last Updated"
+                property="updatedAt"
+                fitContent={true}
+              >
                 {formatUpdatedAt}
               </FirmwareTable.Column>
               <FirmwareTable.Column label="Note" property="releaseNotes" />
@@ -86,8 +90,18 @@ export const MaintenanceUpdateFirmwarePage = () => {
               >
                 {() => (
                   <div className="flex items-center">
-                    <CosButton type="ghost">Update</CosButton>
-                    <CosButton type="ghost" usage="icon-only" Icon={Trash} />
+                    <CosButton
+                      type="ghost"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Update
+                    </CosButton>
+                    <CosButton
+                      type="ghost"
+                      usage="icon-only"
+                      Icon={Trash}
+                      onClick={(e) => e.stopPropagation()}
+                    />
                   </div>
                 )}
               </FirmwareTable.Column>
