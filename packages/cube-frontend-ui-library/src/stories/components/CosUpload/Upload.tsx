@@ -5,28 +5,22 @@ import {
   CosStroke,
   CosUpload,
 } from '@cube-frontend/ui-library'
-import {
-  ChangeEventHandler,
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 type UploadProps = {
   insideModal?: boolean
   isLoading: boolean
   isUploaded: boolean
+  isError: boolean
 }
 
 export const Upload = ({
   insideModal = false,
   isLoading,
   isUploaded,
+  isError,
 }: UploadProps) => {
-  const fileInputRef = useRef<HTMLInputElement>(null)
-
   const [isOpen, setIsOpen] = useState(false)
 
   const [internalLoading, setInternalLoading] = useState<boolean>(!!isLoading)
@@ -45,25 +39,18 @@ export const Upload = ({
     setFileName(isUploaded ? '/Scripts/fake_bath_automation.command' : '')
   }, [isUploaded])
 
-  const handleUploadClick = () => {
-    fileInputRef.current?.click()
-  }
-
-  const handleFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleFileChange = (file: File | null) => {
     setInternalLoading(true)
-    const scriptFile = e.target.files?.[0]
 
-    if (!scriptFile) {
+    if (!file) {
       setInternalLoading(false)
       return
     }
 
     setTimeout(() => {
-      setFileName(scriptFile.name)
+      setFileName(file.name)
       setInternalLoading(false)
     }, 3000)
-
-    if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   const handleFileCancel = () => {
@@ -115,9 +102,10 @@ export const Upload = ({
   const renderUploadSection = () => (
     <CosUpload
       disabled={internalLoading}
-      button={<CosButton onClick={handleUploadClick}>Upload File</CosButton>}
-      input={
-        <input ref={fileInputRef} type="file" onChange={handleFileChange} />
+      buttonText="Upload File"
+      onFileChange={handleFileChange}
+      errorMessage={
+        isError ? 'Something went wrong, please try again.' : undefined
       }
       leftSlot={
         <div className="primary-body2 text-functional-text">
@@ -125,7 +113,7 @@ export const Upload = ({
         </div>
       }
       rightSlot={
-        <CosHyperlink variant="text-inline" href="#">
+        <CosHyperlink variant="text-inline" href="#" target="_blank">
           View example
         </CosHyperlink>
       }

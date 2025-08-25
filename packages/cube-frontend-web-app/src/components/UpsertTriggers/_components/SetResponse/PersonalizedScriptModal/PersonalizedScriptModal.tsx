@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import UploadIcon from '@cube-frontend/ui-library/icons/monochrome/upload.svg?react'
 import {
   GetTriggerMaterialsResponseDataResponseScriptType,
   TriggerResponseScript,
@@ -9,10 +8,10 @@ import {
   CosModal,
   CosStroke,
   CosHyperlink,
+  CosUpload,
 } from '@cube-frontend/ui-library'
 import { LogConsole } from '@cube-frontend/web-app/components/LogConsole'
 import { UpsertTriggersPayload } from '../../../upsertTriggersUtils'
-import { FilePathCard } from './FilePathCard'
 import { useUploadScript } from './useUploadScript'
 
 type PersonalizedScriptModalProps = {
@@ -37,12 +36,10 @@ export const PersonalizedScriptModal = (
   const modalBodyRef = useRef<HTMLDivElement | null>(null)
 
   const {
-    fileInputRef: scriptFileInputRef,
     scriptInfo,
     errorMessage,
     showScriptTestResult,
     onFileChange,
-    onUploadScriptButtonClick,
     onTestRunningButtonClick,
     onActionClick: addScriptToPayload,
     onScriptClear,
@@ -83,14 +80,9 @@ export const PersonalizedScriptModal = (
   const renderFilePath = () => {
     if (!scriptInfo?.content || !scriptInfo.name) return null
     return (
-      <>
-        <FilePathCard
-          disabled={showScriptTestResult.status === 'testing'}
-          onCancel={onScriptClear}
-        >
-          {scriptInfo.name}
-        </FilePathCard>
-      </>
+      <CosUpload.File disabled={isValidating} onCancel={onScriptClear}>
+        {scriptInfo.name}
+      </CosUpload.File>
     )
   }
 
@@ -109,6 +101,22 @@ export const PersonalizedScriptModal = (
     )
   }
 
+  const hyperlink = (
+    <CosHyperlink
+      variant="text-inline"
+      href="https://bigstack-oss.github.io/bigstack-document/docs/knowledge-base/cubecos/custom-scripts-for-triggers#sample-script-and-enviornment-information"
+      target="_blank"
+    >
+      View example
+    </CosHyperlink>
+  )
+
+  const osHint = (
+    <p className="primary-body2 text-functional-text">
+      {`OS: ${scriptType.environment}`}
+    </p>
+  )
+
   return (
     <CosModal
       isOpen={isModalOpen}
@@ -121,42 +129,16 @@ export const PersonalizedScriptModal = (
       className="h-[490px]"
     >
       <div className="flex flex-col gap-y-8">
-        <div className="flex flex-col gap-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-x-4">
-              <CosButton
-                size="lg"
-                type="secondary"
-                usage="icon-left"
-                Icon={UploadIcon}
-                disabled={isValidating}
-                onClick={onUploadScriptButtonClick}
-              >
-                {`Upload ${scriptType.language} Script`}
-              </CosButton>
-              <input
-                ref={scriptFileInputRef}
-                type="file"
-                className="hidden"
-                onChange={onFileChange}
-              />
-              <p className="primary-body2 text-functional-text">
-                {`OS: ${scriptType.environment}`}
-              </p>
-            </div>
-            <CosHyperlink
-              variant="text-inline"
-              href="https://bigstack-oss.github.io/bigstack-document/docs/knowledge-base/cubecos/custom-scripts-for-triggers#sample-script-and-enviornment-information"
-              target="_blank"
-            >
-              View example
-            </CosHyperlink>
-          </div>
-          {errorMessage && (
-            <p className="primary-body3 text-status-negative">{errorMessage}</p>
-          )}
-        </div>
-        {renderFilePath()}
+        <CosUpload
+          disabled={isValidating}
+          buttonText={`Upload ${scriptType.language} Script`}
+          leftSlot={osHint}
+          rightSlot={hyperlink}
+          errorMessage={errorMessage}
+          onFileChange={onFileChange}
+        >
+          {renderFilePath()}
+        </CosUpload>
         <CosStroke type="dot" />
         <CosButton
           size="lg"

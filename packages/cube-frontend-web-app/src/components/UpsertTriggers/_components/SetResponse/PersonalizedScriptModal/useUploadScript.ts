@@ -1,10 +1,4 @@
-import {
-  ChangeEventHandler,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { fileToBase64 } from '@cube-frontend/web-app/utils/file'
 import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
@@ -24,12 +18,10 @@ type UseUploadScriptOptions = {
 }
 
 type UseUploadScript = {
-  fileInputRef: React.RefObject<HTMLInputElement | null>
   scriptInfo: TriggerResponseScript | undefined
   errorMessage: string
   showScriptTestResult: TestResult
-  onFileChange: ChangeEventHandler<HTMLInputElement>
-  onUploadScriptButtonClick: () => void
+  onFileChange: (file: File | null) => Promise<void>
   onTestRunningButtonClick: () => void
   onActionClick: () => void
   onScriptClear: () => void
@@ -41,8 +33,6 @@ export const useUploadScript = (
   const { isModalOpen, script, onVerifyScriptSuccess } = options
 
   const { dataCenter } = useContext(DataCenterContext)
-
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [scriptInfo, setScriptInfo] = useState<TriggerResponseScript>()
 
@@ -65,24 +55,12 @@ export const useUploadScript = (
 
     setScriptInfo(script)
     setShowScriptTestResult({ status: 'testSucceeded', message: undefined })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalOpen, script])
-
-  const onFileInputClear = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
-  }
 
   const onScriptClear = () => {
     setScriptInfo(undefined)
     setShowScriptTestResult({ status: 'untested', message: undefined })
     setErrorMessage('')
-    onFileInputClear()
-  }
-
-  const onUploadScriptButtonClick = () => {
-    fileInputRef.current?.click()
   }
 
   /**
@@ -91,27 +69,23 @@ export const useUploadScript = (
    * - Convert to base64 and update state
    * - Reset test status
    */
-  const onFileChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
+  const onFileChange = async (file: File | null) => {
     setErrorMessage('')
-    const scriptFile = e.target.files?.[0]
 
-    if (!scriptFile) return
+    if (!file) return
 
-    if (scriptFile.size > MAX_SIZE_IN_BYTES) {
+    if (file.size > MAX_SIZE_IN_BYTES) {
       onScriptClear()
       setErrorMessage('File is too large. Maximum allowed size is 10MiB.')
       return
     }
 
     try {
-      const base64 = await fileToBase64(scriptFile)
-      setScriptInfo({ name: scriptFile.name, content: base64 })
+      const base64 = await fileToBase64(file)
+      setScriptInfo({ name: file.name, content: base64 })
       setShowScriptTestResult({ status: 'untested' })
     } catch {
       setErrorMessage('Failed to read script file.')
-    } finally {
-      // Allow re-uploading the same file
-      onFileInputClear()
     }
   }
 
@@ -153,12 +127,10 @@ export const useUploadScript = (
   }
 
   return {
-    fileInputRef,
     scriptInfo,
     errorMessage,
     showScriptTestResult,
     onFileChange,
-    onUploadScriptButtonClick,
     onTestRunningButtonClick,
     onActionClick,
     onScriptClear,
