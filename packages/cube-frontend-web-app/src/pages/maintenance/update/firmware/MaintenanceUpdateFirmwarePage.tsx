@@ -46,7 +46,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
         <CosGeneralPanel
           containerClassName="grow"
           topic="Firmware List"
-          dropdown={
+          rightSlot={
             <div className="flex items-center gap-x-4">
               <CosButton disabled={showLoading}>Upload PKG File</CosButton>
               <button

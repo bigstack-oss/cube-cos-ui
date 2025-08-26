@@ -8,12 +8,12 @@ import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { useContext, useMemo } from 'react'
 import { Line } from 'react-chartjs-2'
 import { NODE_DETAILS_POLLING_INTERVAL } from '../NodeDetailsPageUtils'
-import { Panel } from './Panel'
 import {
   chartTimeRanges,
   computeChartData,
   getMemoryChartOptions,
 } from './nodeChartsUtils'
+import { CosGeneralPanel } from '@cube-frontend/ui-library'
 
 type MemoryPerformanceChartProps = {
   node: Node | undefined
@@ -61,21 +61,21 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
   )
 
   return (
-    <Panel className="flex-1 gap-y-6">
-      <div className="flex items-center justify-between">
-        <span className="secondary-h4 text-functional-text">
-          Memory Performance
-        </span>
+    <CosGeneralPanel
+      topic="Memory Performance"
+      rightSlot={
         <TimeRangeDropdown
           timeRanges={chartTimeRanges}
           selectedItem={timeRange}
           disabled={!node}
           onChange={onTimeRangeChange}
         />
-      </div>
+      }
+      containerClassName="flex-1"
+    >
       <div className="h-[400px]">
         <Line data={chartData} options={chartOptions} />
       </div>
-    </Panel>
+    </CosGeneralPanel>
   )
 }

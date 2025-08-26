@@ -3,10 +3,10 @@ import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { ChangeEvent, useMemo } from 'react'
 import { UpsertTuningsPayload } from '../../upsertTuningsUtils'
-import { Board } from '../Board'
 import { TuningValueControl } from '../SelectKeyValue/TuningValueControl'
 import { validateTuningValue } from '../SelectKeyValue/validateTuningValue'
 import { SpecEntry } from '../SpecEntry'
+import { Board } from '../Board'
 
 type EditValueProps = {
   isLoading: boolean

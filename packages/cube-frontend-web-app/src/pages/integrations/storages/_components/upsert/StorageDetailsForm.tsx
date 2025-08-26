@@ -146,7 +146,7 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
     <div className="flex-1 shrink-0">
       <CosGeneralPanel
         topic="Storage details"
-        dropdown={
+        rightSlot={
           <button
             type="button"
             className="inline-flex size-[26px] cursor-pointer items-center justify-center rounded-full bg-blue-150"

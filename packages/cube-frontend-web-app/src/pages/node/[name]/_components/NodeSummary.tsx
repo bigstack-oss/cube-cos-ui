@@ -1,6 +1,7 @@
 import { Node, NodeStatusEnum } from '@cube-frontend/api'
 import {
   CosButton,
+  CosGeneralPanel,
   CosSkeleton,
   CosStroke,
   CosTag,
@@ -19,7 +20,6 @@ import { CreateSupportFilesModal } from '../../_components/CreateSupportFilesMod
 import { useCreateSupportFilesModal } from '../../_components/useCreateSupportFilesModal'
 import { VipLabel } from '../../_components/VipLabel'
 import { ActionMenu } from './ActionMenu'
-import { Panel } from './Panel'
 
 type NodeSummaryProps = {
   node: Node | undefined
@@ -102,79 +102,84 @@ export const NodeSummary = (props: NodeSummaryProps) => {
 
   if (!node) {
     return (
-      <Panel className="gap-y-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-x-2.5">
-            <CosSkeleton className="h-6 w-[70px]" />
-            <CosSkeleton className="h-6 w-[120px] rounded-full" />
+      <CosGeneralPanel>
+        <div className="flex flex-col gap-y-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-x-2.5">
+              <CosSkeleton className="h-6 w-[70px]" />
+              <CosSkeleton className="h-6 w-[120px] rounded-full" />
+            </div>
+            <CosButton disabled={true}>Action</CosButton>
           </div>
-          <CosButton disabled={true}>Action</CosButton>
+          <CosStroke type="dot" />
+          <div className="w-fit rounded-[5px] border border-functional-border-divider">
+            {range(0, 6).map(renderSkeletonRow)}
+          </div>
         </div>
-        <CosStroke type="dot" />
-        <div className="w-fit rounded-[5px] border border-functional-border-divider">
-          {range(0, 6).map(renderSkeletonRow)}
-        </div>
-      </Panel>
+      </CosGeneralPanel>
     )
   }
 
   return (
-    <Panel className="gap-y-6">
-      <div className="flex items-center justify-between">
+    <CosGeneralPanel
+      topic={node.hostname}
+      leftSlot={
         <div className="flex items-center gap-x-2.5">
-          <span className="primary-h4 text-functional-text">
-            {node.hostname}
-          </span>
           {node.isVirtualIpOwner && <VipLabel />}
           <CosTag className="h-[23px]" color="blue" variant="filled">
             {node.role}
           </CosTag>
         </div>
+      }
+      rightSlot={
         <ActionMenu
           node={node}
           onCreateSupportFileClick={openCreateSupportFilesModal}
         />
+      }
+    >
+      <div className="flex flex-col gap-y-6">
+        <CosStroke type="dot" />
+        {node.status === NodeStatusEnum.Up && (
+          <table className="w-fit min-w-[560px] border-separate border-spacing-0">
+            <tbody>
+              {renderRow('CPU Spec', node.cpuSpec)}
+              {renderRow(
+                'Memory Spec',
+                toReadableSizeString(node.memory.totalMiB, 'MiB'),
+              )}
+              {renderRow('Up Time', humanizeDuration(node.uptimeSeconds))}
+              {renderRow(
+                'License Expiration',
+                toLicenseExpirationDate(node.license, { includeTime: true }),
+              )}
+              {renderRow(
+                'Management IP',
+                <div className="flex items-center gap-x-5">
+                  <span>{node.managementIP}</span>
+                  {renderCopyButton(node.managementIP)}
+                </div>,
+              )}
+              {renderRow(
+                'Storage IP',
+                <div className="flex items-center gap-x-5">
+                  <span>{node.storageIP}</span>
+                  {renderCopyButton(node.storageIP)}
+                </div>,
+              )}
+            </tbody>
+          </table>
+        )}
+        {!!node && (
+          <CreateSupportFilesModal
+            isOpen={isCreateSupportFilesModalOpen}
+            selectedNodes={[node]}
+            comments={comments}
+            onCommentsChange={onCommentsChange}
+            onCloseClick={closeCreateSupportFilesModal}
+          />
+        )}
       </div>
-      <CosStroke type="dot" />
-      {node.status === NodeStatusEnum.Up && (
-        <table className="w-fit min-w-[560px] border-separate border-spacing-0">
-          <tbody>
-            {renderRow('CPU Spec', node.cpuSpec)}
-            {renderRow(
-              'Memory Spec',
-              toReadableSizeString(node.memory.totalMiB, 'MiB'),
-            )}
-            {renderRow('Up Time', humanizeDuration(node.uptimeSeconds))}
-            {renderRow(
-              'License Expiration',
-              toLicenseExpirationDate(node.license, { includeTime: true }),
-            )}
-            {renderRow(
-              'Management IP',
-              <div className="flex items-center gap-x-5">
-                <span>{node.managementIP}</span>
-                {renderCopyButton(node.managementIP)}
-              </div>,
-            )}
-            {renderRow(
-              'Storage IP',
-              <div className="flex items-center gap-x-5">
-                <span>{node.storageIP}</span>
-                {renderCopyButton(node.storageIP)}
-              </div>,
-            )}
-          </tbody>
-        </table>
-      )}
-      {!!node && (
-        <CreateSupportFilesModal
-          isOpen={isCreateSupportFilesModalOpen}
-          selectedNodes={[node]}
-          comments={comments}
-          onCommentsChange={onCommentsChange}
-          onCloseClick={closeCreateSupportFilesModal}
-        />
-      )}
-    </Panel>
+    </CosGeneralPanel>
   )
 }

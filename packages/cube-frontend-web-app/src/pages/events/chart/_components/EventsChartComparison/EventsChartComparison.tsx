@@ -96,7 +96,7 @@ export const EventsChartComparison = (props: EventsChartComparisonProps) => {
   return (
     <CosGeneralPanel
       topic="Event ID Comparison (Top 24)"
-      dropdown={
+      rightSlot={
         <div className="flex items-center gap-2">{renderFilters()}</div>
       }
     >

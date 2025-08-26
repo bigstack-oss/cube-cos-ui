@@ -4,6 +4,7 @@ import {
 } from '@cube-frontend/api'
 import {
   CosButton,
+  CosGeneralPanel,
   CosLoadingSpinner,
   CosStatus,
   CosTableInput,
@@ -14,7 +15,6 @@ import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
 import { isEmpty, upperFirst } from 'lodash'
 import { twMerge } from 'tailwind-merge'
-import { Panel } from '../Panel'
 import { AddDiskModal } from './AddDiskModal'
 import { DaemonsInfo } from './DaemonsInfo'
 import { DefinedClassCell } from './DefinedClassCell'
@@ -184,8 +184,11 @@ export const NodeDevices = (props: NodeDevicesProps) => {
   }
 
   return (
-    <Panel className="gap-y-2">
-      <div className="primary-body3 text-functional-text">Devices</div>
+    <CosGeneralPanel
+      leftSlot={
+        <div className="primary-body3 text-functional-text">Devices</div>
+      }
+    >
       <DeviceTable isLoading={isLoading} rows={rows}>
         <DeviceTable.Column label="Device" property="device" emphasize={true} />
         <DeviceTable.Column label="Serial number" property="serial" />
@@ -261,6 +264,6 @@ export const NodeDevices = (props: NodeDevicesProps) => {
         targetRow={restartOSDsModalTargetRow}
         onCloseClick={onRestartOSDsModalClose}
       />
-    </Panel>
+    </CosGeneralPanel>
   )
 }

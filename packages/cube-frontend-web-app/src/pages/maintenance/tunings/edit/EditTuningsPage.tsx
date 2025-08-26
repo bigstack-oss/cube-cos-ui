@@ -51,7 +51,7 @@ export const EditTuningsPage = () => {
   const title = initialData.hosts?.length ? 'Edit Tunings' : 'Create Tunings'
 
   return (
-    <div className="mx-2 my-1">
+    <div className="my-1">
       <CosBackButton
         backButtonContainer={{
           Component: Link,

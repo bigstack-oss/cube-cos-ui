@@ -3,12 +3,12 @@ import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { ChangeEvent, useMemo } from 'react'
 import { UpsertTuningsPayloadValue } from '../../upsertTuningsUtils'
-import { Board } from '../Board'
 import { SpecEntry } from '../SpecEntry'
 import { TuningSpecTableSection } from './TuningSpecTableSection'
 import { TuningValueControl } from './TuningValueControl'
 import { UseSpecFilter } from './useSpecFilter'
 import { validateTuningValue } from './validateTuningValue'
+import { Board } from '../Board'
 
 type SelectKeyValueProps = {
   isLoading: boolean
@@ -50,16 +50,18 @@ export const SelectKeyValue = (props: SelectKeyValueProps) => {
         specFilter={specFilter}
         onSpecSelect={onSpecSelect}
       />
-      <CosStroke type="regular" />
       {!!selectedSpec && (
-        <SpecEntry specName={selectedSpec.name} valueLabel="Enter Value">
-          <TuningValueControl
-            limitation={selectedSpec.limitation}
-            value={value}
-            isValueValid={isValueValid}
-            onChange={onValueChange}
-          />
-        </SpecEntry>
+        <>
+          <CosStroke type="regular" />
+          <SpecEntry specName={selectedSpec.name} valueLabel="Enter Value">
+            <TuningValueControl
+              limitation={selectedSpec.limitation}
+              value={value}
+              isValueValid={isValueValid}
+              onChange={onValueChange}
+            />
+          </SpecEntry>
+        </>
       )}
       <CosStroke type="dot" />
       <CosButton

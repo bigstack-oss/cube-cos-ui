@@ -50,52 +50,50 @@ export const IntegrationsApplicationsPage = () => {
 
   return (
     <CosGeneralPanel topic="Applications">
-      <div className="pt-2">
-        <ApplicationTable rows={rows} isLoading={isLoading}>
-          <ApplicationTable.Column property="url" fitContent={true}>
-            {(url) => (
-              <a target="_blank" href={url}>
-                <CosButton type="light" size="sm">
-                  Connect
-                </CosButton>
-              </a>
-            )}
-          </ApplicationTable.Column>
-          <ApplicationTable.Column
-            label="Application"
-            property="name"
-            emphasize={true}
-          >
-            {renderApplicationName}
-          </ApplicationTable.Column>
-          <ApplicationTable.Column
-            label="Shown on header"
-            property="isHeaderShortcutEnabled"
-          >
-            {(isHeaderShortcutEnabled) => (
-              <span className="primary-body3 text-functional-text-light">
-                {/*
-                 * TODO: In Phase 1, all applications are `Required`.
-                 * Should discuss the `Non-Required` wording with the team in Phase 2.
-                 */}
-                {isHeaderShortcutEnabled ? 'Required' : 'Non-Required'}
-              </span>
-            )}
-          </ApplicationTable.Column>
-          <ApplicationTable.Column label="Description" property="description" />
-          <ApplicationTable.Column property="isBuiltIn">
-            {(isBuiltIn) => (
-              <span className="primary-body3 text-nowrap text-functional-text-light">
-                {/*
-                 * TODO: In Phase 1, all integrations are `Built-in`.
-                 * Should discuss the `Non-Built-in` wording with the team in Phase 2.
-                 */}
-                {isBuiltIn ? 'Built in' : 'Non Built in'}
-              </span>
-            )}
-          </ApplicationTable.Column>
-        </ApplicationTable>
-      </div>
+      <ApplicationTable rows={rows} isLoading={isLoading}>
+        <ApplicationTable.Column property="url" fitContent={true}>
+          {(url) => (
+            <a target="_blank" href={url}>
+              <CosButton type="light" size="sm">
+                Connect
+              </CosButton>
+            </a>
+          )}
+        </ApplicationTable.Column>
+        <ApplicationTable.Column
+          label="Application"
+          property="name"
+          emphasize={true}
+        >
+          {renderApplicationName}
+        </ApplicationTable.Column>
+        <ApplicationTable.Column
+          label="Shown on header"
+          property="isHeaderShortcutEnabled"
+        >
+          {(isHeaderShortcutEnabled) => (
+            <span className="primary-body3 text-functional-text-light">
+              {/*
+               * TODO: In Phase 1, all applications are `Required`.
+               * Should discuss the `Non-Required` wording with the team in Phase 2.
+               */}
+              {isHeaderShortcutEnabled ? 'Required' : 'Non-Required'}
+            </span>
+          )}
+        </ApplicationTable.Column>
+        <ApplicationTable.Column label="Description" property="description" />
+        <ApplicationTable.Column property="isBuiltIn">
+          {(isBuiltIn) => (
+            <span className="primary-body3 text-nowrap text-functional-text-light">
+              {/*
+               * TODO: In Phase 1, all integrations are `Built-in`.
+               * Should discuss the `Non-Built-in` wording with the team in Phase 2.
+               */}
+              {isBuiltIn ? 'Built in' : 'Non Built in'}
+            </span>
+          )}
+        </ApplicationTable.Column>
+      </ApplicationTable>
     </CosGeneralPanel>
   )
 }

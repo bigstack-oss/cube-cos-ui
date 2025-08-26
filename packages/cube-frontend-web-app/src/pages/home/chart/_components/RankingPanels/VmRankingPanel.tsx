@@ -100,7 +100,7 @@ export const VmRankingPanel = () => {
       <CosGeneralPanel
         className="flex-1"
         topic="VM Ranking Top 10 (High to low)"
-        dropdown={
+        rightSlot={
           <CosDropdown type="radio" selectedItems={selectedItems}>
             <CosDropdown.Trigger>{selectedItems[0].name}</CosDropdown.Trigger>
             <CosDropdown.Menu>

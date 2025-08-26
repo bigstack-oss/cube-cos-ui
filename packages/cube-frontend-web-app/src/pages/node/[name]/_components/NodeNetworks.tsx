@@ -1,6 +1,9 @@
 import { Node, NodeNetworkInterfacesInner } from '@cube-frontend/api'
-import { CosTableRow, GetCosBasicTable } from '@cube-frontend/ui-library'
-import { Panel } from './Panel'
+import {
+  CosGeneralPanel,
+  CosTableRow,
+  GetCosBasicTable,
+} from '@cube-frontend/ui-library'
 
 type NodeNetworksProps = {
   node: Node | undefined
@@ -22,8 +25,11 @@ export const NodeNetworks = (props: NodeNetworksProps) => {
   }
 
   return (
-    <Panel className="gap-y-2">
-      <div className="primary-body3 text-functional-text">Network</div>
+    <CosGeneralPanel
+      leftSlot={
+        <div className="primary-body3 text-functional-text">Network</div>
+      }
+    >
       <NetworkTable isLoading={!node} rows={getNetworkRows()}>
         <NetworkTable.Column label="Label" property="label" emphasize={true} />
         <NetworkTable.Column label="Interface" property="interface" />
@@ -32,6 +38,6 @@ export const NodeNetworks = (props: NodeNetworksProps) => {
         <NetworkTable.Column label="State" property="state" />
         <NetworkTable.Column label="Speed" property="speed" />
       </NetworkTable>
-    </Panel>
+    </CosGeneralPanel>
   )
 }

@@ -8,9 +8,9 @@ import {
   PreviewRow,
   UpsertTuningsPayload,
 } from '../../upsertTuningsUtils'
-import { Board } from '../Board'
 import { SpecEntry } from '../SpecEntry'
 import { TuningsPreviousButton } from '../TuningsPreviousButton'
+import { Board } from '../Board'
 
 type PublishTuningProps = {
   payload: UpsertTuningsPayload

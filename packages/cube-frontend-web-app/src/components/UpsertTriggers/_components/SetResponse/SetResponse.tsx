@@ -5,10 +5,14 @@ import {
   GetTriggerMaterialsResponseDataResponseSlacksInner,
   TriggerResponseScript,
 } from '@cube-frontend/api'
-import { CosButton, CosStroke, CosTableRow } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosGeneralPanel,
+  CosStroke,
+  CosTableRow,
+} from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
-import { StepBoard } from '@cube-frontend/web-app/components/StepBoard'
 import {
   isResponseValid,
   UpsertTriggersPayload,
@@ -136,40 +140,42 @@ export const SetResponse = (props: SetResponseProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <StepBoard>
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-4">
+    <div className="flex flex-col gap-y-4">
+      <CosGeneralPanel>
+        <div className="flex flex-col gap-y-6">
+          <div className="flex flex-wrap items-center justify-between gap-x-4">
+            <div className="flex flex-wrap items-center gap-x-4">
+              <CosButton
+                type="ghost"
+                usage="icon-left"
+                Icon={AddSquare}
+                onClick={() => setIsSendNotificationOpen(true)}
+              >
+                Send Notification
+              </CosButton>
+              <CosButton
+                type="ghost"
+                usage="icon-left"
+                Icon={AddSquare}
+                onClick={() => setIsPersonalizedScriptOpen(true)}
+                disabled={!!payload.script?.content || !!payload.script?.name}
+              >
+                Personalized Script
+              </CosButton>
+            </div>
             <CosButton
               type="ghost"
-              usage="icon-left"
-              Icon={AddSquare}
-              onClick={() => setIsSendNotificationOpen(true)}
+              onClick={onResetClick}
+              disabled={!isResponseChanged}
             >
-              Send Notification
-            </CosButton>
-            <CosButton
-              type="ghost"
-              usage="icon-left"
-              Icon={AddSquare}
-              onClick={() => setIsPersonalizedScriptOpen(true)}
-              disabled={!!payload.script?.content || !!payload.script?.name}
-            >
-              Personalized Script
+              Reset
             </CosButton>
           </div>
-          <CosButton
-            type="ghost"
-            onClick={onResetClick}
-            disabled={!isResponseChanged}
-          >
-            Reset
-          </CosButton>
+          <CosStroke />
+          {renderNotificationStackCard()}
+          {renderPersonalizedScriptStackCard()}
         </div>
-        <CosStroke />
-        {renderNotificationStackCard()}
-        {renderPersonalizedScriptStackCard()}
-      </StepBoard>
+      </CosGeneralPanel>
       <CosStroke type="dot" />
       <div className="flex items-center gap-x-4">
         <TriggersPreviousButton />

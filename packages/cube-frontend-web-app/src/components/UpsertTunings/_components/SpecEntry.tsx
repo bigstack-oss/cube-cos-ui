@@ -25,7 +25,7 @@ export const SpecEntry = (props: SpecEntryProps) => {
   const skeleton = <CosSkeleton className="h-[38px] w-[170px]" />
 
   return (
-    <div className="flex gap-x-4 px-4 py-3">
+    <div className="flex gap-x-4 px-4 py-3 text-functional-text">
       <div className="flex min-w-[170px] flex-col gap-y-1.5">
         <div className="primary-body2 font-semibold">Key</div>
         {isLoading ? (

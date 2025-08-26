@@ -1,3 +1,4 @@
+import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { EventsRefreshButton } from './_components/EventsRefreshButton'
 import { EventsTableFilter } from './_components/EventsTableFilter'
 import { EventsTable } from './_components/EventsTable'
@@ -25,32 +26,35 @@ export const EventsIndexPage = () => {
   } = useEvents(eventsQuery)
 
   return (
-    <div className="flex flex-col gap-6 bg-white px-6 py-4">
-      <div className="flex items-center justify-between">
-        <h5 className="secondary-h5">Events</h5>
+    <CosGeneralPanel
+      topic="Events"
+      rightSlot={
         <EventsRefreshButton
           onEventsRefresh={onEventsRefresh}
           isEventsLoading={isEventsLoading}
         />
+      }
+    >
+      <div className="flex flex-col gap-y-6">
+        <EventsTableFilter
+          eventsQuery={eventsQuery}
+          onTypeChange={onTypeChange}
+          onKeywordChange={onKeywordChange}
+          onDatesChange={onDatesChange}
+          onFieldChange={onFieldChange}
+          onFieldAllCheckChange={onFieldAllCheckChange}
+          onFieldClear={onFieldClear}
+        />
+        <EventsTable
+          isEventsLoading={isEventsLoading}
+          events={events}
+          currentPage={eventsQuery.currentPage}
+          itemsPerPage={eventsQuery.itemsPerPage}
+          totalItems={totalItems}
+          onPageNumChange={onPageNumChange}
+          onPageSizeChange={onPageSizeChange}
+        />
       </div>
-      <EventsTableFilter
-        eventsQuery={eventsQuery}
-        onTypeChange={onTypeChange}
-        onKeywordChange={onKeywordChange}
-        onDatesChange={onDatesChange}
-        onFieldChange={onFieldChange}
-        onFieldAllCheckChange={onFieldAllCheckChange}
-        onFieldClear={onFieldClear}
-      />
-      <EventsTable
-        isEventsLoading={isEventsLoading}
-        events={events}
-        currentPage={eventsQuery.currentPage}
-        itemsPerPage={eventsQuery.itemsPerPage}
-        totalItems={totalItems}
-        onPageNumChange={onPageNumChange}
-        onPageSizeChange={onPageSizeChange}
-      />
-    </div>
+    </CosGeneralPanel>
   )
 }

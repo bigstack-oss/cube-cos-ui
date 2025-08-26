@@ -49,25 +49,23 @@ export const IntegrationsStoragesPage = () => {
     dayjs.respectTzOffset(updatedAt).format('YYYY/MM/DD')
 
   return (
-    <CosGeneralPanel topic="Storages" dropdown={<StorageTableActions />}>
-      <div className="pt-2">
-        <StorageTable rows={rows} isLoading={isLoading}>
-          <StorageTable.Column label="Storage" property="name" emphasize={true}>
-            {renderStorageName}
-          </StorageTable.Column>
-          <StorageTable.Column label="Type" property="type">
-            {upperFirst}
-          </StorageTable.Column>
-          <StorageTable.Column label="Vendor" property="vendor" />
-          <StorageTable.Column label="Update Time" property="updatedAt">
-            {renderUpdateTime}
-          </StorageTable.Column>
-          <StorageTable.Column label="Management IP" property="managementIp" />
-          <StorageTable.Column>
-            {(_, row) => <StorageRowActions row={row} />}
-          </StorageTable.Column>
-        </StorageTable>
-      </div>
+    <CosGeneralPanel topic="Storages" rightSlot={<StorageTableActions />}>
+      <StorageTable rows={rows} isLoading={isLoading}>
+        <StorageTable.Column label="Storage" property="name" emphasize={true}>
+          {renderStorageName}
+        </StorageTable.Column>
+        <StorageTable.Column label="Type" property="type">
+          {upperFirst}
+        </StorageTable.Column>
+        <StorageTable.Column label="Vendor" property="vendor" />
+        <StorageTable.Column label="Update Time" property="updatedAt">
+          {renderUpdateTime}
+        </StorageTable.Column>
+        <StorageTable.Column label="Management IP" property="managementIp" />
+        <StorageTable.Column>
+          {(_, row) => <StorageRowActions row={row} />}
+        </StorageTable.Column>
+      </StorageTable>
     </CosGeneralPanel>
   )
 }

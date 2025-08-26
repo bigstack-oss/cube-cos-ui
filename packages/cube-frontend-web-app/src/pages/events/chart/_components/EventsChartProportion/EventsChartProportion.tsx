@@ -93,7 +93,7 @@ export const EventsChartProportion = (props: EventsChartProportionProps) => {
   return (
     <CosGeneralPanel
       topic="Event ID Proportion"
-      dropdown={
+      rightSlot={
         <div className="flex items-center gap-2">{renderFilters()}</div>
       }
     >

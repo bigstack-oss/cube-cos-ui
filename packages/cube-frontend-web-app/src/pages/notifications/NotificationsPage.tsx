@@ -111,21 +111,21 @@ export const NotificationsPage = () => {
   return (
     <CosGeneralPanel
       topic="Notifications"
-      icon={
-        <CosSearchBarGlobal
-          variant="regular"
-          placeholder="Search"
-          value={query.keyword}
-          onChange={(e) => onKeywordChange(e.target.value)}
-          onInputClear={onKeywordClear}
-        />
-      }
-      dropdown={
-        <TimeRangeDropdown
-          timeRanges={pastEnums}
-          selectedItem={query.timeRange}
-          onChange={onTimeRangeChange}
-        />
+      rightSlot={
+        <>
+          <CosSearchBarGlobal
+            variant="regular"
+            placeholder="Search"
+            value={query.keyword}
+            onChange={(e) => onKeywordChange(e.target.value)}
+            onInputClear={onKeywordClear}
+          />
+          <TimeRangeDropdown
+            timeRanges={pastEnums}
+            selectedItem={query.timeRange}
+            onChange={onTimeRangeChange}
+          />
+        </>
       }
     >
       <div className="flex flex-col gap-y-4">

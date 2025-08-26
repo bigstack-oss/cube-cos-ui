@@ -1,5 +1,9 @@
 import { HealthApiGetHealthsRequest } from '@cube-frontend/api'
-import { CosButton, CosLoadingSpinner } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosGeneralPanel,
+  CosLoadingSpinner,
+} from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -69,25 +73,25 @@ export const HealthCheck = () => {
     }
   }
 
+  const healthCheckStatus = isLoadingHealth ? (
+    <CosLoadingSpinner variant="dot45" />
+  ) : (
+    <HealthStatusBadge status={overallHealth.overall.status.current} />
+  )
+
   return (
-    <div className="flex flex-col gap-y-4 rounded-[5px] bg-grey-0 px-8 py-6 shadow-[0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]">
-      <div className="flex items-center gap-x-2">
-        <h5 className="secondary-h5">Health Check:</h5>
-        {isLoadingHealth ? (
-          <CosLoadingSpinner variant="dot45" />
-        ) : (
-          <HealthStatusBadge status={overallHealth.overall.status.current} />
-        )}
+    <CosGeneralPanel topic="Health Check:" leftSlot={healthCheckStatus}>
+      <div className="flex flex-col gap-y-4">
+        {renderNgServices()}
+        <CosButton
+          className="self-start"
+          loading={overallHealth?.overall.status.isFixing || isCallingRepairApi}
+          disabled={isLoadingHealth}
+          onClick={onRepairClick}
+        >
+          Repair
+        </CosButton>
       </div>
-      {renderNgServices()}
-      <CosButton
-        className="self-start"
-        loading={overallHealth?.overall.status.isFixing || isCallingRepairApi}
-        disabled={isLoadingHealth}
-        onClick={onRepairClick}
-      >
-        Repair
-      </CosButton>
-    </div>
+    </CosGeneralPanel>
   )
 }

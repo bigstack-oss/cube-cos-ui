@@ -27,7 +27,7 @@ export const ReleaseNotePanel = (props: ReleaseNotePanelProps) => {
     <CosGeneralPanel
       className={panel({ isOpen })}
       topic={version || fallbackTitle}
-      dropdown={
+      rightSlot={
         <button
           type="button"
           className="inline-flex size-8 cursor-pointer items-center justify-center"

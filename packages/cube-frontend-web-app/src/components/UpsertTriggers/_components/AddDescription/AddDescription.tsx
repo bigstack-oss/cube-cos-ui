@@ -1,10 +1,10 @@
 import {
   CosButton,
+  CosGeneralPanel,
   CosInput,
   CosStroke,
   CosTextArea,
 } from '@cube-frontend/ui-library'
-import { StepBoard } from '@cube-frontend/web-app/components/StepBoard'
 import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
 import { twMerge } from 'tailwind-merge'
@@ -40,29 +40,31 @@ export const AddDescription = (props: AddDescriptionProps) => {
   const isValueValid = !!payload.name
 
   return (
-    <div className="flex flex-col gap-4">
-      <StepBoard>
-        <CosInput
-          isLoading={isLoading}
-          label="Trigger Name (used for identification)"
-          placeholder="Name"
-          value={payload?.name}
-          onChange={onNameChange}
-          className={twMerge(
-            'max-w-[512px]',
-            isEditMode && 'cursor-not-allowed',
-          )}
-          disabled={isEditMode}
-        />
-        <CosTextArea
-          isLoading={isLoading}
-          label="Description"
-          placeholder="Description"
-          maxLength={200}
-          value={payload?.description}
-          onChange={onDescriptionChange}
-        />
-      </StepBoard>
+    <div className="flex flex-col gap-y-4">
+      <CosGeneralPanel>
+        <div className="flex flex-col gap-y-4">
+          <CosInput
+            isLoading={isLoading}
+            label="Trigger Name (used for identification)"
+            placeholder="Name"
+            value={payload?.name}
+            onChange={onNameChange}
+            className={twMerge(
+              'max-w-[512px]',
+              isEditMode && 'cursor-not-allowed',
+            )}
+            disabled={isEditMode}
+          />
+          <CosTextArea
+            isLoading={isLoading}
+            label="Description"
+            placeholder="Description"
+            maxLength={200}
+            value={payload?.description}
+            onChange={onDescriptionChange}
+          />
+        </div>
+      </CosGeneralPanel>
       <CosStroke type="dot" />
       {errorMessage && (
         <div className="primary-body3 text-status-negative">{errorMessage}</div>

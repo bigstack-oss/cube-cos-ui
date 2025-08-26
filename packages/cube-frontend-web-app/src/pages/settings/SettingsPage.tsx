@@ -1,5 +1,5 @@
 import { SettingsApiGetSettingsRequest } from '@cube-frontend/api'
-import { CosStroke } from '@cube-frontend/ui-library'
+import { CosGeneralPanel, CosStroke } from '@cube-frontend/ui-library'
 import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -9,7 +9,6 @@ import { useContext } from 'react'
 import { EmailSettings } from './_components/email/EmailSettings'
 import { SlackChannels } from './_components/SlackChannels/SlackChannels'
 import { ManageContact } from './ManageContact'
-import { SettingsSection } from './SettingsSection'
 
 const SETTINGS_POLLING_INTERVAL = 5 * 1000
 
@@ -37,9 +36,9 @@ export const SettingsPage = () => {
   })
 
   return (
-    <div className="flex flex-col gap-y-3">
+    <div className="flex flex-col gap-y-4">
       <ManageContact titlePrefixFromApi={settingsData?.titlePrefix} />
-      <SettingsSection className="py-6">
+      <CosGeneralPanel>
         <SlackChannels
           isLoading={showLoading}
           initialChannels={settingsData?.slack.channels}
@@ -49,7 +48,7 @@ export const SettingsPage = () => {
           isLoading={showLoading}
           dataFromApi={settingsData?.email}
         />
-      </SettingsSection>
+      </CosGeneralPanel>
     </div>
   )
 }

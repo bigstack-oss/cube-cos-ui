@@ -4,6 +4,7 @@ import {
   Node,
 } from '@cube-frontend/api'
 import {
+  CosGeneralPanel,
   CosPagination,
   DEFAULT_ITEMS_PER_PAGE,
   GetCosBasicTable,
@@ -20,7 +21,6 @@ import dayjs from 'dayjs'
 import { useContext, useMemo, useState } from 'react'
 import { NODE_DETAILS_POLLING_INTERVAL } from '../NodeDetailsPageUtils'
 import { chartTimeRanges } from './nodeChartsUtils'
-import { Panel } from './Panel'
 
 type NodeEventsProps = {
   node: Node | undefined
@@ -107,16 +107,17 @@ export const NodeEvents = (props: NodeEventsProps) => {
   }, [response?.events])
 
   return (
-    <Panel className="gap-y-4">
-      <div className="flex items-center justify-between">
-        <span className="primary-h5 text-functional-text">Node Events</span>
+    <CosGeneralPanel
+      topic="Node Events"
+      rightSlot={
         <TimeRangeDropdown
           timeRanges={chartTimeRanges}
           selectedItem={timeRange}
           disabled={!node}
           onChange={onTimeRangeChange}
         />
-      </div>
+      }
+    >
       <EventTable isLoading={showLoading} rows={rows} skeletonRowCount={10}>
         <EventTable.Column label="Severity" property="severity" />
         <EventTable.Column label="Event ID" property="eventId" />
@@ -138,6 +139,6 @@ export const NodeEvents = (props: NodeEventsProps) => {
         onPageChange={onPageChange}
         onItemsPerPageChange={onItemsPerPageChange}
       />
-    </Panel>
+    </CosGeneralPanel>
   )
 }

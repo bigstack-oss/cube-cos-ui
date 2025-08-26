@@ -2,13 +2,17 @@ import {
   GetSettingResponseDataTitlePrefix,
   SettingStatusCurrentEnum,
 } from '@cube-frontend/api'
-import { CosButton, CosInput, CosStroke } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosGeneralPanel,
+  CosInput,
+  CosStroke,
+} from '@cube-frontend/ui-library'
 import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
-import { SettingsSection } from './SettingsSection'
 
 type ManageContactProps = {
   titlePrefixFromApi: GetSettingResponseDataTitlePrefix | undefined
@@ -76,36 +80,37 @@ export const ManageContact = (props: ManageContactProps) => {
   }
 
   return (
-    <SettingsSection>
-      <h5 className="secondary-h4 text-functional-text">Manage Contact</h5>
-      <CosStroke type="dot" />
-      <form onSubmit={onSubmit}>
-        <div className="flex items-end gap-x-6">
-          {/* Wrap the input in a container so it and the skeleton have the same width. */}
-          <div className="w-[248px]">
-            <CosInput
-              label="Title prefix"
-              placeholder="Title prefix"
-              value={titlePrefix?.value ?? ''}
-              isLoading={!titlePrefix}
-              disabled={titlePrefix?.status.isUpdating || isCallingUpdateApi}
-              onChange={onTitlePrefixChange}
-            />
+    <CosGeneralPanel topic="Manage Contact">
+      <div className="flex flex-col gap-y-6">
+        <CosStroke type="dot" />
+        <form onSubmit={onSubmit}>
+          <div className="flex items-end gap-x-6">
+            {/* Wrap the input in a container so it and the skeleton have the same width. */}
+            <div className="w-[248px]">
+              <CosInput
+                label="Title prefix"
+                placeholder="Title prefix"
+                value={titlePrefix?.value ?? ''}
+                isLoading={!titlePrefix}
+                disabled={titlePrefix?.status.isUpdating || isCallingUpdateApi}
+                onChange={onTitlePrefixChange}
+              />
+            </div>
+            <CosButton
+              className="mb-[3px]"
+              htmlType="submit"
+              usage="text-only"
+              loading={titlePrefix?.status.isUpdating || isCallingUpdateApi}
+              disabled={!titlePrefix}
+            >
+              Save
+            </CosButton>
           </div>
-          <CosButton
-            className="mb-[3px]"
-            htmlType="submit"
-            usage="text-only"
-            loading={titlePrefix?.status.isUpdating || isCallingUpdateApi}
-            disabled={!titlePrefix}
-          >
-            Save
-          </CosButton>
-        </div>
-      </form>
-      <p className="primary-body4 text-functional-text-light">
-        This is an alias for identifying and distinguishing this cluster.
-      </p>
-    </SettingsSection>
+        </form>
+        <p className="primary-body4 text-functional-text-light">
+          This is an alias for identifying and distinguishing this cluster.
+        </p>
+      </div>
+    </CosGeneralPanel>
   )
 }

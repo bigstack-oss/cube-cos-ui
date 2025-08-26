@@ -3,13 +3,13 @@ import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { useMemo } from 'react'
 import { HostWithRole, UpsertTuningsPayload } from '../../upsertTuningsUtils'
-import { Board } from '../Board'
 import { SpecEntry } from '../SpecEntry'
 import { TuningsPreviousButton } from '../TuningsPreviousButton'
 import { filterHosts } from './filterHosts'
 import { HostFilter } from './HostFilter'
 import { HostList } from './HostList'
 import { useHostFilter } from './useHostFilter'
+import { Board } from '../Board'
 
 type SelectHostsProps = {
   isLoading: boolean
