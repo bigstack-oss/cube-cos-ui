@@ -11,7 +11,7 @@ export const UpsertStorageLayout = (props: UpsertStorageLayoutProps) => {
   const { title, children } = props
 
   return (
-    <div className="mx-2 my-1 flex flex-col gap-y-4">
+    <div className="my-1 flex flex-col gap-y-4">
       <CosBackButton
         backButtonContainer={{
           Component: Link,
@@ -20,7 +20,7 @@ export const UpsertStorageLayout = (props: UpsertStorageLayoutProps) => {
       >
         {title}
       </CosBackButton>
-      <div className="flex items-start gap-x-4">{children}</div>
+      {children}
     </div>
   )
 }

@@ -1,9 +1,10 @@
+import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 import { StorageDetailsForm } from '../_components/upsert/StorageDetailsForm'
 import { UpsertStorageLayout } from '../_components/upsert/UpsertStorageLayout'
 import { useStorageValidation } from '../_components/upsert/useStorageValidation'
-import { ValidationLog } from '../_components/upsert/ValidationLog'
 import { useStorageVendors } from '../_components/useStorageVendors'
 import { useCreateStorage } from './useCreateStorage'
+import { ValidationLog } from '../_components/upsert/ValidationLog'
 
 export const CreateStoragePage = () => {
   const { isLoading: isVendorsLoading, data: vendors } = useStorageVendors()
@@ -23,26 +24,30 @@ export const CreateStoragePage = () => {
 
   return (
     <UpsertStorageLayout title="Add Storage">
-      <StorageDetailsForm
-        initialStorage={initialStorage}
-        isVendorsLoading={isVendorsLoading}
-        isSaving={isCreating}
-        isValidating={isValidating}
-        isValidated={isValidated}
-        vendors={vendors}
-        validationErrorState={validationErrorState}
-        submitButtonText="Add storage to COS"
-        toggleValidationLog={validationLogPanel.toggle}
-        clearValidationLog={clearValidationLog}
-        onValidate={validate}
-        onConfirm={createStorage}
-        onCancel={cancel}
-      />
-      <ValidationLog
-        isOpen={validationLogPanel.isOpen}
-        log={validationLog}
-        onClose={validationLogPanel.close}
-      />
+      <CollapsiblePanelLayout
+        isControlledPanelOpen={validationLogPanel.isOpen}
+        onControlledPanelOpenChange={validationLogPanel.toggle}
+      >
+        <CollapsiblePanelLayout.LeftPanel topic="Storage details">
+          <StorageDetailsForm
+            initialStorage={initialStorage}
+            isVendorsLoading={isVendorsLoading}
+            isSaving={isCreating}
+            isValidating={isValidating}
+            isValidated={isValidated}
+            vendors={vendors}
+            validationErrorState={validationErrorState}
+            submitButtonText="Add storage to COS"
+            clearValidationLog={clearValidationLog}
+            onValidate={validate}
+            onConfirm={createStorage}
+            onCancel={cancel}
+          />
+        </CollapsiblePanelLayout.LeftPanel>
+        <CollapsiblePanelLayout.RightPanel topic="Validate Information">
+          <ValidationLog log={validationLog} />
+        </CollapsiblePanelLayout.RightPanel>
+      </CollapsiblePanelLayout>
     </UpsertStorageLayout>
   )
 }

@@ -65,7 +65,7 @@ export const LogConsole = (props: LogConsoleProps) => {
           </button>
         </CosTooltip>
       </div>
-      <div className="primary-body3 overflow-x-auto whitespace-pre text-wrap rounded-b-[5px] bg-dark-700 px-6 py-4 text-functional-border-darker">
+      <div className="primary-body3 overflow-x-auto whitespace-pre rounded-b-[5px] bg-dark-700 px-6 py-4 text-functional-border-darker">
         {children}
       </div>
     </div>

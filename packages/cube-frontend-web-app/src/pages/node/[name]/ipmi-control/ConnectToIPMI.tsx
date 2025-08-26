@@ -6,7 +6,6 @@ import {
   CosStatusReaction,
   CosStroke,
 } from '@cube-frontend/ui-library'
-import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
@@ -107,24 +106,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
   const isInputDisabled = isVerifying || isSaving
 
   return (
-    <div
-      className="flex flex-1 shrink-0 flex-col gap-y-4 rounded-[5px] bg-grey-0 px-8 py-6"
-      style={{
-        boxShadow: '0px 0px 3px 0px rgba(0, 0, 0, 0.10)',
-      }}
-    >
-      <div className="flex items-center justify-between">
-        <div className="secondary-h4 text-functional-title">
-          Connect to IPMI
-        </div>
-        <button
-          type="button"
-          className="inline-flex size-[26px] cursor-pointer items-center justify-center rounded-full bg-blue-150"
-          onClick={() => toggleValidationLog()}
-        >
-          <InformationCircle className="icon-lg text-functional-text" />
-        </button>
-      </div>
+    <div className="flex flex-col gap-y-4">
       <p className="primary-body5 text-functional-text">
         Make sure the IPMI protocol and its associated port are accessible on
         both the host and the firewall.

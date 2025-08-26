@@ -1,4 +1,3 @@
-import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import {
@@ -16,6 +15,7 @@ import {
 import { AttributePanel } from './AttributePanel'
 import { AttributeResultPanel } from './AttributeResultPanel'
 import { isEmpty } from 'lodash'
+import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 
 type SelectEventsProps = {
   /**
@@ -55,40 +55,34 @@ export const SelectEvents = (props: SelectEventsProps) => {
     onResetClick,
   } = props
 
-  const {
-    isOpen: isPanelOpen,
-    toggle: onTogglePanel,
-    close: onPanelClose,
-  } = useOpenState(true)
-
   const isValueValid =
     !!payload && isEventsValid(payload) && !isEmpty(matchingEvents)
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-start justify-between gap-x-3">
-        <AttributePanel
-          isBuiltIn={isBuiltIn}
-          isPanelOpen={isPanelOpen}
-          isInitialDataLoading={isInitialDataLoading}
-          isMaterialsLoading={isMaterialsLoading}
-          isAttributeChanged={isAttributeChanged}
-          payload={payload}
-          attribute={attribute}
-          onTogglePanel={onTogglePanel}
-          onAlertTypeSelect={onAlertTypeSelect}
-          onSeveritySelect={onSeveritySelect}
-          onCategorySelect={onCategorySelect}
-          onEventIdSelect={onEventIdSelect}
-          onResetClick={onResetClick}
-        />
-        <AttributeResultPanel
-          isPanelOpen={isPanelOpen}
-          isMatchingEventsLoading={isMatchingEventsLoading}
-          matchingEvents={matchingEvents ?? []}
-          onPanelClose={onPanelClose}
-        />
-      </div>
+      <CollapsiblePanelLayout>
+        <CollapsiblePanelLayout.LeftPanel topic="Add Attributes to Select Events">
+          <AttributePanel
+            isBuiltIn={isBuiltIn}
+            isInitialDataLoading={isInitialDataLoading}
+            isMaterialsLoading={isMaterialsLoading}
+            isAttributeChanged={isAttributeChanged}
+            payload={payload}
+            attribute={attribute}
+            onAlertTypeSelect={onAlertTypeSelect}
+            onSeveritySelect={onSeveritySelect}
+            onCategorySelect={onCategorySelect}
+            onEventIdSelect={onEventIdSelect}
+            onResetClick={onResetClick}
+          />
+        </CollapsiblePanelLayout.LeftPanel>
+        <CollapsiblePanelLayout.RightPanel topic="Attribute Result">
+          <AttributeResultPanel
+            isMatchingEventsLoading={isMatchingEventsLoading}
+            matchingEvents={matchingEvents ?? []}
+          />
+        </CollapsiblePanelLayout.RightPanel>
+      </CollapsiblePanelLayout>
       <CosStroke type="dot" />
       <CosButton
         className="self-start"

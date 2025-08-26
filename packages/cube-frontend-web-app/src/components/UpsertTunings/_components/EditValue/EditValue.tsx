@@ -1,5 +1,9 @@
 import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
-import { CosButton, CosStroke } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosGeneralPanel,
+  CosStroke,
+} from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { ChangeEvent, useMemo } from 'react'
 import { UpsertTuningsPayload } from '../../upsertTuningsUtils'
@@ -26,11 +30,11 @@ export const EditValue = (props: EditValueProps) => {
 
   if (!isLoading && !selectedSpec) {
     return (
-      <Board>
+      <CosGeneralPanel containerClassName="mt-4">
         <p className="primary-body3 text-functional-disable-text">
           {`Cannot find tuning with key ${payload?.selectedSpecName}`}
         </p>
-      </Board>
+      </CosGeneralPanel>
     )
   }
 

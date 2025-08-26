@@ -1,6 +1,5 @@
 import {
   CosButton,
-  CosGeneralPanel,
   CosPagination,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
@@ -22,6 +21,7 @@ import {
 import { FixpackRow } from './listFixpacksUtils'
 import { useListFixpacks } from './useListFixpacks'
 import { useListFixpacksQuery } from './useListFixpacksQuery'
+import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 
 const FixpackTable = GetCosBasicTable<FixpackRow>()
 
@@ -33,13 +33,8 @@ export const MaintenanceUpdateFixpackPage = () => {
   const { showLoading, allFixpacks, pagedRows, totalItemCount } =
     useListFixpacks(query)
 
-  const {
-    rowForReleaseNote,
-    isReleaseNotePanelOpen,
-    showReleaseNoteFor,
-    onReleaseNotePanelClose,
-    toggleReleaseNotePanel,
-  } = useReleaseNotePanel<FixpackRow>()
+  const { rowForReleaseNote, showReleaseNoteFor, releaseNotePanel } =
+    useReleaseNotePanel<FixpackRow>()
 
   const cephHealthStatus = useCephHealthStatus()
 
@@ -70,17 +65,19 @@ export const MaintenanceUpdateFixpackPage = () => {
       currentVersion={dataCenter!.fixpack.version}
       lastUpdated={dataCenter!.fixpack.updatedAt}
     >
-      <div className="flex items-start gap-x-4">
-        <CosGeneralPanel
-          containerClassName="grow"
+      <CollapsiblePanelLayout
+        rightPanelWidthPercentage={40}
+        isControlledPanelOpen={releaseNotePanel.isOpen}
+        onControlledPanelOpenChange={releaseNotePanel.toggle}
+      >
+        <CollapsiblePanelLayout.LeftPanel
           topic="Fixpack List"
-          rightSlot={
+          customToggleButton={
             <div className="flex items-center gap-x-4">
               <CosButton disabled={showLoading}>Upload Fixpack</CosButton>
               <button
                 type="button"
                 className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
-                onClick={toggleReleaseNotePanel}
               >
                 <InformationCircle className="icon-md text-functional-text" />
               </button>
@@ -131,15 +128,13 @@ export const MaintenanceUpdateFixpackPage = () => {
               onItemsPerPageChange={onItemsPerPageChange}
             />
           </div>
-        </CosGeneralPanel>
-        <ReleaseNotePanel
-          isOpen={isReleaseNotePanelOpen}
-          fallbackTitle="Fixpack Version"
-          version={rowForReleaseNote?.version}
-          releaseNote={rowForReleaseNote?.details}
-          onClose={onReleaseNotePanelClose}
-        />
-      </div>
+        </CollapsiblePanelLayout.LeftPanel>
+        <CollapsiblePanelLayout.RightPanel
+          topic={rowForReleaseNote?.version || 'Fixpack Version'}
+        >
+          <ReleaseNotePanel releaseNote={rowForReleaseNote?.details} />
+        </CollapsiblePanelLayout.RightPanel>
+      </CollapsiblePanelLayout>
     </MaintenanceUpdateLayout>
   )
 }

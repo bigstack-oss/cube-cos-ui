@@ -1,9 +1,6 @@
 import { useState } from 'react'
-import { cva } from 'class-variance-authority'
-import { twMerge } from 'tailwind-merge'
 import { isEmpty } from 'lodash'
 import { CosButton, CosSkeleton, CosStroke } from '@cube-frontend/ui-library'
-import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
 import {
   GetPredefinedEventsCategoriesEnum,
@@ -19,22 +16,6 @@ import {
 } from '../../upsertTriggersUtils'
 import { TriggersStackCard } from '../TriggersStackCard'
 import { AddAttributeModal } from './AddAttributeModal'
-
-const panel = cva(
-  [
-    'flex flex-col gap-y-4',
-    'rounded-[5px] bg-grey-0 p-6 shadow-[0px_0px_3px_0px_rgba(0,_0,_0,_0.10)]',
-    'transition-all duration-300',
-  ],
-  {
-    variants: {
-      isPanelOpen: {
-        true: 'w-1/2',
-        false: 'w-full',
-      },
-    },
-  },
-)
 
 const filterUnselectedAttributeOptions = (
   payload: UpsertTriggersPayload | undefined,
@@ -56,13 +37,11 @@ const filterUnselectedAttributeOptions = (
 
 type AttributePanelProps = {
   isBuiltIn: boolean
-  isPanelOpen: boolean
   isInitialDataLoading: boolean
   isMaterialsLoading: boolean
   isAttributeChanged: boolean
   payload: UpsertTriggersPayload | undefined
   attribute: TriggerAttribute
-  onTogglePanel: () => void
   onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
   onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
   onCategorySelect: (categories: GetPredefinedEventsCategoriesEnum[]) => void
@@ -73,13 +52,11 @@ type AttributePanelProps = {
 export const AttributePanel = (props: AttributePanelProps) => {
   const {
     isBuiltIn,
-    isPanelOpen,
     isInitialDataLoading,
     isMaterialsLoading,
     isAttributeChanged,
     payload,
     attribute,
-    onTogglePanel,
     onAlertTypeSelect,
     onSeveritySelect,
     onCategorySelect,
@@ -220,19 +197,7 @@ export const AttributePanel = (props: AttributePanelProps) => {
   }
 
   return (
-    <div className={twMerge(panel({ isPanelOpen }))}>
-      <div className="flex items-center justify-between">
-        <h4 className="secondary-h4 text-functional-title">
-          Add Attributes to Select Events
-        </h4>
-        <button
-          type="button"
-          className="inline-flex size-[26px] cursor-pointer items-center justify-center rounded-full bg-blue-150"
-          onClick={onTogglePanel}
-        >
-          <InformationCircle className="icon-lg text-functional-text" />
-        </button>
-      </div>
+    <div className="flex flex-col gap-y-4">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <CosButton
           type="ghost"

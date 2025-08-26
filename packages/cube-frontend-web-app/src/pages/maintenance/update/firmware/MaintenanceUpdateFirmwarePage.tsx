@@ -1,6 +1,5 @@
 import {
   CosButton,
-  CosGeneralPanel,
   CosPagination,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
@@ -15,6 +14,7 @@ import { useReleaseNotePanel } from '../_components/useReleaseNotePanel'
 import { FirmwareRow } from './listFirmwaresUtils'
 import { useListFirmwares } from './useListFirmwares'
 import { useListFirmwaresQuery } from './useListFirmwaresQuery'
+import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 
 const FirmwareTable = GetCosBasicTable<FirmwareRow>()
 
@@ -25,13 +25,8 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
   const { showLoading, rows, totalItemCount } = useListFirmwares(query)
 
-  const {
-    rowForReleaseNote,
-    isReleaseNotePanelOpen,
-    showReleaseNoteFor,
-    onReleaseNotePanelClose,
-    toggleReleaseNotePanel,
-  } = useReleaseNotePanel<FirmwareRow>()
+  const { rowForReleaseNote, showReleaseNoteFor, releaseNotePanel } =
+    useReleaseNotePanel<FirmwareRow>()
 
   const formatUpdatedAt = (updatedAt: string): string => {
     if (!updatedAt) return ''
@@ -43,17 +38,19 @@ export const MaintenanceUpdateFirmwarePage = () => {
       currentVersion={dataCenter!.firmware.version}
       lastUpdated={dataCenter!.firmware.updatedAt}
     >
-      <div className="flex items-start gap-x-4">
-        <CosGeneralPanel
-          containerClassName="grow"
+      <CollapsiblePanelLayout
+        rightPanelWidthPercentage={40}
+        isControlledPanelOpen={releaseNotePanel.isOpen}
+        onControlledPanelOpenChange={releaseNotePanel.toggle}
+      >
+        <CollapsiblePanelLayout.LeftPanel
           topic="Firmware List"
-          rightSlot={
+          customToggleButton={
             <div className="flex items-center gap-x-4">
               <CosButton disabled={showLoading}>Upload Firmware</CosButton>
               <button
                 type="button"
                 className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
-                onClick={toggleReleaseNotePanel}
               >
                 <InformationCircle className="icon-md text-functional-text" />
               </button>
@@ -116,15 +113,13 @@ export const MaintenanceUpdateFirmwarePage = () => {
               onItemsPerPageChange={onItemsPerPageChange}
             />
           </div>
-        </CosGeneralPanel>
-        <ReleaseNotePanel
-          isOpen={isReleaseNotePanelOpen}
-          fallbackTitle="Firmware Version"
-          version={rowForReleaseNote?.version}
-          releaseNote={rowForReleaseNote?.releaseNotes}
-          onClose={onReleaseNotePanelClose}
-        />
-      </div>
+        </CollapsiblePanelLayout.LeftPanel>
+        <CollapsiblePanelLayout.RightPanel
+          topic={rowForReleaseNote?.version || 'Firmware Version'}
+        >
+          <ReleaseNotePanel releaseNote={rowForReleaseNote?.releaseNotes} />
+        </CollapsiblePanelLayout.RightPanel>
+      </CollapsiblePanelLayout>
     </MaintenanceUpdateLayout>
   )
 }
