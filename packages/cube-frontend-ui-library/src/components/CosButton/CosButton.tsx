@@ -1,11 +1,10 @@
-import { cva } from 'class-variance-authority'
-import { ClassValue } from 'class-variance-authority/types'
 import { omit } from 'lodash'
 import { ButtonHTMLAttributes, JSX } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { IconSize, SvgComponent } from '../CosIcon/CosIcon'
 import { getIconSizeClass } from '../CosIcon/utils'
 import { CosLoadingSpinner } from '../CosLoadingSpinner/CosLoadingSpinner'
+import { button, iconContainer, loadingSpinner } from './cosButtonStyles'
 
 export type CosButtonType =
   | 'primary'
@@ -58,94 +57,6 @@ export type CosButtonProps = Omit<
   )
 
 export type CosButtonUsage = CosButtonProps['usage']
-
-const button = cva(
-  'flex shrink-0 items-center justify-center gap-x-2 rounded-[5px] font-urbanist font-semibold transition-colors disabled:cursor-default',
-  {
-    variants: {
-      type: {
-        primary: [
-          'bg-primary text-grey-0',
-          'hover:bg-functional-hover-primary',
-          'disabled:bg-functional-disable-light disabled:text-functional-disable-text',
-        ],
-        secondary: [
-          'border border-primary bg-grey-0 text-primary',
-          'hover:border-functional-hover-primary hover:bg-functional-hover-secondary',
-          'disabled:border-functional-disable-text disabled:bg-grey-0 disabled:text-functional-disable-text',
-        ],
-        ghost: [
-          'bg-transparent text-primary',
-          'hover:bg-functional-hover-secondary',
-          'disabled:bg-transparent disabled:text-functional-disable-text',
-        ],
-        warning: [
-          'border border-status-negative bg-transparent text-status-negative',
-          'hover:bg-status-negative hover:text-grey-0',
-          'disabled:border-red-100 disabled:bg-transparent disabled:text-red-100',
-        ],
-        light: [
-          'bg-secondary text-dark-400',
-          'hover:bg-secondary-400',
-          'disabled:bg-secondary-50 disabled:text-functional-disable-text',
-        ],
-      },
-      size: {
-        sm: 'secondary-body3 h-[26px] px-3 py-[5px]',
-        md: 'secondary-body2 h-[34px] px-4 py-2',
-        lg: 'secondary-body2 h-[42px] px-5 py-3',
-      },
-      usage: {} as Record<NonNullable<CosButtonUsage>, ClassValue>,
-      loading: {} as Record<'true' | 'false', ClassValue>,
-    },
-    compoundVariants: [
-      { usage: 'icon-only', size: 'sm', className: 'p-[5px]' },
-      { usage: 'icon-only', size: 'md', className: 'p-2' },
-      { usage: 'icon-only', size: 'lg', className: 'p-3' },
-      /**
-       * We expect the button only show the loading spinner when the usage is 'text-only'.
-       *
-       * disabled:relative => position the absolute positioned spinner relative to the button.
-       * disabled:text-transparent => hide the text but keep the button's width and height.
-       */
-      {
-        usage: 'text-only',
-        loading: true,
-        className: 'disabled:relative disabled:text-transparent',
-      },
-    ],
-  },
-)
-
-const iconContainer = cva('flex items-center justify-center', {
-  variants: {
-    size: {
-      sm: 'size-[16px]',
-      md: 'size-[18px]',
-      lg: 'size-[18px]',
-    },
-  },
-})
-
-const loadingSpinner = cva(undefined, {
-  variants: {
-    type: {
-      primary: 'text-functional-disable-text',
-      secondary: 'text-functional-disable-text',
-      ghost: 'text-functional-disable-text',
-      warning: 'text-red-100',
-      light: 'text-functional-disable-text',
-    },
-    /**
-     * The button should only show the loading spinner when the usage is 'text-only',
-     * so we need to center the absolute positioned spinner within the button.
-     */
-    usage: {
-      'text-only':
-        'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
-    } as Record<NonNullable<CosButtonUsage>, ClassValue>,
-  },
-})
 
 type ButtonLoadingSpinnerProps = {
   type: CosButtonType
@@ -232,7 +143,10 @@ export const CosButton = (props: CosButtonProps) => {
   return (
     <button
       type={htmlType}
-      className={twMerge(button({ type, size, usage, loading }), className)}
+      className={twMerge(
+        button({ type, size, usage, loading, disabled }),
+        className,
+      )}
       disabled={disabled}
       onClick={onClick}
       {...omit(restProps, 'Icon')}
