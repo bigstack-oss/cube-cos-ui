@@ -150,12 +150,18 @@ importers:
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
+      i18next:
+        specifier: ^25.3.6
+        version: 25.3.6(typescript@5.6.3)
       react:
         specifier: 'catalog:'
         version: 19.0.0
       react-dom:
         specifier: 'catalog:'
         version: 19.0.0(react@19.0.0)
+      react-i18next:
+        specifier: ^15.6.1
+        version: 15.6.1(i18next@25.3.6(typescript@5.6.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.6.3)
       tailwind-merge:
         specifier: 'catalog:'
         version: 2.6.0
@@ -5029,7 +5035,7 @@ snapshots:
   '@testing-library/dom@10.4.0':
     dependencies:
       '@babel/code-frame': 7.26.2
-      '@babel/runtime': 7.26.0
+      '@babel/runtime': 7.28.3
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
       chalk: 4.1.2
@@ -7092,7 +7098,7 @@ snapshots:
 
   polished@4.3.1:
     dependencies:
-      '@babel/runtime': 7.26.0
+      '@babel/runtime': 7.28.3
 
   possible-typed-array-names@1.0.0: {}
 

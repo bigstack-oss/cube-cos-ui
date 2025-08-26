@@ -11,11 +11,15 @@ import App from './App.tsx'
 import { CosErrorBoundary } from './components/ErrorDisplay/CosErrorBoundary.tsx'
 import './i18n/i18n.ts'
 
+import 'dayjs/locale/zh-tw' // import locale
+
 dayjs.extend(duration)
 dayjs.extend(isBetween)
 dayjs.extend(minMax)
 dayjs.extend(relativeTime)
 dayjs.extend(respectTz)
+
+dayjs.locale('zh-tw')
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

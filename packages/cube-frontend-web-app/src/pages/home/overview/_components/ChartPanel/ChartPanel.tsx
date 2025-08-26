@@ -22,6 +22,7 @@ import { toMetricsChart } from '../../../utils'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 import { defaultMetrics } from './utils'
 import { useTranslation } from 'react-i18next'
+import { ParseKeys } from 'i18next'
 
 const ChartPanel = () => {
   const { t } = useTranslation()
@@ -63,6 +64,10 @@ const ChartPanel = () => {
   const updateTime = useUpdateTime(metrics, showLoading)
 
   const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
+
+  const key: ParseKeys = 'common.role'
+  const translated = t(key)
+  console.log(translated)
 
   const vmAllocationPanelItem = (
     <CosDashboardPanel.Item topic="VM allocation">
