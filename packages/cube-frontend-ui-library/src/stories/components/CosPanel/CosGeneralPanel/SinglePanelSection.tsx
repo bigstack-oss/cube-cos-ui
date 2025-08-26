@@ -1,8 +1,8 @@
 import { noop } from 'lodash'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
-import { CosButton, CosGeneralPanel } from '@cube-frontend/ui-library'
+import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { PanelBlock } from '../PanelBlock'
-import { PanelDropdown, PanelIcon } from './MockComponents'
+import { PanelButton, PanelDropdown, PanelIcon } from './MockComponents'
 
 export const SinglePanelSection = () => {
   return (
@@ -11,9 +11,13 @@ export const SinglePanelSection = () => {
         <PanelBlock title="Master">
           <CosGeneralPanel
             topic="Topic Name"
-            button={<CosButton>Call to Action</CosButton>}
-            icon={<PanelIcon />}
-            dropdown={<PanelDropdown />}
+            leftSlot={<PanelButton />}
+            rightSlot={
+              <>
+                <PanelIcon />
+                <PanelDropdown />
+              </>
+            }
             subtext="Subtext"
             titleBarProps={{
               title: 'Panel Title',
@@ -29,9 +33,13 @@ export const SinglePanelSection = () => {
         <PanelBlock title="Title Bar Without Time">
           <CosGeneralPanel
             topic="Topic Name"
-            button={<CosButton>Call to Action</CosButton>}
-            icon={<PanelIcon />}
-            dropdown={<PanelDropdown />}
+            leftSlot={<PanelButton />}
+            rightSlot={
+              <>
+                <PanelIcon />
+                <PanelDropdown />
+              </>
+            }
             subtext="Subtext"
             titleBarProps={{
               title: 'Panel Title',
@@ -45,9 +53,13 @@ export const SinglePanelSection = () => {
         <PanelBlock title="Title Bar Without Dropdown">
           <CosGeneralPanel
             topic="Topic Name"
-            button={<CosButton>Call to Action</CosButton>}
-            icon={<PanelIcon />}
-            dropdown={<PanelDropdown />}
+            leftSlot={<PanelButton />}
+            rightSlot={
+              <>
+                <PanelIcon />
+                <PanelDropdown />
+              </>
+            }
             subtext="Subtext"
             titleBarProps={{
               title: 'Panel Title',
@@ -60,8 +72,13 @@ export const SinglePanelSection = () => {
         <PanelBlock title="Without Title Bar">
           <CosGeneralPanel
             topic="Topic Name"
-            button={<CosButton>Call to Action</CosButton>}
-            dropdown={<PanelDropdown />}
+            leftSlot={<PanelButton />}
+            rightSlot={
+              <>
+                <PanelIcon />
+                <PanelDropdown />
+              </>
+            }
             subtext="Subtext"
           >
             Content Text
@@ -79,13 +96,13 @@ export const SinglePanelSection = () => {
         <PanelBlock title="Multiple Dropdown">
           <CosGeneralPanel
             topic="Topic Name"
-            button={<CosButton>Call to Action</CosButton>}
-            icon={<PanelIcon />}
-            dropdown={
-              <div className="flex gap-x-2">
-                {<PanelDropdown />}
-                {<PanelDropdown />}
-              </div>
+            leftSlot={<PanelButton />}
+            rightSlot={
+              <>
+                <PanelIcon />
+                <PanelDropdown />
+                <PanelDropdown />
+              </>
             }
             subtext="Subtext"
             titleBarProps={{

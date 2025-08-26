@@ -1,7 +1,7 @@
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
-import { CosButton, CosGeneralPanel } from '@cube-frontend/ui-library'
+import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { PanelBlock } from '../PanelBlock'
-import { PanelDropdown, PanelIcon } from './MockComponents'
+import { PanelButton, PanelDropdown, PanelIcon } from './MockComponents'
 
 export const MultiPanelSection = () => {
   return (
@@ -11,8 +11,8 @@ export const MultiPanelSection = () => {
           <div className="flex items-stretch gap-x-3 [&>*]:flex-1">
             <CosGeneralPanel
               topic="Topic Name"
-              button={<CosButton>Call to Action</CosButton>}
-              icon={<PanelIcon />}
+              leftSlot={<PanelButton />}
+              rightSlot={<PanelIcon />}
               subtext="Subtext"
               titleBarProps={{
                 title: 'Panel Title',
@@ -23,7 +23,7 @@ export const MultiPanelSection = () => {
             </CosGeneralPanel>
             <CosGeneralPanel
               topic="Topic Name"
-              icon={<PanelIcon />}
+              rightSlot={<PanelIcon />}
               titleBarProps={{
                 title: 'Panel Title',
                 dropdown: <PanelDropdown />,
@@ -43,13 +43,13 @@ export const MultiPanelSection = () => {
             <div className="flex items-stretch gap-x-3 [&>*]:flex-1">
               <CosGeneralPanel
                 topic="Topic Name"
-                button={<CosButton>Call to Action</CosButton>}
-                icon={<PanelIcon />}
+                leftSlot={<PanelButton />}
+                rightSlot={<PanelIcon />}
                 subtext="Subtext"
               >
                 Content Text
               </CosGeneralPanel>
-              <CosGeneralPanel topic="Topic Name" icon={<PanelIcon />}>
+              <CosGeneralPanel topic="Topic Name" rightSlot={<PanelIcon />}>
                 Content Text
               </CosGeneralPanel>
             </div>

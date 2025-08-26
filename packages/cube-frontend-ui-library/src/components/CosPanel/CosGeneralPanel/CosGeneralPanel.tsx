@@ -1,8 +1,6 @@
 import { PropsWithClassName } from '@cube-frontend/utils'
-import React, { cloneElement, PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { CosButtonProps } from '../../CosButton/CosButton'
-import { CosDropdownProps } from '../../CosDropdown/cosDropdownTypes'
 import { CosGeneralPanelContainer } from './CosGeneralPanelContainer'
 import {
   CosGeneralPanelTitleBar,
@@ -13,9 +11,8 @@ export type CosGeneralPanelContentProps = PropsWithChildren &
   PropsWithClassName & {
     containerClassName?: string
     topic?: string
-    button?: React.ReactElement<CosButtonProps>
-    icon?: React.ReactNode
-    dropdown?: React.ReactElement<CosDropdownProps<unknown>>
+    leftSlot?: React.ReactNode
+    rightSlot?: React.ReactNode
     subtext?: string
     titleBarProps?: CosGeneralPanelTitleBarProps
   }
@@ -26,21 +23,14 @@ export const CosGeneralPanel = (props: CosGeneralPanelContentProps) => {
     className: classNameProps,
     containerClassName,
     topic,
-    button,
-    icon,
-    dropdown,
+    leftSlot,
+    rightSlot,
     subtext,
     titleBarProps,
   } = props
 
-  const panelButton = button
-    ? cloneElement(button, { size: 'sm', type: 'primary' })
-    : null
-
   const renderHeader = () => {
-    if (!topic && !panelButton && !icon && !dropdown) {
-      return null
-    }
+    if (!topic && !leftSlot && !rightSlot) return null
 
     return (
       <div className="flex items-start justify-between">
@@ -50,12 +40,9 @@ export const CosGeneralPanel = (props: CosGeneralPanelContentProps) => {
               {topic}
             </span>
           )}
-          {panelButton}
+          {leftSlot}
         </div>
-        <div className="flex items-center gap-x-3">
-          {icon}
-          {dropdown}
-        </div>
+        <div className="flex items-center gap-x-3">{rightSlot}</div>
       </div>
     )
   }

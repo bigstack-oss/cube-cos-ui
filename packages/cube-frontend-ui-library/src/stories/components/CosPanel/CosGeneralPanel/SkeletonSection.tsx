@@ -1,7 +1,7 @@
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import { PanelBlock } from '../PanelBlock'
-import { CosButton, CosGeneralPanel } from '@cube-frontend/ui-library'
-import { PanelDropdown, PanelIcon } from './MockComponents'
+import { CosGeneralPanel } from '@cube-frontend/ui-library'
+import { PanelButton, PanelDropdown, PanelIcon } from './MockComponents'
 
 export const SkeletonSection = () => {
   return (
@@ -10,9 +10,13 @@ export const SkeletonSection = () => {
         <PanelBlock title="Time Loading">
           <CosGeneralPanel
             topic="Topic Name"
-            button={<CosButton>Call to Action</CosButton>}
-            icon={<PanelIcon />}
-            dropdown={<PanelDropdown />}
+            leftSlot={<PanelButton />}
+            rightSlot={
+              <>
+                <PanelIcon />
+                <PanelDropdown />
+              </>
+            }
             subtext="Subtext"
             titleBarProps={{
               title: 'Panel Title',
