@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react'
 import {
   GetTriggerMaterialsResponseDataResponseScriptType,
   TriggerResponseScript,
 } from '@cube-frontend/api'
 import {
   CosButton,
+  CosHyperlink,
   CosModal,
   CosStroke,
-  CosHyperlink,
   CosUpload,
 } from '@cube-frontend/ui-library'
 import { LogConsole } from '@cube-frontend/web-app/components/LogConsole'
+import { useEffect, useRef } from 'react'
 import { UpsertTriggersPayload } from '../../../upsertTriggersUtils'
 import { useUploadScript } from './useUploadScript'
 
@@ -134,10 +134,10 @@ export const PersonalizedScriptModal = (
           buttonText={`Upload ${scriptType.language} Script`}
           leftSlot={osHint}
           rightSlot={hyperlink}
-          errorMessage={errorMessage}
           onFileChange={onFileChange}
         >
           {renderFilePath()}
+          {!!errorMessage && <CosUpload.Error message={errorMessage} />}
         </CosUpload>
         <CosStroke type="dot" />
         <CosButton

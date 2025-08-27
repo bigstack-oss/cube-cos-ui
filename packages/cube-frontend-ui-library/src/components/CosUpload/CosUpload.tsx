@@ -1,7 +1,9 @@
-import React, { ChangeEventHandler, useRef } from 'react'
 import UploadIcon from '@cube-frontend/ui-library/icons/monochrome/upload.svg?react'
+import React, { ChangeEventHandler, useRef } from 'react'
 import { CosButton } from '../CosButton/CosButton'
+import { CosUploadError } from './CosUploadError'
 import { CosUploadFile } from './CosUploadFile'
+import { CosUploadProgressBar } from './CosUploadProgressBar'
 
 type CosUploadProps = {
   buttonText: string
@@ -9,7 +11,13 @@ type CosUploadProps = {
   accept?: string
   leftSlot?: React.ReactNode
   rightSlot?: React.ReactNode
-  errorMessage?: string
+  /**
+   * @default false
+   */
+  isUploading?: boolean
+  /**
+   * @default false
+   */
   disabled?: boolean
   children?: React.ReactNode
   onFileChange?: (file: File | null) => void | Promise<void>
@@ -22,8 +30,8 @@ export const CosUpload = (props: CosUploadProps) => {
     accept,
     leftSlot,
     rightSlot,
-    errorMessage,
-    disabled,
+    isUploading = false,
+    disabled = false,
     children,
     onFileChange,
   } = props
@@ -54,6 +62,7 @@ export const CosUpload = (props: CosUploadProps) => {
             size="lg"
             type="secondary"
             usage="icon-left"
+            loading={isUploading}
             disabled={disabled}
             Icon={UploadIcon}
             onClick={handleButtonClick}
@@ -65,7 +74,7 @@ export const CosUpload = (props: CosUploadProps) => {
             id={inputId}
             type="file"
             accept={accept}
-            disabled={disabled}
+            disabled={isUploading || disabled}
             onChange={handleFileChange}
             className="hidden"
           />
@@ -73,12 +82,11 @@ export const CosUpload = (props: CosUploadProps) => {
         </div>
         {rightSlot}
       </div>
-      {errorMessage && (
-        <p className="primary-body3 text-status-negative">{errorMessage}</p>
-      )}
       {children}
     </div>
   )
 }
 
 CosUpload.File = CosUploadFile
+CosUpload.ProgressBar = CosUploadProgressBar
+CosUpload.Error = CosUploadError

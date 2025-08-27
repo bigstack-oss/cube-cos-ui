@@ -5,51 +5,39 @@ import {
   CosStroke,
   CosUpload,
 } from '@cube-frontend/ui-library'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-type UploadProps = {
-  insideModal?: boolean
-  isLoading: boolean
-  isUploaded: boolean
-  isError: boolean
+type ModalExampleProps = {
+  defaultIsTesting: boolean
+  defaultIsUploaded: boolean
 }
 
-export const Upload = ({
-  insideModal = false,
-  isLoading,
-  isUploaded,
-  isError,
-}: UploadProps) => {
+export const ModalExample = ({
+  defaultIsTesting,
+  defaultIsUploaded,
+}: ModalExampleProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const [internalLoading, setInternalLoading] = useState<boolean>(!!isLoading)
+  const [isUploading, setIsUploading] = useState(false)
+
+  const [isTesting, setIsTesting] = useState(defaultIsTesting)
 
   const [hasTested, setHasTested] = useState(false)
 
   const [fileName, setFileName] = useState(() =>
-    isUploaded ? '/Scripts/fake_automation.command' : '',
+    defaultIsUploaded ? '/Scripts/fake_automation.command' : '',
   )
 
-  useEffect(() => {
-    setInternalLoading(!!isLoading)
-  }, [isLoading])
-
-  useEffect(() => {
-    setFileName(isUploaded ? '/Scripts/fake_bath_automation.command' : '')
-  }, [isUploaded])
-
   const handleFileChange = (file: File | null) => {
-    setInternalLoading(true)
+    if (!file) return
 
-    if (!file) {
-      setInternalLoading(false)
-      return
-    }
+    setIsUploading(true)
+    setFileName('')
 
     setTimeout(() => {
       setFileName(file.name)
-      setInternalLoading(false)
+      setIsUploading(false)
     }, 3000)
   }
 
@@ -62,17 +50,17 @@ export const Upload = ({
   const handleCloseModal = () => setIsOpen(false)
 
   const handleTestClick = () => {
-    setInternalLoading(true)
+    setIsTesting(true)
     setTimeout(() => {
       setHasTested(true)
-      setInternalLoading(false)
+      setIsTesting(false)
     }, 5000)
   }
 
   const renderUploadedFile = () => {
     if (!fileName) return null
     return (
-      <CosUpload.File disabled={internalLoading} onCancel={handleFileCancel}>
+      <CosUpload.File disabled={isTesting} onCancel={handleFileCancel}>
         {fileName}
       </CosUpload.File>
     )
@@ -93,7 +81,7 @@ export const Upload = ({
           </div>
         </div>
         <div className="primary-body3 overflow-x-auto whitespace-pre text-wrap rounded-b-[5px] bg-dark-700 px-6 py-4 text-functional-border-darker">
-          {internalLoading ? 'Testing...' : 'Test Result'}
+          {isTesting ? 'Testing...' : 'Test Result'}
         </div>
       </div>
     )
@@ -101,12 +89,10 @@ export const Upload = ({
 
   const renderUploadSection = () => (
     <CosUpload
-      disabled={internalLoading}
+      isUploading={isUploading}
+      disabled={isTesting}
       buttonText="Upload File"
       onFileChange={handleFileChange}
-      errorMessage={
-        isError ? 'Something went wrong, please try again.' : undefined
-      }
       leftSlot={
         <div className="primary-body2 text-functional-text">
           OS: Operating System
@@ -122,8 +108,6 @@ export const Upload = ({
     </CosUpload>
   )
 
-  if (!insideModal) return renderUploadSection()
-
   return (
     <Fragment>
       <CosButton usage="text-only" onClick={handleOpenModal}>
@@ -134,7 +118,7 @@ export const Upload = ({
         isOpen={isOpen}
         onCloseClick={handleCloseModal}
         onActionClick={() => window.alert('Action!')}
-        actionButtonProps={{ disabled: !fileName || internalLoading }}
+        actionButtonProps={{ disabled: !fileName || isTesting }}
       >
         <div className="flex flex-col gap-8">
           {renderUploadSection()}
@@ -142,7 +126,7 @@ export const Upload = ({
           <CosButton
             usage="text-only"
             className="w-fit"
-            disabled={!fileName || internalLoading}
+            disabled={!fileName || isTesting}
             onClick={handleTestClick}
           >
             Test

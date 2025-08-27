@@ -1,8 +1,13 @@
 import { CosUpload } from '@cube-frontend/ui-library'
 import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
-import { Upload } from './Upload'
+import { DisabledExample } from './DisabledExample'
+import { ErrorExample } from './ErrorExample'
+import { MasterExample } from './MasterExample'
+import { ModalExample } from './ModalExample'
+import { UploadedExample } from './UploadedExample'
 import { UploadGrid } from './UploadGrid'
+import { UploadingExample } from './UploadingExample'
 
 const meta = {
   title: 'Organisms/Upload',
@@ -20,47 +25,32 @@ const TooltipGallery = () => {
     <StoryLayout title="Upload Section">
       <StoryLayout.Section title="Upload Section">
         <UploadGrid title="Master">
-          <Upload isLoading={false} isUploaded={true} isError={false} />
+          <MasterExample />
         </UploadGrid>
       </StoryLayout.Section>
       <StoryLayout.Section title="Status">
-        <UploadGrid title="Default">
-          <Upload isLoading={false} isUploaded={false} isError={false} />
-        </UploadGrid>
-        <UploadGrid title="Error Message">
-          <Upload isLoading={false} isUploaded={false} isError={true} />
+        <UploadGrid title="Uploading">
+          <UploadingExample />
         </UploadGrid>
         <UploadGrid title="Uploaded">
-          <Upload isLoading={false} isUploaded={true} isError={false} />
+          <UploadedExample />
+        </UploadGrid>
+        <UploadGrid title="Error">
+          <ErrorExample />
         </UploadGrid>
         <UploadGrid title="Disabled">
-          <Upload isLoading={true} isUploaded={true} isError={false} />
+          <DisabledExample />
         </UploadGrid>
       </StoryLayout.Section>
       <StoryLayout.Section title="Mockup">
         <UploadGrid title="Default">
-          <Upload
-            isLoading={false}
-            isUploaded={false}
-            insideModal={true}
-            isError={false}
-          />
+          <ModalExample defaultIsTesting={false} defaultIsUploaded={false} />
         </UploadGrid>
         <UploadGrid title="Uploaded">
-          <Upload
-            isLoading={false}
-            isUploaded={true}
-            insideModal={true}
-            isError={false}
-          />
+          <ModalExample defaultIsTesting={false} defaultIsUploaded={true} />
         </UploadGrid>
         <UploadGrid title="Testing">
-          <Upload
-            isLoading={true}
-            isUploaded={true}
-            insideModal={true}
-            isError={false}
-          />
+          <ModalExample defaultIsTesting={true} defaultIsUploaded={true} />
         </UploadGrid>
       </StoryLayout.Section>
     </StoryLayout>
