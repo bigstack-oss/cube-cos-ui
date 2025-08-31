@@ -89,6 +89,156 @@ export interface AddNodeDeviceResponse {
 /**
  * 
  * @export
+ * @interface ContinueInterruptedFirmwareUpdate202Response
+ */
+export interface ContinueInterruptedFirmwareUpdate202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ContinueInterruptedFirmwareUpdate202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFirmwareUpdate202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFirmwareUpdate202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ContinueInterruptedFirmwareUpdate400Response
+ */
+export interface ContinueInterruptedFirmwareUpdate400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ContinueInterruptedFirmwareUpdate400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFirmwareUpdate400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFirmwareUpdate400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ContinueInterruptedFirmwareUpdate500Response
+ */
+export interface ContinueInterruptedFirmwareUpdate500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ContinueInterruptedFirmwareUpdate500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFirmwareUpdate500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFirmwareUpdate500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ContinueInterruptedFixpackUpdate202Response
+ */
+export interface ContinueInterruptedFixpackUpdate202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ContinueInterruptedFixpackUpdate202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFixpackUpdate202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFixpackUpdate202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ContinueInterruptedFixpackUpdate400Response
+ */
+export interface ContinueInterruptedFixpackUpdate400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ContinueInterruptedFixpackUpdate400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFixpackUpdate400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFixpackUpdate400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ContinueInterruptedFixpackUpdate500Response
+ */
+export interface ContinueInterruptedFixpackUpdate500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ContinueInterruptedFixpackUpdate500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFixpackUpdate500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContinueInterruptedFixpackUpdate500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ConvertImageToVolume202Response
  */
 export interface ConvertImageToVolume202Response {
@@ -923,6 +1073,156 @@ export interface DeleteEmailSenderResponse {
 /**
  * 
  * @export
+ * @interface DeleteFirmware200Response
+ */
+export interface DeleteFirmware200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteFirmware200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFirmware200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFirmware200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteFirmware404Response
+ */
+export interface DeleteFirmware404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteFirmware404Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFirmware404Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFirmware404Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteFirmware500Response
+ */
+export interface DeleteFirmware500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteFirmware500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFirmware500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFirmware500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteFixpack200Response
+ */
+export interface DeleteFixpack200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteFixpack200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFixpack200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFixpack200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteFixpack404Response
+ */
+export interface DeleteFixpack404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteFixpack404Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFixpack404Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFixpack404Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteFixpack500Response
+ */
+export interface DeleteFixpack500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteFixpack500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFixpack500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFixpack500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteNodeOsd404Response
  */
 export interface DeleteNodeOsd404Response {
@@ -1308,6 +1608,56 @@ export interface DiskReadWriteHistory {
      * @memberof DiskReadWriteHistory
      */
     'write': Array<MetricRankRankInnerHistoryInner>;
+}
+/**
+ * 
+ * @export
+ * @interface DrainNode200Response
+ */
+export interface DrainNode200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DrainNode200Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DrainNode200Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DrainNode200Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DrainNode500Response
+ */
+export interface DrainNode500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DrainNode500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DrainNode500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DrainNode500Response
+     */
+    'status'?: string;
 }
 /**
  * 
@@ -2504,6 +2854,304 @@ export interface GetEventsResponseDataEventsInnerMetadata {
      */
     'ip': string;
 }
+/**
+ * 
+ * @export
+ * @interface GetFirmwareUpgradeProgress500Response
+ */
+export interface GetFirmwareUpgradeProgress500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetFirmwareUpgradeProgress500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgress500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgress500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetFirmwareUpgradeProgressResponse
+ */
+export interface GetFirmwareUpgradeProgressResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetFirmwareUpgradeProgressResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetFirmwareUpgradeProgressResponseData}
+     * @memberof GetFirmwareUpgradeProgressResponse
+     */
+    'data': GetFirmwareUpgradeProgressResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgressResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgressResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetFirmwareUpgradeProgressResponseData
+ */
+export interface GetFirmwareUpgradeProgressResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgressResponseData
+     */
+    'version': string;
+    /**
+     * 
+     * @type {Array<GetFirmwareUpgradeProgressResponseDataProgressesInner>}
+     * @memberof GetFirmwareUpgradeProgressResponseData
+     */
+    'progresses': Array<GetFirmwareUpgradeProgressResponseDataProgressesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface GetFirmwareUpgradeProgressResponseDataProgressesInner
+ */
+export interface GetFirmwareUpgradeProgressResponseDataProgressesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInner
+     */
+    'host': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInner
+     */
+    'phase': string;
+    /**
+     * 
+     * @type {GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus}
+     * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInner
+     */
+    'status': GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus;
+}
+/**
+ * 
+ * @export
+ * @interface GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus
+ */
+export interface GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus
+     */
+    'current': GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus
+     */
+    'isProcessing': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus
+     */
+    'processPercent': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus
+     */
+    'description': string;
+}
+
+export const GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum = {
+    Available: 'available',
+    Installing: 'installing',
+    Installed: 'installed',
+    Failed: 'failed'
+} as const;
+
+export type GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum = typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum[keyof typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
+ * @interface GetFixpackProgress500Response
+ */
+export interface GetFixpackProgress500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetFixpackProgress500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackProgress500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackProgress500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetFixpackUpdateProgressResponse
+ */
+export interface GetFixpackUpdateProgressResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetFixpackUpdateProgressResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetFixpackUpdateProgressResponseData}
+     * @memberof GetFixpackUpdateProgressResponse
+     */
+    'data': GetFixpackUpdateProgressResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackUpdateProgressResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackUpdateProgressResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetFixpackUpdateProgressResponseData
+ */
+export interface GetFixpackUpdateProgressResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackUpdateProgressResponseData
+     */
+    'version': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackUpdateProgressResponseData
+     */
+    'operation': GetFixpackUpdateProgressResponseDataOperationEnum;
+    /**
+     * 
+     * @type {Array<GetFixpackUpdateProgressResponseDataProgressesInner>}
+     * @memberof GetFixpackUpdateProgressResponseData
+     */
+    'progresses': Array<GetFixpackUpdateProgressResponseDataProgressesInner>;
+}
+
+export const GetFixpackUpdateProgressResponseDataOperationEnum = {
+    Install: 'install',
+    Rollback: 'rollback'
+} as const;
+
+export type GetFixpackUpdateProgressResponseDataOperationEnum = typeof GetFixpackUpdateProgressResponseDataOperationEnum[keyof typeof GetFixpackUpdateProgressResponseDataOperationEnum];
+
+/**
+ * 
+ * @export
+ * @interface GetFixpackUpdateProgressResponseDataProgressesInner
+ */
+export interface GetFixpackUpdateProgressResponseDataProgressesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackUpdateProgressResponseDataProgressesInner
+     */
+    'host': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackUpdateProgressResponseDataProgressesInner
+     */
+    'phase': string;
+    /**
+     * 
+     * @type {GetFixpackUpdateProgressResponseDataProgressesInnerStatus}
+     * @memberof GetFixpackUpdateProgressResponseDataProgressesInner
+     */
+    'status': GetFixpackUpdateProgressResponseDataProgressesInnerStatus;
+}
+/**
+ * 
+ * @export
+ * @interface GetFixpackUpdateProgressResponseDataProgressesInnerStatus
+ */
+export interface GetFixpackUpdateProgressResponseDataProgressesInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackUpdateProgressResponseDataProgressesInnerStatus
+     */
+    'current': GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetFixpackUpdateProgressResponseDataProgressesInnerStatus
+     */
+    'isProcessing': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetFixpackUpdateProgressResponseDataProgressesInnerStatus
+     */
+    'processPercent': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetFixpackUpdateProgressResponseDataProgressesInnerStatus
+     */
+    'description': string;
+}
+
+export const GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum = {
+    Available: 'available',
+    Installing: 'installing',
+    Installed: 'installed',
+    RollingBack: 'rolling back',
+    InstallFailed: 'install failed',
+    RollbackFailed: 'rollback failed'
+} as const;
+
+export type GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum = typeof GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum[keyof typeof GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum];
+
 /**
  * 
  * @export
@@ -6423,6 +7071,144 @@ export interface ImportImage500Response {
 /**
  * 
  * @export
+ * @interface InstallFixpack202Response
+ */
+export interface InstallFixpack202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof InstallFixpack202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface InstallFixpack400Response
+ */
+export interface InstallFixpack400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof InstallFixpack400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface InstallFixpack404Response
+ */
+export interface InstallFixpack404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof InstallFixpack404Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack404Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack404Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface InstallFixpack409Response
+ */
+export interface InstallFixpack409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof InstallFixpack409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface InstallFixpack500Response
+ */
+export interface InstallFixpack500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof InstallFixpack500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpack500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface InstallFixpackRequest
+ */
+export interface InstallFixpackRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof InstallFixpackRequest
+     */
+    'version': string;
+}
+/**
+ * 
+ * @export
  * @interface LicenseIssue
  */
 export interface LicenseIssue {
@@ -6450,6 +7236,125 @@ export interface LicenseIssue {
      * @memberof LicenseIssue
      */
     'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwareUpdatableNodes404Response
+ */
+export interface ListFirmwareUpdatableNodes404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFirmwareUpdatableNodes404Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodes404Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodes404Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwareUpdatableNodes500Response
+ */
+export interface ListFirmwareUpdatableNodes500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFirmwareUpdatableNodes500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodes500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodes500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwareUpdatableNodesResponse
+ */
+export interface ListFirmwareUpdatableNodesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFirmwareUpdatableNodesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListFirmwareUpdatableNodesResponseDataInner>}
+     * @memberof ListFirmwareUpdatableNodesResponse
+     */
+    'data': Array<ListFirmwareUpdatableNodesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwareUpdatableNodesResponseDataInner
+ */
+export interface ListFirmwareUpdatableNodesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodesResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {ListFirmwareUpdatableNodesResponseDataInnerFirmware}
+     * @memberof ListFirmwareUpdatableNodesResponseDataInner
+     */
+    'firmware': ListFirmwareUpdatableNodesResponseDataInnerFirmware;
+}
+/**
+ * 
+ * @export
+ * @interface ListFirmwareUpdatableNodesResponseDataInnerFirmware
+ */
+export interface ListFirmwareUpdatableNodesResponseDataInnerFirmware {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodesResponseDataInnerFirmware
+     */
+    'active': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFirmwareUpdatableNodesResponseDataInnerFirmware
+     */
+    'inactive': string;
 }
 /**
  * 
@@ -6581,15 +7486,251 @@ export interface ListFirmwaresResponseDataFirmwaresInnerStatus {
      * @memberof ListFirmwaresResponseDataFirmwaresInnerStatus
      */
     'isProcessing': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListFirmwaresResponseDataFirmwaresInnerStatus
+     */
+    'isRemovable': boolean;
 }
 
 export const ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = {
     Available: 'available',
     Processing: 'processing',
-    Updated: 'updated'
+    Updated: 'updated',
+    Failed: 'failed'
 } as const;
 
 export type ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = typeof ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum[keyof typeof ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListFixpackUpdatableNodesResponse
+ */
+export interface ListFixpackUpdatableNodesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFixpackUpdatableNodesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListFixpackUpdatableNodesResponseDataInner>}
+     * @memberof ListFixpackUpdatableNodesResponse
+     */
+    'data': Array<ListFixpackUpdatableNodesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackUpdatableNodesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackUpdatableNodesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpackUpdatableNodesResponseDataInner
+ */
+export interface ListFixpackUpdatableNodesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackUpdatableNodesResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackUpdatableNodesResponseDataInner
+     */
+    'version': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackUpdatableNodesResponseDataInner
+     */
+    'updatedAt': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpacks500Response
+ */
+export interface ListFixpacks500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFixpacks500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacks500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacks500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpacksResponse
+ */
+export interface ListFixpacksResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFixpacksResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {ListFixpacksResponseData}
+     * @memberof ListFixpacksResponse
+     */
+    'data': ListFixpacksResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacksResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacksResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpacksResponseData
+ */
+export interface ListFixpacksResponseData {
+    /**
+     * 
+     * @type {Array<ListFixpacksResponseDataFixpacksInner>}
+     * @memberof ListFixpacksResponseData
+     */
+    'fixpacks': Array<ListFixpacksResponseDataFixpacksInner>;
+    /**
+     * 
+     * @type {Page}
+     * @memberof ListFixpacksResponseData
+     */
+    'page': Page;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpacksResponseDataFixpacksInner
+ */
+export interface ListFixpacksResponseDataFixpacksInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacksResponseDataFixpacksInner
+     */
+    'version': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacksResponseDataFixpacksInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacksResponseDataFixpacksInner
+     */
+    'note': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacksResponseDataFixpacksInner
+     */
+    'details': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacksResponseDataFixpacksInner
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListFixpacksResponseDataFixpacksInner
+     */
+    'rebootRequired': boolean;
+    /**
+     * 
+     * @type {ListFixpacksResponseDataFixpacksInnerStatus}
+     * @memberof ListFixpacksResponseDataFixpacksInner
+     */
+    'status': ListFixpacksResponseDataFixpacksInnerStatus;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpacksResponseDataFixpacksInnerStatus
+ */
+export interface ListFixpacksResponseDataFixpacksInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpacksResponseDataFixpacksInnerStatus
+     */
+    'current': ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListFixpacksResponseDataFixpacksInnerStatus
+     */
+    'isInstallable': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListFixpacksResponseDataFixpacksInnerStatus
+     */
+    'isRollbackable': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListFixpacksResponseDataFixpacksInnerStatus
+     */
+    'isProcessing': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListFixpacksResponseDataFixpacksInnerStatus
+     */
+    'isRemovable': boolean;
+}
+
+export const ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum = {
+    Available: 'available',
+    Installing: 'installing',
+    Installed: 'installed',
+    RollingBack: 'rolling back',
+    InstallFailed: 'install failed',
+    RollbackFailed: 'rollback failed'
+} as const;
+
+export type ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum = typeof ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum[keyof typeof ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum];
 
 /**
  * 
@@ -9036,6 +10177,81 @@ export interface PutSlackChannelResponse {
 /**
  * 
  * @export
+ * @interface RebootNode202Response
+ */
+export interface RebootNode202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RebootNode202Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RebootNode202Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RebootNode202Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RebootNode404Response
+ */
+export interface RebootNode404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RebootNode404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RebootNode404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RebootNode404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RebootNode500Response
+ */
+export interface RebootNode500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RebootNode500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RebootNode500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RebootNode500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface RemoveNodeDevice404Response
  */
 export interface RemoveNodeDevice404Response {
@@ -9348,25 +10564,175 @@ export interface RoleUsageMemory {
 /**
  * 
  * @export
- * @interface SetNodeIpmi404Response
+ * @interface RollbackFixpack202Response
  */
-export interface SetNodeIpmi404Response {
+export interface RollbackFixpack202Response {
     /**
      * 
      * @type {number}
-     * @memberof SetNodeIpmi404Response
+     * @memberof RollbackFixpack202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RollbackFixpack202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RollbackFixpack202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface RollbackFixpack400Response
+ */
+export interface RollbackFixpack400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RollbackFixpack400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RollbackFixpack400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RollbackFixpack400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface RollbackFixpack409Response
+ */
+export interface RollbackFixpack409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RollbackFixpack409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RollbackFixpack409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RollbackFixpack409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface RollbackFixpack500Response
+ */
+export interface RollbackFixpack500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RollbackFixpack500Response
      */
     'code'?: number;
     /**
      * 
      * @type {string}
-     * @memberof SetNodeIpmi404Response
+     * @memberof RollbackFixpack500Response
      */
     'msg'?: string;
     /**
      * 
      * @type {string}
-     * @memberof SetNodeIpmi404Response
+     * @memberof RollbackFixpack500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RolloutDataCenterBySoftReboot202Response
+ */
+export interface RolloutDataCenterBySoftReboot202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RolloutDataCenterBySoftReboot202Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RolloutDataCenterBySoftReboot202Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RolloutDataCenterBySoftReboot202Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RolloutDataCenterBySoftReboot409Response
+ */
+export interface RolloutDataCenterBySoftReboot409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RolloutDataCenterBySoftReboot409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RolloutDataCenterBySoftReboot409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RolloutDataCenterBySoftReboot409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RolloutDataCenterBySoftReboot500Response
+ */
+export interface RolloutDataCenterBySoftReboot500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RolloutDataCenterBySoftReboot500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RolloutDataCenterBySoftReboot500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RolloutDataCenterBySoftReboot500Response
      */
     'status'?: string;
 }
@@ -10626,6 +11992,431 @@ export interface UploadFirmwareMd5Sum500Response {
 /**
  * 
  * @export
+ * @interface UploadFixpack200Response
+ */
+export interface UploadFixpack200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFixpack200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpack200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpack200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFixpack409Response
+ */
+export interface UploadFixpack409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFixpack409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpack409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpack409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFixpack500Response
+ */
+export interface UploadFixpack500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFixpack500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpack500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpack500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFixpackMd5Sum200Response
+ */
+export interface UploadFixpackMd5Sum200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFixpackMd5Sum200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpackMd5Sum200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpackMd5Sum200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFixpackMd5Sum409Response
+ */
+export interface UploadFixpackMd5Sum409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFixpackMd5Sum409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpackMd5Sum409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpackMd5Sum409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadFixpackMd5Sum500Response
+ */
+export interface UploadFixpackMd5Sum500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadFixpackMd5Sum500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpackMd5Sum500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UploadFixpackMd5Sum500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFirmwareMd5Sum200Response
+ */
+export interface VerifyFirmwareMd5Sum200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyFirmwareMd5Sum200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VerifyFirmwareMd5Sum200ResponseData}
+     * @memberof VerifyFirmwareMd5Sum200Response
+     */
+    'data': VerifyFirmwareMd5Sum200ResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFirmwareMd5Sum200ResponseData
+ */
+export interface VerifyFirmwareMd5Sum200ResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum200ResponseData
+     */
+    'firmwareMd5': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum200ResponseData
+     */
+    'expectedMd5': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFirmwareMd5Sum400Response
+ */
+export interface VerifyFirmwareMd5Sum400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyFirmwareMd5Sum400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VerifyFirmwareMd5Sum400ResponseData}
+     * @memberof VerifyFirmwareMd5Sum400Response
+     */
+    'data': VerifyFirmwareMd5Sum400ResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFirmwareMd5Sum400ResponseData
+ */
+export interface VerifyFirmwareMd5Sum400ResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum400ResponseData
+     */
+    'firmwareMd5'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum400ResponseData
+     */
+    'expectedMd5'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFirmwareMd5Sum409Response
+ */
+export interface VerifyFirmwareMd5Sum409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyFirmwareMd5Sum409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFirmwareMd5Sum409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFixpackMd5Sum200Response
+ */
+export interface VerifyFixpackMd5Sum200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyFixpackMd5Sum200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VerifyFixpackMd5Sum200ResponseData}
+     * @memberof VerifyFixpackMd5Sum200Response
+     */
+    'data': VerifyFixpackMd5Sum200ResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFixpackMd5Sum200ResponseData
+ */
+export interface VerifyFixpackMd5Sum200ResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum200ResponseData
+     */
+    'fixpackMd5'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum200ResponseData
+     */
+    'expectedMd5'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFixpackMd5Sum400Response
+ */
+export interface VerifyFixpackMd5Sum400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyFixpackMd5Sum400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VerifyFixpackMd5Sum400ResponseData}
+     * @memberof VerifyFixpackMd5Sum400Response
+     */
+    'data': VerifyFixpackMd5Sum400ResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFixpackMd5Sum400ResponseData
+ */
+export interface VerifyFixpackMd5Sum400ResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum400ResponseData
+     */
+    'fixpackMd5'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum400ResponseData
+     */
+    'expectedMd5'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFixpackMd5Sum409Response
+ */
+export interface VerifyFixpackMd5Sum409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyFixpackMd5Sum409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyFixpackMd5Sum500Response
+ */
+export interface VerifyFixpackMd5Sum500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyFixpackMd5Sum500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyFixpackMd5Sum500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface VerifyLicense500Response
  */
 export interface VerifyLicense500Response {
@@ -11122,131 +12913,6 @@ export interface VerifyTriggerScript500Response {
      */
     'status'?: string;
 }
-/**
- * 
- * @export
- * @interface VierfyFirmwareMd5Sum200Response
- */
-export interface VierfyFirmwareMd5Sum200Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof VierfyFirmwareMd5Sum200Response
-     */
-    'code': number;
-    /**
-     * 
-     * @type {VierfyFirmwareMd5Sum200ResponseData}
-     * @memberof VierfyFirmwareMd5Sum200Response
-     */
-    'data': VierfyFirmwareMd5Sum200ResponseData;
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum200Response
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum200Response
-     */
-    'status': string;
-}
-/**
- * 
- * @export
- * @interface VierfyFirmwareMd5Sum200ResponseData
- */
-export interface VierfyFirmwareMd5Sum200ResponseData {
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum200ResponseData
-     */
-    'firmwareMd5'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum200ResponseData
-     */
-    'expectedMd5'?: string;
-}
-/**
- * 
- * @export
- * @interface VierfyFirmwareMd5Sum400Response
- */
-export interface VierfyFirmwareMd5Sum400Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof VierfyFirmwareMd5Sum400Response
-     */
-    'code': number;
-    /**
-     * 
-     * @type {VierfyFirmwareMd5Sum400ResponseData}
-     * @memberof VierfyFirmwareMd5Sum400Response
-     */
-    'data': VierfyFirmwareMd5Sum400ResponseData;
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum400Response
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum400Response
-     */
-    'status': string;
-}
-/**
- * 
- * @export
- * @interface VierfyFirmwareMd5Sum400ResponseData
- */
-export interface VierfyFirmwareMd5Sum400ResponseData {
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum400ResponseData
-     */
-    'firmwareMd5'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum400ResponseData
-     */
-    'expectedMd5'?: string;
-}
-/**
- * 
- * @export
- * @interface VierfyFirmwareMd5Sum409Response
- */
-export interface VierfyFirmwareMd5Sum409Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof VierfyFirmwareMd5Sum409Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum409Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VierfyFirmwareMd5Sum409Response
-     */
-    'status'?: string;
-}
 
 /**
  * DataCentersApi - axios parameter creator
@@ -11326,6 +12992,44 @@ export const DataCentersApiAxiosParamCreator = function (configuration?: Configu
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Rollout the data center by soft reboot on each node one by one
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rolloutDataCenterBySoftReboot: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('rolloutDataCenterBySoftReboot', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/rollingReboot`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -11361,6 +13065,19 @@ export const DataCentersApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['DataCentersApi.getDataCenters']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @summary Rollout the data center by soft reboot on each node one by one
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rolloutDataCenterBySoftReboot(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RolloutDataCenterBySoftReboot202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rolloutDataCenterBySoftReboot(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DataCentersApi.rolloutDataCenterBySoftReboot']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -11390,6 +13107,16 @@ export const DataCentersApiFactory = function (configuration?: Configuration, ba
         getDataCenters(options?: RawAxiosRequestConfig): AxiosPromise<GetDataCentersResponse> {
             return localVarFp.getDataCenters(options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary Rollout the data center by soft reboot on each node one by one
+         * @param {DataCentersApiRolloutDataCenterBySoftRebootRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rolloutDataCenterBySoftReboot(requestParameters: DataCentersApiRolloutDataCenterBySoftRebootRequest, options?: RawAxiosRequestConfig): AxiosPromise<RolloutDataCenterBySoftReboot202Response> {
+            return localVarFp.rolloutDataCenterBySoftReboot(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -11403,6 +13130,20 @@ export interface DataCentersApiGetDataCenterRequest {
      * The name of the data center to operate
      * @type {string}
      * @memberof DataCentersApiGetDataCenter
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for rolloutDataCenterBySoftReboot operation in DataCentersApi.
+ * @export
+ * @interface DataCentersApiRolloutDataCenterBySoftRebootRequest
+ */
+export interface DataCentersApiRolloutDataCenterBySoftRebootRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof DataCentersApiRolloutDataCenterBySoftReboot
      */
     readonly dataCenter: string
 }
@@ -11435,6 +13176,18 @@ export class DataCentersApi extends BaseAPI {
      */
     public getDataCenters(options?: RawAxiosRequestConfig) {
         return DataCentersApiFp(this.configuration).getDataCenters(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Rollout the data center by soft reboot on each node one by one
+     * @param {DataCentersApiRolloutDataCenterBySoftRebootRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DataCentersApi
+     */
+    public rolloutDataCenterBySoftReboot(requestParameters: DataCentersApiRolloutDataCenterBySoftRebootRequest, options?: RawAxiosRequestConfig) {
+        return DataCentersApiFp(this.configuration).rolloutDataCenterBySoftReboot(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -12558,6 +14311,166 @@ export const FirmwaresApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
+         * @summary Continue an interrupted firmware update
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        continueInterruptedFirmwareUpdate: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('continueInterruptedFirmwareUpdate', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/continueAnyway`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete a firmware
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFirmware: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteFirmware', 'dataCenter', dataCenter)
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('deleteFirmware', 'version', version)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/{version}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get firmware upgrade progress for all nodes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFirmwareUpgradeProgress: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getFirmwareUpgradeProgress', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/upgradeProgress`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List nodes that can be updated to the specified firmware version
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFirmwareUpdatableNodes: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listFirmwareUpdatableNodes', 'dataCenter', dataCenter)
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('listFirmwareUpdatableNodes', 'version', version)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/{version}/updatableNodes`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary List firmwares
          * @param {string} dataCenter The name of the data center to operate
          * @param {number} [pageNum] The page number to retrieve
@@ -12706,9 +14619,9 @@ export const FirmwaresApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        vierfyFirmwareMd5Sum: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        verifyFirmwareMd5Sum: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
-            assertParamExists('vierfyFirmwareMd5Sum', 'dataCenter', dataCenter)
+            assertParamExists('verifyFirmwareMd5Sum', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/md5sum/verify`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -12747,6 +14660,60 @@ export const FirmwaresApiAxiosParamCreator = function (configuration?: Configura
 export const FirmwaresApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = FirmwaresApiAxiosParamCreator(configuration)
     return {
+        /**
+         * 
+         * @summary Continue an interrupted firmware update
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async continueInterruptedFirmwareUpdate(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContinueInterruptedFirmwareUpdate202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.continueInterruptedFirmwareUpdate(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.continueInterruptedFirmwareUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete a firmware
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteFirmware(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteFirmware200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFirmware(dataCenter, version, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.deleteFirmware']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get firmware upgrade progress for all nodes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getFirmwareUpgradeProgress(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFirmwareUpgradeProgressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFirmwareUpgradeProgress(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.getFirmwareUpgradeProgress']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List nodes that can be updated to the specified firmware version
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listFirmwareUpdatableNodes(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListFirmwareUpdatableNodesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listFirmwareUpdatableNodes(dataCenter, version, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.listFirmwareUpdatableNodes']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
         /**
          * 
          * @summary List firmwares
@@ -12798,10 +14765,10 @@ export const FirmwaresApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async vierfyFirmwareMd5Sum(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VierfyFirmwareMd5Sum200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.vierfyFirmwareMd5Sum(dataCenter, options);
+        async verifyFirmwareMd5Sum(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VerifyFirmwareMd5Sum200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyFirmwareMd5Sum(dataCenter, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.vierfyFirmwareMd5Sum']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.verifyFirmwareMd5Sum']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -12814,6 +14781,46 @@ export const FirmwaresApiFp = function(configuration?: Configuration) {
 export const FirmwaresApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = FirmwaresApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary Continue an interrupted firmware update
+         * @param {FirmwaresApiContinueInterruptedFirmwareUpdateRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        continueInterruptedFirmwareUpdate(requestParameters: FirmwaresApiContinueInterruptedFirmwareUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<ContinueInterruptedFirmwareUpdate202Response> {
+            return localVarFp.continueInterruptedFirmwareUpdate(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete a firmware
+         * @param {FirmwaresApiDeleteFirmwareRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFirmware(requestParameters: FirmwaresApiDeleteFirmwareRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteFirmware200Response> {
+            return localVarFp.deleteFirmware(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get firmware upgrade progress for all nodes
+         * @param {FirmwaresApiGetFirmwareUpgradeProgressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFirmwareUpgradeProgress(requestParameters: FirmwaresApiGetFirmwareUpgradeProgressRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetFirmwareUpgradeProgressResponse> {
+            return localVarFp.getFirmwareUpgradeProgress(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List nodes that can be updated to the specified firmware version
+         * @param {FirmwaresApiListFirmwareUpdatableNodesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFirmwareUpdatableNodes(requestParameters: FirmwaresApiListFirmwareUpdatableNodesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListFirmwareUpdatableNodesResponse> {
+            return localVarFp.listFirmwareUpdatableNodes(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary List firmwares
@@ -12847,15 +14854,85 @@ export const FirmwaresApiFactory = function (configuration?: Configuration, base
         /**
          * 
          * @summary Verify the firmware MD5 sum
-         * @param {FirmwaresApiVierfyFirmwareMd5SumRequest} requestParameters Request parameters.
+         * @param {FirmwaresApiVerifyFirmwareMd5SumRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        vierfyFirmwareMd5Sum(requestParameters: FirmwaresApiVierfyFirmwareMd5SumRequest, options?: RawAxiosRequestConfig): AxiosPromise<VierfyFirmwareMd5Sum200Response> {
-            return localVarFp.vierfyFirmwareMd5Sum(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        verifyFirmwareMd5Sum(requestParameters: FirmwaresApiVerifyFirmwareMd5SumRequest, options?: RawAxiosRequestConfig): AxiosPromise<VerifyFirmwareMd5Sum200Response> {
+            return localVarFp.verifyFirmwareMd5Sum(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for continueInterruptedFirmwareUpdate operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiContinueInterruptedFirmwareUpdateRequest
+ */
+export interface FirmwaresApiContinueInterruptedFirmwareUpdateRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiContinueInterruptedFirmwareUpdate
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for deleteFirmware operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiDeleteFirmwareRequest
+ */
+export interface FirmwaresApiDeleteFirmwareRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiDeleteFirmware
+     */
+    readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FirmwaresApiDeleteFirmware
+     */
+    readonly version: string
+}
+
+/**
+ * Request parameters for getFirmwareUpgradeProgress operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiGetFirmwareUpgradeProgressRequest
+ */
+export interface FirmwaresApiGetFirmwareUpgradeProgressRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiGetFirmwareUpgradeProgress
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for listFirmwareUpdatableNodes operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiListFirmwareUpdatableNodesRequest
+ */
+export interface FirmwaresApiListFirmwareUpdatableNodesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiListFirmwareUpdatableNodes
+     */
+    readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FirmwaresApiListFirmwareUpdatableNodes
+     */
+    readonly version: string
+}
 
 /**
  * Request parameters for listFirmwares operation in FirmwaresApi.
@@ -12935,15 +15012,15 @@ export interface FirmwaresApiUploadFirmwareMd5SumRequest {
 }
 
 /**
- * Request parameters for vierfyFirmwareMd5Sum operation in FirmwaresApi.
+ * Request parameters for verifyFirmwareMd5Sum operation in FirmwaresApi.
  * @export
- * @interface FirmwaresApiVierfyFirmwareMd5SumRequest
+ * @interface FirmwaresApiVerifyFirmwareMd5SumRequest
  */
-export interface FirmwaresApiVierfyFirmwareMd5SumRequest {
+export interface FirmwaresApiVerifyFirmwareMd5SumRequest {
     /**
      * The name of the data center to operate
      * @type {string}
-     * @memberof FirmwaresApiVierfyFirmwareMd5Sum
+     * @memberof FirmwaresApiVerifyFirmwareMd5Sum
      */
     readonly dataCenter: string
 }
@@ -12955,6 +15032,54 @@ export interface FirmwaresApiVierfyFirmwareMd5SumRequest {
  * @extends {BaseAPI}
  */
 export class FirmwaresApi extends BaseAPI {
+    /**
+     * 
+     * @summary Continue an interrupted firmware update
+     * @param {FirmwaresApiContinueInterruptedFirmwareUpdateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public continueInterruptedFirmwareUpdate(requestParameters: FirmwaresApiContinueInterruptedFirmwareUpdateRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).continueInterruptedFirmwareUpdate(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete a firmware
+     * @param {FirmwaresApiDeleteFirmwareRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public deleteFirmware(requestParameters: FirmwaresApiDeleteFirmwareRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).deleteFirmware(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get firmware upgrade progress for all nodes
+     * @param {FirmwaresApiGetFirmwareUpgradeProgressRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public getFirmwareUpgradeProgress(requestParameters: FirmwaresApiGetFirmwareUpgradeProgressRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).getFirmwareUpgradeProgress(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List nodes that can be updated to the specified firmware version
+     * @param {FirmwaresApiListFirmwareUpdatableNodesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public listFirmwareUpdatableNodes(requestParameters: FirmwaresApiListFirmwareUpdatableNodesRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).listFirmwareUpdatableNodes(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary List firmwares
@@ -12994,13 +15119,1053 @@ export class FirmwaresApi extends BaseAPI {
     /**
      * 
      * @summary Verify the firmware MD5 sum
-     * @param {FirmwaresApiVierfyFirmwareMd5SumRequest} requestParameters Request parameters.
+     * @param {FirmwaresApiVerifyFirmwareMd5SumRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FirmwaresApi
      */
-    public vierfyFirmwareMd5Sum(requestParameters: FirmwaresApiVierfyFirmwareMd5SumRequest, options?: RawAxiosRequestConfig) {
-        return FirmwaresApiFp(this.configuration).vierfyFirmwareMd5Sum(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    public verifyFirmwareMd5Sum(requestParameters: FirmwaresApiVerifyFirmwareMd5SumRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).verifyFirmwareMd5Sum(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * FixpacksApi - axios parameter creator
+ * @export
+ */
+export const FixpacksApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Continue an interrupted fixpack update
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        continueInterruptedFixpackUpdate: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('continueInterruptedFixpackUpdate', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/continueAnyway`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete a fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFixpack: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteFixpack', 'dataCenter', dataCenter)
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('deleteFixpack', 'version', version)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/updateProgress`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get the progress of a fixpack operation
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFixpackProgress: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getFixpackProgress', 'dataCenter', dataCenter)
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('getFixpackProgress', 'version', version)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/updateProgress`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Install a fixpack to nodes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {InstallFixpackRequest} installFixpackRequest Fixpack installation request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        installFixpack: async (dataCenter: string, installFixpackRequest: InstallFixpackRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('installFixpack', 'dataCenter', dataCenter)
+            // verify required parameter 'installFixpackRequest' is not null or undefined
+            assertParamExists('installFixpack', 'installFixpackRequest', installFixpackRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(installFixpackRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get nodes that can be updated with the specified fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFixpackUpdatableNodes: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listFixpackUpdatableNodes', 'dataCenter', dataCenter)
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('listFixpackUpdatableNodes', 'version', version)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/{version}/updatableNodes`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List fixpacks
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFixpacks: async (dataCenter: string, pageNum?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listFixpacks', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (pageNum !== undefined) {
+                localVarQueryParameter['pageNum'] = pageNum;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Rollback a fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rollbackFixpack: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('rollbackFixpack', 'dataCenter', dataCenter)
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('rollbackFixpack', 'version', version)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/{version}/rollback`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Upload a fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} file Name of the file to store
+         * @param {File} body for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFixpack: async (dataCenter: string, file: string, body: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('uploadFixpack', 'dataCenter', dataCenter)
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('uploadFixpack', 'file', file)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('uploadFixpack', 'body', body)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (file !== undefined) {
+                localVarQueryParameter['file'] = file;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/octet-stream';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Upload a fixpack MD5 sum
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} body for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFixpackMd5Sum: async (dataCenter: string, body: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('uploadFixpackMd5Sum', 'dataCenter', dataCenter)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('uploadFixpackMd5Sum', 'body', body)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/md5sum`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/octet-stream';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Verify the fixpack MD5 sum
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyFixpackMd5Sum: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('verifyFixpackMd5Sum', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/md5sum/verify`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FixpacksApi - functional programming interface
+ * @export
+ */
+export const FixpacksApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FixpacksApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Continue an interrupted fixpack update
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async continueInterruptedFixpackUpdate(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContinueInterruptedFixpackUpdate202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.continueInterruptedFixpackUpdate(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.continueInterruptedFixpackUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete a fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteFixpack(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteFixpack200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFixpack(dataCenter, version, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.deleteFixpack']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get the progress of a fixpack operation
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getFixpackProgress(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFixpackUpdateProgressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFixpackProgress(dataCenter, version, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.getFixpackProgress']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Install a fixpack to nodes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {InstallFixpackRequest} installFixpackRequest Fixpack installation request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async installFixpack(dataCenter: string, installFixpackRequest: InstallFixpackRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InstallFixpack202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.installFixpack(dataCenter, installFixpackRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.installFixpack']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get nodes that can be updated with the specified fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listFixpackUpdatableNodes(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListFixpackUpdatableNodesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listFixpackUpdatableNodes(dataCenter, version, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.listFixpackUpdatableNodes']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List fixpacks
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {number} [pageNum] The page number to retrieve
+         * @param {number} [pageSize] The number of items per page (default is unlimit).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listFixpacks(dataCenter: string, pageNum?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListFixpacksResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listFixpacks(dataCenter, pageNum, pageSize, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.listFixpacks']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Rollback a fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rollbackFixpack(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RollbackFixpack202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rollbackFixpack(dataCenter, version, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.rollbackFixpack']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Upload a fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} file Name of the file to store
+         * @param {File} body for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadFixpack(dataCenter: string, file: string, body: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UploadFixpack200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFixpack(dataCenter, file, body, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.uploadFixpack']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Upload a fixpack MD5 sum
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} body for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadFixpackMd5Sum(dataCenter: string, body: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UploadFixpackMd5Sum200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFixpackMd5Sum(dataCenter, body, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.uploadFixpackMd5Sum']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Verify the fixpack MD5 sum
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async verifyFixpackMd5Sum(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VerifyFixpackMd5Sum200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyFixpackMd5Sum(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.verifyFixpackMd5Sum']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * FixpacksApi - factory interface
+ * @export
+ */
+export const FixpacksApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FixpacksApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Continue an interrupted fixpack update
+         * @param {FixpacksApiContinueInterruptedFixpackUpdateRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        continueInterruptedFixpackUpdate(requestParameters: FixpacksApiContinueInterruptedFixpackUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<ContinueInterruptedFixpackUpdate202Response> {
+            return localVarFp.continueInterruptedFixpackUpdate(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete a fixpack
+         * @param {FixpacksApiDeleteFixpackRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFixpack(requestParameters: FixpacksApiDeleteFixpackRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteFixpack200Response> {
+            return localVarFp.deleteFixpack(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get the progress of a fixpack operation
+         * @param {FixpacksApiGetFixpackProgressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFixpackProgress(requestParameters: FixpacksApiGetFixpackProgressRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetFixpackUpdateProgressResponse> {
+            return localVarFp.getFixpackProgress(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Install a fixpack to nodes
+         * @param {FixpacksApiInstallFixpackRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        installFixpack(requestParameters: FixpacksApiInstallFixpackRequest, options?: RawAxiosRequestConfig): AxiosPromise<InstallFixpack202Response> {
+            return localVarFp.installFixpack(requestParameters.dataCenter, requestParameters.installFixpackRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get nodes that can be updated with the specified fixpack
+         * @param {FixpacksApiListFixpackUpdatableNodesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFixpackUpdatableNodes(requestParameters: FixpacksApiListFixpackUpdatableNodesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListFixpackUpdatableNodesResponse> {
+            return localVarFp.listFixpackUpdatableNodes(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List fixpacks
+         * @param {FixpacksApiListFixpacksRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFixpacks(requestParameters: FixpacksApiListFixpacksRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListFixpacksResponse> {
+            return localVarFp.listFixpacks(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Rollback a fixpack
+         * @param {FixpacksApiRollbackFixpackRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rollbackFixpack(requestParameters: FixpacksApiRollbackFixpackRequest, options?: RawAxiosRequestConfig): AxiosPromise<RollbackFixpack202Response> {
+            return localVarFp.rollbackFixpack(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upload a fixpack
+         * @param {FixpacksApiUploadFixpackRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFixpack(requestParameters: FixpacksApiUploadFixpackRequest, options?: RawAxiosRequestConfig): AxiosPromise<UploadFixpack200Response> {
+            return localVarFp.uploadFixpack(requestParameters.dataCenter, requestParameters.file, requestParameters.body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upload a fixpack MD5 sum
+         * @param {FixpacksApiUploadFixpackMd5SumRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFixpackMd5Sum(requestParameters: FixpacksApiUploadFixpackMd5SumRequest, options?: RawAxiosRequestConfig): AxiosPromise<UploadFixpackMd5Sum200Response> {
+            return localVarFp.uploadFixpackMd5Sum(requestParameters.dataCenter, requestParameters.body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Verify the fixpack MD5 sum
+         * @param {FixpacksApiVerifyFixpackMd5SumRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyFixpackMd5Sum(requestParameters: FixpacksApiVerifyFixpackMd5SumRequest, options?: RawAxiosRequestConfig): AxiosPromise<VerifyFixpackMd5Sum200Response> {
+            return localVarFp.verifyFixpackMd5Sum(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for continueInterruptedFixpackUpdate operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiContinueInterruptedFixpackUpdateRequest
+ */
+export interface FixpacksApiContinueInterruptedFixpackUpdateRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiContinueInterruptedFixpackUpdate
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for deleteFixpack operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiDeleteFixpackRequest
+ */
+export interface FixpacksApiDeleteFixpackRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiDeleteFixpack
+     */
+    readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FixpacksApiDeleteFixpack
+     */
+    readonly version: string
+}
+
+/**
+ * Request parameters for getFixpackProgress operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiGetFixpackProgressRequest
+ */
+export interface FixpacksApiGetFixpackProgressRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiGetFixpackProgress
+     */
+    readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FixpacksApiGetFixpackProgress
+     */
+    readonly version: string
+}
+
+/**
+ * Request parameters for installFixpack operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiInstallFixpackRequest
+ */
+export interface FixpacksApiInstallFixpackRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiInstallFixpack
+     */
+    readonly dataCenter: string
+
+    /**
+     * Fixpack installation request body
+     * @type {InstallFixpackRequest}
+     * @memberof FixpacksApiInstallFixpack
+     */
+    readonly installFixpackRequest: InstallFixpackRequest
+}
+
+/**
+ * Request parameters for listFixpackUpdatableNodes operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiListFixpackUpdatableNodesRequest
+ */
+export interface FixpacksApiListFixpackUpdatableNodesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiListFixpackUpdatableNodes
+     */
+    readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FixpacksApiListFixpackUpdatableNodes
+     */
+    readonly version: string
+}
+
+/**
+ * Request parameters for listFixpacks operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiListFixpacksRequest
+ */
+export interface FixpacksApiListFixpacksRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiListFixpacks
+     */
+    readonly dataCenter: string
+
+    /**
+     * The page number to retrieve
+     * @type {number}
+     * @memberof FixpacksApiListFixpacks
+     */
+    readonly pageNum?: number
+
+    /**
+     * The number of items per page (default is unlimit).
+     * @type {number}
+     * @memberof FixpacksApiListFixpacks
+     */
+    readonly pageSize?: number
+}
+
+/**
+ * Request parameters for rollbackFixpack operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiRollbackFixpackRequest
+ */
+export interface FixpacksApiRollbackFixpackRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiRollbackFixpack
+     */
+    readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FixpacksApiRollbackFixpack
+     */
+    readonly version: string
+}
+
+/**
+ * Request parameters for uploadFixpack operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiUploadFixpackRequest
+ */
+export interface FixpacksApiUploadFixpackRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiUploadFixpack
+     */
+    readonly dataCenter: string
+
+    /**
+     * Name of the file to store
+     * @type {string}
+     * @memberof FixpacksApiUploadFixpack
+     */
+    readonly file: string
+
+    /**
+     * for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+     * @type {File}
+     * @memberof FixpacksApiUploadFixpack
+     */
+    readonly body: File
+}
+
+/**
+ * Request parameters for uploadFixpackMd5Sum operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiUploadFixpackMd5SumRequest
+ */
+export interface FixpacksApiUploadFixpackMd5SumRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiUploadFixpackMd5Sum
+     */
+    readonly dataCenter: string
+
+    /**
+     * for example, in the CURL, the firmware pkg should be set by the \&#39;-T /path/to/firmware\&#39;.
+     * @type {File}
+     * @memberof FixpacksApiUploadFixpackMd5Sum
+     */
+    readonly body: File
+}
+
+/**
+ * Request parameters for verifyFixpackMd5Sum operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiVerifyFixpackMd5SumRequest
+ */
+export interface FixpacksApiVerifyFixpackMd5SumRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiVerifyFixpackMd5Sum
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * FixpacksApi - object-oriented interface
+ * @export
+ * @class FixpacksApi
+ * @extends {BaseAPI}
+ */
+export class FixpacksApi extends BaseAPI {
+    /**
+     * 
+     * @summary Continue an interrupted fixpack update
+     * @param {FixpacksApiContinueInterruptedFixpackUpdateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public continueInterruptedFixpackUpdate(requestParameters: FixpacksApiContinueInterruptedFixpackUpdateRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).continueInterruptedFixpackUpdate(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete a fixpack
+     * @param {FixpacksApiDeleteFixpackRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public deleteFixpack(requestParameters: FixpacksApiDeleteFixpackRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).deleteFixpack(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get the progress of a fixpack operation
+     * @param {FixpacksApiGetFixpackProgressRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public getFixpackProgress(requestParameters: FixpacksApiGetFixpackProgressRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).getFixpackProgress(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Install a fixpack to nodes
+     * @param {FixpacksApiInstallFixpackRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public installFixpack(requestParameters: FixpacksApiInstallFixpackRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).installFixpack(requestParameters.dataCenter, requestParameters.installFixpackRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get nodes that can be updated with the specified fixpack
+     * @param {FixpacksApiListFixpackUpdatableNodesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public listFixpackUpdatableNodes(requestParameters: FixpacksApiListFixpackUpdatableNodesRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).listFixpackUpdatableNodes(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List fixpacks
+     * @param {FixpacksApiListFixpacksRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public listFixpacks(requestParameters: FixpacksApiListFixpacksRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).listFixpacks(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Rollback a fixpack
+     * @param {FixpacksApiRollbackFixpackRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public rollbackFixpack(requestParameters: FixpacksApiRollbackFixpackRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).rollbackFixpack(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upload a fixpack
+     * @param {FixpacksApiUploadFixpackRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public uploadFixpack(requestParameters: FixpacksApiUploadFixpackRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).uploadFixpack(requestParameters.dataCenter, requestParameters.file, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upload a fixpack MD5 sum
+     * @param {FixpacksApiUploadFixpackMd5SumRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public uploadFixpackMd5Sum(requestParameters: FixpacksApiUploadFixpackMd5SumRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).uploadFixpackMd5Sum(requestParameters.dataCenter, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Verify the fixpack MD5 sum
+     * @param {FixpacksApiVerifyFixpackMd5SumRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public verifyFixpackMd5Sum(requestParameters: FixpacksApiVerifyFixpackMd5SumRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).verifyFixpackMd5Sum(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -17074,6 +20239,48 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Drain the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        drainNode: async (dataCenter: string, nodeName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('drainNode', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('drainNode', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/drain`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -17259,6 +20466,48 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
                 .replace(`{${"operation"}}`, encodeURIComponent(String(operation)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Reboot the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rebootNode: async (dataCenter: string, nodeName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('rebootNode', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('rebootNode', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/softReboot`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -17633,6 +20882,20 @@ export const NodesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Drain the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async drainNode(dataCenter: string, nodeName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DrainNode200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.drainNode(dataCenter, nodeName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.drainNode']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -17694,6 +20957,20 @@ export const NodesApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.operateNodeIpmi(dataCenter, nodeName, operation, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodesApi.operateNodeIpmi']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Reboot the node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rebootNode(dataCenter: string, nodeName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RebootNode202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rebootNode(dataCenter, nodeName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.rebootNode']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -17830,6 +21107,16 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Drain the node
+         * @param {NodesApiDrainNodeRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        drainNode(requestParameters: NodesApiDrainNodeRequest, options?: RawAxiosRequestConfig): AxiosPromise<DrainNode200Response> {
+            return localVarFp.drainNode(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve the node details
          * @param {NodesApiGetNodeRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -17867,6 +21154,16 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
          */
         operateNodeIpmi(requestParameters: NodesApiOperateNodeIpmiRequest, options?: RawAxiosRequestConfig): AxiosPromise<OperateNodeIpmiResponse> {
             return localVarFp.operateNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.operation, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Reboot the node
+         * @param {NodesApiRebootNodeRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rebootNode(requestParameters: NodesApiRebootNodeRequest, options?: RawAxiosRequestConfig): AxiosPromise<RebootNode202Response> {
+            return localVarFp.rebootNode(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -18004,6 +21301,27 @@ export interface NodesApiDisconnectNodeIpmiRequest {
      * The name of the node
      * @type {string}
      * @memberof NodesApiDisconnectNodeIpmi
+     */
+    readonly nodeName: string
+}
+
+/**
+ * Request parameters for drainNode operation in NodesApi.
+ * @export
+ * @interface NodesApiDrainNodeRequest
+ */
+export interface NodesApiDrainNodeRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiDrainNode
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiDrainNode
      */
     readonly nodeName: string
 }
@@ -18153,6 +21471,27 @@ export interface NodesApiOperateNodeIpmiRequest {
      * @memberof NodesApiOperateNodeIpmi
      */
     readonly operation: OperateNodeIpmiOperationEnum
+}
+
+/**
+ * Request parameters for rebootNode operation in NodesApi.
+ * @export
+ * @interface NodesApiRebootNodeRequest
+ */
+export interface NodesApiRebootNodeRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiRebootNode
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiRebootNode
+     */
+    readonly nodeName: string
 }
 
 /**
@@ -18382,6 +21721,18 @@ export class NodesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Drain the node
+     * @param {NodesApiDrainNodeRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public drainNode(requestParameters: NodesApiDrainNodeRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).drainNode(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Retrieve the node details
      * @param {NodesApiGetNodeRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -18426,6 +21777,18 @@ export class NodesApi extends BaseAPI {
      */
     public operateNodeIpmi(requestParameters: NodesApiOperateNodeIpmiRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).operateNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.operation, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Reboot the node
+     * @param {NodesApiRebootNodeRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public rebootNode(requestParameters: NodesApiRebootNodeRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).rebootNode(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

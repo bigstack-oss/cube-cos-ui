@@ -5,6 +5,7 @@ import {
   DataCentersApi,
   EventsApi,
   FirmwaresApi,
+  FixpacksApi,
   GrafanaApi,
   HealthApi,
   IntegrationsApi,
@@ -83,6 +84,7 @@ export const triggersApi = createApiInstance(TriggersApi)
 export const tuningsApi = createApiInstance(TuningsApi)
 export const userInfoApi = createApiInstance(UserInfoApi)
 export const firmwaresApi = createApiInstance(FirmwaresApi)
+export const fixpacksApi = createApiInstance(FixpacksApi)
 
 if (import.meta.env.DEV) {
   cosApi.interceptors.request.use(devAccessTokenRequestInterceptor)
