@@ -35,6 +35,7 @@
     "Svgs",
     "tseslint",
     "vcpu",
-    "vite"
+    "vite",
+    "fixpacks"
   ]
 }

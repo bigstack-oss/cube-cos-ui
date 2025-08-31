@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router'
 import { CosTabs } from '@cube-frontend/ui-library'
 import { links } from './links'
 import { TopLicenseNagging } from './_components/TopLicenseNagging'
+import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 
 export const MaintenanceLayout = () => {
   const location = useLocation()
@@ -25,7 +26,11 @@ export const MaintenanceLayout = () => {
           </CosTabs.Tab>
         </Link>
         <Link to={links.updateFirmware}>
-          <CosTabs.Tab isActive={location.pathname === links.updateFirmware}>
+          <CosTabs.Tab
+            isActive={location.pathname.startsWith(
+              CosRoutesEnum.MAINTENANCE_UPDATE_PAGE,
+            )}
+          >
             Update
           </CosTabs.Tab>
         </Link>

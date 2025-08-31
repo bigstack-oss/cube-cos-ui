@@ -34,6 +34,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
   } = useReleaseNotePanel<FirmwareRow>()
 
   const formatUpdatedAt = (updatedAt: string): string => {
+    if (!updatedAt) return ''
     return dayjs.respectTzOffset(updatedAt).format('YYYY/MM/DD')
   }
 
@@ -48,7 +49,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
           topic="Firmware List"
           rightSlot={
             <div className="flex items-center gap-x-4">
-              <CosButton disabled={showLoading}>Upload PKG File</CosButton>
+              <CosButton disabled={showLoading}>Upload Firmware</CosButton>
               <button
                 type="button"
                 className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
