@@ -126,6 +126,7 @@ export const ModalExample = ({
           <CosButton
             usage="text-only"
             className="w-fit"
+            loading={isTesting}
             disabled={!fileName || isTesting}
             onClick={handleTestClick}
           >
