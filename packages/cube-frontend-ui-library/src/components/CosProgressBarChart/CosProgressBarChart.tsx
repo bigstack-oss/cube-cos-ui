@@ -2,6 +2,7 @@ import {
   CosProgressBar,
   CosProgressBarProps,
 } from '../CosProgressBar/CosProgressBar'
+import { CosResourceUsageBar } from '../CosProgressBar/CosResourceUsageBar'
 
 type CosProgressBarChart = {
   title: string
@@ -11,7 +12,7 @@ type CosProgressBarChart = {
    */
   isLoading?: boolean
   skeletonClassName?: string
-} & Omit<CosProgressBarProps, 'color'>
+} & Pick<CosProgressBarProps, 'progress' | 'className'>
 
 export const CosProgressBarChart = (props: CosProgressBarChart) => {
   const {
@@ -32,7 +33,7 @@ export const CosProgressBarChart = (props: CosProgressBarChart) => {
       {isLoading ? (
         <CosProgressBar.Skeleton className={skeletonClassName} />
       ) : (
-        <CosProgressBar {...restProps} progress={progress} />
+        <CosResourceUsageBar {...restProps} progress={progress} />
       )}
     </div>
   )

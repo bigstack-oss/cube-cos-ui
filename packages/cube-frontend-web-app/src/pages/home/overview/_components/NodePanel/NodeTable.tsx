@@ -1,7 +1,7 @@
 import { GetNodesResponseData } from '@cube-frontend/api'
 import {
   CosHyperlink,
-  CosProgressBar,
+  CosResourceUsageBar,
   CosStatus,
   CosTag,
   CosTooltip,
@@ -75,7 +75,10 @@ export const NodeTable = (props: NodeTableProps) => {
         skeletonVariant="with-barchart"
       >
         {(cpu) => (
-          <CosProgressBar className="min-w-[90px]" progress={cpu.usedPercent} />
+          <CosResourceUsageBar
+            className="min-w-[90px]"
+            progress={cpu.usedPercent}
+          />
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
@@ -84,7 +87,7 @@ export const NodeTable = (props: NodeTableProps) => {
         skeletonVariant="with-barchart"
       >
         {(memory) => (
-          <CosProgressBar
+          <CosResourceUsageBar
             className="min-w-[90px]"
             progress={memory.usedPercent}
           />
@@ -96,7 +99,7 @@ export const NodeTable = (props: NodeTableProps) => {
         skeletonVariant="with-barchart"
       >
         {(storage) => (
-          <CosProgressBar
+          <CosResourceUsageBar
             className="min-w-[90px]"
             progress={storage.usedPercent}
           />

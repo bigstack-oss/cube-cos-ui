@@ -1,4 +1,4 @@
-import { CosProgressBar } from '../../../components/CosProgressBar/CosProgressBar'
+import { CosProgressBar, CosResourceUsageBar } from '@cube-frontend/ui-library'
 import type { Meta, StoryObj } from '@storybook/react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 
@@ -16,47 +16,55 @@ const ProgressBarGallery = () => {
   return (
     <StoryLayout title="Progress Bar">
       <StoryLayout.Section title="Progress">
+        <div className="flex flex-col gap-y-4">
+          <CosProgressBar progress={0} color="bg-chart-1" />
+          <CosProgressBar progress={1} color="bg-chart-2" />
+          <CosProgressBar progress={50} color="bg-chart-3" />
+          <CosProgressBar progress={99} color="bg-chart-4" />
+        </div>
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Resource Usage Bar">
         <div className="flex flex-col gap-y-8">
           <div className="flex flex-col gap-y-4">
-            <CosProgressBar progress={0} />
-            <CosProgressBar progress={1} />
-            <CosProgressBar progress={50} />
-            <CosProgressBar progress={51} />
-            <CosProgressBar progress={70} />
-            <CosProgressBar progress={80} />
-            <CosProgressBar progress={81} />
-            <CosProgressBar progress={99} />
-            <CosProgressBar progress={100} />
-            <CosProgressBar progress={101} />
-            <CosProgressBar progress={150} />
-            <CosProgressBar progress={199} />
-            <CosProgressBar progress={200} />
-            <CosProgressBar progress={250} />
-            <CosProgressBar progress={300} />
+            <CosResourceUsageBar progress={0} />
+            <CosResourceUsageBar progress={1} />
+            <CosResourceUsageBar progress={50} />
+            <CosResourceUsageBar progress={51} />
+            <CosResourceUsageBar progress={70} />
+            <CosResourceUsageBar progress={80} />
+            <CosResourceUsageBar progress={81} />
+            <CosResourceUsageBar progress={99} />
+            <CosResourceUsageBar progress={100} />
+            <CosResourceUsageBar progress={101} />
+            <CosResourceUsageBar progress={150} />
+            <CosResourceUsageBar progress={199} />
+            <CosResourceUsageBar progress={200} />
+            <CosResourceUsageBar progress={250} />
+            <CosResourceUsageBar progress={300} />
           </div>
           <div className="flex flex-col gap-y-4">
             <div className="flex flex-col gap-y-4">
               <span className="primary-body2 text-functional-text">
                 Default: Full Width
               </span>
-              <CosProgressBar progress={50} />
+              <CosResourceUsageBar progress={50} />
             </div>
             <div className="flex flex-col gap-y-4">
               <span className="primary-body2 text-functional-text">
                 Custom Width
               </span>
-              <CosProgressBar className="w-[90px]" progress={50} />
+              <CosResourceUsageBar className="w-[90px]" progress={50} />
             </div>
             <div className="flex flex-col gap-y-4">
               <span className="primary-body2 text-functional-text">
                 Flex Display
               </span>
               <div className="flex items-center gap-x-4">
-                <CosProgressBar className="flex-1" progress={50} />
-                <CosProgressBar className="flex-1" progress={50} />
-                <CosProgressBar className="flex-1" progress={50} />
-                <CosProgressBar className="flex-1" progress={50} />
-                <CosProgressBar className="flex-1" progress={50} />
+                <CosResourceUsageBar className="flex-1" progress={50} />
+                <CosResourceUsageBar className="flex-1" progress={50} />
+                <CosResourceUsageBar className="flex-1" progress={50} />
+                <CosResourceUsageBar className="flex-1" progress={50} />
+                <CosResourceUsageBar className="flex-1" progress={50} />
               </div>
             </div>
           </div>
@@ -64,14 +72,14 @@ const ProgressBarGallery = () => {
       </StoryLayout.Section>
       <StoryLayout.Section title="Skeleton">
         <div className="flex flex-col gap-y-4">
-          <CosProgressBar.Skeleton />
-          <CosProgressBar.Skeleton className="w-[90px]" />
+          <CosResourceUsageBar.Skeleton />
+          <CosResourceUsageBar.Skeleton className="w-[90px]" />
           <div className="flex items-center gap-x-4">
-            <CosProgressBar.Skeleton />
-            <CosProgressBar.Skeleton />
-            <CosProgressBar.Skeleton />
-            <CosProgressBar.Skeleton />
-            <CosProgressBar.Skeleton />
+            <CosResourceUsageBar.Skeleton />
+            <CosResourceUsageBar.Skeleton />
+            <CosResourceUsageBar.Skeleton />
+            <CosResourceUsageBar.Skeleton />
+            <CosResourceUsageBar.Skeleton />
           </div>
         </div>
       </StoryLayout.Section>

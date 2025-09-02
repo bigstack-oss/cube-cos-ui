@@ -75,6 +75,7 @@ export { type CosGeneralPanelTitleBarProps } from './components/CosPanel/CosGene
 export { type CosGeneralPanelContainerProps } from './components/CosPanel/CosGeneralPanel/CosGeneralPanelContainer'
 export * from './components/CosPercentagePieChart/CosPercentagePieChart'
 export * from './components/CosProgressBar/CosProgressBar'
+export * from './components/CosProgressBar/CosResourceUsageBar'
 export * from './components/CosRadioButton/CosRadioButton'
 export * from './components/CosRadioButton/CosRadioButtonGroup'
 export * from './components/CosRadioButton/CosRadioButtonSkeleton'

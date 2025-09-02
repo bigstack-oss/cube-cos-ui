@@ -1,4 +1,4 @@
-import { CosProgressBar, CosSkeleton } from '@cube-frontend/ui-library'
+import { CosResourceUsageBar, CosSkeleton } from '@cube-frontend/ui-library'
 import { useContext } from 'react'
 import { CosBackButtonContext } from './cosBackButtonContext'
 
@@ -28,7 +28,7 @@ export const BarChart = (props: BarChartProps) => {
         {label}
       </span>
       <div className="flex w-[90px] items-center">
-        <CosProgressBar progress={progress} />
+        <CosResourceUsageBar progress={progress} />
       </div>
     </div>
   )

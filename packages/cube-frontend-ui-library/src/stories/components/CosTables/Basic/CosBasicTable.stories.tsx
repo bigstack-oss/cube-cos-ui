@@ -1,6 +1,6 @@
 import { CosStatus, CosTag } from '@cube-frontend/ui-library'
 import { Meta, StoryObj } from '@storybook/react'
-import { CosProgressBar } from '../../../../components/CosProgressBar/CosProgressBar'
+import { CosResourceUsageBar } from '../../../../components/CosProgressBar/CosResourceUsageBar'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import { CustomSortingRule } from './CustomSortingRule'
 import { mockNodes, NodeTable } from './utils'
@@ -55,14 +55,14 @@ const Default = () => (
       {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
     </NodeTable.Column>
     <NodeTable.Column label="CPU" property="cpu">
-      {(cpu) => <CosProgressBar className="min-w-[90px]" progress={cpu} />}
+      {(cpu) => <CosResourceUsageBar className="min-w-[90px]" progress={cpu} />}
     </NodeTable.Column>
     <NodeTable.Column label="RAM" property="ram">
-      {(ram) => <CosProgressBar className="min-w-[90px]" progress={ram} />}
+      {(ram) => <CosResourceUsageBar className="min-w-[90px]" progress={ram} />}
     </NodeTable.Column>
     <NodeTable.Column label="Partition" property="partition">
       {(partition) => (
-        <CosProgressBar className="min-w-[90px]" progress={partition} />
+        <CosResourceUsageBar className="min-w-[90px]" progress={partition} />
       )}
     </NodeTable.Column>
     <NodeTable.Column label="Running" property="running">
@@ -94,14 +94,14 @@ const Sortable = () => (
       {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
     </NodeTable.Column>
     <NodeTable.Column label="CPU" property="cpu">
-      {(cpu) => <CosProgressBar className="min-w-[90px]" progress={cpu} />}
+      {(cpu) => <CosResourceUsageBar className="min-w-[90px]" progress={cpu} />}
     </NodeTable.Column>
     <NodeTable.Column label="RAM" property="ram" isSortable={true}>
-      {(ram) => <CosProgressBar className="min-w-[90px]" progress={ram} />}
+      {(ram) => <CosResourceUsageBar className="min-w-[90px]" progress={ram} />}
     </NodeTable.Column>
     <NodeTable.Column label="Partition" property="partition">
       {(partition) => (
-        <CosProgressBar className="min-w-[90px]" progress={partition} />
+        <CosResourceUsageBar className="min-w-[90px]" progress={partition} />
       )}
     </NodeTable.Column>
     <NodeTable.Column label="Running" property="running">
@@ -139,14 +139,14 @@ const SortableWithDefaultState = () => (
       {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
     </NodeTable.Column>
     <NodeTable.Column label="CPU" property="cpu">
-      {(cpu) => <CosProgressBar className="min-w-[90px]" progress={cpu} />}
+      {(cpu) => <CosResourceUsageBar className="min-w-[90px]" progress={cpu} />}
     </NodeTable.Column>
     <NodeTable.Column label="RAM" property="ram" isSortable={true}>
-      {(ram) => <CosProgressBar className="min-w-[90px]" progress={ram} />}
+      {(ram) => <CosResourceUsageBar className="min-w-[90px]" progress={ram} />}
     </NodeTable.Column>
     <NodeTable.Column label="Partition" property="partition">
       {(partition) => (
-        <CosProgressBar className="min-w-[90px]" progress={partition} />
+        <CosResourceUsageBar className="min-w-[90px]" progress={partition} />
       )}
     </NodeTable.Column>
     <NodeTable.Column label="Running" property="running">
@@ -187,14 +187,21 @@ const FitContent = () => {
           {(licenseExpire) => licenseExpire.toLocaleDateString('en-US')}
         </NodeTable.Column>
         <NodeTable.Column label="CPU" property="cpu">
-          {(cpu) => <CosProgressBar className="min-w-[90px]" progress={cpu} />}
+          {(cpu) => (
+            <CosResourceUsageBar className="min-w-[90px]" progress={cpu} />
+          )}
         </NodeTable.Column>
         <NodeTable.Column label="RAM" property="ram">
-          {(ram) => <CosProgressBar className="min-w-[90px]" progress={ram} />}
+          {(ram) => (
+            <CosResourceUsageBar className="min-w-[90px]" progress={ram} />
+          )}
         </NodeTable.Column>
         <NodeTable.Column label="Partition" property="partition">
           {(partition) => (
-            <CosProgressBar className="min-w-[90px]" progress={partition} />
+            <CosResourceUsageBar
+              className="min-w-[90px]"
+              progress={partition}
+            />
           )}
         </NodeTable.Column>
         <NodeTable.Column label="Running" property="running" fitContent={true}>
