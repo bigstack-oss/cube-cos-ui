@@ -36,6 +36,8 @@
     "tseslint",
     "vcpu",
     "vite",
-    "fixpacks"
+    "firmwares",
+    "fixpacks",
+    "rollbackable"
   ]
 }

@@ -28,8 +28,8 @@ export const queryToSearchParams = (
 export const searchParamsToQuery = (
   searchParams: URLSearchParams,
 ): ListFixpacksQuery => {
-  const currentPage = searchParams.get('pageNum')
-  const itemsPerPage = searchParams.get('pageSize')
+  const currentPage = searchParams.get(FixpackParamKeyEnum.CurrentPage)
+  const itemsPerPage = searchParams.get(FixpackParamKeyEnum.ItemsPerPage)
 
   const parsedQuery = paginationQuerySchema.safeParse({
     currentPage,

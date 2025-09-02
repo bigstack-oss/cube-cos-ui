@@ -115,10 +115,7 @@ export const MaintenanceUpdateFixpackPage = () => {
               >
                 {(_, row, index) => {
                   const actionState = fixpacksActionStates[index]
-                  return (
-                    !!actionState &&
-                    renderAction(row, fixpacksActionStates[index])
-                  )
+                  return !!actionState && renderAction(row, actionState)
                 }}
               </FixpackTable.Column>
             </FixpackTable>

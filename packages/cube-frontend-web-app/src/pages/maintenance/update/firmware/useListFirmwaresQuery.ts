@@ -29,6 +29,7 @@ export const useListFirmwaresQuery = (): UseListFirmwaresQuery => {
     setQuery((prev) => ({
       ...prev,
       pageSize: itemsPerPage,
+      page: 1,
     }))
   }
 

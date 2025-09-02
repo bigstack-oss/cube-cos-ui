@@ -29,6 +29,7 @@ export const useListFixpacksQuery = (): UseListFixpacksQuery => {
     setQuery((prev) => ({
       ...prev,
       pageSize: itemsPerPage,
+      page: 1,
     }))
   }
 

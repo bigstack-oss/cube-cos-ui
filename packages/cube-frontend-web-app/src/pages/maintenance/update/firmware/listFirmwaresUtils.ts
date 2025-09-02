@@ -28,8 +28,8 @@ export const queryToSearchParams = (
 export const searchParamsToQuery = (
   searchParams: URLSearchParams,
 ): ListFirmwaresQuery => {
-  const currentPage = searchParams.get('pageNum')
-  const itemsPerPage = searchParams.get('pageSize')
+  const currentPage = searchParams.get(FirmwareParamKeyEnum.CurrentPage)
+  const itemsPerPage = searchParams.get(FirmwareParamKeyEnum.ItemsPerPage)
 
   const parsedQuery = paginationQuerySchema.safeParse({
     currentPage,
