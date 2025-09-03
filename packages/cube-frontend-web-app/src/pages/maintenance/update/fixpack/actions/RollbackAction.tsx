@@ -13,6 +13,8 @@ export const RollbackAction = (props: RollbackActionProps) => {
   const { state } = props
 
   const isBlockedByNewerFixpack = state === 'blockedByNewerFixpack'
+  const isBlockedByCheckingCephHealth = state === 'blockedByCheckingCephHealth'
+  const isBlockedByUnhealthyCeph = state === 'blockedByUnhealthyCeph'
 
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
     if (isBlockedByNewerFixpack) {
@@ -20,6 +22,14 @@ export const RollbackAction = (props: RollbackActionProps) => {
         message: 'Rollback is blocked by newer updates.',
       }
     }
+
+    if (isBlockedByUnhealthyCeph) {
+      return {
+        message:
+          'Fixpack rollback is currently unavailable because Ceph is unhealthy.',
+      }
+    }
+
     return undefined
   }
 
@@ -30,7 +40,11 @@ export const RollbackAction = (props: RollbackActionProps) => {
       <span>
         <CosButton
           type="ghost"
-          disabled={isBlockedByNewerFixpack}
+          disabled={
+            isBlockedByNewerFixpack ||
+            isBlockedByCheckingCephHealth ||
+            isBlockedByUnhealthyCeph
+          }
           onClick={(e) => e.stopPropagation()}
         >
           {state === 'inProgress' ? 'Rolling back' : 'Rollback'}

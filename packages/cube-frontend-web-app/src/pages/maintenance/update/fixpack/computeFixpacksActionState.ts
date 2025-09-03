@@ -1,7 +1,9 @@
 import {
+  GetHealthsResponseDataOverallStatusCurrentEnum,
   ListFixpacksResponseDataFixpacksInner,
   ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum as StatusEnum,
 } from '@cube-frontend/api'
+import { CephHealthStatus } from '../_components/useCephHealthStatus'
 
 export type FixpackActionState = {
   install: InstallActionState | undefined
@@ -13,11 +15,15 @@ export type InstallActionState =
   | 'available'
   | 'inProgress'
   | 'blockedByOlderFixpack'
+  | 'blockedByCheckingCephHealth'
+  | 'blockedByUnhealthyCeph'
 
 export type RollbackActionState =
   | 'available'
   | 'inProgress'
   | 'blockedByNewerFixpack'
+  | 'blockedByCheckingCephHealth'
+  | 'blockedByUnhealthyCeph'
 
 export type RemoveActionState =
   | 'available'
@@ -30,11 +36,20 @@ export type RemoveActionState =
  */
 export const computeFixpacksActionState = (
   fixpacks: ListFixpacksResponseDataFixpacksInner[],
+  cephHealthStatus: CephHealthStatus,
 ): FixpackActionState[] => {
   return fixpacks.map(
     (fixpack, index): FixpackActionState => ({
-      install: computeInstallActionState(fixpack, fixpacks[index + 1]),
-      rollback: computeRollbackActionState(fixpacks[index - 1], fixpack),
+      install: computeInstallActionState(
+        fixpack,
+        fixpacks[index + 1],
+        cephHealthStatus,
+      ),
+      rollback: computeRollbackActionState(
+        fixpacks[index - 1],
+        fixpack,
+        cephHealthStatus,
+      ),
       remove: computeRemoveActionState(fixpack),
     }),
   )
@@ -43,9 +58,16 @@ export const computeFixpacksActionState = (
 const computeInstallActionState = (
   fixpack: ListFixpacksResponseDataFixpacksInner,
   olderFixpack: ListFixpacksResponseDataFixpacksInner | undefined,
+  cephHealthStatus: CephHealthStatus,
 ): InstallActionState | undefined => {
   if (olderFixpack && olderFixpack.status.current !== StatusEnum.Installed) {
     return 'blockedByOlderFixpack'
+  }
+
+  if (fixpack.status.current === StatusEnum.Available) {
+    if (cephHealthStatus === 'checking') return 'blockedByCheckingCephHealth'
+    if (cephHealthStatus === GetHealthsResponseDataOverallStatusCurrentEnum.Ng)
+      return 'blockedByUnhealthyCeph'
   }
 
   const currentStatusMap: Record<StatusEnum, InstallActionState | undefined> = {
@@ -63,6 +85,7 @@ const computeInstallActionState = (
 const computeRollbackActionState = (
   newerFixpack: ListFixpacksResponseDataFixpacksInner | undefined,
   fixpack: ListFixpacksResponseDataFixpacksInner,
+  cephHealthStatus: CephHealthStatus,
 ): RollbackActionState | undefined => {
   if (
     fixpack.status.current === 'installed' &&
@@ -73,6 +96,12 @@ const computeRollbackActionState = (
 
   if (newerFixpack && newerFixpack.status.current !== StatusEnum.Available) {
     return 'blockedByNewerFixpack'
+  }
+
+  if (fixpack.status.current === StatusEnum.Installed) {
+    if (cephHealthStatus === 'checking') return 'blockedByCheckingCephHealth'
+    if (cephHealthStatus === GetHealthsResponseDataOverallStatusCurrentEnum.Ng)
+      return 'blockedByUnhealthyCeph'
   }
 
   const currentStatusMap: Record<StatusEnum, RollbackActionState | undefined> =

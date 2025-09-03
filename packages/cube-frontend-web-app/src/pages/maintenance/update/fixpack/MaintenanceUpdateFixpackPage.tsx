@@ -10,6 +10,7 @@ import dayjs from 'dayjs'
 import { useContext, useMemo } from 'react'
 import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
 import { ReleaseNotePanel } from '../_components/ReleaseNotePanel'
+import { useCephHealthStatus } from '../_components/useCephHealthStatus'
 import { useReleaseNotePanel } from '../_components/useReleaseNotePanel'
 import { InstallAction } from './actions/InstallAction'
 import { RemoveAction } from './actions/RemoveAction'
@@ -40,9 +41,11 @@ export const MaintenanceUpdateFixpackPage = () => {
     toggleReleaseNotePanel,
   } = useReleaseNotePanel<FixpackRow>()
 
+  const cephHealthStatus = useCephHealthStatus()
+
   const fixpacksActionStates = useMemo<FixpackActionState[]>(
-    () => computeFixpacksActionState(allFixpacks),
-    [allFixpacks],
+    () => computeFixpacksActionState(allFixpacks, cephHealthStatus),
+    [allFixpacks, cephHealthStatus],
   )
 
   const formatUpdatedAt = (updatedAt: string): string => {
