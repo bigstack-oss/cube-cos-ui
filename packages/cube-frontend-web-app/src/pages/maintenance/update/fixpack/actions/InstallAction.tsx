@@ -6,7 +6,7 @@ import {
 import { InstallActionState } from '../computeFixpacksActionState'
 
 type InstallActionProps = {
-  state: InstallActionState
+  state: Exclude<InstallActionState, 'hidden'>
 }
 
 export const InstallAction = (props: InstallActionProps) => {

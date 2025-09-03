@@ -38,6 +38,8 @@
     "vite",
     "firmwares",
     "fixpacks",
-    "rollbackable"
+    "rollbackable",
+    "unrollbackable",
+    "rollbackability"
   ]
 }

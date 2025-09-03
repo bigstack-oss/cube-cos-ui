@@ -3,20 +3,29 @@ import {
   CosTooltip,
   CosTooltipInformation,
 } from '@cube-frontend/ui-library'
+import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { RollbackActionState } from '../computeFixpacksActionState'
 
 type RollbackActionProps = {
-  state: RollbackActionState
+  state: Exclude<RollbackActionState, 'hidden'>
 }
 
 export const RollbackAction = (props: RollbackActionProps) => {
   const { state } = props
 
+  const isBlockedBySelfRollbackability =
+    state === 'blockedBySelfRollbackability'
   const isBlockedByNewerFixpack = state === 'blockedByNewerFixpack'
   const isBlockedByCheckingCephHealth = state === 'blockedByCheckingCephHealth'
   const isBlockedByUnhealthyCeph = state === 'blockedByUnhealthyCeph'
 
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
+    if (isBlockedBySelfRollbackability) {
+      return {
+        message: 'Rollback is not supported for this fixpack.',
+      }
+    }
+
     if (isBlockedByNewerFixpack) {
       return {
         message: 'Rollback is blocked by newer updates.',
@@ -25,18 +34,17 @@ export const RollbackAction = (props: RollbackActionProps) => {
 
     if (isBlockedByUnhealthyCeph) {
       return {
-        message:
-          'Fixpack rollback is currently unavailable because Ceph is unhealthy.',
+        message: 'Rollback is currently unavailable because Ceph is unhealthy.',
       }
     }
 
     return undefined
   }
 
-  return (
-    <CosTooltip hoverContent={getHoverTooltipContent()}>
-      {/* Wrap the button with a <span> because the hover event doesn't work
-      when the button is disabled. */}
+  const renderButton = () => {
+    return (
+      // Wrap the button with a <span> because the hover event doesn't work
+      // when the button is disabled.
       <span>
         <CosButton
           type="ghost"
@@ -50,6 +58,12 @@ export const RollbackAction = (props: RollbackActionProps) => {
           {state === 'inProgress' ? 'Rolling back' : 'Rollback'}
         </CosButton>
       </span>
+    )
+  }
+
+  return (
+    <CosTooltip hoverContent={getHoverTooltipContent()}>
+      {isBlockedBySelfRollbackability ? <InformationCircle /> : renderButton()}
     </CosTooltip>
   )
 }

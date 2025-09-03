@@ -7,7 +7,7 @@ import Trash from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import { RemoveActionState } from '../computeFixpacksActionState'
 
 type RemoveActionProps = {
-  state: RemoveActionState
+  state: Exclude<RemoveActionState, 'hidden'>
 }
 
 export const RemoveAction = (props: RemoveActionProps) => {
@@ -15,25 +15,34 @@ export const RemoveAction = (props: RemoveActionProps) => {
 
   const isBlockedByInstalling = state === 'blockedByInstalling'
   const isBlockedByRollingBack = state === 'blockedByRollingBack'
+  const isBlockedByNewerFixpack = state === 'blockedByNewerFixpack'
   const isBlockedByAlreadyInstalled = state === 'blockedByAlreadyInstalled'
 
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
-    let message: string = ''
-
     if (isBlockedByInstalling) {
-      message = 'The fixpack is currently being installed.'
+      return {
+        message:
+          'Removal is blocked because this fixpack is currently being installed.',
+      }
     }
 
     if (isBlockedByRollingBack) {
-      message = 'The fixpack is currently being rolled back.'
+      return {
+        message:
+          'Removal is blocked because this fixpack is currently being rolled back.',
+      }
+    }
+
+    if (isBlockedByNewerFixpack) {
+      return {
+        message: 'Removal is blocked by newer updates.',
+      }
     }
 
     if (isBlockedByAlreadyInstalled) {
-      message = "The fixpack can only be removed after it's been rolled back."
-    }
-
-    if (message) {
-      return { message }
+      return {
+        message: "A fixpack can only be removed after it's been rolled back.",
+      }
     }
 
     return undefined
@@ -51,6 +60,7 @@ export const RemoveAction = (props: RemoveActionProps) => {
           disabled={
             isBlockedByInstalling ||
             isBlockedByRollingBack ||
+            isBlockedByNewerFixpack ||
             isBlockedByAlreadyInstalled
           }
           onClick={(e) => e.stopPropagation()}

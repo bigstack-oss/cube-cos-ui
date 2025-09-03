@@ -58,7 +58,7 @@ describe('Compute fixpacks action state', () => {
       it('oldest fixpack: install✅|rollback❌|remove✅', () => {
         expect(oldestFixpackState).toEqual<FixpackActionState>({
           install: 'available',
-          rollback: undefined,
+          rollback: 'hidden',
           remove: 'available',
         })
       })
@@ -67,7 +67,7 @@ describe('Compute fixpacks action state', () => {
         otherFixpackStates.forEach((state) => {
           expect(state).toEqual<FixpackActionState>({
             install: 'blockedByOlderFixpack',
-            rollback: undefined,
+            rollback: 'hidden',
             remove: 'available',
           })
         })
@@ -109,7 +109,7 @@ describe('Compute fixpacks action state', () => {
         it('oldest fixpack: install🚧|rollback❌|remove❌', () => {
           expect(oldestFixpackState).toEqual<FixpackActionState>({
             install: 'inProgress',
-            rollback: undefined,
+            rollback: 'hidden',
             remove: 'blockedByInstalling',
           })
         })
@@ -118,7 +118,7 @@ describe('Compute fixpacks action state', () => {
           otherFixpackStates.forEach((state) => {
             expect(state).toEqual<FixpackActionState>({
               install: 'blockedByOlderFixpack',
-              rollback: undefined,
+              rollback: 'hidden',
               remove: 'available',
             })
           })
@@ -161,7 +161,7 @@ describe('Compute fixpacks action state', () => {
 
         it('oldest fixpack: install❌|rollback✅|remove❌', () => {
           expect(oldestFixpackState).toEqual<FixpackActionState>({
-            install: undefined,
+            install: 'hidden',
             rollback: 'available',
             remove: 'blockedByAlreadyInstalled',
           })
@@ -170,7 +170,7 @@ describe('Compute fixpacks action state', () => {
         it('second oldest fixpack: install✅|rollback❌|remove✅', () => {
           expect(secondOldestFixpackState).toEqual<FixpackActionState>({
             install: 'available',
-            rollback: undefined,
+            rollback: 'hidden',
             remove: 'available',
           })
         })
@@ -179,7 +179,7 @@ describe('Compute fixpacks action state', () => {
           otherFixpackStates.forEach((state) => {
             expect(state).toEqual<FixpackActionState>({
               install: 'blockedByOlderFixpack',
-              rollback: undefined,
+              rollback: 'hidden',
               remove: 'available',
             })
           })
@@ -216,16 +216,16 @@ describe('Compute fixpacks action state', () => {
 
         it('oldest fixpack: install❌|rollback❌|remove❌', () => {
           expect(oldestFixpackState).toEqual<FixpackActionState>({
-            install: undefined,
-            rollback: undefined,
-            remove: undefined,
+            install: 'hidden',
+            rollback: 'blockedBySelfRollbackability',
+            remove: 'hidden',
           })
         })
 
         it('second oldest fixpack: install✅|rollback❌|remove✅', () => {
           expect(secondOldestFixpackState).toEqual<FixpackActionState>({
             install: 'available',
-            rollback: undefined,
+            rollback: 'hidden',
             remove: 'available',
           })
         })
@@ -234,7 +234,7 @@ describe('Compute fixpacks action state', () => {
           otherFixpackStates.forEach((state) => {
             expect(state).toEqual<FixpackActionState>({
               install: 'blockedByOlderFixpack',
-              rollback: undefined,
+              rollback: 'hidden',
               remove: 'available',
             })
           })
@@ -276,7 +276,7 @@ describe('Compute fixpacks action state', () => {
 
         it('oldest fixpack: install❌|rollback🚧|remove❌', () => {
           expect(oldestFixpackState).toEqual<FixpackActionState>({
-            install: undefined,
+            install: 'hidden',
             rollback: 'inProgress',
             remove: 'blockedByRollingBack',
           })
@@ -286,7 +286,7 @@ describe('Compute fixpacks action state', () => {
           otherFixpackStates.forEach((state) => {
             expect(state).toEqual<FixpackActionState>({
               install: 'blockedByOlderFixpack',
-              rollback: undefined,
+              rollback: 'hidden',
               remove: 'available',
             })
           })
@@ -316,7 +316,7 @@ describe('Compute fixpacks action state', () => {
             // ==========================
             createFixpack({
               current: StatusEnum.Installed,
-              isRollbackable: false,
+              isRollbackable: true,
             }),
             createFixpack({
               current: StatusEnum.Installed,
@@ -334,7 +334,7 @@ describe('Compute fixpacks action state', () => {
         newerFixpackStates.forEach((state) => {
           expect(state).toEqual<FixpackActionState>({
             install: 'blockedByOlderFixpack',
-            rollback: undefined,
+            rollback: 'hidden',
             remove: 'available',
           })
         })
@@ -343,22 +343,18 @@ describe('Compute fixpacks action state', () => {
       it('target fixpack: install🚧|rollback❌|remove❌', () => {
         expect(targetFixpackState).toEqual<FixpackActionState>({
           install: 'inProgress',
-          rollback: undefined,
+          rollback: 'hidden',
           remove: 'blockedByInstalling',
         })
       })
 
       it('older fixpacks: install❌|rollback❌|remove❌', () => {
-        expect(olderFixpackStates[0]).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: undefined,
-          remove: undefined,
-        })
-
-        expect(olderFixpackStates[1]).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: 'blockedByNewerFixpack',
-          remove: 'blockedByAlreadyInstalled',
+        olderFixpackStates.forEach((state) => {
+          expect(state).toEqual<FixpackActionState>({
+            install: 'hidden',
+            rollback: 'blockedByNewerFixpack',
+            remove: 'blockedByNewerFixpack',
+          })
         })
       })
     })
@@ -385,7 +381,7 @@ describe('Compute fixpacks action state', () => {
             // ==========================
             createFixpack({
               current: StatusEnum.Installed,
-              isRollbackable: false,
+              isRollbackable: true,
             }),
             createFixpack({
               current: StatusEnum.Installed,
@@ -403,7 +399,7 @@ describe('Compute fixpacks action state', () => {
         newerFixpackStates.forEach((state) => {
           expect(state).toEqual<FixpackActionState>({
             install: 'available',
-            rollback: undefined,
+            rollback: 'hidden',
             remove: 'available',
           })
         })
@@ -411,23 +407,19 @@ describe('Compute fixpacks action state', () => {
 
       it('target fixpack: install❌|rollback✅|remove❌', () => {
         expect(targetFixpackState).toEqual<FixpackActionState>({
-          install: undefined,
+          install: 'hidden',
           rollback: 'available',
           remove: 'blockedByAlreadyInstalled',
         })
       })
 
       it('older fixpacks: install❌|rollback❌|remove❌', () => {
-        expect(olderFixpackStates[0]).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: undefined,
-          remove: undefined,
-        })
-
-        expect(olderFixpackStates[1]).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: 'blockedByNewerFixpack',
-          remove: 'blockedByAlreadyInstalled',
+        olderFixpackStates.forEach((state) => {
+          expect(state).toEqual<FixpackActionState>({
+            install: 'hidden',
+            rollback: 'blockedByNewerFixpack',
+            remove: 'blockedByNewerFixpack',
+          })
         })
       })
     })
@@ -454,7 +446,7 @@ describe('Compute fixpacks action state', () => {
             // ==========================
             createFixpack({
               current: StatusEnum.Installed,
-              isRollbackable: false,
+              isRollbackable: true,
             }),
             createFixpack({
               current: StatusEnum.Installed,
@@ -472,7 +464,7 @@ describe('Compute fixpacks action state', () => {
         newerFixpackStates.forEach((state) => {
           expect(state).toEqual<FixpackActionState>({
             install: 'blockedByOlderFixpack',
-            rollback: undefined,
+            rollback: 'hidden',
             remove: 'available',
           })
         })
@@ -480,23 +472,88 @@ describe('Compute fixpacks action state', () => {
 
       it('target fixpack: install❌|rollback🚧|remove❌', () => {
         expect(targetFixpackState).toEqual<FixpackActionState>({
-          install: undefined,
+          install: 'hidden',
           rollback: 'inProgress',
           remove: 'blockedByRollingBack',
         })
       })
 
       it('older fixpacks: install❌|rollback❌|remove❌', () => {
-        expect(olderFixpackStates[0]).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: undefined,
-          remove: undefined,
+        olderFixpackStates.forEach((state) => {
+          expect(state).toEqual<FixpackActionState>({
+            install: 'hidden',
+            rollback: 'blockedByNewerFixpack',
+            remove: 'blockedByNewerFixpack',
+          })
         })
+      })
+    })
 
-        expect(olderFixpackStates[1]).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: 'blockedByNewerFixpack',
-          remove: 'blockedByAlreadyInstalled',
+    suite('when a unrollbackable fixpack in the middle is installing', () => {
+      let newerFixpackStates: FixpackActionState[]
+      let targetFixpackState: FixpackActionState
+      let olderFixpackStates: FixpackActionState[]
+
+      const targetFixpackIndex = 1
+
+      beforeEach(() => {
+        const states = computeFixpacksActionState(
+          [
+            createFixpack({
+              current: StatusEnum.Available,
+              isRollbackable: false,
+            }),
+            // ===== Target fixpack =====
+            createFixpack({
+              current: StatusEnum.Installing,
+              isRollbackable: false,
+            }),
+            // ==========================
+            createFixpack({
+              current: StatusEnum.Installed,
+              isRollbackable: true,
+            }),
+            createFixpack({
+              current: StatusEnum.Installed,
+              isRollbackable: true,
+            }),
+            createFixpack({
+              current: StatusEnum.Installed,
+              isRollbackable: true,
+            }),
+          ],
+          GetHealthsResponseDataOverallStatusCurrentEnum.Ok,
+        )
+        newerFixpackStates = states.slice(0, targetFixpackIndex)
+        targetFixpackState = states[targetFixpackIndex]
+        olderFixpackStates = states.slice(targetFixpackIndex + 1)
+      })
+
+      it('newer fixpacks: install✅|rollback❌|remove✅', () => {
+        newerFixpackStates.forEach((state) => {
+          expect(state).toEqual<FixpackActionState>({
+            install: 'blockedByOlderFixpack',
+            rollback: 'hidden',
+            remove: 'available',
+          })
+        })
+      })
+
+      it('target fixpack: install🚧|rollback❌|remove❌', () => {
+        expect(targetFixpackState).toEqual<FixpackActionState>({
+          install: 'inProgress',
+          rollback: 'hidden',
+          remove: 'blockedByInstalling',
+        })
+      })
+
+      it('older fixpacks: install❌|rollback❌|remove❌', () => {
+        olderFixpackStates.forEach((state) => {
+          expect(state).toEqual<FixpackActionState>({
+            install: 'hidden',
+            rollback: 'blockedByNewerFixpack',
+            remove: 'blockedByNewerFixpack',
+          })
         })
       })
     })
@@ -523,6 +580,10 @@ describe('Compute fixpacks action state', () => {
             // ==========================
             createFixpack({
               current: StatusEnum.Installed,
+              isRollbackable: true,
+            }),
+            createFixpack({
+              current: StatusEnum.Installed,
               isRollbackable: false,
             }),
             createFixpack({
@@ -541,7 +602,7 @@ describe('Compute fixpacks action state', () => {
         newerFixpackStates.forEach((state) => {
           expect(state).toEqual<FixpackActionState>({
             install: 'available',
-            rollback: undefined,
+            rollback: 'hidden',
             remove: 'available',
           })
         })
@@ -549,23 +610,19 @@ describe('Compute fixpacks action state', () => {
 
       it('target fixpack: install❌|rollback❌|remove❌', () => {
         expect(targetFixpackState).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: undefined,
-          remove: undefined,
+          install: 'hidden',
+          rollback: 'blockedBySelfRollbackability',
+          remove: 'hidden',
         })
       })
 
       it('older fixpacks: install❌|rollback❌|remove❌', () => {
-        expect(olderFixpackStates[0]).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: undefined,
-          remove: undefined,
-        })
-
-        expect(olderFixpackStates[1]).toEqual<FixpackActionState>({
-          install: undefined,
-          rollback: 'blockedByNewerFixpack',
-          remove: 'blockedByAlreadyInstalled',
+        olderFixpackStates.forEach((state) => {
+          expect(state).toEqual<FixpackActionState>({
+            install: 'hidden',
+            rollback: 'hidden',
+            remove: 'hidden',
+          })
         })
       })
     })

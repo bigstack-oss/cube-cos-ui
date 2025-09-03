@@ -58,9 +58,9 @@ export const MaintenanceUpdateFixpackPage = () => {
 
     return (
       <div className="flex items-center justify-between gap-x-2">
-        {!!install && <InstallAction state={install} />}
-        {!!rollback && <RollbackAction state={rollback} />}
-        {!!remove && <RemoveAction state={remove} />}
+        {install !== 'hidden' && <InstallAction state={install} />}
+        {rollback !== 'hidden' && <RollbackAction state={rollback} />}
+        {remove !== 'hidden' && <RemoveAction state={remove} />}
       </div>
     )
   }
