@@ -19,6 +19,7 @@ export const CosRoutesEnum = {
   INTEGRATIONS_STORAGES_CREATE_PAGE: '/integrations/storages/create',
   INTEGRATIONS_STORAGES_EDIT_PAGE: (storageName = ':name') =>
     `/integrations/storages/${storageName}/edit`,
+  INTEGRATIONS_STORAGES_MODELS_PAGE: '/integrations/storages/models',
   /** Maintenance Page */
   MAINTENANCE_PAGE: '/maintenance',
   MAINTENANCE_SUPPORT_FILES_PAGE: '/maintenance/support-files',

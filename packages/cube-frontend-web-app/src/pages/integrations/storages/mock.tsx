@@ -4,6 +4,16 @@ import { GetIntegratedStoragesResponseDataInner } from '@cube-frontend/api'
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+interface RecordOrString {
+  [key: string]: RecordOrString | string
+}
+
+export type GetStorageModel = {
+  vendor: string
+  model: string
+  settings: RecordOrString
+}
+
 export const mockGetIntegrationsStoragesApi = async ({
   dataCenter: _dataCenter,
 }: {
@@ -111,7 +121,9 @@ export const mockGetIntegrationsStorageDetailsApi = async ({
   })
 }
 
-export const mockUploadModelList = async (): AxiosPromise<{ code: number }> => {
+export const mockUploadModelList = async (
+  _req: Record<string, unknown>,
+): AxiosPromise<{ code: number }> => {
   await sleep(3000)
   // @ts-expect-error - Temporarily using mock data until backend API is ready
   return Promise.resolve({
@@ -300,5 +312,60 @@ export const mockUpsertStorage = async (): AxiosPromise<{
   return Promise.resolve({
     code: 200,
     data: {},
+  })
+}
+
+export const mockGetStoragesModelsApi = async ({
+  dataCenter: _dataCenter,
+}: {
+  dataCenter: string
+}): AxiosPromise<{
+  code: number
+  data: GetStorageModel[]
+}> => {
+  await sleep(1000)
+  // @ts-expect-error - Temporarily using mock data until backend API is ready
+  return Promise.resolve({
+    code: 200,
+    data: {
+      code: 200,
+      data: [
+        {
+          vendor: 'NetApp',
+          model: 'AFF A250',
+          settings: {
+            protocol: 'NFS',
+            managementIp: '192.168.1.100',
+            username: 'admin',
+            host: 'storage01.example.com',
+            port: '80',
+            path: '/vol/data',
+          },
+        },
+        {
+          vendor: 'NetApp',
+          model: 'AFF A280',
+          settings: {
+            protocol: 'ISCSI',
+            managementIp: '192.168.1.101',
+            username: 'admin',
+            host: 'storage02.example.com',
+            port: '80',
+          },
+        },
+        {
+          vendor: 'Power',
+          model: 'AFF A250 Power',
+          settings: {
+            protocol: 'NFS',
+            managementIp: '192.168.1.102',
+            username: 'admin',
+            host: 'storage03.example.com',
+            port: '80',
+            path: '/vol/powerdata',
+          },
+        },
+      ],
+    },
   })
 }

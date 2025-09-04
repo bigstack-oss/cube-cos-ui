@@ -24,6 +24,7 @@ import { EventsChartPage } from './pages/events/chart/EventsChartPage'
 import { SettingsPage } from './pages/settings/SettingsPage'
 import { HttpErrorDisplay } from './components/ErrorDisplay/HttpErrorDisplay'
 import { IntegrationsStoragesPage } from './pages/integrations/storages/IntegrationsStoragesPage'
+import { IntegrationsStoragesModelsPage } from './pages/integrations/storages/models/IntegrationsStoragesModelsPage'
 import { IntegrationsLayout } from './pages/integrations/IntegrationsLayout'
 import { CreateStoragePage } from './pages/integrations/storages/create/CreateStoragePage'
 import { EditStoragePage } from './pages/integrations/storages/edit/EditStoragePage'
@@ -74,6 +75,10 @@ export const CosRoutes = () => {
         <Route
           path={CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE}
           element={<IntegrationsStoragesPage />}
+        />
+        <Route
+          path={CosRoutesEnum.INTEGRATIONS_STORAGES_MODELS_PAGE}
+          element={<IntegrationsStoragesModelsPage />}
         />
       </Route>
       <Route

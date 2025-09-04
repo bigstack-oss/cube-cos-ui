@@ -13,7 +13,7 @@ export const IntegrationsLayout = () => {
           </CosTabs.Tab>
         </Link>
         <Link to={links.storage}>
-          <CosTabs.Tab isActive={location.pathname === links.storage}>
+          <CosTabs.Tab isActive={location.pathname.startsWith(links.storage)}>
             Storages
           </CosTabs.Tab>
         </Link>

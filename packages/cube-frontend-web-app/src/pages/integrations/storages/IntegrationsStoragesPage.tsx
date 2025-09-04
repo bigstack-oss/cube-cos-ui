@@ -19,7 +19,9 @@ export type StorageRow = CosTableRow & GetIntegratedStoragesResponseDataInner
 
 const StorageTable = GetCosBasicTable<StorageRow>()
 
-const storageToRow = (storage: GetIntegratedStoragesResponseDataInner) => ({
+const storageToRow = (
+  storage: GetIntegratedStoragesResponseDataInner,
+): StorageRow => ({
   id: storage.name,
   ...storage,
 })
