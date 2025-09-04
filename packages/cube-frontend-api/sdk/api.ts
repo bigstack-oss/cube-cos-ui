@@ -1173,31 +1173,6 @@ export interface DeleteFixpack200Response {
 /**
  * 
  * @export
- * @interface DeleteFixpack404Response
- */
-export interface DeleteFixpack404Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof DeleteFixpack404Response
-     */
-    'code': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof DeleteFixpack404Response
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof DeleteFixpack404Response
-     */
-    'status': string;
-}
-/**
- * 
- * @export
  * @interface DeleteFixpack500Response
  */
 export interface DeleteFixpack500Response {
@@ -1608,56 +1583,6 @@ export interface DiskReadWriteHistory {
      * @memberof DiskReadWriteHistory
      */
     'write': Array<MetricRankRankInnerHistoryInner>;
-}
-/**
- * 
- * @export
- * @interface DrainNode200Response
- */
-export interface DrainNode200Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof DrainNode200Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof DrainNode200Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof DrainNode200Response
-     */
-    'status'?: string;
-}
-/**
- * 
- * @export
- * @interface DrainNode500Response
- */
-export interface DrainNode500Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof DrainNode500Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof DrainNode500Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof DrainNode500Response
-     */
-    'status'?: string;
 }
 /**
  * 
@@ -2989,8 +2914,11 @@ export interface GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus {
 export const GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum = {
     Available: 'available',
     Installing: 'installing',
+    WaitingReboot: 'waitingReboot',
+    Rebooting: 'rebooting',
     Installed: 'installed',
-    Failed: 'failed'
+    Failed: 'failed',
+    Resolved: 'resolved'
 } as const;
 
 export type GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum = typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum[keyof typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum];
@@ -3144,7 +3072,10 @@ export interface GetFixpackUpdateProgressResponseDataProgressesInnerStatus {
 export const GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum = {
     Available: 'available',
     Installing: 'installing',
+    WaitingReboot: 'waitingReboot',
+    Rebooting: 'rebooting',
     Installed: 'installed',
+    Resolved: 'resolved',
     RollingBack: 'rolling back',
     InstallFailed: 'install failed',
     RollbackFailed: 'rollback failed'
@@ -10672,19 +10603,19 @@ export interface RolloutDataCenterBySoftReboot202Response {
      * @type {number}
      * @memberof RolloutDataCenterBySoftReboot202Response
      */
-    'code'?: number;
+    'code': number;
     /**
      * 
      * @type {string}
      * @memberof RolloutDataCenterBySoftReboot202Response
      */
-    'msg'?: string;
+    'msg': string;
     /**
      * 
      * @type {string}
      * @memberof RolloutDataCenterBySoftReboot202Response
      */
-    'status'?: string;
+    'status': string;
 }
 /**
  * 
@@ -10697,19 +10628,19 @@ export interface RolloutDataCenterBySoftReboot409Response {
      * @type {number}
      * @memberof RolloutDataCenterBySoftReboot409Response
      */
-    'code'?: number;
+    'code': number;
     /**
      * 
      * @type {string}
      * @memberof RolloutDataCenterBySoftReboot409Response
      */
-    'msg'?: string;
+    'msg': string;
     /**
      * 
      * @type {string}
      * @memberof RolloutDataCenterBySoftReboot409Response
      */
-    'status'?: string;
+    'status': string;
 }
 /**
  * 
@@ -10722,19 +10653,19 @@ export interface RolloutDataCenterBySoftReboot500Response {
      * @type {number}
      * @memberof RolloutDataCenterBySoftReboot500Response
      */
-    'code'?: number;
+    'code': number;
     /**
      * 
      * @type {string}
      * @memberof RolloutDataCenterBySoftReboot500Response
      */
-    'msg'?: string;
+    'msg': string;
     /**
      * 
      * @type {string}
      * @memberof RolloutDataCenterBySoftReboot500Response
      */
-    'status'?: string;
+    'status': string;
 }
 /**
  * 
@@ -15141,14 +15072,18 @@ export const FixpacksApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Continue an interrupted fixpack update
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        continueInterruptedFixpackUpdate: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        continueInterruptedFixpackUpdate: async (dataCenter: string, nodeName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('continueInterruptedFixpackUpdate', 'dataCenter', dataCenter)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/continueAnyway`
-                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('continueInterruptedFixpackUpdate', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/continueAnyway/{nodeName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -15188,7 +15123,7 @@ export const FixpacksApiAxiosParamCreator = function (configuration?: Configurat
             assertParamExists('deleteFixpack', 'dataCenter', dataCenter)
             // verify required parameter 'version' is not null or undefined
             assertParamExists('deleteFixpack', 'version', version)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/updateProgress`
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/{version}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"version"}}`, encodeURIComponent(String(version)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -15221,18 +15156,14 @@ export const FixpacksApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Get the progress of a fixpack operation
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} version The version of the file to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFixpackProgress: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getFixpackProgress: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getFixpackProgress', 'dataCenter', dataCenter)
-            // verify required parameter 'version' is not null or undefined
-            assertParamExists('getFixpackProgress', 'version', version)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/updateProgress`
-                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
-                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -15582,11 +15513,12 @@ export const FixpacksApiFp = function(configuration?: Configuration) {
          * 
          * @summary Continue an interrupted fixpack update
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async continueInterruptedFixpackUpdate(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContinueInterruptedFixpackUpdate202Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.continueInterruptedFixpackUpdate(dataCenter, options);
+        async continueInterruptedFixpackUpdate(dataCenter: string, nodeName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContinueInterruptedFixpackUpdate202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.continueInterruptedFixpackUpdate(dataCenter, nodeName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FixpacksApi.continueInterruptedFixpackUpdate']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -15609,12 +15541,11 @@ export const FixpacksApiFp = function(configuration?: Configuration) {
          * 
          * @summary Get the progress of a fixpack operation
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} version The version of the file to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFixpackProgress(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFixpackUpdateProgressResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFixpackProgress(dataCenter, version, options);
+        async getFixpackProgress(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFixpackUpdateProgressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFixpackProgress(dataCenter, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FixpacksApi.getFixpackProgress']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -15736,7 +15667,7 @@ export const FixpacksApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         continueInterruptedFixpackUpdate(requestParameters: FixpacksApiContinueInterruptedFixpackUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<ContinueInterruptedFixpackUpdate202Response> {
-            return localVarFp.continueInterruptedFixpackUpdate(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+            return localVarFp.continueInterruptedFixpackUpdate(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -15756,7 +15687,7 @@ export const FixpacksApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         getFixpackProgress(requestParameters: FixpacksApiGetFixpackProgressRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetFixpackUpdateProgressResponse> {
-            return localVarFp.getFixpackProgress(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+            return localVarFp.getFixpackProgress(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -15843,6 +15774,13 @@ export interface FixpacksApiContinueInterruptedFixpackUpdateRequest {
      * @memberof FixpacksApiContinueInterruptedFixpackUpdate
      */
     readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof FixpacksApiContinueInterruptedFixpackUpdate
+     */
+    readonly nodeName: string
 }
 
 /**
@@ -15878,13 +15816,6 @@ export interface FixpacksApiGetFixpackProgressRequest {
      * @memberof FixpacksApiGetFixpackProgress
      */
     readonly dataCenter: string
-
-    /**
-     * The version of the file to delete
-     * @type {string}
-     * @memberof FixpacksApiGetFixpackProgress
-     */
-    readonly version: string
 }
 
 /**
@@ -16057,7 +15988,7 @@ export class FixpacksApi extends BaseAPI {
      * @memberof FixpacksApi
      */
     public continueInterruptedFixpackUpdate(requestParameters: FixpacksApiContinueInterruptedFixpackUpdateRequest, options?: RawAxiosRequestConfig) {
-        return FixpacksApiFp(this.configuration).continueInterruptedFixpackUpdate(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+        return FixpacksApiFp(this.configuration).continueInterruptedFixpackUpdate(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -16081,7 +16012,7 @@ export class FixpacksApi extends BaseAPI {
      * @memberof FixpacksApi
      */
     public getFixpackProgress(requestParameters: FixpacksApiGetFixpackProgressRequest, options?: RawAxiosRequestConfig) {
-        return FixpacksApiFp(this.configuration).getFixpackProgress(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+        return FixpacksApiFp(this.configuration).getFixpackProgress(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -20239,48 +20170,6 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @summary Drain the node
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {string} nodeName The name of the node
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        drainNode: async (dataCenter: string, nodeName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataCenter' is not null or undefined
-            assertParamExists('drainNode', 'dataCenter', dataCenter)
-            // verify required parameter 'nodeName' is not null or undefined
-            assertParamExists('drainNode', 'nodeName', nodeName)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/drain`
-                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
-                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication BearerAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -20882,20 +20771,6 @@ export const NodesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Drain the node
-         * @param {string} dataCenter The name of the data center to operate
-         * @param {string} nodeName The name of the node
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async drainNode(dataCenter: string, nodeName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DrainNode200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.drainNode(dataCenter, nodeName, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['NodesApi.drainNode']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
          * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -21107,16 +20982,6 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @summary Drain the node
-         * @param {NodesApiDrainNodeRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        drainNode(requestParameters: NodesApiDrainNodeRequest, options?: RawAxiosRequestConfig): AxiosPromise<DrainNode200Response> {
-            return localVarFp.drainNode(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Retrieve the node details
          * @param {NodesApiGetNodeRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -21301,27 +21166,6 @@ export interface NodesApiDisconnectNodeIpmiRequest {
      * The name of the node
      * @type {string}
      * @memberof NodesApiDisconnectNodeIpmi
-     */
-    readonly nodeName: string
-}
-
-/**
- * Request parameters for drainNode operation in NodesApi.
- * @export
- * @interface NodesApiDrainNodeRequest
- */
-export interface NodesApiDrainNodeRequest {
-    /**
-     * The name of the data center to operate
-     * @type {string}
-     * @memberof NodesApiDrainNode
-     */
-    readonly dataCenter: string
-
-    /**
-     * The name of the node
-     * @type {string}
-     * @memberof NodesApiDrainNode
      */
     readonly nodeName: string
 }
@@ -21717,18 +21561,6 @@ export class NodesApi extends BaseAPI {
      */
     public disconnectNodeIpmi(requestParameters: NodesApiDisconnectNodeIpmiRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).disconnectNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Drain the node
-     * @param {NodesApiDrainNodeRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NodesApi
-     */
-    public drainNode(requestParameters: NodesApiDrainNodeRequest, options?: RawAxiosRequestConfig) {
-        return NodesApiFp(this.configuration).drainNode(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
