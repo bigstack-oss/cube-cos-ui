@@ -1,10 +1,10 @@
-import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 import { StorageDetailsForm } from '../_components/upsert/StorageDetailsForm'
 import { UpsertStorageLayout } from '../_components/upsert/UpsertStorageLayout'
 import { useStorageValidation } from '../_components/upsert/useStorageValidation'
 import { useStorageVendors } from '../_components/useStorageVendors'
 import { useCreateStorage } from './useCreateStorage'
 import { ValidationLog } from '../_components/upsert/ValidationLog'
+import { CosCollapsiblePanelLayout } from '@cube-frontend/ui-library'
 
 export const CreateStoragePage = () => {
   const { isLoading: isVendorsLoading, data: vendors } = useStorageVendors()
@@ -24,11 +24,11 @@ export const CreateStoragePage = () => {
 
   return (
     <UpsertStorageLayout title="Add Storage">
-      <CollapsiblePanelLayout
+      <CosCollapsiblePanelLayout
         isControlledPanelOpen={validationLogPanel.isOpen}
         onControlledPanelOpenChange={validationLogPanel.toggle}
       >
-        <CollapsiblePanelLayout.LeftPanel topic="Storage details">
+        <CosCollapsiblePanelLayout.LeftPanel topic="Storage details">
           <StorageDetailsForm
             initialStorage={initialStorage}
             isVendorsLoading={isVendorsLoading}
@@ -43,11 +43,11 @@ export const CreateStoragePage = () => {
             onConfirm={createStorage}
             onCancel={cancel}
           />
-        </CollapsiblePanelLayout.LeftPanel>
-        <CollapsiblePanelLayout.RightPanel topic="Validate Information">
+        </CosCollapsiblePanelLayout.LeftPanel>
+        <CosCollapsiblePanelLayout.RightPanel topic="Validate Information">
           <ValidationLog log={validationLog} />
-        </CollapsiblePanelLayout.RightPanel>
-      </CollapsiblePanelLayout>
+        </CosCollapsiblePanelLayout.RightPanel>
+      </CosCollapsiblePanelLayout>
     </UpsertStorageLayout>
   )
 }

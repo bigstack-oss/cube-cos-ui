@@ -1,5 +1,9 @@
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
-import { CosButton, CosStroke } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosCollapsiblePanelLayout,
+  CosStroke,
+} from '@cube-frontend/ui-library'
 import {
   GetPredefinedEventFilterResponseDataInner,
   GetPredefinedEventsCategoriesEnum,
@@ -15,7 +19,6 @@ import {
 import { AttributePanel } from './AttributePanel'
 import { AttributeResultPanel } from './AttributeResultPanel'
 import { isEmpty } from 'lodash'
-import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 
 type SelectEventsProps = {
   /**
@@ -60,8 +63,8 @@ export const SelectEvents = (props: SelectEventsProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <CollapsiblePanelLayout>
-        <CollapsiblePanelLayout.LeftPanel topic="Add Attributes to Select Events">
+      <CosCollapsiblePanelLayout>
+        <CosCollapsiblePanelLayout.LeftPanel topic="Add Attributes to Select Events">
           <AttributePanel
             isBuiltIn={isBuiltIn}
             isInitialDataLoading={isInitialDataLoading}
@@ -75,14 +78,14 @@ export const SelectEvents = (props: SelectEventsProps) => {
             onEventIdSelect={onEventIdSelect}
             onResetClick={onResetClick}
           />
-        </CollapsiblePanelLayout.LeftPanel>
-        <CollapsiblePanelLayout.RightPanel topic="Attribute Result">
+        </CosCollapsiblePanelLayout.LeftPanel>
+        <CosCollapsiblePanelLayout.RightPanel topic="Attribute Result">
           <AttributeResultPanel
             isMatchingEventsLoading={isMatchingEventsLoading}
             matchingEvents={matchingEvents ?? []}
           />
-        </CollapsiblePanelLayout.RightPanel>
-      </CollapsiblePanelLayout>
+        </CosCollapsiblePanelLayout.RightPanel>
+      </CosCollapsiblePanelLayout>
       <CosStroke type="dot" />
       <CosButton
         className="self-start"

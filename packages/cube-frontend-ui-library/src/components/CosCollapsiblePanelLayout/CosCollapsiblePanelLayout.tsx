@@ -1,11 +1,12 @@
 import { cva } from 'class-variance-authority'
+import { clamp } from 'lodash'
 import { ReactElement } from 'react'
 import { LeftPanel, LeftPanelProps } from './LeftPanel'
 import { RightPanel, RightPanelProps } from './RightPanel'
 import { useCollapsiblePanels } from './useCollapsiblePanels'
-import { CollapsiblePanelsContext } from './collapsiblePanelsContext'
+import { CosCollapsiblePanelsContext } from './cosCollapsiblePanelsContext'
 
-type CollapsiblePanelLayoutProps = {
+export type CosCollapsiblePanelLayoutProps = {
   /**
    * Whether the right panel is open by default
    * @default true
@@ -45,7 +46,9 @@ const layout = cva('flex items-start', {
   },
 })
 
-export const CollapsiblePanelLayout = (props: CollapsiblePanelLayoutProps) => {
+export const CosCollapsiblePanelLayout = (
+  props: CosCollapsiblePanelLayoutProps,
+) => {
   const {
     defaultPanelOpen = true,
     isControlledPanelOpen,
@@ -68,27 +71,26 @@ export const CollapsiblePanelLayout = (props: CollapsiblePanelLayoutProps) => {
     )
   }
 
-  const { isOpen, toggleOpen, close } = useCollapsiblePanels({
+  const { isOpen, toggle, close } = useCollapsiblePanels({
     defaultPanelOpen,
     isControlledPanelOpen,
     onControlledPanelOpenChange,
   })
 
   // Ensure the panel width percentage stays within 0-100.
-  const clampedWidth = Math.min(100, Math.max(0, rightPanelWidthPercentage))
-
+  const clampedWidth = clamp(rightPanelWidthPercentage, 0, 100)
   // Convert the clamped percentage into a CSS width calculation,
   // leaving 16px as the gap between left and right panels.
   const rightPanelWidth = `calc((100% - 16px) * ${clampedWidth / 100})`
 
   return (
-    <CollapsiblePanelsContext.Provider
-      value={{ rightPanelWidth, isOpen, toggleOpen, close }}
+    <CosCollapsiblePanelsContext.Provider
+      value={{ rightPanelWidth, isOpen, toggle, close }}
     >
       <div className={layout({ isOpen })}>{children}</div>
-    </CollapsiblePanelsContext.Provider>
+    </CosCollapsiblePanelsContext.Provider>
   )
 }
 
-CollapsiblePanelLayout.LeftPanel = LeftPanel
-CollapsiblePanelLayout.RightPanel = RightPanel
+CosCollapsiblePanelLayout.LeftPanel = LeftPanel
+CosCollapsiblePanelLayout.RightPanel = RightPanel

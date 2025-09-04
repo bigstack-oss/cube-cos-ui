@@ -6,7 +6,7 @@ import {
   CosGeneralPanelContentProps,
 } from '@cube-frontend/ui-library'
 import { useContext } from 'react'
-import { CollapsiblePanelsContext } from './collapsiblePanelsContext'
+import { CosCollapsiblePanelsContext } from './cosCollapsiblePanelsContext'
 import { PropsWithClassName } from '@cube-frontend/utils'
 
 export type RightPanelProps = PropsWithClassName &
@@ -17,7 +17,7 @@ export type RightPanelProps = PropsWithClassName &
 
 const container = cva(
   [
-    'overflow-hidden transition-all duration-300',
+    'overflow-hidden rounded-[5px] transition-all duration-300',
     'shadow-[0_0_2px_rgba(0,0,0,0.2)]',
   ],
   {
@@ -34,7 +34,7 @@ export const RightPanel = (props: RightPanelProps) => {
   const { rightSlot, children, className, ...restProps } = props
 
   const { rightPanelWidth, isOpen, close } = useContext(
-    CollapsiblePanelsContext,
+    CosCollapsiblePanelsContext,
   )
 
   const closeButton = (

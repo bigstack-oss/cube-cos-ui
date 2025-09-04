@@ -1,12 +1,15 @@
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
-import { CosButton, CosSkeleton } from '@cube-frontend/ui-library'
+import {
+  CosButton,
+  CosCollapsiblePanelLayout,
+  CosSkeleton,
+} from '@cube-frontend/ui-library'
 import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/useTimeRange'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 import { useContext, useState } from 'react'
 import dayjs from 'dayjs'
 import { healthTimeRanges } from '../healthTimeRangeUtils'
@@ -120,12 +123,12 @@ export const HealthDetails = (props: HealthDetailsProps) => {
   }
 
   return (
-    <CollapsiblePanelLayout
+    <CosCollapsiblePanelLayout
       rightPanelWidthPercentage={38}
       isControlledPanelOpen={isDetailPanelOpen}
       onControlledPanelOpenChange={onToggleDetailPanel}
     >
-      <CollapsiblePanelLayout.LeftPanel
+      <CosCollapsiblePanelLayout.LeftPanel
         topic={module && moduleNameToLabel(module.name)}
         leftSlot={renderHeaderLeftSlot()}
         customToggleButton={
@@ -155,8 +158,8 @@ export const HealthDetails = (props: HealthDetailsProps) => {
           aggregatedHistoryResponse={aggregatedHistoryResponse}
           onHistoryRowClick={onHistoryRowClick}
         />
-      </CollapsiblePanelLayout.LeftPanel>
-      <CollapsiblePanelLayout.RightPanel
+      </CosCollapsiblePanelLayout.LeftPanel>
+      <CosCollapsiblePanelLayout.RightPanel
         topic={timeText}
         leftSlot={
           !timeText && (
@@ -168,7 +171,7 @@ export const HealthDetails = (props: HealthDetailsProps) => {
         className="sticky top-0"
       >
         <ErrorReportPanel historyRow={activeHistoryRow} />
-      </CollapsiblePanelLayout.RightPanel>
-    </CollapsiblePanelLayout>
+      </CosCollapsiblePanelLayout.RightPanel>
+    </CosCollapsiblePanelLayout>
   )
 }

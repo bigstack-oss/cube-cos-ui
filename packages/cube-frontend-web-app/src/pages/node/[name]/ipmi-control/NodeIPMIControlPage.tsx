@@ -1,10 +1,12 @@
 import { NodesApiGetNodeRequest } from '@cube-frontend/api'
-import { CosBackButton } from '@cube-frontend/ui-library'
+import {
+  CosBackButton,
+  CosCollapsiblePanelLayout,
+} from '@cube-frontend/ui-library'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 import { useContext, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
 import { ConnectToIPMI } from './ConnectToIPMI'
@@ -63,11 +65,11 @@ export const NodeIPMIControlPage = () => {
       {node?.ipmi.isConnected ? (
         <DisconnectFromIPMI nodeName={nodeName} />
       ) : (
-        <CollapsiblePanelLayout
+        <CosCollapsiblePanelLayout
           isControlledPanelOpen={isValidationLogOpen}
           onControlledPanelOpenChange={onValidationLogToggled}
         >
-          <CollapsiblePanelLayout.LeftPanel topic="Connect to IPMI">
+          <CosCollapsiblePanelLayout.LeftPanel topic="Connect to IPMI">
             <ConnectToIPMI
               node={node}
               backHref={backHref}
@@ -75,11 +77,11 @@ export const NodeIPMIControlPage = () => {
               toggleValidationLog={onValidationLogToggled}
               onLogChange={onValidated}
             />
-          </CollapsiblePanelLayout.LeftPanel>
-          <CollapsiblePanelLayout.RightPanel topic="Validate Information">
+          </CosCollapsiblePanelLayout.LeftPanel>
+          <CosCollapsiblePanelLayout.RightPanel topic="Validate Information">
             <ValidationLog log={validationLog} />
-          </CollapsiblePanelLayout.RightPanel>
-        </CollapsiblePanelLayout>
+          </CosCollapsiblePanelLayout.RightPanel>
+        </CosCollapsiblePanelLayout>
       )}
     </div>
   )

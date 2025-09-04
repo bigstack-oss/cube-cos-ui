@@ -1,5 +1,6 @@
 import {
   CosButton,
+  CosCollapsiblePanelLayout,
   CosPagination,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
@@ -21,7 +22,6 @@ import {
 import { FixpackRow } from './listFixpacksUtils'
 import { useListFixpacks } from './useListFixpacks'
 import { useListFixpacksQuery } from './useListFixpacksQuery'
-import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 
 const FixpackTable = GetCosBasicTable<FixpackRow>()
 
@@ -65,12 +65,12 @@ export const MaintenanceUpdateFixpackPage = () => {
       currentVersion={dataCenter!.fixpack.version}
       lastUpdated={dataCenter!.fixpack.updatedAt}
     >
-      <CollapsiblePanelLayout
+      <CosCollapsiblePanelLayout
         rightPanelWidthPercentage={40}
         isControlledPanelOpen={releaseNotePanel.isOpen}
         onControlledPanelOpenChange={releaseNotePanel.toggle}
       >
-        <CollapsiblePanelLayout.LeftPanel
+        <CosCollapsiblePanelLayout.LeftPanel
           topic="Fixpack List"
           customToggleButton={
             <div className="flex items-center gap-x-4">
@@ -128,13 +128,13 @@ export const MaintenanceUpdateFixpackPage = () => {
               onItemsPerPageChange={onItemsPerPageChange}
             />
           </div>
-        </CollapsiblePanelLayout.LeftPanel>
-        <CollapsiblePanelLayout.RightPanel
+        </CosCollapsiblePanelLayout.LeftPanel>
+        <CosCollapsiblePanelLayout.RightPanel
           topic={rowForReleaseNote?.version || 'Fixpack Version'}
         >
           <ReleaseNotePanel releaseNote={rowForReleaseNote?.details} />
-        </CollapsiblePanelLayout.RightPanel>
-      </CollapsiblePanelLayout>
+        </CosCollapsiblePanelLayout.RightPanel>
+      </CosCollapsiblePanelLayout>
     </MaintenanceUpdateLayout>
   )
 }

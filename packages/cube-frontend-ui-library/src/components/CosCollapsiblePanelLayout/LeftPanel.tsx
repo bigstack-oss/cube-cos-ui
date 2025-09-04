@@ -4,7 +4,8 @@ import {
   CosGeneralPanel,
   CosGeneralPanelContentProps,
 } from '@cube-frontend/ui-library'
-import { CollapsiblePanelsContext } from './collapsiblePanelsContext'
+import { CosCollapsiblePanelsContext } from './cosCollapsiblePanelsContext'
+import { isNil } from 'lodash'
 
 export type LeftPanelProps = Pick<
   CosGeneralPanelContentProps,
@@ -16,29 +17,42 @@ export type LeftPanelProps = Pick<
 export const LeftPanel = (props: LeftPanelProps) => {
   const { customToggleButton, rightSlot, children, ...restProps } = props
 
-  const { toggleOpen } = useContext(CollapsiblePanelsContext)
+  const { toggle } = useContext(CosCollapsiblePanelsContext)
 
-  const button = isValidElement(customToggleButton) ? (
-    cloneElement(
+  const renderButton = () => {
+    const defaultButton = (
+      <button
+        type="button"
+        className="inline-flex size-[26px] items-center justify-center rounded-full bg-blue-150"
+        onClick={() => toggle()}
+      >
+        <InformationCircle className="icon-lg text-functional-text" />
+      </button>
+    )
+
+    if (isNil(customToggleButton)) {
+      return defaultButton
+    }
+
+    if (!isValidElement(customToggleButton)) {
+      console.warn(
+        'CosCollapsiblePanelLayout.LeftPanel: `customToggleButton` is not a valid React element. Falling back to default button.',
+      )
+      return defaultButton
+    }
+
+    return cloneElement(
       customToggleButton as React.ReactElement<{
         onClick?: React.MouseEventHandler
       }>,
       {
         onClick: (e: React.MouseEvent) => {
           customToggleButton.props.onClick?.(e)
-          toggleOpen()
+          toggle()
         },
       },
     )
-  ) : (
-    <button
-      type="button"
-      className="inline-flex size-[26px] items-center justify-center rounded-full bg-blue-150"
-      onClick={() => toggleOpen()}
-    >
-      <InformationCircle className="icon-lg text-functional-text" />
-    </button>
-  )
+  }
 
   return (
     <CosGeneralPanel
@@ -47,7 +61,7 @@ export const LeftPanel = (props: LeftPanelProps) => {
       rightSlot={
         <>
           {rightSlot}
-          {button}
+          {renderButton()}
         </>
       }
     >

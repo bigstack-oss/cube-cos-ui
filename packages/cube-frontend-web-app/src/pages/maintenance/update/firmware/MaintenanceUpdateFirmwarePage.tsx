@@ -1,5 +1,6 @@
 import {
   CosButton,
+  CosCollapsiblePanelLayout,
   CosPagination,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
@@ -14,7 +15,6 @@ import { useReleaseNotePanel } from '../_components/useReleaseNotePanel'
 import { FirmwareRow } from './listFirmwaresUtils'
 import { useListFirmwares } from './useListFirmwares'
 import { useListFirmwaresQuery } from './useListFirmwaresQuery'
-import { CollapsiblePanelLayout } from '@cube-frontend/web-app/components/CollapsiblePanelLayout/CollapsiblePanelLayout'
 
 const FirmwareTable = GetCosBasicTable<FirmwareRow>()
 
@@ -38,12 +38,12 @@ export const MaintenanceUpdateFirmwarePage = () => {
       currentVersion={dataCenter!.firmware.version}
       lastUpdated={dataCenter!.firmware.updatedAt}
     >
-      <CollapsiblePanelLayout
+      <CosCollapsiblePanelLayout
         rightPanelWidthPercentage={40}
         isControlledPanelOpen={releaseNotePanel.isOpen}
         onControlledPanelOpenChange={releaseNotePanel.toggle}
       >
-        <CollapsiblePanelLayout.LeftPanel
+        <CosCollapsiblePanelLayout.LeftPanel
           topic="Firmware List"
           customToggleButton={
             <div className="flex items-center gap-x-4">
@@ -113,13 +113,13 @@ export const MaintenanceUpdateFirmwarePage = () => {
               onItemsPerPageChange={onItemsPerPageChange}
             />
           </div>
-        </CollapsiblePanelLayout.LeftPanel>
-        <CollapsiblePanelLayout.RightPanel
+        </CosCollapsiblePanelLayout.LeftPanel>
+        <CosCollapsiblePanelLayout.RightPanel
           topic={rowForReleaseNote?.version || 'Firmware Version'}
         >
           <ReleaseNotePanel releaseNote={rowForReleaseNote?.releaseNotes} />
-        </CollapsiblePanelLayout.RightPanel>
-      </CollapsiblePanelLayout>
+        </CosCollapsiblePanelLayout.RightPanel>
+      </CosCollapsiblePanelLayout>
     </MaintenanceUpdateLayout>
   )
 }
