@@ -74,7 +74,7 @@ export const MaintenanceUpdateFixpackPage = () => {
         <CosGeneralPanel
           containerClassName="grow"
           topic="Fixpack List"
-          dropdown={
+          rightSlot={
             <div className="flex items-center gap-x-4">
               <CosButton disabled={showLoading}>Upload Fixpack</CosButton>
               <button
