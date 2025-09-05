@@ -1,11 +1,13 @@
 import UploadIcon from '@cube-frontend/ui-library/icons/monochrome/upload.svg?react'
 import React, { ChangeEventHandler, useRef } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { CosButton } from '../CosButton/CosButton'
 import { CosUploadError } from './CosUploadError'
 import { CosUploadFile } from './CosUploadFile'
 import { CosUploadProgressBar } from './CosUploadProgressBar'
 
 type CosUploadProps = {
+  className?: string
   buttonText: string
   inputId?: string
   accept?: string
@@ -25,6 +27,7 @@ type CosUploadProps = {
 
 export const CosUpload = (props: CosUploadProps) => {
   const {
+    className,
     buttonText,
     inputId,
     accept,
@@ -55,7 +58,7 @@ export const CosUpload = (props: CosUploadProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={twMerge('flex flex-col gap-4', className)}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <CosButton

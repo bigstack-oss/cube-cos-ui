@@ -27,6 +27,7 @@ export const MaintenanceUpdateLayout = (
   }
 
   const formatLastUpdated = (): string => {
+    if (!lastUpdated) return 'Never'
     return dayjs.respectTzOffset(lastUpdated).format('YYYY/MM/DD HH:mm A')
   }
 

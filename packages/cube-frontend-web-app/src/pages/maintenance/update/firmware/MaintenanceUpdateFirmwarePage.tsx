@@ -35,7 +35,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
   return (
     <MaintenanceUpdateLayout
-      currentVersion={dataCenter!.firmware.version}
+      currentVersion={dataCenter!.firmware.version || 'Firmware'}
       lastUpdated={dataCenter!.firmware.updatedAt}
     >
       <CosCollapsiblePanelLayout

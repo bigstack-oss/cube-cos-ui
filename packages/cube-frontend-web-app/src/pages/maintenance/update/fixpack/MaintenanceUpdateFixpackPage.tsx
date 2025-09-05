@@ -6,6 +6,7 @@ import {
 } from '@cube-frontend/ui-library'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
 import dayjs from 'dayjs'
 import { useContext, useMemo } from 'react'
 import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
@@ -20,6 +21,7 @@ import {
   FixpackActionState,
 } from './computeFixpacksActionState'
 import { FixpackRow } from './listFixpacksUtils'
+import { UploadFixpackModal } from './UploadFixpackModal'
 import { useListFixpacks } from './useListFixpacks'
 import { useListFixpacksQuery } from './useListFixpacksQuery'
 
@@ -30,8 +32,14 @@ export const MaintenanceUpdateFixpackPage = () => {
 
   const { query, onPageChange, onItemsPerPageChange } = useListFixpacksQuery()
 
-  const { showLoading, allFixpacks, pagedRows, totalItemCount } =
+  const { showLoading, allFixpacks, pagedRows, totalItemCount, listFixpacks } =
     useListFixpacks(query)
+
+  const {
+    isOpen: isUploadModalOpen,
+    open: openUploadModal,
+    close: closeUploadModal,
+  } = useOpenState()
 
   const { rowForReleaseNote, showReleaseNoteFor, releaseNotePanel } =
     useReleaseNotePanel<FixpackRow>()
@@ -62,7 +70,7 @@ export const MaintenanceUpdateFixpackPage = () => {
 
   return (
     <MaintenanceUpdateLayout
-      currentVersion={dataCenter!.fixpack.version}
+      currentVersion={dataCenter!.fixpack.version || 'Fixpack'}
       lastUpdated={dataCenter!.fixpack.updatedAt}
     >
       <CosCollapsiblePanelLayout
@@ -74,7 +82,9 @@ export const MaintenanceUpdateFixpackPage = () => {
           topic="Fixpack List"
           customToggleButton={
             <div className="flex items-center gap-x-4">
-              <CosButton disabled={showLoading}>Upload Fixpack</CosButton>
+              <CosButton disabled={showLoading} onClick={openUploadModal}>
+                Upload Fixpack
+              </CosButton>
               <button
                 type="button"
                 className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
@@ -135,6 +145,11 @@ export const MaintenanceUpdateFixpackPage = () => {
           <ReleaseNotePanel releaseNote={rowForReleaseNote?.details} />
         </CosCollapsiblePanelLayout.RightPanel>
       </CosCollapsiblePanelLayout>
+      <UploadFixpackModal
+        isOpen={isUploadModalOpen}
+        onClose={closeUploadModal}
+        onMd5Verified={listFixpacks}
+      />
     </MaintenanceUpdateLayout>
   )
 }

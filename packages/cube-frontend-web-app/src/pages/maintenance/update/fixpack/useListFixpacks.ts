@@ -1,5 +1,6 @@
 import {
   FixpacksApiListFixpacksRequest,
+  ListFixpacksResponseData,
   ListFixpacksResponseDataFixpacksInner,
 } from '@cube-frontend/api'
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
@@ -19,6 +20,7 @@ type UseListFixpacks = {
   allFixpacks: ListFixpacksResponseDataFixpacksInner[]
   pagedRows: FixpackRow[]
   totalItemCount: number
+  listFixpacks: () => Promise<ListFixpacksResponseData>
 }
 
 const POLLING_INTERVAL = 5 * 1000
@@ -63,5 +65,6 @@ export const useListFixpacks = (query: ListFixpacksQuery): UseListFixpacks => {
     allFixpacks: pagedFixpacks?.fixpacks ?? [],
     pagedRows,
     totalItemCount: pagedFixpacks?.page.totalItemCount ?? 0,
+    listFixpacks,
   }
 }

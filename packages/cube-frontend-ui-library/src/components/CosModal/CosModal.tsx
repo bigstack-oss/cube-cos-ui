@@ -1,12 +1,12 @@
 import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
+import { PropsWithClassName } from '@cube-frontend/utils'
 import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
+import { twMerge } from 'tailwind-merge'
 import { CosButton, CosButtonProps } from '../CosButton/CosButton'
 import { backdrop, modal } from './cosModalStyles'
-import { useCloseModalWithEsc } from './useCloseModalWithEsc'
-import { PropsWithClassName } from '@cube-frontend/utils'
-import { twMerge } from 'tailwind-merge'
 import MemoChildren from './MemoChildren'
+import { useCloseModalWithEsc } from './useCloseModalWithEsc'
 
 export type CosModalProps = {
   children: ReactNode
@@ -26,6 +26,10 @@ export type CosModalProps = {
    */
   actionText?: string
   actionButtonProps?: Pick<CosButtonProps, 'loading' | 'disabled'>
+  /**
+   * @default true
+   */
+  isCancelButtonVisible?: boolean
   bodyRef?: React.RefObject<HTMLDivElement | null>
   onActionClick?: () => void
   onCloseClick: () => void
@@ -44,6 +48,7 @@ export const CosModal = (props: CosModalProps) => {
     isActionButtonVisible = true,
     actionText = 'Action',
     actionButtonProps,
+    isCancelButtonVisible = true,
     bodyRef,
     onActionClick,
     onCloseClick,
@@ -97,14 +102,16 @@ export const CosModal = (props: CosModalProps) => {
           </div>
           <div className="flex items-center justify-end gap-x-2.5 border-t border-functional-border-divider px-7 py-4">
             {renderFooterMessage(footerMessage)}
-            <CosButton
-              type="ghost"
-              usage="text-only"
-              size="lg"
-              onClick={onCloseClick}
-            >
-              Cancel
-            </CosButton>
+            {isCancelButtonVisible && (
+              <CosButton
+                type="ghost"
+                usage="text-only"
+                size="lg"
+                onClick={onCloseClick}
+              >
+                Cancel
+              </CosButton>
+            )}
             {isActionButtonVisible && (
               <CosButton
                 usage="text-only"
