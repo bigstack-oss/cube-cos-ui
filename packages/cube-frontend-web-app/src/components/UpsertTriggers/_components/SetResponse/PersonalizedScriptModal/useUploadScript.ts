@@ -1,4 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
+import { isAxiosError } from 'axios'
+import { upperFirst } from 'lodash'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { fileToBase64 } from '@cube-frontend/web-app/utils/file'
 import { triggersApi } from '@cube-frontend/web-app/api/cosApi'
@@ -107,17 +109,31 @@ export const useUploadScript = (
         verifyMaterialScriptRequest: { script: scriptInfo.content },
       })
 
-      const formattedResult = `Script:\n${testResult.data.data}\n\nResult:\n${testResult.data.msg}`
+      const formattedResult =
+        `Script:\n` +
+        `${testResult.data.data}\n\n` +
+        `Result:\n${upperFirst(testResult.data.msg)}`
 
       setShowScriptTestResult({
         status: 'testSucceeded',
         message: formattedResult,
       })
     } catch (error) {
-      setShowScriptTestResult({
-        status: 'testFailed',
-        message: 'Error occurred when verifying script: ' + error,
-      })
+      if (isAxiosError(error)) {
+        setShowScriptTestResult({
+          status: 'testFailed',
+          message:
+            `${upperFirst(error?.response?.data.status)}\n\n` +
+            `${upperFirst(error?.response?.data.msg)}`,
+        })
+      } else {
+        setShowScriptTestResult({
+          status: 'testFailed',
+          message:
+            `Error occurred when verifying script:\n\n` +
+            (error || 'Unknown error'),
+        })
+      }
     }
   }
 
