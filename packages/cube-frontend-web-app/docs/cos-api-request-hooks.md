@@ -128,7 +128,7 @@ const onClick = async () => {
     await updateBar()
   } catch (error) {
     if (isCosRequestError(error)) {
-      const { nativeError, apiError } = error
+      const { native, api } = error
       // Do extra error handling if necessary.
     }
   }
@@ -159,7 +159,7 @@ const onClick = async () => {
     console.log(bar)
   } catch (error) {
     if (isCosRequestError(error)) {
-      const { nativeError, apiError } = error
+      const { native, api } = error
       // Do extra error handling if necessary.
     }
   }

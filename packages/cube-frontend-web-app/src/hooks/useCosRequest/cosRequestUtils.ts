@@ -32,7 +32,7 @@ export const isCosApiResponse = (
 }
 
 export const isCosRequestError = (value: unknown): value is CosRequestError => {
-  return isObject(value) && 'nativeError' in value && 'apiError' in value
+  return isObject(value) && 'native' in value && 'api' in value
 }
 
 export const isNullish = <T>(value: T): value is Required<T> => {
