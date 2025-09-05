@@ -1,7 +1,7 @@
-import { cva } from 'class-variance-authority'
 import { CosTableRow } from '../cosTableUtils'
 import { CosTableColumnProps } from './CosTableColumn'
 import { CosTableTdSkeleton } from './CosTableTdSkeleton'
+import { cosTableStyles } from './cosTableStyles'
 
 export type CosTableTdProps<Row extends CosTableRow> = {
   row?: Row
@@ -9,29 +9,6 @@ export type CosTableTdProps<Row extends CosTableRow> = {
   column: CosTableColumnProps<Row, keyof Row | never>
   isLoading?: boolean
 }
-
-const td = cva(
-  [
-    'primary-body4 px-4 py-2.5 text-functional-text',
-    'border-b border-b-functional-border-divider bg-grey-0',
-    'first-of-type:border-l last-of-type:border-r',
-  ],
-  {
-    variants: {
-      emphasize: {
-        true: 'font-semibold',
-      },
-      fitContent: {
-        /**
-         * Workaround:
-         * `w-0` is used to prevent the table cell from expanding.
-         * `w-fit` doesn't work when target element is a table cell.
-         **/
-        true: 'w-0',
-      },
-    },
-  },
-)
 
 export const CosTableTd = <Row extends CosTableRow>(
   props: CosTableTdProps<Row>,
@@ -75,7 +52,7 @@ export const CosTableTd = <Row extends CosTableRow>(
 
   return (
     <td
-      className={td({
+      className={cosTableStyles.td({
         emphasize: getEmphasize(),
         fitContent: column.fitContent,
       })}

@@ -4,6 +4,7 @@ export {
   type CosBasicTableProps,
   GetCosBasicTable,
 } from './components/CosBasicTable/CosBasicTable'
+export { cosTableStyles } from './components/CosBasicTable/rendering/cosTableStyles'
 export type {
   CosTableRow,
   CosBatchActionTableRow,

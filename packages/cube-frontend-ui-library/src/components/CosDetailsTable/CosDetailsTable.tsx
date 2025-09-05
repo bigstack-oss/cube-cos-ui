@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { cosTableStyles } from '../CosBasicTable/rendering/cosTableStyles'
 import { CosDetailsTableRow } from './CosDetailsTableRow'
 
 export type CosDetailsTableProps = {
@@ -12,7 +13,7 @@ export const CosDetailsTable = (props: CosDetailsTableProps) => {
 
   return (
     <div className="overflow-auto">
-      <table className="w-full border-separate border-spacing-0">
+      <table className={cosTableStyles.table()}>
         <thead>
           <tr>
             <th

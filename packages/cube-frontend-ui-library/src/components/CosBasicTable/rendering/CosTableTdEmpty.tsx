@@ -8,7 +8,7 @@ type CosTableTdEmptyProps = {
 export const CosTableTdEmpty = (props: CosTableTdEmptyProps) => {
   const { length } = props
   return (
-    <td colSpan={length} className={twMerge('p-6')}>
+    <td colSpan={length} className="p-6">
       <div
         className={twMerge(
           'flex flex-col items-center justify-center text-functional-text-light',

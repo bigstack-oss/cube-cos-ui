@@ -12,6 +12,10 @@ import {
   RowClassNameProp,
 } from './cosTableUtils'
 import { CreateCosTableColumn } from './rendering/CosTableColumn'
+import {
+  bodyTrCellBorderRadiusClass,
+  cosTableStyles,
+} from './rendering/cosTableStyles'
 import { CosTableTd } from './rendering/CosTableTd'
 import { CosTableTdEmpty } from './rendering/CosTableTdEmpty'
 import { CosTableTh } from './rendering/CosTableTh'
@@ -19,11 +23,6 @@ import { SortingState } from './sorting/sortingUtils'
 import { useSortedRows } from './sorting/useSortedRows'
 import { useColumnPayloads } from './useColumnPayloads'
 import { useSubRows } from './useSubRows'
-
-const tdBorderRadiusClass = twMerge(
-  '[&:last-of-type>td:first-of-type]:rounded-bl-[5px]',
-  '[&:last-of-type>td:last-of-type]:rounded-br-[5px]',
-)
 
 export type CosBasicTableProps<Row extends CosTableRow> = PropsWithChildren<{
   rows: Row[]
@@ -67,7 +66,7 @@ export const CosBasicTable = <Row extends CosTableRow>(
 
   const renderSkeletonRows = () => {
     return skeletonIndexes.map((rowIndex) => (
-      <tr key={rowIndex} className={tdBorderRadiusClass}>
+      <tr key={rowIndex} className={bodyTrCellBorderRadiusClass}>
         {columns.map((column, colIndex) => (
           <CosTableTd
             key={`${column.property?.toString() ?? ''}-${colIndex}`}
@@ -93,8 +92,7 @@ export const CosBasicTable = <Row extends CosTableRow>(
       <Fragment key={row.id}>
         <tr
           className={twMerge(
-            '[&>td]:hover:bg-functional-hover-grey',
-            tdBorderRadiusClass,
+            cosTableStyles.bodyTr(),
             computeRowClassName(rowClassName, row),
           )}
           onClick={() => onRowClick?.(row)}
@@ -122,8 +120,7 @@ export const CosBasicTable = <Row extends CosTableRow>(
         <tr
           key={`${parentRow.id}-sub-row-${subRowIndex}`}
           className={twMerge(
-            '[&>td]:hover:bg-functional-hover-grey',
-            tdBorderRadiusClass,
+            cosTableStyles.bodyTr(),
             computeRowClassName(className, parentRow),
             !isVisible(parentRow) && 'invisible [&>td]:p-0',
           )}
@@ -143,7 +140,7 @@ export const CosBasicTable = <Row extends CosTableRow>(
 
   return (
     <div className="overflow-auto">
-      <table className="w-full border-separate border-spacing-0">
+      <table className={cosTableStyles.table()}>
         <thead>
           <tr>
             {columns.map((column, index) => (
