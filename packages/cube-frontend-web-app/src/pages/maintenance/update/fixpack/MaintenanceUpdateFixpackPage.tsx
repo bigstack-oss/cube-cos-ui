@@ -13,9 +13,11 @@ import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
 import { ReleaseNotePanel } from '../_components/ReleaseNotePanel'
 import { useCephHealthStatus } from '../_components/useCephHealthStatus'
 import { useReleaseNotePanel } from '../_components/useReleaseNotePanel'
+import { DeleteFixpackModal } from './actions/DeleteFixpackModal'
 import { InstallAction } from './actions/InstallAction'
 import { RemoveAction } from './actions/RemoveAction'
 import { RollbackAction } from './actions/RollbackAction'
+import { useDeleteFixpackModal } from './actions/useDeleteFixpackModal'
 import {
   computeFixpacksActionState,
   FixpackActionState,
@@ -51,19 +53,35 @@ export const MaintenanceUpdateFixpackPage = () => {
     [allFixpacks, cephHealthStatus],
   )
 
+  const {
+    fixpackVersionToDelete,
+    showDeleteFixpackModal,
+    closeDeleteFixpackModal,
+  } = useDeleteFixpackModal()
+
+  const onFixpackDeleted = (): void => {
+    listFixpacks()
+    closeDeleteFixpackModal()
+  }
+
   const formatUpdatedAt = (updatedAt: string): string => {
     if (!updatedAt) return ''
     return dayjs.respectTzOffset(updatedAt).format('YYYY/MM/DD')
   }
 
-  const renderAction = (_row: FixpackRow, actionState: FixpackActionState) => {
+  const renderAction = (row: FixpackRow, actionState: FixpackActionState) => {
     const { install, rollback, remove } = actionState
 
     return (
       <div className="flex items-center justify-between gap-x-2">
         {install !== 'hidden' && <InstallAction state={install} />}
         {rollback !== 'hidden' && <RollbackAction state={rollback} />}
-        {remove !== 'hidden' && <RemoveAction state={remove} />}
+        {remove !== 'hidden' && (
+          <RemoveAction
+            state={remove}
+            onClick={() => showDeleteFixpackModal(row.version)}
+          />
+        )}
       </div>
     )
   }
@@ -149,6 +167,11 @@ export const MaintenanceUpdateFixpackPage = () => {
         isOpen={isUploadModalOpen}
         onClose={closeUploadModal}
         onMd5Verified={listFixpacks}
+      />
+      <DeleteFixpackModal
+        version={fixpackVersionToDelete}
+        onCloseClick={closeDeleteFixpackModal}
+        onDeleted={onFixpackDeleted}
       />
     </MaintenanceUpdateLayout>
   )

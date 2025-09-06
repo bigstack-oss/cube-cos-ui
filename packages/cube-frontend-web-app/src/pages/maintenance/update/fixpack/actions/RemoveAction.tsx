@@ -4,14 +4,16 @@ import {
   CosTooltipInformation,
 } from '@cube-frontend/ui-library'
 import Trash from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
+import { MouseEvent } from 'react'
 import { RemoveActionState } from '../computeFixpacksActionState'
 
 type RemoveActionProps = {
   state: Exclude<RemoveActionState, 'hidden'>
+  onClick: () => void
 }
 
 export const RemoveAction = (props: RemoveActionProps) => {
-  const { state } = props
+  const { state, onClick: onClickProp } = props
 
   const isBlockedByInstalling = state === 'blockedByInstalling'
   const isBlockedByRollingBack = state === 'blockedByRollingBack'
@@ -48,6 +50,12 @@ export const RemoveAction = (props: RemoveActionProps) => {
     return undefined
   }
 
+  const onClick = (e: MouseEvent<HTMLButtonElement>): void => {
+    // Stop propagation because the table row is clickable.
+    e.stopPropagation()
+    onClickProp()
+  }
+
   return (
     <CosTooltip hoverContent={getHoverTooltipContent()}>
       {/* Wrap the button with a <span> because the hover event doesn't work
@@ -63,7 +71,7 @@ export const RemoveAction = (props: RemoveActionProps) => {
             isBlockedByNewerFixpack ||
             isBlockedByAlreadyInstalled
           }
-          onClick={(e) => e.stopPropagation()}
+          onClick={onClick}
         />
       </span>
     </CosTooltip>
