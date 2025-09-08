@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { CosPaginationItemWrap } from './CosPaginationItemWrap'
@@ -36,24 +36,25 @@ const paginationItemButton = cva(
   },
 )
 
-type CosPaginationItemButtonProps = {
-  children: ReactNode
+type CosPaginationItemButtonProps = PropsWithChildren<{
+  isMinimal: boolean
   onClick: () => void
-} & (
-  | {
-      type: 'number'
-      isActive: boolean
-    }
-  | {
-      type: 'icon'
-      disabled: boolean
-    }
-)
+}> &
+  (
+    | {
+        type: 'number'
+        isActive: boolean
+      }
+    | {
+        type: 'icon'
+        disabled: boolean
+      }
+  )
 
 export const CosPaginationItemButton = (
   props: CosPaginationItemButtonProps,
 ) => {
-  const { type, children, onClick } = props
+  const { isMinimal, type, children, onClick } = props
 
   const isActive =
     type === 'number'
@@ -68,7 +69,7 @@ export const CosPaginationItemButton = (
       : false
 
   return (
-    <CosPaginationItemWrap>
+    <CosPaginationItemWrap isMinimal={isMinimal}>
       <button
         type="button"
         className={twMerge(paginationItemButton({ isActive, disabled }))}

@@ -1,9 +1,20 @@
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
+import { cva } from 'class-variance-authority'
+import { twMerge } from 'tailwind-merge'
 
-export const CosPaginationItemWrap = (props: { children: ReactNode }) => {
-  const { children } = props
+type CosPaginationItemWrapProps = PropsWithChildren<{ isMinimal: boolean }>
 
-  return (
-    <div className="secondary-body2 flex p-[6px] text-center">{children}</div>
-  )
+const wrap = cva('secondary-body2 flex text-center', {
+  variants: {
+    isMinimal: {
+      true: 'p-[3.5px]',
+      false: 'p-1.5',
+    },
+  },
+})
+
+export const CosPaginationItemWrap = (props: CosPaginationItemWrapProps) => {
+  const { isMinimal, children } = props
+
+  return <div className={twMerge(wrap({ isMinimal }))}>{children}</div>
 }

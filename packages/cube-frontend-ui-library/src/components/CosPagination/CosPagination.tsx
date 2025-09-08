@@ -11,6 +11,7 @@ import { CosPaginationSkeleton } from './CosPaginationSkeleton'
 import { DEFAULT_ITEMS_PER_PAGE, ItemsPerPage } from './cosPaginationUtils'
 import { CosPaginationViewDropdown } from './CosPaginationViewDropdown'
 import { getPageNumbers } from './getPageNumbers'
+import { usePaginationSize } from './usePaginationSize'
 
 export type CosPaginationProps = {
   isLoading?: boolean
@@ -43,6 +44,8 @@ export const CosPagination = (props: CosPaginationProps) => {
 
   const [inputPage, setInputPage] = useState('')
 
+  const { containerRef, isMinimal } = usePaginationSize()
+
   const totalPages = Math.ceil(totalItems / itemsPerPage)
 
   const isEmpty = totalItems === 0
@@ -72,73 +75,87 @@ export const CosPagination = (props: CosPaginationProps) => {
     handlePageChange(1)
   }
 
-  const pageNumbers = getPageNumbers({ totalPages, currentPage })
-
-  if (isLoading) return <CosPaginationSkeleton />
+  const pageNumbers = getPageNumbers({ isMinimal, totalPages, currentPage })
 
   return (
-    <div className="flex items-center justify-between">
-      <CosPaginationAmount totalItems={totalItems} />
-      <div className="flex items-center">
-        <CosPaginationItemButton
-          type="icon"
-          disabled={isEmpty || currentPage === 1}
-          onClick={() => handlePageChange(1)}
-        >
-          <ChevronLeftEnd className="icon-md" />
-        </CosPaginationItemButton>
-        <CosPaginationItemButton
-          type="icon"
-          disabled={isEmpty || currentPage === 1}
-          onClick={() => handlePageChange(currentPage - 1)}
-        >
-          <ChevronLeft className="icon-md" />
-        </CosPaginationItemButton>
-        {pageNumbers.map((page, index) => {
-          return page === 'ellipsis' ? (
-            <CosPaginationItemWrap key={`${page}-${index}`}>
-              ...
-            </CosPaginationItemWrap>
-          ) : (
+    <div ref={containerRef} className="flex items-center justify-between">
+      {isLoading ? (
+        <CosPaginationSkeleton isMinimal={isMinimal} />
+      ) : (
+        <>
+          <CosPaginationAmount isMinimal={isMinimal} totalItems={totalItems} />
+          <div className="flex items-center">
             <CosPaginationItemButton
-              key={`${page}-${index}`}
-              type="number"
-              isActive={page === currentPage}
-              onClick={() => handlePageChange(page)}
-              aria-label={`Page ${page}`}
-              aria-current={currentPage === page ? 'page' : undefined}
+              type="icon"
+              isMinimal={isMinimal}
+              disabled={isEmpty || currentPage === 1}
+              onClick={() => handlePageChange(1)}
             >
-              {page}
+              <ChevronLeftEnd className="icon-md" />
             </CosPaginationItemButton>
-          )
-        })}
-        <CosPaginationItemButton
-          type="icon"
-          disabled={isEmpty || currentPage === totalPages}
-          onClick={() => handlePageChange(currentPage + 1)}
-        >
-          <ChevronRight className="icon-md" />
-        </CosPaginationItemButton>
-        <CosPaginationItemButton
-          type="icon"
-          disabled={isEmpty || currentPage === totalPages}
-          onClick={() => handlePageChange(totalPages)}
-        >
-          <ChevronRightEnd className="icon-md" />
-        </CosPaginationItemButton>
-        <CosPaginationGoToPageInput
-          placeholder="Page"
-          value={inputPage}
-          onChange={(e) => setInputPage(e.target.value)}
-          onKeyDown={handleKeyDown}
-          onBlur={handleGoToPage}
-          disabled={isEmpty}
-        />
-      </div>
-      <CosPaginationViewDropdown
-        itemsPerPage={itemsPerPage}
-        onItemsPerPageChange={handleItemsPerPageChange}
-      />
+            <CosPaginationItemButton
+              type="icon"
+              isMinimal={isMinimal}
+              disabled={isEmpty || currentPage === 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              <ChevronLeft className="icon-md" />
+            </CosPaginationItemButton>
+            {pageNumbers.map((page, index) => {
+              return page === 'ellipsis' ? (
+                <CosPaginationItemWrap
+                  key={`${page}-${index}`}
+                  isMinimal={isMinimal}
+                >
+                  ...
+                </CosPaginationItemWrap>
+              ) : (
+                <CosPaginationItemButton
+                  key={`${page}-${index}`}
+                  type="number"
+                  isMinimal={isMinimal}
+                  isActive={page === currentPage}
+                  onClick={() => handlePageChange(page)}
+                  aria-label={`Page ${page}`}
+                  aria-current={currentPage === page ? 'page' : undefined}
+                >
+                  {page}
+                </CosPaginationItemButton>
+              )
+            })}
+            <CosPaginationItemButton
+              type="icon"
+              isMinimal={isMinimal}
+              disabled={isEmpty || currentPage === totalPages}
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              <ChevronRight className="icon-md" />
+            </CosPaginationItemButton>
+            <CosPaginationItemButton
+              type="icon"
+              isMinimal={isMinimal}
+              disabled={isEmpty || currentPage === totalPages}
+              onClick={() => handlePageChange(totalPages)}
+            >
+              <ChevronRightEnd className="icon-md" />
+            </CosPaginationItemButton>
+            <CosPaginationGoToPageInput
+              isMinimal={isMinimal}
+              placeholder="Page"
+              value={inputPage}
+              onChange={(e) => setInputPage(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onBlur={handleGoToPage}
+              disabled={isEmpty}
+            />
+          </div>
+          <CosPaginationViewDropdown
+            isMinimal={isMinimal}
+            itemsPerPage={itemsPerPage}
+            onItemsPerPageChange={handleItemsPerPageChange}
+          />
+        </>
+      )}
     </div>
   )
 }
