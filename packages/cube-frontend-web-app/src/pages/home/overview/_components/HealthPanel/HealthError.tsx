@@ -9,7 +9,7 @@ import {
   CosLoadingSpinner,
   CosSkeleton,
 } from '@cube-frontend/ui-library'
-import CircleFillIcon from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
+import CheckmarkCircleFillIcon from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import WarningFilledIcon from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
 import { cva } from 'class-variance-authority'
 import { ClassValue } from 'class-variance-authority/types'
@@ -41,7 +41,7 @@ const ServiceError = (props: ServiceErrorProps) => {
         {service.status.isFixing ? (
           <CosLoadingSpinner variant="dot45" />
         ) : service.status.current === 'ok' ? (
-          <CircleFillIcon className="icon-md text-status-positive" />
+          <CheckmarkCircleFillIcon className="icon-md text-status-positive" />
         ) : (
           <WarningFilledIcon className="icon-md text-status-negative" />
         )}

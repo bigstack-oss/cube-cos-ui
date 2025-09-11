@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
-import CircleFill from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
+import CheckmarkCircleFill from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import Incomplete from '@cube-frontend/ui-library/icons/monochrome/incomplete.svg?react'
 
 const text = cva('primary-body2 font-medium', {
@@ -38,7 +38,7 @@ export const CosUploadFile = (props: CosUploadFileProps) => {
     return disabled ? (
       <Incomplete className="icon-md text-functional-disable-text" />
     ) : (
-      <CircleFill className="icon-md text-status-positive" />
+      <CheckmarkCircleFill className="icon-md text-status-positive" />
     )
   }
 

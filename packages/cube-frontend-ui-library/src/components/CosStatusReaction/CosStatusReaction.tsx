@@ -1,5 +1,5 @@
 import CheckmarkBold from '@cube-frontend/ui-library/icons/monochrome/checkmark_bold.svg?react'
-import CircleFill from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
+import CheckmarkCircleFill from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import CrossFill from '@cube-frontend/ui-library/icons/monochrome/cross_fill.svg?react'
 import { cva } from 'class-variance-authority'
 import { ClassValue } from 'class-variance-authority/types'
@@ -30,7 +30,7 @@ const statusReaction = cva([baseClass, 'secondary-body3 font-semibold'], {
 
 const iconMap: Record<StatusType, SvgComponent> = {
   neutral: CheckmarkBold,
-  success: CircleFill,
+  success: CheckmarkCircleFill,
   warning: CrossFill,
 }
 

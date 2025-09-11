@@ -1,6 +1,6 @@
 import { CosOverflowMenu } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
-import CircleFilled from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
+import CheckmarkCircleFill from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import WarningAltFilled from '@cube-frontend/ui-library/icons/monochrome/warning_alt_filled.svg?react'
 import { OverflowMenuTrigger } from './OverflowMenuTrigger'
 
@@ -20,7 +20,9 @@ export const NotificationOverflowMenu = () => {
       <CosOverflowMenu.Item
         type="custom-leading-element"
         title="Option Title 2"
-        element={<CircleFilled className="icon-md text-cosmos-primary" />}
+        element={
+          <CheckmarkCircleFill className="icon-md text-cosmos-primary" />
+        }
         onClick={onItemClick}
       />
       <CosOverflowMenu.Item
@@ -28,7 +30,7 @@ export const NotificationOverflowMenu = () => {
         title="Option Title 3"
         subText="Subtext"
         element={
-          <CircleFilled className="icon-md text-functional-disable-text" />
+          <CheckmarkCircleFill className="icon-md text-functional-disable-text" />
         }
         disabled={true}
         onClick={onItemClick}

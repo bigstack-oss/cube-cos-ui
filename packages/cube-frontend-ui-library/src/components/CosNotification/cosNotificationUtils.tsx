@@ -1,4 +1,4 @@
-import CircleFill from '../../components/CosIcon/monochrome/circle_fill.svg?react'
+import CheckmarkCircleFill from '../../components/CosIcon/monochrome/checkmark_circle_fill.svg?react'
 import WarningFilled from '../../components/CosIcon/monochrome/warning_filled.svg?react'
 import WarningAltFilled from '../../components/CosIcon/monochrome/warning_alt_filled.svg?react'
 import CloseIcon from '../../components/CosIcon/monochrome/x_small.svg?react'
@@ -12,7 +12,9 @@ import { cloneElement } from 'react'
 export const renderIcon = (type: CosNotificationType) => {
   switch (type) {
     case 'positive':
-      return <CircleFill className="icon-md shrink-0 text-status-positive" />
+      return (
+        <CheckmarkCircleFill className="icon-md shrink-0 text-status-positive" />
+      )
     case 'warning':
       return (
         <WarningAltFilled className="icon-md shrink-0 text-status-warning" />

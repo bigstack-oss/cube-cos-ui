@@ -1,5 +1,5 @@
 import { CosLoadingSpinner, cosTableStyles } from '@cube-frontend/ui-library'
-import CircleFill from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
+import CheckmarkCircleFill from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import CrossFill from '@cube-frontend/ui-library/icons/monochrome/cross_fill.svg?react'
 import { twMerge } from 'tailwind-merge'
 import {
@@ -28,7 +28,7 @@ export const Md5Verification = (props: Md5VerificationProps) => {
     if (isVerified) {
       return (
         <div className="secondary-body3 flex items-center gap-x-2 font-semibold text-status-positive">
-          <CircleFill className="icon-md-sm" />
+          <CheckmarkCircleFill className="icon-md-sm" />
           File integrity verified
         </div>
       )
