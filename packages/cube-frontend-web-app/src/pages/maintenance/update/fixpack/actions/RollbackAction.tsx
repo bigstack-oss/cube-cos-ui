@@ -64,7 +64,7 @@ export const RollbackAction = (props: RollbackActionProps) => {
   return (
     <CosTooltip hoverContent={getHoverTooltipContent()}>
       {isBlockedBySelfRollbackability ? (
-        <div className="ml-auto px-[10px]">
+        <div className="ml-auto mr-[10px]">
           <InformationCircle className="icon-md-sm text-functional-text" />
         </div>
       ) : (
