@@ -109,14 +109,13 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
   const isMd5Verifying = verificationState === 'verifying'
   const isMd5ChecksumVerified = verificationState === 'verified'
 
+  const isUploading =
+    pkgFileUpload.isUploading || checksumFileUpload.isUploading
+
+  const isUploaded = pkgFileUpload.isUploaded || checksumFileUpload.isUploaded
+
   const onCancelClick = (): void => {
     if (!isMd5ChecksumVerified) {
-      const isUploading =
-        pkgFileUpload.isUploading || checksumFileUpload.isUploading
-
-      const isUploaded =
-        pkgFileUpload.isUploaded || checksumFileUpload.isUploaded
-
       if (isUploading) {
         if (
           !confirm(
@@ -144,6 +143,24 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
     onClose()
   }
+
+  useEffect(() => {
+    const onBeforeUnload = (e: Event): boolean => {
+      if (isUploading || isUploaded) {
+        e.preventDefault()
+        // Return truthy value to support legacy browsers.
+        // https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
+        return true
+      }
+      return false
+    }
+
+    window.addEventListener('beforeunload', onBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload)
+    }
+  }, [isUploading, isUploaded])
 
   const onAbortClick = (abort: () => void): void => {
     if (confirm('Do you wish to cancel the upload?')) {
