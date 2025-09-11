@@ -59,13 +59,23 @@ export const Md5Verification = (props: Md5VerificationProps) => {
       <table className={cosTableStyles.table()}>
         <thead>
           <tr>
-            <th className={twMerge(cosTableStyles.th(), 'whitespace-nowrap')}>
+            <th
+              className={twMerge(
+                cosTableStyles.th({ isTableEmpty: false }),
+                'whitespace-nowrap',
+              )}
+            >
               File Name
             </th>
-            <th className={twMerge(cosTableStyles.th(), 'whitespace-nowrap')}>
+            <th
+              className={twMerge(
+                cosTableStyles.th({ isTableEmpty: false }),
+                'whitespace-nowrap',
+              )}
+            >
               MD5 Checksum
             </th>
-            <th className={cosTableStyles.th()} />
+            <th className={cosTableStyles.th({ isTableEmpty: false })} />
           </tr>
         </thead>
         <tbody>
@@ -91,11 +101,19 @@ export const Md5Verification = (props: Md5VerificationProps) => {
             >
               {pkgAndChecksumInfo?.pkg.md5Checksum}
             </td>
-            <td className={cosTableStyles.td()} rowSpan={2}>
+            <td
+              className={twMerge(cosTableStyles.td(), 'rounded-br-[5px]')}
+              rowSpan={2}
+            >
               {renderResult()}
             </td>
           </tr>
-          <tr className={cosTableStyles.bodyTr()}>
+          <tr
+            className={twMerge(
+              cosTableStyles.bodyTr(),
+              '[&:last-of-type>td:last-of-type]:rounded-br-none',
+            )}
+          >
             <td
               className={cosTableStyles.td({
                 emphasize: true,
