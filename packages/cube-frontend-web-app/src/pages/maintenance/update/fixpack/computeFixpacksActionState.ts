@@ -162,6 +162,10 @@ const computeRemoveActionState = (
   newerFixpack: ListFixpacksResponseDataFixpacksInner | undefined,
   hasNewerPermanentFixpackInstalled: boolean,
 ): RemoveActionState => {
+  const isInstalled = fixpack.status.current === StatusEnum.Installed
+
+  if (isInstalled && !fixpack.status.isRollbackable) return 'hidden'
+
   const isInstalling =
     fixpack.status.current === StatusEnum.Installing ||
     fixpack.status.current === StatusEnum.InstallFailed

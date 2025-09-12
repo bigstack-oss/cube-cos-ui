@@ -496,63 +496,137 @@ describe('Compute fixpacks action state', () => {
 
       const targetFixpackIndex = 1
 
-      beforeEach(() => {
-        const states = computeFixpacksActionState(
-          [
-            createFixpack({
-              current: StatusEnum.Available,
-              isRollbackable: false,
-            }),
-            // ===== Target fixpack =====
-            createFixpack({
-              current: StatusEnum.Installing,
-              isRollbackable: false,
-            }),
-            // ==========================
-            createFixpack({
-              current: StatusEnum.Installed,
-              isRollbackable: true,
-            }),
-            createFixpack({
-              current: StatusEnum.Installed,
-              isRollbackable: true,
-            }),
-            createFixpack({
-              current: StatusEnum.Installed,
-              isRollbackable: true,
-            }),
-          ],
-          GetHealthsResponseDataOverallStatusCurrentEnum.Ok,
-        )
-        newerFixpackStates = states.slice(0, targetFixpackIndex)
-        targetFixpackState = states[targetFixpackIndex]
-        olderFixpackStates = states.slice(targetFixpackIndex + 1)
-      })
+      suite('when the previous fixpack is rollbackable', () => {
+        beforeEach(() => {
+          const states = computeFixpacksActionState(
+            [
+              createFixpack({
+                current: StatusEnum.Available,
+                isRollbackable: false,
+              }),
+              // ===== Target fixpack =====
+              createFixpack({
+                current: StatusEnum.Installing,
+                isRollbackable: false,
+              }),
+              // ==========================
+              createFixpack({
+                current: StatusEnum.Installed,
+                isRollbackable: true,
+              }),
+              createFixpack({
+                current: StatusEnum.Installed,
+                isRollbackable: true,
+              }),
+              createFixpack({
+                current: StatusEnum.Installed,
+                isRollbackable: true,
+              }),
+            ],
+            GetHealthsResponseDataOverallStatusCurrentEnum.Ok,
+          )
+          newerFixpackStates = states.slice(0, targetFixpackIndex)
+          targetFixpackState = states[targetFixpackIndex]
+          olderFixpackStates = states.slice(targetFixpackIndex + 1)
+        })
 
-      it('newer fixpacks: install✅|rollback❌|remove✅', () => {
-        newerFixpackStates.forEach((state) => {
-          expect(state).toEqual<FixpackActionState>({
-            install: 'blockedByOlderFixpack',
+        it('newer fixpacks: install✅|rollback❌|remove✅', () => {
+          newerFixpackStates.forEach((state) => {
+            expect(state).toEqual<FixpackActionState>({
+              install: 'blockedByOlderFixpack',
+              rollback: 'hidden',
+              remove: 'available',
+            })
+          })
+        })
+
+        it('target fixpack: install🚧|rollback❌|remove❌', () => {
+          expect(targetFixpackState).toEqual<FixpackActionState>({
+            install: 'inProgress',
             rollback: 'hidden',
-            remove: 'available',
+            remove: 'blockedByInstalling',
+          })
+        })
+
+        it('older fixpacks: install❌|rollback❌|remove❌', () => {
+          olderFixpackStates.forEach((state) => {
+            expect(state).toEqual<FixpackActionState>({
+              install: 'hidden',
+              rollback: 'blockedByNewerFixpack',
+              remove: 'blockedByNewerFixpack',
+            })
           })
         })
       })
 
-      it('target fixpack: install🚧|rollback❌|remove❌', () => {
-        expect(targetFixpackState).toEqual<FixpackActionState>({
-          install: 'inProgress',
-          rollback: 'hidden',
-          remove: 'blockedByInstalling',
+      suite('when the previous fixpack is unrollbackable', () => {
+        beforeEach(() => {
+          const states = computeFixpacksActionState(
+            [
+              createFixpack({
+                current: StatusEnum.Available,
+                isRollbackable: false,
+              }),
+              // ===== Target fixpack =====
+              createFixpack({
+                current: StatusEnum.Installing,
+                isRollbackable: false,
+              }),
+              // ==========================
+              createFixpack({
+                current: StatusEnum.Installed,
+                isRollbackable: false,
+              }),
+              createFixpack({
+                current: StatusEnum.Installed,
+                isRollbackable: true,
+              }),
+              createFixpack({
+                current: StatusEnum.Installed,
+                isRollbackable: false,
+              }),
+            ],
+            GetHealthsResponseDataOverallStatusCurrentEnum.Ok,
+          )
+          newerFixpackStates = states.slice(0, targetFixpackIndex)
+          targetFixpackState = states[targetFixpackIndex]
+          olderFixpackStates = states.slice(targetFixpackIndex + 1)
         })
-      })
 
-      it('older fixpacks: install❌|rollback❌|remove❌', () => {
-        olderFixpackStates.forEach((state) => {
-          expect(state).toEqual<FixpackActionState>({
+        it('newer fixpacks: install✅|rollback❌|remove✅', () => {
+          newerFixpackStates.forEach((state) => {
+            expect(state).toEqual<FixpackActionState>({
+              install: 'blockedByOlderFixpack',
+              rollback: 'hidden',
+              remove: 'available',
+            })
+          })
+        })
+
+        it('target fixpack: install🚧|rollback❌|remove❌', () => {
+          expect(targetFixpackState).toEqual<FixpackActionState>({
+            install: 'inProgress',
+            rollback: 'hidden',
+            remove: 'blockedByInstalling',
+          })
+        })
+
+        it('older fixpacks: install❌|rollback❌|remove❌', () => {
+          const previousFixpackState = olderFixpackStates[0]
+          const othersFixpackStates = olderFixpackStates.slice(1)
+
+          expect(previousFixpackState).toEqual<FixpackActionState>({
             install: 'hidden',
-            rollback: 'blockedByNewerFixpack',
-            remove: 'blockedByNewerFixpack',
+            rollback: 'blockedBySelfRollbackability',
+            remove: 'hidden',
+          })
+
+          othersFixpackStates.forEach((state) => {
+            expect(state).toEqual<FixpackActionState>({
+              install: 'hidden',
+              rollback: 'hidden',
+              remove: 'hidden',
+            })
           })
         })
       })
