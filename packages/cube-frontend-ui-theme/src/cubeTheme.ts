@@ -251,3 +251,11 @@ export type StrokeColorClass = `stroke-${FlattenedObjectKeys<
   // Excluded keys
   'DEFAULT'
 >}`
+
+export type TextColorClass = `text-${FlattenedObjectKeys<
+  typeof cubeTheme.colors,
+  // Separator
+  '-',
+  // Excluded keys
+  'DEFAULT'
+>}`

@@ -5,6 +5,7 @@ export type {
   BorderColorClass,
   FillColorClass,
   StrokeColorClass,
+  TextColorClass,
 } from './cubeTheme'
 export {
   getTypography,

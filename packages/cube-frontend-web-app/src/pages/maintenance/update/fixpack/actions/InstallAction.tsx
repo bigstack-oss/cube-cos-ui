@@ -3,14 +3,16 @@ import {
   CosTooltip,
   CosTooltipInformation,
 } from '@cube-frontend/ui-library'
+import { MouseEvent } from 'react'
 import { InstallActionState } from '../computeFixpacksActionState'
 
 type InstallActionProps = {
   state: Exclude<InstallActionState, 'hidden'>
+  onClick: () => void
 }
 
 export const InstallAction = (props: InstallActionProps) => {
-  const { state } = props
+  const { state, onClick: onClickProp } = props
 
   const isBlockedByOlderFixpack = state === 'blockedByOlderFixpack'
   const isBlockedByCheckingCephHealth = state === 'blockedByCheckingCephHealth'
@@ -34,6 +36,11 @@ export const InstallAction = (props: InstallActionProps) => {
     return undefined
   }
 
+  const onClick = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.stopPropagation()
+    onClickProp()
+  }
+
   return (
     <CosTooltip hoverContent={getHoverTooltipContent()}>
       {/* Wrap the button with a <span> because the hover event doesn't work
@@ -46,7 +53,7 @@ export const InstallAction = (props: InstallActionProps) => {
             isBlockedByCheckingCephHealth ||
             isBlockedByUnhealthyCeph
           }
-          onClick={(e) => e.stopPropagation()}
+          onClick={onClick}
         >
           {state === 'inProgress' ? 'Installing' : 'Install'}
         </CosButton>

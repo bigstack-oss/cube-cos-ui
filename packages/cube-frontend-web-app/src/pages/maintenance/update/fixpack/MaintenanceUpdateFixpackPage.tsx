@@ -22,6 +22,8 @@ import {
   computeFixpacksActionState,
   FixpackActionState,
 } from './computeFixpacksActionState'
+import { InstallFixpackModal } from './install/InstallFixpackModal'
+import { useInstallFixpackModal } from './install/useInstallFixpackModal'
 import { FixpackRow } from './listFixpacksUtils'
 import { UploadFixpackModal } from './UploadFixpackModal'
 import { useListFixpacks } from './useListFixpacks'
@@ -54,6 +56,13 @@ export const MaintenanceUpdateFixpackPage = () => {
   )
 
   const {
+    isInstallModalOpen,
+    fixpackToInstall,
+    onInstallClick,
+    onInstallModalClose,
+  } = useInstallFixpackModal(pagedRows)
+
+  const {
     fixpackVersionToDelete,
     showDeleteFixpackModal,
     closeDeleteFixpackModal,
@@ -74,7 +83,9 @@ export const MaintenanceUpdateFixpackPage = () => {
 
     return (
       <div className="flex items-center justify-between gap-x-2">
-        {install !== 'hidden' && <InstallAction state={install} />}
+        {install !== 'hidden' && (
+          <InstallAction state={install} onClick={() => onInstallClick(row)} />
+        )}
         {rollback !== 'hidden' && <RollbackAction state={rollback} />}
         {remove !== 'hidden' && (
           <RemoveAction
@@ -167,6 +178,12 @@ export const MaintenanceUpdateFixpackPage = () => {
         isOpen={isUploadModalOpen}
         onClose={closeUploadModal}
         onMd5Verified={listFixpacks}
+      />
+      <InstallFixpackModal
+        isOpen={isInstallModalOpen}
+        fixpack={fixpackToInstall}
+        onInstallationRequested={listFixpacks}
+        onClose={onInstallModalClose}
       />
       <DeleteFixpackModal
         version={fixpackVersionToDelete}
