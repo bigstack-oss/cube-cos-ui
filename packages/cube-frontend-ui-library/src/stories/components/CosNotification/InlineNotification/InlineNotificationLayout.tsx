@@ -51,6 +51,21 @@ export const InlineNotificationLayout = () => {
           />
         </InlineNotificationGrid>
       </StoryLayout.Section>
+      <StoryLayout.Section title="Closable">
+        <InlineNotificationGrid title="Closable">
+          <InlineNotification
+            type="neutral"
+            content="Content text goes here."
+          />
+        </InlineNotificationGrid>
+        <InlineNotificationGrid title="Not Closable">
+          <InlineNotification
+            type="neutral"
+            content="Content text goes here."
+            isClosable={false}
+          />
+        </InlineNotificationGrid>
+      </StoryLayout.Section>
       <StoryLayout.Section title="Layout">
         <InlineNotificationGrid title="Title only">
           <InlineNotification
@@ -159,6 +174,10 @@ export const InlineNotificationLayout = () => {
 type InlineNotificationProps = CosNotificationBaseProps & {
   content?: string
   isLoading?: boolean
+  /**
+   * @default true
+   */
+  isClosable?: boolean
 }
 
 const InlineNotification = (props: InlineNotificationProps) => {

@@ -40,6 +40,10 @@ type CosInlineNotificationProps = PropsWithChildren<
     CosNotificationBaseProps & {
       isLoading?: boolean
       skeletonClassName?: string
+      /**
+       * @default true
+       */
+      isClosable?: boolean
     }
 >
 
@@ -53,6 +57,7 @@ export const CosInlineNotification = (props: CosInlineNotificationProps) => {
     isLoading,
     className: classNameProp,
     skeletonClassName,
+    isClosable = true,
   } = props
 
   const [close, setClose] = useState(false)
@@ -87,7 +92,7 @@ export const CosInlineNotification = (props: CosInlineNotificationProps) => {
       </div>
       <div className="flex items-center gap-2 self-start">
         {renderLink(link)}
-        {renderCloseButton(handleClose)}
+        {isClosable && renderCloseButton(handleClose)}
       </div>
     </div>
   )
