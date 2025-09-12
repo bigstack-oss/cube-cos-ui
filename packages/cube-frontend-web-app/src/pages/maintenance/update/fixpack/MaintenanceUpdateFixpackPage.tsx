@@ -98,18 +98,18 @@ export const MaintenanceUpdateFixpackPage = () => {
       >
         <CosCollapsiblePanelLayout.LeftPanel
           topic="Fixpack List"
+          rightSlot={
+            <CosButton disabled={showLoading} onClick={openUploadModal}>
+              Upload Fixpack
+            </CosButton>
+          }
           customToggleButton={
-            <div className="flex items-center gap-x-4">
-              <CosButton disabled={showLoading} onClick={openUploadModal}>
-                Upload Fixpack
-              </CosButton>
-              <button
-                type="button"
-                className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
-              >
-                <InformationCircle className="icon-md text-functional-text" />
-              </button>
-            </div>
+            <button
+              type="button"
+              className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
+            >
+              <InformationCircle className="icon-md text-functional-text" />
+            </button>
           }
         >
           <div className="flex flex-col gap-y-6">

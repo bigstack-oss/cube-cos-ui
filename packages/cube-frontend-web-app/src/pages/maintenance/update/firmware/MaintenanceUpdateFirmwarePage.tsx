@@ -45,16 +45,16 @@ export const MaintenanceUpdateFirmwarePage = () => {
       >
         <CosCollapsiblePanelLayout.LeftPanel
           topic="Firmware List"
+          rightSlot={
+            <CosButton disabled={showLoading}>Upload Firmware</CosButton>
+          }
           customToggleButton={
-            <div className="flex items-center gap-x-4">
-              <CosButton disabled={showLoading}>Upload Firmware</CosButton>
-              <button
-                type="button"
-                className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
-              >
-                <InformationCircle className="icon-md text-functional-text" />
-              </button>
-            </div>
+            <button
+              type="button"
+              className="inline-flex size-8 cursor-pointer items-center justify-center rounded-full bg-primary-50"
+            >
+              <InformationCircle className="icon-md text-functional-text" />
+            </button>
           }
         >
           <div className="flex flex-col gap-y-6">
