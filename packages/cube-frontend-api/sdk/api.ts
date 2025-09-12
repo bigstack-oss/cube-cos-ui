@@ -3026,12 +3026,6 @@ export interface GetFixpackUpdateProgressResponseDataProgressesInner {
     'host': string;
     /**
      * 
-     * @type {string}
-     * @memberof GetFixpackUpdateProgressResponseDataProgressesInner
-     */
-    'phase': string;
-    /**
-     * 
      * @type {GetFixpackUpdateProgressResponseDataProgressesInnerStatus}
      * @memberof GetFixpackUpdateProgressResponseDataProgressesInner
      */
