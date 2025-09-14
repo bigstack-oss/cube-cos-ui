@@ -1,14 +1,12 @@
+import { useCallback, useContext, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useCallback, useContext, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import {
-  mockGetIntegrationsStorageDetailsApi,
-  mockUpsertStorage,
-} from '../mock'
-import { ParsedStorageForm } from '../storageUtils'
+import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
+import { StorageForm } from '../_components/upsert/storageFormUtils'
+import { IntegrationsApiGetIntegrationStorageRequest } from '@cube-frontend/api'
 
 export const useEditStorage = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -27,8 +25,7 @@ export const useEditStorage = () => {
   }, [goBack, storageName])
 
   const { data: initialStorage, isLoading: isLoading } = useCosGetRequest(
-    // @ts-expect-error: mockUpsertStorage is a mock function for testing purposes
-    mockGetIntegrationsStorageDetailsApi,
+    integrationsApi.getIntegrationStorage,
     () => {
       if (!storageName) {
         return null
@@ -36,21 +33,20 @@ export const useEditStorage = () => {
 
       return {
         dataCenter: dataCenter!.name,
-        name: storageName,
-      }
+        storageName,
+      } satisfies IntegrationsApiGetIntegrationStorageRequest
     },
   )
 
   const { isLoading: isUpdating, mutateResource: updateStorageApi } =
-    // @ts-expect-error: mockUpsertStorage is a mock function for testing purposes
-    useCosMutationRequest(mockUpsertStorage)
+    useCosMutationRequest(integrationsApi.updateIntegrationStorage)
 
-  const updateStorage = async (parsedStorage: ParsedStorageForm) => {
+  const updateStorage = async (storageForm: StorageForm) => {
     try {
-      // @ts-expect-error: mockUpsertStorage is a mock function for testing purposes
       await updateStorageApi({
         dataCenter: dataCenter!.name,
-        storage: parsedStorage,
+        storageName: storageForm.name,
+        applyIntegrationStorageRequest: storageForm,
       })
       goBack()
     } catch (error) {

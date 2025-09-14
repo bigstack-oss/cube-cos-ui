@@ -1,6 +1,6 @@
 import { CosButton, CosOverflowMenu } from '@cube-frontend/ui-library'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
-import { useNavigate } from 'react-router'
+import { createSearchParams, useNavigate } from 'react-router'
 import { DEFAULT_VENDOR_QUERY_KEY } from '../storageUtils'
 import { useStorageVendors } from './useStorageVendors'
 import PlusIcon from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
@@ -25,15 +25,18 @@ export const CreateStorageButton = () => {
       }
     >
       <CosOverflowMenu.Title>Choose Vendor</CosOverflowMenu.Title>
-      {vendors?.map((v) => (
+      {vendors?.map((vendor) => (
         <CosOverflowMenu.Item
-          key={v.vendor}
+          key={vendor}
           type="plain"
-          title={v.vendor}
+          title={vendor}
           onClick={() =>
-            navigate(
-              `${CosRoutesEnum.INTEGRATIONS_STORAGES_CREATE_PAGE}?${DEFAULT_VENDOR_QUERY_KEY}=${v.vendor}`,
-            )
+            navigate({
+              pathname: CosRoutesEnum.INTEGRATIONS_STORAGES_CREATE_PAGE,
+              search: createSearchParams({
+                [DEFAULT_VENDOR_QUERY_KEY]: vendor,
+              }).toString(),
+            })
           }
         />
       ))}

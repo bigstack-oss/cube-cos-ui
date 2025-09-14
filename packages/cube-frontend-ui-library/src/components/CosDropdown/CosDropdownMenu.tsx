@@ -11,10 +11,11 @@ import { checkIsCosDropdownItemElement } from './cosDropdownUtils'
 
 export type CosDropdownMenuProps = {
   children: ReactNode
+  className?: string
 }
 
 export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
-  const { children } = props
+  const { children, className } = props
 
   const {
     floatingProps,
@@ -85,7 +86,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
   return createPortal(
     <div
       ref={elementRef}
-      className={twMerge(menu({ size, dropdownOpen }))}
+      className={twMerge(menu({ size, dropdownOpen }), className)}
       style={resolvedStyles?.floatingStyle}
     >
       {renderFilter()}

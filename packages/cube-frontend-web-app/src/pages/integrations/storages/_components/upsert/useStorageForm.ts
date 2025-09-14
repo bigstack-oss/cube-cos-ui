@@ -1,64 +1,49 @@
-import { GetIntegrationStorageResponseData } from '@cube-frontend/api'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import {
+  GetIntegrationStorageResponseData,
+  ListIntegrationStorageModelsResponseDataInner,
+} from '@cube-frontend/api'
 import {
   getInitialStorageForm,
-  ParsedStorageForm,
-  parseStorageForm,
   StorageForm,
-  StorageFormValidity,
+  StorageFormError,
   validateStorageForm,
-} from '../../storageUtils'
+} from './storageFormUtils'
 
 export const useStorageForm = (
-  initialStorage: Partial<GetIntegrationStorageResponseData> | undefined,
+  initialStorage: GetIntegrationStorageResponseData | undefined,
+  baseModel: ListIntegrationStorageModelsResponseDataInner | undefined,
 ) => {
   const [storage, setStorage] = useState<StorageForm>(() =>
-    getInitialStorageForm(initialStorage),
+    getInitialStorageForm({
+      initialStorage,
+      previousStorage: undefined,
+      baseModel,
+    }),
   )
 
   useEffect(() => {
-    if (initialStorage) {
-      setStorage(getInitialStorageForm(initialStorage))
-    }
-  }, [initialStorage])
+    setStorage((previousStorage) => {
+      return getInitialStorageForm({
+        initialStorage,
+        previousStorage,
+        baseModel,
+      })
+    })
+  }, [initialStorage, baseModel])
 
-  const fieldsValidity = useMemo<StorageFormValidity>(() => {
+  const fieldErrors = useMemo<StorageFormError | undefined>(() => {
     return validateStorageForm(storage)
   }, [storage])
 
   const allFieldsValid = useMemo(() => {
-    return Object.values(fieldsValidity).every((isValid) => isValid)
-  }, [fieldsValidity])
-
-  const setStorageField = useCallback(
-    <Key extends keyof StorageForm>(key: Key, value: StorageForm[Key]) => {
-      setStorage((prev) => ({
-        ...prev,
-        [key]: value,
-      }))
-    },
-    [],
-  )
-
-  const updateStorageField = useCallback(
-    <Key extends keyof StorageForm>(key: Key, value: StorageForm[Key]) => {
-      setStorageField(key, value)
-      if (key === 'vendor') {
-        setStorageField('model', '')
-      }
-    },
-    [setStorageField],
-  )
-
-  const getParsedStorage = (): ParsedStorageForm => {
-    return parseStorageForm(storage)
-  }
+    return !fieldErrors
+  }, [fieldErrors])
 
   return {
     storage,
-    fieldsValidity,
+    fieldErrors,
     allFieldsValid,
-    updateStorageField,
-    getParsedStorage,
+    setStorage,
   }
 }

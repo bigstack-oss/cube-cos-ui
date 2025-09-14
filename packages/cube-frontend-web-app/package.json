@@ -29,6 +29,7 @@
     "d3": "^7.9.0",
     "dayjs": "catalog:",
     "i18next": "catalog:",
+    "immer": "^10.2.0",
     "lodash": "catalog:",
     "pluralize": "catalog:",
     "react": "catalog:",
