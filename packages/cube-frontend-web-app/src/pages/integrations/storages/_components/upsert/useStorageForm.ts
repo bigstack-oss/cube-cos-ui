@@ -1,4 +1,4 @@
-import { GetIntegrationStorageResponseData } from '@cube-frontend/api'
+import { ListIntegrationStorageModelsResponseDataInner } from '@cube-frontend/api'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   getInitialStorageForm,
@@ -10,7 +10,9 @@ import {
 } from '../../storageUtils'
 
 export const useStorageForm = (
-  initialStorage: Partial<GetIntegrationStorageResponseData> | undefined,
+  initialStorage:
+    | Partial<ListIntegrationStorageModelsResponseDataInner>
+    | undefined,
 ) => {
   const [storage, setStorage] = useState<StorageForm>(() =>
     getInitialStorageForm(initialStorage),

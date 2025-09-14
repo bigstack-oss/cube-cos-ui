@@ -3,23 +3,24 @@ import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useContext, useMemo } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
-import { mockUpsertStorage, StorageMaterial } from '../mock'
+import { mockUpsertStorage } from '../mock'
 import {
   DEFAULT_VENDOR_QUERY_KEY,
   ParsedStorageForm,
   StorageForm,
 } from '../storageUtils'
+import { VendorModels } from './useVendorModel'
 
 const getDefaultVendor = (
-  vendors: StorageMaterial[] | undefined,
+  vendorModels: VendorModels | undefined,
   defaultVendorQuery: string | undefined,
 ): string => {
-  if (!vendors || !defaultVendorQuery) return ''
-  const vendor = vendors.find((v) => v.vendor === defaultVendorQuery)
-  return vendor ? vendor.vendor : ''
+  if (!vendorModels || !defaultVendorQuery) return ''
+  const vendor = Object.keys(vendorModels).find((v) => v === defaultVendorQuery)
+  return vendor || ''
 }
 
-export const useCreateStorage = (vendors: StorageMaterial[] | undefined) => {
+export const useCreateStorage = (vendors: VendorModels | undefined) => {
   const [searchParams] = useSearchParams()
   const { dataCenter } = useContext(DataCenterContext)
 

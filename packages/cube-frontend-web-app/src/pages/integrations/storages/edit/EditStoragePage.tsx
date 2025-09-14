@@ -38,11 +38,11 @@ export const EditStoragePage = () => {
             isEdit={true}
             initialStorage={initialStorage}
             isInitialStorageLoading={isStorageLoading}
-            isVendorsLoading={isVendorsLoading}
+            isVendorModelsLoading={isVendorsLoading}
             isSaving={isUpdating}
             isValidating={isValidating}
             isValidated={isValidated}
-            vendors={vendors}
+            vendorModels={vendors}
             validationErrorState={validationErrorState}
             submitButtonText="Update"
             clearValidationLog={clearValidationLog}

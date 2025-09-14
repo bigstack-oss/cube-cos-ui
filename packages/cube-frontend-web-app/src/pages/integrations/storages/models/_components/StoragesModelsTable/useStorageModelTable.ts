@@ -62,15 +62,7 @@ export const useStorageModelTable = () => {
     isLoading: isModelImporting,
     disabled: isModelListReplacing,
     upload: async (file: File) => {
-      try {
-        await importModel({
-          dataCenter: dataCenter!.name,
-          storageModel: file,
-        })
-      } catch (error) {
-        console.error('Failed to import model:', error)
-      }
-
+      await importModel({ dataCenter: dataCenter!.name, file })
       refetchStorageModels()
     },
   }
@@ -83,15 +75,7 @@ export const useStorageModelTable = () => {
       removingDeviceIds.size > 0 ||
       replacingDeviceIds.size > 0,
     upload: async (file: File) => {
-      try {
-        await replaceModelList({
-          dataCenter: dataCenter!.name,
-          storageModels: file,
-        })
-      } catch (error) {
-        console.error('Failed to replace model list:', error)
-      }
-
+      await replaceModelList({ dataCenter: dataCenter!.name, file })
       refetchStorageModels()
     },
   }
@@ -107,7 +91,6 @@ export const useStorageModelTable = () => {
     isLoading: isModelReplacing,
     upload: async (row: StorageModelRow, file: File) => {
       setReplacingDeviceIds((ids) => new Set(ids).add(row.id))
-
       try {
         await replaceModel({
           dataCenter: dataCenter!.name,

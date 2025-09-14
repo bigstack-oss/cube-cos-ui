@@ -25,14 +25,14 @@ export const CreateStorageButton = () => {
       }
     >
       <CosOverflowMenu.Title>Choose Vendor</CosOverflowMenu.Title>
-      {vendors?.map((v) => (
+      {vendors?.map((vendor) => (
         <CosOverflowMenu.Item
-          key={v.vendor}
+          key={vendor}
           type="plain"
-          title={v.vendor}
+          title={vendor}
           onClick={() =>
             navigate(
-              `${CosRoutesEnum.INTEGRATIONS_STORAGES_CREATE_PAGE}?${DEFAULT_VENDOR_QUERY_KEY}=${v.vendor}`,
+              `${CosRoutesEnum.INTEGRATIONS_STORAGES_CREATE_PAGE}?${DEFAULT_VENDOR_QUERY_KEY}=${vendor}`,
             )
           }
         />

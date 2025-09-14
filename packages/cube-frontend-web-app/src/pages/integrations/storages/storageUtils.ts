@@ -1,9 +1,7 @@
 import { z } from 'zod'
+import { ValidateStoragesResponseData } from './mock'
 import {
-  GetIntegratedStorageDetailsResponseData,
-  ValidateStoragesResponseData,
-} from './mock'
-import {
+  GetIntegrationStorageResponseData,
   ListIntegrationStoragesResponseDataInner,
   ListIntegrationStoragesResponseDataInnerStatusCurrentEnum,
 } from '@cube-frontend/api'
@@ -214,14 +212,19 @@ export const toStorageRows = (
 }
 
 export type StorageForm = {
-  asDefault: boolean
   name: string
   vendor: string
-  model: string
-  port: string
-  ip: string
-  username: string
-  password: string
+  driver: string
+  image: {
+    useMultipath: boolean
+    forceMultipath: boolean
+  }
+  volumeTypeSettings: Record<string, string>
+  service: {
+    driverSection: Record<string, string>
+    extraSection: Record<string, string>
+    extraConfigFiles: Record<string, string>
+  }
 }
 
 export type ParsedStorageForm = Omit<StorageForm, 'port'> & {
@@ -231,14 +234,17 @@ export type ParsedStorageForm = Omit<StorageForm, 'port'> & {
 export type StorageFormValidity = Record<keyof StorageForm, boolean>
 
 export const storageFormSchema = z.object({
-  asDefault: z.boolean(),
   name: z.string().min(1),
   vendor: z.string().min(1),
-  model: z.string().min(1),
-  port: z.string().regex(/^[0-9]{1,}$/),
-  ip: z.string().ip(),
-  username: z.string().min(1),
-  password: z.string().min(1),
+  driver: z.string().min(1),
+  image: z.object({
+    useMultipath: z.boolean(),
+    forceMultipath: z.boolean(),
+  }),
+  // port: z.string().regex(/^[0-9]{1,}$/),
+  // ip: z.string().ip(),
+  // username: z.string().min(1),
+  // password: z.string().min(1),
 })
 
 export const validateStorageForm = (storage: StorageForm) => {
@@ -247,26 +253,30 @@ export const validateStorageForm = (storage: StorageForm) => {
     asDefault: !('asDefault' in errors),
     name: !('name' in errors),
     vendor: !('vendor' in errors),
-    model: !('model' in errors),
-    port: !('port' in errors),
-    ip: !('ip' in errors),
-    username: !('username' in errors),
-    password: !('password' in errors),
+    driver: !('driver' in errors),
+    // port: !('port' in errors),
+    // ip: !('ip' in errors),
+    // username: !('username' in errors),
+    // password: !('password' in errors),
   }
 }
 
 export const getInitialStorageForm = (
-  initialStorage: Partial<GetIntegratedStorageDetailsResponseData> | undefined,
+  initialStorage: Partial<GetIntegrationStorageResponseData> | undefined,
 ) => {
   return {
-    asDefault: initialStorage?.isDefault ?? false,
+    // asDefault: initialStorage?.isDefault ?? false,
     name: initialStorage?.name ?? '',
-    vendor: initialStorage?.vendor ?? '',
-    model: initialStorage?.model ?? '',
-    port: String(initialStorage?.port ?? ''),
-    ip: initialStorage?.ip ?? '',
-    username: initialStorage?.username ?? '',
-    password: '',
+    vendor: initialStorage?.device?.vendor ?? '',
+    driver: initialStorage?.name ?? '',
+    image: {
+      useMultipath: initialStorage?.storage?.image?.useMultipath ?? false,
+      forceMultipath: initialStorage?.storage?.image?.forceMultipath ?? false,
+    },
+    // port: String(initialStorage?.port ?? ''),
+    // ip: initialStorage?.ip ?? '',
+    // username: initialStorage?.username ?? '',
+    // password: '',
   }
 }
 

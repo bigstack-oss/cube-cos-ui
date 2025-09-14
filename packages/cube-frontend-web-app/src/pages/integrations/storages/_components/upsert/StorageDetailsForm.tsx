@@ -10,18 +10,17 @@ import {
 } from '@cube-frontend/ui-library'
 import InformationCircleFilled from '@cube-frontend/ui-library/icons/monochrome/information_circle_filled.svg?react'
 import { CosRequestError } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
-import { upperFirst } from 'lodash'
 import { FormEvent, useCallback } from 'react'
-import { StorageMaterial } from '../../mock'
 import { ParsedStorageForm, StorageForm } from '../../storageUtils'
 import { useStorageForm } from './useStorageForm'
+import { VendorModels } from '../../create/useVendorModel'
 
 export type StorageDetailsFormProps = {
   isEdit?: boolean
   initialStorage?: Partial<StorageForm> | undefined
   isInitialStorageLoading?: boolean
-  vendors: StorageMaterial[] | undefined
-  isVendorsLoading: boolean
+  vendorModels: VendorModels
+  isVendorModelsLoading: boolean
   isSaving: boolean
   isValidating: boolean
   isValidated: boolean
@@ -71,11 +70,11 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
     isEdit = false,
     initialStorage,
     isInitialStorageLoading,
-    isVendorsLoading,
+    isVendorModelsLoading: isVendorsLoading,
     isValidating,
     isValidated,
     isSaving,
-    vendors,
+    vendorModels,
     validationErrorState,
     submitButtonText,
     clearValidationLog,
@@ -121,27 +120,29 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
 
   const handleConfirm = async () => onConfirm(getParsedStorage())
 
-  const renderValidationResult = () => {
-    if (isValidated) return <CosStatusReaction status="success" />
-    if (validationErrorState) {
-      return (
-        <CosStatusReaction
-          status="failed"
-          message={upperFirst(validationErrorState.api?.msg)}
-        />
-      )
-    }
-    return null
-  }
+  // const renderValidationResult = () => {
+  //   if (isValidated) return <CosStatusReaction status="success" />
+  //   if (validationErrorState) {
+  //     return (
+  //       <CosStatusReaction
+  //         status="failed"
+  //         message={upperFirst(validationErrorState.api?.msg)}
+  //       />
+  //     )
+  //   }
+  //   return null
+  // }
 
-  const vendorOpts = vendors?.length ? vendors.map((v) => v.vendor) : []
-  const modelOpts =
-    vendors?.find((v) => v.vendor === storage.vendor)?.models || []
+  const vendorOpts = Object.keys(vendorModels)
+  const modelOpts = vendorModels[storage.vendor] || []
+  const currentModel = modelOpts.find((m) => m.driver === storage.model)
+
+  // console.log('currentModel', currentModel)
 
   return (
     <form className="flex flex-col gap-y-3" onSubmit={handleValidate}>
       <div className="flex flex-col gap-y-4 py-4">
-        <CosCheckbox
+        {/* <CosCheckbox
           color="primary"
           label="Set as default"
           checked={storage.asDefault}
@@ -150,7 +151,7 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
           onChange={(e) =>
             handleStorageFieldChange('asDefault', e.target.checked)
           }
-        />
+        /> */}
         <CosInput
           label="Storage Name"
           tooltip={
@@ -206,7 +207,7 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
             selectedItems={storage.model ? [storage.model] : []}
             isLoading={formState.isInputLoading}
             disabled={formState.isInputDisabled || modelOpts.length === 0}
-            label="Model"
+            label="Name"
           >
             <CosDropdown.Trigger placeholder="Select an Item">
               {storage.model || 'Select a model'}
@@ -214,17 +215,75 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
             <CosDropdown.Menu>
               {(modelOpts ?? []).map((item) => (
                 <CosDropdown.Item
-                  key={item.name}
-                  item={item.name}
-                  onClick={() => handleStorageFieldChange('model', item.name)}
+                  key={item.driver}
+                  item={item.driver}
+                  onClick={() => handleStorageFieldChange('model', item.driver)}
                 >
-                  {item.name}
+                  {item.driver}
                 </CosDropdown.Item>
               ))}
             </CosDropdown.Menu>
           </CosDropdown>
         </div>
-        <CosInput
+        <CosStroke type="dot" />
+        <h4 className="primary-h4 text-functional-title">Driver Section</h4>
+        {currentModel?.storage.service.driverSection.map((field) => {
+          return (
+            <CosInput
+              label={field.key}
+              placeholder={field.key}
+              value={storage.ip}
+              errorMessage={!!storage.ip && !fieldsValidity.ip && 'Invalid IP'}
+              disabled={formState.isInputDisabled}
+              isLoading={formState.isInputLoading}
+              onChange={(e) => handleStorageFieldChange('ip', e.target.value)}
+            />
+          )
+        })}
+        {currentModel?.storage.service.extraSettings.map((extraSetting) => {
+          return (
+            <CosInput
+              label={extraSetting.key}
+              placeholder={extraSetting.key}
+              value={storage.ip}
+              errorMessage={!!storage.ip && !fieldsValidity.ip && 'Invalid IP'}
+              disabled={formState.isInputDisabled}
+              isLoading={formState.isInputLoading}
+              onChange={(e) => handleStorageFieldChange('ip', e.target.value)}
+            />
+          )
+        })}
+        <CosCheckbox
+          color="primary"
+          label="useMultipath"
+          checked={storage.useMultipath}
+          isLoading={formState.isInputLoading}
+          disabled={formState.isInputDisabled}
+          onChange={(e) =>
+            handleStorageFieldChange('useMultipath', e.target.checked)
+          }
+        />
+        <CosCheckbox
+          color="primary"
+          label="forceMultipath"
+          checked={storage.forceMultipath}
+          isLoading={formState.isInputLoading}
+          disabled={formState.isInputDisabled}
+          onChange={(e) =>
+            handleStorageFieldChange('forceMultipath', e.target.checked)
+          }
+        />
+        {/* <CosInput
+          label="Management IP"
+          placeholder="Management IP"
+          value={storage.ip}
+          errorMessage={!!storage.ip && !fieldsValidity.ip && 'Invalid IP'}
+          disabled={formState.isInputDisabled}
+          isLoading={formState.isInputLoading}
+          onChange={(e) => handleStorageFieldChange('ip', e.target.value)}
+        /> */}
+
+        {/* <CosInput
           label="Management IP"
           placeholder="Management IP"
           value={storage.ip}
@@ -265,8 +324,8 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
           disabled={formState.isInputDisabled}
           isLoading={formState.isInputLoading}
           onChange={(e) => handleStorageFieldChange('password', e.target.value)}
-        />
-        <div className="flex items-center gap-x-4">
+        /> */}
+        {/* <div className="flex items-center gap-x-4">
           <CosButton
             type="secondary"
             htmlType="submit"
@@ -277,10 +336,11 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
             Validate
           </CosButton>
           {renderValidationResult()}
-        </div>
+        </div> */}
       </div>
       <div className="flex flex-col gap-y-3">
         <CosStroke type="dot" />
+
         <div className="flex items-center gap-x-4">
           <CosButton
             type="primary"

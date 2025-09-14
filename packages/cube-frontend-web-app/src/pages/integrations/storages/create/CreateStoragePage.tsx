@@ -1,13 +1,13 @@
 import { StorageDetailsForm } from '../_components/upsert/StorageDetailsForm'
 import { UpsertStorageLayout } from '../_components/upsert/UpsertStorageLayout'
 import { useStorageValidation } from '../_components/upsert/useStorageValidation'
-import { useStorageVendors } from '../_components/useStorageVendors'
 import { useCreateStorage } from './useCreateStorage'
 import { ValidationLog } from '../_components/upsert/ValidationLog'
 import { CosCollapsiblePanelLayout } from '@cube-frontend/ui-library'
+import { useVendorModel } from './useVendorModel'
 
 export const CreateStoragePage = () => {
-  const { isLoading: isVendorsLoading, data: vendors } = useStorageVendors()
+  const { isLoading: isVendorModelsLoading, vendorModels } = useVendorModel()
 
   const {
     isValidating,
@@ -20,7 +20,7 @@ export const CreateStoragePage = () => {
   } = useStorageValidation()
 
   const { isCreating, initialStorage, createStorage, cancel } =
-    useCreateStorage(vendors)
+    useCreateStorage(vendorModels)
 
   return (
     <UpsertStorageLayout title="Add Storage">
@@ -31,11 +31,11 @@ export const CreateStoragePage = () => {
         <CosCollapsiblePanelLayout.LeftPanel topic="Storage details">
           <StorageDetailsForm
             initialStorage={initialStorage}
-            isVendorsLoading={isVendorsLoading}
+            isVendorModelsLoading={isVendorModelsLoading}
             isSaving={isCreating}
             isValidating={isValidating}
             isValidated={isValidated}
-            vendors={vendors}
+            vendorModels={vendorModels}
             validationErrorState={validationErrorState}
             submitButtonText="Add storage to COS"
             clearValidationLog={clearValidationLog}
