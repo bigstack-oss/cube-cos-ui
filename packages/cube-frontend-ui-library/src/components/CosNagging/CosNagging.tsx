@@ -19,6 +19,7 @@ export type CosNaggingLink = Pick<CosHyperlinkProps, 'href' | 'onClick'> & {
 export type CosNaggingProps = PropsWithClassName & {
   type: CosNaggingType
   title: string
+  titleClassName?: string
   description?: string | string[]
   link?: CosNaggingLink
 } & (
@@ -57,7 +58,8 @@ const typeIcons: Record<CosNaggingType, SvgElement> = {
 }
 
 export const CosNagging = (props: CosNaggingProps) => {
-  const { className, type, variant, title, description, link } = props
+  const { className, type, variant, title, titleClassName, description, link } =
+    props
 
   const isVariantSidebar = variant === 'sidebar'
 
@@ -65,7 +67,12 @@ export const CosNagging = (props: CosNaggingProps) => {
 
   const renderTitle = () => {
     const titleElement = (
-      <div className="primary-body4 font-semibold text-functional-title">
+      <div
+        className={twMerge(
+          'primary-body4 font-semibold text-functional-title',
+          titleClassName,
+        )}
+      >
         {title}
       </div>
     )

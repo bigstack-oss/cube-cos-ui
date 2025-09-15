@@ -4,7 +4,6 @@ import {
   CosPagination,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
-import Trash from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
@@ -12,7 +11,18 @@ import dayjs from 'dayjs'
 import { useContext } from 'react'
 import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
 import { ReleaseNotePanel } from '../_components/ReleaseNotePanel'
+import { useCephHealthStatus } from '../_components/useCephHealthStatus'
 import { useReleaseNotePanel } from '../_components/useReleaseNotePanel'
+import { DeleteAction } from './actions/delete/DeleteAction'
+import { DeleteFirmwareModal } from './actions/delete/DeleteFirmwareModal'
+import { useDeleteFirmwareModal } from './actions/delete/useDeleteFirmwareModal'
+import { UpdateAction } from './actions/update/UpdateAction'
+import { UpdateFirmwareModal } from './actions/update/UpdateFirmwareModal'
+import { useUpdateFirmwareModal } from './actions/update/useUpdateFirmwareModal'
+import {
+  computeFirmwareDeleteActionState,
+  computeFirmwareUpdateActionState,
+} from './computeFirmwaresActionState'
 import { FirmwareRow } from './listFirmwaresUtils'
 import { UploadFirmwareModal } from './UploadFirmwareModal'
 import { useListFirmwares } from './useListFirmwares'
@@ -37,9 +47,59 @@ export const MaintenanceUpdateFirmwarePage = () => {
   const { rowForReleaseNote, showReleaseNoteFor, releaseNotePanel } =
     useReleaseNotePanel<FirmwareRow>()
 
+  const cephHealthStatus = useCephHealthStatus()
+
+  const {
+    firmwareVersionToUpdate,
+    showUpdateFirmwareModal,
+    closeUpdateFirmwareModal,
+    updateModalTitle,
+    updateModalContent,
+    updateModalActionProps,
+  } = useUpdateFirmwareModal(listFirmwares)
+
+  const {
+    firmwareVersionToDelete,
+    showDeleteFirmwareModal,
+    closeDeleteFirmwareModal,
+  } = useDeleteFirmwareModal()
+
+  const onFirmwareDeleted = (): void => {
+    listFirmwares()
+    closeDeleteFirmwareModal()
+  }
+
   const formatUpdatedAt = (updatedAt: string): string => {
     if (!updatedAt) return ''
     return dayjs.respectTzOffset(updatedAt).format('YYYY/MM/DD')
+  }
+
+  const renderActions = (row: FirmwareRow) => {
+    const version = row.version
+
+    const updateActionState = computeFirmwareUpdateActionState(
+      row,
+      cephHealthStatus,
+    )
+
+    const deleteActionState = computeFirmwareDeleteActionState(row)
+
+    return (
+      <div className="flex items-center">
+        {row.status.isUpdatable && (
+          <UpdateAction
+            state={updateActionState}
+            onClick={() => showUpdateFirmwareModal(version)}
+          />
+        )}
+        {row.status.isRemovable && (
+          <DeleteAction
+            state={deleteActionState}
+            onClick={() => showDeleteFirmwareModal(version)}
+          />
+        )}
+      </div>
+    )
   }
 
   return (
@@ -97,22 +157,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
                 fitContent={true}
                 skeletonVariant="icon-right"
               >
-                {() => (
-                  <div className="flex items-center">
-                    <CosButton
-                      type="ghost"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      Update
-                    </CosButton>
-                    <CosButton
-                      type="ghost"
-                      usage="icon-only"
-                      Icon={Trash}
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                  </div>
-                )}
+                {(_, row) => renderActions(row)}
               </FirmwareTable.Column>
             </FirmwareTable>
             <CosPagination
@@ -135,6 +180,18 @@ export const MaintenanceUpdateFirmwarePage = () => {
         isOpen={isUploadModalOpen}
         onClose={closeUploadModal}
         onMd5Verified={listFirmwares}
+      />
+      <UpdateFirmwareModal
+        version={firmwareVersionToUpdate}
+        title={updateModalTitle}
+        content={updateModalContent}
+        updateModalActionProps={updateModalActionProps}
+        onCloseClick={closeUpdateFirmwareModal}
+      />
+      <DeleteFirmwareModal
+        version={firmwareVersionToDelete}
+        onCloseClick={closeDeleteFirmwareModal}
+        onDeleted={onFirmwareDeleted}
       />
     </MaintenanceUpdateLayout>
   )
