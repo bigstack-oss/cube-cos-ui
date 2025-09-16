@@ -7,12 +7,14 @@ import {
 import Trash from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
 import dayjs from 'dayjs'
 import { useContext } from 'react'
 import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
 import { ReleaseNotePanel } from '../_components/ReleaseNotePanel'
 import { useReleaseNotePanel } from '../_components/useReleaseNotePanel'
 import { FirmwareRow } from './listFirmwaresUtils'
+import { UploadFirmwareModal } from './UploadFirmwareModal'
 import { useListFirmwares } from './useListFirmwares'
 import { useListFirmwaresQuery } from './useListFirmwaresQuery'
 
@@ -23,7 +25,14 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
   const { query, onPageChange, onItemsPerPageChange } = useListFirmwaresQuery()
 
-  const { showLoading, rows, totalItemCount } = useListFirmwares(query)
+  const { showLoading, rows, totalItemCount, listFirmwares } =
+    useListFirmwares(query)
+
+  const {
+    isOpen: isUploadModalOpen,
+    open: openUploadModal,
+    close: closeUploadModal,
+  } = useOpenState()
 
   const { rowForReleaseNote, showReleaseNoteFor, releaseNotePanel } =
     useReleaseNotePanel<FirmwareRow>()
@@ -46,7 +55,9 @@ export const MaintenanceUpdateFirmwarePage = () => {
         <CosCollapsiblePanelLayout.LeftPanel
           topic="Firmware List"
           rightSlot={
-            <CosButton disabled={showLoading}>Upload Firmware</CosButton>
+            <CosButton disabled={showLoading} onClick={openUploadModal}>
+              Upload Firmware
+            </CosButton>
           }
           customToggleButton={
             <button
@@ -120,6 +131,11 @@ export const MaintenanceUpdateFirmwarePage = () => {
           <ReleaseNotePanel releaseNote={rowForReleaseNote?.releaseNotes} />
         </CosCollapsiblePanelLayout.RightPanel>
       </CosCollapsiblePanelLayout>
+      <UploadFirmwareModal
+        isOpen={isUploadModalOpen}
+        onClose={closeUploadModal}
+        onMd5Verified={listFirmwares}
+      />
     </MaintenanceUpdateLayout>
   )
 }

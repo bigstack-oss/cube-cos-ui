@@ -1,4 +1,7 @@
-import { FirmwaresApiListFirmwaresRequest } from '@cube-frontend/api'
+import {
+  FirmwaresApiListFirmwaresRequest,
+  ListFirmwaresResponseData,
+} from '@cube-frontend/api'
 import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -15,6 +18,7 @@ type UseListFirmwares = {
   showLoading: boolean
   rows: FirmwareRow[]
   totalItemCount: number
+  listFirmwares: () => Promise<ListFirmwaresResponseData>
 }
 
 const POLLING_INTERVAL = 5 * 1000
@@ -55,5 +59,6 @@ export const useListFirmwares = (
     rows,
     totalItemCount: pagedFirmwares?.page.totalItemCount ?? 0,
     showLoading,
+    listFirmwares,
   }
 }

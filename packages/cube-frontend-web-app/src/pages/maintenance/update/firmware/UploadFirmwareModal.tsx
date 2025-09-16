@@ -1,5 +1,5 @@
 import { CosModal, CosStroke, CosUpload } from '@cube-frontend/ui-library'
-import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
+import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { HttpStatusCode, isAxiosError } from 'axios'
 import { useContext, useEffect, useId, useMemo } from 'react'
@@ -7,15 +7,15 @@ import { Md5Verification } from '../_components/Md5Verification'
 import { PkgAndChecksumInfo } from '../_components/md5VerificationUtils'
 import { useFileUpload } from '../_components/useFileUpload'
 import { useScrollToMd5Verification } from '../_components/useScrollToMd5Verification'
-import { useFixpackMd5Verification } from './useFixpackMd5Verification'
+import { useFirmwareMd5Verification } from './useFirmwareMd5Verification'
 
-type UploadFixpackModalProps = {
+type UploadFirmwareModalProps = {
   isOpen: boolean
   onClose: () => void
   onMd5Verified: () => Promise<unknown>
 }
 
-export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
+export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
   const { isOpen, onClose, onMd5Verified } = props
 
   const { dataCenter } = useContext(DataCenterContext)
@@ -25,7 +25,7 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
   const pkgFileUpload = useFileUpload({
     request: async (file, config) => {
-      await fixpacksApi.uploadFixpack(
+      await firmwaresApi.uploadFirmware(
         {
           dataCenter: dataCenter!.name,
           file: file.name,
@@ -39,7 +39,7 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
       if (isAxiosError(error) && error.status == HttpStatusCode.Conflict) {
         // TODO: show error message based on business error code in error API response when it's implemented.
-        return 'A duplicate Fixpack ID was found, or an MD5 checksum is being verified.'
+        return 'A duplicate Firmware ID was found, or an MD5 checksum is being verified.'
       }
 
       return 'Unknown error occurred, please try again.'
@@ -48,7 +48,7 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
   const checksumFileUpload = useFileUpload({
     request: async (file, config) => {
-      await fixpacksApi.uploadFixpackMd5Sum(
+      await firmwaresApi.uploadFirmwareMd5Sum(
         {
           dataCenter: dataCenter!.name,
           body: file,
@@ -61,7 +61,7 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
       if (isAxiosError(error) && error.status == HttpStatusCode.Conflict) {
         // TODO: show error message based on business error code in error API response when it's implemented.
-        return 'An MD5 checksum is being verified, or a fixpack upload is in progress.'
+        return 'An MD5 checksum is being verified, or a firmware upload is in progress.'
       }
 
       return 'Unknown error occurred, please try again.'
@@ -74,7 +74,7 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
     md5ChecksumPair,
     verifyMd5,
     resetMd5,
-  } = useFixpackMd5Verification({
+  } = useFirmwareMd5Verification({
     pkgFileName: pkgFileUpload.fileName,
     checksumFileName: checksumFileUpload.fileName,
     onVerified: onMd5Verified,
@@ -173,13 +173,13 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
       <>
         <div className="flex flex-col items-start gap-y-3">
           <label htmlFor={pkgInputId} className="primary-body4 font-semibold">
-            Upload Fixpack
+            Upload Firmware
           </label>
           <CosUpload
             className="w-full"
             buttonText="Upload from computer"
             inputId={pkgInputId}
-            accept=".fixpack"
+            accept=".pkg"
             isUploading={pkgFileUpload.isUploading}
             disabled={isMd5Verifying || isMd5ChecksumVerified}
             onFileChange={pkgFileUpload.start}
@@ -246,7 +246,7 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
   return (
     <CosModal
-      title="Upload Fixpack"
+      title="Upload Firmware"
       isOpen={isOpen}
       actionText="Done"
       actionButtonProps={{
