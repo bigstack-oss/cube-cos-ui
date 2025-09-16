@@ -1,4 +1,7 @@
-import { ListFirmwaresResponseData } from '@cube-frontend/api'
+import {
+  GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum as FirmwareStatus,
+  ListFirmwaresResponseData,
+} from '@cube-frontend/api'
 import { CosModalProps } from '@cube-frontend/ui-library'
 import { ReactNode, useMemo, useState } from 'react'
 import { mockUpdatableNodes, mockUpdateProgresses } from '../../mockFirmware'
@@ -6,7 +9,10 @@ import { NodeUpdate } from './NodeUpdate'
 import { UpdatableNodes } from './UpdatableNodes'
 import { UpdateModalStep } from './updateActionUtils'
 
-const DONE_STATES = ['available', 'resolved']
+const DONE_STATES: Set<FirmwareStatus> = new Set([
+  FirmwareStatus.Installed,
+  FirmwareStatus.Resolved,
+])
 
 type UseUpdateFirmwareModal = {
   firmwareVersionToUpdate: string | undefined
@@ -49,7 +55,7 @@ export const useUpdateFirmwareModal = (
     return upgradeProgressRows.every(
       (progress) =>
         !progress.status.isProcessing &&
-        DONE_STATES.includes(progress.status.current),
+        DONE_STATES.has(progress.status.current),
     )
   }, [upgradeProgressRows])
 

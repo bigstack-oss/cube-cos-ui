@@ -1,48 +1,48 @@
-import { GetHealthsResponseDataOverallStatusCurrentEnum } from '@cube-frontend/api'
+import {
+  GetHealthsResponseDataOverallStatusCurrentEnum,
+  ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum,
+} from '@cube-frontend/api'
 import { CephHealthStatus } from '../_components/useCephHealthStatus'
 import { FirmwareRow } from './listFirmwaresUtils'
 
 export type UpdateActionState =
   | 'available'
-  | 'unavailable'
   | 'inProgress'
   | 'blockedByCheckingCephHealth'
   | 'blockedByUnhealthyCeph'
+  | 'hidden'
 
 export type DeleteActionState =
   | 'available'
-  | 'unavailable'
-  | 'inProgress'
+  | 'blockedByProcessing'
   | 'blockedByUpdated'
 
 export const computeFirmwareUpdateActionState = (
   firmware: FirmwareRow,
   cephHealthStatus: CephHealthStatus,
 ): UpdateActionState => {
-  const isProcessing =
-    firmware.status.current === 'processing' || firmware.status.isProcessing
+  if (firmware.status.isProcessing) return 'inProgress'
 
-  if (isProcessing) return 'inProgress'
+  if (!firmware.status.isUpdatable) return 'hidden'
 
   if (cephHealthStatus === 'checking') return 'blockedByCheckingCephHealth'
 
   if (cephHealthStatus === GetHealthsResponseDataOverallStatusCurrentEnum.Ng)
     return 'blockedByUnhealthyCeph'
 
-  if (!firmware.status.isUpdatable) return 'unavailable'
-
   return 'available'
 }
 
-export const computeFirmwareDeleteActionState = (firmware: FirmwareRow) => {
-  const isProcessing =
-    firmware.status.current === 'processing' || firmware.status.isProcessing
+export const computeFirmwareDeleteActionState = (
+  firmware: FirmwareRow,
+): DeleteActionState => {
+  if (firmware.status.isProcessing) return 'blockedByProcessing'
 
-  if (isProcessing) return 'inProgress'
-
-  if (firmware.status.current === 'updated') return 'blockedByUpdated'
-
-  if (!firmware.status.isRemovable) return 'unavailable'
+  if (
+    firmware.status.current ===
+    ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum.Updated
+  )
+    return 'blockedByUpdated'
 
   return 'available'
 }

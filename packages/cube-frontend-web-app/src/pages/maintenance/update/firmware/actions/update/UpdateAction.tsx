@@ -1,9 +1,9 @@
-import { MouseEvent } from 'react'
 import {
   CosButton,
   CosTooltip,
   CosTooltipInformation,
 } from '@cube-frontend/ui-library'
+import { MouseEvent } from 'react'
 import { UpdateActionState } from '../../computeFirmwaresActionState'
 
 type UpdateActionProps = {
@@ -25,10 +25,6 @@ export const UpdateAction = (props: UpdateActionProps) => {
 
     if (state === 'blockedByUnhealthyCeph') {
       return { message: 'Update is blocked because Ceph is unhealthy.' }
-    }
-
-    if (state === 'unavailable') {
-      return { message: 'Update is unavailable for this firmware.' }
     }
 
     return undefined

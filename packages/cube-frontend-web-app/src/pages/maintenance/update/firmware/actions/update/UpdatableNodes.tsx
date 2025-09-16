@@ -36,6 +36,7 @@ export const UpdatableNodes = (props: UpdatableNodesProps) => {
       </UpdatableNodeTable>
       <div className="flex items-start gap-x-2">
         <CosCheckbox
+          containerClassName="items-start"
           label="Rolling update — each node will be updated one by one. If any node is
           currently hosting running VMs, they will be automatically evacuated
           before the update to avoid service disruption."

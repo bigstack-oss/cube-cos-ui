@@ -16,16 +16,15 @@ export const DeleteAction = (props: DeleteActionProps) => {
   const { state, onClick: onClickProp } = props
 
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
-    if (state === 'inProgress') {
-      return { message: 'Deletion is ongoing' }
+    if (state === 'blockedByProcessing') {
+      return {
+        message:
+          'Deletion is blocked because the firmware is currently being updated.',
+      }
     }
 
     if (state === 'blockedByUpdated') {
       return { message: 'Deletion is blocked because the firmware is updated.' }
-    }
-
-    if (state === 'unavailable') {
-      return { message: 'Deletion is unavailable for this firmware.' }
     }
 
     return undefined

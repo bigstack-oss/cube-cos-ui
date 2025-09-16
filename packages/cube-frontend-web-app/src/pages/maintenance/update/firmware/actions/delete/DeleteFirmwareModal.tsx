@@ -44,7 +44,8 @@ export const DeleteFirmwareModal = (props: DeleteFirmwareModalProps) => {
       onCloseClick={onCloseClick}
     >
       <div className="primary-body3 text-functional-text">
-        {`Are you sure you want to delete this firmware ${version}?`}
+        Are you sure you want to delete{' '}
+        <b className="font-semibold">{version}</b>?
       </div>
     </CosModal>
   )

@@ -20,6 +20,7 @@ export type CosCheckboxProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'checked' | 'defaultChecked'
 > & {
+  containerClassName?: string
   /**
    * @default primary
    */
@@ -44,6 +45,7 @@ export type CosCheckboxProps = Omit<
 
 export const CosCheckbox = (props: CosCheckboxProps) => {
   const {
+    containerClassName,
     color = 'primary',
     label,
     labelSize = 'md',
@@ -103,7 +105,10 @@ export const CosCheckbox = (props: CosCheckboxProps) => {
   return (
     <label
       htmlFor={id}
-      className={twMerge(checkbox.container({ size: labelSize, disabled }))}
+      className={twMerge(
+        checkbox.container({ size: labelSize, disabled }),
+        containerClassName,
+      )}
     >
       <input
         {...restProps}

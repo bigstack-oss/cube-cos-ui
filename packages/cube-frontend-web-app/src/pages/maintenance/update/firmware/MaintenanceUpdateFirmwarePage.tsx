@@ -86,18 +86,16 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
     return (
       <div className="flex items-center">
-        {row.status.isUpdatable && (
+        {updateActionState !== 'hidden' && (
           <UpdateAction
             state={updateActionState}
             onClick={() => showUpdateFirmwareModal(version)}
           />
         )}
-        {row.status.isRemovable && (
-          <DeleteAction
-            state={deleteActionState}
-            onClick={() => showDeleteFirmwareModal(version)}
-          />
-        )}
+        <DeleteAction
+          state={deleteActionState}
+          onClick={() => showDeleteFirmwareModal(version)}
+        />
       </div>
     )
   }

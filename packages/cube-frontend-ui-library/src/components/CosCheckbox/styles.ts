@@ -1,12 +1,12 @@
 import { cva } from 'class-variance-authority'
 
 export const checkbox = {
-  container: cva('inline-flex w-fit cursor-pointer gap-x-2', {
+  container: cva('inline-flex w-fit cursor-pointer items-center gap-x-2', {
     variants: {
       size: {
-        md: 'primary-body2 items-start',
-        sm: 'primary-body3 items-center',
-        xs: 'primary-body4 items-center',
+        md: 'primary-body2',
+        sm: 'primary-body3',
+        xs: 'primary-body4',
       },
       disabled: {
         true: 'cursor-default',
