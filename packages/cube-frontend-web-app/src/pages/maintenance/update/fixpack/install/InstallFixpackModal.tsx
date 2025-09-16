@@ -83,7 +83,7 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
       )}
       {(isInstalling || isInstalled) && (
         <FixpackInstallProgressView
-          isLoading={isLoadingProgress || !progressRows.length}
+          isLoading={isLoadingProgress}
           fixpack={fixpack}
           rows={progressRows}
         />

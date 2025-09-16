@@ -77,7 +77,13 @@ export const useFixpackUpdateProgress = (
   })
 
   return {
-    isLoadingProgress: showLoading,
+    isLoadingProgress:
+      showLoading ||
+      // Show loading while `progressRows` is empty, as the result of `useMemo`
+      // is always a render behind the state it depends on.
+      // This prevents the "No Data" placeholder from flashing in the progress
+      // table after the loading state is finished.
+      !progressRows.length,
     operation: updateProgress?.operation,
     progressRows,
     fetchUpdateProgress,

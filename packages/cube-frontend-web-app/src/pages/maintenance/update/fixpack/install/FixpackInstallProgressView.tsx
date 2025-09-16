@@ -69,17 +69,13 @@ export const FixpackInstallProgressView = (
   const showRebootHint = useMemo<boolean>(() => {
     return (
       fixpack.rebootRequired &&
-      !isInstalled &&
-      rows.every(
+      rows.some(
         (row) =>
           row.status.current === ProgressStatus.WaitingReboot ||
-          row.status.current === ProgressStatus.Rebooting ||
-          // Rebooted nodes will be in an `installed` state, while others are
-          // still waiting for reboot or rebooting.
-          row.status.current === ProgressStatus.Installed,
+          row.status.current === ProgressStatus.Rebooting,
       )
     )
-  }, [fixpack.rebootRequired, isInstalled, rows])
+  }, [fixpack.rebootRequired, rows])
 
   const getDescription = () => {
     if (hasFailedNode) {
