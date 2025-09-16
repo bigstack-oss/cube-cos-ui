@@ -24,3 +24,5 @@ export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 export type DeepPartial<T> = {
   [Key in keyof T]?: DeepPartial<T[Key]>
 }
+
+export type Nullish<T> = T | null | undefined

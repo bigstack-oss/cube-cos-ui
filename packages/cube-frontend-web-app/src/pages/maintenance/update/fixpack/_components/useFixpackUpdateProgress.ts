@@ -3,9 +3,9 @@ import {
   GetFixpackUpdateProgressResponseDataOperationEnum,
   ListFixpacksResponseDataFixpacksInner,
 } from '@cube-frontend/api'
+import { Nullish } from '@cube-frontend/utils'
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { Nullish } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'

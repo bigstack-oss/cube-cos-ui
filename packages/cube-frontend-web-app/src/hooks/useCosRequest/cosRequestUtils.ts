@@ -14,8 +14,6 @@ export type CosApiError = {
   status: string
 }
 
-export type Nullish<T> = T | null | undefined
-
 export type GetParamFn<T> = () => T | null | undefined
 
 export const isCosApiResponse = (

@@ -1,11 +1,11 @@
-import { useSyncedRef } from '@cube-frontend/utils'
+import { Nullish, useSyncedRef } from '@cube-frontend/utils'
 import { RawAxiosRequestConfig } from 'axios'
 import { useCallback, useEffect } from 'react'
 import {
   CosGetApiResponse,
   CosGetRequestMiddleware,
 } from './cosGetRequestUtils'
-import { GetParamFn, Nullish } from './cosRequestUtils'
+import { GetParamFn } from './cosRequestUtils'
 import { fetchOnMount } from './getRequestMiddlewares/fetchOnMount'
 import { fetchOnParamChanges } from './getRequestMiddlewares/fetchOnParamChanges'
 import {

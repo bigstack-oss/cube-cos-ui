@@ -1,3 +1,4 @@
+import { Nullish } from '@cube-frontend/utils'
 import { AxiosRequestConfig, isAxiosError, isCancel } from 'axios'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -9,7 +10,6 @@ import {
   GetParamFn,
   isCosApiResponse,
   isNullish,
-  Nullish,
 } from './cosRequestUtils'
 import { readStream } from './cosStreamRequestUtils'
 

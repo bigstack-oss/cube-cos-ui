@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { Nullish } from '@cube-frontend/utils'
 import { isEqual } from 'lodash'
 import { useEffect, useRef } from 'react'
 import type { CosGetRequestMiddleware } from '../cosGetRequestUtils'
-import { isNullish, Nullish, silentPromise } from '../cosRequestUtils'
+import { isNullish, silentPromise } from '../cosRequestUtils'
 import type { UseCosGetRequest } from '../useCosGetRequest'
 
 export const fetchOnParamChanges: CosGetRequestMiddleware = <Data>(
