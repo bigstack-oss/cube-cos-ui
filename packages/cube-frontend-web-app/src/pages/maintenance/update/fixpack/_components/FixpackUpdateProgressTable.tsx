@@ -1,7 +1,4 @@
-import {
-  GetFixpackUpdateProgressResponseDataProgressesInnerStatus,
-  GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum as StatusEnum,
-} from '@cube-frontend/api'
+import { GetFixpackUpdateProgressResponseDataProgressesInnerStatus } from '@cube-frontend/api'
 import { GetCosBasicTable } from '@cube-frontend/ui-library'
 import { ReactNode } from 'react'
 import { FixpackContinueAnywayButton } from './FixpackContinueAnywayButton'
@@ -10,6 +7,7 @@ import { ProgressTableRow } from './fixpackUpdateUtils'
 type FixpackUpdateProgressTableProps = {
   isLoading: boolean
   rows: ProgressTableRow[]
+  showContinueAnywayButton: (row: ProgressTableRow) => boolean
   renderStatus: (
     status: GetFixpackUpdateProgressResponseDataProgressesInnerStatus,
   ) => ReactNode
@@ -20,20 +18,18 @@ const ProgressTable = GetCosBasicTable<ProgressTableRow>()
 export const FixpackUpdateProgressTable = (
   props: FixpackUpdateProgressTableProps,
 ) => {
-  const { isLoading, rows, renderStatus } = props
+  const { isLoading, rows, renderStatus, showContinueAnywayButton } = props
 
   const renderAction = (row: ProgressTableRow) => {
-    const {
-      status: { current },
-    } = row
+    if (showContinueAnywayButton(row)) {
+      return (
+        <div className="flex justify-end">
+          <FixpackContinueAnywayButton nodeName={row.host} />
+        </div>
+      )
+    }
 
-    if (current !== StatusEnum.InstallFailed) return null
-
-    return (
-      <div className="flex justify-end">
-        <FixpackContinueAnywayButton nodeName={row.host} />
-      </div>
-    )
+    return null
   }
 
   return (

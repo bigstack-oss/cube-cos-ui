@@ -7,7 +7,7 @@ import { CosModal } from '@cube-frontend/ui-library'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useFixpackUpdateProgress } from '../_components/useFixpackUpdateProgress'
 import { FixpackInstallProgressView } from './FixpackInstallProgressView'
-import { FixpackUpdatableNodesView } from './FixpackUpdatableNodesView'
+import { FixpackInstallableNodesView } from './FixpackInstallableNodesView'
 import { useInstallFixpackModalActionButtonProps } from './useInstallFixpackModalActionButtonProps'
 
 type InstallFixpackModalProps = {
@@ -72,7 +72,7 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
       {...modalActionButtonProps}
     >
       {isInstallable && (
-        <FixpackUpdatableNodesView
+        <FixpackInstallableNodesView
           fixpack={fixpack}
           isRollbackDisclaimerRead={isRollbackDisclaimerRead}
           isRollbackDisclaimerDisabled={

@@ -15,7 +15,10 @@ import {
   StatusWithIconProps,
 } from '../../_components/StatusWithIcon'
 import { FixpackUpdateProgressTable } from '../_components/FixpackUpdateProgressTable'
-import { ProgressTableRow } from '../_components/fixpackUpdateUtils'
+import {
+  getShowRebootHint,
+  ProgressTableRow,
+} from '../_components/fixpackUpdateUtils'
 
 type FixpackInstallProgressViewProps = {
   isLoading: boolean
@@ -26,12 +29,12 @@ type FixpackInstallProgressViewProps = {
 const statusWithIconPropsMap: Partial<
   Record<ProgressStatus, StatusWithIconProps>
 > = {
-  [ProgressStatus.Installed]: {
+  [ProgressStatus.Available]: {
     Icon: CheckmarkCircleFill,
     text: 'Succeeded',
     color: 'text-status-positive',
   },
-  [ProgressStatus.InstallFailed]: {
+  [ProgressStatus.RollbackFailed]: {
     Icon: CrossFill,
     text: 'Failed',
     color: 'text-status-negative',
@@ -53,29 +56,23 @@ const statusWithIconPropsMap: Partial<
   },
 }
 
-export const FixpackInstallProgressView = (
+export const FixpackRollbackProgressView = (
   props: FixpackInstallProgressViewProps,
 ) => {
   const { isLoading, fixpack, rows } = props
 
-  const isInstalled = fixpack.status.current === FixpackStatus.Installed
+  const isRolledBack = fixpack.status.current === FixpackStatus.Available
 
   const hasFailedNode = useMemo<boolean>(() => {
     return rows.some(
-      (row) => row.status.current === ProgressStatus.InstallFailed,
+      (row) => row.status.current === ProgressStatus.RollbackFailed,
     )
   }, [rows])
 
-  const showRebootHint = useMemo<boolean>(() => {
-    return (
-      fixpack.rebootRequired &&
-      rows.some(
-        (row) =>
-          row.status.current === ProgressStatus.WaitingReboot ||
-          row.status.current === ProgressStatus.Rebooting,
-      )
-    )
-  }, [fixpack.rebootRequired, rows])
+  const showRebootHint = useMemo<boolean>(
+    () => getShowRebootHint(fixpack, rows),
+    [fixpack, rows],
+  )
 
   const getDescription = () => {
     if (hasFailedNode) {
@@ -89,11 +86,11 @@ export const FixpackInstallProgressView = (
       )
     }
 
-    if (isInstalled) {
-      return 'Installation completed. Please check the status of each node.'
+    if (isRolledBack) {
+      return 'Rolling back completed. Please check the status of each node.'
     }
 
-    return 'Install in progress for the following nodes:'
+    return 'Rollback in progress for the following nodes:'
   }
 
   const renderProgressRowStatus = (
@@ -101,7 +98,7 @@ export const FixpackInstallProgressView = (
   ) => {
     const { current } = status
 
-    if (current === ProgressStatus.Installing) {
+    if (current === ProgressStatus.RollingBack) {
       return (
         <div className="flex items-center gap-x-5 text-functional-text">
           <span className="primary-body4">{upperFirst(status.current)}</span>
@@ -120,7 +117,7 @@ export const FixpackInstallProgressView = (
   }
 
   const renderFooter = () => {
-    if (isInstalled) return null
+    if (isRolledBack) return null
 
     if (showRebootHint) {
       return (
@@ -151,7 +148,7 @@ export const FixpackInstallProgressView = (
         rows={rows}
         renderStatus={renderProgressRowStatus}
         showContinueAnywayButton={(row) =>
-          row.status.current === ProgressStatus.InstallFailed
+          row.status.current === ProgressStatus.RollbackFailed
         }
       />
       {renderFooter()}

@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react'
 import {
   CosButton,
   CosTooltip,
@@ -8,10 +9,11 @@ import { RollbackActionState } from '../computeFixpacksActionState'
 
 type RollbackActionProps = {
   state: Exclude<RollbackActionState, 'hidden'>
+  onClick: () => void
 }
 
 export const RollbackAction = (props: RollbackActionProps) => {
-  const { state } = props
+  const { state, onClick: onClickProp } = props
 
   const isBlockedBySelfRollbackability =
     state === 'blockedBySelfRollbackability'
@@ -41,6 +43,11 @@ export const RollbackAction = (props: RollbackActionProps) => {
     return undefined
   }
 
+  const handleClick = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.stopPropagation()
+    onClickProp()
+  }
+
   const renderButton = () => {
     return (
       // Wrap the button with a <span> because the hover event doesn't work
@@ -53,7 +60,7 @@ export const RollbackAction = (props: RollbackActionProps) => {
             isBlockedByCheckingCephHealth ||
             isBlockedByUnhealthyCeph
           }
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleClick}
         >
           {state === 'inProgress' ? 'Rolling back' : 'Rollback'}
         </CosButton>

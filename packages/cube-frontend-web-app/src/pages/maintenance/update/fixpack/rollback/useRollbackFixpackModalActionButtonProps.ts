@@ -10,69 +10,67 @@ import {
   ProgressTableRow,
 } from '../_components/fixpackUpdateUtils'
 import { useSoftRebootDataCenter } from '../_components/useSoftRebootDataCenter'
-import { useInstallFixpack } from './useInstallFixpack'
+import { useRollbackFixpack } from './useRollbackFixpack'
 
-type UseInstallFixpackModalActionButtonProps = Pick<
+type UseRollbackFixpackModalActionButtonProps = Pick<
   CosModalProps,
   'actionText' | 'actionButtonProps' | 'isCancelButtonVisible' | 'onActionClick'
 >
 
-type UseInstallFixpackModalActionButtonPropsArgs = {
+type UseRollbackFixpackModalActionButtonPropsArgs = {
   fixpack: ListFixpacksResponseDataFixpacksInner | undefined
   progressRows: ProgressTableRow[]
-  isRollbackDisclaimerRead: boolean
-  onInstallationRequested: () => unknown
+  onRollbackRequested: () => unknown
   onSoftRebootRequested: () => unknown
   onModalClose: () => void
 }
 
-export const useInstallFixpackModalActionButtonProps = (
-  args: UseInstallFixpackModalActionButtonPropsArgs,
-): UseInstallFixpackModalActionButtonProps => {
+export const useRollbackFixpackModalActionButtonProps = (
+  args: UseRollbackFixpackModalActionButtonPropsArgs,
+): UseRollbackFixpackModalActionButtonProps => {
   const {
     fixpack,
     progressRows,
-    isRollbackDisclaimerRead,
-    onInstallationRequested,
+    onRollbackRequested,
     onSoftRebootRequested,
     onModalClose,
   } = args
 
-  const { isInstallButtonLoading, onInstallClick } = useInstallFixpack(
+  const { isRollbackButtonLoading, onRollbackClick } = useRollbackFixpack(
     fixpack?.version,
-    onInstallationRequested,
+    onRollbackRequested,
   )
 
   const { isCallingSoftRebootDataCenterApi, onRebootClick } =
     useSoftRebootDataCenter(onSoftRebootRequested)
 
-  const isInstallable = fixpack?.status.current === FixpackStatus.Available
+  const isRollbackable = fixpack?.status.isRollbackable ?? false
 
-  const isInstalling =
-    fixpack?.status.current === FixpackStatus.Installing ||
-    fixpack?.status.current === FixpackStatus.InstallFailed
+  const isRollingBack =
+    fixpack?.status.current === FixpackStatus.RollingBack ||
+    fixpack?.status.current === FixpackStatus.RollbackFailed
 
   const isSoftRebooting = useMemo<boolean>(
     () => getIsSoftRebooting(fixpack, progressRows),
     [fixpack, progressRows],
   )
 
-  const isReadyToReboot = useMemo<boolean>(() => {
-    return getIsReadyToReboot(fixpack, progressRows)
-  }, [fixpack, progressRows])
+  const isReadyToReboot = useMemo<boolean>(
+    () => getIsReadyToReboot(fixpack, progressRows),
+    [fixpack, progressRows],
+  )
 
-  if (isInstallable) {
+  if (isRollbackable) {
     return {
-      actionText: 'Yes, install',
+      actionText: 'Yes, rollback',
       actionButtonProps: {
-        loading: isInstallButtonLoading,
-        disabled: !fixpack.status.isRollbackable && !isRollbackDisclaimerRead,
+        loading: isRollbackButtonLoading,
       },
-      onActionClick: onInstallClick,
+      onActionClick: onRollbackClick,
     }
   }
 
-  if (isInstalling) {
+  if (isRollingBack) {
     if (fixpack.rebootRequired) {
       return {
         actionText: 'Reboot now',
@@ -88,7 +86,7 @@ export const useInstallFixpackModalActionButtonProps = (
     return {
       actionText: 'Done',
       actionButtonProps: {
-        // Disable the button because the fixpack is still installing.
+        // Disable the button because the fixpack is still rolling back.
         disabled: true,
       },
       isCancelButtonVisible: false,

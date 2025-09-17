@@ -11,29 +11,30 @@ import {
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import dayjs from 'dayjs'
 import { ChangeEvent, useContext, useMemo } from 'react'
+import { formatUpdatedAt } from '../_components/fixpackUpdateUtils'
 
-type FixpackUpdatableNodesViewProps = {
+type FixpackInstallableNodesViewProps = {
   fixpack: ListFixpacksResponseDataFixpacksInner
   isRollbackDisclaimerRead: boolean
   isRollbackDisclaimerDisabled: boolean
   onRollbackDisclaimerReadChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-const UpdatableNodeTable = GetCosBasicTable<UpdatableNodeRow>()
+const InstallableNodeTable = GetCosBasicTable<InstallableNodeRow>()
 
-type UpdatableNodeRow = CosTableRow & ListFixpackUpdatableNodesResponseDataInner
+type InstallableNodeRow = CosTableRow &
+  ListFixpackUpdatableNodesResponseDataInner
 
 const nodeToTableRow = (
   node: ListFixpackUpdatableNodesResponseDataInner,
-): UpdatableNodeRow => ({
+): InstallableNodeRow => ({
   ...node,
   id: node.name,
 })
 
-export const FixpackUpdatableNodesView = (
-  props: FixpackUpdatableNodesViewProps,
+export const FixpackInstallableNodesView = (
+  props: FixpackInstallableNodesViewProps,
 ) => {
   const {
     fixpack,
@@ -52,32 +53,26 @@ export const FixpackUpdatableNodesView = (
     }),
   )
 
-  const rows = useMemo<UpdatableNodeRow[]>(
+  const rows = useMemo<InstallableNodeRow[]>(
     () => (updatableNodes ?? []).map(nodeToTableRow),
     [updatableNodes],
   )
-
-  const formatUpdatedAt = (updatedAt: string): string => {
-    if (!updatedAt) return ''
-    return dayjs.respectTzOffset(updatedAt).format('YYYY/MM/DD')
-  }
-
   return (
     <div className="flex flex-col gap-y-5">
       <div className="primary-body2 text-functional-text">
         Do you want to install{' '}
         <b className="font-semibold">{fixpack.version}</b> on these nodes?
       </div>
-      <UpdatableNodeTable isLoading={isLoading} rows={rows}>
-        <UpdatableNodeTable.Column label="Host" property="name" />
-        <UpdatableNodeTable.Column label="Last Updated" property="updatedAt">
+      <InstallableNodeTable isLoading={isLoading} rows={rows}>
+        <InstallableNodeTable.Column label="Host" property="name" />
+        <InstallableNodeTable.Column label="Last Updated" property="updatedAt">
           {formatUpdatedAt}
-        </UpdatableNodeTable.Column>
-        <UpdatableNodeTable.Column
+        </InstallableNodeTable.Column>
+        <InstallableNodeTable.Column
           label="Firmware Version"
           property="version"
         />
-      </UpdatableNodeTable>
+      </InstallableNodeTable>
       {!fixpack.status.isRollbackable && (
         <CosCheckbox
           labelClassName="max-w-none"

@@ -28,6 +28,8 @@ import { FixpackRow } from './listFixpacksUtils'
 import { UploadFixpackModal } from './UploadFixpackModal'
 import { useListFixpacks } from './useListFixpacks'
 import { useListFixpacksQuery } from './useListFixpacksQuery'
+import { RollbackFixpackModal } from './rollback/RollbackFixpackModal'
+import { useRollbackFixpackModal } from './rollback/useRollbackFixpackModal'
 
 const FixpackTable = GetCosBasicTable<FixpackRow>()
 
@@ -63,6 +65,13 @@ export const MaintenanceUpdateFixpackPage = () => {
   } = useInstallFixpackModal(pagedRows)
 
   const {
+    isRollbackModalOpen,
+    fixpackToRollback,
+    onRollbackClick,
+    onRollbackModalClose,
+  } = useRollbackFixpackModal(pagedRows)
+
+  const {
     fixpackVersionToDelete,
     showDeleteFixpackModal,
     closeDeleteFixpackModal,
@@ -86,7 +95,12 @@ export const MaintenanceUpdateFixpackPage = () => {
         {install !== 'hidden' && (
           <InstallAction state={install} onClick={() => onInstallClick(row)} />
         )}
-        {rollback !== 'hidden' && <RollbackAction state={rollback} />}
+        {rollback !== 'hidden' && (
+          <RollbackAction
+            state={rollback}
+            onClick={() => onRollbackClick(row)}
+          />
+        )}
         {remove !== 'hidden' && (
           <RemoveAction
             state={remove}
@@ -184,6 +198,12 @@ export const MaintenanceUpdateFixpackPage = () => {
         fixpack={fixpackToInstall}
         onInstallationRequested={listFixpacks}
         onClose={onInstallModalClose}
+      />
+      <RollbackFixpackModal
+        isOpen={isRollbackModalOpen}
+        fixpack={fixpackToRollback}
+        onRollbackRequested={listFixpacks}
+        onClose={onRollbackModalClose}
       />
       <DeleteFixpackModal
         version={fixpackVersionToDelete}
