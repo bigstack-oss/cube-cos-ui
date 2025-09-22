@@ -23,10 +23,6 @@ export const DeleteAction = (props: DeleteActionProps) => {
       }
     }
 
-    if (state === 'blockedByUpdated') {
-      return { message: 'Deletion is blocked because the firmware is updated.' }
-    }
-
     return undefined
   }
 

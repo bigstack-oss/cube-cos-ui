@@ -92,10 +92,12 @@ export const MaintenanceUpdateFirmwarePage = () => {
             onClick={() => showUpdateFirmwareModal(version)}
           />
         )}
-        <DeleteAction
-          state={deleteActionState}
-          onClick={() => showDeleteFirmwareModal(version)}
-        />
+        {deleteActionState !== 'hidden' && (
+          <DeleteAction
+            state={deleteActionState}
+            onClick={() => showDeleteFirmwareModal(version)}
+          />
+        )}
       </div>
     )
   }

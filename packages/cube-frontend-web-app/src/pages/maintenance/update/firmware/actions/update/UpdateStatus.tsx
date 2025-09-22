@@ -1,10 +1,10 @@
+import { GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus as ProgressStatus } from '@cube-frontend/api'
 import CircleFill from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
 import CrossFill from '@cube-frontend/ui-library/icons/monochrome/cross_fill.svg?react'
-import { GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus } from '@cube-frontend/api'
 import { upperFirst } from 'lodash'
 
 type UpdateStatusProps = {
-  status: GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus
+  status: ProgressStatus
 }
 
 export const UpdateStatus = (props: UpdateStatusProps) => {

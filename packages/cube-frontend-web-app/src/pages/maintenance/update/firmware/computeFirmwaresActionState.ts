@@ -12,10 +12,7 @@ export type UpdateActionState =
   | 'blockedByUnhealthyCeph'
   | 'hidden'
 
-export type DeleteActionState =
-  | 'available'
-  | 'blockedByProcessing'
-  | 'blockedByUpdated'
+export type DeleteActionState = 'available' | 'blockedByProcessing' | 'hidden'
 
 export const computeFirmwareUpdateActionState = (
   firmware: FirmwareRow,
@@ -36,13 +33,13 @@ export const computeFirmwareUpdateActionState = (
 export const computeFirmwareDeleteActionState = (
   firmware: FirmwareRow,
 ): DeleteActionState => {
-  if (firmware.status.isProcessing) return 'blockedByProcessing'
-
   if (
     firmware.status.current ===
     ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum.Updated
   )
-    return 'blockedByUpdated'
+    return 'hidden'
+
+  if (firmware.status.isProcessing) return 'blockedByProcessing'
 
   return 'available'
 }
