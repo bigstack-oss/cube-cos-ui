@@ -35,7 +35,7 @@ export const useFirmwareMd5Verification = (
     })
 
     return {
-      pkgMd5Checksum: firmwareMd5!,
+      pkgMd5Checksum: firmwareMd5,
       expectedMd5Checksum: expectedMd5,
     }
   }

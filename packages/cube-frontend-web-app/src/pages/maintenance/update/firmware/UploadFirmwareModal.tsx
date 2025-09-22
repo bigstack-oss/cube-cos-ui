@@ -7,6 +7,7 @@ import { Md5Verification } from '../_components/Md5Verification'
 import { PkgAndChecksumInfo } from '../_components/md5VerificationUtils'
 import { useFileUpload } from '../_components/useFileUpload'
 import { useScrollToMd5Verification } from '../_components/useScrollToMd5Verification'
+import { checksumFileExtensions } from '../maintenanceUpdateUtils'
 import { useFirmwareMd5Verification } from './useFirmwareMd5Verification'
 
 type UploadFirmwareModalProps = {
@@ -215,7 +216,7 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
             className="w-full"
             buttonText="Choose checksum"
             inputId={checksumInputId}
-            accept=".md5,.md5sum,.txt,.cksum"
+            accept={checksumFileExtensions}
             isUploading={checksumFileUpload.isUploading}
             disabled={isMd5Verifying || isMd5ChecksumVerified}
             onFileChange={checksumFileUpload.start}
