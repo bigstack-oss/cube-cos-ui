@@ -1,0 +1,6 @@
+{
+  "component.panel.viewAll": "瀏覽全部",
+  "component.panel.error": "個錯誤",
+  "component.panel.error_{others}": "個錯誤",
+  "component.percentagePieChart.used": "已使用"
+}

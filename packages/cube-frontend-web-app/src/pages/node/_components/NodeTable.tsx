@@ -19,6 +19,7 @@ import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router'
 import { VipLabel } from './VipLabel'
+import { useTranslation } from 'react-i18next'
 
 const BatchActionNodeTable =
   GetCosBatchActionTable<GetNodesResponseData['nodes'][number]>()
@@ -26,6 +27,8 @@ const BatchActionNodeTable =
 export type NodeTableProps = ComponentProps<typeof BatchActionNodeTable>
 
 export const NodeTable = (props: NodeTableProps) => {
+  const { t } = useTranslation()
+
   return (
     <BatchActionNodeTable
       {...props}
@@ -81,7 +84,7 @@ export const NodeTable = (props: NodeTableProps) => {
         label="License Expiration"
         property="license"
       >
-        {(license) => toLicenseExpirationDate(license)}
+        {(license) => toLicenseExpirationDate(license, t)}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
         label="CPU"
@@ -121,7 +124,7 @@ export const NodeTable = (props: NodeTableProps) => {
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column label="Running" property="uptimeSeconds">
         {(_, node) => (
-          <span className="whitespace-nowrap">{formatUpTime(node)}</span>
+          <span className="whitespace-nowrap">{formatUpTime(t, node)}</span>
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column

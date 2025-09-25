@@ -4,6 +4,7 @@ import { computeStatusType, Status, StatusType } from './utils'
 
 export type CosStatusProps = {
   status: Status
+  statusDisplay?: string
 }
 
 const statusCva = cva(
@@ -43,14 +44,13 @@ const formatText = (status: string): string => {
 }
 
 export const CosStatus = (props: CosStatusProps) => {
-  const { status } = props
+  const { status, statusDisplay } = props
 
   const type = computeStatusType(status)
 
   return (
     <span className={statusCva({ type })}>
-      {/* TODO: i18n */}
-      {formatText(status)}
+      {statusDisplay ? formatText(statusDisplay) : formatText(status)}
     </span>
   )
 }

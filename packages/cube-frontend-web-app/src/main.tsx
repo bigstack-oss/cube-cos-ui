@@ -9,12 +9,17 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import App from './App.tsx'
 import { CosErrorBoundary } from './components/ErrorDisplay/CosErrorBoundary.tsx'
+import i18n from './i18n/i18n.ts'
+
+import 'dayjs/locale/en'
+import 'dayjs/locale/zh-tw'
 
 dayjs.extend(duration)
 dayjs.extend(isBetween)
 dayjs.extend(minMax)
 dayjs.extend(relativeTime)
 dayjs.extend(respectTz)
+dayjs.locale(i18n.language)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,4 +1,3 @@
-import pluralize from 'pluralize'
 import { CosSkeleton } from '../../CosSkeleton/CosSkeleton'
 import {
   CosHyperlink,
@@ -7,6 +6,7 @@ import {
 import ChevronRightIcon from '../..//CosIcon/monochrome/chevron_right.svg?react'
 import WarningAltFilledIcon from '../../CosIcon/monochrome/warning_alt_filled.svg?react'
 import { cloneElement, PropsWithChildren, ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export type CosDashboardPanelHeaderProps = {
   title: string
@@ -30,11 +30,6 @@ export type CosDashboardPanelHeaderProps = {
     }
 )
 
-// TODO: Replace this with i18n.
-const pluralizeError = (count: number): string => {
-  return `${count} ${pluralize('error', count)}`
-}
-
 export const CosDashboardPanelHeader = (
   props: CosDashboardPanelHeaderProps,
 ) => {
@@ -46,6 +41,8 @@ export const CosDashboardPanelHeader = (
     hyperLinkProps,
     HyperLinkContainer,
   } = props
+
+  const { t } = useTranslation()
 
   const renderTime = () => {
     if (isTimeLoading) return <CosSkeleton className="h-[13px] w-[97px]" />
@@ -64,7 +61,7 @@ export const CosDashboardPanelHeader = (
         Icon={ChevronRightIcon}
         {...hyperLinkProps}
       >
-        View All
+        {t('component.panel.viewAll', 'View All')}
       </CosHyperlink>
     )
 
@@ -83,7 +80,9 @@ export const CosDashboardPanelHeader = (
         {errorCount > 0 && (
           <div className="flex items-center gap-x-1 text-status-negative">
             <WarningAltFilledIcon className="icon-md" />
-            <span className="primary-body3">{pluralizeError(errorCount)}</span>
+            <span className="primary-body3">
+              {errorCount} {t('component.panel.error', { count: errorCount })}
+            </span>
           </div>
         )}
       </div>

@@ -1,3 +1,7 @@
+import { useContext, useMemo, useState } from 'react'
+import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import { noop } from 'lodash'
 import { HealthApiGetHealthsRequest } from '@cube-frontend/api'
 import { CosDashboardPanel } from '@cube-frontend/ui-library'
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
@@ -6,9 +10,6 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
-import { noop } from 'lodash'
-import { useContext, useMemo, useState } from 'react'
-import { Link } from 'react-router'
 import { links } from '../../../links'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../../homeOverviewPageUtils'
 import { HealthError } from './HealthError'
@@ -18,6 +19,8 @@ import { toHealthUIData } from './utils'
 
 const HealthPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   const {
     data: healths,
@@ -78,7 +81,7 @@ const HealthPanel = () => {
 
   return (
     <CosDashboardPanel
-      title="Health"
+      title={t('home.tabs.health')}
       time={updateTime}
       errorCount={errorCount}
       hyperLinkProps={{ onClick: noop }}

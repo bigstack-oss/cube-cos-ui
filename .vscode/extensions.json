@@ -5,6 +5,7 @@
     "yoavbls.pretty-ts-errors",
     "streetsidesoftware.code-spell-checker",
     "bradlc.vscode-tailwindcss",
-    "timonwong.shellcheck"
+    "timonwong.shellcheck",
+    "lokalise.i18n-ally"
   ]
 }

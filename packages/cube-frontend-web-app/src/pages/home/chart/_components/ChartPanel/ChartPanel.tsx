@@ -1,3 +1,5 @@
+import { useContext, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GetMetricsResponseData } from '@cube-frontend/api'
 import {
   CosCountSegmentedChart,
@@ -7,10 +9,9 @@ import {
 import { toPluralizeDisplay } from '@cube-frontend/utils'
 import ScrollContainer from '@cube-frontend/web-app/components/ScrollContainer/ScrollContainer'
 import { useMediaQuery } from '@cube-frontend/web-app/hooks/useMediaQuery'
-import { useContext, useMemo } from 'react'
-import { toMetricsChart } from '../../../utils'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CpuPercentagePieChart } from '@cube-frontend/web-app/components/CpuPercentagePieChart/CpuPercentagePieChart'
+import { toMetricsChart } from '../../../utils'
 
 export type ChartPanelProps = {
   metrics: GetMetricsResponseData
@@ -19,6 +20,8 @@ export type ChartPanelProps = {
 
 export const ChartPanel = (props: ChartPanelProps) => {
   const { metrics, isLoading } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -30,22 +33,22 @@ export const ChartPanel = (props: ChartPanelProps) => {
     cpuPieChart,
     memoryPieChart,
     storagePieChart,
-  } = useMemo(() => toMetricsChart(metrics, roles), [metrics, roles])
+  } = useMemo(() => toMetricsChart(metrics, roles, t), [metrics, roles, t])
 
   const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
 
   const vmAllocationPanel = (
-    <CosGeneralPanel topic="VM allocation">
+    <CosGeneralPanel topic={t('home.overview.chart.totalVm')}>
       <div className="flex h-[260px] w-full flex-row justify-around gap-x-[35px] p-5">
         <CpuPercentagePieChart isLoading={isLoading} {...cpuPieChart} />
         <CosPercentagePieChart
-          title="Memory"
+          title={t('home.overview.chart.memory')}
           overThresholdText="Over Limit"
           isLoading={isLoading}
           {...memoryPieChart}
         />
         <CosPercentagePieChart
-          title="Storage"
+          title={t('home.overview.chart.storage')}
           overThresholdText="Over Limit"
           isLoading={isLoading}
           {...storagePieChart}
@@ -57,9 +60,9 @@ export const ChartPanel = (props: ChartPanelProps) => {
   return (
     <ScrollContainer className="flex gap-x-5">
       <div className="flex min-w-[500px] flex-1 flex-col gap-y-5">
-        <CosGeneralPanel topic="VM summary">
+        <CosGeneralPanel topic={t('home.overview.chart.totalVm')}>
           <CosCountSegmentedChart
-            title="VM Status"
+            title={t('home.overview.chart.totalVm')}
             subtext={toPluralizeDisplay(vmBarChart.count, 'Instance')}
             overview={{ name: 'Total VM', count: vmBarChart.count }}
             countInfos={vmBarChart.countInfos}
@@ -67,9 +70,9 @@ export const ChartPanel = (props: ChartPanelProps) => {
             skeletonCount={6}
           />
         </CosGeneralPanel>
-        <CosGeneralPanel topic="Role summary">
+        <CosGeneralPanel topic={t('home.overview.chart.roleSummary')}>
           <CosCountSegmentedChart
-            title="Role Distribution"
+            title={t('home.overview.chart.roleSummary')}
             subtext={toPluralizeDisplay(roleBarChart.count, 'Role')}
             countInfos={roleBarChart.countInfos}
             isLoading={isLoading}

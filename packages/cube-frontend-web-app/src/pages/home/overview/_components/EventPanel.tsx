@@ -1,3 +1,7 @@
+import { useContext, useMemo, useState } from 'react'
+import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import { noop } from 'lodash'
 import {
   EventsApiGetAbstractedEventsRequest,
   GetAbstractedEventsResponseData,
@@ -16,9 +20,6 @@ import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import { useUpdateTime } from '@cube-frontend/web-app/hooks/useUpdateTime'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
-import { noop } from 'lodash'
-import { useContext, useMemo, useState } from 'react'
-import { Link } from 'react-router'
 import { HOME_OVERVIEW_PAGE_POLLING_INTERVAL } from '../homeOverviewPageUtils'
 
 const HOME_PAGE_EVENT_ROW_LIMIT = 5
@@ -41,6 +42,8 @@ const mapToTableEvent = (e: ResponseEvent, index: number): TableEvent => ({
 
 export const EventPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   const [eventType, setEventType] =
     useState<GetAbstractedEventsTypeEnum>('system')
@@ -77,7 +80,7 @@ export const EventPanel = () => {
 
   return (
     <CosDashboardPanel
-      title="Events"
+      title={t('home.overview.events.title')}
       time={updateTime}
       hyperLinkProps={{ onClick: noop }}
       HyperLinkContainer={<Link to={CosRoutesEnum.EVENTS_PAGE} />}
@@ -90,33 +93,45 @@ export const EventPanel = () => {
             isActive={eventType === 'system'}
             onClick={() => setEventType('system')}
           >
-            System
+            {t('home.overview.events.system')}
           </CosContentSwitcher.Item>
           <CosContentSwitcher.Item
             isActive={eventType === 'host'}
             onClick={() => setEventType('host')}
           >
-            Host
+            {t('home.overview.events.host')}
           </CosContentSwitcher.Item>
           <CosContentSwitcher.Item
             isActive={eventType === 'instance'}
             onClick={() => setEventType('instance')}
           >
-            Instance
+            {t('home.overview.events.instance')}
           </CosContentSwitcher.Item>
         </CosContentSwitcher>
         <EventTable rows={rows} isLoading={showLoading}>
-          <EventTable.Column label="Severity" property="severity" />
           <EventTable.Column
-            label="Event ID"
+            label={t('home.overview.events.severity')}
+            property="severity"
+          />
+          <EventTable.Column
+            label={t('home.overview.events.eventId')}
             property="eventId"
             emphasize={true}
           />
-          <EventTable.Column label="Description" property="description" />
-          <EventTable.Column label="Metadata" property="metadata">
+          <EventTable.Column
+            label={t('home.overview.events.description')}
+            property="description"
+          />
+          <EventTable.Column
+            label={t('home.overview.events.metadata')}
+            property="metadata"
+          >
             {(metadata) => `${JSON.stringify(metadata)}`}
           </EventTable.Column>
-          <EventTable.Column label="Time" property="time">
+          <EventTable.Column
+            label={t('home.overview.events.time')}
+            property="time"
+          >
             {(time) => (
               <span className="text-nowrap">{formatEventTime(time)}</span>
             )}

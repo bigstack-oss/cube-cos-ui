@@ -190,3 +190,5 @@ sketch
 storybook-static/
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,macos,storybookjs
+
+*.local

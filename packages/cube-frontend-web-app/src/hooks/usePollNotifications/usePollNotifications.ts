@@ -1,13 +1,13 @@
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
+import { uniqueId } from 'lodash'
 import { DataCenter, Notification } from '@cube-frontend/api'
 import { MAX_VISIBLE_TOASTS_AMOUNT, useToast } from '@cube-frontend/ui-library'
 import { UserContext } from '@cube-frontend/web-app/context/UserContext'
 import { notificationToToastArgs } from '@cube-frontend/web-app/utils/notification'
-import { uniqueId } from 'lodash'
-import { useContext } from 'react'
 import { notificationsApi } from '../../api/cosApi'
 import { DataCenterContext } from '../../context/DataCenterContext'
 import { usePolling } from '../usePolling'
-import { mockI18n } from './mockI18n'
 import {
   computeLastNotificationTimeLocalStorageKey,
   computeStartFrom,
@@ -18,6 +18,8 @@ const createId = (): string => {
 }
 
 export const usePollNotifications = (): void => {
+  const { t } = useTranslation()
+
   const { userInfo } = useContext(UserContext)
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -71,13 +73,13 @@ export const usePollNotifications = (): void => {
       messageI18nKey,
       linkProps,
       time,
-    } = notificationToToastArgs(notification)
+    } = notificationToToastArgs(notification, t)
 
     addToast({
       id: createId(),
       type,
-      title: mockI18n(titleI18nKey),
-      message: mockI18n(messageI18nKey, messageI18nArgs),
+      title: t(titleI18nKey),
+      message: t(messageI18nKey, messageI18nArgs),
       link: linkProps,
       time,
     })

@@ -1,3 +1,8 @@
+import { useMemo } from 'react'
+import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import { noop } from 'lodash'
+import { Dayjs } from 'dayjs'
 import {
   GetHealthHistoryModuleTypeEnum,
   GetServiceHealthHistoryResponseDataInnerHistoryInner,
@@ -6,10 +11,6 @@ import { CosHyperlink } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
 import { TimePoint } from '@cube-frontend/web-app/components/HealthSegmentedBar/createTimePoints'
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
-import { Dayjs } from 'dayjs'
-import { noop } from 'lodash'
-import { useMemo } from 'react'
-import { Link } from 'react-router'
 import { moduleNameToLabel } from '../../homeHealthPageUtils'
 import { timePointFns } from './healthHistoryUtils'
 import { HealthBarSkeleton } from './HealthBarSkeleton'
@@ -34,9 +35,11 @@ export const ModuleHealth = (props: ModuleHealthProps) => {
     [moduleName],
   )
 
+  const { t } = useTranslation()
+
   const timePoints = useMemo<TimePoint[]>(
-    () => timePointFns[timeRange](now),
-    [timeRange, now],
+    () => timePointFns[timeRange](now, t('home.health.now')),
+    [timeRange, now, t],
   )
 
   const dateTimeRange = useMemo(

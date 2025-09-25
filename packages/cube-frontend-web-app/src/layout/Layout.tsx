@@ -15,18 +15,18 @@ import {
   applicationIntegrationUIData,
 } from '../utils/applicationIntegration'
 import { usePollNotifications } from '../hooks/usePollNotifications/usePollNotifications'
+import { LanguageDropdown } from '../components/LanguageDropdown'
 
 const Layout = (props: PropsWithChildren) => {
   const { children } = props
-
-  const sideBarOptions = useSidebarOptions()
-
-  const sideBarBottomLinks = useSidebarBottomLinks()
 
   const { dataCenter, isLoading: isDataCenterLoading } =
     useContext(DataCenterContext)
 
   const { userInfo, isLoading: isUserInfoLoading } = useContext(UserContext)
+
+  const sideBarOptions = useSidebarOptions()
+  const sideBarBottomLinks = useSidebarBottomLinks()
 
   const {
     applicationIntegrations,
@@ -89,6 +89,7 @@ const Layout = (props: PropsWithChildren) => {
             isLoading={isApplicationIntegrationsLoading}
             quickAccesses={quickAccesses}
             functionBarItems={functionBarItems}
+            languageDropdown={<LanguageDropdown />}
           />
           {/**
            * Only render <Content> when `dataCenter` is available,

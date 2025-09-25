@@ -5,11 +5,12 @@ import { noop } from 'lodash'
 import { createElement } from 'react'
 import { Link } from 'react-router'
 import { CosRoutesEnum } from '../enum/routes'
+import { TFunction } from 'i18next'
 
 type NotificationToastArgs = {
   type: CosNotificationType
-  titleI18nKey: string
-  messageI18nKey: string
+  titleI18nKey: `notifications.${Notification['id']}.title`
+  messageI18nKey: `notifications.${Notification['id']}.message`
   messageI18nArgs: Record<string, unknown>
   linkProps: CosToastType['link']
   time: string
@@ -17,6 +18,7 @@ type NotificationToastArgs = {
 
 export const notificationToToastArgs = (
   notification: Notification,
+  t: TFunction<'translation', undefined>,
 ): NotificationToastArgs => {
   const { id, nodeName, time } = notification
 
@@ -34,7 +36,7 @@ export const notificationToToastArgs = (
       Container: createElement(Link, {
         to: CosRoutesEnum.NODE_DETAIL_PAGE(nodeName),
       }),
-      text: 'Check',
+      text: t('notifications.check'),
       onClick: noop,
     },
     time: dayjs.respectTzOffset(time).format('HH:mm:ss A'),

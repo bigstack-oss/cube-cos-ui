@@ -1,86 +1,102 @@
 import {
   DataCenterRolesEnum,
   GetMetricsResponseData,
+  GetMetricsResponseDataVmStatus,
   RoleUsage,
 } from '@cube-frontend/api'
 import { CosCountSegmentedChartCountInfo } from '@cube-frontend/ui-library'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
-import { upperFirst } from 'lodash'
+import { TFunction } from 'i18next'
+
+type VmCountInfo = CosCountSegmentedChartCountInfo & {
+  status: keyof GetMetricsResponseDataVmStatus
+}
+
+type RoleCountInfo = CosCountSegmentedChartCountInfo & {
+  role: DataCenterRolesEnum
+}
 
 export const toMetricsChart = (
   metrics: GetMetricsResponseData,
   availableRoles: DataCenterRolesEnum[],
+  t: TFunction<'translation', undefined>,
 ) => {
-  const vmCountInfos: CosCountSegmentedChartCountInfo[] = [
+  const vmCountInfos = [
     {
-      name: 'Running',
+      status: 'running',
+      name: t('home.overview.chart.running'),
       color: 'fill-chart-2',
       count: metrics.vm.status.running,
     },
     {
-      name: 'Stopped',
+      status: 'stopped',
+      name: t('home.overview.chart.stopped'),
       color: 'fill-status-warning',
       count: metrics.vm.status.stopped,
     },
     {
-      name: 'Suspended',
+      status: 'suspend',
+      name: t('home.overview.chart.suspended'),
       color: 'fill-chart-1',
       count: metrics.vm.status.suspend,
     },
     {
-      name: 'Paused',
+      status: 'paused',
+      name: t('home.overview.chart.paused'),
       color: 'fill-status-paused',
       count: metrics.vm.status.paused,
     },
     {
-      name: 'Error',
+      status: 'error',
+      name: t('home.overview.chart.error'),
       color: 'fill-status-negative',
       count: metrics.vm.status.error,
     },
-  ]
+  ] satisfies VmCountInfo[]
 
   const allRoleCountInfos = [
     {
-      name: DataCenterRolesEnum.ControlConverged,
+      role: DataCenterRolesEnum.ControlConverged,
+      name: t(`home.overview.chart.${DataCenterRolesEnum.ControlConverged}`),
       color: 'fill-chart-1',
       count: metrics.host.role.controlConverged.count,
     },
     {
-      name: DataCenterRolesEnum.Control,
+      role: DataCenterRolesEnum.Control,
+      name: t(`home.overview.chart.${DataCenterRolesEnum.Control}`),
       color: 'fill-chart-2',
       count: metrics.host.role.control.count,
     },
     {
-      name: DataCenterRolesEnum.Compute,
+      role: DataCenterRolesEnum.Compute,
+      name: t(`home.overview.chart.${DataCenterRolesEnum.Compute}`),
       color: 'fill-chart-3',
       count: metrics.host.role.compute.count,
     },
     {
-      name: DataCenterRolesEnum.Storage,
+      role: DataCenterRolesEnum.Storage,
+      name: t(`home.overview.chart.${DataCenterRolesEnum.Storage}`),
       color: 'fill-chart-5',
       count: metrics.host.role.storage.count,
     },
     {
-      name: DataCenterRolesEnum.EdgeCore,
+      role: DataCenterRolesEnum.EdgeCore,
+      name: t(`home.overview.chart.${DataCenterRolesEnum.EdgeCore}`),
       color: 'fill-chart-8',
       count: metrics.host.role.edgeCore.count,
     },
     {
-      name: DataCenterRolesEnum.Moderator,
+      role: DataCenterRolesEnum.Moderator,
+      name: t(`home.overview.chart.${DataCenterRolesEnum.Moderator}`),
       color: 'fill-chart-9',
       count: metrics.host.role.moderator.count,
     },
-  ] satisfies CosCountSegmentedChartCountInfo[]
+  ] satisfies RoleCountInfo[]
 
   const availableRolesSet = new Set(availableRoles)
 
   const availableRoleCountInfos: CosCountSegmentedChartCountInfo[] =
-    allRoleCountInfos
-      .filter((info) => availableRolesSet.has(info.name))
-      .map((info) => ({
-        ...info,
-        name: upperFirst(info.name),
-      }))
+    allRoleCountInfos.filter((info) => availableRolesSet.has(info.role))
 
   const totalRolesCount: number = Object.values(metrics.host.role).reduce(
     (total, role: RoleUsage) => total + role.count,

@@ -31,6 +31,7 @@
     "web-app:build": "pnpm --filter @cube-frontend/web-app build",
     "web-app:preview": "pnpm --filter @cube-frontend/web-app preview",
     "web-app:test": "pnpm --filter @cube-frontend/web-app test",
+    "parse-i18n": "node --experimental-strip-types scripts/parseI18n.ts",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -46,6 +47,8 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "globals": "^15.14.0",
+    "google-auth-library": "^10.3.0",
+    "google-spreadsheet": "^5.0.2",
     "husky": "^9.1.7",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
