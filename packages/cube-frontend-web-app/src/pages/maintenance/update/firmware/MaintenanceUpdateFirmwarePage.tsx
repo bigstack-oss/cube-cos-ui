@@ -49,14 +49,8 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
   const cephHealthStatus = useCephHealthStatus()
 
-  const {
-    firmwareVersionToUpdate,
-    showUpdateFirmwareModal,
-    closeUpdateFirmwareModal,
-    updateModalTitle,
-    updateModalContent,
-    updateModalActionProps,
-  } = useUpdateFirmwareModal(listFirmwares)
+  const { firmwareToUpdate, onOpenUpdateModal, onCloseUpdateModal } =
+    useUpdateFirmwareModal(rows)
 
   const {
     firmwareVersionToDelete,
@@ -89,7 +83,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
         {updateActionState !== 'hidden' && (
           <UpdateAction
             state={updateActionState}
-            onClick={() => showUpdateFirmwareModal(version)}
+            onClick={() => onOpenUpdateModal(version)}
           />
         )}
         {deleteActionState !== 'hidden' && (
@@ -182,11 +176,8 @@ export const MaintenanceUpdateFirmwarePage = () => {
         onMd5Verified={listFirmwares}
       />
       <UpdateFirmwareModal
-        version={firmwareVersionToUpdate}
-        title={updateModalTitle}
-        content={updateModalContent}
-        updateModalActionProps={updateModalActionProps}
-        onCloseClick={closeUpdateFirmwareModal}
+        firmware={firmwareToUpdate}
+        onCloseClick={onCloseUpdateModal}
       />
       <DeleteFirmwareModal
         version={firmwareVersionToDelete}

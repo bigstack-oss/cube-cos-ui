@@ -1,51 +1,40 @@
 import {
-  FixpacksApiGetFixpackProgressRequest,
-  GetFixpackUpdateProgressResponseDataOperationEnum,
-  ListFixpacksResponseDataFixpacksInner,
+  FirmwaresApiGetFirmwareUpgradeProgressRequest,
+  ListFirmwaresResponseDataFirmwaresInner,
 } from '@cube-frontend/api'
 import { Nullish } from '@cube-frontend/utils'
-import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
+import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 import { isCancel } from 'axios'
 import { useContext, useMemo } from 'react'
-import { ProgressTableRow, toProgressTableRow } from './fixpackUpdateUtils'
+import { UpdateProgressRow, toProgressRow } from './updateActionUtils'
 
-type UseFixpackUpdateProgress = {
+type UseFirmwareUpdateProgress = {
   isLoadingProgress: boolean
-  operation: GetFixpackUpdateProgressResponseDataOperationEnum | undefined
-  progressRows: ProgressTableRow[]
+  isRollingApplied: boolean
+  progressRows: UpdateProgressRow[]
   fetchUpdateProgress: () => Promise<unknown>
-}
-
-type UseFixpackUpdateProgressArgs = {
-  fixpack: ListFixpacksResponseDataFixpacksInner | undefined
-  targetOperation: GetFixpackUpdateProgressResponseDataOperationEnum
 }
 
 const POLLING_INTERVAL = 3000
 
-export const useFixpackUpdateProgress = (
-  args: UseFixpackUpdateProgressArgs,
-): UseFixpackUpdateProgress => {
-  const { fixpack, targetOperation } = args
-
+export const useFirmwareUpdateProgress = (
+  firmware: ListFirmwaresResponseDataFirmwaresInner | undefined,
+): UseFirmwareUpdateProgress => {
   const { dataCenter } = useContext(DataCenterContext)
 
   const {
     isLoading,
-    data: updateProgress,
+    data: upgradeProgress,
     getResource: fetchUpdateProgress,
     hasResponseBeenReceived,
   } = useCosGetRequest(
-    fixpacksApi.getFixpackProgress,
-    (): Nullish<FixpacksApiGetFixpackProgressRequest> => {
-      if (!fixpack) return undefined
-
-      // @ts-expect-error: firmware s still under development, some types are not finalized yet.
-      // This will be fixed once the frontend integration with the backend is complete.
+    firmwaresApi.getFirmwareUpgradeProgress,
+    (): Nullish<FirmwaresApiGetFirmwareUpgradeProgressRequest> => {
+      if (!firmware) return undefined
       return {
         dataCenter: dataCenter!.name,
       }
@@ -53,25 +42,21 @@ export const useFixpackUpdateProgress = (
   )
 
   const { isPolling } = usePolling(async () => {
-    if (!fixpack) return
+    if (!firmware) return
     try {
       await fetchUpdateProgress()
     } catch (error) {
       if (isCancel(error)) return
-      console.error('Fetch fixpack update progress error: ', error)
+      console.error('Fetch firmware update progress error: ', error)
     }
   }, POLLING_INTERVAL)
 
-  const progressRows = useMemo<ProgressTableRow[]>(() => {
-    if (
-      !updateProgress ||
-      updateProgress.version !== fixpack?.version ||
-      updateProgress.operation !== targetOperation
-    ) {
+  const progressRows = useMemo<UpdateProgressRow[]>(() => {
+    if (!upgradeProgress || upgradeProgress.version !== firmware?.version) {
       return []
     }
-    return updateProgress.progresses.map(toProgressTableRow)
-  }, [fixpack?.version, targetOperation, updateProgress])
+    return upgradeProgress.progresses.map(toProgressRow)
+  }, [firmware?.version, upgradeProgress])
 
   const showLoading = shouldDisplayLoading({
     isLoading,
@@ -87,7 +72,7 @@ export const useFixpackUpdateProgress = (
       // This prevents the "No Data" placeholder from flashing in the progress
       // table after the loading state is finished.
       !progressRows.length,
-    operation: updateProgress?.operation,
+    isRollingApplied: !!upgradeProgress?.isRollingApplied,
     progressRows,
     fetchUpdateProgress,
   }
