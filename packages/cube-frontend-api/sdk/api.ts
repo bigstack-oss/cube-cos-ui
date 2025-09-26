@@ -3382,6 +3382,7 @@ export interface GetFirmwareUpgradeProgressResponseDataProgressesInner {
 }
 
 export const GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum = {
+    Partitioning: 'partitioning',
     BootstrappingCubecos: 'bootstrapping cubecos',
     StartingCluster: 'starting cluster',
     EvacutingVmsOnHost: 'evacuting vms on host',
@@ -7896,9 +7897,12 @@ export interface ListFirmwaresResponseDataFirmwaresInnerStatus {
 
 export const ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = {
     Available: 'available',
-    Processing: 'processing',
-    Updated: 'updated',
-    Failed: 'failed'
+    Installing: 'installing',
+    WaitingReboot: 'waiting reboot',
+    Rebooting: 'rebooting',
+    Failed: 'failed',
+    Resolved: 'resolved',
+    Succeeded: 'succeeded'
 } as const;
 
 export type ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = typeof ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum[keyof typeof ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum];
