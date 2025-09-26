@@ -1,4 +1,4 @@
-import { LogConsole } from '@cube-frontend/web-app/components/LogConsole'
+import { CosLogConsole } from '@cube-frontend/ui-library'
 
 type ReleaseNotePanelProps = {
   releaseNote?: string
@@ -7,5 +7,5 @@ type ReleaseNotePanelProps = {
 export const ReleaseNotePanel = (props: ReleaseNotePanelProps) => {
   const { releaseNote = '' } = props
 
-  return <LogConsole>{releaseNote || 'No data'}</LogConsole>
+  return <CosLogConsole>{releaseNote || 'No data'}</CosLogConsole>
 }

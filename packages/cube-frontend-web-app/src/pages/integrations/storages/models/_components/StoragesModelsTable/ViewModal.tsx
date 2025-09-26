@@ -1,5 +1,4 @@
-import { CosModal } from '@cube-frontend/ui-library'
-import { LogConsole } from '@cube-frontend/web-app/components/LogConsole'
+import { CosLogConsole, CosModal } from '@cube-frontend/ui-library'
 import { StorageModelRow } from '../../storagesModelsPageUtils'
 
 export type ViewModalProps = {
@@ -24,7 +23,9 @@ export const ViewModal = (props: ViewModalProps) => {
       onCloseClick={onClose}
     >
       {row && (
-        <LogConsole title={{ label: modelName }}>{formatModel(row)}</LogConsole>
+        <CosLogConsole title={{ label: modelName }}>
+          {formatModel(row)}
+        </CosLogConsole>
       )}
     </CosModal>
   )

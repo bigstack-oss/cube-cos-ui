@@ -1,4 +1,4 @@
-import { ErrorLog } from './ErrorLog'
+import { CosLogConsole } from '@cube-frontend/ui-library'
 import { HistoryRow } from './healthDetailsUtils'
 
 export type ErrorReportPanelProps = {
@@ -13,7 +13,14 @@ export const ErrorReportPanel = (props: ErrorReportPanelProps) => {
       <div className="primary-body3 mt-2 text-grey-850">
         {historyRow?.error?.description ?? historyRow?.status.toUpperCase()}
       </div>
-      {historyRow?.error && <ErrorLog error={historyRow.error} />}
+      {historyRow?.error && (
+        <CosLogConsole
+          className="mt-4"
+          title={{ label: 'Details log', href: historyRow.error.log }}
+        >
+          {historyRow.error.details ?? ''}
+        </CosLogConsole>
+      )}
     </div>
   )
 }

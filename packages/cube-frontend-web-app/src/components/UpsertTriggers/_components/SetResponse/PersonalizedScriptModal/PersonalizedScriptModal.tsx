@@ -5,11 +5,11 @@ import {
 import {
   CosButton,
   CosHyperlink,
+  CosLogConsole,
   CosModal,
   CosStroke,
   CosUpload,
 } from '@cube-frontend/ui-library'
-import { LogConsole } from '@cube-frontend/web-app/components/LogConsole'
 import { useEffect, useRef } from 'react'
 import { UpsertTriggersPayload } from '../../../upsertTriggersUtils'
 import { useUploadScript } from './useUploadScript'
@@ -95,9 +95,9 @@ export const PersonalizedScriptModal = (
       return null
 
     return (
-      <LogConsole title={{ label: 'Test Result' }}>
+      <CosLogConsole title={{ label: 'Test Result' }}>
         {showScriptTestResult.message ?? ''}
-      </LogConsole>
+      </CosLogConsole>
     )
   }
 

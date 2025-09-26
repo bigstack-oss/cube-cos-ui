@@ -1,4 +1,4 @@
-import { LogConsole } from '@cube-frontend/web-app/components/LogConsole'
+import { CosLogConsole } from '@cube-frontend/ui-library'
 
 type ValidationLogProps = {
   log: string
@@ -6,5 +6,5 @@ type ValidationLogProps = {
 
 export const ValidationLog = (props: ValidationLogProps) => {
   const { log } = props
-  return <LogConsole>{log || 'No result'}</LogConsole>
+  return <CosLogConsole>{log || 'No result'}</CosLogConsole>
 }
