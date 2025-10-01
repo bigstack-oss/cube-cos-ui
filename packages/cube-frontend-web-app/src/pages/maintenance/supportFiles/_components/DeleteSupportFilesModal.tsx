@@ -23,7 +23,9 @@ export const DeleteSupportFilesModal = (
       onActionClick={onActionClick}
       onCloseClick={onCloseClick}
     >
-      Are you sure you want to delete the support file?
+      <p className="primary-body2 text-functional-text">
+        Are you sure you want to delete the support file?
+      </p>
     </CosModal>
   )
 }

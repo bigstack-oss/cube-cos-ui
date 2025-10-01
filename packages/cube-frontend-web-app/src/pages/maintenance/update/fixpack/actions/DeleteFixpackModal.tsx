@@ -43,7 +43,9 @@ export const DeleteFixpackModal = (props: DeleteFixpackModalProps) => {
       onActionClick={onActionClick}
       onCloseClick={onCloseClick}
     >
-      {`Are you sure you want to delete fixpack ${version}?`}
+      <p className="primary-body2 text-functional-text">
+        {`Are you sure you want to delete fixpack ${version}?`}
+      </p>
     </CosModal>
   )
 }

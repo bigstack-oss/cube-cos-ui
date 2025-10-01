@@ -136,7 +136,6 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
       }}
       onActionClick={onActionClick}
       onCloseClick={onModalClose}
-      className="h-[490px]"
     >
       <div className="flex flex-col gap-y-8">
         <CosContentSwitcher variant="default">

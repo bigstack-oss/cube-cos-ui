@@ -122,7 +122,7 @@ export const EventsTriggersPage = () => {
           onActionClick={onConfirmDelete}
           onCloseClick={onCloseDeleteModal}
         >
-          <div className="primary-body4 text-functional-text">
+          <div className="primary-body2 text-functional-text">
             Are you sure you want to delete this trigger:&nbsp;
             <span className="font-semibold">{toBeDeletedRowId}</span>?
           </div>

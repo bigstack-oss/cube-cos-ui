@@ -122,7 +122,9 @@ export const EmailRecipients = (props: EmailRecipientsProps) => {
         onActionClick={onConfirmDelete}
         onCloseClick={onCloseDeleteModal}
       >
-        Are you sure you want to delete this email recipient?
+        <p className="primary-body2 text-functional-text">
+          Are you sure you want to delete this email recipient?
+        </p>
       </CosModal>
     </div>
   )

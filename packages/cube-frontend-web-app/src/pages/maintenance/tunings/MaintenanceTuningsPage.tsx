@@ -168,7 +168,7 @@ export const MaintenanceTuningsPage = () => {
           onActionClick={onConfirmReset}
           onCloseClick={onCloseResetModal}
         >
-          <div className="primary-body4 text-functional-text">
+          <div className="primary-body2 text-functional-text">
             Are you sure you want to reset this tuning to default?
           </div>
         </CosModal>

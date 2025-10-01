@@ -17,7 +17,9 @@ export const HostListModal = (props: HostListModalProps) => {
       isActionButtonVisible={false}
       onCloseClick={onCloseClick}
     >
-      {joinHostNames(hostNames)}
+      <div className="primary-body4 text-functional-text">
+        {joinHostNames(hostNames)}
+      </div>
     </CosModal>
   )
 }

@@ -132,7 +132,9 @@ export const SlackChannels = (props: SlackChannelsProps) => {
         onActionClick={onConfirmDelete}
         onCloseClick={onCloseDeleteModal}
       >
-        Are you sure you want to delete this Slack channel?
+        <p className="primary-body2 text-functional-text">
+          Are you sure you want to delete this Slack channel?
+        </p>
       </CosModal>
     </div>
   )

@@ -126,7 +126,6 @@ export const PersonalizedScriptModal = (
       onCloseClick={onModalCloseWithoutAddingScriptToPayload}
       actionButtonProps={{ disabled: isValidating || !isScriptValid }}
       bodyRef={modalBodyRef}
-      className="h-[490px]"
     >
       <div className="flex flex-col gap-y-8">
         <CosUpload

@@ -18,7 +18,9 @@ export const RemoveConfirmModal = (props: RemoveConfirmModalProps) => {
       onActionClick={onConfirm}
       onCloseClick={onClose}
     >
-      Do you want to remove this Vendor-Model list?
+      <p className="primary-body2 text-functional-text">
+        Do you want to remove this Vendor-Model list?
+      </p>
     </CosModal>
   )
 }

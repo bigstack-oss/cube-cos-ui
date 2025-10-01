@@ -254,7 +254,6 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
       }}
       onActionClick={onActionClick}
       onCloseClick={onModelClose}
-      className="h-[490px]"
     >
       <div className="mb-8 w-[186px]">
         <CosDropdown

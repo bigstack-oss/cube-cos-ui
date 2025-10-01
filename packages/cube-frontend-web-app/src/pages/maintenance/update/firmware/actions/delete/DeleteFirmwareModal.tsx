@@ -43,7 +43,7 @@ export const DeleteFirmwareModal = (props: DeleteFirmwareModalProps) => {
       onActionClick={onDeleteClick}
       onCloseClick={onCloseClick}
     >
-      <div className="primary-body3 text-functional-text">
+      <div className="primary-body2 text-functional-text">
         Are you sure you want to delete{' '}
         <b className="font-semibold">{version}</b>?
       </div>
