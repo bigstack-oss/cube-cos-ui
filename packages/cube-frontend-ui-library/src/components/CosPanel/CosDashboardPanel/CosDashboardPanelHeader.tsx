@@ -1,12 +1,12 @@
+import { cloneElement, PropsWithChildren, ReactElement } from 'react'
 import { CosSkeleton } from '../../CosSkeleton/CosSkeleton'
 import {
   CosHyperlink,
   CosHyperlinkProps,
 } from '../../CosHyperlink/CosHyperlink'
-import ChevronRightIcon from '../..//CosIcon/monochrome/chevron_right.svg?react'
+import { useUILibraryTranslation } from '../../../i18n/useUILibraryTranslation'
+import ChevronRightIcon from '../../CosIcon/monochrome/chevron_right.svg?react'
 import WarningAltFilledIcon from '../../CosIcon/monochrome/warning_alt_filled.svg?react'
-import { cloneElement, PropsWithChildren, ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
 export type CosDashboardPanelHeaderProps = {
   title: string
@@ -42,7 +42,7 @@ export const CosDashboardPanelHeader = (
     HyperLinkContainer,
   } = props
 
-  const { t } = useTranslation()
+  const { t } = useUILibraryTranslation()
 
   const renderTime = () => {
     if (isTimeLoading) return <CosSkeleton className="h-[13px] w-[97px]" />
@@ -61,7 +61,7 @@ export const CosDashboardPanelHeader = (
         Icon={ChevronRightIcon}
         {...hyperLinkProps}
       >
-        {t('component.panel.viewAll', 'View All')}
+        {t('component.panel.viewAll')}
       </CosHyperlink>
     )
 

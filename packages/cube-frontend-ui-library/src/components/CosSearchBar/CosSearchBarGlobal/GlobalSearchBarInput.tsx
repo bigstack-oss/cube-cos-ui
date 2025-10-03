@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
+import { useUILibraryTranslation } from '../../../i18n/useUILibraryTranslation'
 import Search from '../../CosIcon/monochrome/search.svg?react'
 import Clear from '../../CosIcon/monochrome/x_small.svg?react'
 import { useFloating } from '../../../internal/utils/floating/useFloating'
@@ -24,12 +25,14 @@ type GlobalSearchBarInputProps = ComponentProps<'input'> & {
 }
 
 export const GlobalSearchBarInput = (props: GlobalSearchBarInputProps) => {
+  const { t } = useUILibraryTranslation()
+
   const {
     variant,
     children,
     ref: inputRef,
     value,
-    placeholder = 'Search',
+    placeholder = t('component.searchBar.global.search'),
     className,
     onChange: onInputChange,
     onInputClear,

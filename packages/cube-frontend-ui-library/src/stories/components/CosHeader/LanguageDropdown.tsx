@@ -1,7 +1,7 @@
 import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
 
 const languageMenu = [
-  { label: 'English', value: 'en' },
+  { label: 'English', value: 'en-US' },
   { label: '繁體中文', value: 'zh-TW' },
 ]
 

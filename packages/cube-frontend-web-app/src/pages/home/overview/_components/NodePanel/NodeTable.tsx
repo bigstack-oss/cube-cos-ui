@@ -135,7 +135,7 @@ export const NodeTable = (props: NodeTableProps) => {
         {(status) => (
           <CosStatus
             status={status}
-            statusDisplay={t(nodeStatusTranslationKeys[status])}
+            message={t(nodeStatusTranslationKeys[status])}
           />
         )}
       </BasicNodeTable.Column>

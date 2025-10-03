@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ChevronDown from '../../components/CosIcon/monochrome/chevron_down.svg?react'
 import XSmall from '../../components/CosIcon/monochrome/x_small.svg?react'
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 import { CosDropdownContext } from './cosDropdownContext'
 import { trigger } from './cosDropdownStyles'
 
@@ -28,9 +29,11 @@ export const CosDropdownTrigger = (props: CosDropdownTriggerProps) => {
     onClearSelection,
   } = useContext(CosDropdownContext)
 
+  const { t } = useUILibraryTranslation()
+
   const isSelected = selectedItems.length > 0
 
-  const placeholderText = placeholder ?? 'Choose'
+  const placeholderText = placeholder ?? t('component.dropdown.choose')
 
   const displayText = isSelected ? children : placeholderText
 

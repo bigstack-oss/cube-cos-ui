@@ -7,6 +7,8 @@ import '@fontsource/urbanist/500.css'
 import '@fontsource/urbanist/600.css'
 import '@fontsource/urbanist/800.css'
 import '../src/tailwind.css'
+import { WithLocale } from './i18n/WithLocale'
+import { i18nGlobalTypes, i18nInitialGlobals } from './i18n/globalTypes'
 
 const preview: Preview = {
   parameters: {
@@ -30,6 +32,9 @@ const preview: Preview = {
       expanded: true,
     },
   },
+  globalTypes: { ...i18nGlobalTypes },
+  initialGlobals: { ...i18nInitialGlobals },
+  decorators: [WithLocale],
 }
 
 export default preview

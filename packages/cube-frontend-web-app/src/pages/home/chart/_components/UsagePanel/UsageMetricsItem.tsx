@@ -1,4 +1,5 @@
 import { CosSkeleton, CosProgressBarChart } from '@cube-frontend/ui-library'
+import { useTranslation } from 'react-i18next'
 
 type UsageMetricsItemProps = {
   name: string
@@ -11,6 +12,8 @@ type UsageMetricsItemProps = {
 export const UsageMetricsItem = (props: UsageMetricsItemProps) => {
   const { name, nodeCount, cpuUsedPercent, memoryUsedPercent, isLoading } =
     props
+
+  const { t } = useTranslation()
 
   const renderNodeCount = () => {
     if (nodeCount === undefined) return null
@@ -33,12 +36,12 @@ export const UsageMetricsItem = (props: UsageMetricsItemProps) => {
         <CosProgressBarChart
           isLoading={isLoading}
           progress={cpuUsedPercent}
-          title="CPU"
+          title={t('home.chart.usage.cpu')}
         />
         <CosProgressBarChart
           isLoading={isLoading}
           progress={memoryUsedPercent}
-          title="Memory"
+          title={t('home.chart.usage.memory')}
         />
       </div>
     </div>

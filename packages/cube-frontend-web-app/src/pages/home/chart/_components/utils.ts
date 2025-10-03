@@ -20,6 +20,7 @@ import { CosGeneralPanelTitleBarProps } from '@cube-frontend/ui-library'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { CosGetApiResponse } from '@cube-frontend/web-app/hooks/useCosRequest/cosGetRequestUtils'
 import { AxiosRequestConfig } from 'axios'
+import { TFunction } from 'i18next'
 import { noop } from 'lodash'
 
 const getMetricsByTypes = async <T extends GetMetricByTypes200Response>(
@@ -77,11 +78,12 @@ export const CHART_PAGE_POLLING_INTERVAL = 30 * 1000
 
 export const computeTitleBarHyperlinkProps = (
   response: GetGrafanaDashboardLinkResponseData | undefined,
+  t: TFunction<'translation', undefined>,
 ): CosGeneralPanelTitleBarProps['hyperLinkProps'] => {
   if (!response) {
     // Grafana link is still loading.
     return {
-      children: 'Monitor',
+      children: t('home.chart.storage.monitor'),
       onClick: noop,
       disabled: true,
     }
@@ -94,7 +96,7 @@ export const computeTitleBarHyperlinkProps = (
   }
 
   return {
-    children: 'Monitor',
+    children: t('home.chart.storage.monitor'),
     href: response.link,
     target: '_blank',
   }

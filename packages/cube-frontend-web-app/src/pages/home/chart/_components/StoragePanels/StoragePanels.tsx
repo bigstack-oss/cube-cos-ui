@@ -10,8 +10,10 @@ import { computeTitleBarHyperlinkProps } from '../utils'
 import { StorageBandwidthPanel } from './StorageBandwidthPanel'
 import { StorageIopsPanel } from './StorageIopsPanel'
 import { StorageLatencyPanel } from './StorageLatencyPanel'
+import { useTranslation } from 'react-i18next'
 
 export const StoragePanels = () => {
+  const { t } = useTranslation()
   const { dataCenter } = useContext(DataCenterContext)
 
   const { data: grafanaLinkResponse } = useCosGetRequest(
@@ -24,8 +26,8 @@ export const StoragePanels = () => {
   return (
     <CosGeneralPanel.Container>
       <CosGeneralPanel.TitleBar
-        title="Storage"
-        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse)}
+        title={t('home.chart.storage.title')}
+        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse, t)}
       />
       <ScrollContainer
         className={twMerge(

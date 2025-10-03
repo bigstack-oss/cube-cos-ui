@@ -5,8 +5,6 @@ import '@fontsource/urbanist/400.css'
 import '@fontsource/urbanist/500.css'
 import '@fontsource/urbanist/600.css'
 import '@fontsource/urbanist/800.css'
-import { I18nextProvider } from 'react-i18next'
-import i18n from './i18n/i18n'
 import { CosToastProvider } from '@cube-frontend/ui-library'
 import { DataCenterProvider } from './context/DataCenterProvider'
 import { ApplicationIntegrationsContextProvider } from './context/ApplicationIntegrationsContextProvider'
@@ -18,26 +16,27 @@ import Layout from './layout/Layout'
 
 import './App.css'
 import './tailwind.css'
+import { I18nProvider } from './i18n/I18nProvider'
 
 function App() {
   return (
-    <DataCenterProvider>
-      <UserContextProvider>
-        <ApplicationIntegrationsContextProvider>
-          <CosTimeZoneProvider>
-            <CosToastProvider>
-              <NotificationsContextProvider>
-                <I18nextProvider i18n={i18n}>
+    <I18nProvider>
+      <DataCenterProvider>
+        <UserContextProvider>
+          <ApplicationIntegrationsContextProvider>
+            <CosTimeZoneProvider>
+              <CosToastProvider>
+                <NotificationsContextProvider>
                   <Layout>
                     <CosRoutes />
                   </Layout>
-                </I18nextProvider>
-              </NotificationsContextProvider>
-            </CosToastProvider>
-          </CosTimeZoneProvider>
-        </ApplicationIntegrationsContextProvider>
-      </UserContextProvider>
-    </DataCenterProvider>
+                </NotificationsContextProvider>
+              </CosToastProvider>
+            </CosTimeZoneProvider>
+          </ApplicationIntegrationsContextProvider>
+        </UserContextProvider>
+      </DataCenterProvider>
+    </I18nProvider>
   )
 }
 

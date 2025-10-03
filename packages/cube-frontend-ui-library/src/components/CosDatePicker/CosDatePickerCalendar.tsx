@@ -3,11 +3,10 @@ import { twMerge } from 'tailwind-merge'
 import dayjs from 'dayjs'
 import ChevronLeft from '../CosIcon/monochrome/chevron_left.svg?react'
 import ChevronRight from '../CosIcon/monochrome/chevron_right.svg?react'
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 import { computeCalendarWeeks, getDateButtonStatus } from './utils'
 import { dayButton } from './styles'
 import { CosDatePickerContext } from './context'
-
-const weekTitles = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
 export const CosDatePickerCalendar = () => {
   const {
@@ -30,6 +29,18 @@ export const CosDatePickerCalendar = () => {
     () => computeCalendarWeeks(startDateOfCurrentMonth),
     [startDateOfCurrentMonth],
   )
+
+  const { t } = useUILibraryTranslation()
+
+  const weekTitles = [
+    t('component.datePicker.weekdays.sunday'),
+    t('component.datePicker.weekdays.monday'),
+    t('component.datePicker.weekdays.tuesday'),
+    t('component.datePicker.weekdays.wednesday'),
+    t('component.datePicker.weekdays.thursday'),
+    t('component.datePicker.weekdays.friday'),
+    t('component.datePicker.weekdays.saturday'),
+  ]
 
   return (
     <div className="flex flex-col gap-[15px]">

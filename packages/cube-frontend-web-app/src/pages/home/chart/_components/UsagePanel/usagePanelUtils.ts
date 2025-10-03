@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import {
   DataCenterTypeEnum,
   GetMetricsResponseData,
@@ -12,10 +13,14 @@ export type RoleGroup = {
 export const metricsToRoleGroups = (
   metrics: GetMetricsResponseData,
   dataCenterType: DataCenterTypeEnum,
+  t: TFunction<'translation', undefined>,
 ): RoleGroup[] => {
   const mapFns: Record<
     DataCenterTypeEnum,
-    (metrics: GetMetricsResponseData) => RoleGroup[]
+    (
+      metrics: GetMetricsResponseData,
+      t: TFunction<'translation', undefined>,
+    ) => RoleGroup[]
   > = {
     cloud: mapCloudRoleGroups,
     edge: mapEdgeRoleGroups,
@@ -27,43 +32,49 @@ export const metricsToRoleGroups = (
     )
     return []
   }
-  return fn(metrics)
+  return fn(metrics, t)
 }
 
-const mapCloudRoleGroups = (metrics: GetMetricsResponseData): RoleGroup[] => {
+const mapCloudRoleGroups = (
+  metrics: GetMetricsResponseData,
+  t: TFunction<'translation', undefined>,
+): RoleGroup[] => {
   return [
     [
       {
-        name: 'Control-converged Nodes',
+        name: t('home.chart.usage.controlConvergedNodes'),
         value: metrics.host.role.controlConverged,
       },
       {
-        name: 'Control Nodes',
+        name: t('home.chart.usage.controlNodes'),
         value: metrics.host.role.control,
       },
     ],
     [
       {
-        name: 'Compute Nodes',
+        name: t('home.chart.usage.computeNodes'),
         value: metrics.host.role.compute,
       },
       {
-        name: 'Storage Nodes',
+        name: t('home.chart.usage.storageNodes'),
         value: metrics.host.role.storage,
       },
     ],
   ]
 }
 
-const mapEdgeRoleGroups = (metrics: GetMetricsResponseData): RoleGroup[] => {
+const mapEdgeRoleGroups = (
+  metrics: GetMetricsResponseData,
+  t: TFunction<'translation', undefined>,
+): RoleGroup[] => {
   return [
     [
       {
-        name: 'Edge-core Nodes',
+        name: t('home.chart.usage.edgeCoreNodes'),
         value: metrics.host.role.edgeCore,
       },
       {
-        name: 'Moderator Nodes',
+        name: t('home.chart.usage.moderatorNodes'),
         value: metrics.host.role.moderator,
       },
     ],

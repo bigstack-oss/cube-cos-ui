@@ -1,8 +1,8 @@
-import { StrokeColorClass } from '@cube-frontend/ui-theme'
-import { PercentagePie } from './PercentagePie'
-import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
 import { twJoin } from 'tailwind-merge'
-import { useTranslation } from 'react-i18next'
+import { StrokeColorClass } from '@cube-frontend/ui-theme'
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
+import { CosSkeleton } from '../CosSkeleton/CosSkeleton'
+import { PercentagePie } from './PercentagePie'
 
 export type CosPercentagePieChartProps = {
   title: string
@@ -57,11 +57,14 @@ export const CosPercentagePieChart = (props: CosPercentagePieChartProps) => {
     color: colorProp,
     thresholdPercentage = 100,
     percentageFormatter = defaultPercentageFormatter,
-    overThresholdText,
+    overThresholdText: overThresholdTextProps,
     isLoading = false,
   } = props
 
-  const { t } = useTranslation()
+  const { t } = useUILibraryTranslation()
+
+  const overThresholdText =
+    overThresholdTextProps ?? t('component.percentagePieChart.overThreshold')
 
   const getChartPercentage = () => {
     const percentage = percentageProp ?? calculatePercentage(used, total)

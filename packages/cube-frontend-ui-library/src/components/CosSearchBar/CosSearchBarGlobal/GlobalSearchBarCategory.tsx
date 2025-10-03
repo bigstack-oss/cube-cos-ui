@@ -1,9 +1,10 @@
 import { Fragment, useCallback, useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
+import { useUILibraryTranslation } from '../../../i18n/useUILibraryTranslation'
 import ChevronDown from '../../CosIcon/monochrome/chevron_down.svg?react'
 import { useFloating } from '../../../internal/utils/floating/useFloating'
 import { category } from './cosSearchBarGlobalStyles'
-import { createPortal } from 'react-dom'
 
 type GlobalSearchBarCategoryProps = {
   categories: string[]
@@ -19,6 +20,8 @@ export const GlobalSearchBarCategory = (
     selectedCategory,
     onCategoryClick: onCategoryClickProp,
   } = props
+
+  const { t } = useUILibraryTranslation()
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -103,7 +106,7 @@ export const GlobalSearchBarCategory = (
       <div ref={anchorRef}>
         <div className={twMerge(category.trigger)} onClick={toggleDropdownOpen}>
           <div className="primary-body2 max-w-[100px] truncate">
-            {selectedCategory ?? 'Category'}
+            {selectedCategory ?? t('component.searchBar.global.category')}
           </div>
           <ChevronDown
             className={category.triggerIcon({

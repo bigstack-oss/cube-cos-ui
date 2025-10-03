@@ -1,3 +1,4 @@
+import { useUILibraryTranslation } from '../../../i18n/useUILibraryTranslation'
 import { twMerge } from 'tailwind-merge'
 import Search from '../../../components/CosIcon/monochrome/search.svg?react'
 
@@ -7,6 +8,9 @@ type CosTableTdEmptyProps = {
 
 export const CosTableTdEmpty = (props: CosTableTdEmptyProps) => {
   const { length } = props
+
+  const { t } = useUILibraryTranslation()
+
   return (
     <td colSpan={length} className="p-6">
       <div
@@ -15,7 +19,7 @@ export const CosTableTdEmpty = (props: CosTableTdEmptyProps) => {
         )}
       >
         <Search className="icon-lg m-[10px]" />
-        <p className="primary-body2">No Result</p>
+        <p className="primary-body2">{t('component.table.noResult')}</p>
       </div>
     </td>
   )

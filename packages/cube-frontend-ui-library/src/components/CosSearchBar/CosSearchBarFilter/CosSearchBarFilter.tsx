@@ -10,6 +10,7 @@ import {
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
 import { useFloating } from '../../../internal/utils/floating/useFloating'
+import { useUILibraryTranslation } from '../../../i18n/useUILibraryTranslation'
 import Search from '../../CosIcon/monochrome/search.svg?react'
 import Clear from '../../CosIcon/monochrome/x_small.svg?react'
 import { CosSearchBarSkeleton } from '../CosSearchBarSkeleton'
@@ -50,6 +51,8 @@ export type CosSearchBarFilterProps = DetailedHTMLProps<
 }
 
 export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
+  const { t } = useUILibraryTranslation()
+
   const {
     children,
     ref: inputRef,
@@ -58,7 +61,7 @@ export const CosSearchBarFilter = (props: CosSearchBarFilterProps) => {
     value,
     onChange: onInputChange,
     className,
-    placeholder = 'Search',
+    placeholder = t('component.searchBar.filter.search'),
     ...restProps
   } = props
 

@@ -114,3 +114,6 @@ export * from './components/CosOverflowMenu/CosOverflowMenu'
 export { type CosOverflowMenuItemProps } from './components/CosOverflowMenu/cosOverflowMenuItemUtils'
 export * from './components/CosDetailsTable/CosDetailsTable'
 export { type CosDetailsTableRowProps } from './components/CosDetailsTable/CosDetailsTableRow'
+
+export { default as i18n } from './i18n/i18n'
+export { LocaleProvider } from './i18n/LocaleProvider'

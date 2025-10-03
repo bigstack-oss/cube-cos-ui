@@ -16,6 +16,7 @@ import {
 import { RankingChart } from './RankingChart/RankingChart'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
+import { useTranslation } from 'react-i18next'
 
 type VmRankingItem = {
   name: string
@@ -91,11 +92,13 @@ export const VmRankingPanel = () => {
     }),
   )
 
+  const { t } = useTranslation()
+
   return (
     <CosGeneralPanel.Container className="flex-1">
       <CosGeneralPanel.TitleBar
         title="Instance"
-        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse)}
+        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse, t)}
       />
       <CosGeneralPanel
         className="flex-1"

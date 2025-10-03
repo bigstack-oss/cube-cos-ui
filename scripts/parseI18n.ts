@@ -27,7 +27,7 @@ const uiLibraryI18nFolderPath = path.resolve(
   'packages/cube-frontend-ui-library/src/i18n/locales',
 )
 
-const supportedLanguage = ['en', 'zh-TW'] as const
+const supportedLanguage = ['en-US', 'zh-TW'] as const
 
 type SupportedLanguage = (typeof supportedLanguage)[number]
 
@@ -93,7 +93,7 @@ const main = async () => {
   const jwt = new JWT({
     email: credentials.client_email,
     key: credentials.private_key,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   })
 
   const doc = new GoogleSpreadsheet(sheetId, jwt)
