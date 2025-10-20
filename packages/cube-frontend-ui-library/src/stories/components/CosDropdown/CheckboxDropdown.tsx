@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useUILibraryTranslation } from '../../../i18n/useUILibraryTranslation'
 import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
 import {
   CosDropdownSize,
@@ -19,6 +20,8 @@ type CheckboxDropdownProps = {
 export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
   const { size, variant, isLoading, selected, disabled, isNoData, label } =
     props
+
+  const { t } = useUILibraryTranslation()
 
   const [selectedItems, setSelectedItems] = useState<MockDataItem[]>(() =>
     selected ? [mockData[0]] : [],
@@ -59,7 +62,7 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
         label={label}
         onAllCheckChange={onAllCheckChange}
       >
-        <CosDropdown.Trigger placeholder="Select an Item">
+        <CosDropdown.Trigger placeholder={t('component.dropdown.selectAnItem')}>
           {selectedItems.length > 0
             ? selectedItems.map((item) => item.label).join(', ')
             : undefined}
@@ -93,7 +96,7 @@ export const CheckboxDropdown = (props: CheckboxDropdownProps) => {
       onAllCheckChange={onAllCheckChange}
       onClearSelection={onClearSelection}
     >
-      <CosDropdown.Trigger placeholder="Select an Item">
+      <CosDropdown.Trigger placeholder={t('component.dropdown.selectAnItem')}>
         {selectedItems.length > 0
           ? selectedItems.map((item) => item.label).join(', ')
           : undefined}

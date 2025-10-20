@@ -8,29 +8,29 @@ i18n
   .use(initReactI18next)
   .use(localStorageLanguageDetector)
   .init({
-    resources: resources,
-    fallbackLng: ['en'] satisfies SupportedLanguage[],
+    resources,
+    fallbackLng: ['en-US'] satisfies SupportedLanguage[],
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
   })
 
-/**
- * Reload the page when language changes to make sure all dayjs instances are updated.
- *
- * Some dayjs instances are still hold the old locale,
- * even after calling `dayjs.locale(newLocale)`
- *
- * for example;
- *
- * ```tsx
- * const [now, setNow] = useState(dayjs())
- * ```
- *
- * The `now` will still hold the old locale after rerender and will cause language inconsistency.
- *
- **/
 i18n.on('languageChanged', () => {
+  /**
+   * Reload the page when language changes to make sure all dayjs instances are updated.
+   *
+   * Some dayjs instances are still hold the old locale,
+   * even after calling `dayjs.locale(newLocale)`
+   *
+   * for example;
+   *
+   * ```tsx
+   * const [now, setNow] = useState(dayjs())
+   * ```
+   *
+   * The `now` will still hold the old locale after rerender and will cause language inconsistency.
+   *
+   **/
   window.location.reload()
 })
 

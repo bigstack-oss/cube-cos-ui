@@ -10,12 +10,12 @@ import { useFunctionBarItems } from './useFunctionBarItems'
 import { useSidebarBottomLinks } from './useSidebarBottomLinks'
 import { useSideBarNagging } from './useSideBarNagging'
 import { useSidebarOptions } from './useSidebarOptions'
+import { useLanguageDropdown } from './useLanguageDropdown'
 import {
   ApplicationIntegrationKey,
   applicationIntegrationUIData,
 } from '../utils/applicationIntegration'
 import { usePollNotifications } from '../hooks/usePollNotifications/usePollNotifications'
-import { LanguageDropdown } from '../components/LanguageDropdown'
 
 const Layout = (props: PropsWithChildren) => {
   const { children } = props
@@ -58,6 +58,8 @@ const Layout = (props: PropsWithChildren) => {
 
   const functionBarItems = useFunctionBarItems()
 
+  const { currentLanguage, languageOptions } = useLanguageDropdown()
+
   usePollNotifications()
 
   /**
@@ -89,7 +91,8 @@ const Layout = (props: PropsWithChildren) => {
             isLoading={isApplicationIntegrationsLoading}
             quickAccesses={quickAccesses}
             functionBarItems={functionBarItems}
-            languageDropdown={<LanguageDropdown />}
+            currentLanguage={currentLanguage}
+            languageOptions={languageOptions}
           />
           {/**
            * Only render <Content> when `dataCenter` is available,

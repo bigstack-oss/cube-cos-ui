@@ -1,6 +1,7 @@
 import { twMerge } from 'tailwind-merge'
 import { CosHyperlink, CosTooltip } from '@cube-frontend/ui-library'
 import { PropsWithClassName } from '@cube-frontend/utils'
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 
 export type CosLogConsoleProps = PropsWithClassName & {
   title?: {
@@ -14,6 +15,8 @@ export type CosLogConsoleProps = PropsWithClassName & {
 
 export const CosLogConsole = (props: CosLogConsoleProps) => {
   const { title, copyTooltip, className, logWrapperClassName, children } = props
+
+  const { t } = useUILibraryTranslation()
 
   const onCopyClick = () => {
     if ('navigator' in window && children) {
@@ -52,10 +55,10 @@ export const CosLogConsole = (props: CosLogConsoleProps) => {
         {renderTitle()}
         <CosTooltip
           hoverContent={{
-            message: copyTooltip ?? 'Click to copy details',
+            message: copyTooltip ?? t('component.logConsole.copyDetails'),
           }}
           clickContent={{
-            message: 'Copied!',
+            message: t('component.logConsole.copied'),
           }}
         >
           <button
@@ -63,7 +66,7 @@ export const CosLogConsole = (props: CosLogConsoleProps) => {
             className="primary-body2 cursor-pointer font-medium text-functional-text"
             onClick={onCopyClick}
           >
-            Copy
+            {t('component.logConsole.copy')}
           </button>
         </CosTooltip>
       </div>

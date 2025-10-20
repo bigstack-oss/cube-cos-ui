@@ -28,7 +28,6 @@ const PercentagePieChartGallery = () => {
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
-            overThresholdText="Over Limit"
             used={0}
             total={755.1}
           />
@@ -36,98 +35,84 @@ const PercentagePieChartGallery = () => {
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
-            overThresholdText="Over Limit"
             used={0.01}
             total={755.1}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
-            overThresholdText="Over Limit"
             used={8.2}
             total={755.1}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
-            overThresholdText="Over Limit"
             used={380}
             total={755.1}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
-            overThresholdText="Over Limit"
             used={388}
             total={755.1}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
-            overThresholdText="Over Limit"
             used={80}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
-            overThresholdText="Over Limit"
             used={81}
             total={100}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
-            overThresholdText="Over Limit"
             used={99}
             total={100}
           />
           <CosPercentagePieChart
             title="Memory"
             unit="GB"
-            overThresholdText="Over Limit"
             used={100}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
-            overThresholdText="Over Limit"
             used={101}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
-            overThresholdText="Over Limit"
             used={150}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
-            overThresholdText="Over Limit"
             used={199}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
-            overThresholdText="Over Limit"
             used={200}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
-            overThresholdText="Over Limit"
             used={250}
             total={100}
           />
           <CosPercentagePieChart
             title="Storage"
             unit="GB"
-            overThresholdText="Over Limit"
             used={300}
             total={100}
           />

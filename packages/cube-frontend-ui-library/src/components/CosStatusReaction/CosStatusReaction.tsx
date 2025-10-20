@@ -12,6 +12,7 @@ import {
   Status,
   StatusType,
 } from './cosStatusReactionUtils'
+import { useStatusReactionTranslation } from './useStatusReactionTranslation'
 
 export type CosStatusReactionProps = {
   status: Status
@@ -38,13 +39,26 @@ export const CosStatusReaction = (props: CosStatusReactionProps) => {
   const { status, message } = props
 
   const type = computeStatusType(status)
-
   const Icon = iconMap[type]
+
+  const translationMap = useStatusReactionTranslation()
+
+  const getMessage = () => {
+    if (message) {
+      return message
+    }
+
+    if (status in translationMap) {
+      return translationMap[status]
+    }
+
+    return upperFirst(status)
+  }
 
   return (
     <div className={statusReaction({ type })}>
       <Icon className="icon-md-sm shrink-0" />
-      <span>{message || upperFirst(status)}</span>
+      <span>{getMessage()}</span>
     </div>
   )
 }

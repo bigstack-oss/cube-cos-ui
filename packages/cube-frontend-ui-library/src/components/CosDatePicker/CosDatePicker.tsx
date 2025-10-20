@@ -8,6 +8,7 @@ import { CosDatePickerMenu } from './CosDatePickerMenu'
 import { CosDatePickerSkeleton } from './CosDatePickerSkeleton'
 import { CosDatePickerContext } from './context'
 import { DatePickerDates } from './useDatePickerDisplayDates'
+import { useDayjsState } from './useDayjsState'
 
 type CosDatePickerProps = {
   /**
@@ -42,7 +43,7 @@ export const CosDatePicker = (props: CosDatePickerProps) => {
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
-  const [currentMonth, setCurrentMonth] = useState(
+  const [currentMonth, setCurrentMonth] = useDayjsState(
     /**
      * Initialize `currentMonth` to either `displayDates.start` (if available) or `now`.
      * Also, the value only needs to be computed once.

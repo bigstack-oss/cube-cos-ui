@@ -1,6 +1,7 @@
 import { Children, ReactNode, useCallback, useContext, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 import { ItemCheckbox } from './_components/ItemCheckbox'
 import { ItemNoData } from './_components/ItemNoData'
 import { CosDropdownFilter } from './CosDropdownFilter'
@@ -27,6 +28,8 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
     searchValue,
   } = useContext(CosDropdownContext)
 
+  const { t } = useUILibraryTranslation()
+
   const { elementRef, resolvedStyles } = floatingProps
 
   const isAllSelected = useMemo(() => {
@@ -50,7 +53,7 @@ export const CosDropdownMenu = (props: CosDropdownMenuProps) => {
         isDark={true}
         size={size}
         variant={variant}
-        label="All"
+        label={t('component.dropdown.all')}
         onClick={onAllClick}
         isSelected={isAllSelected}
         disabled={false}

@@ -10,7 +10,6 @@ import KeycloakIcon from '../../../components/CosIcon/colored/keycloak.svg?react
 import RancherIcon from '../../../components/CosIcon/colored/rancher.svg?react'
 import NotificationIcon from '@cube-frontend/ui-library/icons/monochrome/notification.svg?react'
 import LogoutIcon from '@cube-frontend/ui-library/icons/monochrome/logout.svg?react'
-import { LanguageDropdown } from './LanguageDropdown'
 
 const meta = {
   title: 'organisms/Header',
@@ -42,7 +41,11 @@ const defaultArgs = {
       },
     },
   ],
-  languageDropdown: <LanguageDropdown />,
+  currentLanguage: 'en-US',
+  languageOptions: [
+    { label: 'English', value: 'en-US', onClick: () => {} },
+    { label: '繁體中文', value: 'zh-TW', onClick: () => {} },
+  ],
 } satisfies CosHeaderProps
 
 export const Group: Story = {

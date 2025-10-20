@@ -1,3 +1,4 @@
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 import { CosDropdown } from '../CosDropdown/CosDropdown'
 import {
   DEFAULT_ITEMS_PER_PAGE,
@@ -20,9 +21,13 @@ export const CosPaginationViewDropdown = (
     onItemsPerPageChange,
   } = props
 
+  const { t } = useUILibraryTranslation()
+
   return (
     <div className="secondary-body4 flex items-center">
-      {!isMinimal && <div className="p-[10px]">View</div>}
+      {!isMinimal && (
+        <div className="p-[10px]">{t('component.pagination.view')}</div>
+      )}
       <CosDropdown
         size="sm"
         type="radio"

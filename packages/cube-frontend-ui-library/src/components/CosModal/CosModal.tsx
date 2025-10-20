@@ -1,9 +1,10 @@
-import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
-import { PropsWithClassName } from '@cube-frontend/utils'
 import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
+import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
+import { PropsWithClassName } from '@cube-frontend/utils'
 import { twMerge } from 'tailwind-merge'
 import { CosButton, CosButtonProps } from '../CosButton/CosButton'
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 import { backdrop, modal } from './cosModalStyles'
 import MemoChildren from './MemoChildren'
 import { useCloseModalWithEsc } from './useCloseModalWithEsc'
@@ -38,6 +39,8 @@ export type CosModalProps = {
 export type CosModalSize = 'sm' | 'md'
 
 export const CosModal = (props: CosModalProps) => {
+  const { t } = useUILibraryTranslation()
+
   const {
     children,
     className: classNameProp,
@@ -46,7 +49,7 @@ export const CosModal = (props: CosModalProps) => {
     title,
     footerMessage,
     isActionButtonVisible = true,
-    actionText = 'Action',
+    actionText = t('component.modal.action'),
     actionButtonProps,
     isCancelButtonVisible = true,
     bodyRef,
@@ -109,7 +112,7 @@ export const CosModal = (props: CosModalProps) => {
                 size="lg"
                 onClick={onCloseClick}
               >
-                Cancel
+                {t('component.modal.cancel')}
               </CosButton>
             )}
             {isActionButtonVisible && (

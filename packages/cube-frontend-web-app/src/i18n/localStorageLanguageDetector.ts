@@ -1,8 +1,8 @@
 import { LanguageDetectorModule } from 'i18next'
 import {
   defaultLanguage,
-  languageMenu,
   localStorageLngKey,
+  supportedLanguage,
   SupportedLanguage,
 } from './utils'
 
@@ -22,8 +22,10 @@ const setLanguage = (lng: SupportedLanguage) => {
   localStorage.setItem(localStorageLngKey, lng)
 }
 
-const isValidLanguage = (lng: string | null): lng is SupportedLanguage => {
-  return languageMenu.find((language) => language.value === lng) != null
+const isValidLanguage = (
+  language: string | null,
+): language is SupportedLanguage => {
+  return supportedLanguage.find((l) => l === language) != null
 }
 
 const localStorageLanguageDetector = {

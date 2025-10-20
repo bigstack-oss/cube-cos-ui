@@ -9,10 +9,6 @@ export const resources = {
 
 export type SupportedLanguage = keyof typeof resources
 
-export const supportedLanguage: SupportedLanguage[] = Object.keys(
-  resources,
-) as SupportedLanguage[]
-
 export const defaultLanguage = 'en-US' satisfies SupportedLanguage
 
 export type TranslationKeys = ParseKeys<'translation'>

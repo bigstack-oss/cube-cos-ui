@@ -3,6 +3,7 @@ import ChevronLeft from '../../components/CosIcon/monochrome/chevron_left.svg?re
 import ChevronLeftEnd from '../../components/CosIcon/monochrome/chevron_left_end.svg?react'
 import ChevronRight from '../../components/CosIcon/monochrome/chevron_right.svg?react'
 import ChevronRightEnd from '../../components/CosIcon/monochrome/chevron_right_end.svg?react'
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 import { CosPaginationAmount } from './CosPaginationAmount'
 import { CosPaginationGoToPageInput } from './CosPaginationGoToPageInput'
 import { CosPaginationItemButton } from './CosPaginationItemButton'
@@ -41,6 +42,8 @@ export const CosPagination = (props: CosPaginationProps) => {
     onPageChange,
     onItemsPerPageChange,
   } = props
+
+  const { t } = useUILibraryTranslation()
 
   const [inputPage, setInputPage] = useState('')
 
@@ -141,7 +144,7 @@ export const CosPagination = (props: CosPaginationProps) => {
             </CosPaginationItemButton>
             <CosPaginationGoToPageInput
               isMinimal={isMinimal}
-              placeholder="Page"
+              placeholder={t('component.pagination.page')}
               value={inputPage}
               onChange={(e) => setInputPage(e.target.value)}
               onKeyDown={handleKeyDown}

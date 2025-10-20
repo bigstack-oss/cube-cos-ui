@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useUILibraryTranslation } from '../../../i18n/useUILibraryTranslation'
 import { CosDropdown } from '../../../components/CosDropdown/CosDropdown'
 import {
   CosDropdownSize,
@@ -19,6 +20,8 @@ type RadioDropdownProps = {
 export const RadioDropdown = (props: RadioDropdownProps) => {
   const { size, variant, isLoading, selected, disabled, isNoData, label } =
     props
+
+  const { t } = useUILibraryTranslation()
 
   const [selectedItems, setSelectedItems] = useState<MockDataItem[]>(() =>
     selected ? [mockData[0]] : [],
@@ -43,7 +46,7 @@ export const RadioDropdown = (props: RadioDropdownProps) => {
       disabled={disabled}
       label={label}
     >
-      <CosDropdown.Trigger placeholder="Select an Item">
+      <CosDropdown.Trigger placeholder={t('component.dropdown.selectAnItem')}>
         {selectedItems.length > 0 ? selectedItems[0].label : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>

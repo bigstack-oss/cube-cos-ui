@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
+import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 import { CosButton } from '../CosButton/CosButton'
 import { CosDatePickerInput } from './CosDatePickerInput'
 import { CosDatePickerCalendar } from './CosDatePickerCalendar'
@@ -15,6 +16,8 @@ export const CosDatePickerMenu = () => {
 
   const { elementRef, resolvedStyles } = floatingProps
 
+  const { t } = useUILibraryTranslation()
+
   return createPortal(
     <div
       ref={elementRef}
@@ -25,18 +28,18 @@ export const CosDatePickerMenu = () => {
         <CosDatePickerInput
           type="start"
           value={start ? start.format('YYYY/MM/DD') : ''}
-          placeholder="Choose Start"
+          placeholder={t('component.datePicker.chooseStart')}
         />
         <CosDatePickerInput
           type="end"
           value={end ? end.format('YYYY/MM/DD') : ''}
-          placeholder="Choose End"
+          placeholder={t('component.datePicker.chooseEnd')}
         />
       </div>
       <CosDatePickerCalendar />
       <div className="flex justify-end gap-2">
         <CosButton size="sm" type="ghost" onClick={onReset}>
-          Reset
+          {t('component.datePicker.reset')}
         </CosButton>
         <CosButton
           size="sm"
@@ -44,7 +47,7 @@ export const CosDatePickerMenu = () => {
           onClick={onApply}
           disabled={!start || !end}
         >
-          Apply
+          {t('component.datePicker.apply')}
         </CosButton>
       </div>
     </div>,
