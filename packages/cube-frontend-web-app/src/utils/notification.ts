@@ -46,7 +46,7 @@ export const notificationToToastArgs = (
 const getI18nArgs = (notification: Notification): Record<string, unknown> => {
   const { nodeName, additionalInfo } = notification
 
-  const args: Record<string, unknown> = { node: nodeName }
+  const args: Record<string, unknown> = { ...additionalInfo, node: nodeName }
 
   if ('device' in additionalInfo) {
     args.device = additionalInfo.device

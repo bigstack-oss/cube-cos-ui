@@ -124,7 +124,6 @@ export const NotificationsPage = () => {
         <>
           <CosSearchBarGlobal
             variant="regular"
-            placeholder={t('notifications.searchBar.placeholder')}
             value={query.keyword}
             onChange={(e) => onKeywordChange(e.target.value)}
             onInputClear={onKeywordClear}
