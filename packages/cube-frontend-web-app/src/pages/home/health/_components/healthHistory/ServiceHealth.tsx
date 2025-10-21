@@ -1,3 +1,6 @@
+import { useContext, useMemo } from 'react'
+import { Dayjs } from 'dayjs'
+import { useTranslation } from 'react-i18next'
 import {
   GetHealthHistoryModuleTypeEnum,
   GetHealthHistoryPastEnum,
@@ -11,8 +14,6 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
-import { Dayjs } from 'dayjs'
-import { useContext, useMemo } from 'react'
 import {
   HOME_HEALTH_PAGE_POLLING_INTERVAL,
   serviceNameToLabel,
@@ -30,6 +31,8 @@ export type ServiceHealthProps = {
 
 export const ServiceHealth = (props: ServiceHealthProps) => {
   const { service, timeRange, now, past } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -92,7 +95,7 @@ export const ServiceHealth = (props: ServiceHealthProps) => {
         className="rounded-[5px] border border-functional-border-divider"
       >
         <div className="secondary-body3 rounded-t-[5px] bg-scene-background px-4 py-2 text-functional-text-light">
-          Health status
+          {t('home.health.healthStatus')}
         </div>
         {service.modules.map((module) => (
           <ModuleHealth

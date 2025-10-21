@@ -16,7 +16,7 @@ export const HealthStatus = (props: HealthStatusProps) => {
 
   return (
     <CosDashboardPanel.Item
-      topic={t('home.overview.health.status')}
+      topic={t('home.health.status')}
       className="overflow-x-auto"
     >
       <div className="grid grid-flow-col grid-rows-4 gap-x-3 gap-y-2">

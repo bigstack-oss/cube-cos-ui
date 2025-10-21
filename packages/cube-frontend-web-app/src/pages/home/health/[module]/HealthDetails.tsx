@@ -1,3 +1,6 @@
+import { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import dayjs from 'dayjs'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import {
   CosButton,
@@ -10,8 +13,6 @@ import { useTimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdow
 import { healthApi } from '@cube-frontend/web-app/api/cosApi'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useContext, useState } from 'react'
-import dayjs from 'dayjs'
 import { healthTimeRanges } from '../healthTimeRangeUtils'
 import { ErrorReportPanel } from './ErrorReportPanel'
 import { HealthHistoryPanel } from './HealthHistoryPanel'
@@ -28,6 +29,8 @@ export type HealthDetailsProps = {
 
 export const HealthDetails = (props: HealthDetailsProps) => {
   const { module, autoRefresh } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -164,7 +167,7 @@ export const HealthDetails = (props: HealthDetailsProps) => {
         leftSlot={
           !timeText && (
             <span className="secondary-h4 font-semibold text-grey-850">
-              No row selected
+              {t('home.health.errorPanel.noRowSelected')}
             </span>
           )
         }

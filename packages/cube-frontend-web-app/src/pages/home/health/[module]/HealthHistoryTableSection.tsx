@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   GetModuleHealthHistoryResponseDataHistoryInner,
   GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum,
@@ -49,6 +50,8 @@ export const HealthHistoryTableSection = (
     onItemsPerPageChange,
   } = props
 
+  const { t } = useTranslation()
+
   const pagedRows = useMemo<HistoryRow[]>(() => {
     // Reverse `history` because the entries are sorted by `time` in ascending
     // order from the API, but the history table needs them in descending order.
@@ -72,7 +75,9 @@ export const HealthHistoryTableSection = (
 
   return (
     <div className="flex flex-col gap-y-2">
-      <h6 className="primary-h5 text-functional-title">Health History</h6>
+      <h6 className="primary-h5 text-functional-title">
+        {t('home.health.history.healthHistory')}
+      </h6>
       <HistoryTable
         rows={pagedRows}
         isLoading={isLoading}
@@ -84,14 +89,26 @@ export const HealthHistoryTableSection = (
         }
         onRowClick={onRowClick}
       >
-        <HistoryTable.Column label="Timestamp (UTC#)" property="time">
+        <HistoryTable.Column
+          label={t('home.health.history.timestamp')}
+          property="time"
+        >
           {(time) => dayjs(time).format('YYYY/MM/DD HH:mm:ss')}
         </HistoryTable.Column>
-        <HistoryTable.Column label="Status" property="status">
+        <HistoryTable.Column
+          label={t('home.health.history.status')}
+          property="status"
+        >
           {renderStatus}
         </HistoryTable.Column>
-        <HistoryTable.Column label="Host" property="hostname" />
-        <HistoryTable.Column label="Reason" property="error">
+        <HistoryTable.Column
+          label={t('home.health.history.host')}
+          property="hostname"
+        />
+        <HistoryTable.Column
+          label={t('home.health.history.reason')}
+          property="error"
+        >
           {(error) => error?.type}
         </HistoryTable.Column>
       </HistoryTable>

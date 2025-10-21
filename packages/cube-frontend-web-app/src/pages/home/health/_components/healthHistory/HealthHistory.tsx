@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { range } from 'lodash'
 import { pipe } from 'lodash/fp'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
@@ -15,6 +16,8 @@ import {
 import { CategoryHealthPanel } from './CategoryHealthPanel'
 
 export const HealthHistory = () => {
+  const { t } = useTranslation()
+
   const { now, timeRange, onTimeRangeChange } = useTimeRange({
     includes: healthTimeRanges,
     defaultValue: '24h',
@@ -35,7 +38,7 @@ export const HealthHistory = () => {
     <div className="mt-[26px]">
       <CosGeneralPanel.Container>
         <CosGeneralPanel.TitleBar
-          title="Details"
+          title={t('home.health.details')}
           dropdown={
             <TimeRangeDropdown
               selectedItem={timeRange}

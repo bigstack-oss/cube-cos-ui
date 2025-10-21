@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GetModuleHealthHistoryResponseDataHistoryInner } from '@cube-frontend/api'
 import { CosTooltip, CosTooltipInformation } from '@cube-frontend/ui-library'
 import { cubeTheme } from '@cube-frontend/ui-theme'
@@ -6,7 +8,6 @@ import {
   DateTimeRange,
 } from '@cube-frontend/web-app/components/HealthSegmentedBar/BrushFilter'
 import { HealthSegmentedBar } from '@cube-frontend/web-app/components/HealthSegmentedBar/HealthSegmentedBar'
-import { useEffect, useState } from 'react'
 import { HealthIndicators } from './HealthIndicators'
 import { TIME_AXIS_HEIGHT, TimeAxis } from './TimeAxis'
 
@@ -21,10 +22,6 @@ export type HealthBrushTimeBarProps = {
 const INDICATOR_SIZE = 7
 const BAR_PADDING_Y = 20
 
-const HOVER_CONTENT = {
-  message: 'Drag to limit visible data points',
-} satisfies CosTooltipInformation
-
 export const HealthBrushTimeBar = (props: HealthBrushTimeBarProps) => {
   const {
     paddingX,
@@ -33,6 +30,12 @@ export const HealthBrushTimeBar = (props: HealthBrushTimeBarProps) => {
     brushDateTimeRange,
     onBrushDateTimeRangeChange,
   } = props
+
+  const { t } = useTranslation()
+
+  const hoverContent = {
+    message: t('home.health.chart.dragHint'),
+  } satisfies CosTooltipInformation
 
   const [showDragHint, setShowDragHint] = useState(true)
 
@@ -45,7 +48,7 @@ export const HealthBrushTimeBar = (props: HealthBrushTimeBarProps) => {
 
   return (
     <CosTooltip
-      hoverContent={showDragHint ? HOVER_CONTENT : undefined}
+      hoverContent={showDragHint ? hoverContent : undefined}
       placement="top-follow-cursor"
     >
       {/* Add a div wrapper to make the tooltip display correctly. */}

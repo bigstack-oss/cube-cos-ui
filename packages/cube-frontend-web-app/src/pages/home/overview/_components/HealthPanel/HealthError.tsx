@@ -54,7 +54,7 @@ const ServiceError = (props: ServiceErrorProps) => {
       </div>
       <div className="primary-body4 text-functional-text-light">
         {service.status.isFixing
-          ? `${t('home.overview.health.fixing')}...`
+          ? `${t('home.health.fixing')}...`
           : service.modules
               .map((module) => {
                 const name = module.name
@@ -115,7 +115,7 @@ export const HealthError = (props: HealthErrorProps) => {
     if (isRepairDone) {
       return (
         <span className="secondary-body3 font-semibold text-status-positive">
-          {t('home.overview.health.done')}!
+          {t('home.health.done')}!
         </span>
       )
     }
@@ -126,13 +126,13 @@ export const HealthError = (props: HealthErrorProps) => {
         loading={isRepairButtonLoading}
         onClick={onRepairClick}
       >
-        {t('home.overview.health.repair')}
+        {t('home.health.repair')}
       </CosButton>
     )
   }
 
   return (
-    <CosDashboardPanel.Item topic={t('home.overview.health.error')}>
+    <CosDashboardPanel.Item topic={t('home.health.error')}>
       <div className="flex items-center justify-between gap-x-5">
         <div className="flex flex-1 flex-col gap-y-2">
           {renderErrorServices()}

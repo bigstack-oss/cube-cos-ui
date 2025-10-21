@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosButton } from '@cube-frontend/ui-library'
 import { ModuleMetadata } from '@cube-frontend/web-app/hooks/useServices/useServices'
 
@@ -11,11 +12,13 @@ export type RepairButtonProps = {
 export const RepairButton = (props: RepairButtonProps) => {
   const { module, isRepairable, isFixing, onRepairClick } = props
 
+  const { t } = useTranslation()
+
   if (!isRepairable) return null
 
   return (
     <CosButton loading={isFixing} disabled={!module} onClick={onRepairClick}>
-      Repair
+      {t('home.health.repair')}
     </CosButton>
   )
 }

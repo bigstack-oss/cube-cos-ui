@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { HealthApiGetHealthsRequest } from '@cube-frontend/api'
 import {
   CosButton,
@@ -16,6 +17,8 @@ import { NgService } from './NgService'
 
 export const HealthCheck = () => {
   const { dataCenter } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   const { data: overallHealth, getResource: getHealths } = useCosGetRequest(
     healthApi.getHealths,
@@ -80,7 +83,10 @@ export const HealthCheck = () => {
   )
 
   return (
-    <CosGeneralPanel topic="Health Check:" leftSlot={healthCheckStatus}>
+    <CosGeneralPanel
+      topic={t('home.health.healthCheck')}
+      leftSlot={healthCheckStatus}
+    >
       <div className="flex flex-col gap-y-4">
         {renderNgServices()}
         <CosButton
@@ -89,7 +95,7 @@ export const HealthCheck = () => {
           disabled={isLoadingHealth}
           onClick={onRepairClick}
         >
-          Repair
+          {t('home.health.repair')}
         </CosButton>
       </div>
     </CosGeneralPanel>

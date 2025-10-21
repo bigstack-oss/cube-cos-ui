@@ -1,3 +1,6 @@
+import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link, Navigate, useParams } from 'react-router'
 import { CosBackButton, CosToggle } from '@cube-frontend/ui-library'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import {
@@ -5,8 +8,6 @@ import {
   useServices,
 } from '@cube-frontend/web-app/hooks/useServices/useServices'
 import { noop } from 'lodash'
-import { useMemo, useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router'
 import { moduleNameToLabel } from '../homeHealthPageUtils'
 import { HealthDetails } from './HealthDetails'
 
@@ -16,6 +17,8 @@ export const HealthDetailsPage = () => {
   if (!moduleName) {
     throw new Error('Cannot find module name in the URL')
   }
+
+  const { t } = useTranslation()
 
   const { isLoadingServices, findModule } = useServices()
 
@@ -48,10 +51,10 @@ export const HealthDetailsPage = () => {
           // Assign noop because `CosBackButton` requires either `href` or `onClick` prop to be presented.
           onClick={noop}
         >
-          {`${moduleNameToLabel(moduleName)} Details`}
+          {`${moduleNameToLabel(moduleName)} ${t('home.health.details')}`}
         </CosBackButton>
         <CosToggle
-          label="Auto-Refresh"
+          label={t('home.health.autoRefresh')}
           isOn={autoRefresh}
           disabled={!module}
           onChange={onAutoRefreshChange}
