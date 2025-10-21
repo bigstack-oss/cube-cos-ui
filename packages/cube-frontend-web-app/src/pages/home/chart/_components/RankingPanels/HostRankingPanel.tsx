@@ -16,44 +16,24 @@ import {
 import { RankingChart } from './RankingChart/RankingChart'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
-
-type HostRankingItem = {
-  name: string
-  metricType: GetMetricByTypesMetricTypeEnum
-}
-
-const hostRankingOptions = [
-  {
-    name: 'Cpu Usage',
-    metricType: GetMetricByTypesMetricTypeEnum.CpuUsage,
-  },
-  {
-    name: 'Memory Usage',
-    metricType: GetMetricByTypesMetricTypeEnum.MemoryUsage,
-  },
-  {
-    name: 'Disk Usage',
-    metricType: GetMetricByTypesMetricTypeEnum.DiskUsage,
-  },
-  {
-    name: 'Ingress Traffic',
-    metricType: GetMetricByTypesMetricTypeEnum.NetworkTrafficIn,
-  },
-  {
-    name: 'Egress Traffic',
-    metricType: GetMetricByTypesMetricTypeEnum.NetworkTrafficOut,
-  },
-] satisfies HostRankingItem[]
+import { useTranslation } from 'react-i18next'
+import { HostRankingItem, useHostRankingOptions } from './useHostRankingOptions'
 
 export const HostRankingPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
 
-  const [selectedItems, setSelectedItems] = useState<HostRankingItem[]>([
-    hostRankingOptions[0],
-  ])
+  const hostRankingOptions = useHostRankingOptions()
+
+  const [selectedMetricTypes, setSelectedMetricTypes] = useState<
+    GetMetricByTypesMetricTypeEnum[]
+  >(() => [hostRankingOptions[0].metricType])
+
+  const selectedMetricTypeDisplay = hostRankingOptions.find(
+    (item) => item.metricType === selectedMetricTypes[0],
+  )?.name
 
   const handleItemClick = (item: HostRankingItem) => {
-    setSelectedItems([item])
+    setSelectedMetricTypes([item.metricType])
   }
 
   const getMetricsParams = useMetricsParams()
@@ -67,7 +47,7 @@ export const HostRankingPanel = () => {
     getRanking,
     getMetricsParams({
       entityType: 'hosts',
-      metricType: selectedItems[0].metricType,
+      metricType: selectedMetricTypes[0],
       viewType: 'rank',
     }),
   )
@@ -87,18 +67,22 @@ export const HostRankingPanel = () => {
     }),
   )
 
+  const { t } = useTranslation()
+
   return (
     <CosGeneralPanel.Container className="flex-1">
       <CosGeneralPanel.TitleBar
-        title="Host"
-        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse)}
+        title={t('home.chart.host.title')}
+        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse, t)}
       />
       <CosGeneralPanel
         className="flex-1"
-        topic="Host Ranking Top 10 (High to low)"
+        topic={t('home.chart.host.rankingTop10')}
         rightSlot={
-          <CosDropdown type="radio" selectedItems={selectedItems}>
-            <CosDropdown.Trigger>{selectedItems[0].name}</CosDropdown.Trigger>
+          <CosDropdown type="radio" selectedItems={selectedMetricTypes}>
+            <CosDropdown.Trigger>
+              {selectedMetricTypeDisplay}
+            </CosDropdown.Trigger>
             <CosDropdown.Menu>
               {hostRankingOptions.map((item) => (
                 <CosDropdown.Item

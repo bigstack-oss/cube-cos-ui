@@ -6,7 +6,6 @@ import {
   CosGeneralPanel,
   CosPercentagePieChart,
 } from '@cube-frontend/ui-library'
-import { toPluralizeDisplay } from '@cube-frontend/utils'
 import ScrollContainer from '@cube-frontend/web-app/components/ScrollContainer/ScrollContainer'
 import { useMediaQuery } from '@cube-frontend/web-app/hooks/useMediaQuery'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -38,17 +37,17 @@ export const ChartPanel = (props: ChartPanelProps) => {
   const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
 
   const vmAllocationPanel = (
-    <CosGeneralPanel topic={t('home.overview.chart.totalVm')}>
+    <CosGeneralPanel topic={t('home.chart.vmAllocation.title')}>
       <div className="flex h-[260px] w-full flex-row justify-around gap-x-[35px] p-5">
         <CpuPercentagePieChart isLoading={isLoading} {...cpuPieChart} />
         <CosPercentagePieChart
-          title={t('home.overview.chart.memory')}
+          title={t('home.chart.vmAllocation.memory')}
           overThresholdText="Over Limit"
           isLoading={isLoading}
           {...memoryPieChart}
         />
         <CosPercentagePieChart
-          title={t('home.overview.chart.storage')}
+          title={t('home.chart.vmAllocation.storage')}
           overThresholdText="Over Limit"
           isLoading={isLoading}
           {...storagePieChart}
@@ -60,20 +59,23 @@ export const ChartPanel = (props: ChartPanelProps) => {
   return (
     <ScrollContainer className="flex gap-x-5">
       <div className="flex min-w-[500px] flex-1 flex-col gap-y-5">
-        <CosGeneralPanel topic={t('home.overview.chart.totalVm')}>
+        <CosGeneralPanel topic={t('home.chart.vmSummary.title')}>
           <CosCountSegmentedChart
-            title={t('home.overview.chart.totalVm')}
-            subtext={toPluralizeDisplay(vmBarChart.count, 'Instance')}
-            overview={{ name: 'Total VM', count: vmBarChart.count }}
+            title={t('home.chart.vmSummary.vmStatus')}
+            subtext={`${vmBarChart.count} ${t('home.chart.vmSummary.instance', { count: vmBarChart.count })}`}
+            overview={{
+              name: t('home.chart.vmSummary.totalVm'),
+              count: vmBarChart.count,
+            }}
             countInfos={vmBarChart.countInfos}
             isLoading={isLoading}
             skeletonCount={6}
           />
         </CosGeneralPanel>
-        <CosGeneralPanel topic={t('home.overview.chart.roleSummary')}>
+        <CosGeneralPanel topic={t('home.chart.roleSummary.title')}>
           <CosCountSegmentedChart
-            title={t('home.overview.chart.roleSummary')}
-            subtext={toPluralizeDisplay(roleBarChart.count, 'Role')}
+            title={t('home.chart.roleSummary.roleDistribution')}
+            subtext={`${roleBarChart.count} ${t('home.chart.roleSummary.role', { count: roleBarChart.count })}`}
             countInfos={roleBarChart.countInfos}
             isLoading={isLoading}
             skeletonCount={6}

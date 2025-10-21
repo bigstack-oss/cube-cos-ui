@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { StorageChart } from './StorageChart/StorageChart'
 import {
@@ -12,6 +13,8 @@ import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 
 export const StorageBandwidthPanel = () => {
+  const { t } = useTranslation()
+
   const getMetricsParams = useMetricsParams()
   const {
     data: diskBandWidthHistory = {
@@ -36,7 +39,10 @@ export const StorageBandwidthPanel = () => {
   })
 
   return (
-    <CosGeneralPanel topic="Storage Bandwidth" className="flex-1">
+    <CosGeneralPanel
+      topic={t('home.chart.storage.storageBandwidth')}
+      className="flex-1"
+    >
       <StorageChart
         read={diskBandWidthHistory.read}
         write={diskBandWidthHistory.write}

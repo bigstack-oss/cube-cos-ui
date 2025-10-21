@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   CHART_PAGE_POLLING_INTERVAL,
   getDiskLatencyHistory,
@@ -12,6 +13,8 @@ import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 
 export const StorageLatencyPanel = () => {
+  const { t } = useTranslation()
+
   const getMetricsParams = useMetricsParams()
 
   const {
@@ -37,7 +40,10 @@ export const StorageLatencyPanel = () => {
   })
 
   return (
-    <CosGeneralPanel topic="Storage Latency" className="flex-1">
+    <CosGeneralPanel
+      topic={t('home.chart.storage.storageLatency')}
+      className="flex-1"
+    >
       <StorageChart
         read={diskLatencyHistory.read}
         write={diskLatencyHistory.write}

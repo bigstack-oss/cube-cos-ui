@@ -16,48 +16,24 @@ import {
 import { RankingChart } from './RankingChart/RankingChart'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
-
-type VmRankingItem = {
-  name: string
-  metricType: GetMetricByTypesMetricTypeEnum
-}
-
-const vmRankingOptions = [
-  {
-    name: 'Cpu Usage',
-    metricType: GetMetricByTypesMetricTypeEnum.CpuUsage,
-  },
-  {
-    name: 'Memory Usage',
-    metricType: GetMetricByTypesMetricTypeEnum.MemoryUsage,
-  },
-  {
-    name: 'Disk IO Read',
-    metricType: GetMetricByTypesMetricTypeEnum.DiskReadIops,
-  },
-  {
-    name: 'Disk IO Write',
-    metricType: GetMetricByTypesMetricTypeEnum.DiskWriteIops,
-  },
-  {
-    name: 'Ingress Traffic',
-    metricType: GetMetricByTypesMetricTypeEnum.NetworkTrafficIn,
-  },
-  {
-    name: 'Egress Traffic',
-    metricType: GetMetricByTypesMetricTypeEnum.NetworkTrafficOut,
-  },
-] satisfies VmRankingItem[]
+import { useTranslation } from 'react-i18next'
+import { useVmRankingOptions, VmRankingItem } from './useVmRankingOptions'
 
 export const VmRankingPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
 
-  const [selectedItems, setSelectedItems] = useState<VmRankingItem[]>([
-    vmRankingOptions[0],
-  ])
+  const vmRankingOptions = useVmRankingOptions()
+
+  const [selectedMetricTypes, setSelectedMetricTypes] = useState<
+    GetMetricByTypesMetricTypeEnum[]
+  >(() => [vmRankingOptions[0].metricType])
+
+  const selectedMetricTypeDisplay = vmRankingOptions.find(
+    (item) => item.metricType === selectedMetricTypes[0],
+  )?.name
 
   const handleItemClick = (item: VmRankingItem) => {
-    setSelectedItems([item])
+    setSelectedMetricTypes([item.metricType])
   }
 
   const getMetricsParams = useMetricsParams()
@@ -71,7 +47,7 @@ export const VmRankingPanel = () => {
     getRanking,
     getMetricsParams({
       entityType: 'vms',
-      metricType: selectedItems[0].metricType,
+      metricType: selectedMetricTypes[0],
       viewType: 'rank',
     }),
   )
@@ -91,18 +67,22 @@ export const VmRankingPanel = () => {
     }),
   )
 
+  const { t } = useTranslation()
+
   return (
     <CosGeneralPanel.Container className="flex-1">
       <CosGeneralPanel.TitleBar
-        title="Instance"
-        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse)}
+        title={t('home.chart.vm.title')}
+        hyperLinkProps={computeTitleBarHyperlinkProps(grafanaLinkResponse, t)}
       />
       <CosGeneralPanel
         className="flex-1"
-        topic="VM Ranking Top 10 (High to low)"
+        topic={t('home.chart.vm.rankingTop10')}
         rightSlot={
-          <CosDropdown type="radio" selectedItems={selectedItems}>
-            <CosDropdown.Trigger>{selectedItems[0].name}</CosDropdown.Trigger>
+          <CosDropdown type="radio" selectedItems={selectedMetricTypes}>
+            <CosDropdown.Trigger>
+              {selectedMetricTypeDisplay}
+            </CosDropdown.Trigger>
             <CosDropdown.Menu>
               {vmRankingOptions.map((item) => (
                 <CosDropdown.Item

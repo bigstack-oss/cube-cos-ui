@@ -24,70 +24,71 @@ export const toMetricsChart = (
   const vmCountInfos = [
     {
       status: 'running',
-      name: t('home.overview.chart.running'),
+      name: t('home.chart.vmSummary.running'),
       color: 'fill-chart-2',
       count: metrics.vm.status.running,
     },
     {
       status: 'stopped',
-      name: t('home.overview.chart.stopped'),
+      name: t('home.chart.vmSummary.stopped'),
       color: 'fill-status-warning',
       count: metrics.vm.status.stopped,
     },
     {
       status: 'suspend',
-      name: t('home.overview.chart.suspended'),
+      name: t('home.chart.vmSummary.suspended'),
       color: 'fill-chart-1',
       count: metrics.vm.status.suspend,
     },
     {
       status: 'paused',
-      name: t('home.overview.chart.paused'),
+      name: t('home.chart.vmSummary.paused'),
       color: 'fill-status-paused',
       count: metrics.vm.status.paused,
     },
     {
       status: 'error',
-      name: t('home.overview.chart.error'),
+      name: t('home.chart.vmSummary.error'),
       color: 'fill-status-negative',
       count: metrics.vm.status.error,
     },
   ] satisfies VmCountInfo[]
 
+  // TODO: role summary translation function.
   const allRoleCountInfos = [
     {
       role: DataCenterRolesEnum.ControlConverged,
-      name: t(`home.overview.chart.${DataCenterRolesEnum.ControlConverged}`),
+      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.ControlConverged}`),
       color: 'fill-chart-1',
       count: metrics.host.role.controlConverged.count,
     },
     {
       role: DataCenterRolesEnum.Control,
-      name: t(`home.overview.chart.${DataCenterRolesEnum.Control}`),
+      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.Control}`),
       color: 'fill-chart-2',
       count: metrics.host.role.control.count,
     },
     {
       role: DataCenterRolesEnum.Compute,
-      name: t(`home.overview.chart.${DataCenterRolesEnum.Compute}`),
+      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.Compute}`),
       color: 'fill-chart-3',
       count: metrics.host.role.compute.count,
     },
     {
       role: DataCenterRolesEnum.Storage,
-      name: t(`home.overview.chart.${DataCenterRolesEnum.Storage}`),
+      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.Storage}`),
       color: 'fill-chart-5',
       count: metrics.host.role.storage.count,
     },
     {
       role: DataCenterRolesEnum.EdgeCore,
-      name: t(`home.overview.chart.${DataCenterRolesEnum.EdgeCore}`),
+      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.EdgeCore}`),
       color: 'fill-chart-8',
       count: metrics.host.role.edgeCore.count,
     },
     {
       role: DataCenterRolesEnum.Moderator,
-      name: t(`home.overview.chart.${DataCenterRolesEnum.Moderator}`),
+      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.Moderator}`),
       color: 'fill-chart-9',
       count: metrics.host.role.moderator.count,
     },

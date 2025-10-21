@@ -63,18 +63,18 @@ const ChartPanel = () => {
   const isSmallScreen = useMediaQuery({ maxWidth: 1300 })
 
   const vmAllocationPanelItem = (
-    <CosDashboardPanel.Item topic={t('home.overview.chart.vmAllocation')}>
+    <CosDashboardPanel.Item topic={t('home.chart.vmAllocation.title')}>
       <div className="flex flex-row justify-around gap-x-7">
         <CpuPercentagePieChart isLoading={showLoading} {...cpuPieChart} />
         <CosPercentagePieChart
-          title={t('home.overview.chart.memory')}
-          overThresholdText={t('home.overview.chart.overLimit')}
+          title={t('home.chart.vmAllocation.memory')}
+          overThresholdText={t('home.chart.vmAllocation.overLimit')}
           isLoading={showLoading}
           {...memoryPieChart}
         />
         <CosPercentagePieChart
-          title={t('home.overview.chart.vmStorage')}
-          overThresholdText={t('home.overview.chart.overLimit')}
+          title={t('home.chart.vmAllocation.storage')}
+          overThresholdText={t('home.chart.vmAllocation.overLimit')}
           isLoading={showLoading}
           {...storagePieChart}
         />
@@ -93,13 +93,13 @@ const ChartPanel = () => {
       <CosDashboardPanel.Row className="[&>*]:min-w-[500px]">
         <CosDashboardPanel.Col className="flex-1">
           <CosDashboardPanel.Item
-            topic={t('home.overview.chart.vmSummary')}
-            subtext={`${vmBarChart.count} ${t('home.overview.chart.instance', { count: vmBarChart.count })}`}
+            topic={t('home.chart.vmSummary.vmStatus')}
+            subtext={`${vmBarChart.count} ${t('home.chart.vmSummary.instance', { count: vmBarChart.count })}`}
             isSubtextLoading={showLoading}
           >
             <CosCountSegmentedChart
               overview={{
-                name: t('home.overview.chart.totalVm'),
+                name: t('home.chart.vmSummary.totalVm'),
                 count: vmBarChart.count,
               }}
               countInfos={vmBarChart.countInfos}
@@ -108,8 +108,8 @@ const ChartPanel = () => {
             />
           </CosDashboardPanel.Item>
           <CosDashboardPanel.Item
-            topic={t('home.overview.chart.roleSummary')}
-            subtext={`${roleBarChart.count} ${t('home.overview.chart.role', { count: roleBarChart.count })}`}
+            topic={t('home.chart.roleSummary.roleDistribution')}
+            subtext={`${roleBarChart.count} ${t('home.chart.roleSummary.role', { count: roleBarChart.count })}`}
             isSubtextLoading={showLoading}
           >
             <CosCountSegmentedChart

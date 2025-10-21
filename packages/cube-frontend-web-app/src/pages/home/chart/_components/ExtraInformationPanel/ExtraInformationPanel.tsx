@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   GrafanaApiGetGrafanaNetworkDevicesRequest,
   GrafanaApiGetGrafanaNetworksRequest,
@@ -6,7 +8,6 @@ import { CosButton } from '@cube-frontend/ui-library'
 import { grafanaApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useContext } from 'react'
 
 export const ExtraInformationPanel = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -25,6 +26,8 @@ export const ExtraInformationPanel = () => {
     }),
   )
 
+  const { t } = useTranslation()
+
   const renderNetworkLink = () => {
     const buttonElement = (
       <CosButton
@@ -32,7 +35,7 @@ export const ExtraInformationPanel = () => {
         usage="text-only"
         loading={!networkGrafanaLinkResponse}
       >
-        Network
+        {t('home.chart.extraMonitor.network')}
       </CosButton>
     )
 
@@ -61,7 +64,7 @@ export const ExtraInformationPanel = () => {
         usage="text-only"
         loading={!deviceGrafanaLinkResponse}
       >
-        Device
+        {t('home.chart.extraMonitor.device')}
       </CosButton>
     )
 
@@ -96,7 +99,9 @@ export const ExtraInformationPanel = () => {
           boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.20)',
         }}
       >
-        <div className="secondary-h4 text-functional-title">Extra Monitor</div>
+        <div className="secondary-h4 text-functional-title">
+          {t('home.chart.extraMonitor.title')}
+        </div>
         {networkLinkElement}
         {deviceLinkElement}
       </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { StorageChart } from './StorageChart/StorageChart'
 import {
@@ -12,6 +13,8 @@ import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
 
 export const StorageIopsPanel = () => {
+  const { t } = useTranslation()
+
   const getMetricsParams = useMetricsParams()
   const {
     data: diskIopsHistory = {
@@ -36,7 +39,10 @@ export const StorageIopsPanel = () => {
   })
 
   return (
-    <CosGeneralPanel topic="Storage IOPS" className="flex-1">
+    <CosGeneralPanel
+      topic={t('home.chart.storage.storageIops')}
+      className="flex-1"
+    >
       <StorageChart
         read={diskIopsHistory.read}
         write={diskIopsHistory.write}

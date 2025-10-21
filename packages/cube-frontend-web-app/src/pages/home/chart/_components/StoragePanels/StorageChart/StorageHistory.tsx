@@ -13,7 +13,7 @@ import {
   TimeValue,
   Formatter,
   getLineChartData as getChartData,
-  getChartOptions,
+  useChartOptions,
 } from './utils'
 
 ChartJS.register(
@@ -38,10 +38,7 @@ export const StorageHistory = (props: StorageHistoryProps) => {
   const { read, write, unit, unitSuffix = '', formatter, isLoading } = props
 
   const chartData = useMemo(() => getChartData({ read, write }), [read, write])
-  const options = useMemo(
-    () => getChartOptions({ unit, unitSuffix, isLoading, formatter }),
-    [unit, unitSuffix, isLoading, formatter],
-  )
+  const options = useChartOptions({ unit, unitSuffix, isLoading, formatter })
 
   return (
     <div className="h-[400px]">
