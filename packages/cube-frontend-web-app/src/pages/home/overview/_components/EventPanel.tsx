@@ -80,7 +80,7 @@ export const EventPanel = () => {
 
   return (
     <CosDashboardPanel
-      title={t('home.overview.events.title')}
+      title={t('events.title')}
       time={updateTime}
       hyperLinkProps={{ onClick: noop }}
       HyperLinkContainer={<Link to={CosRoutesEnum.EVENTS_PAGE} />}
@@ -93,45 +93,36 @@ export const EventPanel = () => {
             isActive={eventType === 'system'}
             onClick={() => setEventType('system')}
           >
-            {t('home.overview.events.system')}
+            {t('events.system')}
           </CosContentSwitcher.Item>
           <CosContentSwitcher.Item
             isActive={eventType === 'host'}
             onClick={() => setEventType('host')}
           >
-            {t('home.overview.events.host')}
+            {t('events.host')}
           </CosContentSwitcher.Item>
           <CosContentSwitcher.Item
             isActive={eventType === 'instance'}
             onClick={() => setEventType('instance')}
           >
-            {t('home.overview.events.instance')}
+            {t('events.instance')}
           </CosContentSwitcher.Item>
         </CosContentSwitcher>
         <EventTable rows={rows} isLoading={showLoading}>
+          <EventTable.Column label={t('events.severity')} property="severity" />
           <EventTable.Column
-            label={t('home.overview.events.severity')}
-            property="severity"
-          />
-          <EventTable.Column
-            label={t('home.overview.events.eventId')}
+            label={t('events.eventId')}
             property="eventId"
             emphasize={true}
           />
           <EventTable.Column
-            label={t('home.overview.events.description')}
+            label={t('events.description')}
             property="description"
           />
-          <EventTable.Column
-            label={t('home.overview.events.metadata')}
-            property="metadata"
-          >
+          <EventTable.Column label={t('events.metadata')} property="metadata">
             {(metadata) => `${JSON.stringify(metadata)}`}
           </EventTable.Column>
-          <EventTable.Column
-            label={t('home.overview.events.time')}
-            property="time"
-          >
+          <EventTable.Column label={t('events.time')} property="time">
             {(time) => (
               <span className="text-nowrap">{formatEventTime(time)}</span>
             )}

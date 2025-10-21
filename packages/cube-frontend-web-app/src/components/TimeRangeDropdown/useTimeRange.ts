@@ -2,6 +2,7 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import dayjs, { Dayjs } from 'dayjs'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { TimeRange } from './timeRangeUtils'
+import { useDayjsState } from '@cube-frontend/web-app/hooks/useDayjsState'
 
 export type UseTimeRangeOption<T extends readonly TimeRange[]> = {
   includes: T
@@ -36,7 +37,7 @@ export const useTimeRange = <T extends readonly TimeRange[]>(
 
   const [timeRange, setTimeRange] = useState<TimeRange>(defaultValue)
 
-  const [now, setNow] = useState(getNow)
+  const [now, setNow] = useDayjsState(getNow)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -46,7 +47,7 @@ export const useTimeRange = <T extends readonly TimeRange[]>(
     return () => {
       clearInterval(intervalId)
     }
-  }, [getNow])
+  }, [getNow, setNow])
 
   const onTimeRangeChange = (newTimeRange: T[number]): void => {
     setTimeRange(newTimeRange)

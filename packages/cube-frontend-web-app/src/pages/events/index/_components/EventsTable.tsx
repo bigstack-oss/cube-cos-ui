@@ -9,28 +9,13 @@ import {
   ItemsPerPage,
 } from '@cube-frontend/ui-library'
 import { formatEventTime } from '@cube-frontend/web-app/utils/date'
+import { useEventTableColumns } from './useEventTableColumns'
 
 type EventResponse = GetEventsResponseData['events'][number]
 
-type EventTableType = EventResponse & { eventId: string }
+export type EventTableType = EventResponse & { eventId: string }
 
 export const EventTable = GetCosBasicTable<EventTableType>()
-
-type DisplayColumns = Pick<
-  EventTableType,
-  'severity' | 'eventId' | 'time' | 'description' | 'metadata'
->
-
-const EventTableColumn: Record<
-  keyof DisplayColumns,
-  { label: string; property: keyof EventTableType }
-> = {
-  severity: { label: 'Severity', property: 'severity' },
-  eventId: { label: 'Event ID', property: 'eventId' },
-  time: { label: 'Time', property: 'time' },
-  description: { label: 'Description', property: 'description' },
-  metadata: { label: 'Metadata', property: 'metadata' },
-}
 
 const mapToEventTable = (e: EventResponse, index: number): EventTableType => ({
   ...e,
@@ -62,6 +47,8 @@ export const EventsTable = (props: EventsTableSelectionProps) => {
   const rows = useMemo<EventTableType[]>(() => {
     return events?.map(mapToEventTable) || []
   }, [events])
+
+  const EventTableColumn = useEventTableColumns()
 
   return (
     <div className="flex flex-col gap-6">

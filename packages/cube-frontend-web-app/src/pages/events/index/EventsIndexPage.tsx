@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { EventsRefreshButton } from './_components/EventsRefreshButton'
 import { EventsTableFilter } from './_components/EventsTableFilter'
@@ -6,6 +7,8 @@ import { useEvents } from './_components/useEvents'
 import { useEventsQuery } from './_components/useEventsQuery'
 
 export const EventsIndexPage = () => {
+  const { t } = useTranslation()
+
   const {
     eventsQuery,
     onTypeChange,
@@ -27,7 +30,7 @@ export const EventsIndexPage = () => {
 
   return (
     <CosGeneralPanel
-      topic="Events"
+      topic={t('events.title')}
       rightSlot={
         <EventsRefreshButton
           onEventsRefresh={onEventsRefresh}

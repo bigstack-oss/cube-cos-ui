@@ -1,6 +1,6 @@
-import { upperFirst } from 'lodash'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { FilterOptions } from './useEventsQuery'
+import { useTranslation } from 'react-i18next'
 
 type FilterDropdownProps<Key extends keyof FilterOptions> = {
   isLoading: boolean
@@ -31,7 +31,9 @@ export const FilterDropdown = <Key extends keyof FilterOptions>(
     onFieldClear,
   } = props
 
-  const filterLabel = upperFirst(filterKey)
+  const { t } = useTranslation()
+
+  const filterLabel = t(`events.filter.${filterKey}`)
 
   const onAllCheckChange = (checked: boolean) => {
     if (checked) {

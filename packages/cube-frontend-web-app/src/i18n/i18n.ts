@@ -15,23 +15,4 @@ i18n
     },
   })
 
-i18n.on('languageChanged', () => {
-  /**
-   * Reload the page when language changes to make sure all dayjs instances are updated.
-   *
-   * Some dayjs instances are still hold the old locale,
-   * even after calling `dayjs.locale(newLocale)`
-   *
-   * for example;
-   *
-   * ```tsx
-   * const [now, setNow] = useState(dayjs())
-   * ```
-   *
-   * The `now` will still hold the old locale after rerender and will cause language inconsistency.
-   *
-   **/
-  window.location.reload()
-})
-
 export default i18n

@@ -3,6 +3,7 @@
   "component.dropdown.choose": "選擇",
   "component.dropdown.all": "全部",
   "component.dropdown.search": "搜尋",
+  "component.dropdown.noData": "沒有資料",
   "component.logConsole.copy": "複製",
   "component.logConsole.copied": "已複製！",
   "component.logConsole.copyDetails": "點擊複製細節",

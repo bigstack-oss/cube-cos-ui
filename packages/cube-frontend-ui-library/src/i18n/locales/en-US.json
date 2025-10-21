@@ -3,6 +3,7 @@
   "component.dropdown.choose": "Choose",
   "component.dropdown.all": "All",
   "component.dropdown.search": "Search",
+  "component.dropdown.noData": "No Data",
   "component.logConsole.copy": "Copy",
   "component.logConsole.copied": "Copied!",
   "component.logConsole.copyDetails": "Click to copy details",

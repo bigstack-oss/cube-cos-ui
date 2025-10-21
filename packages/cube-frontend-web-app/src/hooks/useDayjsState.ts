@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Dayjs } from 'dayjs'
-import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 
 /**
  * Changing the global dayjs locale doesn't affect existing dayjs instances.
@@ -11,7 +11,7 @@ import { useUILibraryTranslation } from '../../i18n/useUILibraryTranslation'
 export const useDayjsState = (initialFn: () => Dayjs) => {
   const [date, setDate] = useState<Dayjs>(initialFn)
 
-  const { i18n } = useUILibraryTranslation()
+  const { i18n } = useTranslation()
 
   useEffect(() => {
     setDate((d) => d.locale(i18n.language))

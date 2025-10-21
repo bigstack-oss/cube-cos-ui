@@ -1,4 +1,4 @@
-import { upperFirst } from 'lodash'
+import { useTranslation } from 'react-i18next'
 import { GetEventsTypeEnum } from '@cube-frontend/api'
 import { CosContentSwitcher } from '@cube-frontend/ui-library'
 
@@ -10,6 +10,8 @@ type EventsContentSwitcherProps = {
 export const EventsContentSwitcher = (props: EventsContentSwitcherProps) => {
   const { activeTab, onEventsTypeChange: handleTabChange } = props
 
+  const { t } = useTranslation()
+
   return (
     <CosContentSwitcher variant="radius">
       {Object.values(GetEventsTypeEnum).map((tab) => (
@@ -18,7 +20,7 @@ export const EventsContentSwitcher = (props: EventsContentSwitcherProps) => {
           isActive={tab === activeTab}
           onClick={() => handleTabChange(tab)}
         >
-          {upperFirst(tab)}
+          {t(`events.${tab}`)}
         </CosContentSwitcher.Item>
       ))}
     </CosContentSwitcher>
