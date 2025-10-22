@@ -71,7 +71,7 @@ export const IntegrationsApplicationsPage = () => {
           {renderApplicationName}
         </ApplicationTable.Column>
         <ApplicationTable.Column
-          label={t('integrations.applications.shownOnHeader')}
+          label={t('integrations.applications.shownOnToolbar')}
           property="isHeaderShortcutEnabled"
         >
           {(isHeaderShortcutEnabled) => (

@@ -49,7 +49,7 @@ export const NodePanel = () => {
 
   return (
     <CosDashboardPanel
-      title={t('home.overview.nodes.title')}
+      title={t('nodes.title')}
       time={updateTime}
       hyperLinkProps={{ onClick: noop }}
       HyperLinkContainer={<Link to={CosRoutesEnum.NODES_PAGE} />}

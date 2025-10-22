@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { toUnitDisplay } from '@cube-frontend/web-app/utils/unit'
+import { useUnitDisplay } from '@cube-frontend/web-app/hooks/useUnitDisplay'
 import { CurrentStorageItem } from './CurrentStorageItem'
 import { Formatter } from './utils'
 
@@ -15,6 +15,8 @@ export const CurrentStorage = (props: CurrentStorageProps) => {
   const { unit, unitSuffix, read, write, formatter } = props
 
   const { t } = useTranslation()
+
+  const { toUnitDisplay } = useUnitDisplay()
 
   const formattedRead = formatter(read)
   const formattedWrite = formatter(write)

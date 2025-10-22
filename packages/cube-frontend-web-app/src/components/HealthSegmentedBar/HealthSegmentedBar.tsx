@@ -10,6 +10,7 @@ import { PropsWithClassName } from '@cube-frontend/utils'
 import { ReactNode, useMemo } from 'react'
 import { computeHealthSegments, HealthSegment } from './computeHealthSegments'
 import { DateTimeRange } from './BrushFilter'
+import { useTranslation } from 'react-i18next'
 
 export type HealthSegmentedBarProps<
   T extends
@@ -47,10 +48,11 @@ export const HealthSegmentedBar = <
     overlay,
   } = props
 
-  const segments = useMemo<HealthSegment[]>(
-    () => computeHealthSegments(history, dateTimeRange),
+  const { t } = useTranslation()
 
-    [history, dateTimeRange],
+  const segments = useMemo<HealthSegment[]>(
+    () => computeHealthSegments(history, dateTimeRange, t),
+    [history, dateTimeRange, t],
   )
 
   const commonSegmentedBarProps: CosSegmentedBarProps = {

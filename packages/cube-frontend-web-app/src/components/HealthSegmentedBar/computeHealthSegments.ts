@@ -7,6 +7,7 @@ import { CosTooltipInformation, Segment } from '@cube-frontend/ui-library'
 import { FillColorClass } from '@cube-frontend/ui-theme'
 import dayjs, { Dayjs } from 'dayjs'
 import { DateTimeRange } from './BrushFilter'
+import { TFunction } from 'i18next'
 
 type HistoryEntry =
   | GetModuleHealthHistoryResponseDataHistoryInner
@@ -63,6 +64,7 @@ const checkHistoryEntriesSorting = (history: HistoryEntry[]): void => {
 export const computeHealthSegments = (
   history: HistoryEntry[],
   dateTimeRange: DateTimeRange,
+  t: TFunction,
 ): HealthSegment[] => {
   checkHistoryEntriesSorting(history)
 
@@ -80,7 +82,7 @@ export const computeHealthSegments = (
 
   const mergedSegments = mergeSegments(segments)
   mergedSegments.forEach((segment) => {
-    segment.hoverContent = createHoverContent(segment)
+    segment.hoverContent = createHoverContent(segment, t)
   })
 
   return mergedSegments
@@ -272,22 +274,26 @@ const createSegment = (options: CreateSegmentOptions): HealthSegment => {
   }
 }
 
-const createHoverContent = (segment: HealthSegment): CosTooltipInformation => {
+const createHoverContent = (
+  segment: HealthSegment,
+  t: TFunction,
+): CosTooltipInformation => {
   const { status, startDateTime, endDateTime } = segment
 
   if (status === 'blank') {
     return {
-      message: 'No data',
+      message: t('home.health.status.noData'),
     }
   }
 
   const formatDateTime = (dateTime: Dayjs): string => {
     return dateTime.format('MMM DD, HH:mm')
   }
+  const statusText = (t(`home.health.status.${status}`) as string).toUpperCase()
 
   const durationText = `${formatDateTime(startDateTime)} - ${formatDateTime(endDateTime)}`
   return {
-    title: status.toUpperCase(),
+    title: statusText,
     message: durationText,
   }
 }

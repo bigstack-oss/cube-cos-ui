@@ -1,4 +1,5 @@
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
+import { useUnitDisplay } from '@cube-frontend/web-app/hooks/useUnitDisplay'
 import {
   chartFontFamily,
   getChartTicksOptions,
@@ -7,7 +8,6 @@ import {
   getChartYAxisTitleFont,
 } from '@cube-frontend/web-app/utils/chart'
 import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
-import { toUnitDisplay } from '@cube-frontend/web-app/utils/unit'
 import { ChartData, ChartDataset, ChartOptions } from 'chart.js'
 import { last } from 'lodash'
 import { useMemo } from 'react'
@@ -81,6 +81,8 @@ export const useChartOptions = (props: {
   const { unit, unitSuffix, isLoading, formatter } = props
 
   const { t } = useTranslation()
+
+  const { toUnitDisplay } = useUnitDisplay()
 
   return useMemo(
     () => ({
@@ -162,6 +164,6 @@ export const useChartOptions = (props: {
         },
       },
     }),
-    [unit, unitSuffix, isLoading, formatter, t],
+    [toUnitDisplay, unit, unitSuffix, isLoading, formatter, t],
   )
 }

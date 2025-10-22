@@ -1,8 +1,11 @@
+import { ComponentProps } from 'react'
+import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import { noop } from 'lodash'
 import { GetNodesResponseData } from '@cube-frontend/api'
 import {
   CosHyperlink,
   CosResourceUsageBar,
-  CosStatus,
   CosTag,
   CosTooltip,
   GetCosBatchActionTable,
@@ -15,11 +18,8 @@ import {
   canCreateSupportFile,
   formatUpTime,
 } from '@cube-frontend/web-app/utils/node'
-import { noop } from 'lodash'
-import { ComponentProps } from 'react'
-import { Link } from 'react-router'
 import { VipLabel } from './VipLabel'
-import { useTranslation } from 'react-i18next'
+import { NodeStatus } from './NodeStatus'
 
 const BatchActionNodeTable =
   GetCosBatchActionTable<GetNodesResponseData['nodes'][number]>()
@@ -39,7 +39,7 @@ export const NodeTable = (props: NodeTableProps) => {
       }
     >
       <BatchActionNodeTable.Column
-        label="Hostname"
+        label={t('nodes.hostname')}
         property="hostname"
         emphasize={true}
       >
@@ -58,7 +58,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
-        label="Management IP"
+        label={t('nodes.managementIp')}
         property="managementIP"
         isSortable={true}
         sortingCompareFnMap={ipv4CompareFnMap}
@@ -67,13 +67,13 @@ export const NodeTable = (props: NodeTableProps) => {
         {(managementIP) => (
           <div className="flex items-center gap-x-1.5">
             <span className="w-[98px]">{managementIP}</span>
-            <CosTooltip clickContent={{ message: 'Copied' }}>
+            <CosTooltip clickContent={{ message: t('nodes.copied') }}>
               <CopyButton copyContent={managementIP} />
             </CosTooltip>
           </div>
         )}
       </BatchActionNodeTable.Column>
-      <BatchActionNodeTable.Column label="Role" property="role">
+      <BatchActionNodeTable.Column label={t('nodes.role')} property="role">
         {(role) => (
           <CosTag color="blue" variant="filled">
             {role}
@@ -81,13 +81,13 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
-        label="License Expiration"
+        label={t('nodes.licenseExpiration')}
         property="license"
       >
         {(license) => toLicenseExpirationDate(license, t)}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
-        label="CPU"
+        label={t('nodes.cpu')}
         property="vcpu"
         skeletonVariant="with-barchart"
       >
@@ -99,7 +99,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
-        label="RAM"
+        label={t('nodes.ram')}
         property="memory"
         skeletonVariant="with-barchart"
       >
@@ -111,7 +111,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
-        label="Partition"
+        label={t('nodes.diskUsage')}
         property="storage"
         skeletonVariant="with-barchart"
       >
@@ -122,17 +122,20 @@ export const NodeTable = (props: NodeTableProps) => {
           />
         )}
       </BatchActionNodeTable.Column>
-      <BatchActionNodeTable.Column label="Running" property="uptimeSeconds">
+      <BatchActionNodeTable.Column
+        label={t('nodes.running')}
+        property="uptimeSeconds"
+      >
         {(_, node) => (
           <span className="whitespace-nowrap">{formatUpTime(t, node)}</span>
         )}
       </BatchActionNodeTable.Column>
       <BatchActionNodeTable.Column
-        label="Status"
+        label={t('nodes.status')}
         property="status"
         skeletonVariant="status"
       >
-        {(status) => <CosStatus status={status} />}
+        {(status) => <NodeStatus status={status} />}
       </BatchActionNodeTable.Column>
     </BatchActionNodeTable>
   )

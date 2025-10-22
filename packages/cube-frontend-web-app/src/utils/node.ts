@@ -27,11 +27,11 @@ export const formatUpTime = (
 }
 
 export const nodeStatusTranslationKeys: Record<NodeStatusEnum, ParseKeys> = {
-  [NodeStatusEnum.Up]: 'home.overview.nodes.up',
-  [NodeStatusEnum.Down]: 'home.overview.nodes.down',
-  [NodeStatusEnum.PoweringOn]: 'home.overview.nodes.poweringOn',
-  [NodeStatusEnum.PoweringOff]: 'home.overview.nodes.poweringOff',
-  [NodeStatusEnum.PoweringCycle]: 'home.overview.nodes.poweringCycle',
-  [NodeStatusEnum.Syncing]: 'home.overview.nodes.syncing',
-  [NodeStatusEnum.Unknown]: 'home.overview.nodes.unknown',
+  [NodeStatusEnum.Up]: 'nodes.up',
+  [NodeStatusEnum.Down]: 'nodes.down',
+  [NodeStatusEnum.PoweringOn]: 'nodes.poweringOn',
+  [NodeStatusEnum.PoweringOff]: 'nodes.poweringOff',
+  [NodeStatusEnum.PoweringCycle]: 'nodes.poweringCycle',
+  [NodeStatusEnum.Syncing]: 'nodes.syncing',
+  [NodeStatusEnum.Unknown]: 'nodes.unknown',
 }

@@ -2,7 +2,6 @@ import { MetricRankRankInner } from '@cube-frontend/api'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
 import { formatChartXAxisTime } from '@cube-frontend/web-app/utils/date'
 import { toAbbreviation } from '@cube-frontend/web-app/utils/number'
-import { toUnitAbbreviation } from '@cube-frontend/web-app/utils/unit'
 import {
   CategoryScale,
   ChartData,
@@ -27,7 +26,7 @@ ChartJS.register(
 )
 
 export type RankingItemLineProps = {
-  unit: string
+  unitDisplay: string
   rankItem: MetricRankRankInner
   onMouseEnter: () => void
   onMouseLeave: () => void
@@ -49,7 +48,7 @@ const getChartData = (
   }
 }
 
-const getChartOptions = (unit: string): ChartOptions<'line'> => {
+const getChartOptions = (unitDisplay: string): ChartOptions<'line'> => {
   return {
     responsive: true,
     maintainAspectRatio: false,
@@ -89,8 +88,7 @@ const getChartOptions = (unit: string): ChartOptions<'line'> => {
         callbacks: {
           label: (context) => {
             const value = toAbbreviation(context.parsed.y)
-            const abbreviationUnit = toUnitAbbreviation(unit)
-            return `${value} ${abbreviationUnit}`
+            return `${value} ${unitDisplay}`
           },
         },
       },
@@ -99,10 +97,10 @@ const getChartOptions = (unit: string): ChartOptions<'line'> => {
 }
 
 export const RankingItemLine = (props: RankingItemLineProps) => {
-  const { unit, rankItem, onMouseEnter, onMouseLeave } = props
+  const { unitDisplay, rankItem, onMouseEnter, onMouseLeave } = props
 
   const chartData = useMemo(() => getChartData(rankItem), [rankItem])
-  const options = useMemo(() => getChartOptions(unit), [unit])
+  const options = useMemo(() => getChartOptions(unitDisplay), [unitDisplay])
 
   return (
     <div className="relative w-full">

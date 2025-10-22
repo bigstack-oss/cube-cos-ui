@@ -2,20 +2,17 @@ import { GetNodesResponseData } from '@cube-frontend/api'
 import {
   CosHyperlink,
   CosResourceUsageBar,
-  CosStatus,
   CosTag,
   CosTooltip,
   GetCosBasicTable,
 } from '@cube-frontend/ui-library'
 import { CopyButton } from '@cube-frontend/web-app/components/CopyButton'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
+import { NodeStatus } from '@cube-frontend/web-app/pages/node/_components/NodeStatus'
 import { VipLabel } from '@cube-frontend/web-app/pages/node/_components/VipLabel'
 import { toLicenseExpirationDate } from '@cube-frontend/web-app/utils/date'
 import { ipv4CompareFnMap } from '@cube-frontend/web-app/utils/ip'
-import {
-  formatUpTime,
-  nodeStatusTranslationKeys,
-} from '@cube-frontend/web-app/utils/node'
+import { formatUpTime } from '@cube-frontend/web-app/utils/node'
 import { noop } from 'lodash'
 import { ComponentProps } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -31,7 +28,7 @@ export const NodeTable = (props: NodeTableProps) => {
   return (
     <BasicNodeTable {...props}>
       <BasicNodeTable.Column
-        label={t('home.overview.nodes.hostname')}
+        label={t('nodes.hostname')}
         property="hostname"
         emphasize={true}
       >
@@ -50,7 +47,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
-        label={t('home.overview.nodes.managementIp')}
+        label={t('nodes.managementIp')}
         property="managementIP"
         isSortable={true}
         sortingCompareFnMap={ipv4CompareFnMap}
@@ -59,18 +56,13 @@ export const NodeTable = (props: NodeTableProps) => {
         {(managementIP) => (
           <div className="flex items-center gap-x-1.5">
             <span className="w-[98px]">{managementIP}</span>
-            <CosTooltip
-              clickContent={{ message: t('home.overview.nodes.copied') }}
-            >
+            <CosTooltip clickContent={{ message: t('nodes.copied') }}>
               <CopyButton copyContent={managementIP} />
             </CosTooltip>
           </div>
         )}
       </BasicNodeTable.Column>
-      <BasicNodeTable.Column
-        label={t('home.overview.nodes.role')}
-        property="role"
-      >
+      <BasicNodeTable.Column label={t('nodes.role')} property="role">
         {(role) => (
           <CosTag color="blue" variant="filled">
             {role}
@@ -78,13 +70,13 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
-        label={t('home.overview.nodes.licenseExpiration')}
+        label={t('nodes.licenseExpiration')}
         property="license"
       >
         {(license) => toLicenseExpirationDate(license, t)}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
-        label={t('home.overview.nodes.cpu')}
+        label={t('nodes.cpu')}
         property="vcpu"
         skeletonVariant="with-barchart"
       >
@@ -96,7 +88,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
-        label={t('home.overview.nodes.ram')}
+        label={t('nodes.ram')}
         property="memory"
         skeletonVariant="with-barchart"
       >
@@ -108,7 +100,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
-        label={t('home.overview.nodes.partition')}
+        label={t('nodes.diskUsage')}
         property="storage"
         skeletonVariant="with-barchart"
       >
@@ -120,7 +112,7 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
-        label={t('home.overview.nodes.running')}
+        label={t('nodes.running')}
         property="uptimeSeconds"
       >
         {(_, node) => (
@@ -128,16 +120,11 @@ export const NodeTable = (props: NodeTableProps) => {
         )}
       </BasicNodeTable.Column>
       <BasicNodeTable.Column
-        label={t('home.overview.nodes.status')}
+        label={t('nodes.status')}
         property="status"
         skeletonVariant="status"
       >
-        {(status) => (
-          <CosStatus
-            status={status}
-            message={t(nodeStatusTranslationKeys[status])}
-          />
-        )}
+        {(status) => <NodeStatus status={status} />}
       </BasicNodeTable.Column>
     </BasicNodeTable>
   )

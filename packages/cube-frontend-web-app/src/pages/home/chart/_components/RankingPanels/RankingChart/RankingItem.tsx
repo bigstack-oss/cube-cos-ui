@@ -1,7 +1,7 @@
+import { twMerge } from 'tailwind-merge'
 import { MetricRankRankInner } from '@cube-frontend/api'
 import { toAbbreviation } from '@cube-frontend/web-app/utils/number'
-import { toUnitAbbreviation } from '@cube-frontend/web-app/utils/unit'
-import { twMerge } from 'tailwind-merge'
+import { useUnitDisplay } from '@cube-frontend/web-app/hooks/useUnitDisplay'
 import { RankingItemLine } from './RankingItemLine'
 
 export type RankingItemProps = {
@@ -14,6 +14,10 @@ export type RankingItemProps = {
 
 export const RankingItem = (props: RankingItemProps) => {
   const { rankingItem, unit, isBlur, onMouseEnter, onMouseLeave } = props
+
+  const { toUnitDisplay } = useUnitDisplay()
+
+  const unitDisplay = toUnitDisplay(unit)
 
   const getName = () => {
     const { name, device } = rankingItem
@@ -28,8 +32,6 @@ export const RankingItem = (props: RankingItemProps) => {
     return name
   }
 
-  const abbreviationUnit = toUnitAbbreviation(unit)
-
   return (
     <div
       className={twMerge(
@@ -42,12 +44,12 @@ export const RankingItem = (props: RankingItemProps) => {
       </span>
       <div className="flex h-[36px] min-w-0 flex-1 items-center gap-x-1.5">
         <span className="primary-body5 w-[48px]">
-          {toAbbreviation(rankingItem.value)} {abbreviationUnit}
+          {toAbbreviation(rankingItem.value)} {unitDisplay}
         </span>
         <div className="h-[36px] min-w-0 flex-1">
           <RankingItemLine
             rankItem={rankingItem}
-            unit={unit}
+            unitDisplay={unitDisplay}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           />

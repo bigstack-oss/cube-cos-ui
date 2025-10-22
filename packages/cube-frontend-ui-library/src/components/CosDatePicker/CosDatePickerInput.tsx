@@ -13,12 +13,12 @@ export const CosDatePickerInput = (props: CosDatePickerInputProps) => {
 
   const { t } = useUILibraryTranslation()
 
-  const TypeDisplay = t(`component.datePicker.${type}`)
+  const typeDisplay = t(`component.datePicker.${type}`)
 
   return (
     <div className="flex w-[132.5px] flex-col gap-2">
       <p className="primary-body4 font-medium text-functional-text-light">
-        {upperFirst(TypeDisplay)}
+        {upperFirst(typeDisplay)}
       </p>
       <CosTableInput
         type="text"

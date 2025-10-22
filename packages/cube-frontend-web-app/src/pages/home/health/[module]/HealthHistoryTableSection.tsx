@@ -63,14 +63,18 @@ export const HealthHistoryTableSection = (
     )
   }, [history, currentPage, itemsPerPage])
 
-  const renderStatus = (status: string) => {
+  const renderStatus = (
+    status: GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum,
+  ) => {
     const { Ok, Ng } = GetModuleHealthHistoryResponseDataHistoryInnerStatusEnum
+    const translatedStatus = t(`home.health.status.${status}`, status) as string
+
     if (status === Ok || status === Ng) {
       // Use upperCase for OK and NG statuses since they are abbreviations.
-      return upperCase(status)
+      return upperCase(translatedStatus)
     }
 
-    return upperFirst(status)
+    return upperFirst(translatedStatus)
   }
 
   return (

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { uniqueId } from 'lodash'
 import { Node, NodesApiGetNodesRequest } from '@cube-frontend/api'
 import {
@@ -19,6 +20,8 @@ import { canCreateSupportFile } from '@cube-frontend/web-app/utils/node'
 
 export const NodeListPage = () => {
   const { dataCenter } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   const {
     query,
@@ -92,7 +95,7 @@ export const NodeListPage = () => {
 
   return (
     <>
-      <CosGeneralPanel topic="Nodes">
+      <CosGeneralPanel topic={t('nodes.title')}>
         <div className="flex flex-col gap-y-3">
           <div className="flex items-center justify-between">
             <NodeFilters
@@ -106,7 +109,7 @@ export const NodeListPage = () => {
               onClick={openCreateSupportFilesModal}
               disabled={selectedNodes.length === 0}
             >
-              Create support files
+              {t('nodes.createSupportFiles')}
             </CosButton>
           </div>
           <NodeTable

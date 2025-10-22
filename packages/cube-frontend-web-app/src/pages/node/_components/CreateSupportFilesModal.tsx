@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Node } from '@cube-frontend/api'
 import {
   CosInput,
@@ -8,7 +10,6 @@ import {
 import { supportFilesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useContext } from 'react'
 
 const SelectedHostsTable = GetCosBasicTable<NodeForCreateSupportFiles>()
 
@@ -35,6 +36,8 @@ export const CreateSupportFilesModal = (
     onSuccess,
   } = props
 
+  const { t } = useTranslation()
+
   const { dataCenter } = useContext(DataCenterContext)
 
   const { isLoading: isCreating, mutateResource: createSupportFilesApi } =
@@ -58,21 +61,27 @@ export const CreateSupportFilesModal = (
 
   return (
     <CosModal
-      title="Create Support Files"
+      title={t('nodes.createSupportFiles')}
       size="sm"
       isOpen={isOpen}
-      actionText="Create support files"
+      actionText={t('nodes.createSupportFiles')}
       actionButtonProps={{ loading: isCreating }}
       onActionClick={onCreateClick}
       onCloseClick={onCloseClick}
     >
       <div className="flex flex-col gap-y-5">
         <p className="primary-body2 text-functional-text">
-          Do you want to create support files from these nodes?
+          {t('nodes.createSupportFiles.message')}
         </p>
         <SelectedHostsTable rows={selectedNodes}>
-          <SelectedHostsTable.Column label="Node" property="hostname" />
-          <SelectedHostsTable.Column label="Role" property="role">
+          <SelectedHostsTable.Column
+            label={t('nodes.createSupportFiles.node')}
+            property="hostname"
+          />
+          <SelectedHostsTable.Column
+            label={t('nodes.createSupportFiles.role')}
+            property="role"
+          >
             {(role) => (
               <CosTag color="blue" variant="filled">
                 {role}
@@ -81,7 +90,7 @@ export const CreateSupportFilesModal = (
           </SelectedHostsTable.Column>
         </SelectedHostsTable>
         <CosInput
-          label="Add comments"
+          label={t('nodes.createSupportFiles.addComments')}
           value={comments}
           onChange={(e) => onCommentsChange(e.target.value)}
         />

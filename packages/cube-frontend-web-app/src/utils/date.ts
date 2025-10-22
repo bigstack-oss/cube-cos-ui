@@ -37,7 +37,7 @@ export const toLicenseExpirationDate = (
   options?: FormatLicenseDateOptions,
 ): string => {
   if (license.status.current === NodeLicenseCurrentStatus.Unlicense) {
-    return t('home.overview.nodes.unlicense')
+    return t('nodes.unlicense')
   }
   const { date } = license.expiry
   if (!date) {
@@ -55,20 +55,20 @@ export const humanizeDuration = (
 
   if (duration.asDays() >= 1) {
     const value = Math.floor(duration.asDays())
-    return `${value} ${t('home.overview.nodes.day', { count: value })}`
+    return `${value} ${t('common.day', { count: value })}`
   }
 
   if (duration.asHours() >= 1) {
     const value = Math.floor(duration.asHours())
-    return `${value} ${t('home.overview.nodes.hour', { count: value })}`
+    return `${value} ${t('common.hour', { count: value })}`
   }
 
   if (duration.asMinutes() >= 1) {
     const value = Math.floor(duration.asMinutes())
-    return `${value} ${t('home.overview.nodes.minute', { count: value })}`
+    return `${value} ${t('common.minute', { count: value })}`
   }
 
-  return `${durationSeconds} ${t('home.overview.nodes.second', { count: durationSeconds })}`
+  return `${durationSeconds} ${t('common.second', { count: durationSeconds })}`
 }
 
 export const formatChartXAxisTime = (time: string) => {
