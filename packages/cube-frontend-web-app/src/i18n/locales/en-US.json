@@ -298,6 +298,7 @@
   "integrations.applications.description": "Description",
   "integrations.applications.builtIn": "Built in",
   "integrations.applications.connect": "Connect",
+  "integrations.applications.required": "Required",
   "integrations.storages.title": "Storages",
   "integrations.storages.modelList": "Model list",
   "integrations.storages.addExternalStorage": "Add external storage",
@@ -396,6 +397,7 @@
   "events.description": "Description",
   "events.metadata": "Metadata",
   "events.severity.info": "INFO",
+  "events.severity.warning": "",
   "events.time": "Time",
   "events.triggers.title": "Triggers",
   "events.triggers.createTrigger": "Create Trigger",
@@ -585,6 +587,5 @@
   "maintenance.update.installModal.status.failed": "Failed",
   "maintenance.update.installModal.status.resolved": "Resolved",
   "maintenance.update.installModal.status.pendingReboot": "Pending Reboot",
-  "maintenance.update.installModal.status.rebooting": "Rebooting",
-  "": ""
+  "maintenance.update.installModal.status.rebooting": "Rebooting"
 }

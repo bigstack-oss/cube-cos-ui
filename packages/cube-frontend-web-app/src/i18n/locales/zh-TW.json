@@ -184,6 +184,8 @@
   "home.health.error": "錯誤",
   "home.health.fixing": "",
   "home.health.done": "完成",
+  "home.health.ok": "",
+  "home.health.ng": "",
   "node.list.title": "節點",
   "node.list.roles": "Roles",
   "node.list.createSupportFiles": "Create Support files",
@@ -219,6 +221,13 @@
   "node.list.second": "秒",
   "node.list.second_other": "秒",
   "node.list.unlicense": "無憑證",
+  "integrations.applications.title": "應用服務",
+  "integrations.applications.application": "應用服務",
+  "integrations.applications.shownOnHeader": "顯示於頁首",
+  "integrations.applications.description": "說明",
+  "integrations.applications.builtIn": "內建",
+  "integrations.applications.connect": "連接",
+  "integrations.applications.required": "固定顯示",
   "events.tabs.events": "事件",
   "events.title": "事件",
   "events.system": "系統",
@@ -233,6 +242,6 @@
   "events.description": "描述",
   "events.metadata": "元資料",
   "events.severity.info": "",
-  "events.time": "時間",
-  "": ""
+  "events.severity.warning": "",
+  "events.time": "時間"
 }

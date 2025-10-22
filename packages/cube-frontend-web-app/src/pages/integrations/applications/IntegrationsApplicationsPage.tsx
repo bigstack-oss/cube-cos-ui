@@ -1,4 +1,5 @@
 import { useContext, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { upperFirst, uniqueId } from 'lodash'
 import { GetIntegrationsResponseDataInner } from '@cube-frontend/api'
 import {
@@ -48,27 +49,29 @@ export const IntegrationsApplicationsPage = () => {
 
   const rows = useMemo(() => data?.map(applicationToRow) || [], [data])
 
+  const { t } = useTranslation()
+
   return (
-    <CosGeneralPanel topic="Applications">
+    <CosGeneralPanel topic={t('integrations.applications.title')}>
       <ApplicationTable rows={rows} isLoading={isLoading}>
-        <ApplicationTable.Column property="url" fitContent={true}>
+        <ApplicationTable.Column property="url">
           {(url) => (
             <a target="_blank" href={url}>
               <CosButton type="light" size="sm">
-                Connect
+                {t('integrations.applications.connect')}
               </CosButton>
             </a>
           )}
         </ApplicationTable.Column>
         <ApplicationTable.Column
-          label="Application"
+          label={t('integrations.applications.application')}
           property="name"
           emphasize={true}
         >
           {renderApplicationName}
         </ApplicationTable.Column>
         <ApplicationTable.Column
-          label="Shown on header"
+          label={t('integrations.applications.shownOnHeader')}
           property="isHeaderShortcutEnabled"
         >
           {(isHeaderShortcutEnabled) => (
@@ -77,11 +80,16 @@ export const IntegrationsApplicationsPage = () => {
                * TODO: In Phase 1, all applications are `Required`.
                * Should discuss the `Non-Required` wording with the team in Phase 2.
                */}
-              {isHeaderShortcutEnabled ? 'Required' : 'Non-Required'}
+              {isHeaderShortcutEnabled
+                ? t('integrations.applications.required')
+                : 'Non-Required'}
             </span>
           )}
         </ApplicationTable.Column>
-        <ApplicationTable.Column label="Description" property="description" />
+        <ApplicationTable.Column
+          label={t('integrations.applications.description')}
+          property="description"
+        />
         <ApplicationTable.Column property="isBuiltIn">
           {(isBuiltIn) => (
             <span className="primary-body3 text-nowrap text-functional-text-light">
@@ -89,7 +97,9 @@ export const IntegrationsApplicationsPage = () => {
                * TODO: In Phase 1, all integrations are `Built-in`.
                * Should discuss the `Non-Built-in` wording with the team in Phase 2.
                */}
-              {isBuiltIn ? 'Built in' : 'Non Built in'}
+              {isBuiltIn
+                ? t('integrations.applications.builtIn')
+                : 'Non Built in'}
             </span>
           )}
         </ApplicationTable.Column>
