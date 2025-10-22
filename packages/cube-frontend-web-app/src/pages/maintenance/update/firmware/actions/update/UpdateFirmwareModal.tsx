@@ -37,6 +37,7 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
 
   const actionButtonProps = useUpdateFirmwareModalActionProps({
     firmware,
+    isRollingChecked,
     isRollingApplied,
     progressRows,
     fetchUpdateProgress,

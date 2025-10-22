@@ -14,6 +14,7 @@ export type UpdateFirmwareModalActionProps = Pick<
 
 type UseUpdateFirmwareModalActionPropsArgs = {
   firmware: ListFirmwaresResponseDataFirmwaresInner | undefined
+  isRollingChecked: boolean
   isRollingApplied: boolean
   progressRows: UpdateProgressRow[]
   fetchUpdateProgress: () => Promise<unknown>
@@ -25,6 +26,7 @@ export const useUpdateFirmwareModalActionProps = (
 ): UpdateFirmwareModalActionProps => {
   const {
     firmware,
+    isRollingChecked,
     isRollingApplied,
     progressRows,
     fetchUpdateProgress,
@@ -33,6 +35,7 @@ export const useUpdateFirmwareModalActionProps = (
 
   const availableModalActionProps = useAvailableFirmwareUpdateModalActionProps({
     version: firmware?.version,
+    isRollingChecked,
     onUpdateRequested: fetchUpdateProgress,
   })
 
