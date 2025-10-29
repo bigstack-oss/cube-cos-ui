@@ -89,6 +89,151 @@ export interface AddNodeDeviceResponse {
 /**
  * 
  * @export
+ * @interface ApplyIntegrationStorageRequest
+ */
+export interface ApplyIntegrationStorageRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplyIntegrationStorageRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplyIntegrationStorageRequest
+     */
+    'driver': string;
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorage}
+     * @memberof ApplyIntegrationStorageRequest
+     */
+    'storage': ApplyIntegrationStorageRequestStorage;
+}
+/**
+ * 
+ * @export
+ * @interface ApplyIntegrationStorageRequestStorage
+ */
+export interface ApplyIntegrationStorageRequestStorage {
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorageService}
+     * @memberof ApplyIntegrationStorageRequestStorage
+     */
+    'service': ApplyIntegrationStorageRequestStorageService;
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorageVolumeType}
+     * @memberof ApplyIntegrationStorageRequestStorage
+     */
+    'volumeType': ApplyIntegrationStorageRequestStorageVolumeType;
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorageImage}
+     * @memberof ApplyIntegrationStorageRequestStorage
+     */
+    'image': ApplyIntegrationStorageRequestStorageImage;
+}
+/**
+ * 
+ * @export
+ * @interface ApplyIntegrationStorageRequestStorageImage
+ */
+export interface ApplyIntegrationStorageRequestStorageImage {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ApplyIntegrationStorageRequestStorageImage
+     */
+    'useMultipath': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ApplyIntegrationStorageRequestStorageImage
+     */
+    'forceMultipath': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ApplyIntegrationStorageRequestStorageService
+ */
+export interface ApplyIntegrationStorageRequestStorageService {
+    /**
+     * 
+     * @type {Array<StorageKeyValuePair>}
+     * @memberof ApplyIntegrationStorageRequestStorageService
+     */
+    'driverSection': Array<StorageKeyValuePair>;
+    /**
+     * 
+     * @type {Array<ApplyIntegrationStorageRequestStorageServiceExtraSettingsInner>}
+     * @memberof ApplyIntegrationStorageRequestStorageService
+     */
+    'extraSettings': Array<ApplyIntegrationStorageRequestStorageServiceExtraSettingsInner>;
+    /**
+     * 
+     * @type {Array<ApplyIntegrationStorageRequestStorageServiceExtraConfigFilesInner>}
+     * @memberof ApplyIntegrationStorageRequestStorageService
+     */
+    'extraConfigFiles': Array<ApplyIntegrationStorageRequestStorageServiceExtraConfigFilesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ApplyIntegrationStorageRequestStorageServiceExtraConfigFilesInner
+ */
+export interface ApplyIntegrationStorageRequestStorageServiceExtraConfigFilesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplyIntegrationStorageRequestStorageServiceExtraConfigFilesInner
+     */
+    'name': string;
+    /**
+     * Base64 encoded content of the config file
+     * @type {string}
+     * @memberof ApplyIntegrationStorageRequestStorageServiceExtraConfigFilesInner
+     */
+    'content': string;
+}
+/**
+ * 
+ * @export
+ * @interface ApplyIntegrationStorageRequestStorageServiceExtraSettingsInner
+ */
+export interface ApplyIntegrationStorageRequestStorageServiceExtraSettingsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplyIntegrationStorageRequestStorageServiceExtraSettingsInner
+     */
+    'sectionHeader': string;
+    /**
+     * 
+     * @type {Array<StorageKeyValuePair>}
+     * @memberof ApplyIntegrationStorageRequestStorageServiceExtraSettingsInner
+     */
+    'settings': Array<StorageKeyValuePair>;
+}
+/**
+ * 
+ * @export
+ * @interface ApplyIntegrationStorageRequestStorageVolumeType
+ */
+export interface ApplyIntegrationStorageRequestStorageVolumeType {
+    /**
+     * 
+     * @type {Array<StorageKeyValuePair>}
+     * @memberof ApplyIntegrationStorageRequestStorageVolumeType
+     */
+    'settings': Array<StorageKeyValuePair>;
+}
+/**
+ * 
+ * @export
  * @interface ContinueInterruptedFirmwareUpdate202Response
  */
 export interface ContinueInterruptedFirmwareUpdate202Response {
@@ -310,6 +455,156 @@ export interface CreateEmailRecipient500Response {
      * @memberof CreateEmailRecipient500Response
      */
     'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateIntegrationStorage202Response
+ */
+export interface CreateIntegrationStorage202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateIntegrationStorage202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorage202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorage202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateIntegrationStorage409Response
+ */
+export interface CreateIntegrationStorage409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateIntegrationStorage409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorage409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorage409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateIntegrationStorage500Response
+ */
+export interface CreateIntegrationStorage500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateIntegrationStorage500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorage500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorage500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateIntegrationStorageModel202Response
+ */
+export interface CreateIntegrationStorageModel202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateIntegrationStorageModel202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorageModel202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorageModel202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateIntegrationStorageModel400Response
+ */
+export interface CreateIntegrationStorageModel400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateIntegrationStorageModel400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorageModel400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorageModel400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateIntegrationStorageModel500Response
+ */
+export interface CreateIntegrationStorageModel500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateIntegrationStorageModel500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorageModel500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateIntegrationStorageModel500Response
+     */
+    'status': string;
 }
 /**
  * 
@@ -1123,6 +1418,31 @@ export interface DeleteFirmware404Response {
 /**
  * 
  * @export
+ * @interface DeleteFirmware409Response
+ */
+export interface DeleteFirmware409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteFirmware409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFirmware409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFirmware409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteFirmware500Response
  */
 export interface DeleteFirmware500Response {
@@ -1173,6 +1493,31 @@ export interface DeleteFixpack200Response {
 /**
  * 
  * @export
+ * @interface DeleteFixpack409Response
+ */
+export interface DeleteFixpack409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteFixpack409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFixpack409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFixpack409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteFixpack500Response
  */
 export interface DeleteFixpack500Response {
@@ -1194,6 +1539,156 @@ export interface DeleteFixpack500Response {
      * @memberof DeleteFixpack500Response
      */
     'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteIntegrationStorage202Response
+ */
+export interface DeleteIntegrationStorage202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteIntegrationStorage202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorage202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorage202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteIntegrationStorage500Response
+ */
+export interface DeleteIntegrationStorage500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteIntegrationStorage500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorage500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorage500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteIntegrationStorageModel202Response
+ */
+export interface DeleteIntegrationStorageModel202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteIntegrationStorageModel202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorageModel202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorageModel202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteIntegrationStorageModel404Response
+ */
+export interface DeleteIntegrationStorageModel404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteIntegrationStorageModel404Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorageModel404Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorageModel404Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteIntegrationStorageModel409Response
+ */
+export interface DeleteIntegrationStorageModel409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteIntegrationStorageModel409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorageModel409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorageModel409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteIntegrationStorageModel500Response
+ */
+export interface DeleteIntegrationStorageModel500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteIntegrationStorageModel500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorageModel500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorageModel500Response
+     */
+    'status': string;
 }
 /**
  * 
@@ -2849,6 +3344,12 @@ export interface GetFirmwareUpgradeProgressResponseData {
     'version': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof GetFirmwareUpgradeProgressResponseData
+     */
+    'isRollingApplied': boolean;
+    /**
+     * 
      * @type {Array<GetFirmwareUpgradeProgressResponseDataProgressesInner>}
      * @memberof GetFirmwareUpgradeProgressResponseData
      */
@@ -2871,7 +3372,7 @@ export interface GetFirmwareUpgradeProgressResponseDataProgressesInner {
      * @type {string}
      * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInner
      */
-    'phase': string;
+    'phase': GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum;
     /**
      * 
      * @type {GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus}
@@ -2879,6 +3380,22 @@ export interface GetFirmwareUpgradeProgressResponseDataProgressesInner {
      */
     'status': GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus;
 }
+
+export const GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum = {
+    BootstrappingCubecos: 'bootstrapping cubecos',
+    StartingCluster: 'starting cluster',
+    EvacutingVmsOnHost: 'evacuting vms on host',
+    MovingVipAwayFromHost: 'moving vip away from host',
+    MovedVipAwayFromHost: 'moved vip away from host',
+    RebootingHost: 'rebooting host',
+    ClusterCheckingAndRepairing: 'cluster checking and repairing',
+    ClusterCheckedAndRepaired: 'cluster checked and repaired',
+    ResetAndBootedNonActiveServer: 'reset and booted non-active server',
+    ClusterCheckAndRepairSkippedAsNotAllNodesAreBootstrappedAndSynced: 'cluster check and repair skipped as not all nodes are bootstrapped and synced'
+} as const;
+
+export type GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum = typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum[keyof typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum];
+
 /**
  * 
  * @export
@@ -2912,13 +3429,12 @@ export interface GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus {
 }
 
 export const GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum = {
-    Available: 'available',
     Installing: 'installing',
-    WaitingReboot: 'waitingReboot',
+    WaitingReboot: 'waiting reboot',
     Rebooting: 'rebooting',
-    Installed: 'installed',
     Failed: 'failed',
-    Resolved: 'resolved'
+    Resolved: 'resolved',
+    Succeeded: 'succeeded'
 } as const;
 
 export type GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum = typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum[keyof typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum];
@@ -3069,10 +3585,10 @@ export const GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnu
     WaitingReboot: 'waitingReboot',
     Rebooting: 'rebooting',
     Installed: 'installed',
-    Resolved: 'resolved',
     RollingBack: 'rolling back',
     InstallFailed: 'install failed',
-    RollbackFailed: 'rollback failed'
+    RollbackFailed: 'rollback failed',
+    Resolved: 'resolved'
 } as const;
 
 export type GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum = typeof GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum[keyof typeof GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum];
@@ -3694,10 +4210,10 @@ export interface GetIntegratedApplicationsResponse {
     'code': number;
     /**
      * 
-     * @type {Array<GetIntegrationsResponseDataInner>}
+     * @type {Array<GetIntegratedApplicationsResponseDataInner>}
      * @memberof GetIntegratedApplicationsResponse
      */
-    'data': Array<GetIntegrationsResponseDataInner>;
+    'data': Array<GetIntegratedApplicationsResponseDataInner>;
     /**
      * 
      * @type {string}
@@ -3714,204 +4230,163 @@ export interface GetIntegratedApplicationsResponse {
 /**
  * 
  * @export
- * @interface GetIntegratedStoragesResponse
+ * @interface GetIntegratedApplicationsResponseDataInner
  */
-export interface GetIntegratedStoragesResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetIntegratedStoragesResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {Array<GetIntegratedStoragesResponseDataInner>}
-     * @memberof GetIntegratedStoragesResponse
-     */
-    'data': Array<GetIntegratedStoragesResponseDataInner>;
+export interface GetIntegratedApplicationsResponseDataInner {
     /**
      * 
      * @type {string}
-     * @memberof GetIntegratedStoragesResponse
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegratedStoragesResponse
-     */
-    'status': string;
-}
-/**
- * 
- * @export
- * @interface GetIntegratedStoragesResponseDataInner
- */
-export interface GetIntegratedStoragesResponseDataInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegratedStoragesResponseDataInner
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegratedStoragesResponseDataInner
-     */
-    'type': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetIntegratedStoragesResponseDataInner
-     */
-    'isDefault': boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegratedStoragesResponseDataInner
-     */
-    'vendor': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegratedStoragesResponseDataInner
-     */
-    'managementIp': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegratedStoragesResponseDataInner
-     */
-    'updatedAt': string;
-    /**
-     * 
-     * @type {GetIntegratedStoragesResponseDataInnerStatus}
-     * @memberof GetIntegratedStoragesResponseDataInner
-     */
-    'status': GetIntegratedStoragesResponseDataInnerStatus;
-}
-/**
- * 
- * @export
- * @interface GetIntegratedStoragesResponseDataInnerStatus
- */
-export interface GetIntegratedStoragesResponseDataInnerStatus {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegratedStoragesResponseDataInnerStatus
-     */
-    'current': GetIntegratedStoragesResponseDataInnerStatusCurrentEnum;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof GetIntegratedStoragesResponseDataInnerStatus
-     */
-    'isProcessing': boolean;
-}
-
-export const GetIntegratedStoragesResponseDataInnerStatusCurrentEnum = {
-    Ok: 'ok',
-    Integrating: 'integrating',
-    Updating: 'updating',
-    Deleting: 'deleting'
-} as const;
-
-export type GetIntegratedStoragesResponseDataInnerStatusCurrentEnum = typeof GetIntegratedStoragesResponseDataInnerStatusCurrentEnum[keyof typeof GetIntegratedStoragesResponseDataInnerStatusCurrentEnum];
-
-/**
- * 
- * @export
- * @interface GetIntegrations500Response
- */
-export interface GetIntegrations500Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetIntegrations500Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegrations500Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegrations500Response
-     */
-    'status'?: string;
-}
-/**
- * 
- * @export
- * @interface GetIntegrationsResponse
- */
-export interface GetIntegrationsResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetIntegrationsResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {Array<GetIntegrationsResponseDataInner>}
-     * @memberof GetIntegrationsResponse
-     */
-    'data': Array<GetIntegrationsResponseDataInner>;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegrationsResponse
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegrationsResponse
-     */
-    'status': string;
-}
-/**
- * 
- * @export
- * @interface GetIntegrationsResponseDataInner
- */
-export interface GetIntegrationsResponseDataInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetIntegrationsResponseDataInner
+     * @memberof GetIntegratedApplicationsResponseDataInner
      */
     'name': string;
     /**
      * 
      * @type {boolean}
-     * @memberof GetIntegrationsResponseDataInner
+     * @memberof GetIntegratedApplicationsResponseDataInner
      */
     'isHeaderShortcutEnabled': boolean;
     /**
      * 
      * @type {string}
-     * @memberof GetIntegrationsResponseDataInner
+     * @memberof GetIntegratedApplicationsResponseDataInner
      */
     'description': string;
     /**
      * 
      * @type {boolean}
-     * @memberof GetIntegrationsResponseDataInner
+     * @memberof GetIntegratedApplicationsResponseDataInner
      */
     'isBuiltIn': boolean;
     /**
      * 
      * @type {string}
-     * @memberof GetIntegrationsResponseDataInner
+     * @memberof GetIntegratedApplicationsResponseDataInner
      */
     'url': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetIntegrationStorage500Response
+ */
+export interface GetIntegrationStorage500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetIntegrationStorage500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegrationStorage500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegrationStorage500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetIntegrationStorageResponse
+ */
+export interface GetIntegrationStorageResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetIntegrationStorageResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetIntegrationStorageResponseData}
+     * @memberof GetIntegrationStorageResponse
+     */
+    'data': GetIntegrationStorageResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegrationStorageResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegrationStorageResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetIntegrationStorageResponseData
+ */
+export interface GetIntegrationStorageResponseData {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetIntegrationStorageResponseData
+     */
+    'isDefault': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegrationStorageResponseData
+     */
+    'name': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetIntegrationStorageResponseData
+     */
+    'isExternal': boolean;
+    /**
+     * 
+     * @type {VerifyStorageIntegrationRequestDevice}
+     * @memberof GetIntegrationStorageResponseData
+     */
+    'device': VerifyStorageIntegrationRequestDevice;
+    /**
+     * 
+     * @type {GetIntegrationStorageResponseDataStorage}
+     * @memberof GetIntegrationStorageResponseData
+     */
+    'storage': GetIntegrationStorageResponseDataStorage;
+}
+/**
+ * 
+ * @export
+ * @interface GetIntegrationStorageResponseDataStorage
+ */
+export interface GetIntegrationStorageResponseDataStorage {
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorageService}
+     * @memberof GetIntegrationStorageResponseDataStorage
+     */
+    'service': ApplyIntegrationStorageRequestStorageService;
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorageVolumeType}
+     * @memberof GetIntegrationStorageResponseDataStorage
+     */
+    'volumeType': ApplyIntegrationStorageRequestStorageVolumeType;
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorageImage}
+     * @memberof GetIntegrationStorageResponseDataStorage
+     */
+    'image': ApplyIntegrationStorageRequestStorageImage;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegrationStorageResponseDataStorage
+     */
+    'updateTime': string;
 }
 /**
  * 
@@ -7431,6 +7906,81 @@ export type ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = typeof Li
 /**
  * 
  * @export
+ * @interface ListFixpackRollbackableNodes500Response
+ */
+export interface ListFixpackRollbackableNodes500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFixpackRollbackableNodes500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackRollbackableNodes500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackRollbackableNodes500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpackRollbackableNodesResponse
+ */
+export interface ListFixpackRollbackableNodesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFixpackRollbackableNodesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListFixpackRollbackableNodesResponseDataInner>}
+     * @memberof ListFixpackRollbackableNodesResponse
+     */
+    'data': Array<ListFixpackRollbackableNodesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackRollbackableNodesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackRollbackableNodesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpackRollbackableNodesResponseDataInner
+ */
+export interface ListFixpackRollbackableNodesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackRollbackableNodesResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackRollbackableNodesResponseDataInner
+     */
+    'updatedAt': string;
+}
+/**
+ * 
+ * @export
  * @interface ListFixpackUpdatableNodesResponse
  */
 export interface ListFixpackUpdatableNodesResponse {
@@ -7739,10 +8289,10 @@ export interface ListImageMaterialsResponseData {
     'oses': Array<string>;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ListImageMaterialsResponseDataDestinationInner>}
      * @memberof ListImageMaterialsResponseData
      */
-    'destinations': Array<string>;
+    'destination'?: Array<ListImageMaterialsResponseDataDestinationInner>;
     /**
      * 
      * @type {Array<string>}
@@ -7755,6 +8305,25 @@ export interface ListImageMaterialsResponseData {
      * @memberof ListImageMaterialsResponseData
      */
     'visibilities': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface ListImageMaterialsResponseDataDestinationInner
+ */
+export interface ListImageMaterialsResponseDataDestinationInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImageMaterialsResponseDataDestinationInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListImageMaterialsResponseDataDestinationInner
+     */
+    'isDefault': boolean;
 }
 /**
  * 
@@ -7977,6 +8546,12 @@ export interface ListImagesResponseDataImagesInner {
      * @type {string}
      * @memberof ListImagesResponseDataImagesInner
      */
+    'diskType': ListImagesResponseDataImagesInnerDiskTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInner
+     */
     'createdAt': string;
     /**
      * 
@@ -7984,6 +8559,12 @@ export interface ListImagesResponseDataImagesInner {
      * @memberof ListImagesResponseDataImagesInner
      */
     'sizeMiB': number;
+    /**
+     * 
+     * @type {ListImagesResponseDataImagesInnerMetadata}
+     * @memberof ListImagesResponseDataImagesInner
+     */
+    'metadata': ListImagesResponseDataImagesInnerMetadata;
     /**
      * 
      * @type {ListImagesResponseDataImagesInnerStatus}
@@ -8001,6 +8582,127 @@ export const ListImagesResponseDataImagesInnerVisibilityEnum = {
 } as const;
 
 export type ListImagesResponseDataImagesInnerVisibilityEnum = typeof ListImagesResponseDataImagesInnerVisibilityEnum[keyof typeof ListImagesResponseDataImagesInnerVisibilityEnum];
+export const ListImagesResponseDataImagesInnerDiskTypeEnum = {
+    Raw: 'raw',
+    Qcow2: 'qcow2',
+    Vhd: 'vhd',
+    Vmdk: 'vmdk',
+    Iso: 'iso',
+    Unknown: 'unknown'
+} as const;
+
+export type ListImagesResponseDataImagesInnerDiskTypeEnum = typeof ListImagesResponseDataImagesInnerDiskTypeEnum[keyof typeof ListImagesResponseDataImagesInnerDiskTypeEnum];
+
+/**
+ * Free-form metadata; may be empty {}
+ * @export
+ * @interface ListImagesResponseDataImagesInnerMetadata
+ */
+export interface ListImagesResponseDataImagesInnerMetadata {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'cubeDefinedDestination'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'cubeDefinedOs'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'direct_url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'hw_disk_bus'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'hw_input_bus'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'hw_machine_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'hw_qemu_guest_agent'?: ListImagesResponseDataImagesInnerMetadataHwQemuGuestAgentEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'hw_scsi_model'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'hw_video_model'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'os_admin_user'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'os_distro'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'os_hash_algo'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'os_hash_value'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'os_require_quiesce'?: ListImagesResponseDataImagesInnerMetadataOsRequireQuiesceEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListImagesResponseDataImagesInnerMetadata
+     */
+    'os_vers'?: string;
+}
+
+export const ListImagesResponseDataImagesInnerMetadataHwQemuGuestAgentEnum = {
+    Yes: 'yes',
+    No: 'no'
+} as const;
+
+export type ListImagesResponseDataImagesInnerMetadataHwQemuGuestAgentEnum = typeof ListImagesResponseDataImagesInnerMetadataHwQemuGuestAgentEnum[keyof typeof ListImagesResponseDataImagesInnerMetadataHwQemuGuestAgentEnum];
+export const ListImagesResponseDataImagesInnerMetadataOsRequireQuiesceEnum = {
+    Yes: 'yes',
+    No: 'no'
+} as const;
+
+export type ListImagesResponseDataImagesInnerMetadataOsRequireQuiesceEnum = typeof ListImagesResponseDataImagesInnerMetadataOsRequireQuiesceEnum[keyof typeof ListImagesResponseDataImagesInnerMetadataOsRequireQuiesceEnum];
 
 /**
  * 
@@ -8041,6 +8743,435 @@ export const ListImagesResponseDataImagesInnerStatusCurrentEnum = {
 } as const;
 
 export type ListImagesResponseDataImagesInnerStatusCurrentEnum = typeof ListImagesResponseDataImagesInnerStatusCurrentEnum[keyof typeof ListImagesResponseDataImagesInnerStatusCurrentEnum];
+
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModels500Response
+ */
+export interface ListIntegrationStorageModels500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListIntegrationStorageModels500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModels500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModels500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponse
+ */
+export interface ListIntegrationStorageModelsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListIntegrationStorageModelsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInner>}
+     * @memberof ListIntegrationStorageModelsResponse
+     */
+    'data': Array<ListIntegrationStorageModelsResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInner
+ */
+export interface ListIntegrationStorageModelsResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInner
+     */
+    'driver': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInner
+     */
+    'vendor': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerMultipathInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInner
+     */
+    'multipath': Array<ListIntegrationStorageModelsResponseDataInnerMultipathInner>;
+    /**
+     * 
+     * @type {ListIntegrationStorageModelsResponseDataInnerStorage}
+     * @memberof ListIntegrationStorageModelsResponseDataInner
+     */
+    'storage': ListIntegrationStorageModelsResponseDataInnerStorage;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInnerMultipathInner
+ */
+export interface ListIntegrationStorageModelsResponseDataInnerMultipathInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerMultipathInner
+     */
+    'section': string;
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerMultipathInner
+     */
+    'attributes': Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>;
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerSubSectionsInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerMultipathInner
+     */
+    'subSections': Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerSubSectionsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner
+ */
+export interface ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner
+     */
+    'key': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner
+     */
+    'value': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInnerMultipathInnerSubSectionsInner
+ */
+export interface ListIntegrationStorageModelsResponseDataInnerMultipathInnerSubSectionsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerMultipathInnerSubSectionsInner
+     */
+    'section': string;
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerMultipathInnerSubSectionsInner
+     */
+    'attributes': Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInnerStorage
+ */
+export interface ListIntegrationStorageModelsResponseDataInnerStorage {
+    /**
+     * 
+     * @type {ListIntegrationStorageModelsResponseDataInnerStorageService}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorage
+     */
+    'service': ListIntegrationStorageModelsResponseDataInnerStorageService;
+    /**
+     * 
+     * @type {ListIntegrationStorageModelsResponseDataInnerStorageVolumeType}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorage
+     */
+    'volumeType': ListIntegrationStorageModelsResponseDataInnerStorageVolumeType;
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorageImage}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorage
+     */
+    'image': ApplyIntegrationStorageRequestStorageImage;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInnerStorageService
+ */
+export interface ListIntegrationStorageModelsResponseDataInnerStorageService {
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorageService
+     */
+    'driverSection': Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>;
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraSettingsInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorageService
+     */
+    'extraSettings': Array<ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraSettingsInner>;
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraConfigFilesInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorageService
+     */
+    'extraConfigFiles': Array<ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraConfigFilesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraConfigFilesInner
+ */
+export interface ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraConfigFilesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraConfigFilesInner
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraConfigFilesInner
+     */
+    'content'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraSettingsInner
+ */
+export interface ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraSettingsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraSettingsInner
+     */
+    'sectionHeader': string;
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraSettingsInner
+     */
+    'settings': Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageModelsResponseDataInnerStorageVolumeType
+ */
+export interface ListIntegrationStorageModelsResponseDataInnerStorageVolumeType {
+    /**
+     * 
+     * @type {Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>}
+     * @memberof ListIntegrationStorageModelsResponseDataInnerStorageVolumeType
+     */
+    'settings': Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>;
+}
+/**
+ * Integrated storage vendors
+ * @export
+ * @interface ListIntegrationStorageVendors200Response
+ */
+export interface ListIntegrationStorageVendors200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListIntegrationStorageVendors200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ListIntegrationStorageVendors200Response
+     */
+    'data': Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageVendors200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageVendors200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageVendors500Response
+ */
+export interface ListIntegrationStorageVendors500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListIntegrationStorageVendors500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageVendors500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageVendors500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStoragesResponse
+ */
+export interface ListIntegrationStoragesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListIntegrationStoragesResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListIntegrationStoragesResponseDataInner>}
+     * @memberof ListIntegrationStoragesResponse
+     */
+    'data': Array<ListIntegrationStoragesResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStoragesResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStoragesResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStoragesResponseDataInner
+ */
+export interface ListIntegrationStoragesResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStoragesResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStoragesResponseDataInner
+     */
+    'type': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListIntegrationStoragesResponseDataInner
+     */
+    'isDefault': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListIntegrationStoragesResponseDataInner
+     */
+    'isVerified': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStoragesResponseDataInner
+     */
+    'vendor': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStoragesResponseDataInner
+     */
+    'managementIp': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStoragesResponseDataInner
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {ListIntegrationStoragesResponseDataInnerStatus}
+     * @memberof ListIntegrationStoragesResponseDataInner
+     */
+    'status': ListIntegrationStoragesResponseDataInnerStatus;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStoragesResponseDataInnerStatus
+ */
+export interface ListIntegrationStoragesResponseDataInnerStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStoragesResponseDataInnerStatus
+     */
+    'current': ListIntegrationStoragesResponseDataInnerStatusCurrentEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListIntegrationStoragesResponseDataInnerStatus
+     */
+    'isProcessing': boolean;
+}
+
+export const ListIntegrationStoragesResponseDataInnerStatusCurrentEnum = {
+    Ok: 'ok',
+    Validating: 'validating',
+    Creating: 'creating',
+    Updating: 'updating',
+    Deleting: 'deleting'
+} as const;
+
+export type ListIntegrationStoragesResponseDataInnerStatusCurrentEnum = typeof ListIntegrationStoragesResponseDataInnerStatusCurrentEnum[keyof typeof ListIntegrationStoragesResponseDataInnerStatusCurrentEnum];
 
 /**
  * 
@@ -9030,6 +10161,248 @@ export type ListVolumesResponseDataVolumesInnerStatusCurrentEnum = typeof ListVo
 /**
  * 
  * @export
+ * @interface MDL00001E
+ */
+export interface MDL00001E {
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {MDL00001EAdditionalInfo}
+     * @memberof MDL00001E
+     */
+    'additionalInfo': MDL00001EAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface MDL00001EAdditionalInfo
+ */
+export interface MDL00001EAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001EAdditionalInfo
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001EAdditionalInfo
+     */
+    'vendor': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001EAdditionalInfo
+     */
+    'driver': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001EAdditionalInfo
+     */
+    'description'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface MDL00001I
+ */
+export interface MDL00001I {
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {MDL00001IAdditionalInfo}
+     * @memberof MDL00001I
+     */
+    'additionalInfo': MDL00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface MDL00001IAdditionalInfo
+ */
+export interface MDL00001IAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001IAdditionalInfo
+     */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001IAdditionalInfo
+     */
+    'vendor': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00001IAdditionalInfo
+     */
+    'driver': string;
+}
+/**
+ * 
+ * @export
+ * @interface MDL00002E
+ */
+export interface MDL00002E {
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00002E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00002E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00002E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {MDL00001IAdditionalInfo}
+     * @memberof MDL00002E
+     */
+    'additionalInfo': MDL00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface MDL00002I
+ */
+export interface MDL00002I {
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00002I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00002I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00002I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {MDL00001IAdditionalInfo}
+     * @memberof MDL00002I
+     */
+    'additionalInfo': MDL00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface MDL00003E
+ */
+export interface MDL00003E {
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00003E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00003E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00003E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {MDL00001IAdditionalInfo}
+     * @memberof MDL00003E
+     */
+    'additionalInfo': MDL00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface MDL00003I
+ */
+export interface MDL00003I {
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00003I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00003I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MDL00003I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {MDL00001IAdditionalInfo}
+     * @memberof MDL00003I
+     */
+    'additionalInfo': MDL00001IAdditionalInfo;
+}
+/**
+ * 
+ * @export
  * @interface MetricRank
  */
 export interface MetricRank {
@@ -9504,7 +10877,7 @@ export interface NodeNetworkInterfacesInner {
  * @type Notification
  * @export
  */
-export type Notification = { id: 'DEV00001E' } & DEV00001E | { id: 'DEV00001I' } & DEV00001I | { id: 'DEV00002E' } & DEV00002E | { id: 'DEV00002I' } & DEV00002I | { id: 'DEV00003E' } & DEV00003E | { id: 'DEV00003I' } & DEV00003I | { id: 'DEV00004E' } & DEV00004E | { id: 'DEV00004I' } & DEV00004I | { id: 'OSD00001E' } & OSD00001E | { id: 'OSD00001I' } & OSD00001I | { id: 'OSD00002E' } & OSD00002E | { id: 'OSD00002I' } & OSD00002I | { id: 'OSD00003E' } & OSD00003E | { id: 'OSD00003I' } & OSD00003I;
+export type Notification = { id: 'DEV00001E' } & DEV00001E | { id: 'DEV00001I' } & DEV00001I | { id: 'DEV00002E' } & DEV00002E | { id: 'DEV00002I' } & DEV00002I | { id: 'DEV00003E' } & DEV00003E | { id: 'DEV00003I' } & DEV00003I | { id: 'DEV00004E' } & DEV00004E | { id: 'DEV00004I' } & DEV00004I | { id: 'MDL00001E' } & MDL00001E | { id: 'MDL00001I' } & MDL00001I | { id: 'MDL00002E' } & MDL00002E | { id: 'MDL00002I' } & MDL00002I | { id: 'MDL00003E' } & MDL00003E | { id: 'MDL00003I' } & MDL00003I | { id: 'OSD00001E' } & OSD00001E | { id: 'OSD00001I' } & OSD00001I | { id: 'OSD00002E' } & OSD00002E | { id: 'OSD00002I' } & OSD00002I | { id: 'OSD00003E' } & OSD00003E | { id: 'OSD00003I' } & OSD00003I | { id: 'STG00001E' } & STG00001E | { id: 'STG00001I' } & STG00001I | { id: 'STG00002E' } & STG00002E | { id: 'STG00002I' } & STG00002I | { id: 'STG00003E' } & STG00003E | { id: 'STG00003I' } & STG00003I;
 
 /**
  * 
@@ -10664,6 +12037,211 @@ export interface RolloutDataCenterBySoftReboot500Response {
 /**
  * 
  * @export
+ * @interface STG00001E
+ */
+export interface STG00001E {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00001E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00001E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00001E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {STG00001EAdditionalInfo}
+     * @memberof STG00001E
+     */
+    'additionalInfo': STG00001EAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface STG00001EAdditionalInfo
+ */
+export interface STG00001EAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00001EAdditionalInfo
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00001EAdditionalInfo
+     */
+    'description'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface STG00001I
+ */
+export interface STG00001I {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00001I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00001I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00001I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {GetMeResponseData}
+     * @memberof STG00001I
+     */
+    'additionalInfo': GetMeResponseData;
+}
+/**
+ * 
+ * @export
+ * @interface STG00002E
+ */
+export interface STG00002E {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00002E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00002E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00002E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {GetMeResponseData}
+     * @memberof STG00002E
+     */
+    'additionalInfo': GetMeResponseData;
+}
+/**
+ * 
+ * @export
+ * @interface STG00002I
+ */
+export interface STG00002I {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00002I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00002I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00002I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {GetMeResponseData}
+     * @memberof STG00002I
+     */
+    'additionalInfo': GetMeResponseData;
+}
+/**
+ * 
+ * @export
+ * @interface STG00003E
+ */
+export interface STG00003E {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00003E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00003E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00003E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {GetMeResponseData}
+     * @memberof STG00003E
+     */
+    'additionalInfo': GetMeResponseData;
+}
+/**
+ * 
+ * @export
+ * @interface STG00003I
+ */
+export interface STG00003I {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00003I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00003I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00003I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {GetMeResponseData}
+     * @memberof STG00003I
+     */
+    'additionalInfo': GetMeResponseData;
+}
+/**
+ * 
+ * @export
  * @interface SetNodeIpmi500Response
  */
 export interface SetNodeIpmi500Response {
@@ -10708,6 +12286,106 @@ export interface SetNodeIpmiSettingResponse {
      * 
      * @type {string}
      * @memberof SetNodeIpmiSettingResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface SetStorageAsDefault202Response
+ */
+export interface SetStorageAsDefault202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof SetStorageAsDefault202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetStorageAsDefault202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetStorageAsDefault202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface SetStorageAsDefault404Response
+ */
+export interface SetStorageAsDefault404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof SetStorageAsDefault404Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetStorageAsDefault404Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetStorageAsDefault404Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface SetStorageAsDefault409Response
+ */
+export interface SetStorageAsDefault409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof SetStorageAsDefault409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetStorageAsDefault409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetStorageAsDefault409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface SetStorageAsDefault500Response
+ */
+export interface SetStorageAsDefault500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof SetStorageAsDefault500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetStorageAsDefault500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SetStorageAsDefault500Response
      */
     'status': string;
 }
@@ -10819,6 +12497,162 @@ export interface SlackChannelPutRequest {
      * @memberof SlackChannelPutRequest
      */
     'description'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface StorageKeyValuePair
+ */
+export interface StorageKeyValuePair {
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageKeyValuePair
+     */
+    'key': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageKeyValuePair
+     */
+    'value': string;
+}
+/**
+ * 
+ * @export
+ * @interface StorageModel
+ */
+export interface StorageModel {
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageModel
+     */
+    'vendor': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageModel
+     */
+    'product': string;
+    /**
+     * 
+     * @type {StorageModelMultipath}
+     * @memberof StorageModel
+     */
+    'multipath': StorageModelMultipath;
+    /**
+     * 
+     * @type {GetIntegrationStorageResponseDataStorage}
+     * @memberof StorageModel
+     */
+    'storage': GetIntegrationStorageResponseDataStorage;
+}
+/**
+ * 
+ * @export
+ * @interface StorageModelMultipath
+ */
+export interface StorageModelMultipath {
+    /**
+     * 
+     * @type {Array<StorageKeyValuePair>}
+     * @memberof StorageModelMultipath
+     */
+    'defaults': Array<StorageKeyValuePair>;
+    /**
+     * 
+     * @type {StorageModelMultipathBlacklist}
+     * @memberof StorageModelMultipath
+     */
+    'blacklist': StorageModelMultipathBlacklist;
+    /**
+     * 
+     * @type {StorageModelMultipathBlacklist}
+     * @memberof StorageModelMultipath
+     */
+    'blacklistExceptions': StorageModelMultipathBlacklist;
+    /**
+     * 
+     * @type {Array<StorageModelVenderSetting>}
+     * @memberof StorageModelMultipath
+     */
+    'devices': Array<StorageModelVenderSetting>;
+    /**
+     * 
+     * @type {Array<StorageKeyValuePair>}
+     * @memberof StorageModelMultipath
+     */
+    'overrides': Array<StorageKeyValuePair>;
+    /**
+     * 
+     * @type {Array<StorageModelMultipathMultipathsInner>}
+     * @memberof StorageModelMultipath
+     */
+    'multipaths': Array<StorageModelMultipathMultipathsInner>;
+}
+/**
+ * 
+ * @export
+ * @interface StorageModelMultipathBlacklist
+ */
+export interface StorageModelMultipathBlacklist {
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageModelMultipathBlacklist
+     */
+    'devnode': string;
+    /**
+     * 
+     * @type {Array<StorageModelVenderSetting>}
+     * @memberof StorageModelMultipathBlacklist
+     */
+    'devices': Array<StorageModelVenderSetting>;
+}
+/**
+ * 
+ * @export
+ * @interface StorageModelMultipathMultipathsInner
+ */
+export interface StorageModelMultipathMultipathsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageModelMultipathMultipathsInner
+     */
+    'wwid': string;
+    /**
+     * 
+     * @type {Array<StorageKeyValuePair>}
+     * @memberof StorageModelMultipathMultipathsInner
+     */
+    'settings': Array<StorageKeyValuePair>;
+}
+/**
+ * 
+ * @export
+ * @interface StorageModelVenderSetting
+ */
+export interface StorageModelVenderSetting {
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageModelVenderSetting
+     */
+    'vendor': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageModelVenderSetting
+     */
+    'product': string;
+    /**
+     * 
+     * @type {Array<StorageKeyValuePair>}
+     * @memberof StorageModelVenderSetting
+     */
+    'settings': Array<StorageKeyValuePair>;
 }
 /**
  * 
@@ -11357,6 +13191,314 @@ export interface UpdateEmailRecipient500Response {
 /**
  * 
  * @export
+ * @interface UpdateImage200Response
+ */
+export interface UpdateImage200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateImage200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateImage400Response
+ */
+export interface UpdateImage400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateImage400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateImage404Response
+ */
+export interface UpdateImage404Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateImage404Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage404Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage404Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateImage409Response
+ */
+export interface UpdateImage409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateImage409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateImage500Response
+ */
+export interface UpdateImage500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateImage500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateImage500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateImageRequest
+ */
+export interface UpdateImageRequest {
+    /**
+     * The new name of the image
+     * @type {string}
+     * @memberof UpdateImageRequest
+     */
+    'name'?: string;
+    /**
+     * The new operating system type of the image
+     * @type {string}
+     * @memberof UpdateImageRequest
+     */
+    'os'?: string;
+    /**
+     * The new visibility type of the image, can be either \'public\' or \'private\'
+     * @type {string}
+     * @memberof UpdateImageRequest
+     */
+    'visibility'?: UpdateImageRequestVisibilityEnum;
+}
+
+export const UpdateImageRequestVisibilityEnum = {
+    Public: 'public',
+    Private: 'private'
+} as const;
+
+export type UpdateImageRequestVisibilityEnum = typeof UpdateImageRequestVisibilityEnum[keyof typeof UpdateImageRequestVisibilityEnum];
+
+/**
+ * 
+ * @export
+ * @interface UpdateIntegrationStorage202Response
+ */
+export interface UpdateIntegrationStorage202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateIntegrationStorage202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorage202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorage202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateIntegrationStorage500Response
+ */
+export interface UpdateIntegrationStorage500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateIntegrationStorage500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorage500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorage500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateIntegrationStorageModel202Response
+ */
+export interface UpdateIntegrationStorageModel202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateIntegrationStorageModel202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorageModel202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorageModel202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateIntegrationStorageModels202Response
+ */
+export interface UpdateIntegrationStorageModels202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateIntegrationStorageModels202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorageModels202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorageModels202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateIntegrationStorageModels400Response
+ */
+export interface UpdateIntegrationStorageModels400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateIntegrationStorageModels400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorageModels400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorageModels400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateIntegrationStorageModels500Response
+ */
+export interface UpdateIntegrationStorageModels500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateIntegrationStorageModels500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorageModels500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateIntegrationStorageModels500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface UpdateNodeDevice500Response
  */
 export interface UpdateNodeDevice500Response {
@@ -11767,6 +13909,125 @@ export interface UpdateTuningResponse {
 /**
  * 
  * @export
+ * @interface UpgradeFirmware202Response
+ */
+export interface UpgradeFirmware202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpgradeFirmware202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpgradeFirmware202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpgradeFirmware202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpgradeFirmware400Response
+ */
+export interface UpgradeFirmware400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpgradeFirmware400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpgradeFirmware400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpgradeFirmware400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpgradeFirmware409Response
+ */
+export interface UpgradeFirmware409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpgradeFirmware409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpgradeFirmware409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpgradeFirmware409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpgradeFirmware500Response
+ */
+export interface UpgradeFirmware500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpgradeFirmware500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpgradeFirmware500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpgradeFirmware500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpgradeFirmwareRequest
+ */
+export interface UpgradeFirmwareRequest {
+    /**
+     * The version of the firmware to be upgraded to
+     * @type {string}
+     * @memberof UpgradeFirmwareRequest
+     */
+    'version': string;
+    /**
+     * Whether to automatically roll the upgrade across all nodes
+     * @type {boolean}
+     * @memberof UpgradeFirmwareRequest
+     */
+    'autoRolling': boolean;
+}
+/**
+ * 
+ * @export
  * @interface UploadFirmware200Response
  */
 export interface UploadFirmware200Response {
@@ -11863,31 +14124,6 @@ export interface UploadFirmwareMd5Sum200Response {
      * @memberof UploadFirmwareMd5Sum200Response
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface UploadFirmwareMd5Sum409Response
- */
-export interface UploadFirmwareMd5Sum409Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof UploadFirmwareMd5Sum409Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof UploadFirmwareMd5Sum409Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UploadFirmwareMd5Sum409Response
-     */
-    'status'?: string;
 }
 /**
  * 
@@ -12163,31 +14399,6 @@ export interface VerifyFirmwareMd5Sum400ResponseData {
      * @memberof VerifyFirmwareMd5Sum400ResponseData
      */
     'expectedMd5'?: string;
-}
-/**
- * 
- * @export
- * @interface VerifyFirmwareMd5Sum409Response
- */
-export interface VerifyFirmwareMd5Sum409Response {
-    /**
-     * 
-     * @type {number}
-     * @memberof VerifyFirmwareMd5Sum409Response
-     */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof VerifyFirmwareMd5Sum409Response
-     */
-    'msg'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VerifyFirmwareMd5Sum409Response
-     */
-    'status'?: string;
 }
 /**
  * 
@@ -12744,6 +14955,175 @@ export interface VerifyNodeIpmiResponseDataProduct {
      * @memberof VerifyNodeIpmiResponseDataProduct
      */
     'version': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyStorageIntegration200Response
+ */
+export interface VerifyStorageIntegration200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyStorageIntegration200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {VerifyStorageIntegration200ResponseData}
+     * @memberof VerifyStorageIntegration200Response
+     */
+    'data': VerifyStorageIntegration200ResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegration200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegration200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyStorageIntegration200ResponseData
+ */
+export interface VerifyStorageIntegration200ResponseData {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof VerifyStorageIntegration200ResponseData
+     */
+    'isCinderServiceUp'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof VerifyStorageIntegration200ResponseData
+     */
+    'isTestVolumeSuccessful'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyStorageIntegration400Response
+ */
+export interface VerifyStorageIntegration400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyStorageIntegration400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegration400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegration400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyStorageIntegration409Response
+ */
+export interface VerifyStorageIntegration409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyStorageIntegration409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegration409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegration409Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyStorageIntegration500Response
+ */
+export interface VerifyStorageIntegration500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof VerifyStorageIntegration500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegration500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegration500Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyStorageIntegrationRequest
+ */
+export interface VerifyStorageIntegrationRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegrationRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {VerifyStorageIntegrationRequestDevice}
+     * @memberof VerifyStorageIntegrationRequest
+     */
+    'device': VerifyStorageIntegrationRequestDevice;
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequestStorage}
+     * @memberof VerifyStorageIntegrationRequest
+     */
+    'storage': ApplyIntegrationStorageRequestStorage;
+}
+/**
+ * 
+ * @export
+ * @interface VerifyStorageIntegrationRequestDevice
+ */
+export interface VerifyStorageIntegrationRequestDevice {
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegrationRequestDevice
+     */
+    'vendor': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VerifyStorageIntegrationRequestDevice
+     */
+    'product': string;
 }
 /**
  * 
@@ -14238,14 +16618,18 @@ export const FirmwaresApiAxiosParamCreator = function (configuration?: Configura
          * 
          * @summary Continue an interrupted firmware update
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        continueInterruptedFirmwareUpdate: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        continueInterruptedFirmwareUpdate: async (dataCenter: string, nodeName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('continueInterruptedFirmwareUpdate', 'dataCenter', dataCenter)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/continueAnyway`
-                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('continueInterruptedFirmwareUpdate', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/continueAnyway/{nodeName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -14444,6 +16828,50 @@ export const FirmwaresApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Upgrade firmware on all nodes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {UpgradeFirmwareRequest} upgradeFirmwareRequest Request body for upgrading firmware
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upgradeFirmware: async (dataCenter: string, upgradeFirmwareRequest: UpgradeFirmwareRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('upgradeFirmware', 'dataCenter', dataCenter)
+            // verify required parameter 'upgradeFirmwareRequest' is not null or undefined
+            assertParamExists('upgradeFirmware', 'upgradeFirmwareRequest', upgradeFirmwareRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(upgradeFirmwareRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Upload a firmware
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} file Name of the file to store
@@ -14589,11 +17017,12 @@ export const FirmwaresApiFp = function(configuration?: Configuration) {
          * 
          * @summary Continue an interrupted firmware update
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async continueInterruptedFirmwareUpdate(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContinueInterruptedFirmwareUpdate202Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.continueInterruptedFirmwareUpdate(dataCenter, options);
+        async continueInterruptedFirmwareUpdate(dataCenter: string, nodeName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContinueInterruptedFirmwareUpdate202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.continueInterruptedFirmwareUpdate(dataCenter, nodeName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.continueInterruptedFirmwareUpdate']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -14656,6 +17085,20 @@ export const FirmwaresApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Upgrade firmware on all nodes
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {UpgradeFirmwareRequest} upgradeFirmwareRequest Request body for upgrading firmware
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async upgradeFirmware(dataCenter: string, upgradeFirmwareRequest: UpgradeFirmwareRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpgradeFirmware202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.upgradeFirmware(dataCenter, upgradeFirmwareRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.upgradeFirmware']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Upload a firmware
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} file Name of the file to store
@@ -14714,7 +17157,7 @@ export const FirmwaresApiFactory = function (configuration?: Configuration, base
          * @throws {RequiredError}
          */
         continueInterruptedFirmwareUpdate(requestParameters: FirmwaresApiContinueInterruptedFirmwareUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<ContinueInterruptedFirmwareUpdate202Response> {
-            return localVarFp.continueInterruptedFirmwareUpdate(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+            return localVarFp.continueInterruptedFirmwareUpdate(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -14755,6 +17198,16 @@ export const FirmwaresApiFactory = function (configuration?: Configuration, base
          */
         listFirmwares(requestParameters: FirmwaresApiListFirmwaresRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListFirmwaresResponse> {
             return localVarFp.listFirmwares(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upgrade firmware on all nodes
+         * @param {FirmwaresApiUpgradeFirmwareRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        upgradeFirmware(requestParameters: FirmwaresApiUpgradeFirmwareRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpgradeFirmware202Response> {
+            return localVarFp.upgradeFirmware(requestParameters.dataCenter, requestParameters.upgradeFirmwareRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -14801,6 +17254,13 @@ export interface FirmwaresApiContinueInterruptedFirmwareUpdateRequest {
      * @memberof FirmwaresApiContinueInterruptedFirmwareUpdate
      */
     readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof FirmwaresApiContinueInterruptedFirmwareUpdate
+     */
+    readonly nodeName: string
 }
 
 /**
@@ -14888,6 +17348,27 @@ export interface FirmwaresApiListFirmwaresRequest {
 }
 
 /**
+ * Request parameters for upgradeFirmware operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiUpgradeFirmwareRequest
+ */
+export interface FirmwaresApiUpgradeFirmwareRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiUpgradeFirmware
+     */
+    readonly dataCenter: string
+
+    /**
+     * Request body for upgrading firmware
+     * @type {UpgradeFirmwareRequest}
+     * @memberof FirmwaresApiUpgradeFirmware
+     */
+    readonly upgradeFirmwareRequest: UpgradeFirmwareRequest
+}
+
+/**
  * Request parameters for uploadFirmware operation in FirmwaresApi.
  * @export
  * @interface FirmwaresApiUploadFirmwareRequest
@@ -14966,7 +17447,7 @@ export class FirmwaresApi extends BaseAPI {
      * @memberof FirmwaresApi
      */
     public continueInterruptedFirmwareUpdate(requestParameters: FirmwaresApiContinueInterruptedFirmwareUpdateRequest, options?: RawAxiosRequestConfig) {
-        return FirmwaresApiFp(this.configuration).continueInterruptedFirmwareUpdate(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+        return FirmwaresApiFp(this.configuration).continueInterruptedFirmwareUpdate(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -15015,6 +17496,18 @@ export class FirmwaresApi extends BaseAPI {
      */
     public listFirmwares(requestParameters: FirmwaresApiListFirmwaresRequest, options?: RawAxiosRequestConfig) {
         return FirmwaresApiFp(this.configuration).listFirmwares(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upgrade firmware on all nodes
+     * @param {FirmwaresApiUpgradeFirmwareRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public upgradeFirmware(requestParameters: FirmwaresApiUpgradeFirmwareRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).upgradeFirmware(requestParameters.dataCenter, requestParameters.upgradeFirmwareRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -15150,14 +17643,18 @@ export const FixpacksApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary Get the progress of a fixpack operation
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFixpackProgress: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getFixpackProgress: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getFixpackProgress', 'dataCenter', dataCenter)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/updateProgress`
-                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('getFixpackProgress', 'version', version)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/updateProgress/{version}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -15222,6 +17719,48 @@ export const FixpacksApiAxiosParamCreator = function (configuration?: Configurat
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(installFixpackRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get nodes that can be rolled back with the specified fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFixpackRollbackableNodes: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listFixpackRollbackableNodes', 'dataCenter', dataCenter)
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('listFixpackRollbackableNodes', 'version', version)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/{version}/rollbackableNodes`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -15535,11 +18074,12 @@ export const FixpacksApiFp = function(configuration?: Configuration) {
          * 
          * @summary Get the progress of a fixpack operation
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFixpackProgress(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFixpackUpdateProgressResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFixpackProgress(dataCenter, options);
+        async getFixpackProgress(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFixpackUpdateProgressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFixpackProgress(dataCenter, version, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FixpacksApi.getFixpackProgress']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -15556,6 +18096,20 @@ export const FixpacksApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.installFixpack(dataCenter, installFixpackRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FixpacksApi.installFixpack']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get nodes that can be rolled back with the specified fixpack
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listFixpackRollbackableNodes(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListFixpackRollbackableNodesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listFixpackRollbackableNodes(dataCenter, version, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.listFixpackRollbackableNodes']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -15681,7 +18235,7 @@ export const FixpacksApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         getFixpackProgress(requestParameters: FixpacksApiGetFixpackProgressRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetFixpackUpdateProgressResponse> {
-            return localVarFp.getFixpackProgress(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+            return localVarFp.getFixpackProgress(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -15692,6 +18246,16 @@ export const FixpacksApiFactory = function (configuration?: Configuration, baseP
          */
         installFixpack(requestParameters: FixpacksApiInstallFixpackRequest, options?: RawAxiosRequestConfig): AxiosPromise<InstallFixpack202Response> {
             return localVarFp.installFixpack(requestParameters.dataCenter, requestParameters.installFixpackRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get nodes that can be rolled back with the specified fixpack
+         * @param {FixpacksApiListFixpackRollbackableNodesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFixpackRollbackableNodes(requestParameters: FixpacksApiListFixpackRollbackableNodesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListFixpackRollbackableNodesResponse> {
+            return localVarFp.listFixpackRollbackableNodes(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -15810,6 +18374,13 @@ export interface FixpacksApiGetFixpackProgressRequest {
      * @memberof FixpacksApiGetFixpackProgress
      */
     readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FixpacksApiGetFixpackProgress
+     */
+    readonly version: string
 }
 
 /**
@@ -15831,6 +18402,27 @@ export interface FixpacksApiInstallFixpackRequest {
      * @memberof FixpacksApiInstallFixpack
      */
     readonly installFixpackRequest: InstallFixpackRequest
+}
+
+/**
+ * Request parameters for listFixpackRollbackableNodes operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiListFixpackRollbackableNodesRequest
+ */
+export interface FixpacksApiListFixpackRollbackableNodesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiListFixpackRollbackableNodes
+     */
+    readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FixpacksApiListFixpackRollbackableNodes
+     */
+    readonly version: string
 }
 
 /**
@@ -16006,7 +18598,7 @@ export class FixpacksApi extends BaseAPI {
      * @memberof FixpacksApi
      */
     public getFixpackProgress(requestParameters: FixpacksApiGetFixpackProgressRequest, options?: RawAxiosRequestConfig) {
-        return FixpacksApiFp(this.configuration).getFixpackProgress(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+        return FixpacksApiFp(this.configuration).getFixpackProgress(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -16019,6 +18611,18 @@ export class FixpacksApi extends BaseAPI {
      */
     public installFixpack(requestParameters: FixpacksApiInstallFixpackRequest, options?: RawAxiosRequestConfig) {
         return FixpacksApiFp(this.configuration).installFixpack(requestParameters.dataCenter, requestParameters.installFixpackRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get nodes that can be rolled back with the specified fixpack
+     * @param {FixpacksApiListFixpackRollbackableNodesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public listFixpackRollbackableNodes(requestParameters: FixpacksApiListFixpackRollbackableNodesRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).listFixpackRollbackableNodes(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -17708,7 +20312,7 @@ export const ImagesApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {ImportImageOsEnum} os Operating system of the image
          * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
          * @param {string} domain Domain name for the project
-         * @param {string} project The project name to filter volumes
+         * @param {string} project The project name to filter
          * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
          * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
          * @param {ImportImageVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
@@ -17840,13 +20444,15 @@ export const ImagesApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary List images
          * @param {string} dataCenter The name of the data center to operate
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {string} [project] The project name to filter
+         * @param {string} [visibility] The visibility to filter
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listImages: async (dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listImages: async (dataCenter: string, watch?: boolean, project?: string, visibility?: string, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('listImages', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/images`
@@ -17868,6 +20474,14 @@ export const ImagesApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (watch !== undefined) {
                 localVarQueryParameter['watch'] = watch;
+            }
+
+            if (project !== undefined) {
+                localVarQueryParameter['project'] = project;
+            }
+
+            if (visibility !== undefined) {
+                localVarQueryParameter['visibility'] = visibility;
             }
 
             if (pageSize !== undefined) {
@@ -17946,6 +20560,54 @@ export const ImagesApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Update an image
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} imageId The id of the image
+         * @param {UpdateImageRequest} updateImageRequest At least one of the fields must be provided.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateImage: async (dataCenter: string, imageId: string, updateImageRequest: UpdateImageRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateImage', 'dataCenter', dataCenter)
+            // verify required parameter 'imageId' is not null or undefined
+            assertParamExists('updateImage', 'imageId', imageId)
+            // verify required parameter 'updateImageRequest' is not null or undefined
+            assertParamExists('updateImage', 'updateImageRequest', updateImageRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/images/{imageId}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"imageId"}}`, encodeURIComponent(String(imageId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateImageRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -17965,7 +20627,7 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          * @param {ImportImageOsEnum} os Operating system of the image
          * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
          * @param {string} domain Domain name for the project
-         * @param {string} project The project name to filter volumes
+         * @param {string} project The project name to filter
          * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
          * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
          * @param {ImportImageVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
@@ -17996,14 +20658,16 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          * @summary List images
          * @param {string} dataCenter The name of the data center to operate
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
+         * @param {string} [project] The project name to filter
+         * @param {string} [visibility] The visibility to filter
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {string} [keyword] The keyword to search, can be any string
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listImages(dataCenter: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListImagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listImages(dataCenter, watch, pageSize, pageNum, keyword, options);
+        async listImages(dataCenter: string, watch?: boolean, project?: string, visibility?: string, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListImagesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listImages(dataCenter, watch, project, visibility, pageSize, pageNum, keyword, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ImagesApi.listImages']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -18022,6 +20686,21 @@ export const ImagesApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listImagesAsCsv(dataCenter, pageSize, pageNum, keyword, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ImagesApi.listImagesAsCsv']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update an image
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} imageId The id of the image
+         * @param {UpdateImageRequest} updateImageRequest At least one of the fields must be provided.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateImage(dataCenter: string, imageId: string, updateImageRequest: UpdateImageRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateImage200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateImage(dataCenter, imageId, updateImageRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ImagesApi.updateImage']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -18062,7 +20741,7 @@ export const ImagesApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         listImages(requestParameters: ImagesApiListImagesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListImagesResponse> {
-            return localVarFp.listImages(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
+            return localVarFp.listImages(requestParameters.dataCenter, requestParameters.watch, requestParameters.project, requestParameters.visibility, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -18073,6 +20752,16 @@ export const ImagesApiFactory = function (configuration?: Configuration, basePat
          */
         listImagesAsCsv(requestParameters: ImagesApiListImagesAsCsvRequest, options?: RawAxiosRequestConfig): AxiosPromise<File> {
             return localVarFp.listImagesAsCsv(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update an image
+         * @param {ImagesApiUpdateImageRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateImage(requestParameters: ImagesApiUpdateImageRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateImage200Response> {
+            return localVarFp.updateImage(requestParameters.dataCenter, requestParameters.imageId, requestParameters.updateImageRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -18126,7 +20815,7 @@ export interface ImagesApiImportImageRequest {
     readonly domain: string
 
     /**
-     * The project name to filter volumes
+     * The project name to filter
      * @type {string}
      * @memberof ImagesApiImportImage
      */
@@ -18189,6 +20878,20 @@ export interface ImagesApiListImagesRequest {
     readonly watch?: boolean
 
     /**
+     * The project name to filter
+     * @type {string}
+     * @memberof ImagesApiListImages
+     */
+    readonly project?: string
+
+    /**
+     * The visibility to filter
+     * @type {string}
+     * @memberof ImagesApiListImages
+     */
+    readonly visibility?: string
+
+    /**
      * The number of items per page (default is unlimit).
      * @type {number}
      * @memberof ImagesApiListImages
@@ -18246,6 +20949,34 @@ export interface ImagesApiListImagesAsCsvRequest {
 }
 
 /**
+ * Request parameters for updateImage operation in ImagesApi.
+ * @export
+ * @interface ImagesApiUpdateImageRequest
+ */
+export interface ImagesApiUpdateImageRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof ImagesApiUpdateImage
+     */
+    readonly dataCenter: string
+
+    /**
+     * The id of the image
+     * @type {string}
+     * @memberof ImagesApiUpdateImage
+     */
+    readonly imageId: string
+
+    /**
+     * At least one of the fields must be provided.
+     * @type {UpdateImageRequest}
+     * @memberof ImagesApiUpdateImage
+     */
+    readonly updateImageRequest: UpdateImageRequest
+}
+
+/**
  * ImagesApi - object-oriented interface
  * @export
  * @class ImagesApi
@@ -18285,7 +21016,7 @@ export class ImagesApi extends BaseAPI {
      * @memberof ImagesApi
      */
     public listImages(requestParameters: ImagesApiListImagesRequest, options?: RawAxiosRequestConfig) {
-        return ImagesApiFp(this.configuration).listImages(requestParameters.dataCenter, requestParameters.watch, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
+        return ImagesApiFp(this.configuration).listImages(requestParameters.dataCenter, requestParameters.watch, requestParameters.project, requestParameters.visibility, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -18298,6 +21029,18 @@ export class ImagesApi extends BaseAPI {
      */
     public listImagesAsCsv(requestParameters: ImagesApiListImagesAsCsvRequest, options?: RawAxiosRequestConfig) {
         return ImagesApiFp(this.configuration).listImagesAsCsv(requestParameters.dataCenter, requestParameters.pageSize, requestParameters.pageNum, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update an image
+     * @param {ImagesApiUpdateImageRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImagesApi
+     */
+    public updateImage(requestParameters: ImagesApiUpdateImageRequest, options?: RawAxiosRequestConfig) {
+        return ImagesApiFp(this.configuration).updateImage(requestParameters.dataCenter, requestParameters.imageId, requestParameters.updateImageRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -18333,6 +21076,183 @@ export type ImportImageVisibilityEnum = typeof ImportImageVisibilityEnum[keyof t
  */
 export const IntegrationsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary Integrate a storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {ApplyIntegrationStorageRequest} applyIntegrationStorageRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createIntegrationStorage: async (dataCenter: string, applyIntegrationStorageRequest: ApplyIntegrationStorageRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createIntegrationStorage', 'dataCenter', dataCenter)
+            // verify required parameter 'applyIntegrationStorageRequest' is not null or undefined
+            assertParamExists('createIntegrationStorage', 'applyIntegrationStorageRequest', applyIntegrationStorageRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(applyIntegrationStorageRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Create an integration storage model
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} storageModel The YAML content of a storage model
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createIntegrationStorageModel: async (dataCenter: string, storageModel: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createIntegrationStorageModel', 'dataCenter', dataCenter)
+            // verify required parameter 'storageModel' is not null or undefined
+            assertParamExists('createIntegrationStorageModel', 'storageModel', storageModel)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/models`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            if (storageModel !== undefined) { 
+                localVarFormParams.append('storageModel', storageModel as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete an integration storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteIntegrationStorage: async (dataCenter: string, storageName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteIntegrationStorage', 'dataCenter', dataCenter)
+            // verify required parameter 'storageName' is not null or undefined
+            assertParamExists('deleteIntegrationStorage', 'storageName', storageName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/{storageName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"storageName"}}`, encodeURIComponent(String(storageName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete an integration storage model
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} driverName The driver name to filter models
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteIntegrationStorageModel: async (dataCenter: string, driverName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteIntegrationStorageModel', 'dataCenter', dataCenter)
+            // verify required parameter 'driverName' is not null or undefined
+            assertParamExists('deleteIntegrationStorageModel', 'driverName', driverName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/models/{driverName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"driverName"}}`, encodeURIComponent(String(driverName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Retrieve the list of integrated applications
@@ -18373,14 +21293,132 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
+         * @summary Retrieve the details of an integration storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getIntegrationStorage: async (dataCenter: string, storageName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getIntegrationStorage', 'dataCenter', dataCenter)
+            // verify required parameter 'storageName' is not null or undefined
+            assertParamExists('getIntegrationStorage', 'storageName', storageName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/{storageName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"storageName"}}`, encodeURIComponent(String(storageName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integration storage models
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listIntegrationStorageModels: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listIntegrationStorageModels', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/models`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integration storage vendors
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listIntegrationStorageVendors: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listIntegrationStorageVendors', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/vendors`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Retrieve the list of integrated storages
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getIntegratedStorages: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listIntegrationStorages: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
-            assertParamExists('getIntegratedStorages', 'dataCenter', dataCenter)
+            assertParamExists('listIntegrationStorages', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -18411,15 +21449,161 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary Retrieve the list of integrated applications
+         * @summary Set an integrated storage as the default storage
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getIntegrations: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        setStorageAsDefault: async (dataCenter: string, storageName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
-            assertParamExists('getIntegrations', 'dataCenter', dataCenter)
-            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations`
+            assertParamExists('setStorageAsDefault', 'dataCenter', dataCenter)
+            // verify required parameter 'storageName' is not null or undefined
+            assertParamExists('setStorageAsDefault', 'storageName', storageName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/{storageName}/asDefault`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"storageName"}}`, encodeURIComponent(String(storageName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update an integration storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
+         * @param {ApplyIntegrationStorageRequest} applyIntegrationStorageRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateIntegrationStorage: async (dataCenter: string, storageName: string, applyIntegrationStorageRequest: ApplyIntegrationStorageRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateIntegrationStorage', 'dataCenter', dataCenter)
+            // verify required parameter 'storageName' is not null or undefined
+            assertParamExists('updateIntegrationStorage', 'storageName', storageName)
+            // verify required parameter 'applyIntegrationStorageRequest' is not null or undefined
+            assertParamExists('updateIntegrationStorage', 'applyIntegrationStorageRequest', applyIntegrationStorageRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/{storageName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"storageName"}}`, encodeURIComponent(String(storageName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(applyIntegrationStorageRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Create an integration storage model
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} driverName The driver name to filter models
+         * @param {File} storageModel The YAML content of a storage model
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateIntegrationStorageModel: async (dataCenter: string, driverName: string, storageModel: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateIntegrationStorageModel', 'dataCenter', dataCenter)
+            // verify required parameter 'driverName' is not null or undefined
+            assertParamExists('updateIntegrationStorageModel', 'driverName', driverName)
+            // verify required parameter 'storageModel' is not null or undefined
+            assertParamExists('updateIntegrationStorageModel', 'storageModel', storageModel)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/models/{driverName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"driverName"}}`, encodeURIComponent(String(driverName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            if (storageModel !== undefined) { 
+                localVarFormParams.append('storageModel', storageModel as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update integration storage models
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} storageModels The array YAML content of multiple storage models
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateIntegrationStorageModels: async (dataCenter: string, storageModels: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateIntegrationStorageModels', 'dataCenter', dataCenter)
+            // verify required parameter 'storageModels' is not null or undefined
+            assertParamExists('updateIntegrationStorageModels', 'storageModels', storageModels)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/models`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -18428,7 +21612,57 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            if (storageModels !== undefined) { 
+                localVarFormParams.append('storageModels', storageModels as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Verify the connectivity of an external storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyStorageIntegration: async (dataCenter: string, storageName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('verifyStorageIntegration', 'dataCenter', dataCenter)
+            // verify required parameter 'storageName' is not null or undefined
+            assertParamExists('verifyStorageIntegration', 'storageName', storageName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/{storageName}/verify`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"storageName"}}`, encodeURIComponent(String(storageName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -18459,6 +21693,62 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Integrate a storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {ApplyIntegrationStorageRequest} applyIntegrationStorageRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createIntegrationStorage(dataCenter: string, applyIntegrationStorageRequest: ApplyIntegrationStorageRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateIntegrationStorage202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createIntegrationStorage(dataCenter, applyIntegrationStorageRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.createIntegrationStorage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Create an integration storage model
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} storageModel The YAML content of a storage model
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createIntegrationStorageModel(dataCenter: string, storageModel: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateIntegrationStorageModel202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createIntegrationStorageModel(dataCenter, storageModel, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.createIntegrationStorageModel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete an integration storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteIntegrationStorage(dataCenter: string, storageName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteIntegrationStorage202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteIntegrationStorage(dataCenter, storageName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.deleteIntegrationStorage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete an integration storage model
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} driverName The driver name to filter models
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteIntegrationStorageModel(dataCenter: string, driverName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteIntegrationStorageModel202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteIntegrationStorageModel(dataCenter, driverName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.deleteIntegrationStorageModel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the list of integrated applications
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
@@ -18472,28 +21762,127 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Retrieve the details of an integration storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getIntegrationStorage(dataCenter: string, storageName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetIntegrationStorageResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getIntegrationStorage(dataCenter, storageName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.getIntegrationStorage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integration storage models
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listIntegrationStorageModels(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListIntegrationStorageModelsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listIntegrationStorageModels(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.listIntegrationStorageModels']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integration storage vendors
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listIntegrationStorageVendors(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListIntegrationStorageVendors200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listIntegrationStorageVendors(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.listIntegrationStorageVendors']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Retrieve the list of integrated storages
          * @param {string} dataCenter The name of the data center to operate
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getIntegratedStorages(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetIntegratedStoragesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getIntegratedStorages(dataCenter, options);
+        async listIntegrationStorages(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListIntegrationStoragesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listIntegrationStorages(dataCenter, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.getIntegratedStorages']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.listIntegrationStorages']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @summary Retrieve the list of integrated applications
+         * @summary Set an integrated storage as the default storage
          * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getIntegrations(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetIntegrationsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getIntegrations(dataCenter, options);
+        async setStorageAsDefault(dataCenter: string, storageName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetStorageAsDefault202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setStorageAsDefault(dataCenter, storageName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.getIntegrations']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.setStorageAsDefault']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update an integration storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
+         * @param {ApplyIntegrationStorageRequest} applyIntegrationStorageRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateIntegrationStorage(dataCenter: string, storageName: string, applyIntegrationStorageRequest: ApplyIntegrationStorageRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateIntegrationStorage202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateIntegrationStorage(dataCenter, storageName, applyIntegrationStorageRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.updateIntegrationStorage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Create an integration storage model
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} driverName The driver name to filter models
+         * @param {File} storageModel The YAML content of a storage model
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateIntegrationStorageModel(dataCenter: string, driverName: string, storageModel: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateIntegrationStorageModel202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateIntegrationStorageModel(dataCenter, driverName, storageModel, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.updateIntegrationStorageModel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update integration storage models
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {File} storageModels The array YAML content of multiple storage models
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateIntegrationStorageModels(dataCenter: string, storageModels: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateIntegrationStorageModels202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateIntegrationStorageModels(dataCenter, storageModels, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.updateIntegrationStorageModels']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Verify the connectivity of an external storage
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} storageName The name of the integration storage.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async verifyStorageIntegration(dataCenter: string, storageName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VerifyStorageIntegration200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyStorageIntegration(dataCenter, storageName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.verifyStorageIntegration']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -18508,6 +21897,46 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
     return {
         /**
          * 
+         * @summary Integrate a storage
+         * @param {IntegrationsApiCreateIntegrationStorageRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createIntegrationStorage(requestParameters: IntegrationsApiCreateIntegrationStorageRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateIntegrationStorage202Response> {
+            return localVarFp.createIntegrationStorage(requestParameters.dataCenter, requestParameters.applyIntegrationStorageRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Create an integration storage model
+         * @param {IntegrationsApiCreateIntegrationStorageModelRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createIntegrationStorageModel(requestParameters: IntegrationsApiCreateIntegrationStorageModelRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateIntegrationStorageModel202Response> {
+            return localVarFp.createIntegrationStorageModel(requestParameters.dataCenter, requestParameters.storageModel, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete an integration storage
+         * @param {IntegrationsApiDeleteIntegrationStorageRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteIntegrationStorage(requestParameters: IntegrationsApiDeleteIntegrationStorageRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteIntegrationStorage202Response> {
+            return localVarFp.deleteIntegrationStorage(requestParameters.dataCenter, requestParameters.storageName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete an integration storage model
+         * @param {IntegrationsApiDeleteIntegrationStorageModelRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteIntegrationStorageModel(requestParameters: IntegrationsApiDeleteIntegrationStorageModelRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteIntegrationStorageModel202Response> {
+            return localVarFp.deleteIntegrationStorageModel(requestParameters.dataCenter, requestParameters.driverName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Retrieve the list of integrated applications
          * @param {IntegrationsApiGetIntegratedApplicationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -18518,26 +21947,180 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary Retrieve the list of integrated storages
-         * @param {IntegrationsApiGetIntegratedStoragesRequest} requestParameters Request parameters.
+         * @summary Retrieve the details of an integration storage
+         * @param {IntegrationsApiGetIntegrationStorageRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getIntegratedStorages(requestParameters: IntegrationsApiGetIntegratedStoragesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetIntegratedStoragesResponse> {
-            return localVarFp.getIntegratedStorages(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        getIntegrationStorage(requestParameters: IntegrationsApiGetIntegrationStorageRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetIntegrationStorageResponse> {
+            return localVarFp.getIntegrationStorage(requestParameters.dataCenter, requestParameters.storageName, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary Retrieve the list of integrated applications
-         * @param {IntegrationsApiGetIntegrationsRequest} requestParameters Request parameters.
+         * @summary Retrieve the list of integration storage models
+         * @param {IntegrationsApiListIntegrationStorageModelsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getIntegrations(requestParameters: IntegrationsApiGetIntegrationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetIntegrationsResponse> {
-            return localVarFp.getIntegrations(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        listIntegrationStorageModels(requestParameters: IntegrationsApiListIntegrationStorageModelsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListIntegrationStorageModelsResponse> {
+            return localVarFp.listIntegrationStorageModels(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integration storage vendors
+         * @param {IntegrationsApiListIntegrationStorageVendorsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listIntegrationStorageVendors(requestParameters: IntegrationsApiListIntegrationStorageVendorsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListIntegrationStorageVendors200Response> {
+            return localVarFp.listIntegrationStorageVendors(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the list of integrated storages
+         * @param {IntegrationsApiListIntegrationStoragesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listIntegrationStorages(requestParameters: IntegrationsApiListIntegrationStoragesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListIntegrationStoragesResponse> {
+            return localVarFp.listIntegrationStorages(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Set an integrated storage as the default storage
+         * @param {IntegrationsApiSetStorageAsDefaultRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setStorageAsDefault(requestParameters: IntegrationsApiSetStorageAsDefaultRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetStorageAsDefault202Response> {
+            return localVarFp.setStorageAsDefault(requestParameters.dataCenter, requestParameters.storageName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update an integration storage
+         * @param {IntegrationsApiUpdateIntegrationStorageRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateIntegrationStorage(requestParameters: IntegrationsApiUpdateIntegrationStorageRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateIntegrationStorage202Response> {
+            return localVarFp.updateIntegrationStorage(requestParameters.dataCenter, requestParameters.storageName, requestParameters.applyIntegrationStorageRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Create an integration storage model
+         * @param {IntegrationsApiUpdateIntegrationStorageModelRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateIntegrationStorageModel(requestParameters: IntegrationsApiUpdateIntegrationStorageModelRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateIntegrationStorageModel202Response> {
+            return localVarFp.updateIntegrationStorageModel(requestParameters.dataCenter, requestParameters.driverName, requestParameters.storageModel, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update integration storage models
+         * @param {IntegrationsApiUpdateIntegrationStorageModelsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateIntegrationStorageModels(requestParameters: IntegrationsApiUpdateIntegrationStorageModelsRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateIntegrationStorageModels202Response> {
+            return localVarFp.updateIntegrationStorageModels(requestParameters.dataCenter, requestParameters.storageModels, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Verify the connectivity of an external storage
+         * @param {IntegrationsApiVerifyStorageIntegrationRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyStorageIntegration(requestParameters: IntegrationsApiVerifyStorageIntegrationRequest, options?: RawAxiosRequestConfig): AxiosPromise<VerifyStorageIntegration200Response> {
+            return localVarFp.verifyStorageIntegration(requestParameters.dataCenter, requestParameters.storageName, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for createIntegrationStorage operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiCreateIntegrationStorageRequest
+ */
+export interface IntegrationsApiCreateIntegrationStorageRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiCreateIntegrationStorage
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequest}
+     * @memberof IntegrationsApiCreateIntegrationStorage
+     */
+    readonly applyIntegrationStorageRequest: ApplyIntegrationStorageRequest
+}
+
+/**
+ * Request parameters for createIntegrationStorageModel operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiCreateIntegrationStorageModelRequest
+ */
+export interface IntegrationsApiCreateIntegrationStorageModelRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiCreateIntegrationStorageModel
+     */
+    readonly dataCenter: string
+
+    /**
+     * The YAML content of a storage model
+     * @type {File}
+     * @memberof IntegrationsApiCreateIntegrationStorageModel
+     */
+    readonly storageModel: File
+}
+
+/**
+ * Request parameters for deleteIntegrationStorage operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiDeleteIntegrationStorageRequest
+ */
+export interface IntegrationsApiDeleteIntegrationStorageRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiDeleteIntegrationStorage
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the integration storage.
+     * @type {string}
+     * @memberof IntegrationsApiDeleteIntegrationStorage
+     */
+    readonly storageName: string
+}
+
+/**
+ * Request parameters for deleteIntegrationStorageModel operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiDeleteIntegrationStorageModelRequest
+ */
+export interface IntegrationsApiDeleteIntegrationStorageModelRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiDeleteIntegrationStorageModel
+     */
+    readonly dataCenter: string
+
+    /**
+     * The driver name to filter models
+     * @type {string}
+     * @memberof IntegrationsApiDeleteIntegrationStorageModel
+     */
+    readonly driverName: string
+}
 
 /**
  * Request parameters for getIntegratedApplications operation in IntegrationsApi.
@@ -18554,31 +22137,185 @@ export interface IntegrationsApiGetIntegratedApplicationsRequest {
 }
 
 /**
- * Request parameters for getIntegratedStorages operation in IntegrationsApi.
+ * Request parameters for getIntegrationStorage operation in IntegrationsApi.
  * @export
- * @interface IntegrationsApiGetIntegratedStoragesRequest
+ * @interface IntegrationsApiGetIntegrationStorageRequest
  */
-export interface IntegrationsApiGetIntegratedStoragesRequest {
+export interface IntegrationsApiGetIntegrationStorageRequest {
     /**
      * The name of the data center to operate
      * @type {string}
-     * @memberof IntegrationsApiGetIntegratedStorages
+     * @memberof IntegrationsApiGetIntegrationStorage
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the integration storage.
+     * @type {string}
+     * @memberof IntegrationsApiGetIntegrationStorage
+     */
+    readonly storageName: string
+}
+
+/**
+ * Request parameters for listIntegrationStorageModels operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiListIntegrationStorageModelsRequest
+ */
+export interface IntegrationsApiListIntegrationStorageModelsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiListIntegrationStorageModels
      */
     readonly dataCenter: string
 }
 
 /**
- * Request parameters for getIntegrations operation in IntegrationsApi.
+ * Request parameters for listIntegrationStorageVendors operation in IntegrationsApi.
  * @export
- * @interface IntegrationsApiGetIntegrationsRequest
+ * @interface IntegrationsApiListIntegrationStorageVendorsRequest
  */
-export interface IntegrationsApiGetIntegrationsRequest {
+export interface IntegrationsApiListIntegrationStorageVendorsRequest {
     /**
      * The name of the data center to operate
      * @type {string}
-     * @memberof IntegrationsApiGetIntegrations
+     * @memberof IntegrationsApiListIntegrationStorageVendors
      */
     readonly dataCenter: string
+}
+
+/**
+ * Request parameters for listIntegrationStorages operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiListIntegrationStoragesRequest
+ */
+export interface IntegrationsApiListIntegrationStoragesRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiListIntegrationStorages
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for setStorageAsDefault operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiSetStorageAsDefaultRequest
+ */
+export interface IntegrationsApiSetStorageAsDefaultRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiSetStorageAsDefault
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the integration storage.
+     * @type {string}
+     * @memberof IntegrationsApiSetStorageAsDefault
+     */
+    readonly storageName: string
+}
+
+/**
+ * Request parameters for updateIntegrationStorage operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiUpdateIntegrationStorageRequest
+ */
+export interface IntegrationsApiUpdateIntegrationStorageRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiUpdateIntegrationStorage
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the integration storage.
+     * @type {string}
+     * @memberof IntegrationsApiUpdateIntegrationStorage
+     */
+    readonly storageName: string
+
+    /**
+     * 
+     * @type {ApplyIntegrationStorageRequest}
+     * @memberof IntegrationsApiUpdateIntegrationStorage
+     */
+    readonly applyIntegrationStorageRequest: ApplyIntegrationStorageRequest
+}
+
+/**
+ * Request parameters for updateIntegrationStorageModel operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiUpdateIntegrationStorageModelRequest
+ */
+export interface IntegrationsApiUpdateIntegrationStorageModelRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiUpdateIntegrationStorageModel
+     */
+    readonly dataCenter: string
+
+    /**
+     * The driver name to filter models
+     * @type {string}
+     * @memberof IntegrationsApiUpdateIntegrationStorageModel
+     */
+    readonly driverName: string
+
+    /**
+     * The YAML content of a storage model
+     * @type {File}
+     * @memberof IntegrationsApiUpdateIntegrationStorageModel
+     */
+    readonly storageModel: File
+}
+
+/**
+ * Request parameters for updateIntegrationStorageModels operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiUpdateIntegrationStorageModelsRequest
+ */
+export interface IntegrationsApiUpdateIntegrationStorageModelsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiUpdateIntegrationStorageModels
+     */
+    readonly dataCenter: string
+
+    /**
+     * The array YAML content of multiple storage models
+     * @type {File}
+     * @memberof IntegrationsApiUpdateIntegrationStorageModels
+     */
+    readonly storageModels: File
+}
+
+/**
+ * Request parameters for verifyStorageIntegration operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiVerifyStorageIntegrationRequest
+ */
+export interface IntegrationsApiVerifyStorageIntegrationRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiVerifyStorageIntegration
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the integration storage.
+     * @type {string}
+     * @memberof IntegrationsApiVerifyStorageIntegration
+     */
+    readonly storageName: string
 }
 
 /**
@@ -18588,6 +22325,54 @@ export interface IntegrationsApiGetIntegrationsRequest {
  * @extends {BaseAPI}
  */
 export class IntegrationsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Integrate a storage
+     * @param {IntegrationsApiCreateIntegrationStorageRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public createIntegrationStorage(requestParameters: IntegrationsApiCreateIntegrationStorageRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).createIntegrationStorage(requestParameters.dataCenter, requestParameters.applyIntegrationStorageRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Create an integration storage model
+     * @param {IntegrationsApiCreateIntegrationStorageModelRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public createIntegrationStorageModel(requestParameters: IntegrationsApiCreateIntegrationStorageModelRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).createIntegrationStorageModel(requestParameters.dataCenter, requestParameters.storageModel, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete an integration storage
+     * @param {IntegrationsApiDeleteIntegrationStorageRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public deleteIntegrationStorage(requestParameters: IntegrationsApiDeleteIntegrationStorageRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).deleteIntegrationStorage(requestParameters.dataCenter, requestParameters.storageName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete an integration storage model
+     * @param {IntegrationsApiDeleteIntegrationStorageModelRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public deleteIntegrationStorageModel(requestParameters: IntegrationsApiDeleteIntegrationStorageModelRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).deleteIntegrationStorageModel(requestParameters.dataCenter, requestParameters.driverName, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Retrieve the list of integrated applications
@@ -18602,26 +22387,110 @@ export class IntegrationsApi extends BaseAPI {
 
     /**
      * 
-     * @summary Retrieve the list of integrated storages
-     * @param {IntegrationsApiGetIntegratedStoragesRequest} requestParameters Request parameters.
+     * @summary Retrieve the details of an integration storage
+     * @param {IntegrationsApiGetIntegrationStorageRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof IntegrationsApi
      */
-    public getIntegratedStorages(requestParameters: IntegrationsApiGetIntegratedStoragesRequest, options?: RawAxiosRequestConfig) {
-        return IntegrationsApiFp(this.configuration).getIntegratedStorages(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    public getIntegrationStorage(requestParameters: IntegrationsApiGetIntegrationStorageRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).getIntegrationStorage(requestParameters.dataCenter, requestParameters.storageName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @summary Retrieve the list of integrated applications
-     * @param {IntegrationsApiGetIntegrationsRequest} requestParameters Request parameters.
+     * @summary Retrieve the list of integration storage models
+     * @param {IntegrationsApiListIntegrationStorageModelsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof IntegrationsApi
      */
-    public getIntegrations(requestParameters: IntegrationsApiGetIntegrationsRequest, options?: RawAxiosRequestConfig) {
-        return IntegrationsApiFp(this.configuration).getIntegrations(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    public listIntegrationStorageModels(requestParameters: IntegrationsApiListIntegrationStorageModelsRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).listIntegrationStorageModels(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve the list of integration storage vendors
+     * @param {IntegrationsApiListIntegrationStorageVendorsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public listIntegrationStorageVendors(requestParameters: IntegrationsApiListIntegrationStorageVendorsRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).listIntegrationStorageVendors(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve the list of integrated storages
+     * @param {IntegrationsApiListIntegrationStoragesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public listIntegrationStorages(requestParameters: IntegrationsApiListIntegrationStoragesRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).listIntegrationStorages(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Set an integrated storage as the default storage
+     * @param {IntegrationsApiSetStorageAsDefaultRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public setStorageAsDefault(requestParameters: IntegrationsApiSetStorageAsDefaultRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).setStorageAsDefault(requestParameters.dataCenter, requestParameters.storageName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update an integration storage
+     * @param {IntegrationsApiUpdateIntegrationStorageRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public updateIntegrationStorage(requestParameters: IntegrationsApiUpdateIntegrationStorageRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).updateIntegrationStorage(requestParameters.dataCenter, requestParameters.storageName, requestParameters.applyIntegrationStorageRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Create an integration storage model
+     * @param {IntegrationsApiUpdateIntegrationStorageModelRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public updateIntegrationStorageModel(requestParameters: IntegrationsApiUpdateIntegrationStorageModelRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).updateIntegrationStorageModel(requestParameters.dataCenter, requestParameters.driverName, requestParameters.storageModel, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update integration storage models
+     * @param {IntegrationsApiUpdateIntegrationStorageModelsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public updateIntegrationStorageModels(requestParameters: IntegrationsApiUpdateIntegrationStorageModelsRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).updateIntegrationStorageModels(requestParameters.dataCenter, requestParameters.storageModels, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Verify the connectivity of an external storage
+     * @param {IntegrationsApiVerifyStorageIntegrationRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public verifyStorageIntegration(requestParameters: IntegrationsApiVerifyStorageIntegrationRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).verifyStorageIntegration(requestParameters.dataCenter, requestParameters.storageName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -26318,7 +30187,7 @@ export const VolumesApiAxiosParamCreator = function (configuration?: Configurati
          * @param {ConvertImageToVolumeOsEnum} os Operating system of the image
          * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
          * @param {string} domain Domain name for the project
-         * @param {string} project The project name to filter volumes
+         * @param {string} project The project name to filter
          * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
          * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
          * @param {ConvertImageToVolumeVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
@@ -26411,7 +30280,7 @@ export const VolumesApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary List volumes
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} project The project name to filter volumes
+         * @param {string} project The project name to filter
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -26476,7 +30345,7 @@ export const VolumesApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary List volumes as CSV
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} project The project name to filter volumes
+         * @param {string} project The project name to filter
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {string} [keyword] The keyword to search, can be any string
@@ -26551,7 +30420,7 @@ export const VolumesApiFp = function(configuration?: Configuration) {
          * @param {ConvertImageToVolumeOsEnum} os Operating system of the image
          * @param {string} destination Target storage destination. Refer the GET /images/materials endpoint for available options
          * @param {string} domain Domain name for the project
-         * @param {string} project The project name to filter volumes
+         * @param {string} project The project name to filter
          * @param {boolean} sourceFromAnotherHypervisor Whether the source image comes from another hypervisor
          * @param {File} body for example, in the CURL, the image binary should be set by the \&#39;--data-binary\&#39; option like \&#39;--data-binary @/path/to/small-image\&#39; or \&#39;-T /path/to/large-image\&#39;.
          * @param {ConvertImageToVolumeVisibilityEnum} [visibility] Visibility setting for the image(only required when sourceFromAnotherHypervisor is false).
@@ -26568,7 +30437,7 @@ export const VolumesApiFp = function(configuration?: Configuration) {
          * 
          * @summary List volumes
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} project The project name to filter volumes
+         * @param {string} project The project name to filter
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -26586,7 +30455,7 @@ export const VolumesApiFp = function(configuration?: Configuration) {
          * 
          * @summary List volumes as CSV
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} project The project name to filter volumes
+         * @param {string} project The project name to filter
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
          * @param {string} [keyword] The keyword to search, can be any string
@@ -26691,7 +30560,7 @@ export interface VolumesApiConvertImageToVolumeRequest {
     readonly domain: string
 
     /**
-     * The project name to filter volumes
+     * The project name to filter
      * @type {string}
      * @memberof VolumesApiConvertImageToVolume
      */
@@ -26733,7 +30602,7 @@ export interface VolumesApiListVolumesRequest {
     readonly dataCenter: string
 
     /**
-     * The project name to filter volumes
+     * The project name to filter
      * @type {string}
      * @memberof VolumesApiListVolumes
      */
@@ -26782,7 +30651,7 @@ export interface VolumesApiListVolumesAsCsvRequest {
     readonly dataCenter: string
 
     /**
-     * The project name to filter volumes
+     * The project name to filter
      * @type {string}
      * @memberof VolumesApiListVolumesAsCsv
      */

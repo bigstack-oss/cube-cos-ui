@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { upperFirst, uniqueId } from 'lodash'
-import { GetIntegrationsResponseDataInner } from '@cube-frontend/api'
+import { GetIntegratedApplicationsResponseDataInner } from '@cube-frontend/api'
 import {
   CosButton,
   CosGeneralPanel,
@@ -16,11 +16,13 @@ import {
   applicationIntegrationUIData,
 } from '@cube-frontend/web-app/utils/applicationIntegration'
 
-type ApplicationRow = CosTableRow & GetIntegrationsResponseDataInner
+type ApplicationRow = CosTableRow & GetIntegratedApplicationsResponseDataInner
 
 const ApplicationTable = GetCosBasicTable<ApplicationRow>()
 
-const applicationToRow = (item: GetIntegrationsResponseDataInner) => ({
+const applicationToRow = (
+  item: GetIntegratedApplicationsResponseDataInner,
+) => ({
   id: uniqueId('integration'),
   ...item,
 })

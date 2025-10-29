@@ -35,8 +35,8 @@ export const StoragesModelsPanel = () => {
             </div>
           )}
         </StorageModelsTable.Column>
-        <StorageModelsTable.Column label="Model" property="model" fitContent>
-          {(model) => <span className="whitespace-nowrap">{model}</span>}
+        <StorageModelsTable.Column label="Name" property="driver" fitContent>
+          {(driver) => <span className="whitespace-nowrap">{driver}</span>}
         </StorageModelsTable.Column>
         <StorageModelsTable.Column>
           {(_, row) => (

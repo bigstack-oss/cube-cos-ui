@@ -3,7 +3,7 @@ import { DataCenterContext } from './DataCenterContext'
 import { ApplicationIntegrationsContext } from './ApplicationIntegrationsContext'
 import { integrationsApi } from '../api/cosApi'
 import { useCosGetRequest } from '../hooks/useCosRequest/useCosGetRequest'
-import { IntegrationsApiGetIntegrationsRequest } from '@cube-frontend/api'
+import { IntegrationsApiGetIntegratedApplicationsRequest } from '@cube-frontend/api'
 
 export const ApplicationIntegrationsContextProvider = (
   props: PropsWithChildren,
@@ -20,7 +20,7 @@ export const ApplicationIntegrationsContextProvider = (
     if (!dataCenter) {
       return null
     }
-    const req: IntegrationsApiGetIntegrationsRequest = {
+    const req: IntegrationsApiGetIntegratedApplicationsRequest = {
       dataCenter: dataCenter.name,
     }
     return req

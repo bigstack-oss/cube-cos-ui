@@ -1,6 +1,6 @@
 import { AxiosPromise } from 'axios'
 import dayjs from 'dayjs'
-import { GetIntegratedStoragesResponseDataInner } from '@cube-frontend/api'
+import { GetIntegrationStorageResponseData } from '@cube-frontend/api'
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -20,7 +20,7 @@ export const mockGetIntegrationsStoragesApi = async ({
   dataCenter: string
 }): AxiosPromise<{
   code: number
-  data: GetIntegratedStoragesResponseDataInner[]
+  data: GetIntegrationStorageResponseData[]
 }> => {
   await sleep(1000)
   // @ts-expect-error - Temporarily using mock data until backend API is ready

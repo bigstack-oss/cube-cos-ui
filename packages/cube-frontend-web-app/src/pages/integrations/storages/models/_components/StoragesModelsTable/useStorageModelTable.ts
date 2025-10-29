@@ -2,8 +2,8 @@ import { useContext, useMemo, useState } from 'react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { mockGetStoragesModelsApi, mockUploadModelList } from '../../../mock'
 import { StorageModelRow, storageToRow } from '../../storagesModelsPageUtils'
+import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
 
 export const useStorageModelTable = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -12,31 +12,22 @@ export const useStorageModelTable = () => {
     data,
     hasResponseBeenReceived,
     getResource: refetchStorageModels,
-  } = useCosGetRequest(
-    // @ts-expect-error - Temporarily using mock data until backend API is ready
-    mockGetStoragesModelsApi,
-    () => ({ dataCenter: dataCenter!.name }),
-  )
+  } = useCosGetRequest(integrationsApi.listIntegrationStorageModels, () => ({
+    dataCenter: dataCenter!.name,
+  }))
 
   const { mutateResource: importModel, isLoading: isModelImporting } =
-    // @ts-expect-error - Temporarily using mock data until backend API is ready
-    // TODO: Replace with actual API call when available
-    useCosMutationRequest(mockUploadModelList)
+    useCosMutationRequest(integrationsApi.createIntegrationStorageModel)
 
   const { mutateResource: replaceModelList, isLoading: isModelListReplacing } =
-    // @ts-expect-error - Temporarily using mock data until backend API is ready
-    // TODO: Replace with actual API call when available
-    useCosMutationRequest(mockUploadModelList)
+    useCosMutationRequest(integrationsApi.updateIntegrationStorageModels)
 
-  const { mutateResource: removeModel } =
-    // @ts-expect-error - Temporarily using mock data until backend API is ready
-    // TODO: Replace with actual API call when available
-    useCosMutationRequest(mockUploadModelList)
+  const { mutateResource: removeModel } = useCosMutationRequest(
+    integrationsApi.deleteIntegrationStorageModel,
+  )
 
   const { mutateResource: replaceModel, isLoading: isModelReplacing } =
-    // @ts-expect-error - Temporarily using mock data until backend API is ready
-    // TODO: Replace with actual API call when available
-    useCosMutationRequest(mockUploadModelList)
+    useCosMutationRequest(integrationsApi.updateIntegrationStorageModel)
 
   const [removingDeviceIds, setRemovingDeviceIds] = useState<Set<string>>(
     () => new Set(),
@@ -71,7 +62,15 @@ export const useStorageModelTable = () => {
     isLoading: isModelImporting,
     disabled: isModelListReplacing,
     upload: async (file: File) => {
-      await importModel({ dataCenter: dataCenter!.name, file })
+      try {
+        await importModel({
+          dataCenter: dataCenter!.name,
+          storageModel: file,
+        })
+      } catch (error) {
+        console.error('Failed to import model:', error)
+      }
+
       refetchStorageModels()
     },
   }
@@ -84,7 +83,15 @@ export const useStorageModelTable = () => {
       removingDeviceIds.size > 0 ||
       replacingDeviceIds.size > 0,
     upload: async (file: File) => {
-      await replaceModelList({ dataCenter: dataCenter!.name, file })
+      try {
+        await replaceModelList({
+          dataCenter: dataCenter!.name,
+          storageModels: file,
+        })
+      } catch (error) {
+        console.error('Failed to replace model list:', error)
+      }
+
       refetchStorageModels()
     },
   }
@@ -100,13 +107,15 @@ export const useStorageModelTable = () => {
     isLoading: isModelReplacing,
     upload: async (row: StorageModelRow, file: File) => {
       setReplacingDeviceIds((ids) => new Set(ids).add(row.id))
+
       try {
         await replaceModel({
           dataCenter: dataCenter!.name,
-          vendor: row.vendor,
-          model: row.model,
-          file,
+          driverName: row.driver,
+          storageModel: file,
         })
+      } catch (error) {
+        console.error('Failed to replace model:', error)
       } finally {
         setReplacingDeviceIds((ids) => {
           const newIds = new Set(ids)
@@ -131,9 +140,10 @@ export const useStorageModelTable = () => {
       try {
         await removeModel({
           dataCenter: dataCenter!.name,
-          vendor: removeTargetRow.vendor,
-          model: removeTargetRow.model,
+          driverName: removeTargetRow.driver,
         })
+      } catch (error) {
+        console.error('Failed to remove model:', error)
       } finally {
         setRemovingDeviceIds((ids) => {
           const newIds = new Set(ids)

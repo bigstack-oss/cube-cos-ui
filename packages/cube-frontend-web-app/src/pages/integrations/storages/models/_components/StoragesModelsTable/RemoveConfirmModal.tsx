@@ -13,13 +13,13 @@ export const RemoveConfirmModal = (props: RemoveConfirmModalProps) => {
     <CosModal
       isOpen={isOpen}
       size="sm"
-      title="Remove the Vendor-Model list?"
+      title="Remove the Vendor?"
       actionText="Remove"
       onActionClick={onConfirm}
       onCloseClick={onClose}
     >
       <p className="primary-body2 text-functional-text">
-        Do you want to remove this Vendor-Model list?
+        Do you want to remove this model?
       </p>
     </CosModal>
   )

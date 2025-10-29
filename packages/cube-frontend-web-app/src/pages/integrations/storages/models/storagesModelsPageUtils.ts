@@ -1,8 +1,8 @@
+import { ListIntegrationStorageModelsResponseDataInner } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
-import { GetStorageModel } from '../mock'
 
 export type StorageModelRow = CosTableRow &
-  GetStorageModel & {
+  ListIntegrationStorageModelsResponseDataInner & {
     state: {
       isRemoving: boolean
       isReplacing: boolean
@@ -12,11 +12,12 @@ export type StorageModelRow = CosTableRow &
 
 export const MODEL_UPLOAD_FILE_TYPE = '.yaml,.yml'
 
-export const getTableRowId = (storage: GetStorageModel) =>
-  `${storage.vendor}-${storage.model}`
+export const getTableRowId = (
+  storage: ListIntegrationStorageModelsResponseDataInner,
+) => storage.driver
 
 export const storageToRow = (
-  storage: GetStorageModel,
+  storage: ListIntegrationStorageModelsResponseDataInner,
   removingDeviceIds: Set<string>,
   replacingDeviceIds: Set<string>,
   isFullListReplacing: boolean,

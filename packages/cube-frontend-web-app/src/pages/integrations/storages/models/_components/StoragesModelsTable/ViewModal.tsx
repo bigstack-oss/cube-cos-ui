@@ -1,3 +1,4 @@
+import YAML from 'yaml'
 import { CosLogConsole, CosModal } from '@cube-frontend/ui-library'
 import { StorageModelRow } from '../../storagesModelsPageUtils'
 
@@ -7,12 +8,12 @@ export type ViewModalProps = {
   onClose: () => void
 }
 
-const formatModel = (row: StorageModelRow) => JSON.stringify(row, null, 2)
+const formatModel = (row: StorageModelRow) => YAML.stringify(row)
 
 export const ViewModal = (props: ViewModalProps) => {
   const { isOpen, row, onClose } = props
 
-  const modelName = row ? `${row.vendor} ${row.model}` : ''
+  const name = row ? row.driver : ''
 
   return (
     <CosModal
@@ -23,7 +24,7 @@ export const ViewModal = (props: ViewModalProps) => {
       onCloseClick={onClose}
     >
       {row && (
-        <CosLogConsole title={{ label: modelName }}>
+        <CosLogConsole title={{ label: name }}>
           {formatModel(row)}
         </CosLogConsole>
       )}
