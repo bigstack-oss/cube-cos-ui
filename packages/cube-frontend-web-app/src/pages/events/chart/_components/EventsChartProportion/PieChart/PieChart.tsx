@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Pie } from 'react-chartjs-2'
 import { twMerge } from 'tailwind-merge'
@@ -21,6 +22,8 @@ type PieChartProps = {
 
 export const PieChart = (props: PieChartProps) => {
   const { isRankedEventsLoading, rankedEvents, chartQuery } = props
+
+  const { t } = useTranslation()
 
   const [targetEvent, setTargetEvent] = useState<RankedEvent | undefined>(
     undefined,
@@ -61,6 +64,7 @@ export const PieChart = (props: PieChartProps) => {
         handleMouseEnter,
         handleMouseLeave,
         handleClick,
+        t,
       ),
     [
       chartData,
@@ -68,6 +72,7 @@ export const PieChart = (props: PieChartProps) => {
       handleClick,
       handleMouseEnter,
       handleMouseLeave,
+      t,
     ],
   )
 

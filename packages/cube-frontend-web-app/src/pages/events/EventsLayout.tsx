@@ -18,12 +18,12 @@ export const EventsLayout = () => {
         </Link>
         <Link to={links.triggers}>
           <CosTabs.Tab isActive={location.pathname === links.triggers}>
-            Triggers
+            {t('events.tabs.triggers')}
           </CosTabs.Tab>
         </Link>
         <Link to={links.chart}>
           <CosTabs.Tab isActive={location.pathname === links.chart}>
-            Chart
+            {t('events.tabs.chart')}
           </CosTabs.Tab>
         </Link>
       </CosTabs>

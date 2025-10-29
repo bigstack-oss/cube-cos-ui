@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   GetEventFilterConditionResponseDataHost,
   GetEventFilterConditionResponseDataInstance,
@@ -12,10 +13,10 @@ import {
   ChartType,
   FilterKeysResponse,
   getFilterKeyByChartType,
-  getFilterLabel,
 } from '../utils'
 import { ChartEmpty } from '../ChartEmpty'
 import { ChartQuery, FilterOptions } from '../useEventsChartQuery'
+import { useFilterLabel } from '../useFilterLabel'
 
 const chartType: ChartType = 'proportion'
 
@@ -45,6 +46,10 @@ export const EventsChartProportion = (props: EventsChartProportionProps) => {
     onFieldChange,
     onFieldAllSelect,
   } = props
+
+  const { t } = useTranslation()
+
+  const { getFilterLabel } = useFilterLabel()
 
   const { isRankedEventsLoading, rankedEvents } = useRankedEvents(
     chartType,
@@ -92,7 +97,7 @@ export const EventsChartProportion = (props: EventsChartProportionProps) => {
 
   return (
     <CosGeneralPanel
-      topic="Event ID Proportion"
+      topic={t('events.chart.eventIdProportion')}
       rightSlot={
         <div className="flex items-center gap-2">{renderFilters()}</div>
       }

@@ -8,6 +8,7 @@ import {
   getChartTooltipTitleFont,
   getChartYAxisTitleFont,
 } from '@cube-frontend/web-app/utils/chart'
+import { TFunction } from 'i18next'
 
 export type BarChartData = RankedEvent & {
   barColor: string
@@ -72,6 +73,7 @@ export const getChartOptions = (
   handleMouseEnter: (event: RankedEvent) => void,
   handleMouseLeave: () => void,
   handleClick: (event: RankedEvent) => void,
+  t: TFunction,
 ): ChartOptions<'bar'> => {
   if (!chartData) return {} as ChartOptions<'bar'>
 
@@ -105,7 +107,7 @@ export const getChartOptions = (
       y: {
         title: {
           display: true,
-          text: 'Number of occurrences',
+          text: t('events.chart.numberOfOccurences'),
           font: getChartYAxisTitleFont(),
           color: cubeTheme.colors.functional['text-light'],
         },
@@ -138,16 +140,19 @@ export const getChartOptions = (
               tooltipContents[tooltipItem.dataIndex]
 
             if (eventsType === 'host')
-              return [`Counting: ${number}`, `Host: ${host}`]
+              return [
+                `${t('events.chart.counting')}: ${number}`,
+                `${t('events.chart.host')}: ${host}`,
+              ]
 
             if (eventsType === 'instance')
               return [
-                `Counting: ${number}`,
-                `Instance Name: ${instanceName}`,
-                `Instance ID: ${instanceId}`,
+                `${t('events.chart.counting')}: ${number}`,
+                `${t('events.chart.instanceName')}: ${instanceName}`,
+                `${t('events.chart.instanceId')}: ${instanceId}`,
               ]
 
-            return `Counting: ${number}`
+            return `${t('events.chart.counting')}: ${number}`
           },
         },
       },

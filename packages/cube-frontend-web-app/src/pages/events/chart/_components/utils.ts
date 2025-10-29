@@ -49,17 +49,6 @@ export const getFilterKeyByChartType = (
   return filterKeyMapping[key][chartType] || undefined
 }
 
-const filterLabelMapping: Record<FilterKeysResponse, string> = {
-  categories: 'Categories',
-  severities: 'Severities',
-  names: 'Hosts',
-  ids: 'Instances',
-}
-
-export const getFilterLabel = (key: FilterKeysResponse) => {
-  return filterLabelMapping[key] || ''
-}
-
 const getValidType = (type: string): GetEventsTypeEnum => {
   const defaultType = GetEventsTypeEnum.System
 

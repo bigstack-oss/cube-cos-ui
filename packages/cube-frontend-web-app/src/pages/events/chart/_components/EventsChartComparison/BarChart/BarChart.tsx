@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import {
   Chart as ChartJS,
   BarElement,
@@ -27,6 +28,8 @@ type BarChartProps = {
 
 export const BarChart = (props: BarChartProps) => {
   const { rankedEvents, isRankedEventsLoading, chartQuery } = props
+
+  const { t } = useTranslation()
 
   const hoveredEventIndexRef = useRef<number | null>(null)
 
@@ -79,6 +82,7 @@ export const BarChart = (props: BarChartProps) => {
         handleMouseEnter,
         handleMouseLeave,
         handleClick,
+        t,
       ),
     [
       chartData,
@@ -86,6 +90,7 @@ export const BarChart = (props: BarChartProps) => {
       handleClick,
       handleMouseEnter,
       handleMouseLeave,
+      t,
     ],
   )
 

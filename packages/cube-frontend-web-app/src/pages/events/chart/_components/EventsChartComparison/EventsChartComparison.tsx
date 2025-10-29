@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   GetEventFilterConditionResponseDataHost,
   GetEventFilterConditionResponseDataInstance,
@@ -11,11 +12,11 @@ import {
   ChartType,
   FilterKeysResponse,
   getFilterKeyByChartType,
-  getFilterLabel,
 } from '../utils'
 import { ChartEmpty } from '../ChartEmpty'
 import { FilterEmpty } from '../FilterEmpty'
 import { ChartQuery, FilterOptions } from '../useEventsChartQuery'
+import { useFilterLabel } from '../useFilterLabel'
 
 const chartType: ChartType = 'comparison'
 
@@ -46,6 +47,10 @@ export const EventsChartComparison = (props: EventsChartComparisonProps) => {
     onFieldChange,
     onFieldAllSelect,
   } = props
+
+  const { t } = useTranslation()
+
+  const { getFilterLabel } = useFilterLabel()
 
   const { isRankedEventsLoading, rankedEvents } = useRankedEvents(
     chartType,
@@ -95,7 +100,7 @@ export const EventsChartComparison = (props: EventsChartComparisonProps) => {
 
   return (
     <CosGeneralPanel
-      topic="Event ID Comparison (Top 24)"
+      topic={t('events.chart.eventIdComparison')}
       rightSlot={
         <div className="flex items-center gap-2">{renderFilters()}</div>
       }

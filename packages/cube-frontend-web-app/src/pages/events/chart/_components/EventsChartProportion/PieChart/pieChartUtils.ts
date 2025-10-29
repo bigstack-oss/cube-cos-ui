@@ -7,6 +7,7 @@ import {
   getChartTooltipTitleFont,
 } from '@cube-frontend/web-app/utils/chart'
 import { hexToRGBA, getChartLabelByEventsType } from '../../utils'
+import { TFunction } from 'i18next'
 
 export const chartColors = [
   cubeTheme.colors.chart[1],
@@ -88,6 +89,7 @@ export const getChartOptions = (
   handleMouseEnter: (event: RankedEvent) => void,
   handleMouseLeave: () => void,
   handleClick: () => void,
+  t: TFunction,
 ): ChartOptions<'pie'> => {
   if (!chartData) return {} as ChartOptions<'pie'>
 
@@ -127,16 +129,19 @@ export const getChartOptions = (
               tooltipContents[tooltipItem.dataIndex]
 
             if (eventsType === 'host')
-              return [`Proportion: ${percent.toFixed(1)}%`, `Host: ${host}`]
+              return [
+                `${t('events.chart.proportion')}: ${percent.toFixed(1)}%`,
+                `${t('events.chart.host')}: ${host}`,
+              ]
 
             if (eventsType === 'instance')
               return [
-                `Proportion: ${percent.toFixed(1)}%`,
-                `Instance Name: ${instanceName}`,
-                `Instance ID: ${instanceId}`,
+                `${t('events.chart.proportion')}: ${percent.toFixed(1)}%`,
+                `${t('events.chart.instanceName')}: ${instanceName}`,
+                `${t('events.chart.instanceId')}: ${instanceId}`,
               ]
 
-            return `Proportion: ${percent.toFixed(1)}%`
+            return `${t('events.chart.proportion')}: ${percent.toFixed(1)}%`
           },
         },
       },
