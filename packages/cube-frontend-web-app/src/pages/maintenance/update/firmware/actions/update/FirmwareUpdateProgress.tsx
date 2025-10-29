@@ -59,7 +59,9 @@ const statusWithIconPropsMap: Partial<
 export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
   const { firmware, isLoadingProgress, progressRows, isRollingApplied } = props
 
-  const isUpdated = firmware.status.current === FirmwareStatus.Updated
+  const isUpdated =
+    firmware.status.current === FirmwareStatus.Resolved ||
+    firmware.status.current === FirmwareStatus.Succeeded
 
   const hasResolvedProgress = useMemo<boolean>(
     () =>

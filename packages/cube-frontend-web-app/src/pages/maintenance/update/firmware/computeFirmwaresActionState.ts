@@ -1,6 +1,6 @@
 import {
+  ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum as FirmwareStatus,
   GetHealthsResponseDataOverallStatusCurrentEnum,
-  ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum,
 } from '@cube-frontend/api'
 import { CephHealthStatus } from '../_components/useCephHealthStatus'
 import { FirmwareRow } from './listFirmwaresUtils'
@@ -13,6 +13,14 @@ export type UpdateActionState =
   | 'hidden'
 
 export type DeleteActionState = 'available' | 'blockedByProcessing' | 'hidden'
+
+// TODO: Replace this with `firmware.status.isProcessing` after API is fixed.
+export const upgradingStatuses = new Set<FirmwareStatus>([
+  FirmwareStatus.Installing,
+  FirmwareStatus.WaitingReboot,
+  FirmwareStatus.Rebooting,
+  FirmwareStatus.Failed,
+])
 
 export const computeFirmwareUpdateActionState = (
   firmware: FirmwareRow,
@@ -34,12 +42,13 @@ export const computeFirmwareDeleteActionState = (
   firmware: FirmwareRow,
 ): DeleteActionState => {
   if (
-    firmware.status.current ===
-    ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum.Updated
+    firmware.status.current === FirmwareStatus.Resolved ||
+    FirmwareStatus.Succeeded
   )
     return 'hidden'
 
-  if (firmware.status.isProcessing) return 'blockedByProcessing'
+  if (upgradingStatuses.has(firmware.status.current))
+    return 'blockedByProcessing'
 
   return 'available'
 }

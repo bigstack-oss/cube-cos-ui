@@ -62,9 +62,12 @@ export const useUpdateFirmwareModalActionProps = (
 
   const resultMap: Record<FirmwareStatus, UpdateFirmwareModalActionProps> = {
     available: availableModalActionProps,
-    processing: updatingModalActionProps,
+    installing: updatingModalActionProps,
+    'waiting reboot': updatingModalActionProps,
+    rebooting: updatingModalActionProps,
     failed: updatingModalActionProps,
-    updated: updatedModalActionProps,
+    resolved: updatedModalActionProps,
+    succeeded: updatedModalActionProps,
   }
 
   return resultMap[firmware.status.current]
