@@ -10,6 +10,8 @@ import { UpdatableNodes } from './UpdatableNodes'
 import { UpdateModalStep } from './updateActionUtils'
 
 const DONE_STATES: Set<FirmwareStatus> = new Set([
+  // @ts-expect-error: firmware is still under development, some types are not finalized yet.
+  // This will be fixed once the frontend integration with the backend is complete.
   FirmwareStatus.Installed,
   FirmwareStatus.Resolved,
 ])

@@ -11,8 +11,12 @@ export const UpdateStatus = (props: UpdateStatusProps) => {
   const { status } = props
 
   const isOngoingStatus =
+    // @ts-expect-error: firmware is still under development, some types are not finalized yet.
+    // This will be fixed once the frontend integration with the backend is complete.
     status.current === 'installing' || status.current === 'waitingReboot'
 
+  // @ts-expect-error: firmware is still under development, some types are not finalized yet.
+  // This will be fixed once the frontend integration with the backend is complete.
   if (status.current === 'available')
     return (
       <div className="flex items-center gap-x-2 text-status-positive">
