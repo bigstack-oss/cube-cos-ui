@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { NodesApiGetNodeRequest } from '@cube-frontend/api'
 import {
   CosBackButton,
@@ -19,6 +20,8 @@ export const NodeIPMIControlPage = () => {
   if (!nodeName) {
     throw new Error('Cannot find node name in the URL')
   }
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -60,7 +63,7 @@ export const NodeIPMIControlPage = () => {
           },
         }}
       >
-        IPMI Control
+        {t('nodes.ipmiControl.title')}
       </CosBackButton>
       {node?.ipmi.isConnected ? (
         <DisconnectFromIPMI nodeName={nodeName} />
@@ -69,7 +72,9 @@ export const NodeIPMIControlPage = () => {
           isControlledPanelOpen={isValidationLogOpen}
           onControlledPanelOpenChange={onValidationLogToggled}
         >
-          <CosCollapsiblePanelLayout.LeftPanel topic="Connect to IPMI">
+          <CosCollapsiblePanelLayout.LeftPanel
+            topic={t('nodes.ipmiControl.connectToImpi.title')}
+          >
             <ConnectToIPMI
               node={node}
               backHref={backHref}
@@ -78,7 +83,9 @@ export const NodeIPMIControlPage = () => {
               onLogChange={onValidated}
             />
           </CosCollapsiblePanelLayout.LeftPanel>
-          <CosCollapsiblePanelLayout.RightPanel topic="Validate Information">
+          <CosCollapsiblePanelLayout.RightPanel
+            topic={t('nodes.ipmiControl.validateInformation')}
+          >
             <ValidationLog log={validationLog} />
           </CosCollapsiblePanelLayout.RightPanel>
         </CosCollapsiblePanelLayout>

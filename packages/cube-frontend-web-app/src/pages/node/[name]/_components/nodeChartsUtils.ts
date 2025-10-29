@@ -57,6 +57,7 @@ export const computeChartData = (
 
 export const getCpuChartOptions = (
   metricsData: HostMetricHistoryResponseData | undefined,
+  yAxisText: string,
 ): ChartOptions<'line'> => {
   const { history = [], unit = '' } = metricsData ?? {}
   return {
@@ -84,7 +85,7 @@ export const getCpuChartOptions = (
         max: 100,
         title: {
           display: true,
-          text: 'Consumed Host CPU (%)',
+          text: yAxisText,
           font: getChartYAxisTitleFont(),
           color: cubeTheme.colors.functional['text-light'],
         },
@@ -143,6 +144,7 @@ export const getCpuChartOptions = (
 }
 export const getMemoryChartOptions = (
   metricsData: HostMetricHistoryResponseData | undefined,
+  yAxisText: string,
 ): ChartOptions<'line'> => {
   const isLoading = !metricsData
   const history = metricsData?.history ?? []
@@ -172,7 +174,7 @@ export const getMemoryChartOptions = (
       y: {
         title: {
           display: true,
-          text: 'Consumed Host Memory (GB)',
+          text: yAxisText,
           font: getChartYAxisTitleFont(),
         },
         border: {

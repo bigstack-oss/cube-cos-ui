@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { MetricsApiGetMetricByHostOrVmRequest, Node } from '@cube-frontend/api'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
@@ -22,6 +23,8 @@ type CpuPerformanceChartProps = {
 // TODO: extract polling interval to prop
 export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
   const { node } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -57,13 +60,13 @@ export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
   )
 
   const chartOptions = useMemo(
-    () => getCpuChartOptions(metricsData),
-    [metricsData],
+    () => getCpuChartOptions(metricsData, t('nodes.details.consumedHostCpu')),
+    [metricsData, t],
   )
 
   return (
     <CosGeneralPanel
-      topic="CPU Performance"
+      topic={t('nodes.details.cpuPerformance')}
       rightSlot={
         <TimeRangeDropdown
           timeRanges={chartTimeRanges}

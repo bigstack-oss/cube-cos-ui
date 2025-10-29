@@ -1,3 +1,6 @@
+import { useContext, useMemo, useState } from 'react'
+import dayjs from 'dayjs'
+import { useTranslation } from 'react-i18next'
 import {
   EventsApiGetEventsRequest,
   GetEventsResponseDataEventsInner,
@@ -17,8 +20,6 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { shouldDisplayLoading } from '@cube-frontend/web-app/utils/loadingDisplay'
-import dayjs from 'dayjs'
-import { useContext, useMemo, useState } from 'react'
 import { NODE_DETAILS_POLLING_INTERVAL } from '../NodeDetailsPageUtils'
 import { chartTimeRanges } from './nodeChartsUtils'
 
@@ -34,6 +35,8 @@ type EventRow = GetEventsResponseDataEventsInner & {
 
 export const NodeEvents = (props: NodeEventsProps) => {
   const { node } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -108,7 +111,7 @@ export const NodeEvents = (props: NodeEventsProps) => {
 
   return (
     <CosGeneralPanel
-      topic="Node Events"
+      topic={t('nodes.details.nodeEvents.title')}
       rightSlot={
         <TimeRangeDropdown
           timeRanges={chartTimeRanges}
@@ -119,15 +122,18 @@ export const NodeEvents = (props: NodeEventsProps) => {
       }
     >
       <EventTable isLoading={showLoading} rows={rows} skeletonRowCount={10}>
-        <EventTable.Column label="Severity" property="severity" />
-        <EventTable.Column label="Event ID" property="eventId" />
-        <EventTable.Column label="Timestamp" property="time">
+        <EventTable.Column label={t('events.severity')} property="severity" />
+        <EventTable.Column label={t('events.eventId')} property="eventId" />
+        <EventTable.Column label={t('events.time')} property="time">
           {(time) => dayjs.respectTzOffset(time).format('YYYY/MM/DD HH:mm:ss')}
         </EventTable.Column>
-        <EventTable.Column label="Description" property="description" />
-        <EventTable.Column label="Category" property="category" />
-        <EventTable.Column label="Service" property="service" />
-        <EventTable.Column label="Metadata" property="metadata">
+        <EventTable.Column
+          label={t('events.description')}
+          property="description"
+        />
+        <EventTable.Column label={t('events.category')} property="category" />
+        <EventTable.Column label={t('events.service')} property="service" />
+        <EventTable.Column label={t('events.metadata')} property="metadata">
           {(metadata) => JSON.stringify(metadata)}
         </EventTable.Column>
       </EventTable>

@@ -1,3 +1,7 @@
+import { FormEvent, useContext, useState } from 'react'
+import { useNavigate } from 'react-router'
+import { upperFirst } from 'lodash'
+import { useTranslation } from 'react-i18next'
 import { Node } from '@cube-frontend/api'
 import {
   CosButton,
@@ -9,9 +13,6 @@ import {
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { upperFirst } from 'lodash'
-import { FormEvent, useContext, useState } from 'react'
-import { useNavigate } from 'react-router'
 import { verifyIpmiResponseToLog } from './ipmiUtils'
 import { IPMISetup, useIPMISetup } from './useIPMISetup'
 
@@ -25,6 +26,8 @@ type ConnectToIPMIProps = {
 
 export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
   const { node, backHref, isVerified, onLogChange, toggleValidationLog } = props
+
+  const { t } = useTranslation()
 
   const navigate = useNavigate()
 
@@ -108,45 +111,54 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
   return (
     <div className="flex flex-col gap-y-4">
       <p className="primary-body5 text-functional-text">
-        Make sure the IPMI protocol and its associated port are accessible on
-        both the host and the firewall.
+        {t('nodes.ipmiControl.connectToImpi.message')}
       </p>
       <form className="flex flex-col gap-y-4" onSubmit={onVerify}>
         <CosInput
-          label="Port"
-          placeholder="Port"
+          label={t('nodes.ipmiControl.port')}
+          placeholder={t('nodes.ipmiControl.port')}
           value={setup.port}
-          errorMessage={!!setup.port && !fieldsValidity.port && 'Invalid port'}
+          errorMessage={
+            !!setup.port &&
+            !fieldsValidity.port &&
+            t('nodes.ipmiControl.invalidPort')
+          }
           isLoading={!node}
           disabled={isInputDisabled}
           onChange={(e) => handleSetupChange('port', e.target.value)}
         />
         <CosInput
-          label="IP"
-          placeholder="IP"
+          label={t('nodes.ipmiControl.ip')}
+          placeholder={t('nodes.ipmiControl.ip')}
           value={setup.ip}
-          errorMessage={!!setup.ip && !fieldsValidity.ip && 'Invalid IP'}
+          errorMessage={
+            !!setup.ip && !fieldsValidity.ip && t('nodes.ipmiControl.invalidIp')
+          }
           isLoading={!node}
           disabled={isInputDisabled}
           onChange={(e) => handleSetupChange('ip', e.target.value)}
         />
         <CosInput
-          label="Username"
-          placeholder="Username"
+          label={t('nodes.ipmiControl.username')}
+          placeholder={t('nodes.ipmiControl.username')}
           value={setup.username}
           errorMessage={
-            !!setup.username && !fieldsValidity.username && 'Invalid username'
+            !!setup.username &&
+            !fieldsValidity.username &&
+            t('nodes.ipmiControl.invalidUsername')
           }
           isLoading={!node}
           disabled={isInputDisabled}
           onChange={(e) => handleSetupChange('username', e.target.value)}
         />
         <CosPasswordInput
-          label="Password"
-          placeholder="Password"
+          label={t('nodes.ipmiControl.password')}
+          placeholder={t('nodes.ipmiControl.password')}
           value={setup.password}
           errorMessage={
-            !!setup.password && !fieldsValidity.password && 'Invalid password'
+            !!setup.password &&
+            !fieldsValidity.password &&
+            t('nodes.ipmiControl.invalidPassword')
           }
           isLoading={!node}
           disabled={isInputDisabled}
@@ -160,7 +172,7 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
             loading={isVerifying}
             disabled={!allFieldsValid || isSaving}
           >
-            Verify
+            {t('nodes.ipmiControl.verify')}
           </CosButton>
           {renderValidationResult()}
         </div>
@@ -172,10 +184,10 @@ export const ConnectToIPMI = (props: ConnectToIPMIProps) => {
           disabled={!node || !allFieldsValid || !isVerified}
           onClick={onConfirmClick}
         >
-          Confirm
+          {t('nodes.ipmiControl.confirm')}
         </CosButton>
         <CosButton type="ghost" disabled={!node} onClick={goBack}>
-          Cancel
+          {t('nodes.ipmiControl.cancel')}
         </CosButton>
       </div>
     </div>

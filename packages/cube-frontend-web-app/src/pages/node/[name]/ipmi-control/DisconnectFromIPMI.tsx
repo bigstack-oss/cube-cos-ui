@@ -1,3 +1,6 @@
+import { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router'
 import {
   CosButton,
   CosGeneralPanel,
@@ -7,8 +10,6 @@ import {
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router'
 
 type DisconnectFromIPMIProps = {
   nodeName: string
@@ -16,6 +17,8 @@ type DisconnectFromIPMIProps = {
 
 export const DisconnectFromIPMI = (props: DisconnectFromIPMIProps) => {
   const { nodeName } = props
+
+  const { t } = useTranslation()
 
   const navigate = useNavigate()
 
@@ -45,15 +48,14 @@ export const DisconnectFromIPMI = (props: DisconnectFromIPMIProps) => {
   }
 
   return (
-    <CosGeneralPanel topic="Disconnect From IPMI">
+    <CosGeneralPanel topic={t('nodes.ipmiControl.disconnectFromIpmi.title')}>
       <div className="flex flex-col gap-y-4">
         <p className="primary-body5 text-functional-text">
-          Once disconnected from IPMI, power control actions (power on/off,
-          power cycle) will no longer be available.
+          {t('nodes.ipmiControl.disconnectFromIpmi.message')}
         </p>
         <CosToggle
           className="mt-4"
-          label="On"
+          label={t('nodes.ipmiControl.on')}
           isOn={isOn}
           disabled={isDisconnecting}
           onChange={setIsOn}
@@ -65,14 +67,14 @@ export const DisconnectFromIPMI = (props: DisconnectFromIPMIProps) => {
             disabled={isOn}
             onClick={onConfirmClick}
           >
-            Confirm
+            {t('nodes.ipmiControl.confirm')}
           </CosButton>
           <CosButton
             type="ghost"
             disabled={isDisconnecting}
             onClick={goBackToNodeDetailsPage}
           >
-            Cancel
+            {t('nodes.ipmiControl.cancel')}
           </CosButton>
         </div>
       </div>

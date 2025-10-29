@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { ListNodeDevicesResponseDataInnerAvailabilityEnum } from '@cube-frontend/api'
 import {
   CosOverflowMenu,
@@ -23,6 +24,8 @@ export const DeviceOverflowMenu = (props: DeviceOverflowMenuProps) => {
     onRestartOSDsClick,
   } = props
 
+  const { t } = useTranslation()
+
   const getDiskActions = (): CosOverflowMenuItemProps[] => {
     const actions: CosOverflowMenuItemProps[] = []
 
@@ -36,7 +39,7 @@ export const DeviceOverflowMenu = (props: DeviceOverflowMenuProps) => {
     if (canAdd) {
       actions.push({
         type: 'plain',
-        title: 'Add disk',
+        title: t('nodes.details.devices.addDisk'),
         onClick: onAddDiskClick,
       })
     }
@@ -44,7 +47,7 @@ export const DeviceOverflowMenu = (props: DeviceOverflowMenuProps) => {
     if (canRemove) {
       actions.push({
         type: 'plain',
-        title: 'Remove disk',
+        title: t('nodes.details.devices.removeDisk'),
         onClick: onRemoveDiskClick,
       })
     }
@@ -58,12 +61,12 @@ export const DeviceOverflowMenu = (props: DeviceOverflowMenuProps) => {
     return [
       {
         type: 'plain',
-        title: 'Remove OSDs',
+        title: t('nodes.details.devices.removeOSDs'),
         onClick: onRemoveOSDsClick,
       },
       {
         type: 'plain',
-        title: 'Restart OSDs',
+        title: t('nodes.details.devices.restartOSDs'),
         onClick: onRestartOSDsClick,
       },
     ]

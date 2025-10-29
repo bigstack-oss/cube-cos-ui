@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { MetricsApiGetMetricByHostOrVmRequest, Node } from '@cube-frontend/api'
 import { metricsApi } from '@cube-frontend/web-app/api/cosApi'
 import { TimeRangeDropdown } from '@cube-frontend/web-app/components/TimeRangeDropdown/TimeRangeDropdown'
@@ -21,6 +22,8 @@ type MemoryPerformanceChartProps = {
 
 export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
   const { node } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -56,13 +59,14 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
   )
 
   const chartOptions = useMemo(
-    () => getMemoryChartOptions(metricsData),
-    [metricsData],
+    () =>
+      getMemoryChartOptions(metricsData, t('nodes.details.consumedHostMemory')),
+    [metricsData, t],
   )
 
   return (
     <CosGeneralPanel
-      topic="Memory Performance"
+      topic={t('node.details.memoryPerformance')}
       rightSlot={
         <TimeRangeDropdown
           timeRanges={chartTimeRanges}

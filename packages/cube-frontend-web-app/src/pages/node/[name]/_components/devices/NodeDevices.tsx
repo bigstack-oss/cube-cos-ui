@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   ListNodeDevicesResponseDataInnerAvailabilityEnum,
   ListNodeDevicesResponseDataInnerOsd,
@@ -13,7 +14,7 @@ import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
 import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
-import { isEmpty, upperFirst } from 'lodash'
+import { isEmpty } from 'lodash'
 import { twMerge } from 'tailwind-merge'
 import { AddDiskModal } from './AddDiskModal'
 import { DaemonsInfo } from './DaemonsInfo'
@@ -38,6 +39,8 @@ type NodeDevicesProps = {
 
 export const NodeDevices = (props: NodeDevicesProps) => {
   const { hostname } = props
+
+  const { t } = useTranslation()
 
   const {
     isLoading,
@@ -72,14 +75,14 @@ export const NodeDevices = (props: NodeDevicesProps) => {
       return (
         <div className="flex items-center gap-x-2 whitespace-nowrap">
           <span className="primary-body4 font-medium text-status-positive-text">
-            Can be added
+            {t('nodes.details.devices.canBeAdded')}
           </span>
           <WarningFilled className="icon-md text-status-positive" />
         </div>
       )
     }
 
-    return upperFirst(availability)
+    return t(`nodes.details.devices.availability.${availability}`)
   }
 
   const {
@@ -137,7 +140,7 @@ export const NodeDevices = (props: NodeDevicesProps) => {
               disabled={!isEmpty(rowsFieldError[rowIndex])}
               onClick={() => onSaveClick(row)}
             >
-              Save
+              {t('nodes.details.devices.save')}
             </CosButton>
             {!row.isSaving && (
               <X
@@ -186,21 +189,39 @@ export const NodeDevices = (props: NodeDevicesProps) => {
   return (
     <CosGeneralPanel
       leftSlot={
-        <div className="primary-body3 text-functional-text">Devices</div>
+        <div className="primary-body3 text-functional-text">
+          {t('nodes.details.devices.title')}
+        </div>
       }
     >
       <DeviceTable isLoading={isLoading} rows={rows}>
-        <DeviceTable.Column label="Device" property="device" emphasize={true} />
-        <DeviceTable.Column label="Serial number" property="serial" />
-        <DeviceTable.Column label="Size" property="sizeMiB">
+        <DeviceTable.Column
+          label={t('nodes.details.devices.device')}
+          property="device"
+          emphasize={true}
+        />
+        <DeviceTable.Column
+          label={t('nodes.details.devices.serialNumber')}
+          property="serial"
+        />
+        <DeviceTable.Column
+          label={t('nodes.details.devices.size')}
+          property="sizeMiB"
+        >
           {(sizeMiB) => (
             <span className="whitespace-nowrap">
               {toReadableSizeString(sizeMiB, 'MiB')}
             </span>
           )}
         </DeviceTable.Column>
-        <DeviceTable.Column label="Detected Type" property="type" />
-        <DeviceTable.Column label="Defined Class" property="class">
+        <DeviceTable.Column
+          label={t('nodes.details.devices.detectedType')}
+          property="type"
+        />
+        <DeviceTable.Column
+          label={t('nodes.details.devices.definedClass')}
+          property="class"
+        >
           {(_, row) => (
             <DefinedClassCell
               row={row}
@@ -208,18 +229,27 @@ export const NodeDevices = (props: NodeDevicesProps) => {
             />
           )}
         </DeviceTable.Column>
-        <DeviceTable.Column label="OSD ID" property="osd">
+        <DeviceTable.Column
+          label={t('nodes.details.devices.osdId')}
+          property="osd"
+        >
           {(osd) => <DaemonsInfo daemons={osd.daemons} />}
         </DeviceTable.Column>
-        <DeviceTable.Column label="OSD Usage" property="osd">
+        <DeviceTable.Column
+          label={t('nodes.details.devices.osdUsage')}
+          property="osd"
+        >
           {renderOSDUsages}
         </DeviceTable.Column>
-        <DeviceTable.Column label="OSD Reweight" property="osd">
+        <DeviceTable.Column
+          label={t('nodes.details.devices.osdReweight')}
+          property="osd"
+        >
           {(osd, row, rowIndex) =>
             row.isEditing ? (
               <CosTableInput
                 className="h-[34px] w-[50px]"
-                placeholder="OSD reweight"
+                placeholder={t('nodes.details.devices.osdReweight')}
                 value={row.dataForEdit.osdReweight}
                 errorMessage={rowsFieldError[rowIndex].osdReweight}
                 disabled={row.isSaving}
@@ -230,13 +260,19 @@ export const NodeDevices = (props: NodeDevicesProps) => {
             )
           }
         </DeviceTable.Column>
-        <DeviceTable.Column label="Availability" property="availability">
+        <DeviceTable.Column
+          label={t('nodes.details.devices.availability')}
+          property="availability"
+        >
           {renderAvailability}
         </DeviceTable.Column>
-        <DeviceTable.Column label="Status" property="status">
+        <DeviceTable.Column
+          label={t('nodes.details.devices.status')}
+          property="status"
+        >
           {(status) => <CosStatus status={status.current} />}
         </DeviceTable.Column>
-        <DeviceTable.Column label="Actions">
+        <DeviceTable.Column label={t('nodes.details.devices.actions')}>
           {(_, row, rowIndex) => renderActions(row, rowIndex)}
         </DeviceTable.Column>
       </DeviceTable>

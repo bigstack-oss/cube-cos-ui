@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Node, OperateNodeIpmiOperationEnum } from '@cube-frontend/api'
 import { CosButton, CosModal, CosOverflowMenu } from '@cube-frontend/ui-library'
 import Power from '@cube-frontend/ui-library/icons/monochrome/power.svg?react'
@@ -12,6 +13,8 @@ type ActionMenuProps = {
 
 export const ActionMenu = (props: ActionMenuProps) => {
   const { node, onCreateSupportFileClick } = props
+
+  const { t } = useTranslation()
 
   const {
     isIPMIOperating,
@@ -49,25 +52,29 @@ export const ActionMenu = (props: ActionMenuProps) => {
     <CosOverflowMenu
       triggerElement={
         <CosButton loading={isIPMIOperating} disabled={isInPoweringStatus}>
-          Action
+          {t('nodes.details.action')}
         </CosButton>
       }
     >
-      <CosOverflowMenu.Title>Basic</CosOverflowMenu.Title>
+      <CosOverflowMenu.Title>
+        {t('nodes.details.action.basic')}
+      </CosOverflowMenu.Title>
       <CosOverflowMenu.Item
         type="plain"
-        title="Create support file"
+        title={t('nodes.details.action.createSupportFiles')}
         disabled={!canCreateSupportFile(node)}
         onClick={onCreateSupportFileClick}
       />
       {node.ipmi.isConnected && (
         <>
           <CosOverflowMenu.Divider />
-          <CosOverflowMenu.Title>IPMI Control</CosOverflowMenu.Title>
+          <CosOverflowMenu.Title>
+            {t('nodes.details.action.ipmiControl')}
+          </CosOverflowMenu.Title>
           {showPowerCycle && (
             <CosOverflowMenu.Item
               type="plain"
-              title="Power cycle"
+              title={t('nodes.details.action.powerCycle')}
               onClick={() =>
                 onOperationClick(OperateNodeIpmiOperationEnum.Powercycle)
               }
@@ -76,7 +83,7 @@ export const ActionMenu = (props: ActionMenuProps) => {
           {showPowerOn && (
             <CosOverflowMenu.Item
               type="trailing-icon"
-              title="Power on"
+              title={t('nodes.details.action.powerOn')}
               TrailingIcon={Power}
               onClick={() =>
                 onOperationClick(OperateNodeIpmiOperationEnum.Poweron)
@@ -86,7 +93,7 @@ export const ActionMenu = (props: ActionMenuProps) => {
           {showPowerOff && (
             <CosOverflowMenu.Item
               type="trailing-icon"
-              title="Power off"
+              title={t('nodes.details.action.powerOff')}
               TrailingIcon={Power}
               onClick={() =>
                 onOperationClick(OperateNodeIpmiOperationEnum.Poweroff)
@@ -99,7 +106,7 @@ export const ActionMenu = (props: ActionMenuProps) => {
         title={confirmationTitle}
         size="sm"
         isOpen={!!desiredOperation}
-        actionText="Confirm"
+        actionText={t('nodes.details.actionModal.confirm')}
         onActionClick={onOperationConfirmed}
         onCloseClick={onConfirmModalClose}
       >

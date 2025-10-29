@@ -9,8 +9,8 @@ import { ChangeEvent, useContext, useMemo, useState } from 'react'
 import {
   createEditableData,
   DeviceEditableData,
-  deviceEditableDataSchema,
   DeviceRow,
+  useDeviceEditableDataSchema,
 } from './nodeDevicesUtils'
 import { useSyncDeviceRows } from './useSyncDeviceRows'
 
@@ -46,11 +46,13 @@ export const useDeviceRows = (nodeName: string | undefined): UseDeviceRows => {
 
   useSyncDeviceRows(devices, setRows)
 
+  const deviceEditableDataSchema = useDeviceEditableDataSchema()
+
   const rowsFieldError = useMemo<ErrorRecord<DeviceEditableData>[]>(() => {
     return rows.map((row) =>
       validateBySchema(deviceEditableDataSchema, row.dataForEdit),
     )
-  }, [rows])
+  }, [deviceEditableDataSchema, rows])
 
   const patchRow = (rowId: string, payload: DeepPartial<DeviceRow>): void => {
     setRows((prev) => {

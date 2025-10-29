@@ -75,8 +75,8 @@ export const NodeSummary = (props: NodeSummaryProps) => {
 
     return (
       <CosTooltip
-        hoverContent={{ message: 'Click to copy' }}
-        clickContent={{ message: 'Copied' }}
+        hoverContent={{ message: t('nodes.details.clickToCopy') }}
+        clickContent={{ message: t('nodes.details.copied') }}
       >
         <Copy
           className="icon-md cursor-pointer text-functional-text-light"
@@ -112,7 +112,7 @@ export const NodeSummary = (props: NodeSummaryProps) => {
               <CosSkeleton className="h-6 w-[70px]" />
               <CosSkeleton className="h-6 w-[120px] rounded-full" />
             </div>
-            <CosButton disabled={true}>Action</CosButton>
+            <CosButton disabled={true}>{t('nodes.details.action')}</CosButton>
           </div>
           <CosStroke type="dot" />
           <div className="w-fit rounded-[5px] border border-functional-border-divider">
@@ -146,25 +146,28 @@ export const NodeSummary = (props: NodeSummaryProps) => {
         {node.status === NodeStatusEnum.Up && (
           <table className="w-fit min-w-[560px] border-separate border-spacing-0">
             <tbody>
-              {renderRow('CPU Spec', node.cpuSpec)}
+              {renderRow(t('nodes.details.cpuSpec'), node.cpuSpec)}
               {renderRow(
-                'Memory Spec',
+                t('nodes.details.memorySpec'),
                 toReadableSizeString(node.memory.totalMiB, 'MiB'),
               )}
-              {renderRow('Up Time', humanizeDuration(t, node.uptimeSeconds))}
               {renderRow(
-                'License Expiration',
+                t('nodes.details.upTime'),
+                humanizeDuration(t, node.uptimeSeconds),
+              )}
+              {renderRow(
+                t('nodes.details.licenseExpiration'),
                 toLicenseExpirationDate(node.license, t, { includeTime: true }),
               )}
               {renderRow(
-                'Management IP',
+                t('nodes.details.managementIp'),
                 <div className="flex items-center gap-x-5">
                   <span>{node.managementIP}</span>
                   {renderCopyButton(node.managementIP)}
                 </div>,
               )}
               {renderRow(
-                'Storage IP',
+                t('nodes.details.storageIp'),
                 <div className="flex items-center gap-x-5">
                   <span>{node.storageIP}</span>
                   {renderCopyButton(node.storageIP)}

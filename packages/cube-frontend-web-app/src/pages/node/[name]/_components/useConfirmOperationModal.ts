@@ -1,5 +1,6 @@
-import { OperateNodeIpmiOperationEnum } from '@cube-frontend/api'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { OperateNodeIpmiOperationEnum } from '@cube-frontend/api'
 
 type UseConfirmOperationModal = {
   desiredOperation: OperateNodeIpmiOperationEnum | undefined
@@ -9,37 +10,48 @@ type UseConfirmOperationModal = {
   onConfirmModalClose: () => void
 }
 
-// TODO: Replace this map with i18n function.
-const titleMap: Record<OperateNodeIpmiOperationEnum, string> = {
-  [OperateNodeIpmiOperationEnum.Poweron]: 'Power On',
-  [OperateNodeIpmiOperationEnum.Poweroff]: 'Power Off',
-  [OperateNodeIpmiOperationEnum.Powercycle]: 'Power Cycle',
-}
-
-// TODO: Replace this function with i18n function.
-const computeConfirmationText = (
-  operation: OperateNodeIpmiOperationEnum,
-  hostname: string,
-): string => {
-  const operationText = titleMap[operation].toLowerCase()
-  return `Are you sure you want to ${operationText} node ${hostname}?`
-}
+type ModalTextMap = Record<
+  OperateNodeIpmiOperationEnum,
+  { title: string; message: string }
+>
 
 export const useConfirmOperationModal = (
   hostname: string,
 ): UseConfirmOperationModal => {
+  const { t } = useTranslation()
+
   const [desiredOperation, setDesiredOperation] = useState<
     OperateNodeIpmiOperationEnum | undefined
   >(undefined)
 
+  const textMap: ModalTextMap = {
+    [OperateNodeIpmiOperationEnum.Poweron]: {
+      title: t('nodes.details.actionModal.powerOn.title'),
+      message: t('nodes.details.actionModal.powerOn.message', { hostname }),
+    },
+    [OperateNodeIpmiOperationEnum.Poweroff]: {
+      title: t('nodes.details.actionModal.powerOff.title'),
+      message: t('nodes.details.actionModal.powerOff.message', { hostname }),
+    },
+    [OperateNodeIpmiOperationEnum.Powercycle]: {
+      title: t('nodes.details.actionModal.powerCycle.title'),
+      message: t('nodes.details.actionModal.powerCycle.message', { hostname }),
+    },
+  }
+  const computeConfirmationText = (
+    operation: OperateNodeIpmiOperationEnum,
+  ): string => {
+    return textMap[operation].message
+  }
+
   const getConfirmationTitle = () => {
     if (!desiredOperation) return ''
-    return titleMap[desiredOperation]
+    return textMap[desiredOperation].title
   }
 
   const getConfirmationText = () => {
     if (!desiredOperation) return ''
-    return computeConfirmationText(desiredOperation, hostname)
+    return computeConfirmationText(desiredOperation)
   }
 
   const onOperationClick = (operation: OperateNodeIpmiOperationEnum): void => {

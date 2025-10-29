@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   ListNodeDevicesResponseDataInnerOsdDaemonsInner,
   ListNodeDevicesResponseDataInnerOsdDaemonsInnerStatusCurrentEnum,
@@ -21,6 +22,8 @@ const iconTypeMap: Record<
 export const DaemonsInfo = (props: DaemonsInfoProps) => {
   const { daemons } = props
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col gap-y-1.5">
       {daemons.map((daemon) => (
@@ -29,7 +32,7 @@ export const DaemonsInfo = (props: DaemonsInfoProps) => {
             {daemon.id}
           </span>
           <CosIconText type={iconTypeMap[daemon.status.current]}>
-            {daemon.status.current}
+            {t(`nodes.details.devices.osdStatus.${daemon.status.current}`)}
           </CosIconText>
         </div>
       ))}

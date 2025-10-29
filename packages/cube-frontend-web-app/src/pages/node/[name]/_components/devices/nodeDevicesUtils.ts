@@ -3,6 +3,7 @@ import {
   ListNodeDevicesResponseDataInner,
 } from '@cube-frontend/api'
 import { CosTableRow, GetCosBasicTable } from '@cube-frontend/ui-library'
+import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
 export type DeviceEditableData = {
@@ -52,21 +53,27 @@ export const createEditableData = (
   }
 }
 
-// TODO: Replace it with i18n.
-const reweightErrorMessage =
-  'Reweight must be a number between 0.0 and 1.0, with a maximum of two decimal places.'
+export const useDeviceEditableDataSchema = () => {
+  const { t } = useTranslation()
 
-export const deviceEditableDataSchema = z.object({
-  definedClass: z.nativeEnum(DeviceType),
-  osdReweight: z
-    .string()
-    .regex(/^[01](\.\d{1,2})?$/, reweightErrorMessage)
-    .refine((str) => {
-      const float = parseFloat(str)
-      return 0 <= float && float <= 1
-    }, reweightErrorMessage)
-    .transform((str) => parseFloat(str)),
-})
+  const reweightErrorMessage: string = t(
+    'nodes.details.devices.osdReweightInvalidMessage',
+  )
+
+  const deviceEditableDataSchema = z.object({
+    definedClass: z.nativeEnum(DeviceType),
+    osdReweight: z
+      .string()
+      .regex(/^[01](\.\d{1,2})?$/, reweightErrorMessage)
+      .refine((str) => {
+        const float = parseFloat(str)
+        return 0 <= float && float <= 1
+      }, reweightErrorMessage)
+      .transform((str) => parseFloat(str)),
+  })
+
+  return deviceEditableDataSchema
+}
 
 export const formatOSDUsage = (usagePercent: number): string => {
   if (usagePercent === 0) return '0%'
