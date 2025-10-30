@@ -56,6 +56,9 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
         <FirmwareUpdatableNodes
           version={firmware.version}
           isRollingChecked={isRollingChecked}
+          isRollingCheckboxDisabled={
+            !!actionButtonProps.actionButtonProps?.loading
+          }
           onIsRollingChange={onIsRollingChange}
         />
       )

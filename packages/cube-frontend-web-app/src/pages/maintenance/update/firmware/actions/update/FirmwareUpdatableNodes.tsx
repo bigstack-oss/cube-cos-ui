@@ -9,13 +9,19 @@ import { toUpdatableNodeRow, UpdatableNodeRow } from './updateActionUtils'
 type FirmwareUpdatableNodesProps = {
   version: string
   isRollingChecked: boolean
+  isRollingCheckboxDisabled: boolean
   onIsRollingChange: ChangeEventHandler<HTMLInputElement>
 }
 
 const UpdatableNodeTable = GetCosBasicTable<UpdatableNodeRow>()
 
 export const FirmwareUpdatableNodes = (props: FirmwareUpdatableNodesProps) => {
-  const { version, isRollingChecked, onIsRollingChange } = props
+  const {
+    version,
+    isRollingChecked,
+    isRollingCheckboxDisabled,
+    onIsRollingChange,
+  } = props
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -63,6 +69,7 @@ export const FirmwareUpdatableNodes = (props: FirmwareUpdatableNodesProps) => {
           before the update to avoid service disruption."
           labelClassName="max-w-none"
           checked={isRollingChecked}
+          disabled={isRollingCheckboxDisabled}
           onChange={onIsRollingChange}
         />
       </div>

@@ -34,9 +34,8 @@ export const useUpdateFirmwareModalActionProps = (
   } = args
 
   const availableModalActionProps = useAvailableFirmwareUpdateModalActionProps({
-    version: firmware?.version,
+    firmware,
     isRollingChecked,
-    onUpdateRequested: fetchUpdateProgress,
   })
 
   const updatingModalActionProps = useUpdatingFirmwareUpdateModalActionProps({
