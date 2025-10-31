@@ -1,11 +1,12 @@
+import { useTranslation } from 'react-i18next'
+import { uniqueId } from 'lodash'
+import { z } from 'zod'
 import {
   EmailSenderResponse,
   SettingStatus,
   SettingStatusCurrentEnum,
 } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
-import { uniqueId } from 'lodash'
-import { z } from 'zod'
 
 export type EmailSenderRow = EmailSenderForUi &
   CosTableRow & {
@@ -53,12 +54,17 @@ export const createNewRow = (): EmailSenderRow => ({
   isVerifying: false,
 })
 
-// TODO: Replace error messages with i18n keys.
-export const emailSenderSchema = z.object({
-  host: z.string().min(1, 'Host cannot be empty'),
-  port: z.string().regex(/^\d+$/, 'Invalid port number'),
-  username: z.string().min(1, 'Username cannot be empty'),
-  password: z.string().optional(),
-  from: z.string().email('Invalid email'),
-  isNew: z.boolean(),
-})
+export const useEmailSenderSchema = () => {
+  const { t } = useTranslation()
+
+  return z.object({
+    host: z.string().min(1, t('settings.emailSender.hostCantBeEmpty')),
+    port: z
+      .string()
+      .regex(/^\d+$/, t('settings.emailSender.invalidPortNumber')),
+    username: z.string().min(1, t('settings.emailSender.usernameCantBeEmpty')),
+    password: z.string().optional(),
+    from: z.string().email(t('settings.emailSender.invalidFromEmail')),
+    isNew: z.boolean(),
+  })
+}

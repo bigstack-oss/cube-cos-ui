@@ -4,6 +4,7 @@ import {
 } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
 import { uniqueId } from 'lodash'
+import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
 export type EmailRecipientResponseWithoutStatus = Omit<
@@ -47,8 +48,11 @@ export const createNewRow = (): EmailRecipientRow => {
   }
 }
 
-// TODO: Replace error messages with i18n keys.
-export const emailRecipientSchema = z.object({
-  address: z.string().email('Invalid email'),
-  note: z.string().optional(),
-})
+export const useEmailRecipientSchema = () => {
+  const { t } = useTranslation()
+
+  return z.object({
+    address: z.string().email(t('settings.emailRecipients.invalidEmail')),
+    note: z.string().optional(),
+  })
+}

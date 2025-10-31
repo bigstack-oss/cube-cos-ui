@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   CosButton,
   CosTooltip,
@@ -15,23 +16,26 @@ export type EmailRecipientsHeaderProps = {
 export const EmailRecipientsHeader = (props: EmailRecipientsHeaderProps) => {
   const { isCountLimitReached, isRowsLoading, onAddButtonClick } = props
 
+  const { t } = useTranslation()
+
   const getAddButtonHoverInfo = (): CosTooltipInformation | undefined => {
     if (!isCountLimitReached) {
       return undefined
     }
     return {
-      message: 'You have reached the limit of 10 email recipients.',
+      message: t('settings.emailRecipients.limitReachedTooltip'),
     }
   }
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-x-2">
-        <p className="secondary-h5 text-functional-title">Email Recipients</p>
+        <p className="secondary-h5 text-functional-title">
+          {t('settings.emailRecipients.title')}
+        </p>
         <CosTooltip
           hoverContent={{
-            message:
-              'This is a list of email addresses where users receive COS notifications. Limited to 10.',
+            message: t('settings.emailRecipients.title.tooltip', { count: 10 }),
           }}
         >
           <InformationCircleFilled className="icon-md text-functional-border-divider" />
@@ -49,7 +53,7 @@ export const EmailRecipientsHeader = (props: EmailRecipientsHeaderProps) => {
             disabled={isCountLimitReached || isRowsLoading}
             onClick={onAddButtonClick}
           >
-            Add Email Recipient
+            {t('settings.emailRecipients.addEmailRecipient')}
           </CosButton>
         </span>
       </CosTooltip>

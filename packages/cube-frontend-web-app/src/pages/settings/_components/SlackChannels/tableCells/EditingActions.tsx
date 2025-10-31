@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosButton } from '@cube-frontend/ui-library'
 import Close from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { SlackChannelRow } from '../slackChannelsUtils'
@@ -20,6 +21,8 @@ export const EditingActions = (props: EditingActionsProps) => {
     callbacks: { onSaveClick, onCancelEditClick },
   } = props
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex items-center justify-end gap-x-2">
       <CosButton
@@ -28,7 +31,7 @@ export const EditingActions = (props: EditingActionsProps) => {
         disabled={!canSave}
         onClick={() => onSaveClick(row.id)}
       >
-        Save
+        {t('settings.slackChannels.save')}
       </CosButton>
       <CosButton
         className="rounded-full text-functional-text"

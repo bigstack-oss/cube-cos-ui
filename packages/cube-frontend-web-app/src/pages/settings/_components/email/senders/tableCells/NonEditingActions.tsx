@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosButton } from '@cube-frontend/ui-library'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import { IconActionButton } from '@cube-frontend/web-app/components/IconActionButton/IconActionButton'
@@ -28,6 +29,8 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
     status: { isUpdating },
   } = row
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex items-center justify-end gap-x-4">
       <IconActionButton
@@ -44,7 +47,7 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
           disabled={isUpdating || !canVerify}
           onClick={() => onVerifyClick(row.id)}
         >
-          Verify
+          {t('settings.emailSender.verify')}
         </CosButton>
       )}
     </div>

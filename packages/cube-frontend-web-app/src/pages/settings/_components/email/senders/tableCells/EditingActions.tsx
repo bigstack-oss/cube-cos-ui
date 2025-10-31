@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosButton } from '@cube-frontend/ui-library'
 import Close from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { EmailSenderRow } from '../emailSendersUtils'
@@ -22,6 +23,8 @@ export const EditingActions = (props: EditingActionsProps) => {
 
   const { isUpdating } = row.status
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex items-center justify-end gap-x-2">
       <CosButton
@@ -30,7 +33,7 @@ export const EditingActions = (props: EditingActionsProps) => {
         disabled={!canSave}
         onClick={() => onSaveClick(row.id)}
       >
-        Save
+        {t('settings.emailSender.save')}
       </CosButton>
       <CosButton
         className="rounded-full text-functional-text"

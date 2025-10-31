@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ErrorRecord, validateBySchema } from '@cube-frontend/web-app/utils/zod'
 import {
   EmailRecipientResponseWithoutStatus,
   EmailRecipientRow,
-  emailRecipientSchema,
+  useEmailRecipientSchema,
 } from './emailRecipientsUtils'
 
 export type EmailRecipientRowError =
@@ -23,6 +24,10 @@ const computeEmailCountMap = (
 export const useEmailRecipientRowsErrorMap = (
   rows: EmailRecipientRow[],
 ): Map<string, EmailRecipientRowError> => {
+  const { t } = useTranslation()
+
+  const emailRecipientSchema = useEmailRecipientSchema()
+
   const errorMap = useMemo<Map<string, EmailRecipientRowError>>(() => {
     const emailCountMap = computeEmailCountMap(rows)
     const errorMap = new Map<string, EmailRecipientRowError>()
@@ -38,8 +43,7 @@ export const useEmailRecipientRowsErrorMap = (
         // Email format is valid. Proceeding to check for duplicates.
         const sameEmailCount = emailCountMap.get(row.address) ?? 0
         if (sameEmailCount > 1) {
-          // TODO: Replace this with i18n key.
-          errorRecord.address = 'Duplicate email'
+          errorRecord.address = t('settings.emailRecipients.duplicatedEmail')
         }
       }
 
@@ -47,7 +51,7 @@ export const useEmailRecipientRowsErrorMap = (
     })
 
     return errorMap
-  }, [rows])
+  }, [emailRecipientSchema, rows, t])
 
   return errorMap
 }

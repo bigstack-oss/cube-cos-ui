@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   CosButton,
   CosTooltip,
@@ -14,18 +15,22 @@ export type SlackChannelsHeaderProps = {
 export const SlackChannelsHeader = (props: SlackChannelsHeaderProps) => {
   const { isCountLimitReached, isRowsLoading, onAddButtonClick } = props
 
+  const { t } = useTranslation()
+
   const getHoverInfo = (): CosTooltipInformation | undefined => {
     if (!isCountLimitReached) {
       return undefined
     }
     return {
-      message: 'You have reached the limit of 10 Slack channels.',
+      message: t('settings.slackChannels.limitReachedTooltip', { count: 10 }),
     }
   }
 
   return (
     <div className="flex items-center justify-between">
-      <div className="secondary-h5 text-functional-title">Slack Channels</div>
+      <div className="secondary-h5 text-functional-title">
+        {t('settings.slackChannels.title')}
+      </div>
       <CosTooltip hoverContent={getHoverInfo()}>
         {/* Wrap the button with a <span> because the hover event doesn't work
         when the button is disabled, but we still need it for the tooltip. */}
@@ -38,7 +43,7 @@ export const SlackChannelsHeader = (props: SlackChannelsHeaderProps) => {
             disabled={isCountLimitReached || isRowsLoading}
             onClick={onAddButtonClick}
           >
-            Add Slack Channel
+            {t('settings.slackChannels.addSlackChannel')}
           </CosButton>
         </span>
       </CosTooltip>

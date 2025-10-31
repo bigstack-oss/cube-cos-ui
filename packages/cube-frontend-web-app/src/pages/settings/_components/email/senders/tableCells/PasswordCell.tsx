@@ -1,6 +1,7 @@
+import { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CosTableInput, CosTooltip } from '@cube-frontend/ui-library'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
-import { ChangeEvent } from 'react'
 import { EmailSenderRow } from '../emailSendersUtils'
 
 type PasswordCellProps = {
@@ -12,6 +13,8 @@ const mask = '*'.repeat(10)
 
 export const PasswordCell = (props: PasswordCellProps) => {
   const { row, onChange } = props
+
+  const { t } = useTranslation()
 
   const {
     password,
@@ -41,7 +44,7 @@ export const PasswordCell = (props: PasswordCellProps) => {
       {!isNew && (
         <CosTooltip
           hoverContent={{
-            message: 'Enter a new password, or leave empty to clear it.',
+            message: t('settings.emailSender.password.tooltip'),
           }}
         >
           <InformationCircle className="icon-md text-functional-text-light" />

@@ -1,3 +1,5 @@
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   GetSettingResponseDataTitlePrefix,
   SettingStatusCurrentEnum,
@@ -12,7 +14,6 @@ import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 
 type ManageContactProps = {
   titlePrefixFromApi: GetSettingResponseDataTitlePrefix | undefined
@@ -20,6 +21,8 @@ type ManageContactProps = {
 
 export const ManageContact = (props: ManageContactProps) => {
   const { titlePrefixFromApi } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -80,7 +83,7 @@ export const ManageContact = (props: ManageContactProps) => {
   }
 
   return (
-    <CosGeneralPanel topic="Manage Contact">
+    <CosGeneralPanel topic={t('settings.manageContact.title')}>
       <div className="flex flex-col gap-y-6">
         <CosStroke type="dot" />
         <form onSubmit={onSubmit}>
@@ -88,8 +91,8 @@ export const ManageContact = (props: ManageContactProps) => {
             {/* Wrap the input in a container so it and the skeleton have the same width. */}
             <div className="w-[248px]">
               <CosInput
-                label="Title prefix"
-                placeholder="Title prefix"
+                label={t('settings.titlePrefix')}
+                placeholder={t('settings.titlePrefix')}
                 value={titlePrefix?.value ?? ''}
                 isLoading={!titlePrefix}
                 disabled={titlePrefix?.status.isUpdating || isCallingUpdateApi}
@@ -103,12 +106,12 @@ export const ManageContact = (props: ManageContactProps) => {
               loading={titlePrefix?.status.isUpdating || isCallingUpdateApi}
               disabled={!titlePrefix}
             >
-              Save
+              {t('settings.titlePrefix.save')}
             </CosButton>
           </div>
         </form>
         <p className="primary-body4 text-functional-text-light">
-          This is an alias for identifying and distinguishing this cluster.
+          {t('settings.titlePrefix.helpMessage')}
         </p>
       </div>
     </CosGeneralPanel>

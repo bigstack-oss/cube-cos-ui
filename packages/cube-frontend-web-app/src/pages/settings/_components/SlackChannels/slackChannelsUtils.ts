@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { SlackChannelPostRequest } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
 import { uniqueId } from 'lodash'
@@ -32,9 +33,11 @@ export const createNewRow = (): SlackChannelRow => ({
   isDeleting: false,
 })
 
-// TODO: Replace error messages with i18n keys.
-export const slackChannelSchema = z.object({
-  name: z.string().min(1, 'Invalid name'),
-  url: z.string().url('Invalid url'),
-  description: z.string(),
-})
+export const useSlackChannelSchema = () => {
+  const { t } = useTranslation()
+  return z.object({
+    name: z.string().min(1, t('settings.slackChannels.invalidName')),
+    url: z.string().url(t('settings.slackChannels.invalidUrl')),
+    description: z.string(),
+  })
+}

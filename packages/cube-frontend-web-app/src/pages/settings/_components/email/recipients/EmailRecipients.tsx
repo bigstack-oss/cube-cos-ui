@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { EmailRecipientResponse } from '@cube-frontend/api'
 import {
   CosLoadingSpinner,
@@ -22,6 +23,8 @@ const EmailRecipientTable = GetCosBasicTable<EmailRecipientRow>()
 
 export const EmailRecipients = (props: EmailRecipientsProps) => {
   const { isLoading, recipientsFromApi, hasVerifiedSender } = props
+
+  const { t } = useTranslation()
 
   const {
     rows,
@@ -58,12 +61,15 @@ export const EmailRecipients = (props: EmailRecipientsProps) => {
         onAddButtonClick={onAddClick}
       />
       <EmailRecipientTable isLoading={isLoading} rows={rows}>
-        <EmailRecipientTable.Column property="address" label="Email">
+        <EmailRecipientTable.Column
+          property="address"
+          label={t('settings.emailRecipients.email')}
+        >
           {(address, row) =>
             row.isEditing ? (
               <CosTableInput
                 name="address"
-                placeholder="Email"
+                placeholder={t('settings.emailRecipients.email')}
                 value={address}
                 errorMessage={rowsErrorMap.get(row.id)?.address}
                 disabled={row.status.isUpdating}
@@ -79,12 +85,15 @@ export const EmailRecipients = (props: EmailRecipientsProps) => {
             )
           }
         </EmailRecipientTable.Column>
-        <EmailRecipientTable.Column property="note" label="Note">
+        <EmailRecipientTable.Column
+          property="note"
+          label={t('settings.emailRecipients.note')}
+        >
           {(note, row) =>
             row.isEditing ? (
               <CosTableInput
                 name="note"
-                placeholder="Note"
+                placeholder={t('settings.emailRecipients.note')}
                 value={note}
                 errorMessage={rowsErrorMap.get(row.id)?.note}
                 disabled={row.status.isUpdating}
@@ -115,15 +124,15 @@ export const EmailRecipients = (props: EmailRecipientsProps) => {
         </EmailRecipientTable.Column>
       </EmailRecipientTable>
       <CosModal
-        title="Delete Email Recipient"
+        title={t('settings.emailRecipients.deleteModal.title')}
         size="sm"
         isOpen={isDeleteModalOpen}
-        actionText="Delete"
+        actionText={t('settings.emailRecipients.deleteModal.delete')}
         onActionClick={onConfirmDelete}
         onCloseClick={onCloseDeleteModal}
       >
         <p className="primary-body2 text-functional-text">
-          Are you sure you want to delete this email recipient?
+          {t('settings.emailRecipients.deleteModal.message')}
         </p>
       </CosModal>
     </div>

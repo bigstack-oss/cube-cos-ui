@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Delete from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import Send from '@cube-frontend/ui-library/icons/monochrome/send.svg?react'
@@ -23,6 +24,8 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
 
   const { isTrying, isDeleting } = row
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex items-center justify-end gap-x-4">
       <IconActionButton
@@ -33,7 +36,7 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
       <IconActionButton
         Icon={Send}
         isLoading={isTrying}
-        hoverMessage="Send test message"
+        hoverMessage={t('settings.slackChannels.sendTestMessage')}
         disabled={isDeleting}
         onClick={() => onTryClick(row.id)}
       />

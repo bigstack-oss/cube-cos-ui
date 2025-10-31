@@ -1,10 +1,11 @@
-import { EmailSenderPostRequest } from '@cube-frontend/api'
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { EmailSenderPostRequest } from '@cube-frontend/api'
 import { ErrorRecord, validateBySchema } from '@cube-frontend/web-app/utils/zod'
 import {
   EmailSenderForUi,
   EmailSenderRow,
-  emailSenderSchema,
+  useEmailSenderSchema,
 } from './emailSendersUtils'
 
 export type EmailSenderRowError = ErrorRecord<EmailSenderPostRequest>
@@ -21,6 +22,10 @@ const computeHostMap = (rows: EmailSenderRow[]): Map<string, number> => {
 export const useEmailSenderRowsErrorMap = (
   rows: EmailSenderRow[],
 ): Map<string, EmailSenderRowError> => {
+  const { t } = useTranslation()
+
+  const emailSenderSchema = useEmailSenderSchema()
+
   const errorMap = useMemo<Map<string, EmailSenderRowError>>(() => {
     const hostMap = computeHostMap(rows)
     const errorMap = new Map<string, EmailSenderRowError>()
@@ -36,8 +41,7 @@ export const useEmailSenderRowsErrorMap = (
         // Host format is valid. Proceeding to check for duplicates.
         const sameHostCount = hostMap.get(row.host) ?? 0
         if (sameHostCount > 1) {
-          // TODO: Replace this with i18n key.
-          errorRecord.host = 'Duplicate host'
+          errorRecord.host = t('settings.emailSender.duplicatedHost')
         }
       }
 
@@ -45,7 +49,7 @@ export const useEmailSenderRowsErrorMap = (
     })
 
     return errorMap
-  }, [rows])
+  }, [emailSenderSchema, rows, t])
 
   return errorMap
 }

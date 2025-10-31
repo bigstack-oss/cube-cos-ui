@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { SlackChannelPostRequest } from '@cube-frontend/api'
 import {
   CosModal,
@@ -20,6 +21,8 @@ const SlackChannelTable = GetCosBasicTable<SlackChannelRow>()
 
 export const SlackChannels = (props: SlackChannelsProps) => {
   const { isLoading, initialChannels } = props
+
+  const { t } = useTranslation()
 
   const {
     rows,
@@ -56,13 +59,16 @@ export const SlackChannels = (props: SlackChannelsProps) => {
         onAddButtonClick={onAddClick}
       />
       <SlackChannelTable isLoading={isLoading} rows={rows}>
-        <SlackChannelTable.Column property="name" label="Name">
+        <SlackChannelTable.Column
+          property="name"
+          label={t('settings.slackChannels.name')}
+        >
           {(name, row) =>
             row.isEditing ? (
               <CosTableInput
                 className="w-32"
                 name="name"
-                placeholder="Name"
+                placeholder={t('settings.slackChannels.name')}
                 value={name}
                 errorMessage={rowsErrorMap.get(row.id)?.name}
                 disabled={row.isSaving}
@@ -73,12 +79,15 @@ export const SlackChannels = (props: SlackChannelsProps) => {
             )
           }
         </SlackChannelTable.Column>
-        <SlackChannelTable.Column property="url" label="Url">
+        <SlackChannelTable.Column
+          property="url"
+          label={t('settings.slackChannels.url')}
+        >
           {(url, row) =>
             row.isEditing ? (
               <CosTableInput
                 name="url"
-                placeholder="Url"
+                placeholder={t('settings.slackChannels.url')}
                 value={url}
                 errorMessage={rowsErrorMap.get(row.id)?.url}
                 disabled={row.isSaving}
@@ -89,13 +98,16 @@ export const SlackChannels = (props: SlackChannelsProps) => {
             )
           }
         </SlackChannelTable.Column>
-        <SlackChannelTable.Column property="description" label="Description">
+        <SlackChannelTable.Column
+          property="description"
+          label={t('settings.slackChannels.description')}
+        >
           {(description, row) =>
             row.isEditing ? (
               <CosTableInput
                 className="w-60"
                 name="description"
-                placeholder="Description"
+                placeholder={t('settings.slackChannels.description')}
                 value={description}
                 errorMessage={rowsErrorMap.get(row.id)?.description}
                 disabled={row.isSaving}
@@ -125,15 +137,15 @@ export const SlackChannels = (props: SlackChannelsProps) => {
         </SlackChannelTable.Column>
       </SlackChannelTable>
       <CosModal
-        title="Delete Slack Channel"
+        title={t('settings.slackChannels.deleteModal.title')}
         size="sm"
         isOpen={isDeleteModalOpen}
-        actionText="Delete"
+        actionText={t('settings.slackChannels.deleteModal.delete')}
         onActionClick={onConfirmDelete}
         onCloseClick={onCloseDeleteModal}
       >
         <p className="primary-body2 text-functional-text">
-          Are you sure you want to delete this Slack channel?
+          {t('settings.slackChannels.deleteModal.message')}
         </p>
       </CosModal>
     </div>

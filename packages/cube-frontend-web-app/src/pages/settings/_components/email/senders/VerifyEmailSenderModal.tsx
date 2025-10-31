@@ -1,7 +1,3 @@
-import { CosInput, CosModal } from '@cube-frontend/ui-library'
-import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
-import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import {
   ChangeEvent,
   KeyboardEvent,
@@ -10,7 +6,13 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
+import { CosInput, CosModal } from '@cube-frontend/ui-library'
+import { settingsApi } from '@cube-frontend/web-app/api/cosApi'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+
 import { EmailSenderRow } from './emailSendersUtils'
 
 type VerifyEmailSenderModalProps = {
@@ -24,6 +26,8 @@ const emailSchema = z.string().email()
 
 export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
   const { isOpen, toBeVerifiedRow, onSenderVerified, onClose } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -80,10 +84,10 @@ export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
 
   return (
     <CosModal
-      title="Send Test Email to Verify"
+      title={t('settings.emailSender.modal.title')}
       size="sm"
       isOpen={isOpen}
-      actionText="Send"
+      actionText={t('settings.emailSender.modal.send')}
       actionButtonProps={{
         loading: isTrying,
         disabled: !isEmailValid,
@@ -98,13 +102,13 @@ export const VerifyEmailSenderModal = (props: VerifyEmailSenderModalProps) => {
           </div>
         )}
         <div className="primary-body2 font-semibold text-functional-text">
-          Send to
+          {t('settings.emailSender.modal.sendTo')}
         </div>
         <CosInput
           type="email"
-          placeholder="Email"
+          placeholder={t('settings.emailSender.modal.email')}
           value={sendTo}
-          helpMessage="You have to input an email address to receive test email."
+          helpMessage={t('settings.emailSender.modal.emailHelpMessage')}
           disabled={isTrying}
           onChange={onChange}
           onKeyDown={onKeyDown}

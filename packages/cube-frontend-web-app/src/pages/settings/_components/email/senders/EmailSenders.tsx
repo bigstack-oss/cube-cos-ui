@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   CosIconText,
   CosLoadingSpinner,
@@ -31,6 +32,8 @@ export const EmailSenders = (props: EmailSendersProps) => {
     onSenderVerified: onSenderVerifiedProp,
   } = props
 
+  const { t } = useTranslation()
+
   const rowsErrorMap = useEmailSenderRowsErrorMap(rows)
 
   const {
@@ -51,7 +54,10 @@ export const EmailSenders = (props: EmailSendersProps) => {
           is not available in phase 1. */}
       <EmailSendersHeader isAddButtonVisible={false} onAddButtonClick={noop} />
       <EmailSenderTable isLoading={isLoading} rows={rows}>
-        <EmailSenderTable.Column property="from" label="From Email">
+        <EmailSenderTable.Column
+          property="from"
+          label={t('settings.emailSender.fromEmail')}
+        >
           {(from, row) => (
             <div className="flex items-center gap-x-2">
               {row.isEditing ? (
@@ -59,6 +65,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
                   name={'from' satisfies keyof EmailSenderRow}
                   type="email"
                   value={from}
+                  placeholder={t('settings.emailSender.fromEmail')}
                   errorMessage={rowsErrorMap.get(row.id)?.from}
                   disabled={row.status.isUpdating}
                   onChange={(e) => onChange(row.id, e)}
@@ -67,7 +74,9 @@ export const EmailSenders = (props: EmailSendersProps) => {
                 <div className="flex items-center gap-2">
                   {from}
                   {!row.isNew && !row.accessVerified && (
-                    <CosIconText type="warning">unverified</CosIconText>
+                    <CosIconText type="warning">
+                      {t('settings.emailSender.unverified')}
+                    </CosIconText>
                   )}
                   {row.status.isUpdating && (
                     <CosLoadingSpinner variant="dot120" />
@@ -77,12 +86,16 @@ export const EmailSenders = (props: EmailSendersProps) => {
             </div>
           )}
         </EmailSenderTable.Column>
-        <EmailSenderTable.Column property="host" label="Host">
+        <EmailSenderTable.Column
+          property="host"
+          label={t('settings.emailSender.host')}
+        >
           {(host, row) =>
             row.isEditing ? (
               <CosTableInput
                 name={'host' satisfies keyof EmailSenderRow}
                 value={host}
+                placeholder={t('settings.emailSender.host')}
                 errorMessage={rowsErrorMap.get(row.id)?.host}
                 disabled={row.status.isUpdating}
                 onChange={(e) => onChange(row.id, e)}
@@ -92,13 +105,17 @@ export const EmailSenders = (props: EmailSendersProps) => {
             )
           }
         </EmailSenderTable.Column>
-        <EmailSenderTable.Column property="port" label="Port">
+        <EmailSenderTable.Column
+          property="port"
+          label={t('settings.emailSender.port')}
+        >
           {(port, row) =>
             row.isEditing ? (
               <CosTableInput
                 className="w-16"
                 name={'port' satisfies keyof EmailSenderRow}
                 value={port}
+                placeholder={t('settings.emailSender.port')}
                 errorMessage={rowsErrorMap.get(row.id)?.port}
                 disabled={row.status.isUpdating}
                 onChange={(e) => onChange(row.id, e)}
@@ -108,13 +125,17 @@ export const EmailSenders = (props: EmailSendersProps) => {
             )
           }
         </EmailSenderTable.Column>
-        <EmailSenderTable.Column property="username" label="Username">
+        <EmailSenderTable.Column
+          property="username"
+          label={t('settings.emailSender.username')}
+        >
           {(username, row) =>
             row.isEditing ? (
               <CosTableInput
                 className="w-24"
                 name={'username' satisfies keyof EmailSenderRow}
                 value={username}
+                placeholder={t('settings.emailSender.username')}
                 errorMessage={rowsErrorMap.get(row.id)?.username}
                 disabled={row.status.isUpdating}
                 onChange={(e) => onChange(row.id, e)}
@@ -124,7 +145,10 @@ export const EmailSenders = (props: EmailSendersProps) => {
             )
           }
         </EmailSenderTable.Column>
-        <EmailSenderTable.Column property="password" label="Password">
+        <EmailSenderTable.Column
+          property="password"
+          label={t('settings.emailSender.password')}
+        >
           {(_, row) => (
             <PasswordCell row={row} onChange={(e) => onChange(row.id, e)} />
           )}

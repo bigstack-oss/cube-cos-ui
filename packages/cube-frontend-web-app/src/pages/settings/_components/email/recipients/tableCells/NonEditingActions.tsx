@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Delete from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import Edit from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import Send from '@cube-frontend/ui-library/icons/monochrome/send.svg?react'
@@ -29,6 +30,8 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
     status: { isUpdating },
   } = row
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex items-center justify-end gap-x-4">
       <IconActionButton
@@ -41,8 +44,8 @@ export const NonEditingActions = (props: NonEditingActionsProps) => {
         isLoading={isTrying}
         hoverMessage={
           hasVerifiedSender
-            ? 'Send test message'
-            : 'A verified sender email is required to send the test message.'
+            ? t('settings.emailRecipients.sendTestMessage')
+            : t('settings.emailRecipients.needVerifiedSenderMessage')
         }
         disabled={!hasVerifiedSender || isUpdating || isDeleting}
         onClick={() => onTryClick(row.id)}

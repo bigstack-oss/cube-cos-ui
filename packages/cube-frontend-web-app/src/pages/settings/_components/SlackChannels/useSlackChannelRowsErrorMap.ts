@@ -1,7 +1,8 @@
 import { SlackChannelPostRequest } from '@cube-frontend/api'
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ErrorRecord, validateBySchema } from '@cube-frontend/web-app/utils/zod'
-import { SlackChannelRow, slackChannelSchema } from './slackChannelsUtils'
+import { SlackChannelRow, useSlackChannelSchema } from './slackChannelsUtils'
 
 export type SlackChannelRowError = ErrorRecord<SlackChannelPostRequest>
 
@@ -17,6 +18,10 @@ const computeUrlCountMap = (rows: SlackChannelRow[]): Map<string, number> => {
 export const useSlackChannelRowsErrorMap = (
   rows: SlackChannelRow[],
 ): Map<string, SlackChannelRowError> => {
+  const { t } = useTranslation()
+
+  const slackChannelSchema = useSlackChannelSchema()
+
   const errorMap = useMemo<Map<string, SlackChannelRowError>>(() => {
     const urlCountMap = computeUrlCountMap(rows)
     const errorMap = new Map<string, SlackChannelRowError>()
@@ -32,8 +37,7 @@ export const useSlackChannelRowsErrorMap = (
         // URL format is valid. Proceeding to check for duplicates.
         const sameUrlCount = urlCountMap.get(row.url) ?? 0
         if (sameUrlCount > 1) {
-          // TODO: Replace this with i18n key.
-          errorRecord.url = 'Duplicate url'
+          errorRecord.url = t('settings.slackChannels.duplicatedUrl')
         }
       }
 
@@ -41,7 +45,7 @@ export const useSlackChannelRowsErrorMap = (
     })
 
     return errorMap
-  }, [rows])
+  }, [rows, slackChannelSchema, t])
 
   return errorMap
 }
