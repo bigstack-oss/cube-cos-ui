@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { noop } from 'lodash'
 import { SupportFileSet } from '@cube-frontend/api'
 import {
@@ -20,6 +21,8 @@ import { useSupportFilesTable } from './_components/useSupportFilesTable'
 export type SupportFileRow = SupportFileSet & CosTableRow
 
 export const MaintenanceSupportFilesPage = () => {
+  const { t } = useTranslation()
+
   const {
     query,
     keywordDebouncedQuery,
@@ -37,7 +40,7 @@ export const MaintenanceSupportFilesPage = () => {
 
   return (
     <>
-      <CosGeneralPanel topic="Support Files">
+      <CosGeneralPanel topic={t('maintenance.supportFiles.title')}>
         <div className="flex flex-col gap-y-6">
           <Link className="w-fit" to={CosRoutesEnum.NODES_PAGE}>
             <CosHyperlink
@@ -45,7 +48,7 @@ export const MaintenanceSupportFilesPage = () => {
               Icon={ChevronRight}
               onClick={noop}
             >
-              Go to create Support files
+              {t('maintenance.supportFiles.gotoCreateSupportFiles')}
             </CosHyperlink>
           </Link>
           <CosStroke type="dot" />

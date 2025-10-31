@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CosCheckbox, CosModal } from '@cube-frontend/ui-library'
 import { SupportFile } from '@cube-frontend/api'
 import { SupportFileRow } from '../MaintenanceSupportFilesPage'
@@ -14,6 +15,8 @@ export const DownloadSupportFilesModal = (
   props: DownloadSupportFilesModalProps,
 ) => {
   const { isOpen, supportFiles, onCloseClick } = props
+
+  const { t } = useTranslation()
 
   const [selectedFiles, setSelectedFiles] = useState<SupportFile[]>([])
 
@@ -47,11 +50,11 @@ export const DownloadSupportFilesModal = (
 
   return (
     <CosModal
-      title="Choose hosts to download support files"
+      title={t('maintenance.supportFiles.downloadModal.title')}
       size="sm"
       isOpen={isOpen}
-      footerMessage="Check browser and click “Always allow pop-up” to download all files."
-      actionText="Download"
+      footerMessage={t('maintenance.supportFiles.downloadModal.footerMessage')}
+      actionText={t('maintenance.supportFiles.downloadModal.download')}
       actionButtonProps={{ disabled: selectedFiles.length === 0 }}
       onActionClick={handleDownload}
       onCloseClick={onCloseClick}
@@ -62,7 +65,7 @@ export const DownloadSupportFilesModal = (
         </p>
         <div className="grid grid-cols-4 gap-y-3">
           <CosCheckbox
-            label="Select all"
+            label={t('maintenance.supportFiles.downloadModal.selectAll')}
             className="w-fit"
             checked={selectedFiles.length === supportFiles.files.length}
             onChange={handleSelectAll}

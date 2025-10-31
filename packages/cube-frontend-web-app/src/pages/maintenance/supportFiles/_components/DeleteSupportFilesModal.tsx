@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosModal } from '@cube-frontend/ui-library'
 import { SupportFileRow } from '../MaintenanceSupportFilesPage'
 
@@ -13,18 +14,20 @@ export const DeleteSupportFilesModal = (
 ) => {
   const { supportFiles, deleting, onActionClick, onCloseClick } = props
 
+  const { t } = useTranslation()
+
   return (
     <CosModal
       isOpen={!!supportFiles}
-      title="Delete Support File"
+      title={t('maintenance.supportFiles.deleteModal.title')}
       size="sm"
-      actionText="Yes, delete"
+      actionText={t('maintenance.supportFiles.deleteModal.yesDelete')}
       actionButtonProps={{ loading: deleting }}
       onActionClick={onActionClick}
       onCloseClick={onCloseClick}
     >
       <p className="primary-body2 text-functional-text">
-        Are you sure you want to delete the support file?
+        {t('maintenance.supportFiles.deleteModal.message')}
       </p>
     </CosModal>
   )

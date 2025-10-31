@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   CosButton,
   CosLoadingSpinner,
@@ -20,37 +21,51 @@ export type SupportFilesTableProps = React.ComponentProps<
 export const SupportFilesTable = (props: SupportFilesTableProps) => {
   const { onDownloadClick, onDeleteClick, ...basicTableProps } = props
 
+  const { t } = useTranslation()
+
   return (
     <SupportFilesBasicTable {...basicTableProps}>
-      <SupportFilesBasicTable.Column label="Timestamp" emphasize={true}>
+      <SupportFilesBasicTable.Column
+        label={t('maintenance.supportFiles.timestamp')}
+        emphasize={true}
+      >
         {(_, row) => {
           return formatSupportFilesTimestamp(row.status.createdAt)
         }}
       </SupportFilesBasicTable.Column>
-      <SupportFilesBasicTable.Column label="Hosts" property="files">
+      <SupportFilesBasicTable.Column
+        label={t('maintenance.supportFiles.hosts')}
+        property="files"
+      >
         {(files) => (
           <span className="w-[58px] text-functional-text">
             {files.map((file) => file.source.host).join(', ')}
           </span>
         )}
       </SupportFilesBasicTable.Column>
-      <SupportFilesBasicTable.Column label="Size" property="sizeMiB">
+      <SupportFilesBasicTable.Column
+        label={t('maintenance.supportFiles.size')}
+        property="sizeMiB"
+      >
         {(MiB) => toReadableSizeString(MiB, 'MiB')}
       </SupportFilesBasicTable.Column>
-      <SupportFilesBasicTable.Column label="Comments" property="description" />
+      <SupportFilesBasicTable.Column
+        label={t('maintenance.supportFiles.comments')}
+        property="description"
+      />
       <SupportFilesBasicTable.Column fitContent={true}>
         {(_, row) =>
           row.status.isCreating ? (
             <div className="flex h-[34px] items-center gap-x-2">
               <CosLoadingSpinner variant="dot45" />
               <span className="primary-body4 text-functional-text-light">
-                Creating...
+                {t('maintenance.supportFiles.status.creating')}
               </span>
             </div>
           ) : (
             <div className="flex items-center">
               <CosButton type="ghost" onClick={() => onDownloadClick(row)}>
-                Download
+                {t('maintenance.supportFiles.download')}
               </CosButton>
               <CosButton
                 type="ghost"
