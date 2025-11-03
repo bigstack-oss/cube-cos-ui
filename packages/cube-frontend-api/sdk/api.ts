@@ -3583,7 +3583,7 @@ export interface GetFixpackUpdateProgressResponseDataProgressesInnerStatus {
 export const GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum = {
     Available: 'available',
     Installing: 'installing',
-    WaitingReboot: 'waitingReboot',
+    WaitingReboot: 'waiting reboot',
     Rebooting: 'rebooting',
     Installed: 'installed',
     RollingBack: 'rolling back',
@@ -9169,10 +9169,11 @@ export interface ListIntegrationStoragesResponseDataInnerStatus {
 
 export const ListIntegrationStoragesResponseDataInnerStatusCurrentEnum = {
     Ok: 'ok',
-    Validating: 'validating',
+    Verifying: 'verifying',
     Creating: 'creating',
     Updating: 'updating',
-    Deleting: 'deleting'
+    Deleting: 'deleting',
+    SettingToDefault: 'setting to default'
 } as const;
 
 export type ListIntegrationStoragesResponseDataInnerStatusCurrentEnum = typeof ListIntegrationStoragesResponseDataInnerStatusCurrentEnum[keyof typeof ListIntegrationStoragesResponseDataInnerStatusCurrentEnum];
@@ -10204,18 +10205,6 @@ export interface MDL00001EAdditionalInfo {
      * @type {string}
      * @memberof MDL00001EAdditionalInfo
      */
-    'type': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MDL00001EAdditionalInfo
-     */
-    'vendor': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MDL00001EAdditionalInfo
-     */
     'driver': string;
     /**
      * 
@@ -10261,18 +10250,6 @@ export interface MDL00001I {
  * @interface MDL00001IAdditionalInfo
  */
 export interface MDL00001IAdditionalInfo {
-    /**
-     * 
-     * @type {string}
-     * @memberof MDL00001IAdditionalInfo
-     */
-    'type': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MDL00001IAdditionalInfo
-     */
-    'vendor': string;
     /**
      * 
      * @type {string}
@@ -12240,6 +12217,155 @@ export interface STG00003I {
      * 
      * @type {GetMeResponseData}
      * @memberof STG00003I
+     */
+    'additionalInfo': GetMeResponseData;
+}
+/**
+ * 
+ * @export
+ * @interface STG00004E
+ */
+export interface STG00004E {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00004E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00004E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00004E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {STG00004IAdditionalInfo}
+     * @memberof STG00004E
+     */
+    'additionalInfo': STG00004IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface STG00004I
+ */
+export interface STG00004I {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00004I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00004I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00004I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {STG00004IAdditionalInfo}
+     * @memberof STG00004I
+     */
+    'additionalInfo': STG00004IAdditionalInfo;
+}
+/**
+ * 
+ * @export
+ * @interface STG00004IAdditionalInfo
+ */
+export interface STG00004IAdditionalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00004IAdditionalInfo
+     */
+    'name': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof STG00004IAdditionalInfo
+     */
+    'isCinderServiceUp': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof STG00004IAdditionalInfo
+     */
+    'isTestVolumeSuccessful': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface STG00005E
+ */
+export interface STG00005E {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00005E
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00005E
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00005E
+     */
+    'time': string;
+    /**
+     * 
+     * @type {GetMeResponseData}
+     * @memberof STG00005E
+     */
+    'additionalInfo': GetMeResponseData;
+}
+/**
+ * 
+ * @export
+ * @interface STG00005I
+ */
+export interface STG00005I {
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00005I
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00005I
+     */
+    'nodeName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof STG00005I
+     */
+    'time': string;
+    /**
+     * 
+     * @type {GetMeResponseData}
+     * @memberof STG00005I
      */
     'additionalInfo': GetMeResponseData;
 }
