@@ -27,6 +27,7 @@ import { FirmwareRow } from './listFirmwaresUtils'
 import { UploadFirmwareModal } from './UploadFirmwareModal'
 import { useListFirmwares } from './useListFirmwares'
 import { useListFirmwaresQuery } from './useListFirmwaresQuery'
+import { useUpdatingFirmwareVersion } from './useUpdatingFirmwareVersion'
 
 const FirmwareTable = GetCosBasicTable<FirmwareRow>()
 
@@ -37,6 +38,8 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
   const { showLoading, rows, totalItemCount, listFirmwares } =
     useListFirmwares(query)
+
+  const updatingFirmwareVersion = useUpdatingFirmwareVersion()
 
   const {
     isOpen: isUploadModalOpen,
@@ -74,6 +77,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
     const updateActionState = computeFirmwareUpdateActionState(
       row,
       cephHealthStatus,
+      updatingFirmwareVersion,
     )
 
     const deleteActionState = computeFirmwareDeleteActionState(row)

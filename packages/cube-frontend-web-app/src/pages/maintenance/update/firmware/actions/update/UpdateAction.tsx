@@ -14,8 +14,10 @@ type UpdateActionProps = {
 export const UpdateAction = (props: UpdateActionProps) => {
   const { state, onClick: onClickProp } = props
 
+  const isInProgress = state === 'inProgress'
+
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
-    if (state === 'inProgress') {
+    if (isInProgress) {
       return { message: 'Update is ongoing' }
     }
 
@@ -42,7 +44,7 @@ export const UpdateAction = (props: UpdateActionProps) => {
       when the button is disabled. */}
       <span>
         <CosButton type="ghost" onClick={onClick}>
-          Update
+          {isInProgress ? 'Updating' : 'Update'}
         </CosButton>
       </span>
     </CosTooltip>

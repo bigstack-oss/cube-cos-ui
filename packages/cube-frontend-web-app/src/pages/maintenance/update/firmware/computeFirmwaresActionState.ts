@@ -25,8 +25,9 @@ export const upgradingStatuses = new Set<FirmwareStatus>([
 export const computeFirmwareUpdateActionState = (
   firmware: FirmwareRow,
   cephHealthStatus: CephHealthStatus,
+  updatingVersion: string | undefined,
 ): UpdateActionState => {
-  if (firmware.status.isProcessing) return 'inProgress'
+  if (firmware.version === updatingVersion) return 'inProgress'
 
   if (!firmware.status.isUpdatable) return 'hidden'
 
