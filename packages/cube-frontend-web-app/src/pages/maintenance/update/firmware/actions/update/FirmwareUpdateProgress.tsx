@@ -173,16 +173,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
       status: { description },
     } = row
 
-    let phaseElement: ReactNode
     let descriptionElement: ReactNode
-
-    if (phase) {
-      phaseElement = (
-        <span className="secondary-body3 font-semibold text-primary">
-          {upperFirst(phase)}
-        </span>
-      )
-    }
 
     if (description) {
       descriptionElement = (
@@ -194,7 +185,9 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
 
     return (
       <div className="flex items-center gap-x-5">
-        {phaseElement}
+        <span className="secondary-body3 font-semibold text-primary">
+          {upperFirst(phase)}
+        </span>
         {descriptionElement}
       </div>
     )

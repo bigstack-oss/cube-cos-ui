@@ -50,6 +50,7 @@ export const useAvailableFirmwareUpdateModalActionProps = (
       setKeepShowingLoading(true)
     } catch (error) {
       console.error('Update firmware error: ', error)
+      setKeepShowingLoading(false)
     }
   }
 
