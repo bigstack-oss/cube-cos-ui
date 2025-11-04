@@ -177,7 +177,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
 
     if (description) {
       descriptionElement = (
-        <span className="primary-body4 text-functional-text">
+        <span className="primary-body4 break-all text-functional-text">
           {description}
         </span>
       )
@@ -185,7 +185,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
 
     return (
       <div className="flex items-center gap-x-5">
-        <span className="secondary-body3 font-semibold text-primary">
+        <span className="secondary-body3 shrink-0 font-semibold text-primary">
           {upperFirst(phase)}
         </span>
         {descriptionElement}
@@ -251,7 +251,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
         <UpdateProgressTable.Column>
           {(_, row) => renderPhaseAndDescription(row)}
         </UpdateProgressTable.Column>
-        <UpdateProgressTable.Column fitContent={true}>
+        <UpdateProgressTable.Column>
           {(_, row) => renderAction(row)}
         </UpdateProgressTable.Column>
       </UpdateProgressTable>
@@ -260,8 +260,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
         <CosNagging
           variant="top"
           type="warning"
-          title="If a node fails to update, please resolve the issue manually to
-        continue."
+          title="If a node fails to update, please resolve the issue manually to continue."
           className="w-full"
           titleClassName="font-normal text-functional-text"
         />

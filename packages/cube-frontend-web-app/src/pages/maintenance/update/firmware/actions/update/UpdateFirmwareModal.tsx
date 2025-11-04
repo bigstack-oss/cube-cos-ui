@@ -4,7 +4,7 @@ import {
 } from '@cube-frontend/api'
 import { CosModal } from '@cube-frontend/ui-library'
 import { ChangeEvent, useState } from 'react'
-import { upgradingStatuses } from '../../computeFirmwaresActionState'
+import { updatingStatuses } from '../../computeFirmwaresActionState'
 import { FirmwareUpdatableNodes } from './FirmwareUpdatableNodes'
 import { FirmwareUpdateProgress } from './FirmwareUpdateProgress'
 import { useFirmwareUpdateProgress } from './useFirmwareUpdateProgress'
@@ -34,7 +34,7 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
   // TODO: Replace this with `firmware.status.isUpdatable` after API is fixed.
   const isUpdatable = firmware?.status.current === FirmwareStatus.Available
   const isUpdating =
-    !!firmware?.status && upgradingStatuses.has(firmware.status.current)
+    !!firmware?.status && updatingStatuses.has(firmware.status.current)
 
   const getTitle = (): string => {
     if (isUpdating) return 'Firmware Updating'

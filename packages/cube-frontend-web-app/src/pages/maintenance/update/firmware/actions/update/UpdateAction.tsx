@@ -15,18 +15,22 @@ export const UpdateAction = (props: UpdateActionProps) => {
   const { state, onClick: onClickProp } = props
 
   const isInProgress = state === 'inProgress'
+  const isBlockedByOlderFirmware = state === 'blockedByOlderFirmware'
+  const isBlockedByCheckingCephHealth = state === 'blockedByCheckingCephHealth'
+  const isBlockedByUnhealthyCeph = state === 'blockedByUnhealthyCeph'
 
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
-    if (isInProgress) {
-      return { message: 'Update is ongoing' }
+    if (isBlockedByOlderFirmware) {
+      return {
+        message: 'Firmware update requires all prior versions to be updated.',
+      }
     }
 
-    if (state === 'blockedByCheckingCephHealth') {
-      return { message: 'Update is blocked by checking Ceph health.' }
-    }
-
-    if (state === 'blockedByUnhealthyCeph') {
-      return { message: 'Update is blocked because Ceph is unhealthy.' }
+    if (isBlockedByUnhealthyCeph) {
+      return {
+        message:
+          'Firmware update is currently unavailable because Ceph is unhealthy.',
+      }
     }
 
     return undefined
@@ -43,7 +47,15 @@ export const UpdateAction = (props: UpdateActionProps) => {
       {/* Wrap the button with a <span> because the hover event doesn't work
       when the button is disabled. */}
       <span>
-        <CosButton type="ghost" onClick={onClick}>
+        <CosButton
+          type="ghost"
+          disabled={
+            isBlockedByOlderFirmware ||
+            isBlockedByCheckingCephHealth ||
+            isBlockedByUnhealthyCeph
+          }
+          onClick={onClick}
+        >
           {isInProgress ? 'Updating' : 'Update'}
         </CosButton>
       </span>

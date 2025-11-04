@@ -1,6 +1,7 @@
 import {
   FirmwaresApiListFirmwaresRequest,
   ListFirmwaresResponseData,
+  ListFirmwaresResponseDataFirmwaresInner,
 } from '@cube-frontend/api'
 import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -16,7 +17,8 @@ import {
 
 type UseListFirmwares = {
   showLoading: boolean
-  rows: FirmwareRow[]
+  allFirmwares: ListFirmwaresResponseDataFirmwaresInner[]
+  pagedRows: FirmwareRow[]
   totalItemCount: number
   listFirmwares: () => Promise<ListFirmwaresResponseData>
 }
@@ -36,18 +38,23 @@ export const useListFirmwares = (
   } = useCosGetRequest(
     firmwaresApi.listFirmwares,
     (): FirmwaresApiListFirmwaresRequest => ({
+      // Fetch all firmwares to check their install/remove availability.
+      // Pagination is done manually in the frontend.
       dataCenter: dataCenter!.name,
-      pageNum: query.page,
-      pageSize: query.pageSize,
     }),
   )
 
   const { isPolling } = usePolling(listFirmwares, POLLING_INTERVAL)
 
-  const rows = useMemo<FirmwareRow[]>(() => {
-    if (!pagedFirmwares?.firmwares) return []
-    return pagedFirmwares.firmwares.map(firmwareToRow)
-  }, [pagedFirmwares?.firmwares])
+  const pagedRows = useMemo<FirmwareRow[]>(() => {
+    const firmwares = pagedFirmwares?.firmwares ?? []
+    const { page, pageSize } = query
+
+    const start = (page - 1) * pageSize
+    const end = start + pageSize
+
+    return firmwares.slice(start, end).map(firmwareToRow)
+  }, [pagedFirmwares?.firmwares, query])
 
   const showLoading = shouldDisplayLoading({
     isLoading,
@@ -56,9 +63,10 @@ export const useListFirmwares = (
   })
 
   return {
-    rows,
-    totalItemCount: pagedFirmwares?.page.totalItemCount ?? 0,
     showLoading,
+    allFirmwares: pagedFirmwares?.firmwares ?? [],
+    pagedRows,
+    totalItemCount: pagedFirmwares?.page.totalItemCount ?? 0,
     listFirmwares,
   }
 }

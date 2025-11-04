@@ -1,55 +1,97 @@
 import {
   ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum as FirmwareStatus,
   GetHealthsResponseDataOverallStatusCurrentEnum,
+  ListFirmwaresResponseDataFirmwaresInner,
 } from '@cube-frontend/api'
 import { CephHealthStatus } from '../_components/useCephHealthStatus'
-import { FirmwareRow } from './listFirmwaresUtils'
+
+export type FirmwareActionState = {
+  update: UpdateActionState
+  delete: DeleteActionState
+}
+
+type GenericActionState = 'hidden' | 'available'
 
 export type UpdateActionState =
-  | 'available'
+  | GenericActionState
   | 'inProgress'
+  | 'blockedByOlderFirmware'
   | 'blockedByCheckingCephHealth'
   | 'blockedByUnhealthyCeph'
-  | 'hidden'
 
-export type DeleteActionState = 'available' | 'blockedByProcessing' | 'hidden'
+export type DeleteActionState = GenericActionState | 'blockedByUpdating'
+
+export const updatedStatuses = new Set<FirmwareStatus>([
+  FirmwareStatus.Succeeded,
+  FirmwareStatus.Resolved,
+])
 
 // TODO: Replace this with `firmware.status.isProcessing` after API is fixed.
-export const upgradingStatuses = new Set<FirmwareStatus>([
+export const updatingStatuses = new Set<FirmwareStatus>([
   FirmwareStatus.Installing,
   FirmwareStatus.WaitingReboot,
   FirmwareStatus.Rebooting,
   FirmwareStatus.Failed,
 ])
 
-export const computeFirmwareUpdateActionState = (
-  firmware: FirmwareRow,
+/**
+ * @param firmwares Firmwares should be sorted by semantic-version in descending order.
+ */
+export const computeFirmwaresActionState = (
+  firmwares: ListFirmwaresResponseDataFirmwaresInner[],
   cephHealthStatus: CephHealthStatus,
-  updatingVersion: string | undefined,
+): FirmwareActionState[] => {
+  return firmwares.map((firmware, i) => {
+    const olderFirmware: ListFirmwaresResponseDataFirmwaresInner | undefined =
+      firmwares[i + 1]
+
+    return {
+      update: computeUpdateActionState(
+        firmware,
+        olderFirmware,
+        cephHealthStatus,
+      ),
+      delete: computeDeleteActionState(firmware),
+    }
+  })
+}
+
+const computeUpdateActionState = (
+  firmware: ListFirmwaresResponseDataFirmwaresInner,
+  olderFirmware: ListFirmwaresResponseDataFirmwaresInner | undefined,
+  cephHealthStatus: CephHealthStatus,
 ): UpdateActionState => {
-  if (firmware.version === updatingVersion) return 'inProgress'
+  const isInstalling = updatingStatuses.has(firmware.status.current)
+  const isInstalled = updatedStatuses.has(firmware.status.current)
 
-  if (!firmware.status.isUpdatable) return 'hidden'
+  if (isInstalling) return 'inProgress'
 
-  if (cephHealthStatus === 'checking') return 'blockedByCheckingCephHealth'
+  if (isInstalled) return 'hidden'
 
-  if (cephHealthStatus === GetHealthsResponseDataOverallStatusCurrentEnum.Ng)
+  if (olderFirmware && !updatedStatuses.has(olderFirmware.status.current)) {
+    return 'blockedByOlderFirmware'
+  }
+
+  if (cephHealthStatus === 'checking') {
+    return 'blockedByCheckingCephHealth'
+  }
+
+  if (cephHealthStatus === GetHealthsResponseDataOverallStatusCurrentEnum.Ng) {
     return 'blockedByUnhealthyCeph'
+  }
 
   return 'available'
 }
 
-export const computeFirmwareDeleteActionState = (
-  firmware: FirmwareRow,
+const computeDeleteActionState = (
+  firmware: ListFirmwaresResponseDataFirmwaresInner,
 ): DeleteActionState => {
-  if (
-    firmware.status.current === FirmwareStatus.Resolved ||
-    FirmwareStatus.Succeeded
-  )
-    return 'hidden'
+  const isInstalled = updatedStatuses.has(firmware.status.current)
+  const isInstalling = updatingStatuses.has(firmware.status.current)
 
-  if (upgradingStatuses.has(firmware.status.current))
-    return 'blockedByProcessing'
+  if (isInstalled) return 'hidden'
+
+  if (isInstalling) return 'blockedByUpdating'
 
   return 'available'
 }

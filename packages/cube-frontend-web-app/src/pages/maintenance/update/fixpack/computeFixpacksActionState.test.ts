@@ -530,7 +530,7 @@ describe('Compute fixpacks action state', () => {
           olderFixpackStates = states.slice(targetFixpackIndex + 1)
         })
 
-        it('newer fixpacks: install✅|rollback❌|remove✅', () => {
+        it('newer fixpacks: install❌|rollback❌|remove✅', () => {
           newerFixpackStates.forEach((state) => {
             expect(state).toEqual<FixpackActionState>({
               install: 'blockedByOlderFixpack',

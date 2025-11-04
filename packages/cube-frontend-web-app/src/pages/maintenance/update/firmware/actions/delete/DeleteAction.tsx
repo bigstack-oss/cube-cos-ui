@@ -15,11 +15,13 @@ type DeleteActionProps = {
 export const DeleteAction = (props: DeleteActionProps) => {
   const { state, onClick: onClickProp } = props
 
+  const isBlockedByUpdating = state === 'blockedByUpdating'
+
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
-    if (state === 'blockedByProcessing') {
+    if (isBlockedByUpdating) {
       return {
         message:
-          'Deletion is blocked because the firmware is currently being updated.',
+          'Removal is blocked because this firmware is currently being upgraded.',
       }
     }
 
@@ -41,6 +43,7 @@ export const DeleteAction = (props: DeleteActionProps) => {
           type="ghost"
           usage="icon-only"
           Icon={Trash}
+          disabled={isBlockedByUpdating}
           onClick={onClick}
         />
       </span>

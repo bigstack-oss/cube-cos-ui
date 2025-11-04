@@ -8,7 +8,7 @@ import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/inform
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
 import dayjs from 'dayjs'
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
 import { ReleaseNotePanel } from '../_components/ReleaseNotePanel'
 import { useCephHealthStatus } from '../_components/useCephHealthStatus'
@@ -20,14 +20,13 @@ import { UpdateAction } from './actions/update/UpdateAction'
 import { UpdateFirmwareModal } from './actions/update/UpdateFirmwareModal'
 import { useUpdateFirmwareModal } from './actions/update/useUpdateFirmwareModal'
 import {
-  computeFirmwareDeleteActionState,
-  computeFirmwareUpdateActionState,
+  FirmwareActionState,
+  computeFirmwaresActionState,
 } from './computeFirmwaresActionState'
 import { FirmwareRow } from './listFirmwaresUtils'
 import { UploadFirmwareModal } from './UploadFirmwareModal'
 import { useListFirmwares } from './useListFirmwares'
 import { useListFirmwaresQuery } from './useListFirmwaresQuery'
-import { useUpdatingFirmwareVersion } from './useUpdatingFirmwareVersion'
 
 const FirmwareTable = GetCosBasicTable<FirmwareRow>()
 
@@ -36,10 +35,13 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
   const { query, onPageChange, onItemsPerPageChange } = useListFirmwaresQuery()
 
-  const { showLoading, rows, totalItemCount, listFirmwares } =
-    useListFirmwares(query)
-
-  const updatingFirmwareVersion = useUpdatingFirmwareVersion()
+  const {
+    showLoading,
+    allFirmwares,
+    pagedRows,
+    totalItemCount,
+    listFirmwares,
+  } = useListFirmwares(query)
 
   const {
     isOpen: isUploadModalOpen,
@@ -52,8 +54,13 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
   const cephHealthStatus = useCephHealthStatus()
 
+  const firmwaresActionStates = useMemo<FirmwareActionState[]>(
+    () => computeFirmwaresActionState(allFirmwares, cephHealthStatus),
+    [allFirmwares, cephHealthStatus],
+  )
+
   const { firmwareToUpdate, onOpenUpdateModal, onCloseUpdateModal } =
-    useUpdateFirmwareModal(rows)
+    useUpdateFirmwareModal(pagedRows)
 
   const {
     firmwareVersionToDelete,
@@ -71,29 +78,24 @@ export const MaintenanceUpdateFirmwarePage = () => {
     return dayjs.respectTzOffset(updatedAt).format('YYYY/MM/DD')
   }
 
-  const renderActions = (row: FirmwareRow) => {
-    const version = row.version
-
-    const updateActionState = computeFirmwareUpdateActionState(
-      row,
-      cephHealthStatus,
-      updatingFirmwareVersion,
-    )
-
-    const deleteActionState = computeFirmwareDeleteActionState(row)
+  const renderActions = (
+    row: FirmwareRow,
+    actionState: FirmwareActionState,
+  ) => {
+    const { update, delete: deleteState } = actionState
 
     return (
-      <div className="flex items-center">
-        {updateActionState !== 'hidden' && (
+      <div className="flex items-center justify-between gap-x-2">
+        {update !== 'hidden' && (
           <UpdateAction
-            state={updateActionState}
-            onClick={() => onOpenUpdateModal(version)}
+            state={update}
+            onClick={() => onOpenUpdateModal(row.version)}
           />
         )}
-        {deleteActionState !== 'hidden' && (
+        {deleteState !== 'hidden' && (
           <DeleteAction
-            state={deleteActionState}
-            onClick={() => showDeleteFirmwareModal(version)}
+            state={deleteState}
+            onClick={() => showDeleteFirmwareModal(row.version)}
           />
         )}
       </div>
@@ -128,7 +130,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
         >
           <div className="flex flex-col gap-y-6">
             <FirmwareTable
-              rows={rows}
+              rows={pagedRows}
               isLoading={showLoading}
               rowClassName="cursor-pointer"
               onRowClick={showReleaseNoteFor}
@@ -155,7 +157,10 @@ export const MaintenanceUpdateFirmwarePage = () => {
                 fitContent={true}
                 skeletonVariant="icon-right"
               >
-                {(_, row) => renderActions(row)}
+                {(_, row, index) => {
+                  const actionState = firmwaresActionStates[index]
+                  return !!actionState && renderActions(row, actionState)
+                }}
               </FirmwareTable.Column>
             </FirmwareTable>
             <CosPagination
