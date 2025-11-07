@@ -19,7 +19,7 @@ export const DeleteConfirmModal = (props: DeleteConfirmModalProps) => {
       onCloseClick={action.closeConfirmModal}
     >
       <p className="primary-body2 text-functional-text">
-        Do you want to delete this storage?
+        Do you want to delete {action.deleteTargetName} storage?
       </p>
     </CosModal>
   )

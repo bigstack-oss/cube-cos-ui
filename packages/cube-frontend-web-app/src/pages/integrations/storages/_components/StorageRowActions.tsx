@@ -43,7 +43,7 @@ export const StorageRowActions = (props: StorageRowActionsProps) => {
             Icon={DeleteIcon}
             disabled={deleteStatus.disabled}
             loading={deleteStatus.loading}
-            onClick={() => rowActions.delete.openConfirmModal(row)}
+            onClick={() => rowActions.delete.openConfirmModal(row.name)}
           />
         )}
       </div>
@@ -56,7 +56,7 @@ export const StorageRowActions = (props: StorageRowActionsProps) => {
           title="Set default storage"
           type="plain"
           disabled={setDefaultStatus.disabled}
-          onClick={() => rowActions.setDefault(row)}
+          onClick={() => rowActions.setDefault(row.name)}
         />
       </CosOverflowMenu>
     </div>

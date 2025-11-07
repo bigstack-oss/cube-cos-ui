@@ -18,13 +18,13 @@ export type UseStorageTable = {
   rows: StorageRow[]
   showLoading: boolean
   rowActions: {
-    setDefault: (row: StorageRow) => void
-    verify: (row: StorageRow) => void
+    setDefault: (storageName: string) => void
+    verify: (storageName: string) => void
     delete: {
-      row: StorageRow | undefined
+      deleteTargetName: string | undefined
       isConfirmModalOpen: boolean
       isRequesting: boolean
-      openConfirmModal: (row: StorageRow) => void
+      openConfirmModal: (storageName: string) => void
       closeConfirmModal: () => void
       confirm: () => Promise<void>
     }
@@ -53,14 +53,16 @@ export const useStorageTable = (): UseStorageTable => {
     integrationsApi.setStorageAsDefault,
   )
 
-  const setStorageToDefault = async (row: StorageRow) => {
+  const setStorageToDefault = async (storageName: string) => {
     const req: IntegrationsApiSetStorageAsDefaultRequest = {
       dataCenter: dataCenter!.name,
-      storageName: row.name,
+      storageName: storageName,
     }
 
     try {
-      setRequestingSetDefaultStorageNames((prev) => new Set(prev).add(row.name))
+      setRequestingSetDefaultStorageNames((prev) =>
+        new Set(prev).add(storageName),
+      )
       await requestSetDefault(req)
       await fetchIntegrationStorages()
     } catch (error) {
@@ -68,7 +70,7 @@ export const useStorageTable = (): UseStorageTable => {
     } finally {
       setRequestingSetDefaultStorageNames((prev) => {
         const newSet = new Set(prev)
-        newSet.delete(row.name)
+        newSet.delete(storageName)
         return newSet
       })
     }
@@ -81,14 +83,14 @@ export const useStorageTable = (): UseStorageTable => {
   const [requestingVerifyStorageNames, setRequestingVerifyStorageNames] =
     useState<Set<string>>(() => new Set())
 
-  const verifyStorage = async (row: StorageRow) => {
+  const verifyStorage = async (storageName: string) => {
     const req: IntegrationsApiVerifyStorageIntegrationRequest = {
       dataCenter: dataCenter!.name,
-      storageName: row.name,
+      storageName,
     }
 
     try {
-      setRequestingVerifyStorageNames((prev) => new Set(prev).add(row.name))
+      setRequestingVerifyStorageNames((prev) => new Set(prev).add(storageName))
       await requestVerify(req)
       await fetchIntegrationStorages()
     } catch (error) {
@@ -96,15 +98,15 @@ export const useStorageTable = (): UseStorageTable => {
     } finally {
       setRequestingVerifyStorageNames((prev) => {
         const newSet = new Set(prev)
-        newSet.delete(row.name)
+        newSet.delete(storageName)
         return newSet
       })
     }
   }
 
-  const [deleteTargetRow, setDeleteTargetRow] = useState<
-    StorageRow | undefined
-  >(undefined)
+  const [deleteTargetName, setDeleteTargetName] = useState<string | undefined>(
+    undefined,
+  )
 
   const [requestingDeleteStorageNames, setRequestingDeleteStorageNames] =
     useState<Set<string>>(() => new Set())
@@ -113,16 +115,16 @@ export const useStorageTable = (): UseStorageTable => {
     integrationsApi.deleteIntegrationStorage,
   )
 
-  const closeDeleteConfirmModal = () => setDeleteTargetRow(undefined)
+  const closeDeleteConfirmModal = () => setDeleteTargetName(undefined)
 
-  const deleteStorage = async (row: StorageRow) => {
+  const deleteStorage = async (storageName: string) => {
     const req: IntegrationsApiSetStorageAsDefaultRequest = {
       dataCenter: dataCenter!.name,
-      storageName: row.name,
+      storageName,
     }
 
     try {
-      setRequestingDeleteStorageNames((prev) => new Set(prev).add(row.name))
+      setRequestingDeleteStorageNames((prev) => new Set(prev).add(storageName))
       await requestDelete(req)
       await fetchIntegrationStorages()
     } catch (error) {
@@ -130,26 +132,25 @@ export const useStorageTable = (): UseStorageTable => {
     } finally {
       setRequestingDeleteStorageNames((prev) => {
         const newSet = new Set(prev)
-        newSet.delete(row.name)
+        newSet.delete(storageName)
         return newSet
       })
     }
   }
 
-  const isTargetRowRequestingDelete = (row: StorageRow | undefined) => {
-    if (!row) return false
-    return requestingDeleteStorageNames.has(row.name)
+  const isTargetRowRequestingDelete = (storageName: string | undefined) => {
+    return requestingDeleteStorageNames.has(storageName || '')
   }
 
   const deleteAction = {
-    row: deleteTargetRow,
-    isConfirmModalOpen: !!deleteTargetRow,
-    openConfirmModal: setDeleteTargetRow,
-    isRequesting: isTargetRowRequestingDelete(deleteTargetRow),
+    deleteTargetName,
+    isConfirmModalOpen: !!deleteTargetName,
+    openConfirmModal: setDeleteTargetName,
+    isRequesting: isTargetRowRequestingDelete(deleteTargetName),
     closeConfirmModal: closeDeleteConfirmModal,
     confirm: async () => {
-      if (!deleteTargetRow) return
-      await deleteStorage(deleteTargetRow)
+      if (!deleteTargetName) return
+      await deleteStorage(deleteTargetName)
       closeDeleteConfirmModal()
     },
   }

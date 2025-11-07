@@ -71,7 +71,7 @@ export const IntegrationsStoragesPage = () => {
         usage="text-only"
         disabled={verifyStates.disabled}
         loading={verifyStates.loading}
-        onClick={() => rowActions.verify(row)}
+        onClick={() => rowActions.verify(row.name)}
       >
         Verify
       </CosButton>
