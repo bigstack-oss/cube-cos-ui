@@ -12,6 +12,7 @@ import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 import { BatchLicenseAttachmentTableRow } from './LicenseActions/HardwareSerialNumberModal/LicenseAttachmentTable'
+import { TFunction } from 'i18next'
 
 export type InvalidLicenseMessageKey = Exclude<
   keyof DataCenterAdditionalNodeLicenseStatus,
@@ -52,18 +53,19 @@ export const getInvalidMessageList = (
 
 export const renderExpiredDays = (
   expiry: GetLicensesResponseDataLicensesInnerExpiry,
+  t: TFunction,
 ) => {
   const { days } = expiry
 
   if (days < 0) {
-    return `${toPluralizeDisplay(Math.abs(days), 'day')} ago`
+    return t('maintenance.license.daysAgo', { count: Math.abs(days) })
   }
 
   if (days === 0) {
-    return 'Today'
+    return t('maintenance.license.today')
   }
 
-  return `in ${toPluralizeDisplay(days, 'day')}`
+  return t('maintenance.license.inDays', { count: days })
 }
 
 export const getLicenseExpiryStatus = (expiryDays: number) => {

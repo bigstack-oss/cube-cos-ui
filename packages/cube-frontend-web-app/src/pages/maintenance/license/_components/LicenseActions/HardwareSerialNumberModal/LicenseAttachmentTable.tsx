@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next'
 import { GetLicenseAttachmentsResponseDataInner } from '@cube-frontend/api'
 import { GetCosBatchActionTable } from '@cube-frontend/ui-library'
-import { upperFirst } from 'lodash'
+import { useNodeLicenseStatusTranslations } from '../../useNodeLicenseStatusTranslations'
 
 export type BatchLicenseAttachmentTableRow =
   GetLicenseAttachmentsResponseDataInner & {
@@ -15,17 +16,33 @@ export type LicenseAttachmentTableProps = React.ComponentProps<
 >
 
 export const LicenseAttachmentTable = (props: LicenseAttachmentTableProps) => {
+  const { t } = useTranslation()
+
+  const nodeLicenseStatusTranslations = useNodeLicenseStatusTranslations()
+
   return (
     <BatchLicenseAttachmentTable {...props}>
-      <BatchLicenseAttachmentTable.Column label="Host" property="hostname" />
       <BatchLicenseAttachmentTable.Column
-        label="Hardware serial"
+        label={t('maintenance.license.hardwareSerialsModal.host')}
+        property="hostname"
+      />
+      <BatchLicenseAttachmentTable.Column
+        label={t('maintenance.license.hardwareSerialsModal.hardwareSerial')}
         property="serialNumber"
       />
-      <BatchLicenseAttachmentTable.Column label="Role" property="role" />
-      <BatchLicenseAttachmentTable.Column label="Product" property="product" />
-      <BatchLicenseAttachmentTable.Column label="Status" property="status">
-        {upperFirst}
+      <BatchLicenseAttachmentTable.Column
+        label={t('maintenance.license.hardwareSerialsModal.role')}
+        property="role"
+      />
+      <BatchLicenseAttachmentTable.Column
+        label={t('maintenance.license.hardwareSerialsModal.product')}
+        property="product"
+      />
+      <BatchLicenseAttachmentTable.Column
+        label={t('maintenance.license.nodeStatus')}
+        property="status"
+      >
+        {(status) => nodeLicenseStatusTranslations[status]}
       </BatchLicenseAttachmentTable.Column>
     </BatchLicenseAttachmentTable>
   )

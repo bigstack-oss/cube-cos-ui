@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next'
+import { twMerge } from 'tailwind-merge'
 import { CosModal } from '@cube-frontend/ui-library'
 import CheckIcon from '@cube-frontend/ui-library/icons/monochrome/checkmark.svg?react'
-import { twMerge } from 'tailwind-merge'
 import { LicenseAttachmentFilters } from './LicenseAttachmentFilters'
 import { LicenseAttachmentTable } from './LicenseAttachmentTable'
 import { ProductDropdown } from './ProductDropdown'
@@ -17,6 +18,8 @@ export const HardwareSerialNumberModal = (
   props: HardwareSerialNumberModalProps,
 ) => {
   const { isOpen, onCloseClick: onCloseClickProp } = props
+
+  const { t } = useTranslation()
 
   const {
     isLoading,
@@ -52,20 +55,24 @@ export const HardwareSerialNumberModal = (
   return (
     <CosModal
       className="min-w-[min(1000px,_100dvw)]"
-      title="Get Hardware Serial Number"
+      title={t('maintenance.license.hardwareSerialsModal.title')}
       footerMessage={
         showCopySuccess && (
           <div className="flex flex-1 items-center justify-end">
             <div className="flex items-center gap-x-1 text-status-positive-text">
               <CheckIcon className="icon-md" />
-              <span className="primary-body4">Copied to clipboard.</span>
+              <span className="primary-body4">
+                {t(
+                  'maintenance.license.hardwareSerialsModal.copiedToClipboard',
+                )}
+              </span>
             </div>
           </div>
         )
       }
       size="sm"
       isOpen={isOpen}
-      actionText="Copy to clipboard"
+      actionText={t('maintenance.license.hardwareSerialsModal.copyToClipboard')}
       actionButtonProps={{ disabled: selectedRowIds.length === 0 }}
       onActionClick={copySerialNumber}
       onCloseClick={handleCloseClick}
@@ -78,7 +85,9 @@ export const HardwareSerialNumberModal = (
           />
         </div>
         <div className="flex flex-col gap-y-2">
-          <h5 className="primary-h5 text-functional-text">Hosts</h5>
+          <h5 className="primary-h5 text-functional-text">
+            {t('maintenance.license.hardwareSerialsModal.hosts')}
+          </h5>
           <LicenseAttachmentFilters
             searchKeyword={searchKeyword}
             handleSearchKeywordChange={setSearchKeyword}

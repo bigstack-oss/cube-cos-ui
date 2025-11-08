@@ -26,7 +26,7 @@ export const MaintenanceLayout = () => {
         </Link>
         <Link to={links.license}>
           <CosTabs.Tab isActive={location.pathname === links.license}>
-            License
+            {t('maintenance.license.title')}
           </CosTabs.Tab>
         </Link>
         <Link to={links.updateFirmware}>

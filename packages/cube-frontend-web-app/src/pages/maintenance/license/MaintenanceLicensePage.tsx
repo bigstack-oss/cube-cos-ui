@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LicensesApiGetLicensesRequest } from '@cube-frontend/api'
 import {
   CosGeneralPanel,
@@ -17,6 +18,8 @@ import { useLicenseListQuery } from './_components/useLicenseListQuery'
 
 export const MaintenanceLicensePage = () => {
   const { dataCenter, fetchDataCenters } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   const {
     query,
@@ -74,12 +77,14 @@ export const MaintenanceLicensePage = () => {
   }, [restoreTopLicenseNaggingStore])
 
   return (
-    <CosGeneralPanel topic="License">
+    <CosGeneralPanel topic={t('maintenance.license.title')}>
       <div className="flex flex-col gap-y-6 pt-2">
         <LicenseActions onImportLicenseSuccess={handleLicenseImportSuccess} />
         <CosStroke type="dot" />
         <div className="flex flex-col gap-y-2">
-          <h5 className="primary-h5 text-functional-text">License</h5>
+          <h5 className="primary-h5 text-functional-text">
+            {t('maintenance.license.title')}
+          </h5>
           <LicenseFilters
             searchKeyword={query.keyword}
             handleSearchKeywordChange={onKeywordChange}

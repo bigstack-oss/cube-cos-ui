@@ -1,5 +1,7 @@
 import { NodeLicenseCurrentStatus } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
+import { useTranslation } from 'react-i18next'
+import { useNodeLicenseStatusTranslations } from '../../useNodeLicenseStatusTranslations'
 
 const nodeLicenseStatuses = Object.values(NodeLicenseCurrentStatus)
 
@@ -17,6 +19,10 @@ export const NodeLicenseStatusFilter = (props: LicenseStatusFilterProps) => {
     handleNodeLicenseStatusesSelect,
     handleClearNodeLicenseStatusesClick,
   } = props
+
+  const { t } = useTranslation()
+
+  const nodeLicenseStatusTranslations = useNodeLicenseStatusTranslations()
 
   const handleSelectAllLicenseStatuses = (checked: boolean) => {
     if (checked) {
@@ -52,8 +58,10 @@ export const NodeLicenseStatusFilter = (props: LicenseStatusFilterProps) => {
       onAllCheckChange={handleSelectAllLicenseStatuses}
       onClearSelection={handleClearNodeLicenseStatusesClick}
     >
-      <CosDropdown.Trigger placeholder="Statuses">
-        {selectedLicenseStatuses.length > 0 ? `Statuses` : undefined}
+      <CosDropdown.Trigger placeholder={t('maintenance.license.nodeStatuses')}>
+        {selectedLicenseStatuses.length > 0
+          ? t('maintenance.license.nodeStatuses')
+          : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
         {nodeLicenseStatuses.map((licenseStatus) => (
@@ -62,7 +70,7 @@ export const NodeLicenseStatusFilter = (props: LicenseStatusFilterProps) => {
             item={licenseStatus}
             onClick={() => handleNodeLicenseStatusClick(licenseStatus)}
           >
-            {licenseStatus}
+            {nodeLicenseStatusTranslations[licenseStatus]}
           </CosDropdown.Item>
         ))}
       </CosDropdown.Menu>

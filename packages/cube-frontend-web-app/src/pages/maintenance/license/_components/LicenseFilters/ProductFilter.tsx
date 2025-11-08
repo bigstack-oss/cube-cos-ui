@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { GetLicensesProductsEnum } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 
@@ -12,6 +13,8 @@ export type ProductFilterProps = {
 export const ProductFilter = (props: ProductFilterProps) => {
   const { selectedProducts, handleProductsSelect, handleClearProductsClick } =
     props
+
+  const { t } = useTranslation()
 
   const handleProductClick = (product: GetLicensesProductsEnum) => {
     const productSet = new Set(selectedProducts)
@@ -40,8 +43,10 @@ export const ProductFilter = (props: ProductFilterProps) => {
       onAllCheckChange={handleSelectAllProduct}
       onClearSelection={handleClearProductsClick}
     >
-      <CosDropdown.Trigger placeholder="Products">
-        {selectedProducts.length > 0 ? `Products` : undefined}
+      <CosDropdown.Trigger placeholder={t('maintenance.license.products')}>
+        {selectedProducts.length > 0
+          ? t('maintenance.license.products')
+          : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
         {products.map((product) => (

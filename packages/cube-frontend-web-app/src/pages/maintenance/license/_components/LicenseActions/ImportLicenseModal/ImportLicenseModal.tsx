@@ -2,6 +2,7 @@ import { VerifyLicenseResponseData } from '@cube-frontend/api'
 import { CosModal } from '@cube-frontend/ui-library'
 import { EffectNodeTable } from './EffectNodeTable'
 import { ImportLicenseTable } from './ImportLicenseTable'
+import { useTranslation } from 'react-i18next'
 
 export type ImportLicenseModalProps = {
   licenseVerifyInfo: VerifyLicenseResponseData
@@ -18,6 +19,8 @@ export const ImportLicenseModal = (props: ImportLicenseModalProps) => {
     onCloseClick,
   } = props
 
+  const { t } = useTranslation()
+
   const effectNodeRows = licenseVerifyInfo.effectNodes.map((node) => ({
     id: node.name,
     ...node,
@@ -27,20 +30,19 @@ export const ImportLicenseModal = (props: ImportLicenseModalProps) => {
     <CosModal
       className="h-[780px] max-h-screen"
       isOpen={!!licenseVerifyInfo}
-      title="Import License"
-      actionText="Yes, import license"
+      title={t('maintenance.license.importLicense')}
+      actionText={t('maintenance.license.yesImportLicense')}
       actionButtonProps={{ loading: actionButtonLoading }}
       onActionClick={onActionClick}
       onCloseClick={onCloseClick}
     >
       <div className="flex flex-col gap-y-5">
         <p className="primary-body2 text-functional-text">
-          Do you want to import the license to the data center? It'll take about
-          a few minutes.
+          {t('maintenance.license.importLicenseConfirmation')}
         </p>
         <ImportLicenseTable license={licenseVerifyInfo.license} />
         <p className="primary-body2 text-functional-text">
-          Here are the nodes that will be affected:
+          {t('maintenance.license.affectedNodes')}
         </p>
         <EffectNodeTable rows={effectNodeRows} />
       </div>

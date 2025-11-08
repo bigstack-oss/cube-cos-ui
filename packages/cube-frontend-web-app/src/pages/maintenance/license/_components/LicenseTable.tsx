@@ -1,4 +1,3 @@
-import { upperFirst } from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { GetLicensesResponseDataLicensesInner } from '@cube-frontend/api'
 import {
@@ -17,6 +16,9 @@ import { HostListModal } from '@cube-frontend/web-app/components/HostPreviewTabl
 import { renderExpiredDays } from './utils'
 import { useLicenseHostsModal } from './useLicenseHostsModal'
 import { ExpiryIconText } from './ExpiryIconText'
+import { useLicenseTypeTranslations } from './useLicenseTypeTranslations'
+import { useFeatureTranslations } from './useFeatureTranslations'
+import { useOnlyTranslateNA } from './useOnlyTranslateNA'
 
 export type LicenseRow = GetLicensesResponseDataLicensesInner & CosTableRow
 
@@ -27,8 +29,6 @@ export type LicenseTableProps = CosBasicTableProps<LicenseRow>
 export const LicenseTable = (props: LicenseTableProps) => {
   const { rows } = props
 
-  const { t } = useTranslation()
-
   const {
     isHostsModalOpen,
     rowForHostModal,
@@ -38,21 +38,27 @@ export const LicenseTable = (props: LicenseTableProps) => {
 
   const { expandedRowIdSet, onExpandChange } = useExpandedRowIdSet()
 
+  const { t } = useTranslation()
+
+  const licenseTypeTranslations = useLicenseTypeTranslations()
+  const featureTranslations = useFeatureTranslations()
+  const onlyTranslateNA = useOnlyTranslateNA()
+
   const getDetailItems = (
     license: LicenseRow,
   ): CosViewDetailsTableDetailItem[] => {
     return [
       {
-        title: 'Quantity',
-        value: license.quantity,
+        title: t('maintenance.license.quantity'),
+        value: onlyTranslateNA(license.quantity),
       },
       {
-        title: 'Support Plan',
-        value: license.supportPlan.toUpperCase(),
+        title: t('maintenance.license.supportPlan'),
+        value: onlyTranslateNA(license.supportPlan),
       },
       {
-        title: 'Feature',
-        value: upperFirst(license.product.feature),
+        title: t('maintenance.license.feature'),
+        value: featureTranslations[license.product.feature],
       },
     ]
   }
@@ -65,10 +71,16 @@ export const LicenseTable = (props: LicenseTableProps) => {
         onExpandChange={onExpandChange}
         getDetailItems={getDetailItems}
       >
-        <LicenseViewDetailsTable.Column label="Product" property="product">
+        <LicenseViewDetailsTable.Column
+          label={t('maintenance.license.product')}
+          property="product"
+        >
           {(product) => product.name}
         </LicenseViewDetailsTable.Column>
-        <LicenseViewDetailsTable.Column label="License name" property="name">
+        <LicenseViewDetailsTable.Column
+          label={t('maintenance.license.licenseName')}
+          property="name"
+        >
           {(name, row) => (
             <div className="flex items-center gap-x-2">
               <span>{name}</span>
@@ -76,7 +88,10 @@ export const LicenseTable = (props: LicenseTableProps) => {
             </div>
           )}
         </LicenseViewDetailsTable.Column>
-        <LicenseViewDetailsTable.Column label="Hosts" property="hosts">
+        <LicenseViewDetailsTable.Column
+          label={t('maintenance.license.hosts')}
+          property="hosts"
+        >
           {(hosts, row) => (
             <HostPreviewTableCell
               hostNames={hosts}
@@ -84,17 +99,29 @@ export const LicenseTable = (props: LicenseTableProps) => {
             />
           )}
         </LicenseViewDetailsTable.Column>
-        <LicenseViewDetailsTable.Column label="Issue date" property="issue">
+        <LicenseViewDetailsTable.Column
+          label={t('maintenance.license.issueDate')}
+          property="issue"
+        >
           {(issue) => formatLicenseDate(issue.date)}
         </LicenseViewDetailsTable.Column>
-        <LicenseViewDetailsTable.Column label="Expire date" property="expiry">
+        <LicenseViewDetailsTable.Column
+          label={t('maintenance.license.expireDate')}
+          property="expiry"
+        >
           {(_, license) => toLicenseExpirationDate(license, t)}
         </LicenseViewDetailsTable.Column>
-        <LicenseViewDetailsTable.Column label="Expired" property="expiry">
-          {renderExpiredDays}
+        <LicenseViewDetailsTable.Column
+          label={t('maintenance.license.expired')}
+          property="expiry"
+        >
+          {(expiry) => renderExpiredDays(expiry, t)}
         </LicenseViewDetailsTable.Column>
-        <LicenseViewDetailsTable.Column label="Type" property="type">
-          {upperFirst}
+        <LicenseViewDetailsTable.Column
+          label={t('maintenance.license.type')}
+          property="type"
+        >
+          {(type) => licenseTypeTranslations[type]}
         </LicenseViewDetailsTable.Column>
       </LicenseViewDetailsTable>
       <HostListModal

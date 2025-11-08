@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CosButton } from '@cube-frontend/ui-library'
 import CheckIcon from '@cube-frontend/ui-library/icons/monochrome/checkmark.svg?react'
 import WarningFilledIcon from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
@@ -13,6 +14,8 @@ export type LicenseActionsProps = {
 
 export const LicenseActions = (props: LicenseActionsProps) => {
   const { onImportLicenseSuccess } = props
+
+  const { t } = useTranslation()
 
   const [isHardwareSerialModalOpen, setIsHardwareSerialModalOpen] =
     useState(false)
@@ -45,13 +48,13 @@ export const LicenseActions = (props: LicenseActionsProps) => {
             loading={isVerifyingLicenseFile}
             onClick={handleImportLicenseButtonClick}
           >
-            Import License
+            {t('maintenance.license.importLicense')}
           </CosButton>
           {showImportSuccessText && (
             <div className="flex items-center gap-x-2 text-status-positive-text">
               <CheckIcon className="icon-lg" />
               <span className="primary-body3">
-                Import license successfully.
+                {t('maintenance.license.importLicenseSuccessfully')}
               </span>
             </div>
           )}
@@ -66,13 +69,13 @@ export const LicenseActions = (props: LicenseActionsProps) => {
             <div className="flex gap-x-2">
               <WarningFilledIcon className="icon-md-sm text-status-negative" />
               <span className="primary-body4 text-functional-text">
-                Invalid files.
+                {t('maintenance.license.invalidFiles')}
               </span>
             </div>
           )}
         </div>
         <CosButton onClick={() => setIsHardwareSerialModalOpen(true)}>
-          Get hardware serials
+          {t('maintenance.license.getHardwareSerials')}
         </CosButton>
       </div>
       <HardwareSerialNumberModal

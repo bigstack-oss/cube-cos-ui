@@ -571,6 +571,7 @@
   "maintenance.license.feature.basic": "基本版",
   "maintenance.license.feature.advanced": "進階版",
   "maintenance.license.feature.premium": "專業版",
+  "maintenance.license.feature.na": "不適用",
   "maintenance.license.product": "產品",
   "maintenance.license.licenseName": "授權名稱",
   "maintenance.license.hosts": "主機",

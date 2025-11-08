@@ -621,6 +621,7 @@
   "maintenance.license.feature.basic": "Basic",
   "maintenance.license.feature.advanced": "Advanced",
   "maintenance.license.feature.premium": "Premium",
+  "maintenance.license.feature.na": "N/A",
   "maintenance.license.product": "Product",
   "maintenance.license.licenseName": "License Name",
   "maintenance.license.hosts": "Hosts",

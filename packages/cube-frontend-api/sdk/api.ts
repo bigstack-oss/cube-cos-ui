@@ -4397,10 +4397,16 @@ export interface GetIntegrationStorageResponseData {
     'isExternal': boolean;
     /**
      * 
-     * @type {VerifyStorageIntegrationRequestDevice}
+     * @type {string}
      * @memberof GetIntegrationStorageResponseData
      */
-    'device': VerifyStorageIntegrationRequestDevice;
+    'driver': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetIntegrationStorageResponseData
+     */
+    'vendor': string;
     /**
      * 
      * @type {GetIntegrationStorageResponseDataStorage}
@@ -4676,7 +4682,7 @@ export interface GetLicensesResponseDataLicensesInner {
      * @type {string}
      * @memberof GetLicensesResponseDataLicensesInner
      */
-    'type': string;
+    'type': GetLicensesResponseDataLicensesInnerTypeEnum;
     /**
      * 
      * @type {Array<string>}
@@ -4709,10 +4715,10 @@ export interface GetLicensesResponseDataLicensesInner {
     'quantity': string;
     /**
      * 
-     * @type {string}
+     * @type {LicenseSupportPlan}
      * @memberof GetLicensesResponseDataLicensesInner
      */
-    'supportPlan': string;
+    'supportPlan': LicenseSupportPlan;
     /**
      * 
      * @type {GetLicensesResponseDataLicensesInnerExpiry}
@@ -4726,6 +4732,16 @@ export interface GetLicensesResponseDataLicensesInner {
      */
     'status': ListLicenseStatus;
 }
+
+export const GetLicensesResponseDataLicensesInnerTypeEnum = {
+    Trial: 'trial',
+    Perpetual: 'perpetual',
+    Community: 'community',
+    Enterprise: 'enterprise'
+} as const;
+
+export type GetLicensesResponseDataLicensesInnerTypeEnum = typeof GetLicensesResponseDataLicensesInnerTypeEnum[keyof typeof GetLicensesResponseDataLicensesInnerTypeEnum];
+
 /**
  * 
  * @export
@@ -4759,11 +4775,13 @@ export interface GetLicensesResponseDataLicensesInnerProduct {
     'name': string;
     /**
      * 
-     * @type {string}
+     * @type {LicenseFeature}
      * @memberof GetLicensesResponseDataLicensesInnerProduct
      */
-    'feature': string;
+    'feature': LicenseFeature;
 }
+
+
 /**
  * 
  * @export
@@ -7660,6 +7678,22 @@ export interface InstallFixpackRequest {
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const LicenseFeature = {
+    NA: 'N/A',
+    Basic: 'basic',
+    Advanced: 'advanced',
+    Premium: 'premium'
+} as const;
+
+export type LicenseFeature = typeof LicenseFeature[keyof typeof LicenseFeature];
+
+
+/**
+ * 
+ * @export
  * @interface LicenseIssue
  */
 export interface LicenseIssue {
@@ -7688,6 +7722,22 @@ export interface LicenseIssue {
      */
     'date': string;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const LicenseSupportPlan = {
+    NA: 'N/A',
+    Esa: 'ESA',
+    Eea: 'EEA',
+    Fma: 'FMA'
+} as const;
+
+export type LicenseSupportPlan = typeof LicenseSupportPlan[keyof typeof LicenseSupportPlan];
+
+
 /**
  * 
  * @export
@@ -9015,13 +9065,13 @@ export interface ListIntegrationStorageModelsResponseDataInnerStorageServiceExtr
      * @type {string}
      * @memberof ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraConfigFilesInner
      */
-    'name'?: string;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof ListIntegrationStorageModelsResponseDataInnerStorageServiceExtraConfigFilesInner
      */
-    'content'?: string;
+    'content': string;
 }
 /**
  * 
@@ -10752,10 +10802,10 @@ export interface NodeLicense {
     'quantity': string;
     /**
      * 
-     * @type {string}
+     * @type {LicenseSupportPlan}
      * @memberof NodeLicense
      */
-    'supportPlan': string;
+    'supportPlan': LicenseSupportPlan;
     /**
      * 
      * @type {NodeLicenseExpiry}
@@ -10769,6 +10819,8 @@ export interface NodeLicense {
      */
     'status': NodeLicenseStatus;
 }
+
+
 /**
  * 
  * @export
@@ -14952,10 +15004,10 @@ export interface VerifyLicenseResponseDataLicense {
     'quantity': string;
     /**
      * 
-     * @type {string}
+     * @type {LicenseSupportPlan}
      * @memberof VerifyLicenseResponseDataLicense
      */
-    'supportPlan': string;
+    'supportPlan': LicenseSupportPlan;
     /**
      * 
      * @type {GetLicensesResponseDataLicensesInnerExpiry}
@@ -14969,6 +15021,8 @@ export interface VerifyLicenseResponseDataLicense {
      */
     'status': VerifyLicenseStatus;
 }
+
+
 /**
  * 
  * @export
