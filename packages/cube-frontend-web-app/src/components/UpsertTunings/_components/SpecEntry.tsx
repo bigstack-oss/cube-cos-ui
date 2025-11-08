@@ -1,6 +1,7 @@
+import { PropsWithChildren } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ListTuningSpecResponseDataInnerLimitation } from '@cube-frontend/api'
 import { CosSkeleton } from '@cube-frontend/ui-library'
-import { PropsWithChildren } from 'react'
 import { formatLimitation } from './SelectKeyValue/formatLimitation'
 
 type SpecEntryProps = PropsWithChildren & {
@@ -22,12 +23,16 @@ export const SpecEntry = (props: SpecEntryProps) => {
     valueLabel,
   } = props
 
+  const { t } = useTranslation()
+
   const skeleton = <CosSkeleton className="h-[38px] w-[170px]" />
 
   return (
     <div className="flex gap-x-4 px-4 py-3 text-functional-text">
       <div className="flex min-w-[170px] flex-col gap-y-1.5">
-        <div className="primary-body2 font-semibold">Key</div>
+        <div className="primary-body2 font-semibold">
+          {t('maintenance.tunings.upsert.key')}
+        </div>
         {isLoading ? (
           skeleton
         ) : (
@@ -36,7 +41,9 @@ export const SpecEntry = (props: SpecEntryProps) => {
       </div>
       {limitation && (
         <div className="flex min-w-[170px] flex-col gap-y-1.5">
-          <div className="primary-body2 font-semibold">Limitation</div>
+          <div className="primary-body2 font-semibold">
+            {t('maintenance.tunings.upsert.limitation')}
+          </div>
           {isLoading ? (
             skeleton
           ) : (

@@ -1,3 +1,6 @@
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link, Navigate, useNavigate } from 'react-router'
 import { CosBackButton } from '@cube-frontend/ui-library'
 import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { EditTunings } from '@cube-frontend/web-app/components/UpsertTunings/EditTunings'
@@ -6,11 +9,11 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useEditTuningsStore } from '@cube-frontend/web-app/stores/editTuningsStore'
-import { useContext } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router'
 
 export const EditTuningsPage = () => {
   const navigate = useNavigate()
+
+  const { t } = useTranslation()
 
   const initialData = useEditTuningsStore((store) => store.initialData)
 
@@ -48,7 +51,9 @@ export const EditTuningsPage = () => {
     )
   }
 
-  const title = initialData.hosts?.length ? 'Edit Tunings' : 'Create Tunings'
+  const title = initialData.hosts?.length
+    ? t('maintenance.tunings.upsert.edit.title')
+    : t('maintenance.tunings.upsert.create.title')
 
   return (
     <div className="my-1">

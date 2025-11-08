@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { GetCosBasicTable } from '@cube-frontend/ui-library'
 import CheckmarkBold from '@cube-frontend/ui-library/icons/monochrome/checkmark_bold.svg?react'
@@ -26,6 +27,8 @@ const checkmark = cva('icon-md', {
 export const TuningSpecTable = (props: TuningSpecTableProps) => {
   const { selectedSpec, isLoading, rows, onRowClick } = props
 
+  const { t } = useTranslation()
+
   return (
     <SpecTable
       isLoading={isLoading}
@@ -44,17 +47,26 @@ export const TuningSpecTable = (props: TuningSpecTableProps) => {
         )}
       </SpecTable.Column>
       <SpecTable.Column
-        label="Key"
+        label={t('maintenance.tunings.upsert.key')}
         property="name"
         emphasize={(row) => row.name === selectedSpec?.name}
       />
-      <SpecTable.Column label="Default Value" property="limitation">
+      <SpecTable.Column
+        label={t('maintenance.tunings.upsert.defaultValue')}
+        property="limitation"
+      >
         {(limitation) => limitation.default.toString()}
       </SpecTable.Column>
-      <SpecTable.Column label="Limitation" property="limitation">
+      <SpecTable.Column
+        label={t('maintenance.tunings.upsert.limitation')}
+        property="limitation"
+      >
         {(limitation) => formatLimitation(limitation)}
       </SpecTable.Column>
-      <SpecTable.Column label="Description" property="description" />
+      <SpecTable.Column
+        label={t('maintenance.tunings.upsert.description')}
+        property="description"
+      />
     </SpecTable>
   )
 }

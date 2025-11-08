@@ -1,6 +1,7 @@
-import { isIPv4 } from '@cube-frontend/web-app/utils/ip'
-import { cva } from 'class-variance-authority'
 import { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
+import { cva } from 'class-variance-authority'
+import { isIPv4 } from '@cube-frontend/web-app/utils/ip'
 import { IpRange } from './useHostFilter'
 
 type IpRangeInputsProps = {
@@ -30,13 +31,15 @@ export const IpRangeInputs = (props: IpRangeInputsProps) => {
     onChange,
   } = props
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex items-center gap-x-2">
       <input
         className={input({
           hasError: !!start && !isIPv4(start),
         })}
-        placeholder="IP range"
+        placeholder={t('maintenance.tunings.upsert.ipRange')}
         value={start}
         onChange={(e) => onChange('start', e)}
       />
@@ -45,7 +48,7 @@ export const IpRangeInputs = (props: IpRangeInputsProps) => {
         className={input({
           hasError: !!end && !isIPv4(end),
         })}
-        placeholder="IP range"
+        placeholder={t('maintenance.tunings.upsert.ipRange')}
         value={end}
         onChange={(e) => onChange('end', e)}
       />

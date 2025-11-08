@@ -1,10 +1,11 @@
+import { ChangeEvent, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   ListTuningResponseDataTuningsInnerLimitationDefault,
   ListTuningSpecResponseDataInnerLimitation,
   TuningLimitationType,
 } from '@cube-frontend/api'
 import { CosRadioButton, CosTableInput } from '@cube-frontend/ui-library'
-import { ChangeEvent, ReactNode } from 'react'
 
 type TuningValueControlProps = {
   limitation: ListTuningSpecResponseDataInnerLimitation
@@ -16,13 +17,17 @@ type TuningValueControlProps = {
 export const TuningValueControl = (props: TuningValueControlProps) => {
   const { limitation, value, isValueValid, onChange } = props
 
+  const { t } = useTranslation()
+
   const renderInput = () => {
     return (
       <CosTableInput
         className="w-[280px]"
-        placeholder="Value"
+        placeholder={t('maintenance.tunings.upsert.value')}
         value={value?.toString() ?? ''}
-        errorMessage={!isValueValid && 'Invalid value'}
+        errorMessage={
+          !isValueValid && t('maintenance.tunings.upsert.invalidValue')
+        }
         onChange={onChange}
       />
     )

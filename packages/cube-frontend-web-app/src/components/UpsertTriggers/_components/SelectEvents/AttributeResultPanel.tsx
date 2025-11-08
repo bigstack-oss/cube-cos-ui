@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CosSkeleton } from '@cube-frontend/ui-library'
 import { GetPredefinedEventFilterResponseDataInner } from '@cube-frontend/api'
 
@@ -12,12 +13,18 @@ export const AttributeResultPanel = (props: AttributeResultPanelProps) => {
 
   const matchingEventIds = matchingEvents.map((event) => event.id)
 
+  const { t } = useTranslation()
+
   const renderResultIds = () => {
     if (isMatchingEventsLoading)
       return <CosSkeleton className="h-[16px] w-[120px]" />
 
     if (matchingEventIds.length === 0)
-      return <p className="primary-body4 text-functional-text">No Result</p>
+      return (
+        <p className="primary-body4 text-functional-text">
+          {t('events.triggers.upsert.attributeResult.noResult')}
+        </p>
+      )
 
     return (
       <Fragment>

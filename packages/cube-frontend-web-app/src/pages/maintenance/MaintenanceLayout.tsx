@@ -21,7 +21,7 @@ export const MaintenanceLayout = () => {
         </Link>
         <Link to={links.tunings}>
           <CosTabs.Tab isActive={location.pathname === links.tunings}>
-            Tunings
+            {t('maintenance.tunings.title')}
           </CosTabs.Tab>
         </Link>
         <Link to={links.license}>

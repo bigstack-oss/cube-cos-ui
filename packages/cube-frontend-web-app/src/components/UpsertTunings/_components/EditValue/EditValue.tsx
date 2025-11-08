@@ -7,6 +7,7 @@ import { TuningValueControl } from '../SelectKeyValue/TuningValueControl'
 import { validateTuningValue } from '../SelectKeyValue/validateTuningValue'
 import { SpecEntry } from '../SpecEntry'
 import { Board } from '../Board'
+import { useTranslation } from 'react-i18next'
 
 type EditValueProps = {
   isLoading: boolean
@@ -19,6 +20,8 @@ type EditValueProps = {
 export const EditValue = (props: EditValueProps) => {
   const { isLoading, payload, selectedSpec, onValueChange, onNextClick } = props
 
+  const { t } = useTranslation()
+
   const isValueValid = useMemo<boolean>(
     () => validateTuningValue(selectedSpec?.limitation, payload?.value),
     [selectedSpec?.limitation, payload?.value],
@@ -28,7 +31,9 @@ export const EditValue = (props: EditValueProps) => {
     return (
       <Board>
         <p className="primary-body3 text-functional-disable-text">
-          {`Cannot find tuning with key ${payload?.selectedSpecName}`}
+          {t('maintenance.tunings.upsert.cantFindKeyMessage', {
+            key: payload?.selectedSpecName,
+          })}
         </p>
       </Board>
     )
@@ -37,14 +42,14 @@ export const EditValue = (props: EditValueProps) => {
   return (
     <Board>
       <p className="primary-body3 text-functional-text">
-        Please enter a new Value.
+        {t('maintenance.tunings.upsert.keyValueStepEditMessage')}
       </p>
       <CosStroke type="regular" />
       <SpecEntry
         isLoading={isLoading}
         specName={selectedSpec?.name}
         limitation={selectedSpec?.limitation}
-        valueLabel="Enter Value"
+        valueLabel={t('maintenance.tunings.upsert.enterValue')}
       >
         {selectedSpec && (
           <TuningValueControl
@@ -63,7 +68,7 @@ export const EditValue = (props: EditValueProps) => {
         disabled={isLoading || !isValueValid}
         onClick={onNextClick}
       >
-        Next
+        {t('maintenance.tunings.upsert.next')}
       </CosButton>
     </Board>
   )

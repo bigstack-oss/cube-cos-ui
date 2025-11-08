@@ -1,5 +1,6 @@
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { modifiedOptions } from './tuningsUtils'
+import { useTranslation } from 'react-i18next'
 
 type ModifiedStatusDropdownProps = {
   selectedModified: boolean[]
@@ -9,6 +10,8 @@ type ModifiedStatusDropdownProps = {
 
 export const ModifiedStatusDropdown = (props: ModifiedStatusDropdownProps) => {
   const { selectedModified, onItemClick, onAllCheckChange } = props
+
+  const { t } = useTranslation()
 
   const onClearSelection = (): void => {
     onAllCheckChange(false)
@@ -23,8 +26,13 @@ export const ModifiedStatusDropdown = (props: ModifiedStatusDropdownProps) => {
       onAllCheckChange={onAllCheckChange}
       onClearSelection={onClearSelection}
     >
-      <CosDropdown.Trigger className="w-[168px]" placeholder="Modify Statuses">
-        {selectedModified.length ? 'Modify Statuses' : undefined}
+      <CosDropdown.Trigger
+        className="w-[168px]"
+        placeholder={t('maintenance.tunings.modifyStatuses')}
+      >
+        {selectedModified.length
+          ? t('maintenance.tunings.modifyStatuses')
+          : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
         {modifiedOptions.map((modified) => (
@@ -33,7 +41,9 @@ export const ModifiedStatusDropdown = (props: ModifiedStatusDropdownProps) => {
             item={modified}
             onClick={() => onItemClick(modified)}
           >
-            {modified ? 'Modified' : 'Unmodified'}
+            {modified
+              ? t('maintenance.tunings.modifyStatus.modified')
+              : t('maintenance.tunings.modifyStatus.unmodified')}
           </CosDropdown.Item>
         ))}
       </CosDropdown.Menu>

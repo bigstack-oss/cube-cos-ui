@@ -15,6 +15,7 @@ import { cva } from 'class-variance-authority'
 import { useMemo } from 'react'
 import { Link } from 'react-router'
 import { TuningRow } from '../../tuningsUtils'
+import { useTranslation } from 'react-i18next'
 
 const { setInitialData } = useEditTuningsStore.getState()
 
@@ -55,14 +56,16 @@ export const ActionCell = (props: ActionCellProps) => {
     status: { isUpdating },
   } = row
 
+  const { t } = useTranslation()
+
   const toggleHoverContent = useMemo<CosTooltipInformation | undefined>(() => {
     if (isModified) {
       return undefined
     }
     return {
-      message: 'Default key is not allowed to turn off.',
+      message: t('maintenance.tunings.disableSwitch.tooltip'),
     }
-  }, [isModified])
+  }, [isModified, t])
 
   const renderEditButton = () => {
     const iconElement = (
@@ -92,7 +95,7 @@ export const ActionCell = (props: ActionCellProps) => {
       return (
         <IconActionButton
           Icon={ArrowRotateLeft}
-          hoverMessage="Reset to default value"
+          hoverMessage={t('maintenance.tunings.disableReset.tooltip')}
           disabled={isUpdating}
           onClick={onResetClick}
         />

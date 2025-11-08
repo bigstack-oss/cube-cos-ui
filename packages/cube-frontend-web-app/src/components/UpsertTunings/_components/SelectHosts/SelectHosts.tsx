@@ -1,7 +1,8 @@
+import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Node } from '@cube-frontend/api'
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
-import { useMemo } from 'react'
 import { HostWithRole, UpsertTuningsPayload } from '../../upsertTuningsUtils'
 import { SpecEntry } from '../SpecEntry'
 import { TuningsPreviousButton } from '../TuningsPreviousButton'
@@ -28,6 +29,8 @@ export const SelectHosts = (props: SelectHostsProps) => {
     onNextClick,
   } = props
 
+  const { t } = useTranslation()
+
   const selectedHostNames = useMemo<Set<string>>(() => {
     return new Set(selectedHosts.map((host) => host.name))
   }, [selectedHosts])
@@ -48,12 +51,15 @@ export const SelectHosts = (props: SelectHostsProps) => {
 
   return (
     <Board>
-      <SpecEntry specName={selectedSpecName!} valueLabel="New Value">
+      <SpecEntry
+        specName={selectedSpecName!}
+        valueLabel={t('maintenance.tunings.upsert.newValue')}
+      >
         <p className="primary-body3 py-[9px]">{value!.toString()}</p>
       </SpecEntry>
       <CosStroke type="dot" />
       <p className="primary-body3 text-functional-text">
-        Please select the hosts to apply the tuning.
+        {t('maintenance.tunings.upsert.selectHostStepMessage')}
       </p>
       <HostFilter
         filter={filter}
@@ -79,7 +85,7 @@ export const SelectHosts = (props: SelectHostsProps) => {
           disabled={!selectedHosts.length}
           onClick={onNextClick}
         >
-          Next
+          {t('maintenance.tunings.upsert.next')}
         </CosButton>
       </div>
     </Board>

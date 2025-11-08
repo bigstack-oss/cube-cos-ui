@@ -1,6 +1,7 @@
+import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { CosButton, GetCosBasicTable } from '@cube-frontend/ui-library'
-import { useMemo, useState } from 'react'
 import {
   hostToPreviewRow,
   NonNullableUpsertTuningsPayload,
@@ -31,6 +32,8 @@ export const PublishTuning = (props: PublishTuningProps) => {
 
   const { selectedSpecName, value, selectedHosts } = payload
 
+  const { t } = useTranslation()
+
   const [isLoading, setIsLoading] = useState(false)
 
   const rows = useMemo<PreviewRow[]>(
@@ -57,21 +60,31 @@ export const PublishTuning = (props: PublishTuningProps) => {
 
   return (
     <Board>
-      <SpecEntry specName={selectedSpecName} valueLabel="New Value">
+      <SpecEntry
+        specName={selectedSpecName}
+        valueLabel={t('maintenance.tunings.upsert.newValue')}
+      >
         <p className="primary-body3 py-[9px]">{value!.toString()}</p>
       </SpecEntry>
       <PreviewTable rows={rows}>
         <PreviewTable.Column
           property="host"
-          label="Apply to these hosts"
+          label={t('maintenance.tunings.upsert.applyToTheseHosts')}
           fitContent={true}
         >
           {(host) => <span className="whitespace-nowrap">{host.name}</span>}
         </PreviewTable.Column>
-        <PreviewTable.Column property="host" label="Roles" fitContent={true}>
+        <PreviewTable.Column
+          property="host"
+          label={t('maintenance.tunings.upsert.roles')}
+          fitContent={true}
+        >
           {(host) => <span className="whitespace-nowrap">{host.role}</span>}
         </PreviewTable.Column>
-        <PreviewTable.Column property="host" label="IP">
+        <PreviewTable.Column
+          property="host"
+          label={t('maintenance.tunings.upsert.ip')}
+        >
           {(host) => host.ip}
         </PreviewTable.Column>
       </PreviewTable>
@@ -85,7 +98,7 @@ export const PublishTuning = (props: PublishTuningProps) => {
           loading={isLoading}
           onClick={onPublishClick}
         >
-          Publish
+          {t('maintenance.tunings.upsert.publish')}
         </CosButton>
       </div>
     </Board>

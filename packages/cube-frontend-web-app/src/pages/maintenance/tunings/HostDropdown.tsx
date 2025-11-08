@@ -1,9 +1,10 @@
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Node, NodesApiGetNodesRequest } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useContext } from 'react'
 
 type HostDropdownProps = {
   selectedHosts: string[]
@@ -17,6 +18,8 @@ export const HostDropdown = (props: HostDropdownProps) => {
     onItemClick,
     onAllCheckChange: onAllCheckChangeProp,
   } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -55,8 +58,11 @@ export const HostDropdown = (props: HostDropdownProps) => {
       onAllCheckChange={onAllCheckChange}
       onClearSelection={onClearSelection}
     >
-      <CosDropdown.Trigger className="w-36" placeholder="Hosts">
-        {selectedHosts.length ? 'Hosts' : undefined}
+      <CosDropdown.Trigger
+        className="w-36"
+        placeholder={t('maintenance.tunings.hosts')}
+      >
+        {selectedHosts.length ? t('maintenance.tunings.hosts') : undefined}
       </CosDropdown.Trigger>
       <CosDropdown.Menu>
         {nodes.map((node) => (

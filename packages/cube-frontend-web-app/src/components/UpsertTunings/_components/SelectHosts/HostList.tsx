@@ -1,6 +1,7 @@
-import { CosCheckbox } from '@cube-frontend/ui-library'
 import { range, unionBy } from 'lodash'
 import { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
+import { CosCheckbox } from '@cube-frontend/ui-library'
 import { HostWithRole } from '../../upsertTuningsUtils'
 
 type HostListProps = {
@@ -19,6 +20,8 @@ export const HostList = (props: HostListProps) => {
     selectedHostNames,
     onChange,
   } = props
+
+  const { t } = useTranslation()
 
   const onSelectAllChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { checked } = e.target
@@ -46,11 +49,13 @@ export const HostList = (props: HostListProps) => {
           <CosCheckbox key={index} label="" isLoading={true} />
         ))
       ) : !visibleHosts.length ? (
-        <p className="primary-body2 text-functional-text-light">No Result</p>
+        <p className="primary-body2 text-functional-text-light">
+          {t('maintenance.tunings.upsert.noResult')}
+        </p>
       ) : (
         <>
           <CosCheckbox
-            label="Select all"
+            label={t('maintenance.tunings.upsert.selectAll')}
             checked={visibleHosts.length === selectedHostNames.size}
             onChange={onSelectAllChange}
           />

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { CosPagination, CosSearchBarFilter } from '@cube-frontend/ui-library'
 import { TuningSpecTable } from './TuningSpecTable'
@@ -15,6 +16,8 @@ type TuningSpecTableSectionProps = {
 export const TuningSpecTableSection = (props: TuningSpecTableSectionProps) => {
   const { isLoading, specs, selectedSpec, specFilter, onSpecSelect } = props
 
+  const { t } = useTranslation()
+
   const {
     filter,
     onKeywordChange,
@@ -29,7 +32,7 @@ export const TuningSpecTableSection = (props: TuningSpecTableSectionProps) => {
     <div className="flex flex-col gap-y-4">
       <div className="w-[480px]">
         <CosSearchBarFilter
-          placeholder="Search key or description"
+          placeholder={t('maintenance.tunings.upsert.searchKeyPlaceholder')}
           value={filter.keyword}
           isLoading={isLoading}
           onChange={onKeywordChange}

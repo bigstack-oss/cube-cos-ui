@@ -1,3 +1,6 @@
+import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import dayjs from 'dayjs'
 import { ListTuningResponseDataTuningsInnerStatus } from '@cube-frontend/api'
 import {
   CosButton,
@@ -14,8 +17,6 @@ import { HostListModal } from '@cube-frontend/web-app/components/HostPreviewTabl
 import { HostPreviewTableCell } from '@cube-frontend/web-app/components/HostPreviewTableCell/HostPreviewTableCell'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useOperationErrors } from '@cube-frontend/web-app/hooks/useOperationErrors/useOperationErrors'
-import dayjs from 'dayjs'
-import { Link } from 'react-router'
 import { ActionCell } from './_components/tableCells/ActionCell'
 import { TuningsFilter } from './TuningsFilter'
 import { TuningRow } from './tuningsUtils'
@@ -27,6 +28,8 @@ import { useTuningRows } from './useTuningRows'
 const TuningTable = GetCosBasicTable<TuningRow>()
 
 export const MaintenanceTuningsPage = () => {
+  const { t } = useTranslation()
+
   const {
     query,
     keywordDebouncedQuery,
@@ -80,14 +83,14 @@ export const MaintenanceTuningsPage = () => {
   }
 
   return (
-    <CosGeneralPanel topic="Tunings">
+    <CosGeneralPanel topic={t('maintenance.tunings.title')}>
       <div className="flex flex-col gap-y-6">
         <Link
           className="self-start"
           to={CosRoutesEnum.MAINTENANCE_TUNINGS_CREATE_PAGE}
         >
           <CosButton usage="icon-left" Icon={Plus}>
-            Create Tuning
+            {t('maintenance.tunings.createTuning')}
           </CosButton>
         </Link>
         {operationErrors.map((error, index) => (
@@ -112,7 +115,7 @@ export const MaintenanceTuningsPage = () => {
         <TuningTable isLoading={showLoading} rows={rows}>
           <TuningTable.Column
             property="name"
-            label="Name (Keys)"
+            label={t('maintenance.tunings.nameKeys')}
             emphasize={true}
           >
             {(name, row) => (
@@ -124,7 +127,10 @@ export const MaintenanceTuningsPage = () => {
               </div>
             )}
           </TuningTable.Column>
-          <TuningTable.Column property="hosts" label="Hosts">
+          <TuningTable.Column
+            property="hosts"
+            label={t('maintenance.tunings.hosts')}
+          >
             {(hosts, row) => (
               <HostPreviewTableCell
                 hostNames={hosts.map((h) => h.name)}
@@ -132,11 +138,20 @@ export const MaintenanceTuningsPage = () => {
               />
             )}
           </TuningTable.Column>
-          <TuningTable.Column property="status" label="Update Time">
+          <TuningTable.Column
+            property="status"
+            label={t('maintenance.tunings.updateTime')}
+          >
             {renderUpdateTime}
           </TuningTable.Column>
-          <TuningTable.Column property="description" label="Description" />
-          <TuningTable.Column property="value" label="Value" />
+          <TuningTable.Column
+            property="description"
+            label={t('maintenance.tunings.description')}
+          />
+          <TuningTable.Column
+            property="value"
+            label={t('maintenance.tunings.value')}
+          />
           <TuningTable.Column>
             {(_, row) => (
               <ActionCell
@@ -161,15 +176,15 @@ export const MaintenanceTuningsPage = () => {
           onCloseClick={onHostsModalClose}
         />
         <CosModal
-          title="Reset Tuning"
+          title={t('maintenance.tunings.resetTuningModal.title')}
           size="sm"
           isOpen={isResetModalOpen}
-          actionText="Reset"
+          actionText={t('maintenance.tunings.resetTuningModal.reset')}
           onActionClick={onConfirmReset}
           onCloseClick={onCloseResetModal}
         >
           <div className="primary-body2 text-functional-text">
-            Are you sure you want to reset this tuning to default?
+            {t('maintenance.tunings.resetTuningModal.resetConfirmation')}
           </div>
         </CosModal>
       </div>

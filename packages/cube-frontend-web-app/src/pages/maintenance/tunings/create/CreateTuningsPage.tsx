@@ -1,3 +1,6 @@
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link, useNavigate } from 'react-router'
 import { CosBackButton } from '@cube-frontend/ui-library'
 import { tuningsApi } from '@cube-frontend/web-app/api/cosApi'
 import { CreateTunings } from '@cube-frontend/web-app/components/UpsertTunings/CreateTunings'
@@ -5,11 +8,11 @@ import { NonNullableUpsertTuningsPayload } from '@cube-frontend/web-app/componen
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router'
 
 export const CreateTuningsPage = () => {
   const navigate = useNavigate()
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -47,7 +50,7 @@ export const CreateTuningsPage = () => {
           },
         }}
       >
-        Create Tunings
+        {t('maintenance.tunings.upsert.create.title')}
       </CosBackButton>
       <CreateTunings
         errorMessage={errorState?.api?.msg || errorState?.native.message}

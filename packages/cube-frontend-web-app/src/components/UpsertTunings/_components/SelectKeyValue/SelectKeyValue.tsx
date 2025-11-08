@@ -1,7 +1,8 @@
+import { ChangeEvent, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ListTuningSpecResponseDataInner } from '@cube-frontend/api'
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
 import ChevronRight from '@cube-frontend/ui-library/icons/monochrome/chevron_right.svg?react'
-import { ChangeEvent, useMemo } from 'react'
 import { UpsertTuningsPayloadValue } from '../../upsertTuningsUtils'
 import { SpecEntry } from '../SpecEntry'
 import { TuningSpecTableSection } from './TuningSpecTableSection'
@@ -33,6 +34,8 @@ export const SelectKeyValue = (props: SelectKeyValueProps) => {
     onNextClick,
   } = props
 
+  const { t } = useTranslation()
+
   const isValueValid = useMemo<boolean>(
     () => validateTuningValue(selectedSpec?.limitation, value),
     [selectedSpec?.limitation, value],
@@ -41,7 +44,7 @@ export const SelectKeyValue = (props: SelectKeyValueProps) => {
   return (
     <Board>
       <p className="primary-body3 text-functional-text">
-        Please select a pair of Key-Value and enter a new Value.
+        {t('maintenance.tunings.upsert.keyValueStepCreateMessage')}
       </p>
       <TuningSpecTableSection
         isLoading={isLoading}
@@ -53,7 +56,10 @@ export const SelectKeyValue = (props: SelectKeyValueProps) => {
       {!!selectedSpec && (
         <>
           <CosStroke type="regular" />
-          <SpecEntry specName={selectedSpec.name} valueLabel="Enter Value">
+          <SpecEntry
+            specName={selectedSpec.name}
+            valueLabel={t('maintenance.tunings.upsert.enterValue')}
+          >
             <TuningValueControl
               limitation={selectedSpec.limitation}
               value={value}
@@ -71,7 +77,7 @@ export const SelectKeyValue = (props: SelectKeyValueProps) => {
         disabled={!isValueValid}
         onClick={onNextClick}
       >
-        Next
+        {t('maintenance.tunings.upsert.next')}
       </CosButton>
     </Board>
   )
