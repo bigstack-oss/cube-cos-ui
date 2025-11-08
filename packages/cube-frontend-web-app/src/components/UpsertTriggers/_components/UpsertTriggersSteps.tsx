@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosStepProcess } from '@cube-frontend/ui-library'
 import { UpsertTriggersStep } from '../upsertTriggersUtils'
 
@@ -5,23 +6,25 @@ type UpsertTriggersStepsProps = {
   step: UpsertTriggersStep
 }
 
-const stepItems = [
-  {
-    label: 'Select Events',
-    step: UpsertTriggersStep.SelectEvents,
-  },
-  {
-    label: 'Set Response',
-    step: UpsertTriggersStep.SetResponse,
-  },
-  {
-    label: 'Add Description',
-    step: UpsertTriggersStep.AddDescription,
-  },
-]
-
 export const UpsertTriggersSteps = (props: UpsertTriggersStepsProps) => {
   const { step } = props
+
+  const { t } = useTranslation()
+
+  const stepItems = [
+    {
+      label: t('events.triggers.upsert.steps.selectEvents'),
+      step: UpsertTriggersStep.SelectEvents,
+    },
+    {
+      label: t('events.triggers.upsert.steps.setResponse'),
+      step: UpsertTriggersStep.SetResponse,
+    },
+    {
+      label: t('events.triggers.upsert.steps.addDescription'),
+      step: UpsertTriggersStep.AddDescription,
+    },
+  ]
 
   return (
     <CosStepProcess>

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { isAxiosError } from 'axios'
 import { upperFirst } from 'lodash'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -33,6 +34,8 @@ export const useUploadScript = (
   options: UseUploadScriptOptions,
 ): UseUploadScript => {
   const { isModalOpen, script, onVerifyScriptSuccess } = options
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -78,7 +81,9 @@ export const useUploadScript = (
 
     if (file.size > MAX_SIZE_IN_BYTES) {
       onScriptClear()
-      setErrorMessage('File is too large. Maximum allowed size is 10MiB.')
+      setErrorMessage(
+        t('events.triggers.upsert.personalizedScript.fileSizeOverLimit'),
+      )
       return
     }
 
@@ -87,7 +92,9 @@ export const useUploadScript = (
       setScriptInfo({ name: file.name, content: base64 })
       setShowScriptTestResult({ status: 'untested' })
     } catch {
-      setErrorMessage('Failed to read script file.')
+      setErrorMessage(
+        t('events.triggers.upsert.personalizedScript.failedToReadScriptFile'),
+      )
     }
   }
 
@@ -100,7 +107,7 @@ export const useUploadScript = (
 
     setShowScriptTestResult({
       status: 'testing',
-      message: 'Running script test...',
+      message: t('events.triggers.upsert.personalizedScript.runningScriptTest'),
     })
 
     try {
@@ -109,10 +116,13 @@ export const useUploadScript = (
         verifyMaterialScriptRequest: { script: scriptInfo.content },
       })
 
-      const formattedResult =
-        `Script:\n` +
-        `${testResult.data.data}\n\n` +
-        `Result:\n${upperFirst(testResult.data.msg)}`
+      const formattedResult = t(
+        'events.triggers.upsert.personalizedScript.verifySuccessMessage',
+        {
+          script: testResult.data.data,
+          result: upperFirst(testResult.data.msg),
+        },
+      )
 
       setShowScriptTestResult({
         status: 'testSucceeded',
@@ -129,9 +139,14 @@ export const useUploadScript = (
       } else {
         setShowScriptTestResult({
           status: 'testFailed',
-          message:
-            `Error occurred when verifying script:\n\n` +
-            (error || 'Unknown error'),
+          message: t(
+            'events.triggers.upsert.personalizedScript.verifyFailedMessage',
+            {
+              error:
+                error ||
+                t('events.triggers.upsert.personalizedScript.unknownError'),
+            },
+          ),
         })
       }
     }

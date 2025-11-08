@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
 import { CosBackButton } from '@cube-frontend/ui-library'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
@@ -11,6 +12,8 @@ import { payloadToCreateRequest } from '../utils'
 
 export const CreateTriggersPage = () => {
   const navigate = useNavigate()
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -46,7 +49,7 @@ export const CreateTriggersPage = () => {
           },
         }}
       >
-        Create Triggers
+        {t('events.triggers.create.title')}
       </CosBackButton>
       <CreateTriggers
         isPublishing={isPublishing}

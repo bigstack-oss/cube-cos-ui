@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   GetTriggerMaterialsResponseDataResponseScriptType,
   TriggerResponseScript,
@@ -10,7 +12,6 @@ import {
   CosStroke,
   CosUpload,
 } from '@cube-frontend/ui-library'
-import { useEffect, useRef } from 'react'
 import { UpsertTriggersPayload } from '../../../upsertTriggersUtils'
 import { useUploadScript } from './useUploadScript'
 
@@ -32,6 +33,8 @@ export const PersonalizedScriptModal = (
     onScriptChange,
     onModalClose: closeModal,
   } = props
+
+  const { t } = useTranslation()
 
   const modalBodyRef = useRef<HTMLDivElement | null>(null)
 
@@ -95,7 +98,11 @@ export const PersonalizedScriptModal = (
       return null
 
     return (
-      <CosLogConsole title={{ label: 'Test Result' }}>
+      <CosLogConsole
+        title={{
+          label: t('events.triggers.upsert.personalizedScript.testResult'),
+        }}
+      >
         {showScriptTestResult.message ?? ''}
       </CosLogConsole>
     )
@@ -107,21 +114,21 @@ export const PersonalizedScriptModal = (
       href="https://bigstack-oss.github.io/bigstack-document/docs/knowledge-base/cubecos/custom-scripts-for-triggers#sample-script-and-enviornment-information"
       target="_blank"
     >
-      View example
+      {t('events.triggers.upsert.personalizedScript.viewExample')}
     </CosHyperlink>
   )
 
   const osHint = (
     <p className="primary-body2 text-functional-text">
-      {`OS: ${scriptType.environment}`}
+      {`${t('events.triggers.upsert.personalizedScript.os')}: ${scriptType.environment}`}
     </p>
   )
 
   return (
     <CosModal
       isOpen={isModalOpen}
-      title="Personalized Script"
-      actionText="Set Response"
+      title={t('events.triggers.upsert.personalizedScript')}
+      actionText={t('events.triggers.upsert.personalizedScript.setResponse')}
       onActionClick={onActionClick}
       onCloseClick={onModalCloseWithoutAddingScriptToPayload}
       actionButtonProps={{ disabled: isValidating || !isScriptValid }}
@@ -130,7 +137,10 @@ export const PersonalizedScriptModal = (
       <div className="flex flex-col gap-y-8">
         <CosUpload
           disabled={isValidating}
-          buttonText={`Upload ${scriptType.language} Script`}
+          buttonText={t(
+            'events.triggers.upsert.personalizedScript.uploadScript',
+            { language: scriptType.language },
+          )}
           leftSlot={osHint}
           rightSlot={hyperlink}
           onFileChange={onFileChange}
@@ -146,7 +156,7 @@ export const PersonalizedScriptModal = (
           onClick={onTestRunningButtonClick}
           className="w-fit"
         >
-          Test Running
+          {t('events.triggers.upsert.personalizedScript.testRunning')}
         </CosButton>
         {renderTestResult()}
       </div>

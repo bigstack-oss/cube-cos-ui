@@ -1,5 +1,6 @@
 import { ReactNode, useContext } from 'react'
 import { Navigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { CosStroke } from '@cube-frontend/ui-library'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -29,6 +30,8 @@ type CreateTriggersProps = {
 
 export const CreateTriggers = (props: CreateTriggersProps) => {
   const { isPublishing, errorMessage, onCreateClick } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -111,7 +114,7 @@ export const CreateTriggers = (props: CreateTriggersProps) => {
       <AddDescription
         isLoading={false}
         isPublishing={isPublishing}
-        nextButtonText="Create"
+        nextButtonText={t('events.triggers.upsert.create')}
         payload={payload}
         errorMessage={errorMessage}
         onNameChange={onNameChange}

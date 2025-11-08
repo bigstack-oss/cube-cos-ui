@@ -1,6 +1,7 @@
 import { ReactNode, useContext } from 'react'
-import { every, isEqual, noop } from 'lodash'
 import { Navigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import { every, isEqual, noop } from 'lodash'
 import { CosStroke } from '@cube-frontend/ui-library'
 import {
   EventsApiGetPredefinedEventsRequest,
@@ -38,6 +39,8 @@ export const EditTriggers = (props: EditTriggersProps) => {
     errorMessage,
     onPublishClick,
   } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -166,7 +169,7 @@ export const EditTriggers = (props: EditTriggersProps) => {
         isLoading={isInitialDataLoading}
         isPublishing={isPublishing}
         isEditMode={true}
-        nextButtonText="Update"
+        nextButtonText={t('events.triggers.upsert.update')}
         payload={confirmedPayload}
         errorMessage={errorMessage}
         onNameChange={onNameChange}

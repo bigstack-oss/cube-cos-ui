@@ -10,6 +10,7 @@ import {
   EmailRecipientTableRow,
   SlackChannelTableRow,
 } from './_components/SetResponse/SetResponse'
+import { useTranslation } from 'react-i18next'
 
 export enum UpsertTriggersStep {
   SelectEvents = 'selectEvents',
@@ -49,6 +50,52 @@ export const attributeLabelMap: Record<TriggerAttributeKeys, string> = {
   eventIds: 'Event Id',
 }
 
+export const useAttributeSelectAllLabelMap = (): Record<
+  TriggerAttributeKeys,
+  string
+> => {
+  const { t } = useTranslation()
+
+  const attributeLabelMap: Record<TriggerAttributeKeys, string> = {
+    alertTypes: t('events.triggers.upsert.addAttributes.allAlertTypes'),
+    severities: t('events.triggers.upsert.addAttributes.allSeverities'),
+    categories: t('events.triggers.upsert.addAttributes.allCategories'),
+    eventIds: t('events.triggers.upsert.addAttributes.allEventIds'),
+  }
+
+  return attributeLabelMap
+}
+
+export const useAttributeLabelMap = (): Record<
+  TriggerAttributeKeys,
+  string
+> => {
+  const { t } = useTranslation()
+
+  const attributeLabelMap: Record<TriggerAttributeKeys, string> = {
+    alertTypes: t('events.triggers.upsert.addAttributes.alertType'),
+    severities: t('events.triggers.upsert.addAttributes.severity'),
+    categories: t('events.triggers.upsert.addAttributes.category'),
+    eventIds: t('events.triggers.upsert.addAttributes.eventId'),
+  }
+
+  return attributeLabelMap
+}
+
+export const useAlertTypeLabelMap = (): Record<
+  GetPredefinedEventsTypesEnum,
+  string
+> => {
+  const { t } = useTranslation()
+
+  const eventTypeLabelMap: Record<GetPredefinedEventsTypesEnum, string> = {
+    host: t('events.triggers.upsert.addAttributes.host'),
+    instance: t('events.triggers.upsert.addAttributes.instance'),
+    system: t('events.triggers.upsert.addAttributes.system'),
+  }
+
+  return eventTypeLabelMap
+}
 export const isEventsValid = ({
   alertTypes,
   severities,

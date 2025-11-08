@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { CosBackButton } from '@cube-frontend/ui-library'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { EditTriggers } from '@cube-frontend/web-app/components/UpsertTriggers/EditTriggers'
@@ -34,6 +35,8 @@ export const EditTriggersPage = () => {
     clearError,
   } = useCosMutationRequest(triggersApi.updateTrigger)
 
+  const { t } = useTranslation()
+
   const onPublishClick = async (payload: UpsertTriggersPayload) => {
     clearError()
 
@@ -64,7 +67,7 @@ export const EditTriggersPage = () => {
           },
         }}
       >
-        Edit Triggers
+        {t('events.triggers.edit.title')}
       </CosBackButton>
       <EditTriggers
         isPublishing={isPublishing}

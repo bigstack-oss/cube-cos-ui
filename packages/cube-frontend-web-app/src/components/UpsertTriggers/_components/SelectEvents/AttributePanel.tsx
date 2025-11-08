@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { isEmpty } from 'lodash'
 import { CosButton, CosSkeleton, CosStroke } from '@cube-frontend/ui-library'
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
@@ -9,10 +10,11 @@ import {
   GetPredefinedEventsTypesEnum,
 } from '@cube-frontend/api'
 import {
-  attributeLabelMap,
   TriggerAttribute,
   TriggerAttributeKeys,
   UpsertTriggersPayload,
+  useAlertTypeLabelMap,
+  useAttributeLabelMap,
 } from '../../upsertTriggersUtils'
 import { TriggersStackCard } from '../TriggersStackCard'
 import { AddAttributeModal } from './AddAttributeModal'
@@ -63,6 +65,11 @@ export const AttributePanel = (props: AttributePanelProps) => {
     onEventIdSelect,
     onResetClick,
   } = props
+
+  const { t } = useTranslation()
+
+  const attributeLabelMap = useAttributeLabelMap()
+  const alertTypeLabelMap = useAlertTypeLabelMap()
 
   const [isModelOpen, setIsModelOpen] = useState(false)
 
@@ -119,7 +126,7 @@ export const AttributePanel = (props: AttributePanelProps) => {
     return (
       <TriggersStackCard
         title={attributeLabelMap.alertTypes}
-        tags={alertTypes}
+        tags={alertTypes.map((alertType) => alertTypeLabelMap[alertType])}
         actionsDisabled={isBuiltIn}
         onEditClick={() => onEditAttributeButtonClick('alertTypes')}
         onRemoveClick={() => onAlertTypeSelect([])}
@@ -211,7 +218,7 @@ export const AttributePanel = (props: AttributePanelProps) => {
             checkIsAllSelected()
           }
         >
-          Add Attributes
+          {t('events.triggers.upsert.addAttributes.addAttributes')}
         </CosButton>
 
         <div className="flex">
@@ -220,7 +227,7 @@ export const AttributePanel = (props: AttributePanelProps) => {
             onClick={onResetClick}
             disabled={isInitialDataLoading || isBuiltIn || !isAttributeChanged}
           >
-            Reset
+            {t('events.triggers.upsert.addAttributes.reset')}
           </CosButton>
         </div>
       </div>

@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next'
 import { CosButton } from '@cube-frontend/ui-library'
 
 export const TriggersPreviousButton = () => {
+  const { t } = useTranslation()
+
   return (
     <CosButton
       size="md"
@@ -9,7 +12,7 @@ export const TriggersPreviousButton = () => {
       onClick={() => history.back()}
       className="w-fit"
     >
-      Previous
+      {t('events.triggers.upsert.previous')}
     </CosButton>
   )
 }

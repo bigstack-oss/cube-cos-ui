@@ -8,6 +8,7 @@ import {
 import { UpsertTriggersPayload } from '../../upsertTriggersUtils'
 import { TriggersPreviousButton } from '../TriggersPreviousButton'
 import { twMerge } from 'tailwind-merge'
+import { useTranslation } from 'react-i18next'
 
 type AddDescriptionProps = {
   isLoading: boolean
@@ -39,14 +40,16 @@ export const AddDescription = (props: AddDescriptionProps) => {
 
   const isValueValid = !!payload.name
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col gap-y-4">
       <CosGeneralPanel>
         <div className="flex flex-col gap-y-4">
           <CosInput
             isLoading={isLoading}
-            label="Trigger Name (used for identification)"
-            placeholder="Name"
+            label={t('events.triggers.upsert.triggerName.title')}
+            placeholder={t('events.triggers.upsert.triggerName.placeholder')}
             value={payload?.name}
             onChange={onNameChange}
             className={twMerge(
@@ -57,8 +60,8 @@ export const AddDescription = (props: AddDescriptionProps) => {
           />
           <CosTextArea
             isLoading={isLoading}
-            label="Description"
-            placeholder="Description"
+            label={t('events.triggers.upsert.description.title')}
+            placeholder={t('events.triggers.upsert.description.placeholder')}
             maxLength={200}
             value={payload?.description}
             onChange={onDescriptionChange}

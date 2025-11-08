@@ -1,5 +1,6 @@
 import { GetCosBatchActionTable } from '@cube-frontend/ui-library'
 import { SlackChannelTableRow } from '../SetResponse'
+import { useTranslation } from 'react-i18next'
 
 const SlackChannelTable = GetCosBatchActionTable<SlackChannelTableRow>()
 
@@ -18,6 +19,8 @@ export const SlackBatchActionTable = (props: SlackBatchActionTableProps) => {
     onCheckChange: onRowCheckChange,
   } = props
 
+  const { t } = useTranslation()
+
   const selectedRowIds = selectedRows.map((row) => row.id)
 
   const onCheckChange = (id: string) => {
@@ -29,7 +32,9 @@ export const SlackBatchActionTable = (props: SlackBatchActionTableProps) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <h5 className="secondary-h5">Select Slack Channels</h5>
+      <h5 className="secondary-h5">
+        {t('events.triggers.upsert.sendNotification.selectSlackChannels')}
+      </h5>
       <SlackChannelTable
         isLoading={isLoading}
         rows={rows}
@@ -38,9 +43,18 @@ export const SlackBatchActionTable = (props: SlackBatchActionTableProps) => {
         showHeaderCheckbox={false}
         skeletonRowCount={5}
       >
-        <SlackChannelTable.Column label="Slack Channel" property="name" />
-        <SlackChannelTable.Column label="URL" property="url" />
-        <SlackChannelTable.Column label="Description" property="description" />
+        <SlackChannelTable.Column
+          label={t('events.triggers.upsert.sendNotification.slackChannel')}
+          property="name"
+        />
+        <SlackChannelTable.Column
+          label={t('events.triggers.upsert.sendNotification.url')}
+          property="url"
+        />
+        <SlackChannelTable.Column
+          label={t('events.triggers.upsert.sendNotification.description')}
+          property="description"
+        />
       </SlackChannelTable>
     </div>
   )

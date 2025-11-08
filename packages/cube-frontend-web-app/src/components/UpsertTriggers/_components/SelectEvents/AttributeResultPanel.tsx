@@ -11,9 +11,9 @@ type AttributeResultPanelProps = {
 export const AttributeResultPanel = (props: AttributeResultPanelProps) => {
   const { isMatchingEventsLoading, matchingEvents } = props
 
-  const matchingEventIds = matchingEvents.map((event) => event.id)
-
   const { t } = useTranslation()
+
+  const matchingEventIds = matchingEvents.map((event) => event.id)
 
   const renderResultIds = () => {
     if (isMatchingEventsLoading)
@@ -44,7 +44,7 @@ export const AttributeResultPanel = (props: AttributeResultPanelProps) => {
   return (
     <div className="flex flex-col gap-y-4">
       <p className="primary-body3 text-functional-text-light">
-        The right panel displays real-time values of the selected attributes.
+        {t('events.triggers.upsert.attributeResult.message')}
       </p>
       <div className="grid grid-cols-4 gap-2">{renderResultIds()}</div>
     </div>

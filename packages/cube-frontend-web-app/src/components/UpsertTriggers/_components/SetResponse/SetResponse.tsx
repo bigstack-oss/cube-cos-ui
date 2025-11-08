@@ -21,6 +21,7 @@ import { TriggersPreviousButton } from '../TriggersPreviousButton'
 import { TriggersStackCard } from '../TriggersStackCard'
 import { SendNotificationModal } from './SendNotificationModal/SendNotificationModal'
 import { PersonalizedScriptModal } from './PersonalizedScriptModal/PersonalizedScriptModal'
+import { useTranslation } from 'react-i18next'
 
 export type EmailRecipientTableRow =
   GetTriggerMaterialsResponseDataResponseEmailsInner & CosTableRow
@@ -81,6 +82,8 @@ export const SetResponse = (props: SetResponseProps) => {
 
   const { scriptType, emails, slacks } = response
 
+  const { t } = useTranslation()
+
   const [isSendNotificationOpen, setIsSendNotificationOpen] = useState(false)
 
   const [isPersonalizedScriptOpen, setIsPersonalizedScriptOpen] =
@@ -119,7 +122,7 @@ export const SetResponse = (props: SetResponseProps) => {
 
     return (
       <TriggersStackCard
-        title="Notification"
+        title={t('events.triggers.upsert.notification')}
         tags={notifications}
         onEditClick={onSendNotificationButtonClick}
         onRemoveClick={onNotificationRemove}
@@ -131,7 +134,7 @@ export const SetResponse = (props: SetResponseProps) => {
     if (!payload.script?.name && !payload.script?.content) return null
     return (
       <TriggersStackCard
-        title="Personalized Script"
+        title={t('events.triggers.upsert.personalizedScript')}
         tags={[payload.script.name]}
         onEditClick={onPersonalizedScriptButtonClick}
         onRemoveClick={onScriptRemove}
@@ -151,7 +154,7 @@ export const SetResponse = (props: SetResponseProps) => {
                 Icon={AddSquare}
                 onClick={() => setIsSendNotificationOpen(true)}
               >
-                Send Notification
+                {t('events.triggers.upsert.sendNotification')}
               </CosButton>
               <CosButton
                 type="ghost"
@@ -160,7 +163,7 @@ export const SetResponse = (props: SetResponseProps) => {
                 onClick={() => setIsPersonalizedScriptOpen(true)}
                 disabled={!!payload.script?.content || !!payload.script?.name}
               >
-                Personalized Script
+                {t('events.triggers.upsert.personalizedScript')}
               </CosButton>
             </div>
             <CosButton
@@ -168,7 +171,7 @@ export const SetResponse = (props: SetResponseProps) => {
               onClick={onResetClick}
               disabled={!isResponseChanged}
             >
-              Reset
+              {t('events.triggers.upsert.reset')}
             </CosButton>
           </div>
           <CosStroke />
@@ -186,7 +189,7 @@ export const SetResponse = (props: SetResponseProps) => {
           disabled={!isValueValid}
           onClick={onNextClick}
         >
-          Next
+          {t('events.triggers.upsert.next')}
         </CosButton>
       </div>
       <SendNotificationModal

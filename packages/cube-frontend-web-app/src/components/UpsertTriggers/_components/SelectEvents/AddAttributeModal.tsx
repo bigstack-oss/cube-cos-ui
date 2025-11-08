@@ -8,13 +8,16 @@ import {
   GetPredefinedEventsTypesEnum,
 } from '@cube-frontend/api'
 import {
-  attributeLabelMap,
   TriggerAttributeKeys,
   TriggerAttribute,
   UpsertTriggersPayload,
+  useAttributeSelectAllLabelMap,
+  useAttributeLabelMap,
+  useAlertTypeLabelMap,
 } from '../../upsertTriggersUtils'
 import { AttributeCheckboxGroup } from './AttributeCheckboxGroup'
 import { isEqual } from 'lodash'
+import { useTranslation } from 'react-i18next'
 
 const checkIsAllChecked = (
   selectedAttributes: string[],
@@ -68,6 +71,12 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     categories: defaultSelectedCategories,
     eventIds: defaultSelectedEventIds,
   } = payload
+
+  const { t } = useTranslation()
+
+  const attributeLabelMap = useAttributeLabelMap()
+  const selectAllAttributeLabelMap = useAttributeSelectAllLabelMap()
+  const alertTypeLabelMap = useAlertTypeLabelMap()
 
   // Clone values to avoid referencing the original payload fields directly
   // Prevents unintended shared mutations in state
@@ -193,12 +202,15 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
   const renderContentFnMap: Record<TriggerAttributeKeys, () => ReactNode> = {
     alertTypes: () => (
       <AttributeCheckboxGroup
-        label={attributeLabelMap.alertTypes}
+        selectAllLabel={selectAllAttributeLabelMap.alertTypes}
         isAllChecked={checkIsAllChecked(
           selectedAttributes.alertTypes,
           alertTypes,
         )}
-        attributes={alertTypes}
+        attributeOptions={alertTypes.map((alertType) => ({
+          label: alertTypeLabelMap[alertType],
+          value: alertType,
+        }))}
         selectedAttributes={selectedAttributes.alertTypes}
         onAttributesChange={onSelectedAlertTypeChange}
         onAllAttributesChange={onAllSelectedAlertTypesChange}
@@ -206,12 +218,15 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     ),
     severities: () => (
       <AttributeCheckboxGroup
-        label={attributeLabelMap.severities}
+        selectAllLabel={selectAllAttributeLabelMap.severities}
         isAllChecked={checkIsAllChecked(
           selectedAttributes.severities,
           severities,
         )}
-        attributes={severities}
+        attributeOptions={severities.map((severity) => ({
+          label: severity,
+          value: severity,
+        }))}
         selectedAttributes={selectedAttributes.severities}
         onAttributesChange={onSelectedSeverityChange}
         onAllAttributesChange={onAllSelectedSeveritiesChange}
@@ -219,12 +234,15 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     ),
     categories: () => (
       <AttributeCheckboxGroup
-        label={attributeLabelMap.categories}
+        selectAllLabel={selectAllAttributeLabelMap.categories}
         isAllChecked={checkIsAllChecked(
           selectedAttributes.categories,
           categories,
         )}
-        attributes={categories}
+        attributeOptions={categories.map((category) => ({
+          label: category,
+          value: category,
+        }))}
         selectedAttributes={selectedAttributes.categories}
         onAttributesChange={onSelectedCategoryChange}
         onAllAttributesChange={onAllSelectedCategoriesChange}
@@ -232,9 +250,12 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     ),
     eventIds: () => (
       <AttributeCheckboxGroup
-        label={attributeLabelMap.eventIds}
+        selectAllLabel={selectAllAttributeLabelMap.eventIds}
         isAllChecked={checkIsAllChecked(selectedAttributes.eventIds, eventIds)}
-        attributes={eventIds}
+        attributeOptions={eventIds.map((eventId) => ({
+          label: eventId,
+          value: eventId,
+        }))}
         selectedAttributes={selectedAttributes.eventIds}
         onAttributesChange={onSelectedEventIdChange}
         onAllAttributesChange={onAllSelectedEventIdsChange}
@@ -247,8 +268,8 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
   return (
     <CosModal
       isOpen={isModalOpen}
-      title="Add Attributes"
-      actionText="Add Attributes"
+      title={t('events.triggers.upsert.addAttributes.addAttributes')}
+      actionText={t('events.triggers.upsert.addAttributes.addAttributes')}
       actionButtonProps={{
         disabled: !isSelectionChanged,
       }}
@@ -265,7 +286,9 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
           selectedItems={[activeType]}
         >
           <CosDropdown.Trigger>
-            {activeType ? attributeLabelMap[activeType] : 'Choose an attribute'}
+            {activeType
+              ? attributeLabelMap[activeType]
+              : t('events.triggers.upsert.addAttributes.chooseAttribute')}
           </CosDropdown.Trigger>
           <CosDropdown.Menu>
             {dropdownOptions.map((option) => (

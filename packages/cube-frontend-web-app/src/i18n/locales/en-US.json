@@ -442,7 +442,7 @@
   "events.triggers.response.script": "Script",
   "events.triggers.deleteTooltip.builtInCannotBeDeleted": "Built-in trigger cannot be deleted",
   "events.triggers.deleteModal.title": "Delete Trigger",
-  "events.triggers.deleteModal.message": "Are you sure you want to delete this trigger:",
+  "events.triggers.deleteModal.message": "Are you sure you want to delete {{name}}?",
   "events.triggers.deleteModal.delete": "Delete",
   "events.triggers.create.title": "Create Triggers",
   "events.triggers.edit.title": "Edit Triggers",

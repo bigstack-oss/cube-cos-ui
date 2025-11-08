@@ -6,6 +6,7 @@ import { UpsertTriggersPayload } from '../../../upsertTriggersUtils'
 import { EmailRecipientTableRow, SlackChannelTableRow } from '../SetResponse'
 import { EmailBatchActionTable } from './EmailBatchActionTable'
 import { SlackBatchActionTable } from './SlackBatchActionTable'
+import { useTranslation } from 'react-i18next'
 
 type NotificationTab = 'Email' | 'Slack'
 
@@ -53,6 +54,8 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
 
   const { emails: defaultSelectedEmails, slacks: defaultSelectedSlacks } =
     payload
+
+  const { t } = useTranslation()
 
   // Clone values to avoid referencing the original payload fields directly
   // Prevents unintended shared mutations in state
@@ -129,8 +132,8 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
   return (
     <CosModal
       isOpen={isModalOpen}
-      title="Send Notification"
-      actionText="Set Response"
+      title={t('events.triggers.upsert.sendNotification')}
+      actionText={t('events.triggers.upsert.sendNotification.setResponse')}
       actionButtonProps={{
         disabled: !isSelectionChanged,
       }}
@@ -143,13 +146,13 @@ export const SendNotificationModal = (props: SendNotificationModalProps) => {
             isActive={activeTab === 'Email'}
             onClick={() => setActiveTab('Email')}
           >
-            Email
+            {t('events.triggers.upsert.sendNotification.email')}
           </CosContentSwitcher.Item>
           <CosContentSwitcher.Item
             isActive={activeTab === 'Slack'}
             onClick={() => setActiveTab('Slack')}
           >
-            Slack
+            {t('events.triggers.upsert.sendNotification.slack')}
           </CosContentSwitcher.Item>
         </CosContentSwitcher>
         {renderContent()}

@@ -19,6 +19,7 @@ import {
 import { AttributePanel } from './AttributePanel'
 import { AttributeResultPanel } from './AttributeResultPanel'
 import { isEmpty } from 'lodash'
+import { useTranslation } from 'react-i18next'
 
 type SelectEventsProps = {
   /**
@@ -61,10 +62,14 @@ export const SelectEvents = (props: SelectEventsProps) => {
   const isValueValid =
     !!payload && isEventsValid(payload) && !isEmpty(matchingEvents)
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col gap-4">
       <CosCollapsiblePanelLayout>
-        <CosCollapsiblePanelLayout.LeftPanel topic="Add Attributes to Select Events">
+        <CosCollapsiblePanelLayout.LeftPanel
+          topic={t('events.triggers.upsert.addAttributes.title')}
+        >
           <AttributePanel
             isBuiltIn={isBuiltIn}
             isInitialDataLoading={isInitialDataLoading}
@@ -79,7 +84,9 @@ export const SelectEvents = (props: SelectEventsProps) => {
             onResetClick={onResetClick}
           />
         </CosCollapsiblePanelLayout.LeftPanel>
-        <CosCollapsiblePanelLayout.RightPanel topic="Attribute Result">
+        <CosCollapsiblePanelLayout.RightPanel
+          topic={t('events.triggers.upsert.attributeResult.title')}
+        >
           <AttributeResultPanel
             isMatchingEventsLoading={isMatchingEventsLoading}
             matchingEvents={matchingEvents ?? []}
@@ -94,7 +101,7 @@ export const SelectEvents = (props: SelectEventsProps) => {
         disabled={isInitialDataLoading || !isValueValid}
         onClick={onNextClick}
       >
-        Next
+        {t('events.triggers.upsert.next')}
       </CosButton>
     </div>
   )

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { GetCosBatchActionTable } from '@cube-frontend/ui-library'
 import { EmailRecipientTableRow } from '../SetResponse'
 
@@ -18,6 +19,8 @@ export const EmailBatchActionTable = (props: EmailBatchActionTableProps) => {
     onCheckChange: onRowCheckChange,
   } = props
 
+  const { t } = useTranslation()
+
   const selectedRowIds = selectedRows.map((row) => row.id)
 
   const onCheckChange = (id: string) => {
@@ -29,7 +32,9 @@ export const EmailBatchActionTable = (props: EmailBatchActionTableProps) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <h5 className="secondary-h5">Select Emails</h5>
+      <h5 className="secondary-h5">
+        {t('events.triggers.upsert.sendNotification.selectEmails')}
+      </h5>
       <EmailRecipientTable
         isLoading={isLoading}
         rows={rows}
@@ -38,8 +43,14 @@ export const EmailBatchActionTable = (props: EmailBatchActionTableProps) => {
         showHeaderCheckbox={false}
         skeletonRowCount={5}
       >
-        <EmailRecipientTable.Column label="Email" property="address" />
-        <EmailRecipientTable.Column label="Note" property="note" />
+        <EmailRecipientTable.Column
+          label={t('events.triggers.upsert.sendNotification.email')}
+          property="address"
+        />
+        <EmailRecipientTable.Column
+          label={t('events.triggers.upsert.sendNotification.note')}
+          property="note"
+        />
       </EmailRecipientTable>
     </div>
   )

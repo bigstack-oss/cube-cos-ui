@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import {
   CosButton,
   CosGeneralPanel,
@@ -22,6 +23,8 @@ import { getTriggerResponse, TriggerRow } from './utils'
 const TriggersTable = GetCosBasicTable<TriggerRow>()
 
 export const EventsTriggersPage = () => {
+  const { t } = useTranslation()
+
   const [toBeDeletedRowId, setToBeDeletedRowId] = useState<string | undefined>(
     undefined,
   )
@@ -53,14 +56,14 @@ export const EventsTriggersPage = () => {
   }
 
   return (
-    <CosGeneralPanel topic="Triggers">
+    <CosGeneralPanel topic={t('events.triggers.title')}>
       <div className="flex flex-col gap-y-6">
         <Link
           className="self-start"
           to={CosRoutesEnum.EVENTS_TRIGGERS_CREATE_PAGE}
         >
           <CosButton usage="icon-left" Icon={Plus}>
-            Create Trigger
+            {t('events.triggers.createTrigger')}
           </CosButton>
         </Link>
         {operationErrors.map((error, index) => (
@@ -75,7 +78,7 @@ export const EventsTriggersPage = () => {
         <CosStroke type="dot" />
         <TriggersTable rows={rows} isLoading={isLoading}>
           <TriggersTable.Column
-            label="Triggers"
+            label={t('events.triggers.triggers')}
             property="name"
             emphasize={true}
           >
@@ -86,17 +89,23 @@ export const EventsTriggersPage = () => {
               </div>
             )}
           </TriggersTable.Column>
-          <TriggersTable.Column label="Description" property="description">
+          <TriggersTable.Column
+            label={t('events.triggers.description')}
+            property="description"
+          >
             {(description) => <span>{description || '-'}</span>}
           </TriggersTable.Column>
-          <TriggersTable.Column label="Response" property="response">
+          <TriggersTable.Column
+            label={t('events.triggers.response')}
+            property="response"
+          >
             {(response) => (
               <span className="whitespace-nowrap">
-                {getTriggerResponse(response.types)}
+                {getTriggerResponse(response.types, t)}
               </span>
             )}
           </TriggersTable.Column>
-          <TriggersTable.Column label="Status">
+          <TriggersTable.Column label={t('events.triggers.status')}>
             {(_, row) => (
               <TriggersStatusToggle row={row} onChange={onToggleChange} />
             )}
@@ -115,16 +124,17 @@ export const EventsTriggersPage = () => {
           onItemsPerPageChange={onItemsPerPageChange}
         />
         <CosModal
-          title="Delete Trigger"
+          title={t('events.triggers.deleteModal.title')}
           size="sm"
           isOpen={!!toBeDeletedRowId}
-          actionText="Delete"
+          actionText={t('events.triggers.deleteModal.delete')}
           onActionClick={onConfirmDelete}
           onCloseClick={onCloseDeleteModal}
         >
           <div className="primary-body2 text-functional-text">
-            Are you sure you want to delete this trigger:&nbsp;
-            <span className="font-semibold">{toBeDeletedRowId}</span>?
+            {t('events.triggers.deleteModal.message', {
+              name: toBeDeletedRowId,
+            })}
           </div>
         </CosModal>
       </div>

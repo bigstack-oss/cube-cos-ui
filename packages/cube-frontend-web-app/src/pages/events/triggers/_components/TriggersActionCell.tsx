@@ -6,6 +6,7 @@ import EditIcon from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
 import DeleteIcon from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { TriggerRow } from '../utils'
+import { useTranslation } from 'react-i18next'
 
 const button = cva('icon-md text-functional-text', {
   variants: {
@@ -22,6 +23,8 @@ export const TriggersActionCell = (props: TriggersActionCellProps) => {
   const { row, onDeleteClick } = props
 
   const { name, isBuiltIn, status, isProcessing } = row
+
+  const { t } = useTranslation()
 
   const isRowProcessing =
     status?.current !== 'ok' || status.isProcessing || isProcessing
@@ -48,7 +51,9 @@ export const TriggersActionCell = (props: TriggersActionCellProps) => {
     if (isBuiltIn)
       return (
         <CosTooltip
-          hoverContent={{ message: 'Built-in trigger cannot be deleted' }}
+          hoverContent={{
+            message: t('events.triggers.deleteTooltip.builtInCannotBeDeleted'),
+          }}
         >
           {deleteIcon}
         </CosTooltip>

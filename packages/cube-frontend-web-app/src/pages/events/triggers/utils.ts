@@ -4,10 +4,12 @@ import {
   Trigger,
   CreateTriggerRequest,
   UpdateTriggerRequest,
+  TriggerResponseTypesEnum,
 } from '@cube-frontend/api'
 import { CosTableRow, DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 import { UpsertTriggersPayload } from '@cube-frontend/web-app/components/UpsertTriggers/upsertTriggersUtils'
+import { TFunction } from 'i18next'
 
 export type TriggerRow = Trigger & CosTableRow & { isProcessing: boolean }
 
@@ -21,9 +23,18 @@ export const mapToTriggerTableRow = (trigger: Trigger): TriggerRow => ({
   isProcessing: trigger.status?.current !== 'ok' || trigger.status.isProcessing,
 })
 
-export const getTriggerResponse = (types: string[]): string => {
-  if (types.length === 0) return 'None'
-  return types.map((type) => upperFirst(type)).join(' / ')
+export const getTriggerResponse = (
+  types: TriggerResponseTypesEnum[],
+  t: TFunction,
+): string => {
+  const responseKeyMap: Record<TriggerResponseTypesEnum, string> = {
+    email: t('events.triggers.response.email'),
+    slack: t('events.triggers.response.slack'),
+    script: t('events.triggers.response.script'),
+  }
+
+  if (types.length === 0) return t('events.triggers.response.none')
+  return types.map((type) => upperFirst(responseKeyMap[type])).join(' / ')
 }
 
 enum TriggersParamKeyEnum {
