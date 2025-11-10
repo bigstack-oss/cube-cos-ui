@@ -46,6 +46,16 @@ export const useUpdatingFirmwareUpdateModalActionProps = (
     }
   }
 
+  if (!progressRows.length) {
+    return {
+      actionText: 'Close',
+      actionButtonProps: {
+        disabled: true,
+      },
+      isCancelButtonVisible: false,
+    }
+  }
+
   if (isRollingApplied) {
     return {
       actionText: 'Done',

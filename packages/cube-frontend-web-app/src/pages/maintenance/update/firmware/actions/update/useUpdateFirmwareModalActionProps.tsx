@@ -18,7 +18,7 @@ type UseUpdateFirmwareModalActionPropsArgs = {
   isRollingApplied: boolean
   progressRows: UpdateProgressRow[]
   fetchUpdateProgress: () => Promise<unknown>
-  onDoneClick: () => void
+  onClose: () => void
 }
 
 export const useUpdateFirmwareModalActionProps = (
@@ -30,7 +30,7 @@ export const useUpdateFirmwareModalActionProps = (
     isRollingApplied,
     progressRows,
     fetchUpdateProgress,
-    onDoneClick,
+    onClose,
   } = args
 
   const availableModalActionProps = useAvailableFirmwareUpdateModalActionProps({
@@ -46,7 +46,7 @@ export const useUpdateFirmwareModalActionProps = (
 
   const updatedModalActionProps = {
     actionText: 'Done',
-    onActionClick: onDoneClick,
+    onActionClick: onClose,
     isCancelButtonVisible: false,
   }
 

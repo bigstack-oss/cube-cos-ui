@@ -5,6 +5,7 @@ import {
 import { CosModal } from '@cube-frontend/ui-library'
 import { ChangeEvent, useState } from 'react'
 import { updatingStatuses } from '../../computeFirmwaresActionState'
+import { AbortButton } from './AbortButton'
 import { FirmwareUpdatableNodes } from './FirmwareUpdatableNodes'
 import { FirmwareUpdateProgress } from './FirmwareUpdateProgress'
 import { useFirmwareUpdateProgress } from './useFirmwareUpdateProgress'
@@ -47,7 +48,7 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
     isRollingApplied,
     progressRows,
     fetchUpdateProgress,
-    onDoneClick: onCloseClick,
+    onClose: onCloseClick,
   })
 
   const renderContent = () => {
@@ -71,6 +72,7 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
           isLoadingProgress={isLoadingProgress}
           isRollingApplied={isRollingApplied}
           progressRows={progressRows}
+          fetchUpdateProgress={fetchUpdateProgress}
         />
       )
     }
@@ -84,6 +86,15 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
       title={getTitle()}
       onCloseClick={onCloseClick}
       {...actionButtonProps}
+      footerMessage={
+        isUpdating &&
+        progressRows.length > 0 && (
+          <AbortButton
+            firmwareVersion={firmware.version}
+            onAborted={fetchUpdateProgress}
+          />
+        )
+      }
     >
       {renderContent()}
     </CosModal>

@@ -26,6 +26,56 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface AbortFirmwareUpdate500Response
+ */
+export interface AbortFirmwareUpdate500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof AbortFirmwareUpdate500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AbortFirmwareUpdate500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AbortFirmwareUpdate500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface AbortFirmwareUpdateResponse
+ */
+export interface AbortFirmwareUpdateResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof AbortFirmwareUpdateResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AbortFirmwareUpdateResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AbortFirmwareUpdateResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface AddNodeDevice500Response
  */
 export interface AddNodeDevice500Response {
@@ -11744,6 +11794,56 @@ export interface RestartNodeOsdResponse {
 /**
  * 
  * @export
+ * @interface RetryNodeFirmwareUpdate202Response
+ */
+export interface RetryNodeFirmwareUpdate202Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RetryNodeFirmwareUpdate202Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RetryNodeFirmwareUpdate202Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RetryNodeFirmwareUpdate202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface RetryNodeFirmwareUpdate500Response
+ */
+export interface RetryNodeFirmwareUpdate500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof RetryNodeFirmwareUpdate500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RetryNodeFirmwareUpdate500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RetryNodeFirmwareUpdate500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface RoleUsage
  */
 export interface RoleUsage {
@@ -16746,6 +16846,44 @@ export const FirmwaresApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
+         * @summary Abort ongoing firmware update
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        abortFirmwareUpdate: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('abortFirmwareUpdate', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/abort`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Continue an interrupted firmware update
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -16958,6 +17096,52 @@ export const FirmwaresApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Retry firmware update on a specific node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retryNodeFirmwareUpdate: async (dataCenter: string, version: string, nodeName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('retryNodeFirmwareUpdate', 'dataCenter', dataCenter)
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('retryNodeFirmwareUpdate', 'version', version)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('retryNodeFirmwareUpdate', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/firmwares/{version}/{nodeName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Upgrade firmware on all nodes
          * @param {string} dataCenter The name of the data center to operate
          * @param {UpgradeFirmwareRequest} upgradeFirmwareRequest Request body for upgrading firmware
@@ -17145,6 +17329,19 @@ export const FirmwaresApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Abort ongoing firmware update
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async abortFirmwareUpdate(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AbortFirmwareUpdateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.abortFirmwareUpdate(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.abortFirmwareUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Continue an interrupted firmware update
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -17215,6 +17412,21 @@ export const FirmwaresApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Retry firmware update on a specific node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} version The version of the file to delete
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retryNodeFirmwareUpdate(dataCenter: string, version: string, nodeName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetryNodeFirmwareUpdate202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retryNodeFirmwareUpdate(dataCenter, version, nodeName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FirmwaresApi.retryNodeFirmwareUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Upgrade firmware on all nodes
          * @param {string} dataCenter The name of the data center to operate
          * @param {UpgradeFirmwareRequest} upgradeFirmwareRequest Request body for upgrading firmware
@@ -17281,6 +17493,16 @@ export const FirmwaresApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
+         * @summary Abort ongoing firmware update
+         * @param {FirmwaresApiAbortFirmwareUpdateRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        abortFirmwareUpdate(requestParameters: FirmwaresApiAbortFirmwareUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<AbortFirmwareUpdateResponse> {
+            return localVarFp.abortFirmwareUpdate(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Continue an interrupted firmware update
          * @param {FirmwaresApiContinueInterruptedFirmwareUpdateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -17331,6 +17553,16 @@ export const FirmwaresApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary Retry firmware update on a specific node
+         * @param {FirmwaresApiRetryNodeFirmwareUpdateRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retryNodeFirmwareUpdate(requestParameters: FirmwaresApiRetryNodeFirmwareUpdateRequest, options?: RawAxiosRequestConfig): AxiosPromise<RetryNodeFirmwareUpdate202Response> {
+            return localVarFp.retryNodeFirmwareUpdate(requestParameters.dataCenter, requestParameters.version, requestParameters.nodeName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Upgrade firmware on all nodes
          * @param {FirmwaresApiUpgradeFirmwareRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -17371,6 +17603,20 @@ export const FirmwaresApiFactory = function (configuration?: Configuration, base
         },
     };
 };
+
+/**
+ * Request parameters for abortFirmwareUpdate operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiAbortFirmwareUpdateRequest
+ */
+export interface FirmwaresApiAbortFirmwareUpdateRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiAbortFirmwareUpdate
+     */
+    readonly dataCenter: string
+}
 
 /**
  * Request parameters for continueInterruptedFirmwareUpdate operation in FirmwaresApi.
@@ -17478,6 +17724,34 @@ export interface FirmwaresApiListFirmwaresRequest {
 }
 
 /**
+ * Request parameters for retryNodeFirmwareUpdate operation in FirmwaresApi.
+ * @export
+ * @interface FirmwaresApiRetryNodeFirmwareUpdateRequest
+ */
+export interface FirmwaresApiRetryNodeFirmwareUpdateRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FirmwaresApiRetryNodeFirmwareUpdate
+     */
+    readonly dataCenter: string
+
+    /**
+     * The version of the file to delete
+     * @type {string}
+     * @memberof FirmwaresApiRetryNodeFirmwareUpdate
+     */
+    readonly version: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof FirmwaresApiRetryNodeFirmwareUpdate
+     */
+    readonly nodeName: string
+}
+
+/**
  * Request parameters for upgradeFirmware operation in FirmwaresApi.
  * @export
  * @interface FirmwaresApiUpgradeFirmwareRequest
@@ -17570,6 +17844,18 @@ export interface FirmwaresApiVerifyFirmwareMd5SumRequest {
 export class FirmwaresApi extends BaseAPI {
     /**
      * 
+     * @summary Abort ongoing firmware update
+     * @param {FirmwaresApiAbortFirmwareUpdateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public abortFirmwareUpdate(requestParameters: FirmwaresApiAbortFirmwareUpdateRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).abortFirmwareUpdate(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Continue an interrupted firmware update
      * @param {FirmwaresApiContinueInterruptedFirmwareUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -17626,6 +17912,18 @@ export class FirmwaresApi extends BaseAPI {
      */
     public listFirmwares(requestParameters: FirmwaresApiListFirmwaresRequest, options?: RawAxiosRequestConfig) {
         return FirmwaresApiFp(this.configuration).listFirmwares(requestParameters.dataCenter, requestParameters.pageNum, requestParameters.pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retry firmware update on a specific node
+     * @param {FirmwaresApiRetryNodeFirmwareUpdateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FirmwaresApi
+     */
+    public retryNodeFirmwareUpdate(requestParameters: FirmwaresApiRetryNodeFirmwareUpdateRequest, options?: RawAxiosRequestConfig) {
+        return FirmwaresApiFp(this.configuration).retryNodeFirmwareUpdate(requestParameters.dataCenter, requestParameters.version, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -30410,7 +30708,7 @@ export const VolumesApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary List volumes
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} project The project name to filter
+         * @param {string} [project] The project name to filter
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -30418,11 +30716,9 @@ export const VolumesApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listVolumes: async (dataCenter: string, project: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listVolumes: async (dataCenter: string, project?: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('listVolumes', 'dataCenter', dataCenter)
-            // verify required parameter 'project' is not null or undefined
-            assertParamExists('listVolumes', 'project', project)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/volumes`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -30567,7 +30863,7 @@ export const VolumesApiFp = function(configuration?: Configuration) {
          * 
          * @summary List volumes
          * @param {string} dataCenter The name of the data center to operate
-         * @param {string} project The project name to filter
+         * @param {string} [project] The project name to filter
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
          * @param {number} [pageSize] The number of items per page (default is unlimit).
          * @param {number} [pageNum] The page number to retrieve
@@ -30575,7 +30871,7 @@ export const VolumesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listVolumes(dataCenter: string, project: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListVolumesResponse>> {
+        async listVolumes(dataCenter: string, project?: string, watch?: boolean, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListVolumesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listVolumes(dataCenter, project, watch, pageSize, pageNum, keyword, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['VolumesApi.listVolumes']?.[localVarOperationServerIndex]?.url;
@@ -30736,7 +31032,7 @@ export interface VolumesApiListVolumesRequest {
      * @type {string}
      * @memberof VolumesApiListVolumes
      */
-    readonly project: string
+    readonly project?: string
 
     /**
      * The toggle to enable http chunked transfer for continuous server push.

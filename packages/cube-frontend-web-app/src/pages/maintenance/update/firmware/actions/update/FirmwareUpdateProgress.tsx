@@ -2,6 +2,7 @@ import {
   ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum as FirmwareStatus,
   GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus,
   ListFirmwaresResponseDataFirmwaresInner,
+  GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum as ProgressPhase,
   GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum as ProgressStatus,
 } from '@cube-frontend/api'
 import { CosNagging, GetCosBasicTable } from '@cube-frontend/ui-library'
@@ -15,6 +16,7 @@ import {
   StatusWithIconProps,
 } from '../../../_components/StatusWithIcon'
 import { FirmwareContinueAnywayButton } from './FirmwareContinueAnywayButton'
+import { FirmwareRetryButton } from './FirmwareRetryButton'
 import { UpdateProgressRow } from './updateActionUtils'
 
 type FirmwareUpdateProgressProps = {
@@ -22,6 +24,7 @@ type FirmwareUpdateProgressProps = {
   isLoadingProgress: boolean
   progressRows: UpdateProgressRow[]
   isRollingApplied: boolean
+  fetchUpdateProgress: () => Promise<unknown>
 }
 
 const UpdateProgressTable = GetCosBasicTable<UpdateProgressRow>()
@@ -57,7 +60,13 @@ const statusWithIconPropsMap: Partial<
 }
 
 export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
-  const { firmware, isLoadingProgress, progressRows, isRollingApplied } = props
+  const {
+    firmware,
+    isLoadingProgress,
+    progressRows,
+    isRollingApplied,
+    fetchUpdateProgress,
+  } = props
 
   const isUpdated =
     firmware.status.current === FirmwareStatus.Resolved ||
@@ -74,6 +83,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
   const isReadyToManuallyReboot = useMemo<boolean>(
     () =>
       !isRollingApplied &&
+      progressRows.length > 0 &&
       progressRows.every(
         (row) =>
           row.status.current === ProgressStatus.WaitingReboot ||
@@ -195,6 +205,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
 
   const renderAction = (row: UpdateProgressRow) => {
     const {
+      phase,
       status: { current },
     } = row
 
@@ -202,7 +213,18 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
 
     return (
       <div className="flex justify-end">
-        <FirmwareContinueAnywayButton nodeName={row.host} />
+        {phase === ProgressPhase.Partitioning ? (
+          <FirmwareRetryButton
+            version={firmware.version}
+            nodeName={row.host}
+            onAccepted={fetchUpdateProgress}
+          />
+        ) : (
+          <FirmwareContinueAnywayButton
+            nodeName={row.host}
+            onAccepted={fetchUpdateProgress}
+          />
+        )}
       </div>
     )
   }
