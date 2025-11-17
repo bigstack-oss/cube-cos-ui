@@ -62,18 +62,18 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
 
   const {
     isLoading: isVendorsLoading,
+    selectedModel,
     vendorOptions,
     modelOptions,
     selectedVendor,
-    selectedModel,
-    setSelectedVendor,
-    setSelectedModel,
-    baseModel,
+    selectedModelName,
+    handleSelectedVendorChange,
+    handleSelectedModelNameChange,
   } = useVendorModel(initialStorage)
 
   const { storage, fieldErrors, allFieldsValid, setStorage } = useStorageForm(
     initialStorage,
-    baseModel,
+    selectedModel,
   )
 
   const formState = calculateFormState({
@@ -90,20 +90,20 @@ export const StorageDetailsForm = (props: StorageDetailsFormProps) => {
     <form className="flex flex-col gap-y-8">
       <div className="flex flex-col gap-y-8">
         <CommonSection
-          vendorOpts={vendorOptions}
-          modelOpts={modelOptions}
-          selectedVendor={selectedVendor}
-          setSelectedVendor={setSelectedVendor}
-          selectedModel={selectedModel}
-          setSelectedModel={setSelectedModel}
           storage={storage}
           setStorage={setStorage}
           formState={formState}
           fieldErrors={fieldErrors}
+          vendorOptions={vendorOptions}
+          modelOptions={modelOptions}
+          selectedVendor={selectedVendor}
+          selectedModelName={selectedModelName}
+          onVendorChange={handleSelectedVendorChange}
+          onModelNameChange={handleSelectedModelNameChange}
         />
-        {baseModel && <CosStroke type="dot" />}
+        {selectedModel && <CosStroke type="dot" />}
         <ModelBasedSection
-          baseModel={baseModel}
+          selectedModel={selectedModel}
           storage={storage}
           setStorage={setStorage}
           formState={formState}

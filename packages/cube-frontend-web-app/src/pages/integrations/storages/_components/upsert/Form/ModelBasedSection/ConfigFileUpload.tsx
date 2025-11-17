@@ -3,7 +3,8 @@ import { fileToBase64 } from '@cube-frontend/web-app/utils/file'
 import { useState } from 'react'
 
 const EXTRA_CONFIG_FILE_SIZE_LIMIT_MB = 10
-const EXTRA_CONFIG_FILE_SIZE_LIMIT = 10 * 1024 * 1024
+const EXTRA_CONFIG_FILE_SIZE_LIMIT =
+  EXTRA_CONFIG_FILE_SIZE_LIMIT_MB * 1024 * 1024
 
 export type ConfigFileUploadProps = {
   buttonText: string

@@ -55,35 +55,33 @@ export const validateStorageForm = (
 
 const getName = (
   initialStorage: GetIntegrationStorageResponseData | undefined,
-  previousStorage: StorageForm | undefined,
+  currentName: string,
 ) => {
-  if (previousStorage?.name) {
-    return previousStorage.name
-  }
-
   if (initialStorage) {
     return initialStorage.name
   }
-  return ''
+
+  return currentName
 }
 
-const calculateInitialFields = (
-  initialStorageFields: keyValuePairSchemaType[],
-  baseModelFields: keyValuePairSchemaType[],
+const mergePairsByBaseKeys = (
+  basePairs: keyValuePairSchemaType[],
+  existingPairs: keyValuePairSchemaType[],
 ): keyValuePairSchemaType[] => {
-  const initialStorageFieldsMap = new Map(
-    initialStorageFields.map((field) => [field.key, field]),
+  const existingValuesMap = new Map(
+    existingPairs.map((pair) => [pair.key, pair.value]),
   )
 
-  return baseModelFields.map((modelField) => {
-    const existingField = initialStorageFieldsMap.get(modelField.key)
-    return existingField ?? modelField
-  })
+  return basePairs.map((basePair) => ({
+    ...basePair,
+    key: basePair.key,
+    value: existingValuesMap.get(basePair.key) ?? basePair.value,
+  }))
 }
 
 const getInitialDriverSection = (
-  initialStorage: GetIntegrationStorageResponseData | undefined,
   baseModel: ListIntegrationStorageModelsResponseDataInner | undefined,
+  initialStorage: GetIntegrationStorageResponseData | undefined,
 ) => {
   if (!baseModel) {
     return []
@@ -93,15 +91,15 @@ const getInitialDriverSection = (
     return baseModel.storage.service.driverSection
   }
 
-  return calculateInitialFields(
-    initialStorage.storage.service.driverSection,
+  return mergePairsByBaseKeys(
     baseModel.storage.service.driverSection,
+    initialStorage.storage.service.driverSection,
   )
 }
 
 const getInitialExtraSettings = (
-  initialStorage: GetIntegrationStorageResponseData | undefined,
   baseModel: ListIntegrationStorageModelsResponseDataInner | undefined,
+  initialStorage: GetIntegrationStorageResponseData | undefined,
 ) => {
   if (!baseModel) {
     return []
@@ -124,9 +122,9 @@ const getInitialExtraSettings = (
 
     return {
       sectionHeader: baseModelSection.sectionHeader,
-      settings: calculateInitialFields(
-        initialStorageSectionSettings,
+      settings: mergePairsByBaseKeys(
         baseModelSection.settings,
+        initialStorageSectionSettings,
       ),
     }
   })
@@ -150,8 +148,8 @@ const getInitialExtraConfigFiles = (
 }
 
 const getInitialVolumeTypeSection = (
-  initialStorage: GetIntegrationStorageResponseData | undefined,
   baseModel: ListIntegrationStorageModelsResponseDataInner | undefined,
+  initialStorage: GetIntegrationStorageResponseData | undefined,
 ) => {
   if (!baseModel) {
     return { settings: [] }
@@ -164,16 +162,16 @@ const getInitialVolumeTypeSection = (
   }
 
   return {
-    settings: calculateInitialFields(
-      initialStorage.storage.volumeType.settings,
+    settings: mergePairsByBaseKeys(
       baseModel.storage.volumeType.settings,
+      initialStorage.storage.volumeType.settings,
     ),
   }
 }
 
 const getInitialImageSection = (
+  baseModel: ListIntegrationStorageModelsResponseDataInner | undefined,
   initialStorage: GetIntegrationStorageResponseData | undefined,
-  model: ListIntegrationStorageModelsResponseDataInner | undefined,
 ) => {
   if (initialStorage) {
     return {
@@ -182,10 +180,10 @@ const getInitialImageSection = (
     }
   }
 
-  if (model) {
+  if (baseModel) {
     return {
-      useMultipath: model.storage.image.useMultipath,
-      forceMultipath: model.storage.image.forceMultipath,
+      useMultipath: baseModel.storage.image.useMultipath,
+      forceMultipath: baseModel.storage.image.forceMultipath,
     }
   }
 
@@ -197,22 +195,22 @@ const getInitialImageSection = (
 
 export type GetInitialStorageFormProps = {
   initialStorage: GetIntegrationStorageResponseData | undefined
-  previousStorage: StorageForm | undefined
-  baseModel: ListIntegrationStorageModelsResponseDataInner | undefined
+  currentName: string
+  selectedModel: ListIntegrationStorageModelsResponseDataInner | undefined
 }
 
 export const getInitialStorageForm = (
   props: GetInitialStorageFormProps,
 ): StorageForm => {
-  const { initialStorage, previousStorage, baseModel } = props
+  const { initialStorage, currentName, selectedModel } = props
 
-  const name = getName(initialStorage, previousStorage)
-  const driver = initialStorage?.driver ?? baseModel?.driver ?? ''
-  const driverSection = getInitialDriverSection(initialStorage, baseModel)
-  const extraSettings = getInitialExtraSettings(initialStorage, baseModel)
-  const extraConfigFiles = getInitialExtraConfigFiles(baseModel)
-  const volumeType = getInitialVolumeTypeSection(initialStorage, baseModel)
-  const image = getInitialImageSection(initialStorage, baseModel)
+  const name = getName(initialStorage, currentName)
+  const driver = initialStorage?.driver ?? selectedModel?.driver ?? ''
+  const driverSection = getInitialDriverSection(selectedModel, initialStorage)
+  const extraSettings = getInitialExtraSettings(selectedModel, initialStorage)
+  const extraConfigFiles = getInitialExtraConfigFiles(selectedModel)
+  const volumeType = getInitialVolumeTypeSection(selectedModel, initialStorage)
+  const image = getInitialImageSection(selectedModel, initialStorage)
 
   return {
     name,

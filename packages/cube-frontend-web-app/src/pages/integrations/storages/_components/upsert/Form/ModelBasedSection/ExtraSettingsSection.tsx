@@ -42,7 +42,7 @@ export const ExtraSettingsSection = (props: ExtraSettingsSectionProps) => {
     }
 
     return (
-      <div key={field.key} className="flex-1">
+      <div key={`${sectionIndex}-${field.key}`} className="flex-1">
         <StorageInput
           label={field.key}
           value={value}
@@ -62,7 +62,7 @@ export const ExtraSettingsSection = (props: ExtraSettingsSectionProps) => {
     const { sectionHeader } = extraSettingsSection
     return (
       <div
-        key={sectionHeader}
+        key={`${sectionIndex}-${sectionHeader}`}
         className="flex items-center justify-between gap-x-4"
       >
         <div className="primary-h5 min-w-[120px] text-functional-title">

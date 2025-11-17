@@ -49,7 +49,7 @@ export const ExtraConfigFileSection = (props: ExtraConfigFileSectionProps) => {
 
     return (
       <ConfigFileUpload
-        key={extraConfigFile.name}
+        key={`${index}-${extraConfigFile.name}`}
         disabled={formState.isInputDisabled}
         buttonText={`Upload ${extraConfigFile.name}`}
         fileName={extraConfigFile.localFileName}

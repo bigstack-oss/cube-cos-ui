@@ -5,7 +5,7 @@ import {
 import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { DEFAULT_VENDOR_QUERY_KEY } from '../storageUtils'
 
@@ -13,6 +13,17 @@ export type VendorModels = Record<
   string,
   ListIntegrationStorageModelsResponseDataInner[]
 >
+
+export type UseVendorModel = {
+  isLoading: boolean
+  selectedModel: ListIntegrationStorageModelsResponseDataInner | undefined
+  vendorOptions: string[]
+  modelOptions: ListIntegrationStorageModelsResponseDataInner[]
+  selectedVendor: string | undefined
+  selectedModelName: string | undefined
+  handleSelectedVendorChange: (vendor: string) => void
+  handleSelectedModelNameChange: (modelName: string) => void
+}
 
 const groupModelsByVendor = (
   models: ListIntegrationStorageModelsResponseDataInner[],
@@ -37,15 +48,24 @@ const getVendor = (
   return initialStorage?.vendor || vendorFromQuery
 }
 
-const getDriver = (
+const getModelName = (
   initialStorage: GetIntegrationStorageResponseData | undefined,
+  modelOptions: ListIntegrationStorageModelsResponseDataInner[],
 ) => {
-  return initialStorage?.driver || undefined
+  if (initialStorage) {
+    return initialStorage.driver
+  }
+
+  if (modelOptions.length > 0) {
+    return modelOptions[0].driver
+  }
+
+  return undefined
 }
 
 export const useVendorModel = (
   initialStorage: GetIntegrationStorageResponseData | undefined,
-) => {
+): UseVendorModel => {
   const [searchParams] = useSearchParams()
 
   const vendorFromQuery =
@@ -64,8 +84,33 @@ export const useVendorModel = (
     getVendor(initialStorage, vendorFromQuery),
   )
 
-  const [selectedModel, setSelectedModel] = useState(() =>
-    getDriver(initialStorage),
+  const [selectedModelName, setSelectedModelName] = useState(() =>
+    getModelName(initialStorage, []),
+  )
+
+  const handleSelectedVendorChange = (vendor: string) => {
+    setSelectedVendor(vendor)
+  }
+
+  const handleSelectedModelNameChange = (modelName: string) => {
+    setSelectedModelName(modelName)
+  }
+
+  const vendorModels = useMemo(
+    () => (data ? groupModelsByVendor(data) : {}),
+    [data],
+  )
+
+  const vendorOptions = useMemo(() => Object.keys(vendorModels), [vendorModels])
+
+  const modelOptions = useMemo(
+    () => (selectedVendor ? vendorModels[selectedVendor] || [] : []),
+    [selectedVendor, vendorModels],
+  )
+
+  const selectedModel = useMemo(
+    () => modelOptions?.find((m) => m.driver === selectedModelName),
+    [modelOptions, selectedModelName],
   )
 
   useEffect(() => {
@@ -73,22 +118,17 @@ export const useVendorModel = (
   }, [vendorFromQuery, initialStorage])
 
   useEffect(() => {
-    setSelectedModel(getDriver(initialStorage))
-  }, [initialStorage])
-
-  const vendorModels = data ? groupModelsByVendor(data) : {}
-  const vendorOptions = Object.keys(vendorModels)
-  const modelOptions = selectedVendor ? vendorModels[selectedVendor] || [] : []
-  const baseModel = modelOptions?.find((m) => m.driver === selectedModel)
+    setSelectedModelName(getModelName(initialStorage, modelOptions))
+  }, [initialStorage, modelOptions])
 
   return {
     isLoading,
+    selectedModel,
     vendorOptions,
     modelOptions,
     selectedVendor,
-    selectedModel,
-    setSelectedVendor,
-    setSelectedModel,
-    baseModel,
+    selectedModelName,
+    handleSelectedVendorChange,
+    handleSelectedModelNameChange,
   }
 }

@@ -9,7 +9,7 @@ import { StorageFormState } from '../StorageDetailsForm'
 import { ListIntegrationStorageModelsResponseDataInner } from '@cube-frontend/api'
 
 export type ModelBasedSectionProps = {
-  baseModel: ListIntegrationStorageModelsResponseDataInner | undefined
+  selectedModel: ListIntegrationStorageModelsResponseDataInner | undefined
   storage: StorageForm
   setStorage: React.Dispatch<React.SetStateAction<StorageForm>>
   formState: StorageFormState
@@ -17,20 +17,19 @@ export type ModelBasedSectionProps = {
 }
 
 export const ModelBasedSection = (props: ModelBasedSectionProps) => {
-  const { baseModel, storage, setStorage, formState, fieldErrors } = props
+  const { selectedModel, storage, setStorage, formState, fieldErrors } = props
   const { service, volumeType } = storage.storage
   const { driverSection, extraSettings, extraConfigFiles } = service
   const { settings: volumeTypeSettings } = volumeType
 
-  const showDriverSection = driverSection && driverSection.length > 0
-  const showExtraSettings = extraSettings && extraSettings.length > 0
-  const showExtraConfigFiles = extraConfigFiles && extraConfigFiles.length > 0
-  const showVolumeTypeSettings =
-    volumeTypeSettings && volumeTypeSettings.length > 0
+  const showDriverSection = driverSection.length > 0
+  const showExtraSettings = extraSettings.length > 0
+  const showExtraConfigFiles = extraConfigFiles.length > 0
+  const showVolumeTypeSettings = volumeTypeSettings.length > 0
 
   return (
     <>
-      {baseModel && (
+      {selectedModel && (
         <ImageSection
           storage={storage}
           setStorage={setStorage}

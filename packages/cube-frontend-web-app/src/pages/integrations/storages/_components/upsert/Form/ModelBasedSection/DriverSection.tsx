@@ -35,7 +35,7 @@ export const DriverSection = (props: DriverSectionProps) => {
 
     return (
       <StorageInput
-        key={field.key}
+        key={`${index}-${field.key}`}
         label={field.key}
         value={value}
         errorMessage={errorMessage}

@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
 import { produce } from 'immer'
-import { ListIntegrationStorageModelsResponseDataInner } from '@cube-frontend/api'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import {
   CosDropdown,
@@ -9,31 +8,31 @@ import {
   CosTooltip,
 } from '@cube-frontend/ui-library'
 import InformationCircleFilled from '@cube-frontend/ui-library/icons/monochrome/information_circle_filled.svg?react'
+import { UseVendorModel } from '../../../create/useVendorModel'
 import { StorageForm, StorageFormError } from '../storageFormUtils'
 import { StorageFormState } from './StorageDetailsForm'
 import { StorageFormSection } from './StorageFormSection'
 
 export type CommonSectionProps = {
-  selectedVendor: string | undefined
-  setSelectedVendor: React.Dispatch<React.SetStateAction<string | undefined>>
-  selectedModel: string | undefined
-  setSelectedModel: React.Dispatch<React.SetStateAction<string | undefined>>
-  vendorOpts: string[]
-  modelOpts: ListIntegrationStorageModelsResponseDataInner[]
   storage: StorageForm
   setStorage: React.Dispatch<React.SetStateAction<StorageForm>>
   formState: StorageFormState
   fieldErrors: StorageFormError | undefined
-}
+  onVendorChange: UseVendorModel['handleSelectedVendorChange']
+  onModelNameChange: UseVendorModel['handleSelectedModelNameChange']
+} & Pick<
+  UseVendorModel,
+  'vendorOptions' | 'modelOptions' | 'selectedVendor' | 'selectedModelName'
+>
 
 export const CommonSection = (props: CommonSectionProps) => {
   const {
-    vendorOpts,
-    modelOpts,
+    vendorOptions,
+    modelOptions,
     selectedVendor,
-    setSelectedVendor,
-    selectedModel,
-    setSelectedModel,
+    onVendorChange,
+    selectedModelName,
+    onModelNameChange,
     storage,
     setStorage,
     formState,
@@ -88,11 +87,11 @@ export const CommonSection = (props: CommonSectionProps) => {
             {selectedVendor || 'Select a vendor'}
           </CosDropdown.Trigger>
           <CosDropdown.Menu>
-            {vendorOpts.map((vendor) => (
+            {vendorOptions.map((vendor) => (
               <CosDropdown.Item
                 key={vendor}
                 item={vendor}
-                onClick={() => setSelectedVendor(vendor)}
+                onClick={() => onVendorChange(vendor)}
               >
                 {vendor}
               </CosDropdown.Item>
@@ -118,7 +117,7 @@ export const CommonSection = (props: CommonSectionProps) => {
         size="md"
         type="radio"
         variant="regular"
-        selectedItems={selectedModel ? [selectedModel] : []}
+        selectedItems={selectedModelName ? [selectedModelName] : []}
         isLoading={formState.isInputLoading}
         disabled={formState.isInputDisabled || formState.isEdit}
       >
@@ -126,14 +125,14 @@ export const CommonSection = (props: CommonSectionProps) => {
           placeholder="Select an Item"
           className="max-w-full"
         >
-          {selectedModel || 'Select a model'}
+          {selectedModelName || 'Select a model'}
         </CosDropdown.Trigger>
         <CosDropdown.Menu className="max-w-full">
-          {modelOpts.map((item) => (
+          {modelOptions.map((item) => (
             <CosDropdown.Item
               key={item.driver}
               item={item.driver}
-              onClick={() => setSelectedModel(item.driver)}
+              onClick={() => onModelNameChange(item.driver)}
             >
               {item.driver}
             </CosDropdown.Item>

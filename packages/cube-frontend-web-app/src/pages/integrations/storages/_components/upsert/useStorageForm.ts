@@ -12,25 +12,25 @@ import {
 
 export const useStorageForm = (
   initialStorage: GetIntegrationStorageResponseData | undefined,
-  baseModel: ListIntegrationStorageModelsResponseDataInner | undefined,
+  selectedModel: ListIntegrationStorageModelsResponseDataInner | undefined,
 ) => {
   const [storage, setStorage] = useState<StorageForm>(() =>
     getInitialStorageForm({
+      currentName: '',
       initialStorage,
-      previousStorage: undefined,
-      baseModel,
+      selectedModel,
     }),
   )
 
   useEffect(() => {
     setStorage((previousStorage) => {
       return getInitialStorageForm({
+        currentName: previousStorage.name,
         initialStorage,
-        previousStorage,
-        baseModel,
+        selectedModel,
       })
     })
-  }, [initialStorage, baseModel])
+  }, [initialStorage, selectedModel])
 
   const fieldErrors = useMemo<StorageFormError | undefined>(() => {
     return validateStorageForm(storage)
