@@ -23,7 +23,7 @@ export const Footer = (props: FooterProps) => {
         >
           {submitButtonText}
         </CosButton>
-        <CosButton type="ghost" onClick={onCancel}>
+        <CosButton type="ghost" onClick={onCancel} disabled={isSaving}>
           Cancel
         </CosButton>
       </div>

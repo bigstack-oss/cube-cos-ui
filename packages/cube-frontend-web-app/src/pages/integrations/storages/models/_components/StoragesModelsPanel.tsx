@@ -10,6 +10,7 @@ import { TableActions } from './StoragesModelsTable/TableActions'
 import { ViewModal } from './StoragesModelsTable/ViewModal'
 import { RemoveConfirmModal } from './StoragesModelsTable/RemoveConfirmModal'
 import { StorageModelRow } from '../storagesModelsPageUtils'
+import { ReplaceConfirmModal } from './StoragesModelsTable/ReplaceConfirmModal'
 
 const StorageModelsTable = GetCosBasicTable<StorageModelRow>()
 
@@ -53,7 +54,7 @@ export const StoragesModelsPanel = () => {
           {(_, row) => (
             <RowActions
               row={row}
-              onReplace={rowActions.replace.upload}
+              onReplace={rowActions.replace.openConfirmModal}
               onRemove={rowActions.remove.openConfirmModal}
             />
           )}
@@ -63,6 +64,12 @@ export const StoragesModelsPanel = () => {
         row={rowActions.view.row}
         isOpen={rowActions.view.isModalOpen}
         onClose={rowActions.view.closeModal}
+      />
+      <ReplaceConfirmModal
+        isOpen={rowActions.replace.isConfirmModalOpen}
+        isLoading={rowActions.replace.isLoading}
+        onConfirm={rowActions.replace.confirm}
+        onCancel={rowActions.replace.closeConfirmModal}
       />
       <RemoveConfirmModal
         isOpen={rowActions.remove.isConfirmModalOpen}

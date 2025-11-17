@@ -1,12 +1,12 @@
-import { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
-import { StorageForm } from '../_components/upsert/storageFormUtils'
 import { IntegrationsApiGetIntegrationStorageRequest } from '@cube-frontend/api'
+import { StorageForm } from '../../_components/upsert/storageFormUtils'
 
 export const useEditStorage = () => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -54,11 +54,27 @@ export const useEditStorage = () => {
     }
   }
 
+  const [readyToSubmit, setReadyToSubmit] = useState<StorageForm | undefined>(
+    undefined,
+  )
+
+  const updateConfirmModal = {
+    isOpen: readyToSubmit !== undefined,
+    open: (storageForm: StorageForm) => setReadyToSubmit(storageForm),
+    confirm: async () => {
+      if (readyToSubmit) {
+        await updateStorage(readyToSubmit)
+        setReadyToSubmit(undefined)
+      }
+    },
+    cancel: () => setReadyToSubmit(undefined),
+  }
+
   return {
     initialStorage,
     isLoading,
     isUpdating,
-    updateStorage,
-    cancel: goBack,
+    updateConfirmModal,
+    goBack,
   }
 }

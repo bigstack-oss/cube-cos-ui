@@ -5,7 +5,7 @@ import { MODEL_UPLOAD_FILE_TYPE } from '../../storagesModelsPageUtils'
 
 export type UploadButton = CosButtonProps & {
   accept?: string
-  onFileSelect: (file: File) => Promise<unknown>
+  onFileSelect: (file: File) => void
 }
 
 export const UploadButton = (props: UploadButton) => {

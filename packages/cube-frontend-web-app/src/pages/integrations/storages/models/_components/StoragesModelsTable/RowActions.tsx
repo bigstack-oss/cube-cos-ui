@@ -10,7 +10,7 @@ import { UploadInput } from '../UploadButton/UploadInput'
 
 export type RowActionsProps = {
   row: StorageModelRow
-  onReplace: (row: StorageModelRow, file: File) => Promise<unknown>
+  onReplace: (name: string, file: File) => void
   onRemove: (row: StorageModelRow) => void
 }
 export const RowActions = (props: RowActionsProps) => {
@@ -22,7 +22,7 @@ export const RowActions = (props: RowActionsProps) => {
     inputRef.current?.click()
   }
 
-  const handleFileSelect = async (file: File) => onReplace(row, file)
+  const handleFileSelect = async (file: File) => onReplace(row.driver, file)
 
   return (
     <div className="flex items-center justify-end gap-x-2">

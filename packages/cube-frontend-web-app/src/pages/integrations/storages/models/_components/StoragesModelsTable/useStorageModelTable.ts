@@ -49,9 +49,17 @@ export const useStorageModelTable = () => {
     [data, isModelListReplacing, removingDeviceIds, replacingDeviceIds],
   )
 
+  const [replaceListTargetFile, setReplaceListTargetFile] =
+    useState<File | null>(null)
+
   const [viewTargetRow, setViewTargetRow] = useState<
     StorageModelRow | undefined
   >()
+
+  const [replaceTarget, setReplaceTarget] = useState<{
+    name: string
+    file: File
+  } | null>(null)
 
   const [removeTargetRow, setRemoveTargetRow] = useState<
     StorageModelRow | undefined
@@ -82,17 +90,23 @@ export const useStorageModelTable = () => {
       isModelImporting ||
       removingDeviceIds.size > 0 ||
       replacingDeviceIds.size > 0,
-    upload: async (file: File) => {
+    isConfirmModalOpen: !!replaceListTargetFile,
+    openConfirmModal: (file: File) => setReplaceListTargetFile(file),
+    closeConfirmModal: () => setReplaceListTargetFile(null),
+    confirm: async () => {
+      if (!replaceListTargetFile) return
+
       try {
         await replaceModelList({
           dataCenter: dataCenter!.name,
-          storageModels: file,
+          storageModels: replaceListTargetFile,
         })
       } catch (error) {
         console.error('Failed to replace model list:', error)
       }
 
       refetchStorageModels()
+      setReplaceListTargetFile(null)
     },
   }
 
@@ -105,23 +119,31 @@ export const useStorageModelTable = () => {
 
   const replaceAction = {
     isLoading: isModelReplacing,
-    upload: async (row: StorageModelRow, file: File) => {
-      setReplacingDeviceIds((ids) => new Set(ids).add(row.id))
+    isConfirmModalOpen: !!replaceTarget,
+    openConfirmModal: (name: string, file: File) => {
+      setReplaceTarget({ name, file })
+    },
+    closeConfirmModal: () => setReplaceTarget(null),
+    confirm: async () => {
+      if (!replaceTarget) return
+
+      setReplacingDeviceIds((ids) => new Set(ids).add(replaceTarget.name))
 
       try {
         await replaceModel({
           dataCenter: dataCenter!.name,
-          driverName: row.driver,
-          storageModel: file,
+          driverName: replaceTarget.name,
+          storageModel: replaceTarget.file,
         })
       } catch (error) {
         console.error('Failed to replace model:', error)
       } finally {
         setReplacingDeviceIds((ids) => {
           const newIds = new Set(ids)
-          newIds.delete(row.id)
+          newIds.delete(replaceTarget.name)
           return newIds
         })
+        setReplaceTarget(null)
       }
       await refetchStorageModels()
     },
@@ -157,7 +179,10 @@ export const useStorageModelTable = () => {
     closeConfirmModal: () => setRemoveTargetRow(undefined),
   }
 
-  const tableActions = [importModelAction, replaceModelListAction]
+  const tableActions = {
+    importModelAction,
+    replaceModelListAction,
+  }
 
   const rowActions = {
     view: viewAction,

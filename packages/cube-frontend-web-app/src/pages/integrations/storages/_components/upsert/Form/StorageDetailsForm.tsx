@@ -13,7 +13,7 @@ export type StorageDetailsFormProps = {
   isInitialStorageLoading?: boolean
   isSaving: boolean
   submitButtonText: string
-  onConfirm: (parsedStorage: StorageForm) => Promise<void>
+  onConfirm: (parsedStorage: StorageForm) => void
   onCancel: () => void
 }
 

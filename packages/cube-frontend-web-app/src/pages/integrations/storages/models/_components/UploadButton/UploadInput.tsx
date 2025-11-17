@@ -1,19 +1,17 @@
 export type UploadInputProps = {
   ref: React.RefObject<HTMLInputElement | null>
   accept?: string
-  onFileSelect: (file: File) => Promise<unknown>
+  onFileSelect: (file: File) => void
 }
 
 export const UploadInput = (props: UploadInputProps) => {
   const { ref, accept, onFileSelect } = props
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (!file) return
 
-    await onFileSelect(file)
+    onFileSelect(file)
 
     event.target.value = ''
   }
