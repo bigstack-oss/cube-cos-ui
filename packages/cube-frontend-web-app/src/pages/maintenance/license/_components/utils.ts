@@ -1,55 +1,15 @@
 import { z } from 'zod'
-import pluralize from 'pluralize'
 import {
-  DataCenterAdditionalNodeLicenseStatus,
   GetLicenseAttachmentsResponseDataInner,
   GetLicensesProductsEnum,
   GetLicensesResponseDataLicensesInnerExpiry,
   GetLicensesTypesEnum,
   ListLicenseCurrentStatus,
 } from '@cube-frontend/api'
-import { toPluralizeDisplay } from '@cube-frontend/utils'
 import { DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 import { BatchLicenseAttachmentTableRow } from './LicenseActions/HardwareSerialNumberModal/LicenseAttachmentTable'
 import { TFunction } from 'i18next'
-
-export type InvalidLicenseMessageKey = Exclude<
-  keyof DataCenterAdditionalNodeLicenseStatus,
-  'valid'
->
-
-/**
- * The most left item in the array has the highest priority
- */
-export const invalidLicenseTypePriority = [
-  'unlicense',
-  'expired',
-] as const satisfies InvalidLicenseMessageKey[]
-
-export const invalidLicenseMessageMap: Record<
-  InvalidLicenseMessageKey,
-  (count: number) => string
-> = {
-  unlicense: (count) => `${toPluralizeDisplay(count, 'host')} is unlicensed`,
-  expired: (count) => `${count} host ${pluralize('license', count)} expired`,
-}
-
-export const getInvalidMessageList = (
-  nodeLicenseStatus: DataCenterAdditionalNodeLicenseStatus,
-) => {
-  const errorMessageList: string[] = []
-
-  for (const invalidType of invalidLicenseTypePriority) {
-    const invalidCount = nodeLicenseStatus[invalidType]
-    if (invalidCount > 0) {
-      const invalidMessage = invalidLicenseMessageMap[invalidType](invalidCount)
-      errorMessageList.push(invalidMessage)
-    }
-  }
-
-  return errorMessageList
-}
 
 export const renderExpiredDays = (
   expiry: GetLicensesResponseDataLicensesInnerExpiry,

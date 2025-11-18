@@ -585,5 +585,12 @@
   "maintenance.license.supportPlan": "支援方案",
   "maintenance.license.feature": "功能",
   "maintenance.license.na": "不適用",
-  "maintenance.license.unnamedLicense": "未命名授權"
+  "maintenance.license.unnamedLicense": "未命名授權",
+  "maintenance.license.nagging.haveDetectedIssues": "已偵測到您的授權存在問題。",
+  "maintenance.license.nagging.goToLicense": "前往授權",
+  "maintenance.license.nagging.goToHelp": "前往說明",
+  "maintenance.license.nagging.unlicenseMessage": "{{count}} 台主機未授權。",
+  "maintenance.license.nagging.unlicenseMessage_other": "{{count}} 台主機未授權。",
+  "maintenance.license.nagging.expiredMessage": "{{count}} 台主機授權已到期。",
+  "maintenance.license.nagging.expiredMessage_other": "{{count}} 台主機授權已到期。"
 }

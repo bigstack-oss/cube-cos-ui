@@ -1,7 +1,6 @@
-import { DataCenterAdditionalNodeLicenseStatus } from '@cube-frontend/api'
-import { toPluralizeDisplay } from '@cube-frontend/utils'
+import { useTranslation } from 'react-i18next'
 import { isNil } from 'lodash'
-import pluralize from 'pluralize'
+import { DataCenterAdditionalNodeLicenseStatus } from '@cube-frontend/api'
 
 export type InvalidLicenseMessageKey = Exclude<
   keyof DataCenterAdditionalNodeLicenseStatus,
@@ -16,18 +15,21 @@ export const invalidLicenseTypePriority = [
   'expired',
 ] as const satisfies InvalidLicenseMessageKey[]
 
-export const invalidLicenseMessageMap: Record<
-  InvalidLicenseMessageKey,
-  (count: number) => string
-> = {
-  unlicense: (count) =>
-    `${toPluralizeDisplay(count, 'host')} ${pluralize('is', count)} unlicensed.`,
-  expired: (count) => `${count} host ${pluralize('license', count)} expired.`,
-}
-
-export const getInvalidMessageList = (
+export const useInvalidMessageList = (
   nodeLicenseStatus: DataCenterAdditionalNodeLicenseStatus | undefined,
 ) => {
+  const { t } = useTranslation()
+
+  const invalidLicenseMessageMap: Record<
+    InvalidLicenseMessageKey,
+    (count: number) => string
+  > = {
+    unlicense: (count) =>
+      t('maintenance.license.nagging.unlicenseMessage', { count }),
+    expired: (count) =>
+      t('maintenance.license.nagging.expiredMessage', { count }),
+  }
+
   const errorMessageList: string[] = []
   if (isNil(nodeLicenseStatus)) {
     return errorMessageList
