@@ -23,7 +23,6 @@ export type DeleteActionState = GenericActionState | 'blockedByUpdating'
 
 export const updatedStatuses = new Set<FirmwareStatus>([
   FirmwareStatus.Succeeded,
-  FirmwareStatus.Resolved,
 ])
 
 // TODO: Replace this with `firmware.status.isProcessing` after API is fixed.

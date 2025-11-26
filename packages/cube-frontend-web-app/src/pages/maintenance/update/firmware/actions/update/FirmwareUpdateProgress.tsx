@@ -1,5 +1,4 @@
 import {
-  ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum as FirmwareStatus,
   GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus,
   ListFirmwaresResponseDataFirmwaresInner,
   GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum as ProgressPhase,
@@ -15,6 +14,7 @@ import {
   StatusWithIcon,
   StatusWithIconProps,
 } from '../../../_components/StatusWithIcon'
+import { updatedStatuses } from '../../computeFirmwaresActionState'
 import { FirmwareContinueAnywayButton } from './FirmwareContinueAnywayButton'
 import { FirmwareRetryButton } from './FirmwareRetryButton'
 import { UpdateProgressRow } from './updateActionUtils'
@@ -42,11 +42,6 @@ const statusWithIconPropsMap: Partial<
     text: 'Failed',
     color: 'text-status-negative',
   },
-  [ProgressStatus.Resolved]: {
-    Icon: CircleFill,
-    text: 'Resolved',
-    color: 'text-status-neutral',
-  },
   [ProgressStatus.WaitingReboot]: {
     Icon: CircleFill,
     text: 'Pending reboot',
@@ -68,9 +63,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
     fetchUpdateProgress,
   } = props
 
-  const isUpdated =
-    firmware.status.current === FirmwareStatus.Resolved ||
-    firmware.status.current === FirmwareStatus.Succeeded
+  const isUpdated = updatedStatuses.has(firmware.status.current)
 
   const hasResolvedProgress = useMemo<boolean>(
     () =>

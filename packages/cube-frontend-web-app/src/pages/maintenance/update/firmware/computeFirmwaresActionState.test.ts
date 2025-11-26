@@ -163,7 +163,7 @@ describe('Compute firmwares action state', () => {
               // ===== Target firmware =====
               createFirmware(targetFirmwareStatus),
               // ==========================
-              createFirmware(StatusEnum.Resolved),
+              createFirmware(StatusEnum.Succeeded),
               createFirmware(StatusEnum.Succeeded),
             ],
             GetHealthsResponseDataOverallStatusCurrentEnum.Ok,
@@ -226,7 +226,7 @@ describe('Compute firmwares action state', () => {
               // ==========================
               createFirmware(StatusEnum.Succeeded),
               createFirmware(StatusEnum.Succeeded),
-              createFirmware(StatusEnum.Resolved),
+              createFirmware(StatusEnum.Succeeded),
             ],
             GetHealthsResponseDataOverallStatusCurrentEnum.Ok,
           )

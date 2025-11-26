@@ -65,7 +65,6 @@ export const useUpdateFirmwareModalActionProps = (
     'waiting reboot': updatingModalActionProps,
     rebooting: updatingModalActionProps,
     failed: updatingModalActionProps,
-    resolved: updatedModalActionProps,
     succeeded: updatedModalActionProps,
   }
 
