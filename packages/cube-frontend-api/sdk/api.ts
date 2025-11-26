@@ -8001,7 +8001,6 @@ export const ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = {
     WaitingReboot: 'waiting reboot',
     Rebooting: 'rebooting',
     Failed: 'failed',
-    Resolved: 'resolved',
     Succeeded: 'succeeded'
 } as const;
 
@@ -8303,6 +8302,8 @@ export interface ListFixpacksResponseDataFixpacksInnerStatus {
 export const ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum = {
     Available: 'available',
     Installing: 'installing',
+    WaitingReboot: 'waiting reboot',
+    Rebooting: 'rebooting',
     Installed: 'installed',
     RollingBack: 'rolling back',
     InstallFailed: 'install failed',
