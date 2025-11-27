@@ -4,8 +4,11 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { StorageModelRow, storageToRow } from '../../storagesModelsPageUtils'
 import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
+import { useTranslation } from 'react-i18next'
 
 export const useStorageModelTable = () => {
+  const { t } = useTranslation()
+
   const { dataCenter } = useContext(DataCenterContext)
 
   const {
@@ -66,7 +69,7 @@ export const useStorageModelTable = () => {
   >()
 
   const importModelAction = {
-    title: 'Import a new model',
+    title: t('integrations.modelList.importANewModel'),
     isLoading: isModelImporting,
     disabled: isModelListReplacing,
     upload: async (file: File) => {
@@ -84,7 +87,7 @@ export const useStorageModelTable = () => {
   }
 
   const replaceModelListAction = {
-    title: 'Replace Model List',
+    title: t('integrations.modelList.replaceModelList'),
     isLoading: isModelListReplacing,
     disabled:
       isModelImporting ||

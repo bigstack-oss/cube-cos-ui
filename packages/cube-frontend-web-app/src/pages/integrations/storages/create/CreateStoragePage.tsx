@@ -2,16 +2,19 @@ import { StorageDetailsForm } from '../_components/upsert/Form/StorageDetailsFor
 import { UpsertStorageLayout } from '../_components/upsert/UpsertStorageLayout'
 import { CosGeneralPanel } from '@cube-frontend/ui-library'
 import { useCreateStorage } from './useCreateStorage'
+import { useTranslation } from 'react-i18next'
 
 export const CreateStoragePage = () => {
+  const { t } = useTranslation()
+
   const { isCreating, createStorage, cancel } = useCreateStorage()
 
   return (
-    <UpsertStorageLayout title="Add Storage">
+    <UpsertStorageLayout title={t('integrations.storages.upsert.addStorage')}>
       <CosGeneralPanel>
         <StorageDetailsForm
           isSaving={isCreating}
-          submitButtonText="Add storage to COS"
+          submitButtonText={t('integrations.storages.upsert.addStorageToCos')}
           onConfirm={createStorage}
           onCancel={cancel}
         />

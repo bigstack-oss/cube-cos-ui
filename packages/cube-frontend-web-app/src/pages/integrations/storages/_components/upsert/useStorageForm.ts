@@ -7,7 +7,7 @@ import {
   getInitialStorageForm,
   StorageForm,
   StorageFormError,
-  validateStorageForm,
+  useStorageFormSchema,
 } from './storageFormUtils'
 
 export const useStorageForm = (
@@ -32,9 +32,11 @@ export const useStorageForm = (
     })
   }, [initialStorage, selectedModel])
 
+  const storageFormSchema = useStorageFormSchema()
+
   const fieldErrors = useMemo<StorageFormError | undefined>(() => {
-    return validateStorageForm(storage)
-  }, [storage])
+    return storageFormSchema.safeParse(storage).error?.format()
+  }, [storage, storageFormSchema])
 
   const allFieldsValid = useMemo(() => {
     return !fieldErrors

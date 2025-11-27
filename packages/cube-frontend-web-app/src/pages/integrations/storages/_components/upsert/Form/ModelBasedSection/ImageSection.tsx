@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { produce } from 'immer'
 import { CosCheckbox } from '@cube-frontend/ui-library'
 import { StorageForm } from '../../storageFormUtils'
@@ -30,8 +31,10 @@ export const ImageSection = (props: ImageSectionProps) => {
     [setStorage],
   )
 
+  const { t } = useTranslation()
+
   return (
-    <StorageFormSection title="Image Settings">
+    <StorageFormSection title={t('integrations.storages.upsert.imageSettings')}>
       <div className="flex gap-x-4">
         <CosCheckbox
           color="primary"

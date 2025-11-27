@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import YAML from 'yaml'
 import { CosLogConsole, CosModal } from '@cube-frontend/ui-library'
 import { StorageModelRow } from '../../storagesModelsPageUtils'
@@ -15,10 +16,12 @@ export const ViewModal = (props: ViewModalProps) => {
 
   const name = row ? row.driver : ''
 
+  const { t } = useTranslation()
+
   return (
     <CosModal
       isOpen={isOpen}
-      title="Model Details"
+      title={t('integrations.modelList.detailsModal.title')}
       size="md"
       isActionButtonVisible={false}
       onCloseClick={onClose}

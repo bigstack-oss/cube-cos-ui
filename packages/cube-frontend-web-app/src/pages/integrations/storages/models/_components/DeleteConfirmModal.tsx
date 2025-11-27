@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosModal } from '@cube-frontend/ui-library'
 import { UseStorageTable } from '../../_components/useStorageTable'
 
@@ -8,18 +9,22 @@ type DeleteConfirmModalProps = {
 export const DeleteConfirmModal = (props: DeleteConfirmModalProps) => {
   const { action } = props
 
+  const { t } = useTranslation()
+
   return (
     <CosModal
       isOpen={action.isConfirmModalOpen}
       size="sm"
-      title="Delete the storage?"
-      actionText="Remove"
+      title={t('integrations.storages.deleteModal.title')}
+      actionText={t('integrations.storages.deleteModal.remove')}
       actionButtonProps={{ loading: action.isRequesting }}
       onActionClick={action.confirm}
       onCloseClick={action.closeConfirmModal}
     >
       <p className="primary-body2 text-functional-text">
-        Do you want to delete {action.deleteTargetName} storage?
+        {t('integrations.storages.deleteModal.message', {
+          storageName: action.deleteTargetName,
+        })}
       </p>
     </CosModal>
   )

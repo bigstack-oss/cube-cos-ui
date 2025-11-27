@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { produce } from 'immer'
 import { ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner } from '@cube-frontend/api'
 import { StorageForm, StorageFormError } from '../../storageFormUtils'
@@ -46,8 +47,10 @@ export const DriverSection = (props: DriverSectionProps) => {
     )
   }
 
+  const { t } = useTranslation()
+
   return (
-    <StorageFormSection title="Driver Section">
+    <StorageFormSection title={t('integrations.storages.upsert.driverSection')}>
       {driverSection.map(renderField)}
     </StorageFormSection>
   )

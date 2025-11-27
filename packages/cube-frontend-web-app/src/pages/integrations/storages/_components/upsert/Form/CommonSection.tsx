@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { produce } from 'immer'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
 import {
@@ -39,6 +40,8 @@ export const CommonSection = (props: CommonSectionProps) => {
     fieldErrors,
   } = props
 
+  const { t } = useTranslation()
+
   const updateStorageCommonField = useCallback(
     <Key extends keyof StorageForm>(key: Key, value: StorageForm[Key]) => {
       setStorage((prev) =>
@@ -53,20 +56,21 @@ export const CommonSection = (props: CommonSectionProps) => {
   return (
     <StorageFormSection>
       <CosInput
-        label="Storage Name"
+        label={t('integrations.storages.upsert.storageName')}
         tooltip={
           <CosTooltip
             hoverContent={{
-              title: 'Storage name is permanent and used as a unique ID.',
-              message:
-                'It cannot be changed after creation and will still be recognized even if the storage is deleted.',
+              title: t('integrations.storages.upsert.storageName.tooltipTitle'),
+              message: t(
+                'integrations.storages.upsert.storageName.tooltipMessage',
+              ),
             }}
             placement="top-right"
           >
             <InformationCircleFilled className="icon-md text-functional-border-divider" />
           </CosTooltip>
         }
-        placeholder="Storage Name"
+        placeholder={t('integrations.storages.upsert.storageName')}
         value={storage.name}
         errorMessage={fieldErrors?.name?._errors[0]}
         disabled={formState.isInputDisabled || formState.isEdit}
@@ -75,7 +79,7 @@ export const CommonSection = (props: CommonSectionProps) => {
       />
       <div className="flex items-center justify-between">
         <CosDropdown
-          label="Vendor"
+          label={t('integrations.storages.upsert.vendor')}
           size="md"
           type="radio"
           variant="regular"
@@ -83,8 +87,10 @@ export const CommonSection = (props: CommonSectionProps) => {
           isLoading={formState.isInputLoading}
           disabled={formState.isInputDisabled || formState.isEdit}
         >
-          <CosDropdown.Trigger placeholder="Select an Item">
-            {selectedVendor || 'Select a vendor'}
+          <CosDropdown.Trigger
+            placeholder={t('integrations.storages.upsert.selectAnItem')}
+          >
+            {selectedVendor || t('integrations.storages.upsert.selectAnItem')}
           </CosDropdown.Trigger>
           <CosDropdown.Menu>
             {vendorOptions.map((vendor) => (
@@ -108,12 +114,12 @@ export const CommonSection = (props: CommonSectionProps) => {
               )
             }}
           >
-            Model List
+            {t('integrations.storages.upsert.modelList')}
           </CosHyperlink>
         )}
       </div>
       <CosDropdown
-        label="Name"
+        label={t('integrations.storages.upsert.name')}
         size="md"
         type="radio"
         variant="regular"

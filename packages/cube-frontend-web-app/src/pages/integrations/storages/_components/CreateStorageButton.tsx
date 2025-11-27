@@ -1,12 +1,14 @@
+import { createSearchParams, useNavigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import PlusIcon from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
 import { CosButton, CosOverflowMenu } from '@cube-frontend/ui-library'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
-import { createSearchParams, useNavigate } from 'react-router'
 import { DEFAULT_VENDOR_QUERY_KEY } from '../storageUtils'
 import { useStorageVendors } from './useStorageVendors'
-import PlusIcon from '@cube-frontend/ui-library/icons/monochrome/plus.svg?react'
 
 export const CreateStorageButton = () => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const { data: vendors, isLoading: isLoadingVendors } = useStorageVendors()
 
@@ -20,11 +22,13 @@ export const CreateStorageButton = () => {
           loading={isLoadingVendors}
           Icon={PlusIcon}
         >
-          Add external storage
+          {t('integrations.storages.addExternalStorage')}
         </CosButton>
       }
     >
-      <CosOverflowMenu.Title>Choose Vendor</CosOverflowMenu.Title>
+      <CosOverflowMenu.Title>
+        {t('integrations.storages.chooseVendor')}
+      </CosOverflowMenu.Title>
       {vendors?.map((vendor) => (
         <CosOverflowMenu.Item
           key={vendor}

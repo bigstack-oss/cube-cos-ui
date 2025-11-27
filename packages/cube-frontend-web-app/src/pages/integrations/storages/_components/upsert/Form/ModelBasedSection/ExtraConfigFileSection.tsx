@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { produce } from 'immer'
 import {
   ExtraConfigFilesForm,
@@ -59,8 +60,12 @@ export const ExtraConfigFileSection = (props: ExtraConfigFileSectionProps) => {
     )
   }
 
+  const { t } = useTranslation()
+
   return (
-    <StorageFormSection title="Extra Config Files">
+    <StorageFormSection
+      title={t('integrations.storages.upsert.extraConfigFiles')}
+    >
       {extraConfigFiles.map(renderField)}
     </StorageFormSection>
   )

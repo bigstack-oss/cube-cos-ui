@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { produce } from 'immer'
 import { ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner } from '@cube-frontend/api'
 import { StorageForm, StorageFormError } from '../../storageFormUtils'
@@ -46,8 +47,12 @@ export const VolumeTypeSection = (props: VolumeSectionProps) => {
     )
   }
 
+  const { t } = useTranslation()
+
   return (
-    <StorageFormSection title="Volume Type Settings">
+    <StorageFormSection
+      title={t('integrations.storages.upsert.volumeTypeSettings')}
+    >
       {volumeTypeSettings.map(renderField)}
     </StorageFormSection>
   )

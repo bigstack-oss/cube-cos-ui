@@ -1,7 +1,4 @@
-import {
-  ListIntegrationStoragesResponseDataInner,
-  ListIntegrationStoragesResponseDataInnerStatusCurrentEnum,
-} from '@cube-frontend/api'
+import { ListIntegrationStoragesResponseDataInner } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
 
 export const DEFAULT_VENDOR_QUERY_KEY = 'defaultVendor'
@@ -11,9 +8,16 @@ export type StorageRow = CosTableRow &
     rowStates: StorageRowStates
   }
 
+export type ProcessingType =
+  | 'creating'
+  | 'updating'
+  | 'deleting'
+  | 'verifying'
+  | 'setting to default'
+
 export type StorageRowStates = {
   showProcessing: boolean
-  processingMessage: string
+  processingType: ProcessingType | null
   verify: {
     hidden: boolean
     disabled: boolean
@@ -78,19 +82,6 @@ const calculateStorageProcessingStates = (
     requesting.setDefaultNames,
   )
 
-  // TODO: Add i18n
-  const processingMessageMap: Record<
-    ListIntegrationStoragesResponseDataInnerStatusCurrentEnum,
-    string
-  > = {
-    ok: 'OK',
-    creating: 'Creating',
-    updating: 'Updating',
-    deleting: 'Deleting',
-    verifying: 'Verifying',
-    ['setting to default']: 'Setting to default',
-  }
-
   const processing =
     storage.status.isProcessing ||
     creating ||
@@ -99,21 +90,21 @@ const calculateStorageProcessingStates = (
     verifying ||
     settingToDefault
 
-  const getProcessingMessage = () => {
-    if (creating) return processingMessageMap.creating
-    if (updating) return processingMessageMap.updating
-    if (deleting) return processingMessageMap.deleting
-    if (verifying) return processingMessageMap.verifying
-    if (settingToDefault) return processingMessageMap['setting to default']
+  const getProcessingType = (): ProcessingType | null => {
+    if (creating) return 'creating'
+    if (updating) return 'updating'
+    if (deleting) return 'deleting'
+    if (verifying) return 'verifying'
+    if (settingToDefault) return 'setting to default'
 
-    return ''
+    return null
   }
 
-  const processingMessage = getProcessingMessage()
+  const processingType = getProcessingType()
 
   return {
     processing,
-    processingMessage,
+    processingType,
     creating,
     updating,
     deleting,
@@ -132,7 +123,7 @@ export const calculateStorageRowStates = (
 
   const {
     processing,
-    processingMessage,
+    processingType,
     updating,
     deleting,
     verifying,
@@ -143,7 +134,7 @@ export const calculateStorageRowStates = (
 
   return {
     showProcessing: processing,
-    processingMessage,
+    processingType,
     verify: {
       hidden: isBuiltIn,
       disabled: isBuiltIn || storage.isVerified || processing,

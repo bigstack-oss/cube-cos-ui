@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   CosButton,
   CosGeneralPanel,
@@ -17,14 +18,16 @@ const StorageModelsTable = GetCosBasicTable<StorageModelRow>()
 export const StoragesModelsPanel = () => {
   const { rows, showLoading, tableActions, rowActions } = useStorageModelTable()
 
+  const { t } = useTranslation()
+
   return (
     <CosGeneralPanel
-      topic="Imported Model List"
+      topic={t('integrations.modelList.importedModelList')}
       rightSlot={<TableActions actions={tableActions} />}
     >
       <StorageModelsTable rows={rows} isLoading={showLoading}>
         <StorageModelsTable.Column
-          label="Vendor"
+          label={t('integrations.modelList.vendor')}
           property="vendor"
           emphasize
           fitContent
@@ -36,7 +39,11 @@ export const StoragesModelsPanel = () => {
             </div>
           )}
         </StorageModelsTable.Column>
-        <StorageModelsTable.Column label="Name" property="driver" fitContent>
+        <StorageModelsTable.Column
+          label={t('integrations.modelList.name')}
+          property="driver"
+          fitContent
+        >
           {(driver) => <span className="whitespace-nowrap">{driver}</span>}
         </StorageModelsTable.Column>
         <StorageModelsTable.Column>
@@ -46,7 +53,7 @@ export const StoragesModelsPanel = () => {
               onClick={() => rowActions.view.openModal(row)}
               disabled={row.state.isProcessing}
             >
-              View more
+              {t('integrations.modelList.viewMore')}
             </CosButton>
           )}
         </StorageModelsTable.Column>

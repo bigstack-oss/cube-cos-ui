@@ -18,7 +18,7 @@ export const IntegrationsLayout = () => {
         </Link>
         <Link to={links.storage}>
           <CosTabs.Tab isActive={location.pathname.startsWith(links.storage)}>
-            Storages
+            {t('integrations.storages.title')}
           </CosTabs.Tab>
         </Link>
       </CosTabs>

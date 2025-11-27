@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosModal } from '@cube-frontend/ui-library'
 
 export type EditConfirmModalProps = {
@@ -10,20 +11,21 @@ export type EditConfirmModalProps = {
 export const EditConfirmModal = (props: EditConfirmModalProps) => {
   const { isOpen, isUpdating, confirm, cancel } = props
 
+  const { t } = useTranslation()
+
   return (
     <CosModal
       isOpen={isOpen}
-      title="Update the storage details"
-      actionText="Yes, update"
+      title={t('integrations.storages.upsert.editConfirmModal.title')}
+      actionText={t('integrations.storages.upsert.editConfirmModal.yesUpdate')}
       actionButtonProps={{ loading: isUpdating }}
       isCancelButtonVisible={!isUpdating}
       onActionClick={confirm}
       onCloseClick={cancel}
     >
-      Please confirm you have re-uploaded the extra config file.
-      <br />
-      For security reasons, previously uploaded files are not retained when
-      editing.
+      <p className="whitespace-pre-wrap">
+        {t('integrations.storages.upsert.editConfirmModal.message')}
+      </p>
     </CosModal>
   )
 }

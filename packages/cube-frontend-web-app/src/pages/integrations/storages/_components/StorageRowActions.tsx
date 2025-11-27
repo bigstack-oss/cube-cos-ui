@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { CosButton, CosOverflowMenu } from '@cube-frontend/ui-library'
 import DeleteIcon from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import EditIcon from '@cube-frontend/ui-library/icons/monochrome/edit.svg?react'
@@ -20,6 +21,8 @@ export const StorageRowActions = (props: StorageRowActionsProps) => {
     edit: editStatus,
     delete: deleteStatus,
   } = row.rowStates
+
+  const { t } = useTranslation()
 
   return (
     <div className="flex items-center justify-end gap-x-2">
@@ -53,7 +56,7 @@ export const StorageRowActions = (props: StorageRowActionsProps) => {
         }
       >
         <CosOverflowMenu.Item
-          title="Set default storage"
+          title={t('integrations.storages.setDefaultStorage')}
           type="plain"
           disabled={setDefaultStatus.disabled}
           onClick={() => rowActions.setDefault(row.name)}

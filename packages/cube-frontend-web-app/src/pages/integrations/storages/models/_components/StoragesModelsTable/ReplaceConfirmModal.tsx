@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosModal } from '@cube-frontend/ui-library'
 
 export type ReplaceConfirmModalProps = {
@@ -10,20 +11,19 @@ export type ReplaceConfirmModalProps = {
 export const ReplaceConfirmModal = (props: ReplaceConfirmModalProps) => {
   const { isOpen, isLoading, onConfirm, onCancel } = props
 
+  const { t } = useTranslation()
+
   return (
     <CosModal
       isOpen={isOpen}
-      title="Confirm to replace the model"
-      actionText="Yes, Confirm"
+      title={t('integrations.modelList.replaceConfirmModal.title')}
+      actionText={t('integrations.modelList.replaceConfirmModal.yesConfirm')}
       actionButtonProps={{ loading: isLoading }}
       isCancelButtonVisible={!isLoading}
       onActionClick={onConfirm}
       onCloseClick={onCancel}
     >
-      Please note that applying this update may affect subsequent volume
-      operations.
-      <br />
-      Verify all settings carefully before saving your changes.
+      {t('integrations.modelList.replaceConfirmModal.message')}
     </CosModal>
   )
 }

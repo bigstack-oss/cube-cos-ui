@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CosButton, CosOverflowMenu } from '@cube-frontend/ui-library'
 import DeleteIcon from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import OverflowMenuHorizontal from '@cube-frontend/ui-library/icons/monochrome/overflow_menu_horizontal.svg?react'
@@ -15,6 +16,8 @@ export type RowActionsProps = {
 }
 export const RowActions = (props: RowActionsProps) => {
   const { row, onReplace, onRemove } = props
+
+  const { t } = useTranslation()
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -40,7 +43,7 @@ export const RowActions = (props: RowActionsProps) => {
         }
       >
         <CosOverflowMenu.Item
-          title="Upload to replace"
+          title={t('integrations.modelList.uploadToReplace')}
           type="plain"
           disabled={row.state.isProcessing}
           onClick={selectFile}

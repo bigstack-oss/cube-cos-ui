@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { produce } from 'immer'
 import {
   ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner,
@@ -77,8 +78,13 @@ export const ExtraSettingsSection = (props: ExtraSettingsSectionProps) => {
     )
   }
 
+  const { t } = useTranslation()
+
   return (
-    <StorageFormSection title="Extra Settings" className="gap-y-8">
+    <StorageFormSection
+      title={t('integrations.storages.upsert.extraSettings')}
+      className="gap-y-8"
+    >
       {extraSettings.map(renderSection)}
     </StorageFormSection>
   )

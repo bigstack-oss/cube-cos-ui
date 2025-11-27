@@ -3,6 +3,7 @@ import {
   GetIntegrationStorageResponseData,
   ListIntegrationStorageModelsResponseDataInner,
 } from '@cube-frontend/api'
+import { useTranslation } from 'react-i18next'
 
 export type StorageFormError = ZodFormattedError<StorageForm>
 
@@ -21,37 +22,37 @@ const extraConfigFilesFormSchema = z.object({
 
 export type ExtraConfigFilesForm = z.infer<typeof extraConfigFilesFormSchema>
 
-export const storageFormSchema = z.object({
-  name: z.string().min(1, 'Storage name is required'),
-  driver: z.string().min(1),
-  storage: z.object({
-    service: z.object({
-      driverSection: z.array(keyValuePairSchema),
-      extraSettings: z.array(
-        z.object({
-          sectionHeader: z.string(),
-          settings: z.array(keyValuePairSchema),
-        }),
-      ),
-      extraConfigFiles: z.array(extraConfigFilesFormSchema),
-    }),
-    volumeType: z.object({
-      settings: z.array(keyValuePairSchema),
-    }),
-    image: z.object({
-      useMultipath: z.boolean(),
-      forceMultipath: z.boolean(),
-    }),
-  }),
-})
+export const useStorageFormSchema = () => {
+  const { t } = useTranslation()
 
-export type StorageForm = z.infer<typeof storageFormSchema>
-
-export const validateStorageForm = (
-  storage: StorageForm,
-): StorageFormError | undefined => {
-  return storageFormSchema.safeParse(storage).error?.format()
+  return z.object({
+    name: z
+      .string()
+      .min(1, t('integrations.storages.upsert.storageName.required')),
+    driver: z.string().min(1),
+    storage: z.object({
+      service: z.object({
+        driverSection: z.array(keyValuePairSchema),
+        extraSettings: z.array(
+          z.object({
+            sectionHeader: z.string(),
+            settings: z.array(keyValuePairSchema),
+          }),
+        ),
+        extraConfigFiles: z.array(extraConfigFilesFormSchema),
+      }),
+      volumeType: z.object({
+        settings: z.array(keyValuePairSchema),
+      }),
+      image: z.object({
+        useMultipath: z.boolean(),
+        forceMultipath: z.boolean(),
+      }),
+    }),
+  })
 }
+
+export type StorageForm = z.infer<ReturnType<typeof useStorageFormSchema>>
 
 const getName = (
   initialStorage: GetIntegrationStorageResponseData | undefined,
