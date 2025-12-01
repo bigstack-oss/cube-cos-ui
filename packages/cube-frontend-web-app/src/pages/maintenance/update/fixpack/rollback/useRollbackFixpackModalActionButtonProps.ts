@@ -1,7 +1,4 @@
-import {
-  ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum as FixpackStatus,
-  ListFixpacksResponseDataFixpacksInner,
-} from '@cube-frontend/api'
+import { ListFixpacksResponseDataFixpacksInner } from '@cube-frontend/api'
 import { CosModalProps } from '@cube-frontend/ui-library'
 import { useMemo } from 'react'
 import {
@@ -11,6 +8,10 @@ import {
 } from '../_components/fixpackUpdateUtils'
 import { useSoftRebootDataCenter } from '../_components/useSoftRebootDataCenter'
 import { useRollbackFixpack } from './useRollbackFixpack'
+import {
+  isRollbackableFixpack,
+  isRollingBackStatuses,
+} from '../computeFixpacksActionState'
 
 type UseRollbackFixpackModalActionButtonProps = Pick<
   CosModalProps,
@@ -44,11 +45,10 @@ export const useRollbackFixpackModalActionButtonProps = (
   const { isCallingSoftRebootDataCenterApi, onRebootClick } =
     useSoftRebootDataCenter(onSoftRebootRequested)
 
-  const isRollbackable = fixpack?.status.isRollbackable ?? false
+  const isRollbackable = !!fixpack && isRollbackableFixpack(fixpack)
 
   const isRollingBack =
-    fixpack?.status.current === FixpackStatus.RollingBack ||
-    fixpack?.status.current === FixpackStatus.RollbackFailed
+    !!fixpack && isRollingBackStatuses(fixpack.status.current)
 
   const isSoftRebooting = useMemo<boolean>(
     () => getIsSoftRebooting(fixpack, progressRows),

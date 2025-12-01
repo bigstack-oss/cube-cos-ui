@@ -9,6 +9,7 @@ import { useFixpackUpdateProgress } from '../_components/useFixpackUpdateProgres
 import { FixpackInstallProgressView } from './FixpackInstallProgressView'
 import { FixpackInstallableNodesView } from './FixpackInstallableNodesView'
 import { useInstallFixpackModalActionButtonProps } from './useInstallFixpackModalActionButtonProps'
+import { isInstallingStatuses } from '../computeFixpacksActionState'
 
 type InstallFixpackModalProps = {
   isOpen: boolean
@@ -37,11 +38,7 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
     })
 
   const isInstallable = fixpack?.status.current === StatusEnum.Available
-
-  const isInstalling =
-    fixpack?.status.current === StatusEnum.Installing ||
-    fixpack?.status.current === StatusEnum.InstallFailed
-
+  const isInstalling = fixpack && isInstallingStatuses(fixpack.status.current)
   const isInstalled = fixpack?.status.current === StatusEnum.Installed
 
   const getModalTitle = (): string => {

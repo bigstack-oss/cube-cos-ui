@@ -35,6 +35,37 @@ export type RemoveActionState =
   | 'blockedByNewerFixpack'
   | 'blockedByAlreadyInstalled'
 
+export const installingStatuses = new Set<StatusEnum>([
+  StatusEnum.Installing,
+  StatusEnum.InstallFailed,
+  StatusEnum.WaitingRebootFromInstall,
+  StatusEnum.RebootingFromInstall,
+])
+
+export const rollingBackStatuses = new Set<StatusEnum>([
+  StatusEnum.RollingBack,
+  StatusEnum.RollbackFailed,
+  StatusEnum.WaitingRebootFromRollback,
+  StatusEnum.RebootingFromRollback,
+])
+
+export const isInstallingStatuses = (status: StatusEnum): boolean => {
+  return installingStatuses.has(status)
+}
+
+export const isRollingBackStatuses = (status: StatusEnum): boolean => {
+  return rollingBackStatuses.has(status)
+}
+
+export const isRollbackableFixpack = (
+  fixpack: ListFixpacksResponseDataFixpacksInner,
+): boolean => {
+  return (
+    fixpack.status.isRollbackable &&
+    fixpack.status.current === StatusEnum.Installed
+  )
+}
+
 /**
  * @param fixpacks Fixpacks should be sorted by the order they were added in descending order.
  */
@@ -81,15 +112,11 @@ const computeInstallActionState = (
   olderFixpack: ListFixpacksResponseDataFixpacksInner | undefined,
   cephHealthStatus: CephHealthStatus,
 ): InstallActionState => {
-  const isInstalling =
-    fixpack.status.current === StatusEnum.Installing ||
-    fixpack.status.current === StatusEnum.InstallFailed
+  const isInstalling = isInstallingStatuses(fixpack.status.current)
 
   if (isInstalling) return 'inProgress'
 
-  const isRollingBack =
-    fixpack.status.current === StatusEnum.RollingBack ||
-    fixpack.status.current === StatusEnum.RollbackFailed
+  const isRollingBack = isRollingBackStatuses(fixpack.status.current)
 
   if (isRollingBack || fixpack.status.current === StatusEnum.Installed) {
     return 'hidden'
@@ -116,9 +143,7 @@ const computeRollbackActionState = (
   hasNewerPermanentFixpackInstalled: boolean,
   cephHealthStatus: CephHealthStatus,
 ): RollbackActionState => {
-  const isRollingBack =
-    fixpack.status.current === StatusEnum.RollingBack ||
-    fixpack.status.current === StatusEnum.RollbackFailed
+  const isRollingBack = isRollingBackStatuses(fixpack.status.current)
 
   if (isRollingBack) return 'inProgress'
 
@@ -166,16 +191,11 @@ const computeRemoveActionState = (
 
   if (isInstalled && !fixpack.status.isRollbackable) return 'hidden'
 
-  const isInstalling =
-    fixpack.status.current === StatusEnum.Installing ||
-    fixpack.status.current === StatusEnum.InstallFailed
+  const isInstalling = isInstallingStatuses(fixpack.status.current)
 
   if (isInstalling) return 'blockedByInstalling'
 
-  const isRollingBack =
-    fixpack.status.current === StatusEnum.RollingBack ||
-    fixpack.status.current === StatusEnum.RollbackFailed
-
+  const isRollingBack = isRollingBackStatuses(fixpack.status.current)
   if (isRollingBack) return 'blockedByRollingBack'
 
   if (hasNewerPermanentFixpackInstalled) {

@@ -8302,8 +8302,10 @@ export interface ListFixpacksResponseDataFixpacksInnerStatus {
 export const ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum = {
     Available: 'available',
     Installing: 'installing',
-    WaitingReboot: 'waiting reboot',
-    Rebooting: 'rebooting',
+    WaitingRebootFromInstall: 'waiting reboot from install',
+    WaitingRebootFromRollback: 'waiting reboot from rollback',
+    RebootingFromInstall: 'rebooting from install',
+    RebootingFromRollback: 'rebooting from rollback',
     Installed: 'installed',
     RollingBack: 'rolling back',
     InstallFailed: 'install failed',

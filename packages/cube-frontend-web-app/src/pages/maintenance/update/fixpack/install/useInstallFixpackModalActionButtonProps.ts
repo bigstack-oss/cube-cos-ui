@@ -11,6 +11,7 @@ import {
 } from '../_components/fixpackUpdateUtils'
 import { useSoftRebootDataCenter } from '../_components/useSoftRebootDataCenter'
 import { useInstallFixpack } from './useInstallFixpack'
+import { isInstallingStatuses } from '../computeFixpacksActionState'
 
 type UseInstallFixpackModalActionButtonProps = Pick<
   CosModalProps,
@@ -48,9 +49,7 @@ export const useInstallFixpackModalActionButtonProps = (
 
   const isInstallable = fixpack?.status.current === FixpackStatus.Available
 
-  const isInstalling =
-    fixpack?.status.current === FixpackStatus.Installing ||
-    fixpack?.status.current === FixpackStatus.InstallFailed
+  const isInstalling = fixpack && isInstallingStatuses(fixpack.status.current)
 
   const isSoftRebooting = useMemo<boolean>(
     () => getIsSoftRebooting(fixpack, progressRows),

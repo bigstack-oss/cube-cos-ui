@@ -10,6 +10,8 @@ import {
   FixpackActionState,
   InstallActionState,
   RollbackActionState,
+  installingStatuses,
+  rollingBackStatuses,
 } from './computeFixpacksActionState'
 
 const createFixpack = (
@@ -22,6 +24,9 @@ const createFixpack = (
     status,
   } as unknown as ListFixpacksResponseDataFixpacksInner
 }
+
+const installingStatusesArray = Array.from(installingStatuses.values())
+const rollingBackStatusesArray = Array.from(rollingBackStatuses.values())
 
 describe('Compute fixpacks action state', () => {
   suite('when Ceph is healthy', () => {
@@ -74,7 +79,7 @@ describe('Compute fixpacks action state', () => {
       })
     })
 
-    suite.each([StatusEnum.Installing, StatusEnum.InstallFailed])(
+    suite.each(installingStatusesArray)(
       'when the oldest fixpack is installing',
       (oldestFixpackStatus) => {
         let oldestFixpackState: FixpackActionState
@@ -242,7 +247,7 @@ describe('Compute fixpacks action state', () => {
       })
     })
 
-    suite.each([StatusEnum.RollingBack, StatusEnum.RollbackFailed])(
+    suite.each(rollingBackStatusesArray)(
       'when the oldest fixpack is rolling back',
       (oldestFixpackStatus) => {
         let oldestFixpackState: FixpackActionState

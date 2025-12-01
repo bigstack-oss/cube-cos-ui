@@ -8,6 +8,10 @@ import { useFixpackUpdateProgress } from '../_components/useFixpackUpdateProgres
 import { FixpackRollbackProgressView } from './FixpackRollbackProgressView'
 import { FixpackRollbackableNodesView } from './FixpackRollbackableNodesView'
 import { useRollbackFixpackModalActionButtonProps } from './useRollbackFixpackModalActionButtonProps'
+import {
+  isRollbackableFixpack,
+  isRollingBackStatuses,
+} from '../computeFixpacksActionState'
 
 type RollbackFixpackModalProps = {
   isOpen: boolean
@@ -26,12 +30,9 @@ export const RollbackFixpackModal = (props: RollbackFixpackModalProps) => {
         GetFixpackUpdateProgressResponseDataOperationEnum.Rollback,
     })
 
-  const isRollbackable = fixpack?.status.current === StatusEnum.Installed
-
+  const isRollbackable = !!fixpack && isRollbackableFixpack(fixpack)
   const isRollingBack =
-    fixpack?.status.current === StatusEnum.RollingBack ||
-    fixpack?.status.current === StatusEnum.RollbackFailed
-
+    !!fixpack && isRollingBackStatuses(fixpack.status.current)
   const isRolledBack = fixpack?.status.current === StatusEnum.Available
 
   const getModalTitle = (): string => {
