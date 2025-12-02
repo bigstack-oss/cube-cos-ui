@@ -9,6 +9,7 @@ import { useFileUpload } from '../_components/useFileUpload'
 import { useScrollToMd5Verification } from '../_components/useScrollToMd5Verification'
 import { checksumFileExtensions } from '../maintenanceUpdateUtils'
 import { useFixpackMd5Verification } from './useFixpackMd5Verification'
+import { useTranslation } from 'react-i18next'
 
 type UploadFixpackModalProps = {
   isOpen: boolean
@@ -23,6 +24,8 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
   const pkgInputId = useId()
   const checksumInputId = useId()
+
+  const { t } = useTranslation()
 
   const pkgFileUpload = useFileUpload({
     request: async (file, config) => {
@@ -40,10 +43,14 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
       if (isAxiosError(error) && error.status == HttpStatusCode.Conflict) {
         // TODO: show error message based on business error code in error API response when it's implemented.
-        return 'A duplicate Fixpack ID was found, or an MD5 checksum is being verified.'
+        return t(
+          'maintenance.update.fixpack.uploadModal.errorMessage.duplicateFirmwareId',
+        )
       }
 
-      return 'Unknown error occurred, please try again.'
+      return t(
+        'maintenance.update.fixpack.uploadModal.errorMessage.unknownError',
+      )
     },
   })
 
@@ -62,10 +69,14 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
       if (isAxiosError(error) && error.status == HttpStatusCode.Conflict) {
         // TODO: show error message based on business error code in error API response when it's implemented.
-        return 'An MD5 checksum is being verified, or a fixpack upload is in progress.'
+        return t(
+          'maintenance.update.fixpack.uploadModal.errorMessage.checksumVerifiedOrFirmwareProcessing',
+        )
       }
 
-      return 'Unknown error occurred, please try again.'
+      return t(
+        'maintenance.update.fixpack.uploadModal.errorMessage.unknownError',
+      )
     },
   })
 
@@ -120,7 +131,9 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
       if (isUploading) {
         if (
           !confirm(
-            'An upload is in progress. Do you wish to cancel the upload?',
+            t(
+              'maintenance.update.fixpack.uploadModal.confirmMessage.cancelProgress',
+            ),
           )
         ) {
           return
@@ -130,7 +143,9 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
       } else if (isUploaded) {
         if (
           !confirm(
-            'Some of the files have been uploaded. Do you wish to cancel the upload?',
+            t(
+              'maintenance.update.fixpack.uploadModal.confirmMessage.cancelUploaded',
+            ),
           )
         ) {
           return
@@ -164,7 +179,11 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
   }, [isUploading, isUploaded])
 
   const onAbortClick = (abort: () => void): void => {
-    if (confirm('Do you wish to cancel the upload?')) {
+    if (
+      confirm(
+        t('maintenance.update.fixpack.uploadModal.confirmMessage.cancelUpload'),
+      )
+    ) {
       abort()
     }
   }
@@ -174,11 +193,13 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
       <>
         <div className="flex flex-col items-start gap-y-3">
           <label htmlFor={pkgInputId} className="primary-body4 font-semibold">
-            Upload Fixpack
+            {t('maintenance.update.fixpack.uploadModal.uploadFixpack')}
           </label>
           <CosUpload
             className="w-full"
-            buttonText="Upload from computer"
+            buttonText={t(
+              'maintenance.update.fixpack.uploadModal.uploadFromComputer',
+            )}
             inputId={pkgInputId}
             accept=".fixpack"
             isUploading={pkgFileUpload.isUploading}
@@ -210,11 +231,13 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
             htmlFor={checksumInputId}
             className="primary-body4 font-semibold"
           >
-            Upload Checksum
+            {t('maintenance.update.fixpack.uploadModal.uploadChecksum')}
           </label>
           <CosUpload
             className="w-full"
-            buttonText="Choose checksum"
+            buttonText={t(
+              'maintenance.update.fixpack.uploadModal.chooseChecksum',
+            )}
             inputId={checksumInputId}
             accept={checksumFileExtensions}
             isUploading={checksumFileUpload.isUploading}
@@ -247,9 +270,9 @@ export const UploadFixpackModal = (props: UploadFixpackModalProps) => {
 
   return (
     <CosModal
-      title="Upload Fixpack"
+      title={t('maintenance.update.fixpack.uploadModal.title')}
       isOpen={isOpen}
-      actionText="Done"
+      actionText={t('maintenance.update.fixpack.uploadModal.done')}
       actionButtonProps={{
         disabled: !isMd5ChecksumVerified,
       }}

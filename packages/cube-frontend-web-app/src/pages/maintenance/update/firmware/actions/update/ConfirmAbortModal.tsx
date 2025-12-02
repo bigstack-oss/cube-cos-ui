@@ -1,8 +1,9 @@
+import { useContext, useState } from 'react'
 import { CosModal } from '@cube-frontend/ui-library'
 import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useContext, useState } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 
 type ConfirmAbortModalProps = {
   isOpen: boolean
@@ -35,19 +36,24 @@ export const ConfirmAbortModal = (props: ConfirmAbortModalProps) => {
     }
   }
 
+  const { t } = useTranslation()
+
   return (
     <CosModal
       isOpen={isOpen}
       size="sm"
-      title="Abort Firmware Update"
-      actionText="Abort"
+      title={t('maintenance.update.firmware.abortModal.title')}
+      actionText={t('maintenance.update.firmware.abortModal.abort')}
       actionButtonProps={{ loading: isLoading }}
       onActionClick={onClick}
       onCloseClick={onCloseClick}
     >
       <div className="primary-body2 text-functional-text">
-        Are you sure you want to abort the update of{' '}
-        <b className="font-semibold">{firmwareVersion}</b>?
+        <Trans
+          i18nKey="maintenance.update.firmware.abortModal.message"
+          values={{ firmware: firmwareVersion }}
+          components={{ bold: <b className="font-semibold" /> }}
+        />
       </div>
     </CosModal>
   )

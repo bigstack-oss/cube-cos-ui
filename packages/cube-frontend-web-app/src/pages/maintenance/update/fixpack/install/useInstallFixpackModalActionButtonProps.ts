@@ -12,6 +12,7 @@ import {
 import { useSoftRebootDataCenter } from '../_components/useSoftRebootDataCenter'
 import { useInstallFixpack } from './useInstallFixpack'
 import { isInstallingStatuses } from '../computeFixpacksActionState'
+import { useTranslation } from 'react-i18next'
 
 type UseInstallFixpackModalActionButtonProps = Pick<
   CosModalProps,
@@ -60,9 +61,11 @@ export const useInstallFixpackModalActionButtonProps = (
     return getIsReadyToReboot(fixpack, progressRows)
   }, [fixpack, progressRows])
 
+  const { t } = useTranslation()
+
   if (isInstallable) {
     return {
-      actionText: 'Yes, install',
+      actionText: t('maintenance.update.fixpack.installModal.yesInstall'),
       actionButtonProps: {
         loading: isInstallButtonLoading,
         disabled: !fixpack.status.isRollbackable && !isRollbackDisclaimerRead,
@@ -74,7 +77,7 @@ export const useInstallFixpackModalActionButtonProps = (
   if (isInstalling) {
     if (fixpack.rebootRequired) {
       return {
-        actionText: 'Reboot now',
+        actionText: t('maintenance.update.fixpack.installModal.rebootNow'),
         actionButtonProps: {
           loading: isCallingSoftRebootDataCenterApi,
           disabled: isSoftRebooting || !isReadyToReboot,
@@ -85,7 +88,7 @@ export const useInstallFixpackModalActionButtonProps = (
     }
 
     return {
-      actionText: 'Done',
+      actionText: t('maintenance.update.fixpack.installModal.done'),
       actionButtonProps: {
         // Disable the button because the fixpack is still installing.
         disabled: true,
@@ -95,7 +98,7 @@ export const useInstallFixpackModalActionButtonProps = (
   }
 
   return {
-    actionText: 'Done',
+    actionText: t('maintenance.update.fixpack.installModal.done'),
     isCancelButtonVisible: false,
     onActionClick: onModalClose,
   }

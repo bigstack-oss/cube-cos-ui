@@ -1,7 +1,8 @@
+import { useTranslation } from 'react-i18next'
+import { twMerge } from 'tailwind-merge'
 import { CosLoadingSpinner, cosTableStyles } from '@cube-frontend/ui-library'
 import CheckmarkCircleFill from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import CrossFill from '@cube-frontend/ui-library/icons/monochrome/cross_fill.svg?react'
-import { twMerge } from 'tailwind-merge'
 import {
   Md5VerificationState,
   PkgAndChecksumInfo,
@@ -17,11 +18,13 @@ export const Md5Verification = (props: Md5VerificationProps) => {
 
   const isVerified = verificationState === 'verified'
 
+  const { t } = useTranslation()
+
   const getDescription = () => {
     if (isVerified) {
-      return 'MD5 checksum verification completed.'
+      return t('maintenance.update.md5Verification.verifyCompleted')
     }
-    return 'MD5 checksum verification failed. Please upload again.'
+    return t('maintenance.update.md5Verification.errorMessage.verifyFailed')
   }
 
   const renderResult = () => {
@@ -29,7 +32,7 @@ export const Md5Verification = (props: Md5VerificationProps) => {
       return (
         <div className="secondary-body3 flex items-center gap-x-2 font-semibold text-status-positive">
           <CheckmarkCircleFill className="icon-md-sm" />
-          File integrity verified
+          {t('maintenance.update.md5Verification.fileIntegrityVerified')}
         </div>
       )
     }
@@ -37,7 +40,7 @@ export const Md5Verification = (props: Md5VerificationProps) => {
     return (
       <div className="secondary-body3 flex items-center gap-x-2 font-semibold text-status-negative">
         <CrossFill className="icon-md-sm" />
-        Verification failed
+        {t('maintenance.update.md5Verification.verifyFailed')}
       </div>
     )
   }
@@ -45,7 +48,7 @@ export const Md5Verification = (props: Md5VerificationProps) => {
   if (verificationState === 'verifying') {
     return (
       <div className="primary-body2 flex items-center gap-x-5 text-functional-text">
-        Verifying MD5 Checksum
+        {t('maintenance.update.md5Verification.verifyingMd5Checksum')}
         <CosLoadingSpinner variant="dot45" />
       </div>
     )
@@ -65,7 +68,7 @@ export const Md5Verification = (props: Md5VerificationProps) => {
                 'whitespace-nowrap',
               )}
             >
-              File Name
+              {t('maintenance.update.md5Verification.fileName')}
             </th>
             <th
               className={twMerge(
@@ -73,7 +76,7 @@ export const Md5Verification = (props: Md5VerificationProps) => {
                 'whitespace-nowrap',
               )}
             >
-              MD5 Checksum
+              {t('maintenance.update.md5Verification.md5Checksum')}
             </th>
             <th className={cosTableStyles.th({ isTableEmpty: false })} />
           </tr>

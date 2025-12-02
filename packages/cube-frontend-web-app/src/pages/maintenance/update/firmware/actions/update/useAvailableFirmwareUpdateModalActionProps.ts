@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum as FirmwareStatus,
   ListFirmwaresResponseDataFirmwaresInner,
@@ -5,7 +7,6 @@ import {
 import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useContext, useEffect, useState } from 'react'
 import { UpdateFirmwareModalActionProps } from './useUpdateFirmwareModalActionProps'
 
 type UseAvailableFirmwareUpdateModalActionPropsArgs = {
@@ -19,6 +20,8 @@ export const useAvailableFirmwareUpdateModalActionProps = (
   const { firmware, isRollingChecked } = args
 
   const { dataCenter } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   // The firmware upgrade doesn't start right away after the server accepts the
   // API request. There's a brief delay before it actually begins, so we keep
@@ -55,7 +58,7 @@ export const useAvailableFirmwareUpdateModalActionProps = (
   }
 
   return {
-    actionText: 'Yes, update',
+    actionText: t('maintenance.update.firmware.updateModal.yesUpdate'),
     actionButtonProps: {
       loading: isLoading || keepShowingLoading,
     },

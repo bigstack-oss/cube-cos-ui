@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { CosButton } from '@cube-frontend/ui-library'
 import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
 import { ConfirmAbortModal } from './ConfirmAbortModal'
@@ -17,6 +18,8 @@ export const AbortButton = (props: AbortButtonProps) => {
     closeModal()
   }
 
+  const { t } = useTranslation()
+
   return (
     <>
       <CosButton
@@ -26,7 +29,7 @@ export const AbortButton = (props: AbortButtonProps) => {
         size="lg"
         onClick={openModal}
       >
-        Abort
+        {t('maintenance.update.firmware.updateModal.abort')}
       </CosButton>
       <ConfirmAbortModal
         isOpen={isOpen}

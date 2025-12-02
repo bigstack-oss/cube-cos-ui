@@ -1,4 +1,5 @@
 import { MouseEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   CosButton,
   CosTooltip,
@@ -21,22 +22,26 @@ export const RollbackAction = (props: RollbackActionProps) => {
   const isBlockedByCheckingCephHealth = state === 'blockedByCheckingCephHealth'
   const isBlockedByUnhealthyCeph = state === 'blockedByUnhealthyCeph'
 
+  const { t } = useTranslation()
+
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
     if (isBlockedBySelfRollbackability) {
       return {
-        message: 'Rollback is not supported for this fixpack.',
+        message: t('maintenance.update.fixpack.rollbackTooltip.notSupported'),
       }
     }
 
     if (isBlockedByNewerFixpack) {
       return {
-        message: 'Rollback is blocked by newer updates.',
+        message: t(
+          'maintenance.update.fixpack.rollbackTooltip.blockedByNewerUpdates',
+        ),
       }
     }
 
     if (isBlockedByUnhealthyCeph) {
       return {
-        message: 'Rollback is currently unavailable because Ceph is unhealthy.',
+        message: t('maintenance.update.fixpack.rollbackTooltip.unhealthyCeph'),
       }
     }
 
@@ -62,7 +67,9 @@ export const RollbackAction = (props: RollbackActionProps) => {
           }
           onClick={handleClick}
         >
-          {state === 'inProgress' ? 'Rolling back' : 'Rollback'}
+          {state === 'inProgress'
+            ? t('maintenance.update.fixpack.rollingBack')
+            : t('maintenance.update.fixpack.rollback')}
         </CosButton>
       </span>
     )

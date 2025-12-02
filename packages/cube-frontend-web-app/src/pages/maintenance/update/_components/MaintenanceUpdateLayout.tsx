@@ -1,8 +1,9 @@
+import { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate } from 'react-router'
+import dayjs from 'dayjs'
 import { CosContentSwitcher, CosGeneralPanel } from '@cube-frontend/ui-library'
 import { CosRoutesEnum } from '@cube-frontend/web-app/enum/routes'
-import dayjs from 'dayjs'
-import { ReactNode } from 'react'
-import { useLocation, useNavigate } from 'react-router'
 
 type MaintenanceUpdateLayoutProps = {
   currentVersion: string
@@ -18,6 +19,8 @@ export const MaintenanceUpdateLayout = (
   const location = useLocation()
   const navigate = useNavigate()
 
+  const { t } = useTranslation()
+
   // TODO: Add support for custom elements (like the <Link> component from react-router) to `CosContentSwitcherItem`
   // for native hyperlink navigation.
   const onContentSwitcherItemClick = (to: string): void => {
@@ -27,7 +30,7 @@ export const MaintenanceUpdateLayout = (
   }
 
   const formatLastUpdated = (): string => {
-    if (!lastUpdated) return 'Never'
+    if (!lastUpdated) return t('maintenance.update.never')
     return dayjs.respectTzOffset(lastUpdated).format('YYYY/MM/DD HH:mm A')
   }
 
@@ -36,14 +39,14 @@ export const MaintenanceUpdateLayout = (
       <CosGeneralPanel topic={currentVersion}>
         <div className="flex flex-col gap-y-1">
           <div className="primary-body4 text-functional-text-light">
-            Last Updated
+            {t('maintenance.update.lastUpdated')}
           </div>
           <div className="primary-h5 text-functional-text">
             {formatLastUpdated()}
           </div>
         </div>
       </CosGeneralPanel>
-      <CosContentSwitcher variant="default">
+      <CosContentSwitcher variant="default" size="md">
         <CosContentSwitcher.Item
           isActive={
             location.pathname === CosRoutesEnum.MAINTENANCE_UPDATE_FIRMWARE_PAGE
@@ -54,7 +57,7 @@ export const MaintenanceUpdateLayout = (
             )
           }
         >
-          Firmware list
+          {t('maintenance.update.firmware.firmwareList')}
         </CosContentSwitcher.Item>
         <CosContentSwitcher.Item
           isActive={
@@ -66,7 +69,7 @@ export const MaintenanceUpdateLayout = (
             )
           }
         >
-          Fixpack list
+          {t('maintenance.update.fixpack.fixpackList')}
         </CosContentSwitcher.Item>
       </CosContentSwitcher>
       {children}

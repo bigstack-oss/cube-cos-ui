@@ -1,8 +1,9 @@
+import { useContext, useEffect, useId, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { HttpStatusCode, isAxiosError } from 'axios'
 import { CosModal, CosStroke, CosUpload } from '@cube-frontend/ui-library'
 import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { HttpStatusCode, isAxiosError } from 'axios'
-import { useContext, useEffect, useId, useMemo } from 'react'
 import { Md5Verification } from '../_components/Md5Verification'
 import { PkgAndChecksumInfo } from '../_components/md5VerificationUtils'
 import { useFileUpload } from '../_components/useFileUpload'
@@ -18,6 +19,8 @@ type UploadFirmwareModalProps = {
 
 export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
   const { isOpen, onClose, onMd5Verified } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -40,10 +43,14 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
 
       if (isAxiosError(error) && error.status == HttpStatusCode.Conflict) {
         // TODO: show error message based on business error code in error API response when it's implemented.
-        return 'A duplicate Firmware ID was found, or an MD5 checksum is being verified.'
+        return t(
+          'maintenance.update.firmware.uploadModal.errorMessage.duplicateFirmwareId',
+        )
       }
 
-      return 'Unknown error occurred, please try again.'
+      return t(
+        'maintenance.update.firmware.uploadModal.errorMessage.unknownError',
+      )
     },
   })
 
@@ -62,10 +69,14 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
 
       if (isAxiosError(error) && error.status == HttpStatusCode.Conflict) {
         // TODO: show error message based on business error code in error API response when it's implemented.
-        return 'An MD5 checksum is being verified, or a firmware upload is in progress.'
+        return t(
+          'maintenance.update.firmware.uploadModal.errorMessage.checksumVerifiedOrFirmwareProcessing',
+        )
       }
 
-      return 'Unknown error occurred, please try again.'
+      return t(
+        'maintenance.update.firmware.uploadModal.errorMessage.unknownError',
+      )
     },
   })
 
@@ -120,7 +131,9 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
       if (isUploading) {
         if (
           !confirm(
-            'An upload is in progress. Do you wish to cancel the upload?',
+            t(
+              'maintenance.update.firmware.uploadModal.confirmMessage.cancelProgress',
+            ),
           )
         ) {
           return
@@ -130,7 +143,9 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
       } else if (isUploaded) {
         if (
           !confirm(
-            'Some of the files have been uploaded. Do you wish to cancel the upload?',
+            t(
+              'maintenance.update.firmware.uploadModal.confirmMessage.cancelUploaded',
+            ),
           )
         ) {
           return
@@ -164,7 +179,13 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
   }, [isUploading, isUploaded])
 
   const onAbortClick = (abort: () => void): void => {
-    if (confirm('Do you wish to cancel the upload?')) {
+    if (
+      confirm(
+        t(
+          'maintenance.update.firmware.uploadModal.confirmMessage.cancelUploaded',
+        ),
+      )
+    ) {
       abort()
     }
   }
@@ -174,11 +195,13 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
       <>
         <div className="flex flex-col items-start gap-y-3">
           <label htmlFor={pkgInputId} className="primary-body4 font-semibold">
-            Upload Firmware
+            {t('maintenance.update.firmware.uploadModal.uploadFirmware')}
           </label>
           <CosUpload
             className="w-full"
-            buttonText="Upload from computer"
+            buttonText={t(
+              'maintenance.update.firmware.uploadModal.uploadFromComputer',
+            )}
             inputId={pkgInputId}
             accept=".pkg"
             isUploading={pkgFileUpload.isUploading}
@@ -210,11 +233,13 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
             htmlFor={checksumInputId}
             className="primary-body4 font-semibold"
           >
-            Upload Checksum
+            {t('maintenance.update.firmware.uploadModal.uploadChecksum')}
           </label>
           <CosUpload
             className="w-full"
-            buttonText="Choose checksum"
+            buttonText={t(
+              'maintenance.update.firmware.uploadModal.chooseChecksum',
+            )}
             inputId={checksumInputId}
             accept={checksumFileExtensions}
             isUploading={checksumFileUpload.isUploading}
@@ -247,9 +272,9 @@ export const UploadFirmwareModal = (props: UploadFirmwareModalProps) => {
 
   return (
     <CosModal
-      title="Upload Firmware"
+      title={t('maintenance.update.firmware.uploadModal.title')}
       isOpen={isOpen}
-      actionText="Done"
+      actionText={t('maintenance.update.firmware.uploadModal.done')}
       actionButtonProps={{
         disabled: !isMd5ChecksumVerified,
       }}

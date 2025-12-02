@@ -1,8 +1,9 @@
+import { useContext, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum as ProgressStatus } from '@cube-frontend/api'
 import { dataCentersApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useContext, useMemo } from 'react'
 import { UpdateProgressRow } from './updateActionUtils'
 import { UpdateFirmwareModalActionProps } from './useUpdateFirmwareModalActionProps'
 
@@ -16,6 +17,8 @@ export const useUpdatingFirmwareUpdateModalActionProps = (
   args: UseUpdatingFirmwareUpdateModalActionProps,
 ): UpdateFirmwareModalActionProps => {
   const { isRollingApplied, progressRows, onRebootRequested } = args
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -48,7 +51,7 @@ export const useUpdatingFirmwareUpdateModalActionProps = (
 
   if (!progressRows.length) {
     return {
-      actionText: 'Close',
+      actionText: t('maintenance.update.firmware.updateModal.close'),
       actionButtonProps: {
         disabled: true,
       },
@@ -58,7 +61,7 @@ export const useUpdatingFirmwareUpdateModalActionProps = (
 
   if (isRollingApplied) {
     return {
-      actionText: 'Done',
+      actionText: t('maintenance.update.firmware.updateModal.done'),
       actionButtonProps: {
         // Disable the "Done" button because the firmware is still being updated.
         disabled: true,
@@ -68,7 +71,7 @@ export const useUpdatingFirmwareUpdateModalActionProps = (
   }
 
   return {
-    actionText: 'Reboot cluster',
+    actionText: t('maintenance.update.firmware.updateModal.rebootCluster'),
     actionButtonProps: {
       loading: isCallingSoftRebootApi,
       disabled: !canReboot,

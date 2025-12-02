@@ -3,6 +3,7 @@ import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useContext } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 
 type DeleteFirmwareModalProps = {
   version: string | undefined
@@ -18,6 +19,8 @@ export const DeleteFirmwareModal = (props: DeleteFirmwareModalProps) => {
   const { isLoading, mutateResource: deleteFirmware } = useCosMutationRequest(
     firmwaresApi.deleteFirmware,
   )
+
+  const { t } = useTranslation()
 
   const onDeleteClick = async (): Promise<void> => {
     if (!version) return
@@ -36,16 +39,19 @@ export const DeleteFirmwareModal = (props: DeleteFirmwareModalProps) => {
   return (
     <CosModal
       isOpen={!!version}
-      title="Delete Firmware"
+      title={t('maintenance.update.firmware.deleteModal.title')}
       size="sm"
-      actionText="Yes, delete"
+      actionText={t('maintenance.update.firmware.deleteModal.yesDelete')}
       actionButtonProps={{ loading: isLoading }}
       onActionClick={onDeleteClick}
       onCloseClick={onCloseClick}
     >
       <div className="primary-body2 text-functional-text">
-        Are you sure you want to delete{' '}
-        <b className="font-semibold">{version}</b>?
+        <Trans
+          i18nKey="maintenance.update.firmware.deleteModal.message"
+          values={{ firmware: version }}
+          components={{ bold: <b className="font-semibold" /> }}
+        />
       </div>
     </CosModal>
   )

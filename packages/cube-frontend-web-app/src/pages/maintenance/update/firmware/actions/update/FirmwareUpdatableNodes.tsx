@@ -1,9 +1,10 @@
+import { ChangeEventHandler, useContext, useMemo } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import { FirmwaresApiListFirmwareUpdatableNodesRequest } from '@cube-frontend/api'
 import { CosCheckbox, GetCosBasicTable } from '@cube-frontend/ui-library'
 import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { ChangeEventHandler, useContext, useMemo } from 'react'
 import { toUpdatableNodeRow, UpdatableNodeRow } from './updateActionUtils'
 
 type FirmwareUpdatableNodesProps = {
@@ -38,23 +39,35 @@ export const FirmwareUpdatableNodes = (props: FirmwareUpdatableNodesProps) => {
     [updatableNodes],
   )
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col gap-y-5">
       <div className="primary-body2 text-functional-text">
-        Do you want to update <b className="font-semibold">{version}</b> on the
-        following nodes:
+        <Trans
+          i18nKey="maintenance.update.firmware.updateModal.topMessage.confirmUpdate"
+          values={{ firmware: version }}
+          components={{ bold: <b className="font-semibold" /> }}
+        />
       </div>
       <UpdatableNodeTable isLoading={isLoading} rows={rows}>
-        <UpdatableNodeTable.Column label="Host" property="name" />
         <UpdatableNodeTable.Column
-          label="(Active) Firmware version"
+          label={t('maintenance.update.firmware.updateModal.host')}
+          property="name"
+        />
+        <UpdatableNodeTable.Column
+          label={t(
+            'maintenance.update.firmware.updateModal.activeFirmwareVersion',
+          )}
           property="firmware"
           emphasize={true}
         >
           {(firmware) => firmware.active}
         </UpdatableNodeTable.Column>
         <UpdatableNodeTable.Column
-          label="(Inactive) Firmware version"
+          label={t(
+            'maintenance.update.firmware.updateModal.inactiveFirmwareVersion',
+          )}
           property="firmware"
           emphasize={true}
         >
@@ -64,9 +77,9 @@ export const FirmwareUpdatableNodes = (props: FirmwareUpdatableNodesProps) => {
       <div className="flex items-start gap-x-2">
         <CosCheckbox
           containerClassName="items-start"
-          label="Rolling update — each node will be updated one by one. If any node is
-          currently hosting running VMs, they will be automatically evacuated
-          before the update to avoid service disruption."
+          label={t(
+            'maintenance.update.firmware.updateModal.rollingUpdateCheckbox',
+          )}
           labelClassName="max-w-none"
           checked={isRollingChecked}
           disabled={isRollingCheckboxDisabled}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum as FirmwareStatus,
   ListFirmwaresResponseDataFirmwaresInner,
@@ -33,6 +34,8 @@ export const useUpdateFirmwareModalActionProps = (
     onClose,
   } = args
 
+  const { t } = useTranslation()
+
   const availableModalActionProps = useAvailableFirmwareUpdateModalActionProps({
     firmware,
     isRollingChecked,
@@ -45,14 +48,14 @@ export const useUpdateFirmwareModalActionProps = (
   })
 
   const updatedModalActionProps = {
-    actionText: 'Done',
+    actionText: t('maintenance.update.firmware.updateModal.done'),
     onActionClick: onClose,
     isCancelButtonVisible: false,
   }
 
   if (!firmware) {
     return {
-      actionText: 'Yes, update',
+      actionText: t('maintenance.update.firmware.updateModal.yesUpdate'),
       actionButtonProps: {
         disabled: true,
       },

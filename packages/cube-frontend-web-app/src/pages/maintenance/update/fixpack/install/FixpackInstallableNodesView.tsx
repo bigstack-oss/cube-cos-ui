@@ -13,6 +13,7 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { ChangeEvent, useContext, useMemo } from 'react'
 import { formatUpdatedAt } from '../_components/fixpackUpdateUtils'
+import { Trans, useTranslation } from 'react-i18next'
 
 type FixpackInstallableNodesViewProps = {
   fixpack: ListFixpacksResponseDataFixpacksInner
@@ -57,26 +58,40 @@ export const FixpackInstallableNodesView = (
     () => (updatableNodes ?? []).map(nodeToTableRow),
     [updatableNodes],
   )
+
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col gap-y-5">
       <div className="primary-body2 text-functional-text">
-        Do you want to install{' '}
-        <b className="font-semibold">{fixpack.version}</b> on these nodes?
+        <Trans
+          i18nKey="maintenance.update.fixpack.installModal.topMessage.confirmInstall"
+          values={{ fixpackVersion: fixpack.version }}
+          components={{ b: <b className="font-semibold" /> }}
+        />
       </div>
       <InstallableNodeTable isLoading={isLoading} rows={rows}>
-        <InstallableNodeTable.Column label="Host" property="name" />
-        <InstallableNodeTable.Column label="Last Updated" property="updatedAt">
+        <InstallableNodeTable.Column
+          label={t('maintenance.update.fixpack.installModal.host')}
+          property="name"
+        />
+        <InstallableNodeTable.Column
+          label={t('maintenance.update.fixpack.installModal.lastUpdated')}
+          property="updatedAt"
+        >
           {formatUpdatedAt}
         </InstallableNodeTable.Column>
         <InstallableNodeTable.Column
-          label="Firmware Version"
+          label={t('maintenance.update.fixpack.installModal.firmwareVersion')}
           property="version"
         />
       </InstallableNodeTable>
       {!fixpack.status.isRollbackable && (
         <CosCheckbox
           labelClassName="max-w-none"
-          label="*I understand that this fixpack cannot be rolled back, and installing it will also prevent rolling back to earlier versions."
+          label={t(
+            'maintenance.update.fixpack.installModal.rollbackDisclaimer',
+          )}
           checked={isRollbackDisclaimerRead}
           disabled={isRollbackDisclaimerDisabled}
           onChange={onRollbackDisclaimerReadChange}

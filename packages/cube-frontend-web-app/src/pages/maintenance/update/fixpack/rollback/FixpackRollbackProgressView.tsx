@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import {
   ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum as FixpackStatus,
   GetFixpackUpdateProgressResponseDataProgressesInnerStatus,
@@ -8,8 +10,6 @@ import { CosInlineNotification } from '@cube-frontend/ui-library'
 import CheckmarkCircleFill from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import CircleFill from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
 import CrossFill from '@cube-frontend/ui-library/icons/monochrome/cross_fill.svg?react'
-import { upperFirst } from 'lodash'
-import { useMemo } from 'react'
 import {
   StatusWithIcon,
   StatusWithIconProps,
@@ -26,34 +26,63 @@ type FixpackInstallProgressViewProps = {
   rows: ProgressTableRow[]
 }
 
-const statusWithIconPropsMap: Partial<
+const useStatusDisplay = () => {
+  const { t } = useTranslation()
+
+  return {
+    [ProgressStatus.Available]: t(
+      'maintenance.update.fixpack.rollbackModal.status.succeeded',
+    ),
+    [ProgressStatus.RollingBack]: t(
+      'maintenance.update.fixpack.rollbackModal.status.updating',
+    ),
+    [ProgressStatus.RollbackFailed]: t(
+      'maintenance.update.fixpack.rollbackModal.status.failed',
+    ),
+    [ProgressStatus.Resolved]: t(
+      'maintenance.update.fixpack.rollbackModal.status.resolved',
+    ),
+    [ProgressStatus.WaitingReboot]: t(
+      'maintenance.update.fixpack.rollbackModal.status.pendingReboot',
+    ),
+    [ProgressStatus.Rebooting]: t(
+      'maintenance.update.fixpack.rollbackModal.status.rebooting',
+    ),
+  } as const
+}
+
+const useStatusWithIconPropsMap = (): Partial<
   Record<ProgressStatus, StatusWithIconProps>
-> = {
-  [ProgressStatus.Available]: {
-    Icon: CheckmarkCircleFill,
-    text: 'Succeeded',
-    color: 'text-status-positive',
-  },
-  [ProgressStatus.RollbackFailed]: {
-    Icon: CrossFill,
-    text: 'Failed',
-    color: 'text-status-negative',
-  },
-  [ProgressStatus.Resolved]: {
-    Icon: CircleFill,
-    text: 'Resolved',
-    color: 'text-status-neutral',
-  },
-  [ProgressStatus.WaitingReboot]: {
-    Icon: CircleFill,
-    text: 'Pending reboot',
-    color: 'text-status-positive',
-  },
-  [ProgressStatus.Rebooting]: {
-    Icon: CircleFill,
-    text: 'Rebooting',
-    color: 'text-status-positive',
-  },
+> => {
+  const statusTranslations = useStatusDisplay()
+
+  return {
+    [ProgressStatus.Available]: {
+      Icon: CheckmarkCircleFill,
+      text: statusTranslations[ProgressStatus.Available],
+      color: 'text-status-positive',
+    },
+    [ProgressStatus.RollbackFailed]: {
+      Icon: CrossFill,
+      text: statusTranslations[ProgressStatus.RollbackFailed],
+      color: 'text-status-negative',
+    },
+    [ProgressStatus.Resolved]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.Resolved],
+      color: 'text-status-neutral',
+    },
+    [ProgressStatus.WaitingReboot]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.WaitingReboot],
+      color: 'text-status-positive',
+    },
+    [ProgressStatus.Rebooting]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.Rebooting],
+      color: 'text-status-positive',
+    },
+  }
 }
 
 export const FixpackRollbackProgressView = (
@@ -74,24 +103,28 @@ export const FixpackRollbackProgressView = (
     [fixpack, rows],
   )
 
+  const { t } = useTranslation()
+
   const getDescription = () => {
     if (hasFailedNode) {
       return (
-        <>
-          Failed on some nodes.{' '}
-          <b className="font-semibold">
-            Fix the issue and try again before continuing.
-          </b>
-        </>
+        <Trans
+          i18nKey="maintenance.update.fixpack.rollbackModal.topMessage.failed"
+          components={{ bold: <b className="font-semibold" /> }}
+        />
       )
     }
 
     if (isRolledBack) {
-      return 'Rolling back completed. Please check the status of each node.'
+      return t('maintenance.update.fixpack.rollbackModal.topMessage.completed')
     }
 
-    return 'Rollback in progress for the following nodes:'
+    return t('maintenance.update.fixpack.rollbackModal.topMessage.inProgress')
   }
+
+  const statusWithIconPropsMap = useStatusWithIconPropsMap()
+
+  const statusDisplay = useStatusDisplay()
 
   const renderProgressRowStatus = (
     status: GetFixpackUpdateProgressResponseDataProgressesInnerStatus,
@@ -101,7 +134,9 @@ export const FixpackRollbackProgressView = (
     if (current === ProgressStatus.RollingBack) {
       return (
         <div className="flex items-center gap-x-5 text-functional-text">
-          <span className="primary-body4">{upperFirst(status.current)}</span>
+          <span className="primary-body4">
+            {statusDisplay[ProgressStatus.RollingBack]}
+          </span>
           <span className="primary-body5">{`${status.processPercent}%`}</span>
         </div>
       )
@@ -122,18 +157,19 @@ export const FixpackRollbackProgressView = (
     if (showRebootHint) {
       return (
         <div className="primary-body2 text-functional-text">
-          After updating,{' '}
-          <b className="font-semibold">
-            A reboot is required to complete the update.
-          </b>
+          <Trans
+            i18nKey="maintenance.update.fixpack.rollbackModal.bottomMessage.rebootHint"
+            components={{ bold: <b className="font-semibold" /> }}
+          />
         </div>
       )
     }
 
     return (
       <CosInlineNotification type="warning" isClosable={false}>
-        If a node fails to update, please resolve the issue manually to
-        continue.
+        {t(
+          'maintenance.update.fixpack.rollbackModal.bottomMessage.resolveHint',
+        )}
       </CosInlineNotification>
     )
   }

@@ -1,10 +1,11 @@
+import { MouseEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   CosButton,
   CosTooltip,
   CosTooltipInformation,
 } from '@cube-frontend/ui-library'
 import Trash from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
-import { MouseEvent } from 'react'
 import { RemoveActionState } from '../computeFixpacksActionState'
 
 type RemoveActionProps = {
@@ -20,30 +21,38 @@ export const RemoveAction = (props: RemoveActionProps) => {
   const isBlockedByNewerFixpack = state === 'blockedByNewerFixpack'
   const isBlockedByAlreadyInstalled = state === 'blockedByAlreadyInstalled'
 
+  const { t } = useTranslation()
+
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
     if (isBlockedByInstalling) {
       return {
-        message:
-          'Removal is blocked because this fixpack is currently being installed.',
+        message: t(
+          'maintenance.update.fixpack.removeTooltip.blockedByInstalling',
+        ),
       }
     }
 
     if (isBlockedByRollingBack) {
       return {
-        message:
-          'Removal is blocked because this fixpack is currently being rolled back.',
+        message: t(
+          'maintenance.update.fixpack.removeTooltip.blockedByRollingBack',
+        ),
       }
     }
 
     if (isBlockedByNewerFixpack) {
       return {
-        message: 'Removal is blocked by newer updates.',
+        message: t(
+          'maintenance.update.fixpack.removeTooltip.blockedByNewerFixpack',
+        ),
       }
     }
 
     if (isBlockedByAlreadyInstalled) {
       return {
-        message: "A fixpack can only be removed after it's been rolled back.",
+        message: t(
+          'maintenance.update.fixpack.removeTooltip.blockedByInstalled',
+        ),
       }
     }
 

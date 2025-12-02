@@ -1,6 +1,7 @@
+import { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GetFixpackUpdateProgressResponseDataProgressesInnerStatus } from '@cube-frontend/api'
 import { GetCosBasicTable } from '@cube-frontend/ui-library'
-import { ReactNode } from 'react'
 import { FixpackContinueAnywayButton } from './FixpackContinueAnywayButton'
 import { ProgressTableRow } from './fixpackUpdateUtils'
 
@@ -20,6 +21,8 @@ export const FixpackUpdateProgressTable = (
 ) => {
   const { isLoading, rows, renderStatus, showContinueAnywayButton } = props
 
+  const { t } = useTranslation()
+
   const renderAction = (row: ProgressTableRow) => {
     if (showContinueAnywayButton(row)) {
       return (
@@ -34,8 +37,14 @@ export const FixpackUpdateProgressTable = (
 
   return (
     <ProgressTable isLoading={isLoading} rows={rows}>
-      <ProgressTable.Column label="Host" property="host" />
-      <ProgressTable.Column label="Status" property="status">
+      <ProgressTable.Column
+        label={t('maintenance.update.fixpack.progressTable.host')}
+        property="host"
+      />
+      <ProgressTable.Column
+        label={t('maintenance.update.fixpack.progressTable.status')}
+        property="status"
+      >
         {renderStatus}
       </ProgressTable.Column>
       <ProgressTable.Column property="status">

@@ -35,7 +35,7 @@ export const MaintenanceLayout = () => {
               CosRoutesEnum.MAINTENANCE_UPDATE_PAGE,
             )}
           >
-            Update
+            {t('maintenance.update.title')}
           </CosTabs.Tab>
         </Link>
       </CosTabs>

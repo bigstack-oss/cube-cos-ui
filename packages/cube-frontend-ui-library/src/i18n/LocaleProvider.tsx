@@ -1,4 +1,4 @@
-import { useEffect, PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
 import { SupportedLanguage } from './utils'
 import i18n from './i18n'
 

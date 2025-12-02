@@ -1,3 +1,6 @@
+import { useContext, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+import dayjs from 'dayjs'
 import {
   CosButton,
   CosCollapsiblePanelLayout,
@@ -7,8 +10,6 @@ import {
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useOpenState } from '@cube-frontend/web-app/hooks/useOpenState/useOpenState'
-import dayjs from 'dayjs'
-import { useContext, useMemo } from 'react'
 import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
 import { ReleaseNotePanel } from '../_components/ReleaseNotePanel'
 import { useCephHealthStatus } from '../_components/useCephHealthStatus'
@@ -32,6 +33,8 @@ const FirmwareTable = GetCosBasicTable<FirmwareRow>()
 
 export const MaintenanceUpdateFirmwarePage = () => {
   const { dataCenter } = useContext(DataCenterContext)
+
+  const { t } = useTranslation()
 
   const { query, onPageChange, onItemsPerPageChange } = useListFirmwaresQuery()
 
@@ -104,7 +107,10 @@ export const MaintenanceUpdateFirmwarePage = () => {
 
   return (
     <MaintenanceUpdateLayout
-      currentVersion={dataCenter!.firmware.version || 'Firmware'}
+      currentVersion={
+        dataCenter!.firmware.version ||
+        t('maintenance.update.firmware.firmware')
+      }
       lastUpdated={dataCenter!.firmware.updatedAt}
     >
       <CosCollapsiblePanelLayout
@@ -113,10 +119,10 @@ export const MaintenanceUpdateFirmwarePage = () => {
         onControlledPanelOpenChange={releaseNotePanel.toggle}
       >
         <CosCollapsiblePanelLayout.LeftPanel
-          topic="Firmware List"
+          topic={t('maintenance.update.firmware.firmwareList')}
           rightSlot={
             <CosButton disabled={showLoading} onClick={openUploadModal}>
-              Upload Firmware
+              {t('maintenance.update.firmware.uploadFirmware')}
             </CosButton>
           }
           customToggleButton={
@@ -136,7 +142,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
               onRowClick={showReleaseNoteFor}
             >
               <FirmwareTable.Column
-                label="Firmware"
+                label={t('maintenance.update.firmware.firmware')}
                 property="version"
                 fitContent={true}
                 emphasize={true}
@@ -146,13 +152,16 @@ export const MaintenanceUpdateFirmwarePage = () => {
                 )}
               </FirmwareTable.Column>
               <FirmwareTable.Column
-                label="Last Updated"
+                label={t('maintenance.update.firmware.lastUpdated')}
                 property="updatedAt"
                 fitContent={true}
               >
                 {formatUpdatedAt}
               </FirmwareTable.Column>
-              <FirmwareTable.Column label="Note" property="releaseNotes" />
+              <FirmwareTable.Column
+                label={t('maintenance.update.firmware.note')}
+                property="releaseNotes"
+              />
               <FirmwareTable.Column
                 fitContent={true}
                 skeletonVariant="icon-right"
@@ -174,7 +183,10 @@ export const MaintenanceUpdateFirmwarePage = () => {
           </div>
         </CosCollapsiblePanelLayout.LeftPanel>
         <CosCollapsiblePanelLayout.RightPanel
-          topic={rowForReleaseNote?.version || 'Firmware Version'}
+          topic={
+            rowForReleaseNote?.version ||
+            t('maintenance.update.firmware.firmwareVersion')
+          }
         >
           <ReleaseNotePanel releaseNote={rowForReleaseNote?.releaseNotes} />
         </CosCollapsiblePanelLayout.RightPanel>

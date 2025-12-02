@@ -1,8 +1,9 @@
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CosModal } from '@cube-frontend/ui-library'
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useContext } from 'react'
 
 type DeleteFixpackModalProps = {
   version: string | undefined
@@ -33,18 +34,22 @@ export const DeleteFixpackModal = (props: DeleteFixpackModalProps) => {
     }
   }
 
+  const { t } = useTranslation()
+
   return (
     <CosModal
       isOpen={!!version}
-      title="Delete Fixpack"
+      title={t('maintenance.update.fixpack.deleteModal.title')}
       size="sm"
-      actionText="Yes, delete"
+      actionText={t('maintenance.update.fixpack.deleteModal.yesDelete')}
       actionButtonProps={{ loading: isLoading }}
       onActionClick={onActionClick}
       onCloseClick={onCloseClick}
     >
       <p className="primary-body2 text-functional-text">
-        {`Are you sure you want to delete fixpack ${version}?`}
+        {t('maintenance.update.fixpack.deleteModal.message', {
+          fixpack: version,
+        })}
       </p>
     </CosModal>
   )
