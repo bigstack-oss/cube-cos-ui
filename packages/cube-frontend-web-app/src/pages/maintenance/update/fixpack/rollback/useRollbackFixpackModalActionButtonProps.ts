@@ -1,6 +1,7 @@
+import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ListFixpacksResponseDataFixpacksInner } from '@cube-frontend/api'
 import { CosModalProps } from '@cube-frontend/ui-library'
-import { useMemo } from 'react'
 import {
   getIsReadyToReboot,
   getIsSoftRebooting,
@@ -60,9 +61,11 @@ export const useRollbackFixpackModalActionButtonProps = (
     [fixpack, progressRows],
   )
 
+  const { t } = useTranslation()
+
   if (isRollbackable) {
     return {
-      actionText: 'Yes, rollback',
+      actionText: t('maintenance.update.fixpack.rollbackModal.yesRollback'),
       actionButtonProps: {
         loading: isRollbackButtonLoading,
       },
@@ -73,7 +76,7 @@ export const useRollbackFixpackModalActionButtonProps = (
   if (isRollingBack) {
     if (fixpack.rebootRequired) {
       return {
-        actionText: 'Reboot now',
+        actionText: t('maintenance.update.fixpack.rollbackModal.rebootNow'),
         actionButtonProps: {
           loading: isCallingSoftRebootDataCenterApi,
           disabled: isSoftRebooting || !isReadyToReboot,
@@ -84,7 +87,7 @@ export const useRollbackFixpackModalActionButtonProps = (
     }
 
     return {
-      actionText: 'Done',
+      actionText: t('maintenance.update.fixpack.rollbackModal.done'),
       actionButtonProps: {
         // Disable the button because the fixpack is still rolling back.
         disabled: true,
@@ -94,7 +97,7 @@ export const useRollbackFixpackModalActionButtonProps = (
   }
 
   return {
-    actionText: 'Done',
+    actionText: t('maintenance.update.fixpack.rollbackModal.done'),
     isCancelButtonVisible: false,
     onActionClick: onModalClose,
   }

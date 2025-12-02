@@ -10,6 +10,7 @@ import { FixpackInstallProgressView } from './FixpackInstallProgressView'
 import { FixpackInstallableNodesView } from './FixpackInstallableNodesView'
 import { useInstallFixpackModalActionButtonProps } from './useInstallFixpackModalActionButtonProps'
 import { isInstallingStatuses } from '../computeFixpacksActionState'
+import { useTranslation } from 'react-i18next'
 
 type InstallFixpackModalProps = {
   isOpen: boolean
@@ -41,9 +42,14 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
   const isInstalling = fixpack && isInstallingStatuses(fixpack.status.current)
   const isInstalled = fixpack?.status.current === StatusEnum.Installed
 
+  const { t } = useTranslation()
+
   const getModalTitle = (): string => {
-    if (isInstalled) return 'Fixpack Install Completed'
-    return 'Install Fixpack'
+    if (isInstalled)
+      return t(
+        'maintenance.update.fixpack.installModal.fixpackInstallCompleted',
+      )
+    return t('maintenance.update.fixpack.installModal.installFixpack')
   }
 
   const modalActionButtonProps = useInstallFixpackModalActionButtonProps({

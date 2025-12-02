@@ -3,6 +3,7 @@ import { firmwaresApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type FirmwareRetryButtonProps = {
   version: string
@@ -36,9 +37,11 @@ export const FirmwareRetryButton = (props: FirmwareRetryButtonProps) => {
     }
   }
 
+  const { t } = useTranslation()
+
   return (
     <CosButton type="warning" size="sm" loading={isLoading} onClick={onClick}>
-      Retry
+      {t('maintenance.update.firmware.updateModal.retry')}
     </CosButton>
   )
 }

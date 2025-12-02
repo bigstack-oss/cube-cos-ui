@@ -1,3 +1,6 @@
+import { ReactNode, useMemo } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
+import { upperFirst } from 'lodash'
 import {
   GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus,
   ListFirmwaresResponseDataFirmwaresInner,
@@ -8,8 +11,6 @@ import { CosNagging, GetCosBasicTable } from '@cube-frontend/ui-library'
 import CheckmarkCircleFill from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import CircleFill from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
 import CrossFill from '@cube-frontend/ui-library/icons/monochrome/cross_fill.svg?react'
-import { upperFirst } from 'lodash'
-import { ReactNode, useMemo } from 'react'
 import {
   StatusWithIcon,
   StatusWithIconProps,
@@ -27,32 +28,61 @@ type FirmwareUpdateProgressProps = {
   fetchUpdateProgress: () => Promise<unknown>
 }
 
-const UpdateProgressTable = GetCosBasicTable<UpdateProgressRow>()
+const useStatusTranslations = (): Record<ProgressStatus, string> => {
+  const { t } = useTranslation()
 
-const statusWithIconPropsMap: Partial<
-  Record<ProgressStatus, StatusWithIconProps>
-> = {
-  [ProgressStatus.Succeeded]: {
-    Icon: CheckmarkCircleFill,
-    text: 'Succeeded',
-    color: 'text-status-positive',
-  },
-  [ProgressStatus.Failed]: {
-    Icon: CrossFill,
-    text: 'Failed',
-    color: 'text-status-negative',
-  },
-  [ProgressStatus.WaitingReboot]: {
-    Icon: CircleFill,
-    text: 'Pending reboot',
-    color: 'text-status-neutral',
-  },
-  [ProgressStatus.Rebooting]: {
-    Icon: CircleFill,
-    text: 'Rebooting',
-    color: 'text-status-neutral',
-  },
+  return {
+    [ProgressStatus.Installing]: t(
+      'maintenance.update.firmware.updateModal.status.updating',
+    ),
+    [ProgressStatus.Succeeded]: t(
+      'maintenance.update.firmware.updateModal.status.succeeded',
+    ),
+    [ProgressStatus.WaitingReboot]: t(
+      'maintenance.update.firmware.updateModal.status.pendingReboot',
+    ),
+    [ProgressStatus.Rebooting]: t(
+      'maintenance.update.firmware.updateModal.status.rebooting',
+    ),
+    [ProgressStatus.Failed]: t(
+      'maintenance.update.firmware.updateModal.status.failed',
+    ),
+    [ProgressStatus.Resolved]: t(
+      'maintenance.update.firmware.updateModal.status.resolved',
+    ),
+  }
 }
+
+const useStatusWithIconPropsMap = (): Partial<
+  Record<ProgressStatus, StatusWithIconProps>
+> => {
+  const statusTranslations = useStatusTranslations()
+
+  return {
+    [ProgressStatus.Succeeded]: {
+      Icon: CheckmarkCircleFill,
+      text: statusTranslations[ProgressStatus.Succeeded],
+      color: 'text-status-positive',
+    },
+    [ProgressStatus.Failed]: {
+      Icon: CrossFill,
+      text: statusTranslations[ProgressStatus.Failed],
+      color: 'text-status-negative',
+    },
+    [ProgressStatus.WaitingReboot]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.WaitingReboot],
+      color: 'text-status-neutral',
+    },
+    [ProgressStatus.Rebooting]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.Rebooting],
+      color: 'text-status-neutral',
+    },
+  }
+}
+
+const UpdateProgressTable = GetCosBasicTable<UpdateProgressRow>()
 
 export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
   const {
@@ -91,21 +121,29 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
     [progressRows],
   )
 
+  const { t } = useTranslation()
+
   const renderTopMessage = () => {
     if (isUpdated) {
       if (hasResolvedProgress) {
         return (
           <div className="primary-body2 text-functional-text">
-            Update of <b className="font-semibold">{firmware.version}</b> failed
-            on some nodes.
+            <Trans
+              i18nKey="maintenance.update.firmware.updateModal.topMessage.failed"
+              values={{ firmware: firmware.version }}
+              components={{ bold: <b className="font-semibold" /> }}
+            />
           </div>
         )
       }
 
       return (
         <div className="primary-body2 text-functional-text">
-          Update of <b className="font-semibold">{firmware.version}</b> has been
-          completed.
+          <Trans
+            i18nKey="maintenance.update.firmware.updateModal.topMessage.completed"
+            values={{ firmware: firmware.version }}
+            components={{ bold: <b className="font-semibold" /> }}
+          />
         </div>
       )
     }
@@ -114,16 +152,22 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
       if (hasResolvedProgress) {
         return (
           <div className="primary-body2 text-functional-text">
-            Update of <b className="font-semibold">{firmware.version}</b> failed
-            on some nodes.
+            <Trans
+              i18nKey="maintenance.update.firmware.updateModal.topMessage.failed"
+              values={{ firmware: firmware.version }}
+              components={{ bold: <b className="font-semibold" /> }}
+            />
           </div>
         )
       }
 
       return (
         <div className="primary-body2 text-functional-text">
-          Update of <b className="font-semibold">{firmware.version}</b> was
-          successful.
+          <Trans
+            i18nKey="maintenance.update.firmware.updateModal.topMessage.successful"
+            values={{ firmware: firmware.version }}
+            components={{ bold: <b className="font-semibold" /> }}
+          />
         </div>
       )
     }
@@ -131,10 +175,15 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
     if (hasFailedProgress) {
       return (
         <div className="primary-body2 text-functional-text">
-          Update of <b className="font-semibold">{firmware.version}</b> failed
-          on some nodes.{' '}
+          <Trans
+            i18nKey="maintenance.update.firmware.updateModal.topMessage.failed"
+            values={{ firmware: firmware.version }}
+            components={{ bold: <b className="font-semibold" /> }}
+          />{' '}
           <b className="font-semibold">
-            Fix the issue and try again before continuing.
+            {t(
+              'maintenance.update.firmware.updateModal.topMessage.fixAndContinue',
+            )}
           </b>
         </div>
       )
@@ -142,11 +191,17 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
 
     return (
       <div className="primary-body2 text-functional-text">
-        Updating <b className="font-semibold">{firmware.version}</b> on the
-        following nodes...
+        <Trans
+          i18nKey="maintenance.update.firmware.updateModal.topMessage.updating"
+          values={{ firmware: firmware.version }}
+          components={{ bold: <b className="font-semibold" /> }}
+        />
       </div>
     )
   }
+
+  const statusTranslations = useStatusTranslations()
+  const statusWithIconPropsMap = useStatusWithIconPropsMap()
 
   const renderStatus = (
     status: GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus,
@@ -160,7 +215,9 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
     }
 
     const text =
-      current === ProgressStatus.Installing ? 'Updating' : upperFirst(current)
+      current === ProgressStatus.Installing
+        ? statusTranslations[ProgressStatus.Installing]
+        : statusTranslations[current]
 
     return (
       <div className="primary-body4 flex min-w-[120px] items-center gap-x-2.5 text-functional-text">
@@ -189,6 +246,7 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
     return (
       <div className="flex items-center gap-x-5">
         <span className="secondary-body3 shrink-0 font-semibold text-primary">
+          {/* We don't translate the phase enum since it actually is a dynamic string. The enum values we defined are not guaranteed and may be changed at any time. */}
           {upperFirst(phase)}
         </span>
         {descriptionElement}
@@ -228,7 +286,9 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
     if (isReadyToManuallyReboot) {
       return (
         <div className="primary-body2 font-semibold text-functional-text">
-          Please power cycle the cluster to complete the update.
+          {t(
+            'maintenance.update.firmware.updateModal.bottomMessage.powerCycleToComplete',
+          )}
         </div>
       )
     }
@@ -236,8 +296,9 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
     if (isRollingApplied) {
       return (
         <div className="primary-body2 text-functional-text">
-          Each node will be updated one by one. Running VMs will be
-          automatically evacuated before update.
+          {t(
+            'maintenance.update.firmware.updateModal.bottomMessage.rollingApplied',
+          )}
         </div>
       )
     }
@@ -250,14 +311,14 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
       {renderTopMessage()}
       <UpdateProgressTable isLoading={isLoadingProgress} rows={progressRows}>
         <UpdateProgressTable.Column
-          label="Host"
+          label={t('maintenance.update.firmware.updateModal.host')}
           property="host"
           fitContent={true}
         >
           {(host) => <div className="w-[150px]">{host}</div>}
         </UpdateProgressTable.Column>
         <UpdateProgressTable.Column
-          label="Status"
+          label={t('maintenance.update.firmware.updateModal.status')}
           property="status"
           fitContent={true}
         >
@@ -275,7 +336,9 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
         <CosNagging
           variant="top"
           type="warning"
-          title="If a node fails to update, please resolve the issue manually to continue."
+          title={t(
+            'maintenance.update.firmware.updateModal.bottomNagging.resolveToContinue',
+          )}
           className="w-full"
           titleClassName="font-normal text-functional-text"
         />

@@ -1,9 +1,10 @@
+import { MouseEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   CosButton,
   CosTooltip,
   CosTooltipInformation,
 } from '@cube-frontend/ui-library'
-import { MouseEvent } from 'react'
 import { InstallActionState } from '../computeFixpacksActionState'
 
 type InstallActionProps = {
@@ -18,18 +19,20 @@ export const InstallAction = (props: InstallActionProps) => {
   const isBlockedByCheckingCephHealth = state === 'blockedByCheckingCephHealth'
   const isBlockedByUnhealthyCeph = state === 'blockedByUnhealthyCeph'
 
+  const { t } = useTranslation()
+
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
     if (isBlockedByOlderFixpack) {
       return {
-        message:
-          'Fixpack installation requires all prior versions to be installed.',
+        message: t(
+          'maintenance.update.fixpack.installTooltip.requirePriorVersions',
+        ),
       }
     }
 
     if (isBlockedByUnhealthyCeph) {
       return {
-        message:
-          'Fixpack installation is currently unavailable because Ceph is unhealthy.',
+        message: t('maintenance.update.fixpack.installTooltip.unhealthyCeph'),
       }
     }
 
@@ -55,7 +58,9 @@ export const InstallAction = (props: InstallActionProps) => {
           }
           onClick={onClick}
         >
-          {state === 'inProgress' ? 'Installing' : 'Install'}
+          {state === 'inProgress'
+            ? t('maintenance.update.fixpack.installing')
+            : t('maintenance.update.fixpack.install')}
         </CosButton>
       </span>
     </CosTooltip>

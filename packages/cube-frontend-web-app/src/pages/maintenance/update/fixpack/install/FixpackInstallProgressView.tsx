@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import {
   ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum as FixpackStatus,
   GetFixpackUpdateProgressResponseDataProgressesInnerStatus,
@@ -8,8 +10,6 @@ import { CosInlineNotification } from '@cube-frontend/ui-library'
 import CheckmarkCircleFill from '@cube-frontend/ui-library/icons/monochrome/checkmark_circle_fill.svg?react'
 import CircleFill from '@cube-frontend/ui-library/icons/monochrome/circle_fill.svg?react'
 import CrossFill from '@cube-frontend/ui-library/icons/monochrome/cross_fill.svg?react'
-import { upperFirst } from 'lodash'
-import { useMemo } from 'react'
 import {
   StatusWithIcon,
   StatusWithIconProps,
@@ -23,34 +23,63 @@ type FixpackInstallProgressViewProps = {
   rows: ProgressTableRow[]
 }
 
-const statusWithIconPropsMap: Partial<
+const useStatusDisplay = () => {
+  const { t } = useTranslation()
+
+  return {
+    [ProgressStatus.Installed]: t(
+      'maintenance.update.fixpack.installModal.status.succeeded',
+    ),
+    [ProgressStatus.Installing]: t(
+      'maintenance.update.fixpack.installModal.status.updating',
+    ),
+    [ProgressStatus.InstallFailed]: t(
+      'maintenance.update.fixpack.installModal.status.failed',
+    ),
+    [ProgressStatus.Resolved]: t(
+      'maintenance.update.fixpack.installModal.status.resolved',
+    ),
+    [ProgressStatus.WaitingReboot]: t(
+      'maintenance.update.fixpack.installModal.status.pendingReboot',
+    ),
+    [ProgressStatus.Rebooting]: t(
+      'maintenance.update.fixpack.installModal.status.rebooting',
+    ),
+  } as const
+}
+
+const useStatusWithIconPropsMap = (): Partial<
   Record<ProgressStatus, StatusWithIconProps>
-> = {
-  [ProgressStatus.Installed]: {
-    Icon: CheckmarkCircleFill,
-    text: 'Succeeded',
-    color: 'text-status-positive',
-  },
-  [ProgressStatus.InstallFailed]: {
-    Icon: CrossFill,
-    text: 'Failed',
-    color: 'text-status-negative',
-  },
-  [ProgressStatus.Resolved]: {
-    Icon: CircleFill,
-    text: 'Resolved',
-    color: 'text-status-neutral',
-  },
-  [ProgressStatus.WaitingReboot]: {
-    Icon: CircleFill,
-    text: 'Pending reboot',
-    color: 'text-status-positive',
-  },
-  [ProgressStatus.Rebooting]: {
-    Icon: CircleFill,
-    text: 'Rebooting',
-    color: 'text-status-positive',
-  },
+> => {
+  const statusTranslations = useStatusDisplay()
+
+  return {
+    [ProgressStatus.Installed]: {
+      Icon: CheckmarkCircleFill,
+      text: statusTranslations[ProgressStatus.Installed],
+      color: 'text-status-positive',
+    },
+    [ProgressStatus.InstallFailed]: {
+      Icon: CrossFill,
+      text: statusTranslations[ProgressStatus.InstallFailed],
+      color: 'text-status-negative',
+    },
+    [ProgressStatus.Resolved]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.Resolved],
+      color: 'text-status-neutral',
+    },
+    [ProgressStatus.WaitingReboot]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.WaitingReboot],
+      color: 'text-status-positive',
+    },
+    [ProgressStatus.Rebooting]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.Rebooting],
+      color: 'text-status-positive',
+    },
+  }
 }
 
 export const FixpackInstallProgressView = (
@@ -77,24 +106,28 @@ export const FixpackInstallProgressView = (
     )
   }, [fixpack.rebootRequired, rows])
 
+  const { t } = useTranslation()
+
   const getDescription = () => {
     if (hasFailedNode) {
       return (
-        <>
-          Failed on some nodes.{' '}
-          <b className="font-semibold">
-            Fix the issue and try again before continuing.
-          </b>
-        </>
+        <Trans
+          i18nKey="maintenance.update.fixpack.installModal.topMessage.failed"
+          components={{ bold: <b className="font-semibold" /> }}
+        />
       )
     }
 
     if (isInstalled) {
-      return 'Installation completed. Please check the status of each node.'
+      return t('maintenance.update.fixpack.installModal.topMessage.completed')
     }
 
-    return 'Install in progress for the following nodes:'
+    return t('maintenance.update.fixpack.installModal.topMessage.inProgress')
   }
+
+  const statusWithIconPropsMap = useStatusWithIconPropsMap()
+
+  const statusDisplay = useStatusDisplay()
 
   const renderProgressRowStatus = (
     status: GetFixpackUpdateProgressResponseDataProgressesInnerStatus,
@@ -104,7 +137,7 @@ export const FixpackInstallProgressView = (
     if (current === ProgressStatus.Installing) {
       return (
         <div className="flex items-center gap-x-5 text-functional-text">
-          <span className="primary-body4">{upperFirst(status.current)}</span>
+          <span className="primary-body4">{statusDisplay.installing}</span>
           <span className="primary-body5">{`${status.processPercent}%`}</span>
         </div>
       )
@@ -124,19 +157,16 @@ export const FixpackInstallProgressView = (
 
     if (showRebootHint) {
       return (
-        <div className="primary-body2 text-functional-text">
-          After updating,{' '}
-          <b className="font-semibold">
-            A reboot is required to complete the update.
-          </b>
-        </div>
+        <Trans
+          i18nKey="maintenance.update.fixpack.installModal.bottomMessage.rebootHint"
+          components={{ bold: <b className="font-semibold" /> }}
+        />
       )
     }
 
     return (
       <CosInlineNotification type="warning" isClosable={false}>
-        If a node fails to update, please resolve the issue manually to
-        continue.
+        {t('maintenance.update.fixpack.installModal.bottomMessage.resolveHint')}
       </CosInlineNotification>
     )
   }

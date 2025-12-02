@@ -1,3 +1,5 @@
+import { useContext, useMemo } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import {
   FixpacksApiListFixpackUpdatableNodesRequest,
   ListFixpackRollbackableNodesResponseDataInner,
@@ -7,7 +9,6 @@ import { CosTableRow, GetCosBasicTable } from '@cube-frontend/ui-library'
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { useContext, useMemo } from 'react'
 import { formatUpdatedAt } from '../_components/fixpackUpdateUtils'
 
 type FixpackRollbackableNodesViewProps = {
@@ -46,15 +47,26 @@ export const FixpackRollbackableNodesView = (
     [rollbackableNodes],
   )
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col gap-y-5">
       <div className="primary-body2 text-functional-text">
-        Do you want to rollback{' '}
-        <b className="font-semibold">{fixpack.version}</b> on these nodes?
+        <Trans
+          i18nKey="maintenance.update.fixpack.rollbackModal.topMessage.confirmRollback"
+          values={{ fixpack: fixpack.version }}
+          components={{ bold: <b className="font-semibold" /> }}
+        />
       </div>
       <RollbackableNodeTable isLoading={isLoading} rows={rows}>
-        <RollbackableNodeTable.Column label="Host" property="name" />
-        <RollbackableNodeTable.Column label="Last Updated" property="updatedAt">
+        <RollbackableNodeTable.Column
+          label={t('maintenance.update.fixpack.rollbackModal.host')}
+          property="name"
+        />
+        <RollbackableNodeTable.Column
+          label={t('maintenance.update.fixpack.rollbackModal.lastUpdated')}
+          property="updatedAt"
+        >
           {formatUpdatedAt}
         </RollbackableNodeTable.Column>
       </RollbackableNodeTable>

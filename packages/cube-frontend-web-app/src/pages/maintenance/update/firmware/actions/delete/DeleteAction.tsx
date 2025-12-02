@@ -6,6 +6,7 @@ import {
 import Trash from '@cube-frontend/ui-library/icons/monochrome/delete.svg?react'
 import { MouseEvent } from 'react'
 import { DeleteActionState } from '../../computeFirmwaresActionState'
+import { useTranslation } from 'react-i18next'
 
 type DeleteActionProps = {
   state: DeleteActionState
@@ -15,13 +16,16 @@ type DeleteActionProps = {
 export const DeleteAction = (props: DeleteActionProps) => {
   const { state, onClick: onClickProp } = props
 
+  const { t } = useTranslation()
+
   const isBlockedByUpdating = state === 'blockedByUpdating'
 
   const getHoverTooltipContent = (): CosTooltipInformation | undefined => {
     if (isBlockedByUpdating) {
       return {
-        message:
-          'Removal is blocked because this firmware is currently being upgraded.',
+        message: t(
+          'maintenance.update.firmware.deleteTooltip.blockedByUpgraded',
+        ),
       }
     }
 

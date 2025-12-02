@@ -12,6 +12,7 @@ import {
   isRollbackableFixpack,
   isRollingBackStatuses,
 } from '../computeFixpacksActionState'
+import { useTranslation } from 'react-i18next'
 
 type RollbackFixpackModalProps = {
   isOpen: boolean
@@ -35,9 +36,14 @@ export const RollbackFixpackModal = (props: RollbackFixpackModalProps) => {
     !!fixpack && isRollingBackStatuses(fixpack.status.current)
   const isRolledBack = fixpack?.status.current === StatusEnum.Available
 
+  const { t } = useTranslation()
+
   const getModalTitle = (): string => {
-    if (isRolledBack) return 'Fixpack Rollback Completed'
-    return 'Rollback Fixpack'
+    if (isRolledBack)
+      return t(
+        'maintenance.update.fixpack.rollbackModal.fixpackRollbackCompleted',
+      )
+    return t('maintenance.update.fixpack.rollbackModal.rollbackFixpack')
   }
 
   const modalActionButtonProps = useRollbackFixpackModalActionButtonProps({

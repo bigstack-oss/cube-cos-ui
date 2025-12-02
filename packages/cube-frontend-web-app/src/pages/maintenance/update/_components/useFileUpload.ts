@@ -36,7 +36,6 @@ export const useFileUpload = (args: UseFileUploadArgs): UseFileUpload => {
   const [isUploaded, setIsUploaded] = useState(false)
   const [progress, setProgress] = useState(0)
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
-    // TODO: i18n
     undefined,
   )
 

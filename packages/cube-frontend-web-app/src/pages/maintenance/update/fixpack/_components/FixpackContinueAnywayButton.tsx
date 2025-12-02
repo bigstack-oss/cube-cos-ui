@@ -1,8 +1,9 @@
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CosButton } from '@cube-frontend/ui-library'
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { useContext } from 'react'
 
 type FixpackContinueAnywayButtonProps = {
   nodeName: string
@@ -29,9 +30,11 @@ export const FixpackContinueAnywayButton = (
     }
   }
 
+  const { t } = useTranslation()
+
   return (
     <CosButton type="warning" size="sm" loading={isLoading} onClick={onClick}>
-      Continue anyway
+      {t('maintenance.update.fixpack.progressTable.continueAnyway')}
     </CosButton>
   )
 }

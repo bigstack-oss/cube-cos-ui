@@ -1,9 +1,10 @@
+import { ChangeEvent, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum as FirmwareStatus,
   ListFirmwaresResponseDataFirmwaresInner,
 } from '@cube-frontend/api'
 import { CosModal } from '@cube-frontend/ui-library'
-import { ChangeEvent, useState } from 'react'
 import { updatingStatuses } from '../../computeFirmwaresActionState'
 import { AbortButton } from './AbortButton'
 import { FirmwareUpdatableNodes } from './FirmwareUpdatableNodes'
@@ -20,6 +21,8 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
   const { firmware, onCloseClick } = props
 
   const [isRollingChecked, setIsRollingChecked] = useState(false)
+
+  const { t } = useTranslation()
 
   const onIsRollingChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setIsRollingChecked(e.target.checked)
@@ -38,8 +41,9 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
     !!firmware?.status && updatingStatuses.has(firmware.status.current)
 
   const getTitle = (): string => {
-    if (isUpdating) return 'Firmware Updating'
-    return 'Firmware Update'
+    if (isUpdating)
+      return t('maintenance.update.firmware.updateModal.firmwareUpdating')
+    return t('maintenance.update.firmware.updateModal.firmwareUpdate')
   }
 
   const actionButtonProps = useUpdateFirmwareModalActionProps({

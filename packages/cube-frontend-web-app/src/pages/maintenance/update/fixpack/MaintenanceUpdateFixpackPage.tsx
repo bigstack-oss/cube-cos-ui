@@ -30,6 +30,7 @@ import { useListFixpacks } from './useListFixpacks'
 import { useListFixpacksQuery } from './useListFixpacksQuery'
 import { RollbackFixpackModal } from './rollback/RollbackFixpackModal'
 import { useRollbackFixpackModal } from './rollback/useRollbackFixpackModal'
+import { useTranslation } from 'react-i18next'
 
 const FixpackTable = GetCosBasicTable<FixpackRow>()
 
@@ -87,6 +88,8 @@ export const MaintenanceUpdateFixpackPage = () => {
     return dayjs.respectTzOffset(updatedAt).format('YYYY/MM/DD')
   }
 
+  const { t } = useTranslation()
+
   const renderAction = (row: FixpackRow, actionState: FixpackActionState) => {
     const { install, rollback, remove } = actionState
 
@@ -113,7 +116,9 @@ export const MaintenanceUpdateFixpackPage = () => {
 
   return (
     <MaintenanceUpdateLayout
-      currentVersion={dataCenter!.fixpack.version || 'Fixpack'}
+      currentVersion={
+        dataCenter!.fixpack.version || t('maintenance.update.fixpack.fixpack')
+      }
       lastUpdated={dataCenter!.fixpack.updatedAt}
     >
       <CosCollapsiblePanelLayout
@@ -122,10 +127,10 @@ export const MaintenanceUpdateFixpackPage = () => {
         onControlledPanelOpenChange={releaseNotePanel.toggle}
       >
         <CosCollapsiblePanelLayout.LeftPanel
-          topic="Fixpack List"
+          topic={t('maintenance.update.fixpack.fixpackList')}
           rightSlot={
             <CosButton disabled={showLoading} onClick={openUploadModal}>
-              Upload Fixpack
+              {t('maintenance.update.fixpack.uploadFixpack')}
             </CosButton>
           }
           customToggleButton={
@@ -145,7 +150,7 @@ export const MaintenanceUpdateFixpackPage = () => {
               onRowClick={showReleaseNoteFor}
             >
               <FixpackTable.Column
-                label="Fixpack"
+                label={t('maintenance.update.fixpack.fixpack')}
                 property="version"
                 fitContent={true}
                 emphasize={true}
@@ -155,13 +160,16 @@ export const MaintenanceUpdateFixpackPage = () => {
                 )}
               </FixpackTable.Column>
               <FixpackTable.Column
-                label="Last Updated"
+                label={t('maintenance.update.fixpack.lastUpdated')}
                 property="updatedAt"
                 fitContent={true}
               >
                 {formatUpdatedAt}
               </FixpackTable.Column>
-              <FixpackTable.Column label="Note" property="note" />
+              <FixpackTable.Column
+                label={t('maintenance.update.fixpack.note')}
+                property="note"
+              />
               <FixpackTable.Column
                 fitContent={true}
                 skeletonVariant="icon-right"
@@ -183,7 +191,10 @@ export const MaintenanceUpdateFixpackPage = () => {
           </div>
         </CosCollapsiblePanelLayout.LeftPanel>
         <CosCollapsiblePanelLayout.RightPanel
-          topic={rowForReleaseNote?.version || 'Fixpack Version'}
+          topic={
+            rowForReleaseNote?.version ||
+            t('maintenance.update.fixpack.fixpackVersion')
+          }
         >
           <ReleaseNotePanel releaseNote={rowForReleaseNote?.details} />
         </CosCollapsiblePanelLayout.RightPanel>
