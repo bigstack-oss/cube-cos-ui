@@ -4,15 +4,16 @@ import { CosModal } from '@cube-frontend/ui-library'
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type DeleteFixpackModalProps = {
-  version: string | undefined
+  fixpack: FixpackRow | undefined
   onCloseClick: () => void
   onDeleted: () => void
 }
 
 export const DeleteFixpackModal = (props: DeleteFixpackModalProps) => {
-  const { version, onCloseClick, onDeleted } = props
+  const { fixpack, onCloseClick, onDeleted } = props
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -21,12 +22,12 @@ export const DeleteFixpackModal = (props: DeleteFixpackModalProps) => {
   )
 
   const onActionClick = async (): Promise<void> => {
-    if (!version) return
+    if (!fixpack) return
 
     try {
       await deleteFixpack({
         dataCenter: dataCenter!.name,
-        version,
+        version: fixpack.version,
       })
       onDeleted()
     } catch (error) {
@@ -38,7 +39,7 @@ export const DeleteFixpackModal = (props: DeleteFixpackModalProps) => {
 
   return (
     <CosModal
-      isOpen={!!version}
+      isOpen={!!fixpack}
       title={t('maintenance.update.fixpack.deleteModal.title')}
       size="sm"
       actionText={t('maintenance.update.fixpack.deleteModal.yesDelete')}
@@ -48,7 +49,7 @@ export const DeleteFixpackModal = (props: DeleteFixpackModalProps) => {
     >
       <p className="primary-body2 text-functional-text">
         {t('maintenance.update.fixpack.deleteModal.message', {
-          fixpack: version,
+          fixpack: fixpack?.display,
         })}
       </p>
     </CosModal>

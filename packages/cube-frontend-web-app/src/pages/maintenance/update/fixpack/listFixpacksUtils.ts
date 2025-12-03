@@ -42,11 +42,23 @@ export const searchParamsToQuery = (
   }
 }
 
-export type FixpackRow = CosTableRow & ListFixpacksResponseDataFixpacksInner
+export const toFixpackDisplay = (name: string, version: string): string => {
+  if (!name && !version) {
+    return ''
+  }
+
+  return `${name} ${version}`
+}
+
+export type FixpackRow = CosTableRow &
+  ListFixpacksResponseDataFixpacksInner & {
+    display: string
+  }
 
 export const fixpackToRow = (
   fixpack: ListFixpacksResponseDataFixpacksInner,
 ): FixpackRow => ({
   ...fixpack,
   id: fixpack.version,
+  display: toFixpackDisplay(fixpack.name, fixpack.version),
 })

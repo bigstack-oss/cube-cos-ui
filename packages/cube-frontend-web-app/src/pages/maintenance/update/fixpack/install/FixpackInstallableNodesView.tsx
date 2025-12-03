@@ -1,6 +1,7 @@
+import { ChangeEvent, useContext, useMemo } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import {
   FixpacksApiListFixpackUpdatableNodesRequest,
-  ListFixpacksResponseDataFixpacksInner,
   ListFixpackUpdatableNodesResponseDataInner,
 } from '@cube-frontend/api'
 import {
@@ -11,12 +12,11 @@ import {
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
-import { ChangeEvent, useContext, useMemo } from 'react'
 import { formatUpdatedAt } from '../_components/fixpackUpdateUtils'
-import { Trans, useTranslation } from 'react-i18next'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type FixpackInstallableNodesViewProps = {
-  fixpack: ListFixpacksResponseDataFixpacksInner
+  fixpack: FixpackRow
   isRollbackDisclaimerRead: boolean
   isRollbackDisclaimerDisabled: boolean
   onRollbackDisclaimerReadChange?: (e: ChangeEvent<HTMLInputElement>) => void
@@ -66,7 +66,7 @@ export const FixpackInstallableNodesView = (
       <div className="primary-body2 text-functional-text">
         <Trans
           i18nKey="maintenance.update.fixpack.installModal.topMessage.confirmInstall"
-          values={{ fixpackVersion: fixpack.version }}
+          values={{ fixpack: fixpack.display }}
           components={{ b: <b className="font-semibold" /> }}
         />
       </div>

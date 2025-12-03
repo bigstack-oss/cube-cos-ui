@@ -1,6 +1,6 @@
+import { useTranslation } from 'react-i18next'
 import {
   GetFixpackUpdateProgressResponseDataOperationEnum,
-  ListFixpacksResponseDataFixpacksInner,
   ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum as StatusEnum,
 } from '@cube-frontend/api'
 import { CosModal } from '@cube-frontend/ui-library'
@@ -12,11 +12,11 @@ import {
   isRollbackableFixpack,
   isRollingBackStatuses,
 } from '../computeFixpacksActionState'
-import { useTranslation } from 'react-i18next'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type RollbackFixpackModalProps = {
   isOpen: boolean
-  fixpack: ListFixpacksResponseDataFixpacksInner | undefined
+  fixpack: FixpackRow | undefined
   onRollbackRequested: () => unknown
   onClose: () => void
 }

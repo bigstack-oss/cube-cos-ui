@@ -1,15 +1,15 @@
-import { ListFixpacksResponseDataFixpacksInner } from '@cube-frontend/api'
 import { useMemo, useState } from 'react'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type UseInstallFixpackModal = {
   isInstallModalOpen: boolean
-  fixpackToInstall: ListFixpacksResponseDataFixpacksInner | undefined
-  onInstallClick: (fixpack: ListFixpacksResponseDataFixpacksInner) => void
+  fixpackToInstall: FixpackRow | undefined
+  onInstallClick: (fixpack: FixpackRow) => void
   onInstallModalClose: () => void
 }
 
 export const useInstallFixpackModal = (
-  fixpacks: ListFixpacksResponseDataFixpacksInner[],
+  fixpacks: FixpackRow[],
 ): UseInstallFixpackModal => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -17,15 +17,11 @@ export const useInstallFixpackModal = (
     undefined,
   )
 
-  const fixpackToInstall = useMemo<
-    ListFixpacksResponseDataFixpacksInner | undefined
-  >(() => {
+  const fixpackToInstall = useMemo<FixpackRow | undefined>(() => {
     return fixpacks.find((fixpack) => fixpack.version === versionToInstall)
   }, [fixpacks, versionToInstall])
 
-  const onInstallClick = (
-    fixpack: ListFixpacksResponseDataFixpacksInner,
-  ): void => {
+  const onInstallClick = (fixpack: FixpackRow): void => {
     setVersionToInstall(fixpack.version)
     setIsOpen(true)
   }

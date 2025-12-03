@@ -3,7 +3,6 @@ import { Trans, useTranslation } from 'react-i18next'
 import {
   ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum as FixpackStatus,
   GetFixpackUpdateProgressResponseDataProgressesInnerStatus,
-  ListFixpacksResponseDataFixpacksInner,
   GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum as ProgressStatus,
 } from '@cube-frontend/api'
 import { CosInlineNotification } from '@cube-frontend/ui-library'
@@ -19,10 +18,11 @@ import {
   getShowRebootHint,
   ProgressTableRow,
 } from '../_components/fixpackUpdateUtils'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type FixpackInstallProgressViewProps = {
   isLoading: boolean
-  fixpack: ListFixpacksResponseDataFixpacksInner
+  fixpack: FixpackRow
   rows: ProgressTableRow[]
 }
 

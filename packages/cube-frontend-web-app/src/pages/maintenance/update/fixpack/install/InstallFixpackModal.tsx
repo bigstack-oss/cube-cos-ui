@@ -1,20 +1,20 @@
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   GetFixpackUpdateProgressResponseDataOperationEnum,
-  ListFixpacksResponseDataFixpacksInner,
   ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum as StatusEnum,
 } from '@cube-frontend/api'
 import { CosModal } from '@cube-frontend/ui-library'
-import { ChangeEvent, useEffect, useState } from 'react'
 import { useFixpackUpdateProgress } from '../_components/useFixpackUpdateProgress'
 import { FixpackInstallProgressView } from './FixpackInstallProgressView'
 import { FixpackInstallableNodesView } from './FixpackInstallableNodesView'
 import { useInstallFixpackModalActionButtonProps } from './useInstallFixpackModalActionButtonProps'
 import { isInstallingStatuses } from '../computeFixpacksActionState'
-import { useTranslation } from 'react-i18next'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type InstallFixpackModalProps = {
   isOpen: boolean
-  fixpack: ListFixpacksResponseDataFixpacksInner | undefined
+  fixpack: FixpackRow | undefined
   onInstallationRequested: () => unknown
   onClose: () => void
 }

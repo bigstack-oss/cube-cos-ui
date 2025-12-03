@@ -1249,16 +1249,16 @@ export interface DataCenter {
     'isLocal': boolean;
     /**
      * 
-     * @type {SystemVersionDetails}
+     * @type {FirmwareVersionDetails}
      * @memberof DataCenter
      */
-    'firmware': SystemVersionDetails;
+    'firmware': FirmwareVersionDetails;
     /**
      * 
-     * @type {SystemVersionDetails}
+     * @type {FixpackVersionDetails}
      * @memberof DataCenter
      */
-    'fixpack': SystemVersionDetails;
+    'fixpack': FixpackVersionDetails;
     /**
      * 
      * @type {string}
@@ -2340,6 +2340,50 @@ export interface EnableOrDisableTuningRequest {
      * @memberof EnableOrDisableTuningRequest
      */
     'hosts': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface FirmwareVersionDetails
+ */
+export interface FirmwareVersionDetails {
+    /**
+     * 
+     * @type {string}
+     * @memberof FirmwareVersionDetails
+     */
+    'version': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FirmwareVersionDetails
+     */
+    'updatedAt': string;
+}
+/**
+ * 
+ * @export
+ * @interface FixpackVersionDetails
+ */
+export interface FixpackVersionDetails {
+    /**
+     * 
+     * @type {string}
+     * @memberof FixpackVersionDetails
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FixpackVersionDetails
+     */
+    'version': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FixpackVersionDetails
+     */
+    'updatedAt': string;
 }
 /**
  * 
@@ -13049,25 +13093,6 @@ export interface SupportFileSetStatus {
      * @memberof SupportFileSetStatus
      */
     'isCreating': boolean;
-}
-/**
- * 
- * @export
- * @interface SystemVersionDetails
- */
-export interface SystemVersionDetails {
-    /**
-     * 
-     * @type {string}
-     * @memberof SystemVersionDetails
-     */
-    'version': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SystemVersionDetails
-     */
-    'updatedAt': string;
 }
 /**
  * 

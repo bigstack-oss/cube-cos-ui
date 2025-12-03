@@ -1,15 +1,15 @@
-import { ListFixpacksResponseDataFixpacksInner } from '@cube-frontend/api'
 import { useMemo, useState } from 'react'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type UseRollbackFixpackModal = {
   isRollbackModalOpen: boolean
-  fixpackToRollback: ListFixpacksResponseDataFixpacksInner | undefined
-  onRollbackClick: (fixpack: ListFixpacksResponseDataFixpacksInner) => void
+  fixpackToRollback: FixpackRow | undefined
+  onRollbackClick: (fixpack: FixpackRow) => void
   onRollbackModalClose: () => void
 }
 
 export const useRollbackFixpackModal = (
-  fixpacks: ListFixpacksResponseDataFixpacksInner[],
+  fixpacks: FixpackRow[],
 ): UseRollbackFixpackModal => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -17,15 +17,11 @@ export const useRollbackFixpackModal = (
     string | undefined
   >(undefined)
 
-  const fixpackToRollback = useMemo<
-    ListFixpacksResponseDataFixpacksInner | undefined
-  >(() => {
+  const fixpackToRollback = useMemo<FixpackRow | undefined>(() => {
     return fixpacks.find((fixpack) => fixpack.version === versionToRollback)
   }, [fixpacks, versionToRollback])
 
-  const onRollbackClick = (
-    fixpack: ListFixpacksResponseDataFixpacksInner,
-  ): void => {
+  const onRollbackClick = (fixpack: FixpackRow): void => {
     setVersionToRollback(fixpack.version)
     setIsOpen(true)
   }

@@ -1,15 +1,24 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type UseDeleteFixpackModal = {
-  fixpackVersionToDelete: string | undefined
+  fixpackToDelete: FixpackRow | undefined
   showDeleteFixpackModal: (version: string) => void
   closeDeleteFixpackModal: () => void
 }
 
-export const useDeleteFixpackModal = (): UseDeleteFixpackModal => {
+export const useDeleteFixpackModal = (
+  fixpackRows: FixpackRow[],
+): UseDeleteFixpackModal => {
   const [fixpackVersionToDelete, setFixpackVersionToDelete] = useState<
     string | undefined
   >(undefined)
+
+  const fixpackToDelete = useMemo<FixpackRow | undefined>(() => {
+    return fixpackRows.find(
+      (fixpack) => fixpack.version === fixpackVersionToDelete,
+    )
+  }, [fixpackRows, fixpackVersionToDelete])
 
   const showDeleteFixpackModal = (version: string): void => {
     setFixpackVersionToDelete(version)
@@ -20,7 +29,7 @@ export const useDeleteFixpackModal = (): UseDeleteFixpackModal => {
   }
 
   return {
-    fixpackVersionToDelete,
+    fixpackToDelete,
     showDeleteFixpackModal,
     closeDeleteFixpackModal,
   }

@@ -3,16 +3,16 @@ import { Trans, useTranslation } from 'react-i18next'
 import {
   FixpacksApiListFixpackUpdatableNodesRequest,
   ListFixpackRollbackableNodesResponseDataInner,
-  ListFixpacksResponseDataFixpacksInner,
 } from '@cube-frontend/api'
 import { CosTableRow, GetCosBasicTable } from '@cube-frontend/ui-library'
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { formatUpdatedAt } from '../_components/fixpackUpdateUtils'
+import { FixpackRow } from '../listFixpacksUtils'
 
 type FixpackRollbackableNodesViewProps = {
-  fixpack: ListFixpacksResponseDataFixpacksInner
+  fixpack: FixpackRow
 }
 
 const RollbackableNodeTable = GetCosBasicTable<RollbackableNodeRow>()
@@ -54,7 +54,7 @@ export const FixpackRollbackableNodesView = (
       <div className="primary-body2 text-functional-text">
         <Trans
           i18nKey="maintenance.update.fixpack.rollbackModal.topMessage.confirmRollback"
-          values={{ fixpack: fixpack.version }}
+          values={{ fixpack: fixpack.display }}
           components={{ bold: <b className="font-semibold" /> }}
         />
       </div>

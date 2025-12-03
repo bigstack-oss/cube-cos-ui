@@ -24,7 +24,7 @@ import {
 } from './computeFixpacksActionState'
 import { InstallFixpackModal } from './install/InstallFixpackModal'
 import { useInstallFixpackModal } from './install/useInstallFixpackModal'
-import { FixpackRow } from './listFixpacksUtils'
+import { FixpackRow, toFixpackDisplay } from './listFixpacksUtils'
 import { UploadFixpackModal } from './UploadFixpackModal'
 import { useListFixpacks } from './useListFixpacks'
 import { useListFixpacksQuery } from './useListFixpacksQuery'
@@ -72,11 +72,8 @@ export const MaintenanceUpdateFixpackPage = () => {
     onRollbackModalClose,
   } = useRollbackFixpackModal(pagedRows)
 
-  const {
-    fixpackVersionToDelete,
-    showDeleteFixpackModal,
-    closeDeleteFixpackModal,
-  } = useDeleteFixpackModal()
+  const { fixpackToDelete, showDeleteFixpackModal, closeDeleteFixpackModal } =
+    useDeleteFixpackModal(pagedRows)
 
   const onFixpackDeleted = (): void => {
     listFixpacks()
@@ -114,11 +111,18 @@ export const MaintenanceUpdateFixpackPage = () => {
     )
   }
 
+  const currentFixpackVersionDisplay = useMemo(() => {
+    const { fixpack } = dataCenter!
+
+    return (
+      toFixpackDisplay(fixpack.name, fixpack.version) ||
+      t('maintenance.update.fixpack.fixpack')
+    )
+  }, [dataCenter, t])
+
   return (
     <MaintenanceUpdateLayout
-      currentVersion={
-        dataCenter!.fixpack.version || t('maintenance.update.fixpack.fixpack')
-      }
+      currentVersion={currentFixpackVersionDisplay}
       lastUpdated={dataCenter!.fixpack.updatedAt}
     >
       <CosCollapsiblePanelLayout
@@ -151,12 +155,12 @@ export const MaintenanceUpdateFixpackPage = () => {
             >
               <FixpackTable.Column
                 label={t('maintenance.update.fixpack.fixpack')}
-                property="version"
+                property="display"
                 fitContent={true}
                 emphasize={true}
               >
-                {(version) => (
-                  <div className="whitespace-nowrap">{version}</div>
+                {(fixpackDisplay) => (
+                  <div className="whitespace-nowrap">{fixpackDisplay}</div>
                 )}
               </FixpackTable.Column>
               <FixpackTable.Column
@@ -192,7 +196,7 @@ export const MaintenanceUpdateFixpackPage = () => {
         </CosCollapsiblePanelLayout.LeftPanel>
         <CosCollapsiblePanelLayout.RightPanel
           topic={
-            rowForReleaseNote?.version ||
+            rowForReleaseNote?.display ||
             t('maintenance.update.fixpack.fixpackVersion')
           }
         >
@@ -217,7 +221,7 @@ export const MaintenanceUpdateFixpackPage = () => {
         onClose={onRollbackModalClose}
       />
       <DeleteFixpackModal
-        version={fixpackVersionToDelete}
+        fixpack={fixpackToDelete}
         onCloseClick={closeDeleteFixpackModal}
         onDeleted={onFixpackDeleted}
       />
