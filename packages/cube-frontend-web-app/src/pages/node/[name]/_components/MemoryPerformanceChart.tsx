@@ -15,6 +15,7 @@ import {
   getMemoryChartOptions,
 } from './nodeChartsUtils'
 import { CosGeneralPanel } from '@cube-frontend/ui-library'
+import type { SupportedLanguage } from '@cube-frontend/web-app/i18n/utils'
 
 type MemoryPerformanceChartProps = {
   node: Node | undefined
@@ -23,7 +24,7 @@ type MemoryPerformanceChartProps = {
 export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
   const { node } = props
 
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -60,8 +61,12 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
 
   const chartOptions = useMemo(
     () =>
-      getMemoryChartOptions(metricsData, t('nodes.details.consumedHostMemory')),
-    [metricsData, t],
+      getMemoryChartOptions(
+        metricsData,
+        t('nodes.details.consumedHostMemory'),
+        i18n.language as SupportedLanguage,
+      ),
+    [metricsData, t, i18n.language],
   )
 
   return (

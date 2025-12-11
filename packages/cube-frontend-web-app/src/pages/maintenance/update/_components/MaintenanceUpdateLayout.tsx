@@ -19,7 +19,7 @@ export const MaintenanceUpdateLayout = (
   const location = useLocation()
   const navigate = useNavigate()
 
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   // TODO: Add support for custom elements (like the <Link> component from react-router) to `CosContentSwitcherItem`
   // for native hyperlink navigation.
@@ -31,7 +31,10 @@ export const MaintenanceUpdateLayout = (
 
   const formatLastUpdated = (): string => {
     if (!lastUpdated) return t('maintenance.update.never')
-    return dayjs.respectTzOffset(lastUpdated).format('YYYY/MM/DD HH:mm A')
+    return dayjs
+      .respectTzOffset(lastUpdated)
+      .locale(i18n.language)
+      .format('YYYY/MM/DD HH:mm A')
   }
 
   return (

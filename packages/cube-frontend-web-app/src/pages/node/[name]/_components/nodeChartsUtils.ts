@@ -4,6 +4,7 @@ import {
 } from '@cube-frontend/api'
 import { cubeTheme } from '@cube-frontend/ui-theme/src/cubeTheme'
 import { TimeRange } from '@cube-frontend/web-app/components/TimeRangeDropdown/timeRangeUtils'
+import type { SupportedLanguage } from '@cube-frontend/web-app/i18n/utils'
 import { convertSize, SizeUnit } from '@cube-frontend/web-app/utils/byte'
 import {
   chartFontFamily,
@@ -58,6 +59,7 @@ export const computeChartData = (
 export const getCpuChartOptions = (
   metricsData: HostMetricHistoryResponseData | undefined,
   yAxisText: string,
+  i18nLanguage: SupportedLanguage,
 ): ChartOptions<'line'> => {
   const { history = [], unit = '' } = metricsData ?? {}
   return {
@@ -77,7 +79,7 @@ export const getCpuChartOptions = (
         },
         ticks: getChartTicksOptions(),
         beforeFit: (axis) => {
-          transformTickLabelsBeforeFit(axis, history)
+          transformTickLabelsBeforeFit(axis, history, i18nLanguage)
         },
       },
       y: {
@@ -145,6 +147,7 @@ export const getCpuChartOptions = (
 export const getMemoryChartOptions = (
   metricsData: HostMetricHistoryResponseData | undefined,
   yAxisText: string,
+  i18nLanguage: SupportedLanguage,
 ): ChartOptions<'line'> => {
   const isLoading = !metricsData
   const history = metricsData?.history ?? []
@@ -168,7 +171,7 @@ export const getMemoryChartOptions = (
         },
         ticks: getChartTicksOptions(),
         beforeFit: (axis) => {
-          transformTickLabelsBeforeFit(axis, history)
+          transformTickLabelsBeforeFit(axis, history, i18nLanguage)
         },
       },
       y: {
@@ -260,6 +263,7 @@ type TickWithContext = Tick & {
 const transformTickLabelsBeforeFit = (
   axis: Scale,
   history: TimeValuePair[],
+  i18nLanguage: SupportedLanguage,
 ): void => {
   const { ticks } = axis
 
@@ -270,7 +274,9 @@ const transformTickLabelsBeforeFit = (
     const timeValuePair = history[castedTick.$context.index]
     if (!timeValuePair) return
 
-    const dateWithTz = dayjs.respectTzOffset(timeValuePair.time.toString())
+    const dateWithTz = dayjs
+      .respectTzOffset(timeValuePair.time.toString())
+      .locale(i18nLanguage)
     const dateString = dateWithTz.format('YYYY-MM-DD')
 
     if (prevDate !== dateString) {

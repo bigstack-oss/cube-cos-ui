@@ -15,6 +15,7 @@ import {
   getCpuChartOptions,
 } from './nodeChartsUtils'
 import { CosGeneralPanel } from '@cube-frontend/ui-library'
+import type { SupportedLanguage } from '@cube-frontend/web-app/i18n/utils'
 
 type CpuPerformanceChartProps = {
   node: Node | undefined
@@ -24,7 +25,7 @@ type CpuPerformanceChartProps = {
 export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
   const { node } = props
 
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -60,8 +61,13 @@ export const CpuPerformanceChart = (props: CpuPerformanceChartProps) => {
   )
 
   const chartOptions = useMemo(
-    () => getCpuChartOptions(metricsData, t('nodes.details.consumedHostCpu')),
-    [metricsData, t],
+    () =>
+      getCpuChartOptions(
+        metricsData,
+        t('nodes.details.consumedHostCpu'),
+        i18n.language as SupportedLanguage,
+      ),
+    [metricsData, t, i18n],
   )
 
   return (
