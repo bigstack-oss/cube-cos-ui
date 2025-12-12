@@ -645,6 +645,7 @@
   "maintenance.license.hardwareSerials": "硬體序號",
   "maintenance.license.expireDate": "到期日期",
   "maintenance.license.expired": "距離到期",
+  "maintenance.license.expiring": "即將到期",
   "maintenance.license.type": "類型",
   "maintenance.license.quantity": "數量",
   "maintenance.license.supportPlan": "支援方案",
