@@ -33,7 +33,7 @@ export const FilterDropdown = <Key extends keyof FilterOptions>(
 
   const { t } = useTranslation()
 
-  const filterLabel = t(`events.filter.${filterKey}`)
+  const filterLabel = t(`events.filter.${filterKey}`) as string
 
   const onAllCheckChange = (checked: boolean) => {
     if (checked) {
