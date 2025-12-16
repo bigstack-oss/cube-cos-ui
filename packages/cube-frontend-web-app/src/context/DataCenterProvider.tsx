@@ -2,6 +2,10 @@ import { PropsWithChildren, useMemo } from 'react'
 import { DataCenterContext } from './DataCenterContext'
 import { dataCentersApi } from '../api/cosApi'
 import { useCosGetRequest } from '../hooks/useCosRequest/useCosGetRequest'
+import { usePolling } from '../hooks/usePolling'
+import { shouldDisplayLoading } from '../utils/loadingDisplay'
+
+const POLLING_INTERVAL = 10 * 1000
 
 export const DataCenterProvider = (props: PropsWithChildren) => {
   const { children } = props
@@ -10,7 +14,16 @@ export const DataCenterProvider = (props: PropsWithChildren) => {
     data: dataCenters,
     isLoading,
     getResource: fetchDataCenters,
+    hasResponseBeenReceived,
   } = useCosGetRequest(dataCentersApi.getDataCenters)
+
+  const { isPolling } = usePolling(fetchDataCenters, POLLING_INTERVAL)
+
+  const showLoading = shouldDisplayLoading({
+    isLoading,
+    isPolling,
+    hasResponseBeenReceived,
+  })
 
   /**
    * In Phase 1, there is only 1 data center.
@@ -24,9 +37,9 @@ export const DataCenterProvider = (props: PropsWithChildren) => {
     return {
       dataCenter,
       fetchDataCenters,
-      isLoading,
+      isLoading: showLoading,
     }
-  }, [dataCenter, fetchDataCenters, isLoading])
+  }, [dataCenter, fetchDataCenters, showLoading])
 
   return (
     <DataCenterContext.Provider value={contextValue}>
