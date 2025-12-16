@@ -1,6 +1,5 @@
 import { ListFirmwaresResponseDataFirmwaresInner } from '@cube-frontend/api'
 import { useMemo, useState } from 'react'
-import { FirmwareRow } from '../../listFirmwaresUtils'
 
 type UseUpdateFirmwareModal = {
   firmwareToUpdate: ListFirmwaresResponseDataFirmwaresInner | undefined
@@ -9,7 +8,7 @@ type UseUpdateFirmwareModal = {
 }
 
 export const useUpdateFirmwareModal = (
-  firmwareRows: FirmwareRow[],
+  allFirmwares: ListFirmwaresResponseDataFirmwaresInner[],
 ): UseUpdateFirmwareModal => {
   const [versionToUpdate, setVersionToUpdate] = useState<string | undefined>(
     undefined,
@@ -19,8 +18,8 @@ export const useUpdateFirmwareModal = (
     ListFirmwaresResponseDataFirmwaresInner | undefined
   >(() => {
     if (!versionToUpdate) return undefined
-    return firmwareRows.find((firmware) => firmware.version === versionToUpdate)
-  }, [firmwareRows, versionToUpdate])
+    return allFirmwares.find((firmware) => firmware.version === versionToUpdate)
+  }, [allFirmwares, versionToUpdate])
 
   const onOpenUpdateModal = (version: string): void => {
     setVersionToUpdate(version)

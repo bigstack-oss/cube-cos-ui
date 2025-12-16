@@ -39,8 +39,14 @@ export const MaintenanceUpdateFixpackPage = () => {
 
   const { query, onPageChange, onItemsPerPageChange } = useListFixpacksQuery()
 
-  const { showLoading, allFixpacks, pagedRows, totalItemCount, listFixpacks } =
-    useListFixpacks(query)
+  const {
+    showLoading,
+    allFixpacks,
+    allRows,
+    pagedRows,
+    totalItemCount,
+    listFixpacks,
+  } = useListFixpacks(query)
 
   const {
     isOpen: isUploadModalOpen,
@@ -63,7 +69,7 @@ export const MaintenanceUpdateFixpackPage = () => {
     fixpackToInstall,
     onInstallClick,
     onInstallModalClose,
-  } = useInstallFixpackModal(pagedRows)
+  } = useInstallFixpackModal(allRows)
 
   const {
     isRollbackModalOpen,

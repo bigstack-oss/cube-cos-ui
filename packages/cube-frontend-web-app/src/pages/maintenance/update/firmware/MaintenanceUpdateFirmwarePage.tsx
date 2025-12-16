@@ -63,7 +63,7 @@ export const MaintenanceUpdateFirmwarePage = () => {
   )
 
   const { firmwareToUpdate, onOpenUpdateModal, onCloseUpdateModal } =
-    useUpdateFirmwareModal(pagedRows)
+    useUpdateFirmwareModal(allFirmwares)
 
   const {
     firmwareVersionToDelete,

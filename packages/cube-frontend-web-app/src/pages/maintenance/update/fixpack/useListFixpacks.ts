@@ -18,6 +18,7 @@ import {
 type UseListFixpacks = {
   showLoading: boolean
   allFixpacks: ListFixpacksResponseDataFixpacksInner[]
+  allRows: FixpackRow[]
   pagedRows: FixpackRow[]
   totalItemCount: number
   listFixpacks: () => Promise<ListFixpacksResponseData>
@@ -44,15 +45,19 @@ export const useListFixpacks = (query: ListFixpacksQuery): UseListFixpacks => {
 
   const { isPolling } = usePolling(listFixpacks, POLLING_INTERVAL)
 
-  const pagedRows = useMemo<FixpackRow[]>(() => {
+  const allRows = useMemo<FixpackRow[]>(() => {
     const fixpacks = pagedFixpacks?.fixpacks ?? []
+    return fixpacks.map(fixpackToRow)
+  }, [pagedFixpacks?.fixpacks])
+
+  const pagedRows = useMemo<FixpackRow[]>(() => {
     const { page, pageSize } = query
 
     const start = (page - 1) * pageSize
     const end = start + pageSize
 
-    return fixpacks.slice(start, end).map(fixpackToRow)
-  }, [pagedFixpacks?.fixpacks, query])
+    return allRows.slice(start, end)
+  }, [allRows, query])
 
   const showLoading = shouldDisplayLoading({
     isLoading,
@@ -63,6 +68,7 @@ export const useListFixpacks = (query: ListFixpacksQuery): UseListFixpacks => {
   return {
     showLoading,
     allFixpacks: pagedFixpacks?.fixpacks ?? [],
+    allRows,
     pagedRows,
     totalItemCount: pagedFixpacks?.page.totalItemCount ?? 0,
     listFixpacks,
