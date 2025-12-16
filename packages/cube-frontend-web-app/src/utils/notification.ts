@@ -20,11 +20,16 @@ export const notificationToToastArgs = (
   notification: Notification,
   t: TFunction<'translation', undefined>,
 ): NotificationToastArgs => {
-  const { id, nodeName, time } = notification
+  const { id, time } = notification
 
   const type: CosNotificationType = notification.id.endsWith('E')
     ? 'error'
     : 'positive'
+
+  const getLinkFn =
+    notificationLinkFnMap[notification.id] ??
+    // Fallback to node detail link in case a new notification ID is added without updating the OpenAPI docs.
+    nodeDetailLinkFn
 
   return {
     type,
@@ -34,7 +39,7 @@ export const notificationToToastArgs = (
     linkProps: {
       className: 'inline-flex',
       Container: createElement(Link, {
-        to: CosRoutesEnum.NODE_DETAIL_PAGE(nodeName),
+        to: getLinkFn(notification),
       }),
       text: t('notifications.check'),
       onClick: noop,
@@ -57,6 +62,50 @@ const getI18nArgs = (notification: Notification): Record<string, unknown> => {
   }
 
   return args
+}
+
+const nodeDetailLinkFn = (notification: Notification): string => {
+  return CosRoutesEnum.NODE_DETAIL_PAGE(notification.nodeName)
+}
+
+const notificationLinkFnMap: Record<
+  Notification['id'],
+  (notification: Notification) => string
+> = {
+  // Device
+  DEV00001E: nodeDetailLinkFn,
+  DEV00001I: nodeDetailLinkFn,
+  DEV00002E: nodeDetailLinkFn,
+  DEV00002I: nodeDetailLinkFn,
+  DEV00003E: nodeDetailLinkFn,
+  DEV00003I: nodeDetailLinkFn,
+  DEV00004E: nodeDetailLinkFn,
+  DEV00004I: nodeDetailLinkFn,
+  // OSD
+  OSD00001E: nodeDetailLinkFn,
+  OSD00001I: nodeDetailLinkFn,
+  OSD00002E: nodeDetailLinkFn,
+  OSD00002I: nodeDetailLinkFn,
+  OSD00003E: nodeDetailLinkFn,
+  OSD00003I: nodeDetailLinkFn,
+  // Model
+  MDL00001E: () => CosRoutesEnum.INTEGRATIONS_STORAGES_MODELS_PAGE,
+  MDL00001I: () => CosRoutesEnum.INTEGRATIONS_STORAGES_MODELS_PAGE,
+  MDL00002E: () => CosRoutesEnum.INTEGRATIONS_STORAGES_MODELS_PAGE,
+  MDL00002I: () => CosRoutesEnum.INTEGRATIONS_STORAGES_MODELS_PAGE,
+  MDL00003E: () => CosRoutesEnum.INTEGRATIONS_STORAGES_MODELS_PAGE,
+  MDL00003I: () => CosRoutesEnum.INTEGRATIONS_STORAGES_MODELS_PAGE,
+  // Storage
+  STG00001E: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00001I: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00002E: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00002I: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00003E: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00003I: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00004E: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00004I: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00005E: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
+  STG00005I: () => CosRoutesEnum.INTEGRATIONS_STORAGES_PAGE,
 }
 
 export const checkIsNotificationUnread = (
