@@ -203,9 +203,11 @@ export const cubeTheme = {
     },
   },
   fontFamily: {
-    urbanist: ['Urbanist', ...defaultTheme.fontFamily.sans],
-    inter: ['Inter', ...defaultTheme.fontFamily.sans],
-    sans: ['Inter', ...defaultTheme.fontFamily.sans],
+    // Fallback to Noto Sans TC for Traditional Chinese.
+    urbanist: ['Urbanist', 'Noto Sans TC', ...defaultTheme.fontFamily.sans],
+    inter: ['Inter', 'Noto Sans TC', ...defaultTheme.fontFamily.sans],
+    ['noto-sans-tc']: ['Noto Sans TC', ...defaultTheme.fontFamily.sans],
+    sans: ['Inter', 'Noto Sans TC', ...defaultTheme.fontFamily.sans],
   },
   fontWeight: {
     regular: '400',

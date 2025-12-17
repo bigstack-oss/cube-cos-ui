@@ -4,6 +4,7 @@ packages:
 catalog:
   '@fontsource/inter': '^5.1.0'
   '@fontsource/urbanist': '^5.1.1'
+  "@fontsource/noto-sans-tc": "^5.2.8"
   '@types/lodash': ^4.17.15
   '@types/pluralize': '^0.0.33'
   '@types/react-dom': ^19.0.0

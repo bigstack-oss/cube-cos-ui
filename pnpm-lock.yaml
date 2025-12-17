@@ -9,6 +9,9 @@ catalogs:
     '@fontsource/inter':
       specifier: ^5.1.0
       version: 5.1.1
+    '@fontsource/noto-sans-tc':
+      specifier: ^5.2.8
+      version: 5.2.8
     '@fontsource/urbanist':
       specifier: ^5.1.1
       version: 5.1.1
@@ -156,6 +159,9 @@ importers:
       '@fontsource/inter':
         specifier: 'catalog:'
         version: 5.1.1
+      '@fontsource/noto-sans-tc':
+        specifier: 'catalog:'
+        version: 5.2.8
       '@fontsource/urbanist':
         specifier: 'catalog:'
         version: 5.1.1
@@ -208,6 +214,9 @@ importers:
       '@fontsource/inter':
         specifier: 'catalog:'
         version: 5.1.1
+      '@fontsource/noto-sans-tc':
+        specifier: 'catalog:'
+        version: 5.2.8
       '@fontsource/urbanist':
         specifier: 'catalog:'
         version: 5.1.1
@@ -339,6 +348,9 @@ importers:
       '@fontsource/inter':
         specifier: 'catalog:'
         version: 5.1.1
+      '@fontsource/noto-sans-tc':
+        specifier: 'catalog:'
+        version: 5.2.8
       '@fontsource/urbanist':
         specifier: 'catalog:'
         version: 5.1.1
@@ -789,6 +801,9 @@ packages:
 
   '@fontsource/inter@5.1.1':
     resolution: {integrity: sha512-weN3E+rq0Xb3Z93VHJ+Rc7WOQX9ETJPTAJ+gDcaMHtjft67L58sfS65rAjC5tZUXQ2FdZ/V1/sSzCwZ6v05kJw==}
+
+  '@fontsource/noto-sans-tc@5.2.8':
+    resolution: {integrity: sha512-YGeoh/XCBJm9iSUuyDIpw0pd7I+XiO7HI3Tq+38j4fuIjykURHhUDRtjkIFkEzjg8BKZ6MNdyyXHXor1fdoGQg==}
 
   '@fontsource/urbanist@5.1.1':
     resolution: {integrity: sha512-iYGvgDx68lCt0fwfIitH4hMdvjUX107Asz5uSfV6w1kyi0oH2UNRPA9G37DM09E4xZADMIU9vzNea8ZqMACIPw==}
@@ -4372,6 +4387,8 @@ snapshots:
       levn: 0.4.1
 
   '@fontsource/inter@5.1.1': {}
+
+  '@fontsource/noto-sans-tc@5.2.8': {}
 
   '@fontsource/urbanist@5.1.1': {}
 

@@ -4,6 +4,9 @@ import { BodyBox } from './BodyBox'
 import { BodyBoxHeader } from './BodyBoxHeader'
 import { HeadingBox } from './HeadingBox'
 import { Typeface } from './Typeface'
+import { LanguageBoxHeader } from './LanguageBox/LanguageBoxHeader'
+import { EnglishLanguageBox } from './LanguageBox/EnglishLanguageBox'
+import { TraditionalChineseLanguageBox } from './LanguageBox/TraditionalChineseLanguageBox'
 
 const meta = {
   title: 'Design Tokens/Typography',
@@ -28,6 +31,11 @@ export const Typography: StoryObj = {
             className="secondary-h1"
             name="Inter"
             fontHref="https://fonts.google.com/specimen/Inter"
+          />
+          <Typeface
+            className="secondary-h1 font-noto-sans-tc"
+            name="Noto Sans TC"
+            fontHref="https://fonts.google.com/noto/specimen/Noto+Sans+TC"
           />
         </div>
       </StoryLayout.Section>
@@ -101,6 +109,13 @@ export const Typography: StoryObj = {
             typographyClassName="secondary-body7"
             includeExtraBold={true}
           />
+        </div>
+      </StoryLayout.Section>
+      <StoryLayout.Section title="Language-specific Rules">
+        <LanguageBoxHeader />
+        <div className="flex flex-col gap-y-6">
+          <EnglishLanguageBox />
+          <TraditionalChineseLanguageBox />
         </div>
       </StoryLayout.Section>
     </StoryLayout>

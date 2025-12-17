@@ -19,6 +19,7 @@
     "@cube-frontend/ui-theme": "workspace:*",
     "@cube-frontend/utils": "workspace:*",
     "@fontsource/inter": "catalog:",
+    "@fontsource/noto-sans-tc": "catalog:",
     "@fontsource/urbanist": "catalog:",
     "@types/d3": "^7.4.3",
     "@types/lodash": "catalog:",

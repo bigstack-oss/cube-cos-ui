@@ -16,6 +16,7 @@
     "@cube-frontend/ui-theme": "workspace:*",
     "@fontsource/inter": "catalog:",
     "@fontsource/urbanist": "catalog:",
+    "@fontsource/noto-sans-tc": "catalog:",
     "class-variance-authority": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
