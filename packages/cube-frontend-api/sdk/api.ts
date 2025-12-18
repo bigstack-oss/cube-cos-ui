@@ -9631,7 +9631,9 @@ export interface ListNodeDevicesResponseDataInnerStatus {
 export const ListNodeDevicesResponseDataInnerStatusCurrentEnum = {
     Ok: 'ok',
     Warning: 'warning',
-    Fail: 'fail'
+    Fail: 'fail',
+    Processing: 'processing',
+    Unknown: 'unknown'
 } as const;
 
 export type ListNodeDevicesResponseDataInnerStatusCurrentEnum = typeof ListNodeDevicesResponseDataInnerStatusCurrentEnum[keyof typeof ListNodeDevicesResponseDataInnerStatusCurrentEnum];

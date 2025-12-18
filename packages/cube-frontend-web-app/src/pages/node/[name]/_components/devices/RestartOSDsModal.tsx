@@ -1,7 +1,8 @@
+import { useContext, useState } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import { CosModal } from '@cube-frontend/ui-library'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useContext, useState } from 'react'
 import { DeviceRow } from './nodeDevicesUtils'
 
 type RestartOSDsModalProps = {
@@ -13,6 +14,8 @@ type RestartOSDsModalProps = {
 
 export const RestartOSDsModal = (props: RestartOSDsModalProps) => {
   const { nodeName, isOpen, targetRow, onCloseClick } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -42,8 +45,8 @@ export const RestartOSDsModal = (props: RestartOSDsModalProps) => {
     <CosModal
       isOpen={isOpen}
       size="sm"
-      title="Restart OSDs"
-      actionText="Restart OSDs"
+      title={t('nodes.details.devices.restartOSDModal.title')}
+      actionText={t('nodes.details.devices.restartOSDModal.restartOSDs')}
       actionButtonProps={{
         loading: isLoading,
       }}
@@ -51,8 +54,11 @@ export const RestartOSDsModal = (props: RestartOSDsModalProps) => {
       onCloseClick={onCloseClick}
     >
       <p className="primary-body2 text-functional-text">
-        Do you want to restart the OSDs for{' '}
-        <span className="font-bold">{targetRow?.device}</span>?
+        <Trans
+          i18nKey="nodes.details.devices.restartOSDModal.message"
+          values={{ disk: targetRow?.device }}
+          components={{ bold: <span className="font-bold" /> }}
+        />
       </p>
     </CosModal>
   )

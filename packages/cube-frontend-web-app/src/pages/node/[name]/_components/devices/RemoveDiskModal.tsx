@@ -1,9 +1,10 @@
+import { useContext } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import { CosModal, CosNagging } from '@cube-frontend/ui-library'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
-import { useContext } from 'react'
 import { DaemonsInfo } from './DaemonsInfo'
 import { DeviceRow, DeviceTable } from './nodeDevicesUtils'
 
@@ -22,6 +23,8 @@ export const RemoveDiskModal = (props: RemoveDiskModalProps) => {
   const { isLoading, mutateResource: removeDisk } = useCosMutationRequest(
     nodesApi.removeNodeDevice,
   )
+
+  const { t } = useTranslation()
 
   const onActionClick = async (): Promise<void> => {
     if (!nodeName || !targetRow) return
@@ -42,8 +45,10 @@ export const RemoveDiskModal = (props: RemoveDiskModalProps) => {
       isOpen={isOpen}
       size="sm"
       className="min-w-[720px]"
-      title={`Remove Disk ${targetRow?.device}`}
-      actionText="Remove"
+      title={t('nodes.details.devices.removeDiskModal.title', {
+        disk: targetRow?.device,
+      })}
+      actionText={t('nodes.details.devices.removeDiskModal.remove')}
       actionButtonProps={{
         loading: isLoading,
       }}
@@ -52,46 +57,70 @@ export const RemoveDiskModal = (props: RemoveDiskModalProps) => {
     >
       <div className="flex flex-col gap-y-[20px]">
         <p className="primary-body2 text-functional-text">
-          Removing <span className="font-bold">{targetRow?.device}</span> may
-          lower performance temporarily, reducing hard drive efficiency and
-          potentially affecting the system’s overall performance.
+          <Trans
+            i18nKey="nodes.details.devices.removeDiskModal.message"
+            values={{ disk: targetRow?.device }}
+            components={{ bold: <span className="font-bold" /> }}
+          />
         </p>
         {!!targetRow && (
           <>
             <DeviceTable rows={[targetRow]}>
               <DeviceTable.Column
-                label="Device"
+                label={t('nodes.details.devices.removeDiskModal.device')}
                 property="device"
                 emphasize={true}
               />
-              <DeviceTable.Column label="Serial Number" property="serial" />
-              <DeviceTable.Column label="Size" property="sizeMiB">
+              <DeviceTable.Column
+                label={t('nodes.details.devices.removeDiskModal.serialNumber')}
+                property="serial"
+              />
+              <DeviceTable.Column
+                label={t('nodes.details.devices.removeDiskModal.size')}
+                property="sizeMiB"
+              >
                 {(sizeMiB) => (
                   <span className="whitespace-nowrap">
                     {toReadableSizeString(sizeMiB, 'MiB')}
                   </span>
                 )}
               </DeviceTable.Column>
-              <DeviceTable.Column label="Defined Class" property="class" />
-              <DeviceTable.Column label="OSD Status" property="osd">
+              <DeviceTable.Column
+                label={t('nodes.details.devices.removeDiskModal.definedClass')}
+                property="class"
+              />
+              <DeviceTable.Column
+                label={t('nodes.details.devices.removeDiskModal.osdStatus')}
+                property="osd"
+              >
                 {(osd) => <DaemonsInfo daemons={osd.daemons} />}
               </DeviceTable.Column>
-              <DeviceTable.Column label="OSD Number" property="osd">
+              <DeviceTable.Column
+                label={t('nodes.details.devices.removeDiskModal.osdNumber')}
+                property="osd"
+              >
                 {(osd) => osd.daemons.length}
               </DeviceTable.Column>
             </DeviceTable>
             <div className="primary-body2 text-functional-text">
-              Do you want to remove{' '}
-              <span className="font-bold">{targetRow?.device}</span> from the
-              pool?
+              <Trans
+                i18nKey="nodes.details.devices.removeDiskModal.footerMessage"
+                values={{ disk: targetRow?.device }}
+                components={{ bold: <span className="font-bold" /> }}
+              />
             </div>
             {targetRow.osd.pgs > 0 && (
               <CosNagging
                 className="w-full"
                 type="warning"
                 variant="top"
-                title={`There is still data in the disk (${targetRow.osd.pgs.toLocaleString('en-US')} pgs).`}
-                description="Recommendation: set reweight to 0 and wait for data to be fully drained."
+                title={t(
+                  'nodes.details.devices.removeDiskModal.footerNaggingTitle',
+                  { pgCount: targetRow.osd.pgs.toLocaleString('en-US') },
+                )}
+                description={t(
+                  'nodes.details.devices.removeDiskModal.footerNaggingMessage',
+                )}
               />
             )}
           </>

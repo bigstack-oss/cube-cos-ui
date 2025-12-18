@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import {
   ListNodeDevicesResponseDataInnerAvailabilityEnum,
   ListNodeDevicesResponseDataInnerOsd,
+  ListNodeDevicesResponseDataInnerStatusCurrentEnum,
 } from '@cube-frontend/api'
 import {
   CosButton,
@@ -186,6 +187,17 @@ export const NodeDevices = (props: NodeDevicesProps) => {
     )
   }
 
+  const deviceStatusTranslations: Record<
+    ListNodeDevicesResponseDataInnerStatusCurrentEnum,
+    string
+  > = {
+    ok: t('nodes.details.devices.status.ok'),
+    fail: t('nodes.details.devices.status.fail'),
+    warning: t('nodes.details.devices.status.warning'),
+    processing: t('nodes.details.devices.status.processing'),
+    unknown: t('nodes.details.devices.status.unknown'),
+  }
+
   return (
     <CosGeneralPanel
       leftSlot={
@@ -270,7 +282,12 @@ export const NodeDevices = (props: NodeDevicesProps) => {
           label={t('nodes.details.devices.status')}
           property="status"
         >
-          {(status) => <CosStatus status={status.current} />}
+          {(status) => (
+            <CosStatus
+              status={status.current}
+              message={deviceStatusTranslations[status.current]}
+            />
+          )}
         </DeviceTable.Column>
         <DeviceTable.Column label={t('nodes.details.devices.actions')}>
           {(_, row, rowIndex) => renderActions(row, rowIndex)}

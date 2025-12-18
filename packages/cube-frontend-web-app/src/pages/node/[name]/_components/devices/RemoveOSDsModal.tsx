@@ -1,7 +1,8 @@
+import { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CosModal } from '@cube-frontend/ui-library'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
-import { useContext, useState } from 'react'
 import { DeviceRow } from './nodeDevicesUtils'
 
 type RemoveOSDsModalProps = {
@@ -13,6 +14,8 @@ type RemoveOSDsModalProps = {
 
 export const RemoveOSDsModal = (props: RemoveOSDsModalProps) => {
   const { nodeName, isOpen, targetRow, onCloseClick } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -42,8 +45,8 @@ export const RemoveOSDsModal = (props: RemoveOSDsModalProps) => {
     <CosModal
       isOpen={isOpen}
       size="sm"
-      title="Remove OSDs"
-      actionText="Remove OSDs"
+      title={t('nodes.details.devices.removeOSDModal.title')}
+      actionText={t('nodes.details.devices.removeOSDModal.removeOSDs')}
       actionButtonProps={{
         loading: isLoading,
       }}
@@ -51,7 +54,7 @@ export const RemoveOSDsModal = (props: RemoveOSDsModalProps) => {
       onCloseClick={onCloseClick}
     >
       <p className="primary-body2 text-functional-text">
-        Do you want to remove OSDs?
+        {t('nodes.details.devices.removeOSDModal.message')}
       </p>
     </CosModal>
   )
