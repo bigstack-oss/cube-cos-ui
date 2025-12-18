@@ -15,7 +15,8 @@ const contentSwitcherItem = {
   default: cva(
     [
       'flex items-center justify-center',
-      'border-y border-primary-200 bg-grey-0 font-medium text-functional-text-light transition-colors',
+      'border-y border-primary-200 bg-grey-0',
+      'whitespace-nowrap font-medium text-functional-text-light transition-colors',
       'first-of-type:rounded-l-[5px] first-of-type:border-l',
       'last-of-type:rounded-r-[5px] last-of-type:border-r',
     ],

@@ -3,7 +3,7 @@ import { CosButtonUsage } from './CosButton'
 import { ClassValue } from 'class-variance-authority/types'
 
 export const button = cva(
-  'flex shrink-0 items-center justify-center gap-x-2 rounded-[5px] font-urbanist font-semibold transition-colors',
+  'flex shrink-0 items-center justify-center gap-x-2 whitespace-nowrap rounded-[5px] font-urbanist font-semibold transition-colors',
   {
     variants: {
       type: {

@@ -14,7 +14,9 @@ export const StatusWithIcon = (props: StatusWithIconProps) => {
   return (
     <div className={twMerge('flex items-center gap-x-2', color)}>
       <Icon className="icon-md-sm" />
-      <span className="secondary-body3 font-semibold">{text}</span>
+      <span className="secondary-body3 whitespace-nowrap font-semibold">
+        {text}
+      </span>
     </div>
   )
 }
