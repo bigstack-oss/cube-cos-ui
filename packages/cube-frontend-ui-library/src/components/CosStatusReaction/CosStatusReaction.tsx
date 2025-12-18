@@ -19,15 +19,18 @@ export type CosStatusReactionProps = {
   message?: string
 }
 
-const statusReaction = cva([baseClass, 'secondary-body3 font-semibold'], {
-  variants: {
-    type: {
-      neutral: 'text-status-neutral',
-      success: 'text-status-positive',
-      warning: 'text-status-negative',
-    } satisfies Record<StatusType, ClassValue>,
+const statusReaction = cva(
+  [baseClass, 'secondary-body3 whitespace-nowrap font-semibold'],
+  {
+    variants: {
+      type: {
+        neutral: 'text-status-neutral',
+        success: 'text-status-positive',
+        warning: 'text-status-negative',
+      } satisfies Record<StatusType, ClassValue>,
+    },
   },
-})
+)
 
 const iconMap: Record<StatusType, SvgComponent> = {
   neutral: CheckmarkBold,

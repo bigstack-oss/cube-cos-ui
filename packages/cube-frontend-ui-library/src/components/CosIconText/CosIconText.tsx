@@ -18,7 +18,7 @@ export type CosIconTextType =
   | 'primary-outline'
 
 const iconText = cva(
-  'secondary-body4 rounded px-1 py-0.5 text-center font-semibold text-grey-0',
+  'secondary-body4 whitespace-nowrap rounded px-1 py-0.5 text-center font-semibold text-grey-0',
   {
     variants: {
       type: {
