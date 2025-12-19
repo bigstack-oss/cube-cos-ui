@@ -33,7 +33,7 @@
   "notifications.timestamp": "Timestamp",
   "notifications.noDetails": "No details",
   "notifications.DEV00001I.title": "Device added successfully.",
-  "notifications.DEV00001I.message": "Successfully added device {{device} to {node}}.",
+  "notifications.DEV00001I.message": "Successfully added device {{device}} to {{node}}.",
   "notifications.DEV00001E.title": "Failed to add device.",
   "notifications.DEV00001E.message": "Failed to add device {{device}} to {{node}}.",
   "notifications.DEV00002I.title": "Device promoted successfully.",
