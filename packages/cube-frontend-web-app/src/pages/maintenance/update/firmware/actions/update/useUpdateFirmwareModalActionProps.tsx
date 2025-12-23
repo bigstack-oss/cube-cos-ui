@@ -53,6 +53,11 @@ export const useUpdateFirmwareModalActionProps = (
     isCancelButtonVisible: false,
   }
 
+  const unknownStatusModalActionProps = {
+    actionText: t('maintenance.update.firmware.updateModal.close'),
+    onActionClick: onClose,
+  }
+
   if (!firmware) {
     return {
       actionText: t('maintenance.update.firmware.updateModal.yesUpdate'),
@@ -71,5 +76,9 @@ export const useUpdateFirmwareModalActionProps = (
     succeeded: updatedModalActionProps,
   }
 
-  return resultMap[firmware.status.current]
+  return (
+    resultMap[firmware.status.current] ??
+    // Fallback to unknown status props if status is unrecognized.
+    unknownStatusModalActionProps
+  )
 }

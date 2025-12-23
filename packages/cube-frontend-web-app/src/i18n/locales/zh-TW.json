@@ -132,6 +132,7 @@
   "home.chart.vmAllocation.memory": "記憶體",
   "home.chart.vmAllocation.storage": "儲存空間",
   "home.chart.vmAllocation.overLimit": "超過限制",
+  "home.chart.storage.title": "儲存",
   "home.chart.storage.storageBandwidth": "儲存頻寬",
   "home.chart.storage.storageIops": "儲存 IOPS",
   "home.chart.storage.storageLatency": "儲存延遲",
@@ -555,7 +556,7 @@
   "events.chart.eventIdProportion": "事件 ID 比例",
   "events.chart.noData": "無資料",
   "events.chart.eventIdComparison": "事件 ID 次數比較（前 24 名）",
-  "events.chart.numberOfOccurences": "發生次數",
+  "events.chart.numberOfOccurrences": "發生次數",
   "events.chart.counting": "次數",
   "events.chart.proportion": "比例",
   "events.chart.instanceName": "執行個體名稱",
@@ -576,7 +577,6 @@
   "maintenance.supportFiles.downloadModal.title": "選擇要下載支援檔案的主機",
   "maintenance.supportFiles.downloadModal.selectAll": "全選",
   "maintenance.supportFiles.downloadModal.footerMessage": "請在瀏覽器中允許彈出式視窗，並點選「一律允許彈出視窗」，即可下載所有檔案。",
-  "maintenance.supportFiles.donwloadModal.cancel": "取消",
   "maintenance.supportFiles.downloadModal.download": "下載",
   "maintenance.tunings.title": "系統參數設定",
   "maintenance.tunings.createTuning": "新增系統參數設定",
@@ -802,6 +802,7 @@
   "maintenance.update.fixpack.installModal.yesInstall": "是，安裝",
   "maintenance.update.fixpack.installModal.rebootNow": "立刻重新啟動",
   "maintenance.update.fixpack.installModal.done": "完成",
+  "maintenance.update.fixpack.installModal.close": "關閉",
   "maintenance.update.fixpack.installModal.status.updating": "更新中",
   "maintenance.update.fixpack.installModal.status.succeeded": "成功",
   "maintenance.update.fixpack.installModal.status.failed": "失敗",
@@ -839,5 +840,6 @@
   "maintenance.update.md5Verification.errorMessage.verifyFailed": "MD5 校驗碼驗證失敗，請重新上傳。",
   "maintenance.update.fixpack.progressTable.continueAnyway": "仍要繼續",
   "maintenance.update.fixpack.progressTable.status": "狀態",
-  "maintenance.update.fixpack.progressTable.host": "主機"
+  "maintenance.update.fixpack.progressTable.host": "主機",
+  "maintenance.update.syncingStatus": "狀態同步中，請稍候（目前狀態：{{status}}）。若此狀態長時間未更新，請回報此問題。"
 }

@@ -6,10 +6,14 @@ import {
 } from '@cube-frontend/api'
 import { CosModal } from '@cube-frontend/ui-library'
 import { useFixpackUpdateProgress } from '../_components/useFixpackUpdateProgress'
+import { SyncingStatus } from '../../_components/SyncingStatus'
 import { FixpackInstallProgressView } from './FixpackInstallProgressView'
 import { FixpackInstallableNodesView } from './FixpackInstallableNodesView'
 import { useInstallFixpackModalActionButtonProps } from './useInstallFixpackModalActionButtonProps'
-import { isInstallingStatuses } from '../computeFixpacksActionState'
+import {
+  isInstallingStatuses,
+  isRollingBackStatuses,
+} from '../computeFixpacksActionState'
 import { FixpackRow } from '../listFixpacksUtils'
 
 type InstallFixpackModalProps = {
@@ -67,14 +71,17 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
     setIsRollbackDisclaimerRead(e.target.checked)
   }
 
-  return (
-    <CosModal
-      title={getModalTitle()}
-      isOpen={isOpen}
-      onCloseClick={onClose}
-      {...modalActionButtonProps}
-    >
-      {isInstallable && (
+  // Auto-close modal when the fixpack starts rolling back.
+  useEffect(() => {
+    const currentStatus = fixpack?.status.current
+    if (isOpen && currentStatus && isRollingBackStatuses(currentStatus)) {
+      onClose()
+    }
+  }, [isOpen, fixpack?.status, onClose])
+
+  const renderContent = () => {
+    if (isInstallable) {
+      return (
         <FixpackInstallableNodesView
           fixpack={fixpack}
           isRollbackDisclaimerRead={isRollbackDisclaimerRead}
@@ -83,14 +90,30 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
           }
           onRollbackDisclaimerReadChange={onRollbackDisclaimerReadChange}
         />
-      )}
-      {(isInstalling || isInstalled) && (
+      )
+    }
+
+    if (isInstalling || isInstalled) {
+      return (
         <FixpackInstallProgressView
           isLoading={isLoadingProgress}
           fixpack={fixpack}
           rows={progressRows}
         />
-      )}
+      )
+    }
+
+    return <SyncingStatus status={fixpack?.status.current ?? ''} />
+  }
+
+  return (
+    <CosModal
+      title={getModalTitle()}
+      isOpen={isOpen}
+      onCloseClick={onClose}
+      {...modalActionButtonProps}
+    >
+      {renderContent()}
     </CosModal>
   )
 }

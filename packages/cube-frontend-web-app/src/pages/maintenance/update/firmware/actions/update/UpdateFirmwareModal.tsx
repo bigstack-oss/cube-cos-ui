@@ -6,6 +6,7 @@ import {
 } from '@cube-frontend/api'
 import { CosModal } from '@cube-frontend/ui-library'
 import { updatingStatuses } from '../../computeFirmwaresActionState'
+import { SyncingStatus } from '../../../_components/SyncingStatus'
 import { AbortButton } from './AbortButton'
 import { FirmwareUpdatableNodes } from './FirmwareUpdatableNodes'
 import { FirmwareUpdateProgress } from './FirmwareUpdateProgress'
@@ -81,7 +82,7 @@ export const UpdateFirmwareModal = (props: UpdateFirmwareModalProps) => {
       )
     }
 
-    return null
+    return <SyncingStatus status={firmware?.status.current ?? ''} />
   }
 
   return (

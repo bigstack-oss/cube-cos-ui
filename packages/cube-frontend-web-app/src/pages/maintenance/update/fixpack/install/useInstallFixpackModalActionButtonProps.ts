@@ -98,7 +98,7 @@ export const useInstallFixpackModalActionButtonProps = (
   }
 
   return {
-    actionText: t('maintenance.update.fixpack.installModal.done'),
+    actionText: t('maintenance.update.fixpack.installModal.close'),
     isCancelButtonVisible: false,
     onActionClick: onModalClose,
   }

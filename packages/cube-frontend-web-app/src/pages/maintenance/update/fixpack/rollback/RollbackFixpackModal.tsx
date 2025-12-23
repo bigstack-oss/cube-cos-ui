@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   GetFixpackUpdateProgressResponseDataOperationEnum,
@@ -5,10 +6,12 @@ import {
 } from '@cube-frontend/api'
 import { CosModal } from '@cube-frontend/ui-library'
 import { useFixpackUpdateProgress } from '../_components/useFixpackUpdateProgress'
+import { SyncingStatus } from '../../_components/SyncingStatus'
 import { FixpackRollbackProgressView } from './FixpackRollbackProgressView'
 import { FixpackRollbackableNodesView } from './FixpackRollbackableNodesView'
 import { useRollbackFixpackModalActionButtonProps } from './useRollbackFixpackModalActionButtonProps'
 import {
+  isInstallingStatuses,
   isRollbackableFixpack,
   isRollingBackStatuses,
 } from '../computeFixpacksActionState'
@@ -54,6 +57,32 @@ export const RollbackFixpackModal = (props: RollbackFixpackModalProps) => {
     onModalClose: onClose,
   })
 
+  // Auto-close the modal if the fixpack starts installing.
+  useEffect(() => {
+    const currentStatus = fixpack?.status.current
+    if (isOpen && currentStatus && isInstallingStatuses(currentStatus)) {
+      onClose()
+    }
+  }, [isOpen, fixpack?.status, onClose])
+
+  const renderContent = () => {
+    if (isRollbackable) {
+      return <FixpackRollbackableNodesView fixpack={fixpack} />
+    }
+
+    if (isRollingBack || isRolledBack) {
+      return (
+        <FixpackRollbackProgressView
+          isLoading={isLoadingProgress}
+          fixpack={fixpack}
+          rows={progressRows}
+        />
+      )
+    }
+
+    return <SyncingStatus status={fixpack?.status.current ?? ''} />
+  }
+
   return (
     <CosModal
       title={getModalTitle()}
@@ -61,14 +90,7 @@ export const RollbackFixpackModal = (props: RollbackFixpackModalProps) => {
       onCloseClick={onClose}
       {...modalActionButtonProps}
     >
-      {isRollbackable && <FixpackRollbackableNodesView fixpack={fixpack} />}
-      {(isRollingBack || isRolledBack) && (
-        <FixpackRollbackProgressView
-          isLoading={isLoadingProgress}
-          fixpack={fixpack}
-          rows={progressRows}
-        />
-      )}
+      {renderContent()}
     </CosModal>
   )
 }

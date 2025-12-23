@@ -107,7 +107,7 @@ export const getChartOptions = (
       y: {
         title: {
           display: true,
-          text: t('events.chart.numberOfOccurences'),
+          text: t('events.chart.numberOfOccurrences'),
           font: getChartYAxisTitleFont(),
           color: cubeTheme.colors.functional['text-light'],
         },
