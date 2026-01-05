@@ -19,7 +19,7 @@ type RoleCountInfo = CosCountSegmentedChartCountInfo & {
 export const toMetricsChart = (
   metrics: GetMetricsResponseData,
   availableRoles: DataCenterRolesEnum[],
-  t: TFunction<'translation', undefined>,
+  t: TFunction,
 ) => {
   const vmCountInfos = [
     {

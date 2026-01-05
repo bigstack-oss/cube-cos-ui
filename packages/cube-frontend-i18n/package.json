@@ -1,0 +1,11 @@
+{
+  "name": "@cube-frontend/i18n",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "tsc": "tsc -b"
+  },
+  "dependencies": {
+    "i18next": "catalog:"
+  }
+}

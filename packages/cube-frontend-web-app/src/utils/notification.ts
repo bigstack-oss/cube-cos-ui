@@ -18,7 +18,7 @@ type NotificationToastArgs = {
 
 export const notificationToToastArgs = (
   notification: Notification,
-  t: TFunction<'translation', undefined>,
+  t: TFunction,
 ): NotificationToastArgs => {
   const { id, time } = notification
 

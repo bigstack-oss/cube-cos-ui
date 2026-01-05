@@ -13,14 +13,11 @@ export type RoleGroup = {
 export const metricsToRoleGroups = (
   metrics: GetMetricsResponseData,
   dataCenterType: DataCenterTypeEnum,
-  t: TFunction<'translation', undefined>,
+  t: TFunction,
 ): RoleGroup[] => {
   const mapFns: Record<
     DataCenterTypeEnum,
-    (
-      metrics: GetMetricsResponseData,
-      t: TFunction<'translation', undefined>,
-    ) => RoleGroup[]
+    (metrics: GetMetricsResponseData, t: TFunction) => RoleGroup[]
   > = {
     cloud: mapCloudRoleGroups,
     edge: mapEdgeRoleGroups,
@@ -37,7 +34,7 @@ export const metricsToRoleGroups = (
 
 const mapCloudRoleGroups = (
   metrics: GetMetricsResponseData,
-  t: TFunction<'translation', undefined>,
+  t: TFunction,
 ): RoleGroup[] => {
   return [
     [
@@ -65,7 +62,7 @@ const mapCloudRoleGroups = (
 
 const mapEdgeRoleGroups = (
   metrics: GetMetricsResponseData,
-  t: TFunction<'translation', undefined>,
+  t: TFunction,
 ): RoleGroup[] => {
   return [
     [

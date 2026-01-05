@@ -3,7 +3,8 @@
   "compilerOptions": {
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "moduleResolution": "bundler",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["../cube-frontend-i18n/src/i18next.d.ts"]
   },
   "include": ["src", ".storybook"]
 }

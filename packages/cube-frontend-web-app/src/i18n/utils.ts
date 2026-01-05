@@ -1,20 +1,11 @@
-import { ParseKeys, Resource } from 'i18next'
-import zhTw from './locales/zh-TW.json'
-import enUS from './locales/en-US.json'
+import { webAppI18nResources } from '@cube-frontend/i18n'
 
-export const resources = {
-  'en-US': { translation: enUS },
-  'zh-TW': { translation: zhTw },
-} satisfies Resource
-
-export type SupportedLanguage = keyof typeof resources
+export type SupportedLanguage = keyof typeof webAppI18nResources
 
 export const supportedLanguage: SupportedLanguage[] = Object.keys(
-  resources,
+  webAppI18nResources,
 ) as SupportedLanguage[]
 
 export const defaultLanguage = 'en-US' satisfies SupportedLanguage
-
-export type TranslationKeys = ParseKeys<'translation'>
 
 export const localStorageLngKey = 'i18nextLng'

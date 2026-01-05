@@ -78,7 +78,7 @@ export const CHART_PAGE_POLLING_INTERVAL = 30 * 1000
 
 export const computeTitleBarHyperlinkProps = (
   response: GetGrafanaDashboardLinkResponseData | undefined,
-  t: TFunction<'translation', undefined>,
+  t: TFunction,
 ): CosGeneralPanelTitleBarProps['hyperLinkProps'] => {
   if (!response) {
     // Grafana link is still loading.

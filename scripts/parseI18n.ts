@@ -20,11 +20,11 @@ const configPath = path.resolve(projectRootPath, configFileName)
 
 const cosI18nFolderPath = path.resolve(
   projectRootPath,
-  'packages/cube-frontend-web-app/src/i18n/locales',
+  'packages/cube-frontend-i18n/src/resources/web-app',
 )
 const uiLibraryI18nFolderPath = path.resolve(
   projectRootPath,
-  'packages/cube-frontend-ui-library/src/i18n/locales',
+  'packages/cube-frontend-i18n/src/resources/ui-library',
 )
 
 const supportedLanguage = ['en-US', 'zh-TW'] as const

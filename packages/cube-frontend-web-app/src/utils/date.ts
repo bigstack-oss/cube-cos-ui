@@ -33,7 +33,7 @@ export const formatLicenseDate = (
 
 export const toLicenseExpirationDate = (
   license: Pick<NodeLicense, 'status' | 'expiry'>,
-  t: TFunction<'translation', undefined>,
+  t: TFunction,
   options?: FormatLicenseDateOptions,
 ): string => {
   if (license.status.current === NodeLicenseCurrentStatus.Unlicense) {
@@ -47,10 +47,7 @@ export const toLicenseExpirationDate = (
   return formatLicenseDate(date, options)
 }
 
-export const humanizeDuration = (
-  t: TFunction<'translation', undefined>,
-  durationSeconds: number,
-) => {
+export const humanizeDuration = (t: TFunction, durationSeconds: number) => {
   const duration = dayjs.duration(durationSeconds, 'seconds')
 
   if (duration.asDays() >= 1) {

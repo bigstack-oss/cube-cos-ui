@@ -1,7 +1,7 @@
-import { resources } from './utils'
+import { i18nNamespaces } from '@cube-frontend/i18n'
 
 declare module 'i18next' {
   interface CustomTypeOptions {
-    resources: (typeof resources)['en-US']
+    defaultNS: typeof i18nNamespaces.uiLibrary
   }
 }

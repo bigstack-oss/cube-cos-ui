@@ -17,7 +17,7 @@ export const canCreateSupportFile = (node?: Pick<Node, 'status'>): boolean => {
 }
 
 export const formatUpTime = (
-  t: TFunction<'translation', undefined>,
+  t: TFunction,
   node?: Pick<Node, 'status' | 'uptimeSeconds'>,
 ): string => {
   if (node?.status !== NodeStatusEnum.Up) {

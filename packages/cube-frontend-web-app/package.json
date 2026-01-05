@@ -5,9 +5,9 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "tsc": "tsc",
+    "tsc": "tsc -b",
     "dev": "vite",
-    "build": "tsc -b ./tsconfig.build.json && vite build",
+    "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "deploy-dev": "./scripts/deployToDevRemote.sh",
