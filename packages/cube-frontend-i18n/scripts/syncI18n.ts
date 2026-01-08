@@ -4,7 +4,7 @@ import {
   GoogleSpreadsheetRow,
   GoogleSpreadsheetWorksheet,
 } from 'google-spreadsheet'
-import { JWT } from 'google-auth-library'
+import { GoogleAuth } from 'google-auth-library'
 
 import { fileURLToPath } from 'url'
 import path from 'path'
@@ -12,19 +12,14 @@ import path from 'path'
 const scriptsFolderPath = path.dirname(fileURLToPath(import.meta.url))
 const projectRootPath = path.normalize(scriptsFolderPath + '/..')
 
-const credentialsFileName = 'i18nSheetCredentials.json.local'
 const configFileName = 'i18nSheetConfig.json.local'
 
-const credentialsPath = path.resolve(projectRootPath, credentialsFileName)
 const configPath = path.resolve(projectRootPath, configFileName)
 
-const cosI18nFolderPath = path.resolve(
-  projectRootPath,
-  'packages/cube-frontend-i18n/src/resources/web-app',
-)
+const cosI18nFolderPath = path.resolve(projectRootPath, 'src/resources/web-app')
 const uiLibraryI18nFolderPath = path.resolve(
   projectRootPath,
-  'packages/cube-frontend-i18n/src/resources/ui-library',
+  'src/resources/ui-library',
 )
 
 const supportedLanguage = ['en-US', 'zh-TW'] as const
@@ -65,7 +60,7 @@ const getJsonByLanguage = (
   )
 }
 
-const parseWorksheet = async ({
+const syncWorksheet = async ({
   workSheet,
   folderPath,
 }: {
@@ -85,32 +80,30 @@ const parseWorksheet = async ({
 }
 
 const main = async () => {
-  const [credentials, config] = await Promise.all(
-    [credentialsPath, configPath].map(readJsonFile),
-  )
+  const config = await readJsonFile(configPath)
+  const { googleSheetId: sheetId, version } = config
 
-  const sheetId = config.googleSheetId
-  const jwt = new JWT({
-    email: credentials.client_email,
-    key: credentials.private_key,
+  const auth = new GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   })
 
-  const doc = new GoogleSpreadsheet(sheetId, jwt)
+  const client = await auth.getClient()
+
+  const doc = new GoogleSpreadsheet(sheetId, client)
   await doc.loadInfo()
 
-  const parseWorksheetTasks = [
+  const syncWorksheetTasks = [
     {
-      workSheet: doc.sheetsByTitle['COS 3.1'],
+      workSheet: doc.sheetsByTitle[`${version} web-app`],
       folderPath: cosI18nFolderPath,
     },
     {
-      workSheet: doc.sheetsByTitle['COS 3.1 UI Library'],
+      workSheet: doc.sheetsByTitle[`${version} ui-library`],
       folderPath: uiLibraryI18nFolderPath,
     },
-  ].map(parseWorksheet)
+  ].map(syncWorksheet)
 
-  await Promise.all(parseWorksheetTasks)
+  await Promise.all(syncWorksheetTasks)
 }
 
 main()

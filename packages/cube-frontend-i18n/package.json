@@ -3,7 +3,8 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "tsc": "tsc -b"
+    "tsc": "tsc -b",
+    "sync": "node --experimental-strip-types scripts/syncI18n.ts"
   },
   "dependencies": {
     "i18next": "catalog:"

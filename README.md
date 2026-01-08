@@ -5,6 +5,8 @@
 The repository follows the monorepo approach. Projects share the common utilities and the UI library.
 
 - [cube-frontend-utils](./packages/cube-frontend-utils/): The helper functions.
+- [cube-frontend-i18n](./packages/cube-frontend-i18n/): The i18n resources and parsing scripts .
+  - [README](./packages/cube-frontend-i18n/docs/README.md)
 - [cube-frontend-ui-theme](./packages/cube-frontend-ui-theme/): The shared UI theme.
 - [cube-frontend-ui-library](./packages/cube-frontend-ui-library/): The shared UI components.
 - [cube-frontend-api](./packages/cube-frontend-api/): The API SDK generator with the submodule `cube-cos-openapi` pointing to [cube-cos-openapi](https://github.com/bigstack-oss/cube-cos-openapi).
