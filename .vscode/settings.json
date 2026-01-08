@@ -50,8 +50,8 @@
     "vite"
   ],
   "i18n-ally.localesPaths": [
-    "packages/cube-frontend-web-app/src/i18n/locales",
-    "packages/cube-frontend-ui-library/src/i18n/locales"
+    "packages/cube-frontend-i18n/src/resources/ui-library",
+    "packages/cube-frontend-i18n/src/resources/web-app"
   ],
   "i18n-ally.keystyle": "nested",
   "i18n-ally.displayLanguage": "en-US",

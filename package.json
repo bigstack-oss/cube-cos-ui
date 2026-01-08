@@ -31,7 +31,7 @@
     "web-app:build": "pnpm --filter @cube-frontend/web-app build",
     "web-app:preview": "pnpm --filter @cube-frontend/web-app preview",
     "web-app:test": "pnpm --filter @cube-frontend/web-app test",
-    "parse-i18n": "node --experimental-strip-types scripts/parseI18n.ts",
+    "parse-i18n": "node --experimental-strip-types packages/cube-frontend-i18n/scripts/parseI18n.ts",
     "prepare": "husky"
   },
   "devDependencies": {
