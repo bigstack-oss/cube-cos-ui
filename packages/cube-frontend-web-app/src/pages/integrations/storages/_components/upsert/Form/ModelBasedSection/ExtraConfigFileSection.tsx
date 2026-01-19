@@ -19,6 +19,8 @@ export type ExtraConfigFileSectionProps = {
 export const ExtraConfigFileSection = (props: ExtraConfigFileSectionProps) => {
   const { storage, setStorage, formState } = props
 
+  const { t } = useTranslation()
+
   const { extraConfigFiles } = storage.storage.service
 
   const renderField = (
@@ -52,15 +54,15 @@ export const ExtraConfigFileSection = (props: ExtraConfigFileSectionProps) => {
       <ConfigFileUpload
         key={`${index}-${extraConfigFile.name}`}
         disabled={formState.isInputDisabled}
-        buttonText={`Upload ${extraConfigFile.name}`}
+        buttonText={t('integrations.storages.upsert.uploadExtraConfigFile', {
+          name: extraConfigFile.name,
+        })}
         fileName={extraConfigFile.localFileName}
         onFileChange={handleFieldChange}
         onCancel={handleCancel}
       />
     )
   }
-
-  const { t } = useTranslation()
 
   return (
     <StorageFormSection

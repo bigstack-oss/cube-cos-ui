@@ -380,6 +380,8 @@
   "integrations.storages.upsert.volumeTypeSettings": "磁碟類型設定",
   "integrations.storages.upsert.extraSettings": "額外設定",
   "integrations.storages.upsert.extraConfigFiles": "額外設定檔",
+  "integrations.storages.upsert.extraConfigFiles.fileSizeOverLimit": "檔案過大。大小上限為 {{size}}。",
+  "integrations.storages.upsert.uploadExtraConfigFile": "上傳 {{name}}",
   "integrations.storages.upsert.editConfirmModal.title": "更新儲存裝置設定",
   "integrations.storages.upsert.editConfirmModal.message": "請確認您已重新上傳額外設定檔。\n出於安全性考量，在編輯時先前上傳的檔案不會被保留。",
   "integrations.storages.upsert.editConfirmModal.yesUpdate": "是，更新",

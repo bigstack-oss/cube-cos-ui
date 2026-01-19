@@ -380,6 +380,8 @@
   "integrations.storages.upsert.volumeTypeSettings": "Volume Type Settings",
   "integrations.storages.upsert.extraSettings": "Extra Settings",
   "integrations.storages.upsert.extraConfigFiles": "Extra Config Files",
+  "integrations.storages.upsert.extraConfigFiles.fileSizeOverLimit": "File is too large. Maximum allowed size is {{size}}.",
+  "integrations.storages.upsert.uploadExtraConfigFile": "Upload {{name}}",
   "integrations.storages.upsert.editConfirmModal.title": "Update the storage details\n",
   "integrations.storages.upsert.editConfirmModal.message": "Please confirm you have re-uploaded the extra config file.\nFor security reasons, previously uploaded files are not retained when editing.",
   "integrations.storages.upsert.editConfirmModal.yesUpdate": "Yes, update",

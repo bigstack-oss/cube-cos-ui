@@ -1,6 +1,7 @@
 import { CosUpload } from '@cube-frontend/ui-library'
 import { fileToBase64 } from '@cube-frontend/web-app/utils/file'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const EXTRA_CONFIG_FILE_SIZE_LIMIT_MB = 10
 const EXTRA_CONFIG_FILE_SIZE_LIMIT =
@@ -17,6 +18,8 @@ export type ConfigFileUploadProps = {
 export const ConfigFileUpload = (props: ConfigFileUploadProps) => {
   const { buttonText, fileName, disabled, onFileChange, onCancel } = props
 
+  const { t } = useTranslation()
+
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined,
   )
@@ -26,7 +29,9 @@ export const ConfigFileUpload = (props: ConfigFileUploadProps) => {
 
     if (file.size > EXTRA_CONFIG_FILE_SIZE_LIMIT) {
       setErrorMessage(
-        `File size exceeds ${EXTRA_CONFIG_FILE_SIZE_LIMIT_MB} MB limit.`,
+        t('integrations.storages.upsert.extraConfigFiles.fileSizeOverLimit', {
+          size: `${EXTRA_CONFIG_FILE_SIZE_LIMIT_MB} MB`,
+        }),
       )
       return
     }
