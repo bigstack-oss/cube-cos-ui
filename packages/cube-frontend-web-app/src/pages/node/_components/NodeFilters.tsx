@@ -1,14 +1,14 @@
 import { CosIconFrame, CosSearchBarFilter } from '@cube-frontend/ui-library'
 import XIcon from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
-import { GetNodesRolesEnum } from '@cube-frontend/api'
+import { NodeRole } from '@cube-frontend/api'
 
 export type NodeFiltersProps = {
   keyword: string
   handleKeywordChange: (value: string) => void
   handleKeywordClear: () => void
-  roles: GetNodesRolesEnum[]
-  handleRolesSelect: (roles: GetNodesRolesEnum[]) => void
+  roles: NodeRole[]
+  handleRolesSelect: (roles: NodeRole[]) => void
 }
 
 export const NodeFilters = (props: NodeFiltersProps) => {

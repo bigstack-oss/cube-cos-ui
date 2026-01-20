@@ -39,21 +39,29 @@ const mapCloudRoleGroups = (
   return [
     [
       {
-        name: t('home.chart.usage.controlConvergedNodes'),
+        name: t('home.chart.usage.nodeRole', {
+          role: t('common.node.roles.control-converged'),
+        }),
         value: metrics.host.role.controlConverged,
       },
       {
-        name: t('home.chart.usage.controlNodes'),
+        name: t('home.chart.usage.nodeRole', {
+          role: t('common.node.roles.control'),
+        }),
         value: metrics.host.role.control,
       },
     ],
     [
       {
-        name: t('home.chart.usage.computeNodes'),
+        name: t('home.chart.usage.nodeRole', {
+          role: t('common.node.roles.compute'),
+        }),
         value: metrics.host.role.compute,
       },
       {
-        name: t('home.chart.usage.storageNodes'),
+        name: t('home.chart.usage.nodeRole', {
+          role: t('common.node.roles.storage'),
+        }),
         value: metrics.host.role.storage,
       },
     ],
@@ -67,11 +75,15 @@ const mapEdgeRoleGroups = (
   return [
     [
       {
-        name: t('home.chart.usage.edgeCoreNodes'),
+        name: t('home.chart.usage.nodeRole', {
+          role: t('common.node.roles.edge-core'),
+        }),
         value: metrics.host.role.edgeCore,
       },
       {
-        name: t('home.chart.usage.moderatorNodes'),
+        name: t('home.chart.usage.nodeRole', {
+          role: t('common.node.roles.moderator'),
+        }),
         value: metrics.host.role.moderator,
       },
     ],

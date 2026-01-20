@@ -1219,10 +1219,10 @@ export interface DataCenter {
     'name': string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<NodeRole>}
      * @memberof DataCenter
      */
-    'roles': Array<DataCenterRolesEnum>;
+    'roles': Array<NodeRole>;
     /**
      * 
      * @type {string}
@@ -1279,16 +1279,6 @@ export const DataCenterTypeEnum = {
 } as const;
 
 export type DataCenterTypeEnum = typeof DataCenterTypeEnum[keyof typeof DataCenterTypeEnum];
-export const DataCenterRolesEnum = {
-    ControlConverged: 'control-converged',
-    Control: 'control',
-    Compute: 'compute',
-    Storage: 'storage',
-    EdgeCore: 'edge-core',
-    Moderator: 'moderator'
-} as const;
-
-export type DataCenterRolesEnum = typeof DataCenterRolesEnum[keyof typeof DataCenterRolesEnum];
 
 /**
  * 
@@ -4590,10 +4580,10 @@ export interface GetLicenseAttachmentsResponseDataInner {
     'hostname': string;
     /**
      * 
-     * @type {string}
+     * @type {NodeRole}
      * @memberof GetLicenseAttachmentsResponseDataInner
      */
-    'role': string;
+    'role': NodeRole;
     /**
      * 
      * @type {string}
@@ -10637,10 +10627,10 @@ export interface Node {
     'hostname': string;
     /**
      * 
-     * @type {string}
+     * @type {NodeRole}
      * @memberof Node
      */
-    'role': string;
+    'role': NodeRole;
     /**
      * 
      * @type {string}
@@ -11005,6 +10995,24 @@ export interface NodeNetworkInterfacesInner {
      */
     'speed': string;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const NodeRole = {
+    ControlConverged: 'control-converged',
+    Control: 'control',
+    Compute: 'compute',
+    Storage: 'storage',
+    EdgeCore: 'edge-core',
+    Moderator: 'moderator'
+} as const;
+
+export type NodeRole = typeof NodeRole[keyof typeof NodeRole];
+
+
 /**
  * @type Notification
  * @export
@@ -14951,10 +14959,10 @@ export interface VerifyLicenseResponseDataEffectNodesInner {
     'name': string;
     /**
      * 
-     * @type {string}
+     * @type {NodeRole}
      * @memberof VerifyLicenseResponseDataEffectNodesInner
      */
-    'role': string;
+    'role': NodeRole;
     /**
      * 
      * @type {GetLicensesResponseDataLicensesInnerExpiry}
@@ -14968,6 +14976,8 @@ export interface VerifyLicenseResponseDataEffectNodesInner {
      */
     'status': VerifyLicenseResponseDataEffectNodesInnerStatus;
 }
+
+
 /**
  * 
  * @export
@@ -23020,12 +23030,12 @@ export const LicensesApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetLicenseAttachmentsProductEnum} [product] The product of the host
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {Array<GetLicenseAttachmentsRolesEnum>} [roles] The role of the host
+         * @param {Array<NodeRole>} [roles] The role of the host
          * @param {Array<NodeLicenseCurrentStatus>} [statuses] The status of the host
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLicenseAttachments: async (dataCenter: string, product?: GetLicenseAttachmentsProductEnum, keyword?: string, roles?: Array<GetLicenseAttachmentsRolesEnum>, statuses?: Array<NodeLicenseCurrentStatus>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getLicenseAttachments: async (dataCenter: string, product?: GetLicenseAttachmentsProductEnum, keyword?: string, roles?: Array<NodeRole>, statuses?: Array<NodeLicenseCurrentStatus>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getLicenseAttachments', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/licenses/attachments`
@@ -23312,12 +23322,12 @@ export const LicensesApiFp = function(configuration?: Configuration) {
          * @param {string} dataCenter The name of the data center to operate
          * @param {GetLicenseAttachmentsProductEnum} [product] The product of the host
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {Array<GetLicenseAttachmentsRolesEnum>} [roles] The role of the host
+         * @param {Array<NodeRole>} [roles] The role of the host
          * @param {Array<NodeLicenseCurrentStatus>} [statuses] The status of the host
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLicenseAttachments(dataCenter: string, product?: GetLicenseAttachmentsProductEnum, keyword?: string, roles?: Array<GetLicenseAttachmentsRolesEnum>, statuses?: Array<NodeLicenseCurrentStatus>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicenseAttachmentsResponse>> {
+        async getLicenseAttachments(dataCenter: string, product?: GetLicenseAttachmentsProductEnum, keyword?: string, roles?: Array<NodeRole>, statuses?: Array<NodeLicenseCurrentStatus>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLicenseAttachmentsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getLicenseAttachments(dataCenter, product, keyword, roles, statuses, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['LicensesApi.getLicenseAttachments']?.[localVarOperationServerIndex]?.url;
@@ -23478,10 +23488,10 @@ export interface LicensesApiGetLicenseAttachmentsRequest {
 
     /**
      * The role of the host
-     * @type {Array<'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'>}
+     * @type {Array<NodeRole>}
      * @memberof LicensesApiGetLicenseAttachments
      */
-    readonly roles?: Array<GetLicenseAttachmentsRolesEnum>
+    readonly roles?: Array<NodeRole>
 
     /**
      * The status of the host
@@ -23700,18 +23710,6 @@ export const GetLicenseAttachmentsProductEnum = {
     CubeCmp: 'CubeCMP'
 } as const;
 export type GetLicenseAttachmentsProductEnum = typeof GetLicenseAttachmentsProductEnum[keyof typeof GetLicenseAttachmentsProductEnum];
-/**
- * @export
- */
-export const GetLicenseAttachmentsRolesEnum = {
-    ControlConverged: 'control-converged',
-    Control: 'control',
-    Compute: 'compute',
-    Storage: 'storage',
-    EdgeCore: 'edge-core',
-    Moderator: 'moderator'
-} as const;
-export type GetLicenseAttachmentsRolesEnum = typeof GetLicenseAttachmentsRolesEnum[keyof typeof GetLicenseAttachmentsRolesEnum];
 /**
  * @export
  */
@@ -24595,7 +24593,7 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
          * @summary Retrieve the list of nodes
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {Array<GetNodesRolesEnum>} [roles] The role of the host
+         * @param {Array<NodeRole>} [roles] The role of the host
          * @param {Array<NodeLicenseCurrentStatus>} [licenseStatuses] The license status of the host
          * @param {Array<GetNodesProductsEnum>} [products] The products of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
@@ -24604,7 +24602,7 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNodes: async (dataCenter: string, keyword?: string, roles?: Array<GetNodesRolesEnum>, licenseStatuses?: Array<NodeLicenseCurrentStatus>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNodes: async (dataCenter: string, keyword?: string, roles?: Array<NodeRole>, licenseStatuses?: Array<NodeLicenseCurrentStatus>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getNodes', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes`
@@ -25164,7 +25162,7 @@ export const NodesApiFp = function(configuration?: Configuration) {
          * @summary Retrieve the list of nodes
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} [keyword] The keyword to search, can be any string
-         * @param {Array<GetNodesRolesEnum>} [roles] The role of the host
+         * @param {Array<NodeRole>} [roles] The role of the host
          * @param {Array<NodeLicenseCurrentStatus>} [licenseStatuses] The license status of the host
          * @param {Array<GetNodesProductsEnum>} [products] The products of the host
          * @param {number} [pageSize] The number of items per page (default is unlimit).
@@ -25173,7 +25171,7 @@ export const NodesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNodes(dataCenter: string, keyword?: string, roles?: Array<GetNodesRolesEnum>, licenseStatuses?: Array<NodeLicenseCurrentStatus>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
+        async getNodes(dataCenter: string, keyword?: string, roles?: Array<NodeRole>, licenseStatuses?: Array<NodeLicenseCurrentStatus>, products?: Array<GetNodesProductsEnum>, pageSize?: number, pageNum?: number, watch?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNodesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNodes(dataCenter, keyword, roles, licenseStatuses, products, pageSize, pageNum, watch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['NodesApi.getNodes']?.[localVarOperationServerIndex]?.url;
@@ -25595,10 +25593,10 @@ export interface NodesApiGetNodesRequest {
 
     /**
      * The role of the host
-     * @type {Array<'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'>}
+     * @type {Array<NodeRole>}
      * @memberof NodesApiGetNodes
      */
-    readonly roles?: Array<GetNodesRolesEnum>
+    readonly roles?: Array<NodeRole>
 
     /**
      * The license status of the host
@@ -26071,18 +26069,6 @@ export class NodesApi extends BaseAPI {
     }
 }
 
-/**
- * @export
- */
-export const GetNodesRolesEnum = {
-    ControlConverged: 'control-converged',
-    Control: 'control',
-    Compute: 'compute',
-    Storage: 'storage',
-    EdgeCore: 'edge-core',
-    Moderator: 'moderator'
-} as const;
-export type GetNodesRolesEnum = typeof GetNodesRolesEnum[keyof typeof GetNodesRolesEnum];
 /**
  * @export
  */
@@ -28534,7 +28520,7 @@ export const SupportFilesApiAxiosParamCreator = function (configuration?: Config
          * @summary Retrieve all support files
          * @param {string} dataCenter The name of the data center to operate
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
-         * @param {Array<GetSupportFilesRolesEnum>} [roles] The role of the host
+         * @param {Array<NodeRole>} [roles] The role of the host
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {number} [pageSize] The number of items per page (default is unlimit).
@@ -28543,7 +28529,7 @@ export const SupportFilesApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSupportFiles: async (dataCenter: string, watch?: boolean, roles?: Array<GetSupportFilesRolesEnum>, start?: string, stop?: string, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getSupportFiles: async (dataCenter: string, watch?: boolean, roles?: Array<NodeRole>, start?: string, stop?: string, pageSize?: number, pageNum?: number, keyword?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getSupportFiles', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/supportFiles`
@@ -28659,7 +28645,7 @@ export const SupportFilesApiFp = function(configuration?: Configuration) {
          * @summary Retrieve all support files
          * @param {string} dataCenter The name of the data center to operate
          * @param {boolean} [watch] The toggle to enable http chunked transfer for continuous server push.
-         * @param {Array<GetSupportFilesRolesEnum>} [roles] The role of the host
+         * @param {Array<NodeRole>} [roles] The role of the host
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
          * @param {string} [stop] The end time of the event to query, the value should be in RFC3339 format (default is now).
          * @param {number} [pageSize] The number of items per page (default is unlimit).
@@ -28668,7 +28654,7 @@ export const SupportFilesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSupportFiles(dataCenter: string, watch?: boolean, roles?: Array<GetSupportFilesRolesEnum>, start?: string, stop?: string, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSupportFilesResponse>> {
+        async getSupportFiles(dataCenter: string, watch?: boolean, roles?: Array<NodeRole>, start?: string, stop?: string, pageSize?: number, pageNum?: number, keyword?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSupportFilesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportFiles(dataCenter, watch, roles, start, stop, pageSize, pageNum, keyword, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SupportFilesApi.getSupportFiles']?.[localVarOperationServerIndex]?.url;
@@ -28812,10 +28798,10 @@ export interface SupportFilesApiGetSupportFilesRequest {
 
     /**
      * The role of the host
-     * @type {Array<'control-converged' | 'control' | 'compute' | 'storage' | 'edge-core' | 'moderator'>}
+     * @type {Array<NodeRole>}
      * @memberof SupportFilesApiGetSupportFiles
      */
-    readonly roles?: Array<GetSupportFilesRolesEnum>
+    readonly roles?: Array<NodeRole>
 
     /**
      * The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
@@ -28909,18 +28895,6 @@ export class SupportFilesApi extends BaseAPI {
     }
 }
 
-/**
- * @export
- */
-export const GetSupportFilesRolesEnum = {
-    ControlConverged: 'control-converged',
-    Control: 'control',
-    Compute: 'compute',
-    Storage: 'storage',
-    EdgeCore: 'edge-core',
-    Moderator: 'moderator'
-} as const;
-export type GetSupportFilesRolesEnum = typeof GetSupportFilesRolesEnum[keyof typeof GetSupportFilesRolesEnum];
 
 
 /**

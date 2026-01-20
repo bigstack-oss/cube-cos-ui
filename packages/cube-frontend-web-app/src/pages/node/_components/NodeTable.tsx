@@ -76,7 +76,7 @@ export const NodeTable = (props: NodeTableProps) => {
       <BatchActionNodeTable.Column label={t('nodes.role')} property="role">
         {(role) => (
           <CosTag color="blue" variant="filled">
-            {role}
+            {t(`common.node.roles.${role}`)}
           </CosTag>
         )}
       </BatchActionNodeTable.Column>

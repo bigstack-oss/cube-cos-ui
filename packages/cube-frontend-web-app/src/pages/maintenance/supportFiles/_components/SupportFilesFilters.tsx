@@ -7,14 +7,14 @@ import {
 } from '@cube-frontend/ui-library'
 import XIcon from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
-import { GetNodesRolesEnum } from '@cube-frontend/api'
+import { NodeRole } from '@cube-frontend/api'
 
 export type SupportFilesFiltersProps = {
   keyword: string
   handleSearchKeywordChange: (value: string) => void
   handleSearchKeywordClear: () => void
-  roles: GetNodesRolesEnum[]
-  handleRolesSelect: (roles: GetNodesRolesEnum[]) => void
+  roles: NodeRole[]
+  handleRolesSelect: (roles: NodeRole[]) => void
   startDate?: Dayjs
   endDate?: Dayjs
   handleStartDateChange: (date?: Dayjs) => void

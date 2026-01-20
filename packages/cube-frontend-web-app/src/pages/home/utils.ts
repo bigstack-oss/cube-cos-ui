@@ -1,7 +1,7 @@
 import {
-  DataCenterRolesEnum,
   GetMetricsResponseData,
   GetMetricsResponseDataVmStatus,
+  NodeRole,
   RoleUsage,
 } from '@cube-frontend/api'
 import { CosCountSegmentedChartCountInfo } from '@cube-frontend/ui-library'
@@ -13,12 +13,12 @@ type VmCountInfo = CosCountSegmentedChartCountInfo & {
 }
 
 type RoleCountInfo = CosCountSegmentedChartCountInfo & {
-  role: DataCenterRolesEnum
+  role: NodeRole
 }
 
 export const toMetricsChart = (
   metrics: GetMetricsResponseData,
-  availableRoles: DataCenterRolesEnum[],
+  availableRoles: NodeRole[],
   t: TFunction,
 ) => {
   const vmCountInfos = [
@@ -54,41 +54,40 @@ export const toMetricsChart = (
     },
   ] satisfies VmCountInfo[]
 
-  // TODO: role summary translation function.
   const allRoleCountInfos = [
     {
-      role: DataCenterRolesEnum.ControlConverged,
-      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.ControlConverged}`),
+      role: NodeRole.ControlConverged,
+      name: t('common.node.roles.control-converged'),
       color: 'fill-chart-1',
       count: metrics.host.role.controlConverged.count,
     },
     {
-      role: DataCenterRolesEnum.Control,
-      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.Control}`),
+      role: NodeRole.Control,
+      name: t('common.node.roles.control'),
       color: 'fill-chart-2',
       count: metrics.host.role.control.count,
     },
     {
-      role: DataCenterRolesEnum.Compute,
-      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.Compute}`),
+      role: NodeRole.Compute,
+      name: t('common.node.roles.compute'),
       color: 'fill-chart-3',
       count: metrics.host.role.compute.count,
     },
     {
-      role: DataCenterRolesEnum.Storage,
-      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.Storage}`),
+      role: NodeRole.Storage,
+      name: t('common.node.roles.storage'),
       color: 'fill-chart-5',
       count: metrics.host.role.storage.count,
     },
     {
-      role: DataCenterRolesEnum.EdgeCore,
-      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.EdgeCore}`),
+      role: NodeRole.EdgeCore,
+      name: t('common.node.roles.edge-core'),
       color: 'fill-chart-8',
       count: metrics.host.role.edgeCore.count,
     },
     {
-      role: DataCenterRolesEnum.Moderator,
-      name: t(`home.chart.roleSummary.${DataCenterRolesEnum.Moderator}`),
+      role: NodeRole.Moderator,
+      name: t('common.node.roles.moderator'),
       color: 'fill-chart-9',
       count: metrics.host.role.moderator.count,
     },

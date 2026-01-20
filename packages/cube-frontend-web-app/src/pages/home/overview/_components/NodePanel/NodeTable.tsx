@@ -65,7 +65,7 @@ export const NodeTable = (props: NodeTableProps) => {
       <BasicNodeTable.Column label={t('nodes.role')} property="role">
         {(role) => (
           <CosTag color="blue" variant="filled">
-            {role}
+            {t(`common.node.roles.${role}`)}
           </CosTag>
         )}
       </BasicNodeTable.Column>

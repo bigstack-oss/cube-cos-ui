@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs'
-import { GetNodesRolesEnum } from '@cube-frontend/api'
+import { NodeRole } from '@cube-frontend/api'
 import { ItemsPerPage } from '@cube-frontend/ui-library'
 import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchParamsQuery'
 import {
@@ -25,7 +25,7 @@ export const useSupportFileListQuery = () => {
     keyword: debouncedKeyword,
   }
 
-  const onRolesChange = (roles: GetNodesRolesEnum[]) => {
+  const onRolesChange = (roles: NodeRole[]) => {
     setQuery((prev) => ({
       ...prev,
       roles,

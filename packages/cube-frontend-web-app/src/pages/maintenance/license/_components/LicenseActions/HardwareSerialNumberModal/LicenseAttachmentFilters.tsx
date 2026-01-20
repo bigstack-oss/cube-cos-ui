@@ -1,4 +1,4 @@
-import { GetNodesRolesEnum, NodeLicenseCurrentStatus } from '@cube-frontend/api'
+import { NodeRole, NodeLicenseCurrentStatus } from '@cube-frontend/api'
 import { CosIconFrame, CosSearchBarFilter } from '@cube-frontend/ui-library'
 import XIcon from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
@@ -8,8 +8,8 @@ export type LicenseAttachmentFiltersProps = {
   searchKeyword: string
   handleSearchKeywordChange: (value: string) => void
   handleSearchKeywordClear: () => void
-  selectedRoles: GetNodesRolesEnum[]
-  handleRolesSelect: (licenseTypes: GetNodesRolesEnum[]) => void
+  selectedRoles: NodeRole[]
+  handleRolesSelect: (licenseTypes: NodeRole[]) => void
   selectedNodeLicenseStatuses: NodeLicenseCurrentStatus[]
   handleNodeLicenseStatusesSelect: (
     licenseStatuses: NodeLicenseCurrentStatus[],

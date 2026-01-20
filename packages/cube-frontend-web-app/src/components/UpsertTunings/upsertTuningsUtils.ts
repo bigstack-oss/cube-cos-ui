@@ -2,6 +2,7 @@ import {
   ListTuningSpecResponseDataInnerLimitationDefault,
   ListTuningSpecResponseDataInnerRolesInnerHostsInner,
   Node,
+  NodeRole,
   TuningLimitationType,
 } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
@@ -33,7 +34,7 @@ export type PreviewRow = CosTableRow & {
 
 export type HostWithRole =
   ListTuningSpecResponseDataInnerRolesInnerHostsInner & {
-    role: string
+    role: NodeRole
   }
 
 export const hostToPreviewRow = (host: HostWithRole): PreviewRow => ({

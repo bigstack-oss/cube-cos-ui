@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { upperFirst } from 'lodash'
-import { DataCenterRolesEnum } from '@cube-frontend/api'
+import { NodeRole } from '@cube-frontend/api'
 import { CosDropdown } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '../context/DataCenterContext'
 
 export type RoleFilterProps = {
-  selectedRoles: DataCenterRolesEnum[]
-  handleRolesSelect: (roles: DataCenterRolesEnum[]) => void
+  selectedRoles: NodeRole[]
+  handleRolesSelect: (roles: NodeRole[]) => void
 }
 
 /**
@@ -31,7 +31,7 @@ export const RoleFilter = (props: RoleFilterProps) => {
     handleRolesSelect([])
   }
 
-  const onRoleClick = (role: DataCenterRolesEnum): void => {
+  const onRoleClick = (role: NodeRole): void => {
     const nextRoles = selectedRoles.includes(role)
       ? selectedRoles.filter((selectedRole) => selectedRole !== role)
       : [...selectedRoles, role]
@@ -58,7 +58,7 @@ export const RoleFilter = (props: RoleFilterProps) => {
             item={role}
             onClick={() => onRoleClick(role)}
           >
-            {upperFirst(role)}
+            {upperFirst(t(`common.node.roles.${role}`))}
           </CosDropdown.Item>
         ))}
       </CosDropdown.Menu>

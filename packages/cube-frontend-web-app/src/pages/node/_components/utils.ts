@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { GetNodesRolesEnum } from '@cube-frontend/api'
+import { NodeRole } from '@cube-frontend/api'
 import { DEFAULT_ITEMS_PER_PAGE } from '@cube-frontend/ui-library'
 import { paginationQuerySchema } from '@cube-frontend/web-app/utils/pagination'
 
@@ -18,11 +18,11 @@ const nodeListQuerySchema = paginationQuerySchema.extend({
       return value ?? ''
     }),
   roles: z
-    .enum(Object.values(GetNodesRolesEnum) as [string, ...string[]])
+    .enum(Object.values(NodeRole) as [string, ...string[]])
     .array()
     .nullable()
     .transform((array) => {
-      return (array ?? []) as GetNodesRolesEnum[]
+      return (array ?? []) as NodeRole[]
     }),
 })
 

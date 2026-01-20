@@ -3,14 +3,14 @@ import X from '@cube-frontend/ui-library/icons/monochrome/x.svg?react'
 import { ChangeEvent, useMemo } from 'react'
 import { IpRangeInputs } from './IpRangeInputs'
 import { HostFilterValue, IpRange } from './useHostFilter'
-import { DataCenterRolesEnum } from '@cube-frontend/api'
+import { NodeRole } from '@cube-frontend/api'
 import { RoleFilter } from '@cube-frontend/web-app/components/RoleFilter'
 
 type HostFilterProps = {
   filter: HostFilterValue
   onKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void
   onKeywordClear: () => void
-  onRolesChange: (roles: DataCenterRolesEnum[]) => void
+  onRolesChange: (roles: NodeRole[]) => void
   onIpRangeChange: (
     boundary: keyof IpRange,
     e: ChangeEvent<HTMLInputElement>,

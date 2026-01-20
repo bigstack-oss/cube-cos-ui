@@ -79,7 +79,11 @@ export const PublishTuning = (props: PublishTuningProps) => {
           label={t('maintenance.tunings.upsert.roles')}
           fitContent={true}
         >
-          {(host) => <span className="whitespace-nowrap">{host.role}</span>}
+          {(host) => (
+            <span className="whitespace-nowrap">
+              {t(`common.node.roles.${host.role}`)}
+            </span>
+          )}
         </PreviewTable.Column>
         <PreviewTable.Column
           property="host"

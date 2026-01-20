@@ -1,4 +1,4 @@
-import { GetNodesRolesEnum } from '@cube-frontend/api'
+import { NodeRole } from '@cube-frontend/api'
 import { ItemsPerPage } from '@cube-frontend/ui-library'
 import { useSearchParamsQuery } from '@cube-frontend/web-app/hooks/useSearchParamsQuery'
 import { queryToSearchParams, searchParamsToQuery } from './utils'
@@ -9,7 +9,7 @@ export const useNodeListQuery = () => {
     searchParamsToQuery,
   })
 
-  const onRolesChange = (roles: GetNodesRolesEnum[]) => {
+  const onRolesChange = (roles: NodeRole[]) => {
     setQuery((prev) => ({
       ...prev,
       roles,

@@ -29,7 +29,9 @@ export const EffectNodeTable = (props: EffectNodeTableProps) => {
       <EffectNodeBasicTable.Column
         label={t('maintenance.license.roles')}
         property="role"
-      />
+      >
+        {(role) => t(`common.node.roles.${role}`)}
+      </EffectNodeBasicTable.Column>
       <EffectNodeBasicTable.Column
         label={t('maintenance.license.currentStatus')}
         property="status"

@@ -33,7 +33,9 @@ export const LicenseAttachmentTable = (props: LicenseAttachmentTableProps) => {
       <BatchLicenseAttachmentTable.Column
         label={t('maintenance.license.hardwareSerialsModal.role')}
         property="role"
-      />
+      >
+        {(role) => t(`common.node.roles.${role}`)}
+      </BatchLicenseAttachmentTable.Column>
       <BatchLicenseAttachmentTable.Column
         label={t('maintenance.license.hardwareSerialsModal.product')}
         property="product"

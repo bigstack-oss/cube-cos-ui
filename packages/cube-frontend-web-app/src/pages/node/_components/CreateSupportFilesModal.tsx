@@ -84,7 +84,7 @@ export const CreateSupportFilesModal = (
           >
             {(role) => (
               <CosTag color="blue" variant="filled">
-                {role}
+                {t(`common.node.roles.${role}`)}
               </CosTag>
             )}
           </SelectedHostsTable.Column>

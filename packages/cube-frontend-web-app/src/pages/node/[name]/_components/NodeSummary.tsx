@@ -130,7 +130,7 @@ export const NodeSummary = (props: NodeSummaryProps) => {
         <div className="flex items-center gap-x-2.5">
           {node.isVirtualIpOwner && <VipLabel />}
           <CosTag className="h-[23px]" color="blue" variant="filled">
-            {node.role}
+            {t(`common.node.roles.${node.role}`)}
           </CosTag>
         </div>
       }

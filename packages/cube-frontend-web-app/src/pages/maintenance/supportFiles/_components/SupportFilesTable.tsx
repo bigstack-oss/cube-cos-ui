@@ -58,7 +58,7 @@ export const SupportFilesTable = (props: SupportFilesTableProps) => {
           row.status.isCreating ? (
             <div className="flex h-[34px] items-center gap-x-2">
               <CosLoadingSpinner variant="dot45" />
-              <span className="primary-body4 text-functional-text-light">
+              <span className="primary-body4 whitespace-nowrap text-functional-text-light">
                 {t('maintenance.supportFiles.status.creating')}
               </span>
             </div>

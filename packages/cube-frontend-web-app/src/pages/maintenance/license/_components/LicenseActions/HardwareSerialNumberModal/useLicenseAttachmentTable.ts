@@ -1,6 +1,6 @@
 import {
   GetNodesProductsEnum,
-  GetNodesRolesEnum,
+  NodeRole,
   LicensesApiGetLicenseAttachmentsRequest,
   NodeLicenseCurrentStatus,
 } from '@cube-frontend/api'
@@ -19,7 +19,7 @@ export const useLicenseAttachmentTable = (isOpen: boolean) => {
   const [selectedProduct, setSelectedProduct] =
     useState<GetNodesProductsEnum>(DEFAULT_PRODUCT)
   const [searchKeyword, setSearchKeyword] = useState<string>('')
-  const [selectedRoles, setSelectedRoles] = useState<GetNodesRolesEnum[]>([])
+  const [selectedRoles, setSelectedRoles] = useState<NodeRole[]>([])
   const [selectedNodeLicenseStatuses, setSelectedNodeLicenseStatuses] =
     useState<NodeLicenseCurrentStatus[]>([])
 
