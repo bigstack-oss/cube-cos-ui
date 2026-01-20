@@ -127,11 +127,8 @@ export const CommonSection = (props: CommonSectionProps) => {
         isLoading={formState.isInputLoading}
         disabled={formState.isInputDisabled || formState.isEdit}
       >
-        <CosDropdown.Trigger
-          placeholder="Select an Item"
-          className="max-w-full"
-        >
-          {selectedModelName || 'Select a model'}
+        <CosDropdown.Trigger className="max-w-full">
+          {selectedModelName}
         </CosDropdown.Trigger>
         <CosDropdown.Menu className="max-w-full">
           {modelOptions.map((item) => (
