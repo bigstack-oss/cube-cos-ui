@@ -79,6 +79,11 @@ const useStatusWithIconPropsMap = (): Partial<
       text: statusTranslations[ProgressStatus.Rebooting],
       color: 'text-status-neutral',
     },
+    [ProgressStatus.Resolved]: {
+      Icon: CircleFill,
+      text: statusTranslations[ProgressStatus.Resolved],
+      color: 'text-status-neutral',
+    },
   }
 }
 
