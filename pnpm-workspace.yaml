@@ -14,6 +14,7 @@ catalog:
   'vitest': '^3.0.7'
   autoprefixer: ^10.4.20
   class-variance-authority: ^0.7.1
+  code-inspector-plugin: "^1.5.1"
   dayjs: ^1.11.13
   i18next: "^25.3.6"
   react-i18next: "^15.6.1"

@@ -49,6 +49,7 @@
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "catalog:",
+    "code-inspector-plugin": "catalog:",
     "postcss": "catalog:",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",

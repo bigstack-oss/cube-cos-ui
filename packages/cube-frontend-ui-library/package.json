@@ -46,6 +46,7 @@
   "devDependencies": {
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "code-inspector-plugin": "catalog:",
     "vite": "^6.0.5"
   },
   "peerDependencies": {
