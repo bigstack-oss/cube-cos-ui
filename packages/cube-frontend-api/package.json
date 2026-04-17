@@ -6,7 +6,7 @@
   "main": "src/index.ts",
   "engines": {
     "node": ">=v24.15",
-    "pnpm": ">=9.5"
+    "pnpm": ">=10.33"
   },
   "scripts": {
     "generate": "./scripts/api-sdk.sh generate",
