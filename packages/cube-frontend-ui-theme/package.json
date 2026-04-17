@@ -3,15 +3,15 @@
   "private": true,
   "license": "Apache-2.0",
   "description": "",
+  "engines": {
+    "node": ">=v24.15",
+    "pnpm": ">=9.5"
+  },
   "scripts": {
     "tsc": "tsc"
   },
   "dependencies": {
     "@cube-frontend/utils": "workspace:^",
     "tailwindcss": "catalog:"
-  },
-  "engines": {
-    "node": ">=22",
-    "pnpm": ">=9.5"
   }
 }

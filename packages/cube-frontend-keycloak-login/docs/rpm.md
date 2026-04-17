@@ -16,8 +16,28 @@ KEYCLOAK_VERSION=$(head -n 1 ./packages/cube-frontend-keycloak-login/KEYCLOAK_VE
 - buildah
 
 ```bash
-dnf module install nodejs:22/common
-npm install -g pnpm@latest-10
+# node and pnpm install reference: https://nodejs.org/en/download
+
+# install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+
+# Download and install Node.js:
+nvm install 24.15.0
+
+# Verify the Node.js version:
+node -v # Should print "v24.15.0".
+
+# Download and install pnpm:
+corepack enable pnpm
+
+corepack prepare pnpm@latest-10
+
+# Verify pnpm version:
+pnpm -v
+
 sudo dnf install buildah
 ```
 

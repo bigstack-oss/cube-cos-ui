@@ -4,6 +4,10 @@
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
+  "engines": {
+    "node": ">=v24.15",
+    "pnpm": ">=9.5"
+  },
   "scripts": {
     "tsc": "tsc",
     "dev": "vite",
@@ -31,9 +35,5 @@
     "tailwindcss": "catalog:",
     "vite": "^6.0.5",
     "vite-plugin-svgr": "catalog:"
-  },
-  "engines": {
-    "node": ">=22",
-    "pnpm": ">=9.5"
   }
 }
