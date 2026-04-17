@@ -4,6 +4,10 @@
   "license": "Apache-2.0",
   "description": "",
   "main": "src/index.ts",
+  "engines": {
+    "node": ">=v24.15",
+    "pnpm": ">=9.5"
+  },
   "scripts": {
     "generate": "./scripts/api-sdk.sh generate",
     "validate": "./scripts/api-sdk.sh validate"

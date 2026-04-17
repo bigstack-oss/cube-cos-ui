@@ -5,7 +5,7 @@
   "description": "cube frontend monorepo",
   "type": "module",
   "engines": {
-    "node": ">=22",
+    "node": ">=v24.15",
     "pnpm": ">=9.5"
   },
   "scripts": {

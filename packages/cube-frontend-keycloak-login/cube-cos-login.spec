@@ -7,7 +7,7 @@ License:        Apache License 2.0
 URL:            https://github.com/bigstack-oss/cube-cos-ui
 Source0:        https://github.com/bigstack-oss/cube-cos-ui/tree/%{build_number}
 
-BuildRequires:  nodejs buildah podman
+BuildRequires:  buildah podman
 
 %description
 The Login for CubeCOS.
