@@ -1,5 +1,5 @@
 import { CosDetailsTable } from '@cube-frontend/ui-library'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 
 const meta = {

@@ -39,7 +39,6 @@
     "react-error-boundary": "^5.0.0",
     "react-i18next": "catalog:",
     "react-router": "^7.1.5",
-    "vitest": "catalog:",
     "yaml": "^2.8.1",
     "zod": "^3.24.2",
     "zustand": "^5.0.3"
@@ -47,13 +46,14 @@
   "devDependencies": {
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react-swc": "^3.5.0",
+    "@vitejs/plugin-react-swc": "catalog:",
     "autoprefixer": "catalog:",
     "code-inspector-plugin": "catalog:",
     "postcss": "catalog:",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
-    "vite": "^6.0.5",
+    "vite": "catalog:",
+    "vitest": "catalog:",
     "vite-plugin-svgr": "catalog:"
   },
   "engines": {

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosStepProcess } from '../../../components/CosStepProcess/CosStepProcess'
 import { CosStepProcessItemProps } from '../../../components/CosStepProcess/CosStepProcessItem'

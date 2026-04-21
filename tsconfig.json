@@ -18,7 +18,6 @@
     "noUncheckedSideEffectImports": true,
     "noImplicitReturns": true,
 
-    "baseUrl": ".",
     "paths": {
       "@cube-frontend/api": ["./packages/cube-frontend-api/sdk/index.ts"],
       "@cube-frontend/i18n": ["./packages/cube-frontend-i18n/src/index.ts"],

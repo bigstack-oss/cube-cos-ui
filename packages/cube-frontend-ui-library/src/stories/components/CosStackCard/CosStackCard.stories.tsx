@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { range } from 'lodash'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosStackCard } from '../../../components/CosStackCard/CosStackCard'

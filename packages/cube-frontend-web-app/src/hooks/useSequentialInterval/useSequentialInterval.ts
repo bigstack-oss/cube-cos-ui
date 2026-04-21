@@ -25,8 +25,12 @@ export const useSequentialInterval = (
 ): UseSequentialInterval => {
   const { immediate = true } = options ?? {}
 
-  const firstRunTimerIdRef = useRef<NodeJS.Timeout | undefined>(undefined)
-  const sequentialRunTimerIdRef = useRef<NodeJS.Timeout | undefined>(undefined)
+  const firstRunTimerIdRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  )
+  const sequentialRunTimerIdRef = useRef<
+    ReturnType<typeof setTimeout> | undefined
+  >(undefined)
 
   const stopInterval = useCallback(() => {
     clearTimeout(firstRunTimerIdRef.current)

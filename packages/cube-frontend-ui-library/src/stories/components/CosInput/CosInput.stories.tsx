@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import InformationCircleFilled from '@cube-frontend/ui-library/icons/monochrome/information_circle_filled.svg?react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosInput, CosInputProps } from '../../../components/CosInput/CosInput'
@@ -7,7 +7,7 @@ import { CosTooltip } from '../../../components/CosTooltip/CosTooltip'
 import { CosTooltipInformation } from '../../../components/CosTooltip/types'
 import { InputBox } from './InputBox'
 import { ChangeEventHandler, useState } from 'react'
-import { fn } from '@storybook/test'
+import { fn } from 'storybook/test'
 
 const meta = {
   title: 'Molecules/Input',

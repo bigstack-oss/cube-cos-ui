@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { CosButton } from '../../../components/CosButton/CosButton'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { ButtonVariantTable } from './ButtonVariantTable'

@@ -10,7 +10,9 @@ export const MasterExample = () => {
   const [isUploaded, setIsUploaded] = useState(false)
   const [progress, setProgress] = useState(0)
 
-  const progressIntervalIdRef = useRef<number | undefined>(undefined)
+  const progressIntervalIdRef = useRef<
+    ReturnType<typeof setInterval> | undefined
+  >(undefined)
 
   const onFileChange = (file: File | null): void => {
     if (!file) return

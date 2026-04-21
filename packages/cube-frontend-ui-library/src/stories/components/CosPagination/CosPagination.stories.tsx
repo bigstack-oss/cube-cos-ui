@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosPagination } from '../../../components/CosPagination/CosPagination'
 import { DEFAULT_ITEMS_PER_PAGE } from '../../../components/CosPagination/cosPaginationUtils'

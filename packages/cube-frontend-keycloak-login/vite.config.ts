@@ -1,7 +1,6 @@
 import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vite'
 import svgr from 'vite-plugin-svgr'
-import viteTsConfigPaths from 'vite-tsconfig-paths'
 import { transformCssFontPath } from './rollup-plugins/transformCssFontPath'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
 
@@ -10,9 +9,11 @@ const ASSETS_DIR = 'resources'
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+  },
   plugins: [
     react(),
-    viteTsConfigPaths(),
     codeInspectorPlugin({
       bundler: 'vite',
     }),

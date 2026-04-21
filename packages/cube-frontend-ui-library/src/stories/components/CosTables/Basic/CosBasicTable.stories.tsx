@@ -1,5 +1,5 @@
 import { CosStatus, CosTag } from '@cube-frontend/ui-library'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { CosResourceUsageBar } from '../../../../components/CosProgressBar/CosResourceUsageBar'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import { CustomSortingRule } from './CustomSortingRule'

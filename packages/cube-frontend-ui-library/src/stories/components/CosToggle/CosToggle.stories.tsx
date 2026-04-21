@@ -1,5 +1,5 @@
 import { CosToggle } from '@cube-frontend/ui-library'
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { ToggleRow } from './ToggleRow'

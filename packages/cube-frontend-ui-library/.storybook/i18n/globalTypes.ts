@@ -1,4 +1,4 @@
-import { Preview } from '@storybook/react'
+import { Preview } from '@storybook/react-vite'
 import { SupportedLanguage } from '../../src/i18n/utils'
 
 type LocaleItem = {

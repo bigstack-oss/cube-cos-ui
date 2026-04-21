@@ -1,5 +1,5 @@
 import { CosUpload } from '@cube-frontend/ui-library'
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { DisabledExample } from './DisabledExample'
 import { ErrorExample } from './ErrorExample'

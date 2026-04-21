@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { fn } from 'storybook/test'
 import { twMerge } from 'tailwind-merge'
 import { CosIconFrame } from '../../../components/CosIcon/CosIcon'
 import Home01 from '../../../components/CosIcon/monochrome/home_01.svg?react'

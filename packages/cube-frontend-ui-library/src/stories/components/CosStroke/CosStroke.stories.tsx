@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { CosStroke } from '../../../components/CosStroke/CosStroke'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { StrokeBox } from './StrokeBox'

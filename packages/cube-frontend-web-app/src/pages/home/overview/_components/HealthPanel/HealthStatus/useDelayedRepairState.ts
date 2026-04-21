@@ -21,7 +21,7 @@ export const useDelayedRepairState = (
   const prevIsFixing = useRef(isFixing)
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout | undefined
+    let timeoutId: ReturnType<typeof setTimeout> | undefined
 
     if (prevIsFixing.current && !isFixing) {
       // Fixing status has transitioned from true to false.

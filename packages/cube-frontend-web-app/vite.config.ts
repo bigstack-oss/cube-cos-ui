@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import viteTsConfigPaths from 'vite-tsconfig-paths'
 import svgr from 'vite-plugin-svgr'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
 
@@ -8,12 +7,14 @@ import { codeInspectorPlugin } from 'code-inspector-plugin'
 export default defineConfig(({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
   return {
+    resolve: {
+      tsconfigPaths: true,
+    },
     plugins: [
       react(),
       codeInspectorPlugin({
         bundler: 'vite',
       }),
-      viteTsConfigPaths(),
       svgr({
         svgrOptions: {
           ref: true,

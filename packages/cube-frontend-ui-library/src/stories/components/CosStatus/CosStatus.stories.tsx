@@ -3,7 +3,7 @@ import {
   CosStatusReaction,
   CosStatusSkeleton,
 } from '@cube-frontend/ui-library'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { StatusRow } from './StatusRow'
 

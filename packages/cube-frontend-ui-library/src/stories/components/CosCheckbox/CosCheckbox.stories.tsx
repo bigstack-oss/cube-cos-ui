@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { ChangeEvent, useState } from 'react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CheckboxGrid } from './CheckboxGrid'

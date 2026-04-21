@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { twJoin } from 'tailwind-merge'
 import { CosCountSegmentedChart } from '../../../components/CosCountSegmentedChart/CosCountSegmentedChart'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'

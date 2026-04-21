@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { CosNagging } from '../../../components/CosNagging/CosNagging'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import {

@@ -1,5 +1,5 @@
 import { CosLoadingSpinner } from '@cube-frontend/ui-library'
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { SpinnerRow } from './SpinnerRow'
 import { PropsWithClassName } from '@cube-frontend/utils'

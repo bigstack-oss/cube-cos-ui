@@ -3,7 +3,7 @@ import {
   CosLoadingSpinner,
   CosSkeleton,
 } from '@cube-frontend/ui-library'
-import { Meta } from '@storybook/react'
+import { Meta } from '@storybook/react-vite'
 import { noop } from 'lodash'
 import { PropsWithChildren } from 'react'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'

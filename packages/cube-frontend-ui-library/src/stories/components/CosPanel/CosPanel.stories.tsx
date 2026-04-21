@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { DashboardPanelLayout } from './CosDashboardPanel/DashboardPanelLayout'
 import { GeneralPanelLayout } from './CosGeneralPanel/GeneralPanelLayout'
 

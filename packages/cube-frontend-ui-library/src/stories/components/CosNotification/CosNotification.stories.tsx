@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { InlineNotificationLayout } from './InlineNotification/InlineNotificationLayout'
 import { CosToastProvider } from '../../../components/CosNotification/CosToastNotification/CosToastProvider'
 import { ToastNotificationLayout } from './ToastNotification/ToastNotificationLayout'

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosDatePicker } from '../../../components/CosDatePicker/CosDatePicker'
 import { DatePickerBox } from './DatePickerBox'

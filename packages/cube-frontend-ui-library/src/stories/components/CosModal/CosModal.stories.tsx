@@ -1,6 +1,6 @@
 import { CosCheckbox, CosInput } from '@cube-frontend/ui-library'
 import CheckIcon from '@cube-frontend/ui-library/icons/monochrome/checkmark.svg?react'
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { ModalStoryRow } from './ModalStoryRow'
 

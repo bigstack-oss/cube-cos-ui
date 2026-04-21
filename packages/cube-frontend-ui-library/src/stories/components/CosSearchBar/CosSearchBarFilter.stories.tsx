@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosSearchBarFilter } from '../../../components/CosSearchBar/CosSearchBarFilter/CosSearchBarFilter'
 import { SearchBarGrid } from './SearchBarGrid'

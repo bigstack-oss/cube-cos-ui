@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosBreadcrumb } from '../../../components/CosBreadcrumb/CosBreadcrumb'
 import { type CosBreadcrumbItemProps } from '../../../components/CosBreadcrumb/CosBreadcrumbItem'

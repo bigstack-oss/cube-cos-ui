@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { fn } from 'storybook/test'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosTextArea } from '../../../components/CosTextArea/CosTextArea'
 import { TextAreaGrid } from './TextAreaGrid'

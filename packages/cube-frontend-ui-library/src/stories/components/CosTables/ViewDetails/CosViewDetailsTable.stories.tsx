@@ -2,7 +2,7 @@ import {
   CosViewDetailsTableDetailItem,
   useExpandedRowIdSet,
 } from '@cube-frontend/ui-library'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { upperFirst } from 'lodash'
 import { StoryLayout } from '../../../../internal/components/StoryLayout/StoryLayout'
 import {

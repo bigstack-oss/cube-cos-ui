@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { CosLogConsole } from '../../../components/CosLogConsole/CosLogConsole'
 import { ConsoleGrid } from './ConsoleGrid'

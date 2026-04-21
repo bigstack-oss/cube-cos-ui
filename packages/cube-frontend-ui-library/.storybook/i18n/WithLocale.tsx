@@ -1,4 +1,4 @@
-import { Decorator } from '@storybook/react'
+import { Decorator } from '@storybook/react-vite'
 import { LocaleProvider } from '../../src/i18n/LocaleProvider'
 
 export const WithLocale: Decorator = (Story, context) => {

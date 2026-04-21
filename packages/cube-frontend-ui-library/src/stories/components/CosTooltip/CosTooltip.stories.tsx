@@ -1,5 +1,5 @@
 import { CosTooltip } from '@cube-frontend/ui-library'
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { StoryLayout } from '../../../internal/components/StoryLayout/StoryLayout'
 import { HoverAndClickGrid } from './HoverAndClickGrid'
 import { LayoutGrid } from './LayoutGrid'
