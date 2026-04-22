@@ -2,13 +2,14 @@
   "name": "@cube-frontend/i18n",
   "private": true,
   "license": "Apache-2.0",
+  "type": "module",
   "engines": {
     "node": ">=v24.15",
     "pnpm": ">=10.33"
   },
   "scripts": {
     "tsc": "tsc -b",
-    "sync": "node --experimental-strip-types scripts/syncI18n.ts"
+    "sync": "node scripts/syncI18n.ts"
   },
   "dependencies": {
     "i18next": "catalog:"

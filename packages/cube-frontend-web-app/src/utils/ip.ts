@@ -21,7 +21,7 @@ export const ipv4CompareFnMap: ColumnCompareFnMap<string> = {
     ipv4Compare(precedingStatus, followingStatus) < 0,
 }
 
-const ipV4Schema = z.string().ip({ version: 'v4' })
+const ipV4Schema = z.ipv4()
 
 export const isIPv4 = (value: string): boolean => {
   return ipV4Schema.safeParse(value).success

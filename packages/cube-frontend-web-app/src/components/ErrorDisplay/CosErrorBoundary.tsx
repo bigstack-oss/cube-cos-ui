@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { ReactNode, useMemo } from 'react'
+import { ErrorInfo, ReactNode, useMemo } from 'react'
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
 import { Location, useLocation } from 'react-router'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
@@ -52,8 +52,8 @@ export const CosErrorBoundary = (props: CosErrorBoundaryProps) => {
     )
   }
 
-  const onError = (error: Error): void => {
-    console.error('Error caught by error boundary: ', error)
+  const onError = (error: unknown, info: ErrorInfo): void => {
+    console.error('Error caught by error boundary: ', error, info)
   }
 
   return (

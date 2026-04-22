@@ -152,6 +152,8 @@ export const useChartOptions = (props: {
               }
             },
             label: (context) => {
+              if (context.parsed.y == null) return ''
+
               const formattedValue = formatter(context.parsed.y)
               const unitDisplay = toUnitDisplay(unit, unitSuffix)
               const labelDisplay = t(

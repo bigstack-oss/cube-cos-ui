@@ -134,6 +134,8 @@ export const getCpuChartOptions = (
             }
           },
           label: (tooltipItem) => {
+            if (tooltipItem.parsed.y == null) return ''
+
             const value = tooltipItem.parsed.y.toFixed(2)
             // TODO: Define an enum for `unit` in the API docs.
             const unitText = unit === 'percentage' ? '%' : ` ${unit}`
@@ -232,7 +234,7 @@ export const getMemoryChartOptions = (
             }
           },
           label: (tooltipItem) => {
-            const value = tooltipItem.parsed.y
+            const value = tooltipItem.parsed.y ?? 0
             const GiB = convertSize(value, {
               fromUnit: originalUnit,
               toUnit: 'GiB',

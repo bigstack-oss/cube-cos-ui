@@ -25,6 +25,7 @@
   ],
   "cSpell.words": [
     "autoprefixer",
+    "axios",
     "barchart",
     "Bigstack",
     "chartjs",
@@ -47,7 +48,9 @@
     "tseslint",
     "unrollbackable",
     "vcpu",
-    "vite"
+    "vite",
+    "vitejs",
+    "vitest"
   ],
   "i18n-ally.localesPaths": [
     "packages/cube-frontend-i18n/src/resources/ui-library",

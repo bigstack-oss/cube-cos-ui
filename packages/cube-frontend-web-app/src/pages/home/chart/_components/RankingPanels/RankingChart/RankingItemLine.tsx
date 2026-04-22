@@ -87,6 +87,8 @@ const getChartOptions = (unitDisplay: string): ChartOptions<'line'> => {
         titleColor: cubeTheme.colors.primary[200],
         callbacks: {
           label: (context) => {
+            if (context.parsed.y === null) return ''
+
             const value = toAbbreviation(context.parsed.y)
             return `${value} ${unitDisplay}`
           },

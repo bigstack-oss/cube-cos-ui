@@ -25,7 +25,7 @@ type ParsedIPMISetup = Omit<IPMISetup, 'port'> & {
 
 const schema = z.object({
   port: z.string().regex(/^[0-9]{1,}$/),
-  ip: z.string().ip(),
+  ip: z.ipv4(),
   username: z.string().min(1),
   password: z.string().min(1),
 })
