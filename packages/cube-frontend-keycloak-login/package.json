@@ -10,6 +10,7 @@
   },
   "scripts": {
     "tsc": "tsc",
+    "tsgo": "tsgo -b",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "copy-output": "rm -rf ./keycloak/themes/cos-ui/login/resources && cp -r ./dist/resources ./keycloak/themes/cos-ui/login",

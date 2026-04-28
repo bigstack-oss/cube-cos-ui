@@ -9,9 +9,10 @@
     "pnpm": ">=10.33"
   },
   "scripts": {
-    "tsc": "pnpm -r tsc",
+    "tsc": "pnpm -r --no-bail tsc",
+    "tsgo": "pnpm -r --no-bail tsgo",
     "eslint": "eslint .",
-    "test": "pnpm -r test",
+    "test": "pnpm -r --no-bail test",
     "eslint:fix": "eslint . --fix",
     "eslint:inspect": "eslint --inspect-config .eslintrc.js",
     "keycloak-login:build": "pnpm --filter @cube-frontend/keycloak-login build",
@@ -40,6 +41,7 @@
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^9.17.0",
     "@typescript-eslint/parser": "^8.59.0",
+    "@typescript/native-preview": "7.0.0-dev.20260421.2",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.2",
     "eslint-import-resolver-typescript": "^4.4.4",
