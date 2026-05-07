@@ -13,6 +13,7 @@ import { NodeEvents } from './_components/NodeEvents'
 import { NodeNetworks } from './_components/NodeNetworks'
 import { NodeSummary } from './_components/NodeSummary'
 import { NODE_DETAILS_POLLING_INTERVAL } from './NodeDetailsPageUtils'
+import NodeResources from './_components/NodeResources'
 
 export const NodeDetailsPage = () => {
   const { name: nodeName } = useParams()
@@ -50,6 +51,7 @@ export const NodeDetailsPage = () => {
         <>
           <NodeNetworks node={node} />
           <NodeDevices hostname={node?.hostname} />
+          <NodeResources node={node} />
           <NodeCharts node={node} />
           <NodeEvents node={node} />
         </>
