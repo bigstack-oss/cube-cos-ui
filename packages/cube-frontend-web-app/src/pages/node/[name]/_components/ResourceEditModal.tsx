@@ -1,9 +1,9 @@
 import { CosModal } from '@cube-frontend/ui-library'
-import { ResourceRow } from './NodeResources'
+import { GpuResourceRow } from './NodeGpuResources/NodeGpuResources'
 
 export type ResourceEditModalProps = {
   isModalOpen: boolean
-  resource: ResourceRow | undefined
+  resource: GpuResourceRow | undefined
   onClose: () => void
 }
 

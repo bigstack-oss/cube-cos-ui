@@ -2378,6 +2378,52 @@ export interface FixpackVersionDetails {
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const GPUCardStatus = {
+    Unassigned: 'unassigned',
+    Idle: 'idle',
+    InUse: 'inUse'
+} as const;
+
+export type GPUCardStatus = typeof GPUCardStatus[keyof typeof GPUCardStatus];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const GPUResourceType = {
+    Unset: 'unset',
+    Pgpu: 'pgpu',
+    SriovVgpu: 'sriovVgpu',
+    MigBackedVgpu: 'migBackedVgpu'
+} as const;
+
+export type GPUResourceType = typeof GPUResourceType[keyof typeof GPUResourceType];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const GPUSupportResourceType = {
+    Pgpu: 'pgpu',
+    SriovVgpu: 'sriovVgpu',
+    MigBackedVgpu: 'migBackedVgpu'
+} as const;
+
+export type GPUSupportResourceType = typeof GPUSupportResourceType[keyof typeof GPUSupportResourceType];
+
+
+/**
+ * 
+ * @export
  * @interface GetAbstractedEventsResponse
  */
 export interface GetAbstractedEventsResponse {
@@ -5949,68 +5995,6 @@ export interface GetNode500Response {
      * @memberof GetNode500Response
      */
     'status'?: string;
-}
-/**
- * 
- * @export
- * @interface GetNodeIpmiSettingResponse
- */
-export interface GetNodeIpmiSettingResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodeIpmiSettingResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {GetNodeIpmiSettingResponseData}
-     * @memberof GetNodeIpmiSettingResponse
-     */
-    'data': GetNodeIpmiSettingResponseData;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodeIpmiSettingResponse
-     */
-    'msg': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodeIpmiSettingResponse
-     */
-    'status': string;
-}
-/**
- * 
- * @export
- * @interface GetNodeIpmiSettingResponseData
- */
-export interface GetNodeIpmiSettingResponseData {
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodeIpmiSettingResponseData
-     */
-    'ip': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetNodeIpmiSettingResponseData
-     */
-    'port': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodeIpmiSettingResponseData
-     */
-    'username': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetNodeIpmiSettingResponseData
-     */
-    'password': string;
 }
 /**
  * 
@@ -9631,6 +9615,339 @@ export type ListNodeDevicesResponseDataInnerStatusCurrentEnum = typeof ListNodeD
 /**
  * 
  * @export
+ * @interface ListNodeGPUCards500Response
+ */
+export interface ListNodeGPUCards500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCards500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCards500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCards500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponse
+ */
+export interface ListNodeGPUCardsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListNodeGPUCardsResponseDataInner>}
+     * @memberof ListNodeGPUCardsResponse
+     */
+    'data': Array<ListNodeGPUCardsResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInner
+ */
+export interface ListNodeGPUCardsResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'pciAddress': string;
+    /**
+     * 
+     * @type {GPUResourceType}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'resourceType': GPUResourceType;
+    /**
+     * 
+     * @type {Array<GPUSupportResourceType>}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'supportResourceTypes': Array<GPUSupportResourceType>;
+    /**
+     * 
+     * @type {ListNodeGPUCardsResponseDataInnerVram}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'vram': ListNodeGPUCardsResponseDataInnerVram | null;
+    /**
+     * 
+     * @type {ListNodeGPUCardsResponseDataInnerGpu}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'gpu': ListNodeGPUCardsResponseDataInnerGpu | null;
+    /**
+     * 
+     * @type {ListNodeGPUCardsResponseDataInnerAllocationSummary}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'allocationSummary': ListNodeGPUCardsResponseDataInnerAllocationSummary | null;
+    /**
+     * 
+     * @type {Array<ListNodeGPUCardsResponseDataInnerProfilesInner>}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'profiles': Array<ListNodeGPUCardsResponseDataInnerProfilesInner> | null;
+    /**
+     * 
+     * @type {Array<ListNodeGPUCardsResponseDataInnerAttachedInstancesInner>}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'attachedInstances': Array<ListNodeGPUCardsResponseDataInnerAttachedInstancesInner> | null;
+    /**
+     * 
+     * @type {ListNodeGPUCardsResponseDataInnerStatus}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'status': ListNodeGPUCardsResponseDataInnerStatus;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerAllocationSummary
+ */
+export interface ListNodeGPUCardsResponseDataInnerAllocationSummary {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerAllocationSummary
+     */
+    'current': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerAllocationSummary
+     */
+    'total': number;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
+ */
+export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
+     */
+    'profileAlias': string | null;
+    /**
+     * Floating-point number
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
+     */
+    'utilizationPercent': number;
+    /**
+     * 
+     * @type {ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
+     */
+    'memoryUsage': ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage;
+    /**
+     * 
+     * @type {ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
+     */
+    'links': ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
+ */
+export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
+     */
+    'grafana': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
+     */
+    'console': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage
+ */
+export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage
+     */
+    'allocatedMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage
+     */
+    'totalMiB': number;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerGpu
+ */
+export interface ListNodeGPUCardsResponseDataInnerGpu {
+    /**
+     * Floating-point number
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerGpu
+     */
+    'utilizationPercent': number;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerProfilesInner
+ */
+export interface ListNodeGPUCardsResponseDataInnerProfilesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
+     */
+    'vramMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
+     */
+    'count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
+     */
+    'remaining': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
+     */
+    'aliasName': string | null;
+}
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerStatus
+ */
+export interface ListNodeGPUCardsResponseDataInnerStatus {
+    /**
+     * 
+     * @type {GPUCardStatus}
+     * @memberof ListNodeGPUCardsResponseDataInnerStatus
+     */
+    'current': GPUCardStatus;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ListNodeGPUCardsResponseDataInnerStatus
+     */
+    'isProcessing': boolean;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerVram
+ */
+export interface ListNodeGPUCardsResponseDataInnerVram {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerVram
+     */
+    'allocatedMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerVram
+     */
+    'totalMiB': number;
+    /**
+     * Floating-point number
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInnerVram
+     */
+    'utilizationPercent': number;
+}
+/**
+ * 
+ * @export
  * @interface ListNotificationsResponse
  */
 export interface ListNotificationsResponse {
@@ -12859,143 +13176,6 @@ export interface StorageKeyValuePair {
 /**
  * 
  * @export
- * @interface StorageModel
- */
-export interface StorageModel {
-    /**
-     * 
-     * @type {string}
-     * @memberof StorageModel
-     */
-    'vendor': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StorageModel
-     */
-    'product': string;
-    /**
-     * 
-     * @type {StorageModelMultipath}
-     * @memberof StorageModel
-     */
-    'multipath': StorageModelMultipath;
-    /**
-     * 
-     * @type {GetIntegrationStorageResponseDataStorage}
-     * @memberof StorageModel
-     */
-    'storage': GetIntegrationStorageResponseDataStorage;
-}
-/**
- * 
- * @export
- * @interface StorageModelMultipath
- */
-export interface StorageModelMultipath {
-    /**
-     * 
-     * @type {Array<StorageKeyValuePair>}
-     * @memberof StorageModelMultipath
-     */
-    'defaults': Array<StorageKeyValuePair>;
-    /**
-     * 
-     * @type {StorageModelMultipathBlacklist}
-     * @memberof StorageModelMultipath
-     */
-    'blacklist': StorageModelMultipathBlacklist;
-    /**
-     * 
-     * @type {StorageModelMultipathBlacklist}
-     * @memberof StorageModelMultipath
-     */
-    'blacklistExceptions': StorageModelMultipathBlacklist;
-    /**
-     * 
-     * @type {Array<StorageModelVenderSetting>}
-     * @memberof StorageModelMultipath
-     */
-    'devices': Array<StorageModelVenderSetting>;
-    /**
-     * 
-     * @type {Array<StorageKeyValuePair>}
-     * @memberof StorageModelMultipath
-     */
-    'overrides': Array<StorageKeyValuePair>;
-    /**
-     * 
-     * @type {Array<StorageModelMultipathMultipathsInner>}
-     * @memberof StorageModelMultipath
-     */
-    'multipaths': Array<StorageModelMultipathMultipathsInner>;
-}
-/**
- * 
- * @export
- * @interface StorageModelMultipathBlacklist
- */
-export interface StorageModelMultipathBlacklist {
-    /**
-     * 
-     * @type {string}
-     * @memberof StorageModelMultipathBlacklist
-     */
-    'devnode': string;
-    /**
-     * 
-     * @type {Array<StorageModelVenderSetting>}
-     * @memberof StorageModelMultipathBlacklist
-     */
-    'devices': Array<StorageModelVenderSetting>;
-}
-/**
- * 
- * @export
- * @interface StorageModelMultipathMultipathsInner
- */
-export interface StorageModelMultipathMultipathsInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof StorageModelMultipathMultipathsInner
-     */
-    'wwid': string;
-    /**
-     * 
-     * @type {Array<StorageKeyValuePair>}
-     * @memberof StorageModelMultipathMultipathsInner
-     */
-    'settings': Array<StorageKeyValuePair>;
-}
-/**
- * 
- * @export
- * @interface StorageModelVenderSetting
- */
-export interface StorageModelVenderSetting {
-    /**
-     * 
-     * @type {string}
-     * @memberof StorageModelVenderSetting
-     */
-    'vendor': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof StorageModelVenderSetting
-     */
-    'product': string;
-    /**
-     * 
-     * @type {Array<StorageKeyValuePair>}
-     * @memberof StorageModelVenderSetting
-     */
-    'settings': Array<StorageKeyValuePair>;
-}
-/**
- * 
- * @export
  * @interface SupportFile
  */
 export interface SupportFile {
@@ -13122,25 +13302,6 @@ export interface TimeValuePair {
      * @memberof TimeValuePair
      */
     'value': number;
-}
-/**
- * 
- * @export
- * @interface TitlePrefix
- */
-export interface TitlePrefix {
-    /**
-     * 
-     * @type {string}
-     * @memberof TitlePrefix
-     */
-    'value': string;
-    /**
-     * 
-     * @type {SettingStatus}
-     * @memberof TitlePrefix
-     */
-    'status': SettingStatus;
 }
 /**
  * 
@@ -15404,50 +15565,6 @@ export interface VerifyStorageIntegration500Response {
      * @memberof VerifyStorageIntegration500Response
      */
     'status': string;
-}
-/**
- * 
- * @export
- * @interface VerifyStorageIntegrationRequest
- */
-export interface VerifyStorageIntegrationRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof VerifyStorageIntegrationRequest
-     */
-    'name': string;
-    /**
-     * 
-     * @type {VerifyStorageIntegrationRequestDevice}
-     * @memberof VerifyStorageIntegrationRequest
-     */
-    'device': VerifyStorageIntegrationRequestDevice;
-    /**
-     * 
-     * @type {ApplyIntegrationStorageRequestStorage}
-     * @memberof VerifyStorageIntegrationRequest
-     */
-    'storage': ApplyIntegrationStorageRequestStorage;
-}
-/**
- * 
- * @export
- * @interface VerifyStorageIntegrationRequestDevice
- */
-export interface VerifyStorageIntegrationRequestDevice {
-    /**
-     * 
-     * @type {string}
-     * @memberof VerifyStorageIntegrationRequestDevice
-     */
-    'vendor': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof VerifyStorageIntegrationRequestDevice
-     */
-    'product': string;
 }
 /**
  * 
@@ -24710,6 +24827,48 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Retrieve the GPU cards of a node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listNodeGPUCards: async (dataCenter: string, nodeName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listNodeGPUCards', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('listNodeGPUCards', 'nodeName', nodeName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/gpuCards`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Operate the node by IPMI
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -25194,6 +25353,20 @@ export const NodesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Retrieve the GPU cards of a node
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listNodeGPUCards(dataCenter: string, nodeName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListNodeGPUCardsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listNodeGPUCards(dataCenter, nodeName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.listNodeGPUCards']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Operate the node by IPMI
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -25382,6 +25555,16 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
          */
         listNodeDevices(requestParameters: NodesApiListNodeDevicesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListNodeDevicesResponse> {
             return localVarFp.listNodeDevices(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.watch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retrieve the GPU cards of a node
+         * @param {NodesApiListNodeGPUCardsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listNodeGPUCards(requestParameters: NodesApiListNodeGPUCardsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListNodeGPUCardsResponse> {
+            return localVarFp.listNodeGPUCards(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -25660,6 +25843,27 @@ export interface NodesApiListNodeDevicesRequest {
      * @memberof NodesApiListNodeDevices
      */
     readonly watch?: boolean
+}
+
+/**
+ * Request parameters for listNodeGPUCards operation in NodesApi.
+ * @export
+ * @interface NodesApiListNodeGPUCardsRequest
+ */
+export interface NodesApiListNodeGPUCardsRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiListNodeGPUCards
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiListNodeGPUCards
+     */
+    readonly nodeName: string
 }
 
 /**
@@ -25970,6 +26174,18 @@ export class NodesApi extends BaseAPI {
      */
     public listNodeDevices(requestParameters: NodesApiListNodeDevicesRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).listNodeDevices(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.watch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retrieve the GPU cards of a node
+     * @param {NodesApiListNodeGPUCardsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public listNodeGPUCards(requestParameters: NodesApiListNodeGPUCardsRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).listNodeGPUCards(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

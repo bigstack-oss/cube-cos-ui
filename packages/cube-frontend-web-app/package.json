@@ -47,15 +47,21 @@
     "@vitejs/plugin-react-swc": "catalog:",
     "autoprefixer": "catalog:",
     "code-inspector-plugin": "catalog:",
+    "msw": "^2.7.0",
     "postcss": "catalog:",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
-    "vitest": "catalog:",
-    "vite-plugin-svgr": "catalog:"
+    "vite-plugin-svgr": "catalog:",
+    "vitest": "catalog:"
   },
   "engines": {
     "node": ">=22",
     "pnpm": ">=10.33"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

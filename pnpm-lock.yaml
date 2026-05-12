@@ -436,6 +436,9 @@ importers:
       code-inspector-plugin:
         specifier: 'catalog:'
         version: 1.5.1
+      msw:
+        specifier: ^2.7.0
+        version: 2.7.0(@types/node@22.10.5)(typescript@6.0.3)
       postcss:
         specifier: 'catalog:'
         version: 8.5.10

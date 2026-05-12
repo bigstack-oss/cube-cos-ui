@@ -17,6 +17,7 @@ export default tseslint.config(
       '**/dist',
       '**/keycloak/themes',
       'packages/cube-frontend-api/sdk',
+      'packages/cube-frontend-web-app/public/mockServiceWorker.js',
     ],
   },
   {

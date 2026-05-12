@@ -1,77 +1,29 @@
-import { ResourceRow } from './NodeResources'
+import {
+  GPUCardStatus,
+  GPUResourceType,
+  GPUSupportResourceType,
+  ListNodeGPUCardsResponseDataInner,
+} from '@cube-frontend/api/sdk/api'
 
-export enum GpuResourceType {
-  Unset = 'unset',
-  Passthrough = 'Passthrough',
-  SriovVgpu = 'SR-IOV vGPU',
-  MigVgpu = 'MIG-backed vGPU',
-}
-
-export enum GpuStatus {
-  Unassigned = 'Unassigned', // Hardware detected but not initialized
-  Idle = 'Idle', // Initialized but no VMs attached
-  InUse = 'in-use', // One or more VMs attached
-}
-
-type ResourceProfile = {
-  id: string
-  name: string
-  vramMb: number
-  counts: number
-  remaining: number
-  aliasName: string
-}
-
-type AttachedInstance = {
-  id: string
-  name: string
-  profileAlias: string
-  utilizationPercent: number
-  memoryUsage: {
-    allocatedMb: number
-    totalMb: number
-  }
-  links: {
-    grafana: string
-    console: string
-  }
-}
-
-export type NodeResourceInner = {
-  id: string
-  name: string
-  resourceType: GpuResourceType
-  pciAddress: string
-  status: GpuStatus
-  supportTypes: string[]
-  vram: {
-    allocatedGiB: number
-    totalGiB: number
-    utilizationPercent: number
-  }
-  gpu: {
-    utilizationPercent: number
-  }
-  allocationSummary: {
-    current: number
-    total: number
-  }
-  profiles: ResourceProfile[]
-  attachedInstances: AttachedInstance[]
-}
-
-export const mockData: ResourceRow[] = [
+export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // MIG-backed vGPU + InUse
   {
     id: 'gpu-001',
     name: 'NVIDIA A100 80GB',
-    resourceType: GpuResourceType.MigVgpu,
+    resourceType: GPUResourceType.MigBackedVgpu,
     pciAddress: '0000:01:00.0',
-    status: GpuStatus.InUse,
-    supportTypes: ['passThrough', 'SR-IOV vGPU', 'MIG-backed vGPU'],
+    status: {
+      current: GPUCardStatus.InUse,
+      isProcessing: false,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+      GPUSupportResourceType.MigBackedVgpu,
+    ],
     vram: {
-      allocatedGiB: 80,
-      totalGiB: 100,
+      allocatedMiB: 32768,
+      totalMiB: 81920,
       utilizationPercent: 40,
     },
     gpu: {
@@ -85,16 +37,16 @@ export const mockData: ResourceRow[] = [
       {
         id: 'a100-1-5c',
         name: 'A100-1-5C',
-        vramMb: 510,
-        counts: 16,
+        vramMiB: 5120,
+        count: 16,
         remaining: 14,
         aliasName: 'Inference_Small',
       },
       {
         id: 'a100-2-10c',
         name: 'A100-2-10C',
-        vramMb: 240,
-        counts: 8,
+        vramMiB: 10240,
+        count: 8,
         remaining: 7,
         aliasName: 'Training_Medium',
       },
@@ -106,8 +58,8 @@ export const mockData: ResourceRow[] = [
         profileAlias: 'A100-1-5C',
         utilizationPercent: 20.35,
         memoryUsage: {
-          allocatedMb: 40,
-          totalMb: 50,
+          allocatedMiB: 1044,
+          totalMiB: 5120,
         },
         links: {
           grafana: 'https://example.grafana/vm-99',
@@ -120,13 +72,20 @@ export const mockData: ResourceRow[] = [
   {
     id: 'gpu-002',
     name: 'NVIDIA A100 40GB',
-    resourceType: GpuResourceType.MigVgpu,
+    resourceType: GPUResourceType.MigBackedVgpu,
     pciAddress: '0000:02:00.0',
-    status: GpuStatus.Idle,
-    supportTypes: ['passThrough', 'SR-IOV vGPU', 'MIG-backed vGPU'],
+    status: {
+      current: GPUCardStatus.Idle,
+      isProcessing: true,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+      GPUSupportResourceType.MigBackedVgpu,
+    ],
     vram: {
-      allocatedGiB: 0,
-      totalGiB: 400,
+      allocatedMiB: 0,
+      totalMiB: 40960,
       utilizationPercent: 0,
     },
     gpu: {
@@ -140,25 +99,32 @@ export const mockData: ResourceRow[] = [
       {
         id: 'a100-1-5c-40g',
         name: 'A100-1-5C',
-        vramMb: 5120,
-        counts: 8,
+        vramMiB: 5120,
+        count: 8,
         remaining: 8,
         aliasName: 'Inference_Small',
       },
     ],
     attachedInstances: [],
   },
-  // MIG-backed vGPU + Unassigned
+  // Unassigned
   {
     id: 'gpu-003',
     name: 'NVIDIA A100 80GB',
-    resourceType: GpuResourceType.MigVgpu,
+    resourceType: GPUResourceType.Unset,
     pciAddress: '0000:03:00.0',
-    status: GpuStatus.Unassigned,
-    supportTypes: ['passThrough', 'SR-IOV vGPU', 'MIG-backed vGPU'],
+    status: {
+      current: GPUCardStatus.Unassigned,
+      isProcessing: false,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+      GPUSupportResourceType.MigBackedVgpu,
+    ],
     vram: {
-      allocatedGiB: 0,
-      totalGiB: 81920,
+      allocatedMiB: 0,
+      totalMiB: 81920,
       utilizationPercent: 0,
     },
     gpu: {
@@ -175,13 +141,19 @@ export const mockData: ResourceRow[] = [
   {
     id: 'gpu-004',
     name: 'Intel Data Center GPU Flex 170',
-    resourceType: GpuResourceType.SriovVgpu,
+    resourceType: GPUResourceType.SriovVgpu,
     pciAddress: '0000:04:00.0',
-    status: GpuStatus.InUse,
-    supportTypes: ['passThrough', 'SR-IOV vGPU'],
+    status: {
+      current: GPUCardStatus.InUse,
+      isProcessing: false,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+    ],
     vram: {
-      allocatedGiB: 12000,
-      totalGiB: 16384,
+      allocatedMiB: 12000,
+      totalMiB: 16384,
       utilizationPercent: 73,
     },
     gpu: {
@@ -195,8 +167,8 @@ export const mockData: ResourceRow[] = [
       {
         id: 'flex-170-2g',
         name: 'Flex-170-2G',
-        vramMb: 2048,
-        counts: 8,
+        vramMiB: 2048,
+        count: 8,
         remaining: 5,
         aliasName: 'Media_Transcode',
       },
@@ -208,8 +180,8 @@ export const mockData: ResourceRow[] = [
         profileAlias: 'Flex-170-2G',
         utilizationPercent: 72.1,
         memoryUsage: {
-          allocatedMb: 1800,
-          totalMb: 2048,
+          allocatedMiB: 1800,
+          totalMiB: 2048,
         },
         links: {
           grafana: 'https://example.grafana/vm-201',
@@ -222,8 +194,8 @@ export const mockData: ResourceRow[] = [
         profileAlias: 'Flex-170-2G',
         utilizationPercent: 55.0,
         memoryUsage: {
-          allocatedMb: 1400,
-          totalMb: 2048,
+          allocatedMiB: 1400,
+          totalMiB: 2048,
         },
         links: {
           grafana: 'https://example.grafana/vm-202',
@@ -236,8 +208,8 @@ export const mockData: ResourceRow[] = [
         profileAlias: 'Flex-170-2G',
         utilizationPercent: 30.5,
         memoryUsage: {
-          allocatedMb: 900,
-          totalMb: 2048,
+          allocatedMiB: 900,
+          totalMiB: 2048,
         },
         links: {
           grafana: 'https://example.grafana/vm-203',
@@ -250,13 +222,19 @@ export const mockData: ResourceRow[] = [
   {
     id: 'gpu-005',
     name: 'Intel Data Center GPU Flex 140',
-    resourceType: GpuResourceType.SriovVgpu,
+    resourceType: GPUResourceType.SriovVgpu,
     pciAddress: '0000:05:00.0',
-    status: GpuStatus.Idle,
-    supportTypes: ['passThrough', 'SR-IOV vGPU'],
+    status: {
+      current: GPUCardStatus.Idle,
+      isProcessing: true,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+    ],
     vram: {
-      allocatedGiB: 0,
-      totalGiB: 12288,
+      allocatedMiB: 0,
+      totalMiB: 12288,
       utilizationPercent: 0,
     },
     gpu: {
@@ -270,25 +248,31 @@ export const mockData: ResourceRow[] = [
       {
         id: 'flex-140-1g',
         name: 'Flex-140-1G',
-        vramMb: 1024,
-        counts: 4,
+        vramMiB: 1024,
+        count: 4,
         remaining: 4,
         aliasName: 'VDI_Light',
       },
     ],
     attachedInstances: [],
   },
-  // SR-IOV vGPU + Unassigned
+  // Unassigned
   {
     id: 'gpu-006',
     name: 'Intel Data Center GPU Flex 170',
-    resourceType: GpuResourceType.SriovVgpu,
+    resourceType: GPUResourceType.Unset,
     pciAddress: '0000:06:00.0',
-    status: GpuStatus.Unassigned,
-    supportTypes: ['passThrough', 'SR-IOV vGPU'],
+    status: {
+      current: GPUCardStatus.Unassigned,
+      isProcessing: false,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+    ],
     vram: {
-      allocatedGiB: 0,
-      totalGiB: 16384,
+      allocatedMiB: 0,
+      totalMiB: 16384,
       utilizationPercent: 0,
     },
     gpu: {
@@ -305,13 +289,16 @@ export const mockData: ResourceRow[] = [
   {
     id: 'gpu-007',
     name: 'NVIDIA RTX 4090',
-    resourceType: GpuResourceType.Passthrough,
+    resourceType: GPUResourceType.Pgpu,
     pciAddress: '0000:07:00.0',
-    status: GpuStatus.InUse,
-    supportTypes: ['passThrough'],
+    status: {
+      current: GPUCardStatus.InUse,
+      isProcessing: true,
+    },
+    supportResourceTypes: [GPUSupportResourceType.Pgpu],
     vram: {
-      allocatedGiB: 24576,
-      totalGiB: 24576,
+      allocatedMiB: 24576,
+      totalMiB: 24576,
       utilizationPercent: 88,
     },
     gpu: {
@@ -329,8 +316,8 @@ export const mockData: ResourceRow[] = [
         profileAlias: '',
         utilizationPercent: 92.0,
         memoryUsage: {
-          allocatedMb: 22000,
-          totalMb: 24576,
+          allocatedMiB: 22000,
+          totalMiB: 24576,
         },
         links: {
           grafana: 'https://example.grafana/vm-301',
@@ -343,13 +330,16 @@ export const mockData: ResourceRow[] = [
   {
     id: 'gpu-008',
     name: 'NVIDIA RTX 4080',
-    resourceType: GpuResourceType.Passthrough,
+    resourceType: GPUResourceType.Pgpu,
     pciAddress: '0000:08:00.0',
-    status: GpuStatus.Idle,
-    supportTypes: ['passThrough'],
+    status: {
+      current: GPUCardStatus.Idle,
+      isProcessing: false,
+    },
+    supportResourceTypes: [GPUSupportResourceType.Pgpu],
     vram: {
-      allocatedGiB: 0,
-      totalGiB: 16384,
+      allocatedMiB: 0,
+      totalMiB: 16384,
       utilizationPercent: 0,
     },
     gpu: {
@@ -362,17 +352,20 @@ export const mockData: ResourceRow[] = [
     profiles: [],
     attachedInstances: [],
   },
-  // Passthrough + Unassigned
+  // Unassigned
   {
     id: 'gpu-009',
     name: 'NVIDIA T4',
-    resourceType: GpuResourceType.Passthrough,
+    resourceType: GPUResourceType.Unset,
     pciAddress: '0000:09:00.0',
-    status: GpuStatus.Unassigned,
-    supportTypes: ['passThrough'],
+    status: {
+      current: GPUCardStatus.Unassigned,
+      isProcessing: false,
+    },
+    supportResourceTypes: [GPUSupportResourceType.Pgpu],
     vram: {
-      allocatedGiB: 0,
-      totalGiB: 16384,
+      allocatedMiB: 0,
+      totalMiB: 16384,
       utilizationPercent: 0,
     },
     gpu: {
@@ -385,17 +378,24 @@ export const mockData: ResourceRow[] = [
     profiles: [],
     attachedInstances: [],
   },
-  // Unset + InUse
+  // Passthrough + InUse (H100)
   {
     id: 'gpu-010',
     name: 'NVIDIA H100 80GB',
-    resourceType: GpuResourceType.Unset,
+    resourceType: GPUResourceType.Pgpu,
     pciAddress: '0000:0a:00.0',
-    status: GpuStatus.InUse,
-    supportTypes: ['passThrough', 'SR-IOV vGPU', 'MIG-backed vGPU'],
+    status: {
+      current: GPUCardStatus.InUse,
+      isProcessing: false,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+      GPUSupportResourceType.MigBackedVgpu,
+    ],
     vram: {
-      allocatedGiB: 40000,
-      totalGiB: 81920,
+      allocatedMiB: 40000,
+      totalMiB: 81920,
       utilizationPercent: 48,
     },
     gpu: {
@@ -413,8 +413,8 @@ export const mockData: ResourceRow[] = [
         profileAlias: '',
         utilizationPercent: 55.0,
         memoryUsage: {
-          allocatedMb: 40000,
-          totalMb: 81920,
+          allocatedMiB: 40000,
+          totalMiB: 81920,
         },
         links: {
           grafana: 'https://example.grafana/vm-401',
@@ -423,17 +423,23 @@ export const mockData: ResourceRow[] = [
       },
     ],
   },
-  // Unset + Idle
+  // SR-IOV vGPU + Idle (L40)
   {
     id: 'gpu-011',
     name: 'NVIDIA L40',
-    resourceType: GpuResourceType.Unset,
+    resourceType: GPUResourceType.SriovVgpu,
     pciAddress: '0000:0b:00.0',
-    status: GpuStatus.Idle,
-    supportTypes: ['passThrough', 'SR-IOV vGPU'],
+    status: {
+      current: GPUCardStatus.Idle,
+      isProcessing: false,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+    ],
     vram: {
-      allocatedGiB: 0,
-      totalGiB: 49152,
+      allocatedMiB: 0,
+      totalMiB: 49152,
       utilizationPercent: 0,
     },
     gpu: {
@@ -450,13 +456,20 @@ export const mockData: ResourceRow[] = [
   {
     id: 'gpu-012',
     name: 'NVIDIA A30',
-    resourceType: GpuResourceType.Unset,
+    resourceType: GPUResourceType.Unset,
     pciAddress: '0000:0c:00.0',
-    status: GpuStatus.Unassigned,
-    supportTypes: ['passThrough', 'SR-IOV vGPU', 'MIG-backed vGPU'],
+    status: {
+      current: GPUCardStatus.Unassigned,
+      isProcessing: false,
+    },
+    supportResourceTypes: [
+      GPUSupportResourceType.Pgpu,
+      GPUSupportResourceType.SriovVgpu,
+      GPUSupportResourceType.MigBackedVgpu,
+    ],
     vram: {
-      allocatedGiB: 0,
-      totalGiB: 24576,
+      allocatedMiB: 0,
+      totalMiB: 24576,
       utilizationPercent: 0,
     },
     gpu: {

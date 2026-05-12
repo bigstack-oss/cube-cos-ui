@@ -13,16 +13,19 @@ import {
 } from '../CosBasicTable/cosTableUtils'
 import { CreateCosTableColumn } from '../CosBasicTable/rendering/CosTableColumn'
 import { CosTableSubRow } from '../CosBasicTable/rendering/CosTableSubRow'
-import { DetailCell } from './DetailCell'
+import { DetailCell } from './DetailCell/DetailCell'
 import { useColumnCount } from './useColumnCount'
+import { CustomizedDetailCell } from './DetailCell/CustomizedDetailCell'
 
 export type CosViewDetailsTableProps<ParentRow extends CosTableRow> = Omit<
   CosBasicTableProps<ParentRow> & {
     expandedRowIdSet: Set<string>
     onExpandChange: (parentRowId: string, value: boolean) => void
     detailTitle?: string | ((parentRow: ParentRow) => string)
-    getDetailItems: (parentRow: ParentRow) => CosViewDetailsTableDetailItem[]
+    getDetailItems?: (parentRow: ParentRow) => CosViewDetailsTableDetailItem[]
+    getCustomizedDetailCell?: (parentRow: ParentRow) => ReactNode
     beforeExpandButton?: (parentRow: ParentRow) => ReactNode
+    isRowExpandDisabled?: (row: ParentRow) => boolean
   },
   'rowClassName'
 >
@@ -32,6 +35,10 @@ const expandButton = cva('transition-transform', {
     isExpanded: {
       true: 'rotate-180',
       false: 'rotate-0',
+    },
+    disabled: {
+      true: 'cursor-not-allowed text-functional-border-divider',
+      false: 'text-functional-text',
     },
   },
 })
@@ -45,7 +52,9 @@ const CosViewDetailsTable = <ParentRow extends CosTableRow>(
     onExpandChange: onExpandChangeProp,
     detailTitle,
     getDetailItems,
+    getCustomizedDetailCell,
     beforeExpandButton,
+    isRowExpandDisabled,
     ...restProps
   } = props
 
@@ -91,23 +100,63 @@ const CosViewDetailsTable = <ParentRow extends CosTableRow>(
     return detailTitle
   }
 
+  const renderDetailCells = (row: ParentRow) => {
+    if ('getDetailItems' in props && 'getDetailCells' in props) {
+      console.warn(
+        'Props "getDetailItems" and "getDetailCells" cannot be used at the same time. Please choose one.',
+      )
+    }
+
+    if (getDetailItems) {
+      return (
+        <DetailCell
+          isExpanded={isExpanded(row.id)}
+          title={computeDetailTitle(row)}
+          items={getDetailItems(row)}
+        />
+      )
+    }
+
+    if (getCustomizedDetailCell) {
+      return (
+        <CustomizedDetailCell
+          isExpanded={isExpanded(row.id)}
+          children={getCustomizedDetailCell(row)}
+        />
+      )
+    }
+
+    console.warn(
+      'One of the props "getDetailItems" and "getDetailCells" must be provided.',
+    )
+
+    return null
+  }
+
+  const renderExpandButton = (parentRow: ParentRow) => {
+    const disabled = isRowExpandDisabled?.(parentRow) ?? false
+    return (
+      <div className="flex items-center">
+        {beforeExpandButton?.(parentRow)}
+        <button
+          type="button"
+          className={expandButton({
+            isExpanded: isExpanded(parentRow.id),
+            disabled,
+          })}
+          onClick={() => onExpandChange(parentRow.id)}
+          disabled={disabled}
+        >
+          <ChevronDown className="icon-md" />
+        </button>
+      </div>
+    )
+  }
+
   return (
     <TypedBasicTable {...restProps} rowClassName={computeParentRowClassName}>
       <TypedBasicTable.Column skeletonVariant="icon-only" fitContent={true}>
-        {(_, parentRow) => (
-          <div className="flex items-center">
-            {beforeExpandButton?.(parentRow)}
-            <button
-              type="button"
-              className={expandButton({
-                isExpanded: isExpanded(parentRow.id),
-              })}
-              onClick={() => onExpandChange(parentRow.id)}
-            >
-              <ChevronDown className="icon-md text-functional-text" />
-            </button>
-          </div>
-        )}
+        {(_, parentRow) => renderExpandButton(parentRow)}
       </TypedBasicTable.Column>
       {children}
       <CosTableSubRow
@@ -118,13 +167,7 @@ const CosViewDetailsTable = <ParentRow extends CosTableRow>(
         <TypedBasicTable.Column />
         {/* Details column. */}
         <TypedBasicTable.Column colSpan={columnCount}>
-          {(_, row) => (
-            <DetailCell
-              isExpanded={isExpanded(row.id)}
-              title={computeDetailTitle(row)}
-              items={getDetailItems(row)}
-            />
-          )}
+          {(_, row) => renderDetailCells(row)}
         </TypedBasicTable.Column>
       </CosTableSubRow>
     </TypedBasicTable>
