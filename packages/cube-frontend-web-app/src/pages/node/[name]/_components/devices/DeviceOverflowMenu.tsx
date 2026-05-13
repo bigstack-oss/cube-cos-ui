@@ -4,7 +4,7 @@ import {
   CosOverflowMenu,
   type CosOverflowMenuItemProps,
 } from '@cube-frontend/ui-library'
-import OverflowMenuVertical from '@cube-frontend/ui-library/icons/monochrome/overflow_menu_vertical.svg?react'
+import OverflowMenuHorizontal from '@cube-frontend/ui-library/icons/monochrome/overflow_menu_horizontal.svg?react'
 import { DeviceRow } from './nodeDevicesUtils'
 
 type DeviceOverflowMenuProps = {
@@ -81,7 +81,7 @@ export const DeviceOverflowMenu = (props: DeviceOverflowMenuProps) => {
   return (
     <CosOverflowMenu
       triggerElement={
-        <OverflowMenuVertical className="icon-md cursor-pointer" />
+        <OverflowMenuHorizontal className="icon-md cursor-pointer" />
       }
     >
       {diskActions.map((itemProps) => (
