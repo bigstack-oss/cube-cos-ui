@@ -13,7 +13,7 @@ export enum GpuStatus {
   InUse = 'in-use', // One or more VMs attached
 }
 
-type ResourceProfile = {
+export type ResourceProfile = {
   id: string
   name: string
   vramMb: number

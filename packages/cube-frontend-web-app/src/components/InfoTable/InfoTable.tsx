@@ -130,7 +130,7 @@ const InfoTable = <Row extends InfoTableRow>(props: InfoTableProps<Row>) => {
 
   const renderVerticalScrollTable = () => {
     return (
-      <div className="flex w-fit flex-col gap-y-2">
+      <div className="flex w-full flex-col gap-y-2">
         {renderTitle()}
         {isLoading ? (
           renderLoadingSpinner()

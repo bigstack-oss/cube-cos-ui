@@ -9,7 +9,7 @@ import {
 } from '@cube-frontend/ui-library'
 import { Node } from '@cube-frontend/api'
 import OverflowMenuHorizontal from '@cube-frontend/ui-library/icons/monochrome/overflow_menu_horizontal.svg?react'
-import { ResourceEditModal } from './ResourceEditModal'
+
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
 import {
   GpuResourceType,
@@ -18,6 +18,7 @@ import {
   NodeResourceInner,
 } from './mockResources'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
+import { EditResourceModal } from './gpuResource/EditResourceModal'
 
 export type ResourceRow = CosTableRow & NodeResourceInner
 
@@ -166,7 +167,7 @@ const NodeResources = (props: NodeResourcesProps) => {
           </ResourceTable.Column>
         </ResourceTable>
       </CosGeneralPanel>
-      <ResourceEditModal
+      <EditResourceModal
         isModalOpen={!!editTarget}
         resource={editTarget}
         onClose={closeResourceEditModal}
