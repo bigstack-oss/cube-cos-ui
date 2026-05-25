@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import {
+  CosButton,
   CosGeneralPanel,
   CosLoadingSpinner,
   CosOverflowMenu,
@@ -17,6 +18,7 @@ import {
 import OverflowMenuHorizontal from '@cube-frontend/ui-library/icons/monochrome/overflow_menu_horizontal.svg?react'
 import { ResourceEditModal } from '../ResourceEditModal'
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
+import FullScreen from '@cube-frontend/ui-library/icons/monochrome/full_screen.svg?react'
 import { mockGpuResource } from '../mockGpuResources'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
 import GpuDetails from './GpuDetails'
@@ -24,6 +26,7 @@ import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterCont
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
+import { GpuDetailsFullViewModal } from './GpuDetailsFullViewModal/GpuDetailsFullViewModal'
 
 export type GpuResourceRow = CosTableRow & ListNodeGPUCardsResponseDataInner
 
@@ -68,9 +71,25 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
 
   usePolling(refreshGpuResources, GPU_POLLING_INTERVAL)
 
+  const [resourceIdToFullView, setResourceIdToFullView] = useState<
+    string | null
+  >(null)
+
   const [resourceIdToEdit, setResourceIdToEdit] = useState<string | null>(null)
 
+  const fullViewTarget = gpuResources.find(
+    (row) => row.id === resourceIdToFullView,
+  )
+
   const editTarget = mockGpuResource.find((row) => row.id === resourceIdToEdit)
+
+  const openResourceFullView = (row: GpuResourceRow) => {
+    setResourceIdToFullView(row.id)
+  }
+
+  const closeResourceFullView = () => {
+    setResourceIdToFullView(null)
+  }
 
   const openResourceEditModal = (row: GpuResourceRow) => {
     setResourceIdToEdit(row.id)
@@ -168,7 +187,17 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   const { expandedRowIdSet, onExpandChange } = useExpandedRowIdSet()
 
   const renderDetailsTable = (row: GpuResourceRow) => {
-    return <GpuDetails row={row} />
+    return (
+      <div className="flex w-full justify-between gap-x-4">
+        <GpuDetails row={row} />
+        <CosButton
+          type="ghost"
+          usage="icon-only"
+          Icon={FullScreen}
+          onClick={() => openResourceFullView(row)}
+        />
+      </div>
+    )
   }
 
   const isRowExpandDisabled = (row: GpuResourceRow) => {
@@ -242,6 +271,11 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
           </GpuResourceTable.Column>
         </GpuResourceTable>
       </CosGeneralPanel>
+      <GpuDetailsFullViewModal
+        isModalOpen={!!fullViewTarget}
+        resource={fullViewTarget}
+        onClose={closeResourceFullView}
+      />
       <ResourceEditModal
         isModalOpen={!!editTarget}
         resource={editTarget}

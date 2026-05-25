@@ -44,7 +44,7 @@ const GpuDetails = (props: GpuDetailsProps) => {
     row: ListNodeGPUCardsResponseDataInnerAttachedInstancesInner,
   ) => {
     return (
-      <div className="flex flex-row gap-x-4">
+      <div className="flex w-full flex-row gap-x-4">
         <CosHyperlink
           size="sm"
           variant="text-inline"
