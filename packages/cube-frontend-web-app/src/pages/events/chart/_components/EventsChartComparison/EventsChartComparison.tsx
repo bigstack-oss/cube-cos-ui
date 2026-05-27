@@ -4,19 +4,18 @@ import {
   GetEventFilterConditionResponseDataInstance,
   GetEventFilterConditionResponseDataSystem,
 } from '@cube-frontend/api'
-import { CosGeneralPanel } from '@cube-frontend/ui-library'
-import { BarChart } from './BarChart/BarChart'
+import { CosColumnChart, CosGeneralPanel } from '@cube-frontend/ui-library'
 import { FilterDropdown } from '../FilterDropdown'
+import { FilterEmpty } from '../FilterEmpty'
+import { useFilterLabel } from '../useFilterLabel'
+import { ChartQuery, FilterOptions } from '../useEventsChartQuery'
 import { useRankedEvents } from '../useRankedEvents'
 import {
   ChartType,
   FilterKeysResponse,
   getFilterKeyByChartType,
 } from '../utils'
-import { ChartEmpty } from '../ChartEmpty'
-import { FilterEmpty } from '../FilterEmpty'
-import { ChartQuery, FilterOptions } from '../useEventsChartQuery'
-import { useFilterLabel } from '../useFilterLabel'
+import { useEventsChartComparison } from './useEventsChartComparison'
 
 const chartType: ChartType = 'comparison'
 
@@ -27,7 +26,6 @@ type EventsChartComparisonProps = {
     | GetEventFilterConditionResponseDataHost
     | GetEventFilterConditionResponseDataInstance
     | undefined
-
   chartQuery: ChartQuery
   onFieldChange: <Key extends keyof FilterOptions>(
     key: Key,
@@ -49,12 +47,16 @@ export const EventsChartComparison = (props: EventsChartComparisonProps) => {
   } = props
 
   const { t } = useTranslation()
-
   const { getFilterLabel } = useFilterLabel()
 
   const { isRankedEventsLoading, rankedEvents } = useRankedEvents(
     chartType,
     chartQuery,
+  )
+
+  const { data, tooltipCallbackFn, onBarClick } = useEventsChartComparison(
+    chartQuery,
+    rankedEvents,
   )
 
   const renderFilters = () => {
@@ -68,6 +70,7 @@ export const EventsChartComparison = (props: EventsChartComparisonProps) => {
       )
 
       if (!filterKey) return null
+
       return (
         <FilterDropdown
           key={`${chartQuery.type}-${chartType}-${filterKey}`}
@@ -83,21 +86,6 @@ export const EventsChartComparison = (props: EventsChartComparisonProps) => {
     })
   }
 
-  const renderChart = () => {
-    if (!isRankedEventsLoading && rankedEvents.length === 0)
-      return <ChartEmpty />
-
-    return (
-      <div className="w-full px-5 py-3">
-        <BarChart
-          isRankedEventsLoading={isRankedEventsLoading}
-          rankedEvents={rankedEvents}
-          chartQuery={chartQuery}
-        />
-      </div>
-    )
-  }
-
   return (
     <CosGeneralPanel
       topic={t('events.chart.eventIdComparison')}
@@ -105,7 +93,15 @@ export const EventsChartComparison = (props: EventsChartComparisonProps) => {
         <div className="flex items-center gap-2">{renderFilters()}</div>
       }
     >
-      {renderChart()}
+      <div className="w-full px-5 py-3">
+        <CosColumnChart
+          isLoading={isRankedEventsLoading}
+          data={data}
+          yAxisTitle={t('events.chart.numberOfOccurrences')}
+          tooltipCallbackFn={tooltipCallbackFn}
+          onBarClick={onBarClick}
+        />
+      </div>
     </CosGeneralPanel>
   )
 }
