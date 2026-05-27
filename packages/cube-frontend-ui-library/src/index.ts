@@ -1,5 +1,6 @@
 export * from './components/CosBackButton/CosBackButton'
 export * from './components/CosProgressBarChart/CosProgressBarChart'
+export * from './components/CosChart'
 export {
   type CosBasicTableProps,
   GetCosBasicTable,
