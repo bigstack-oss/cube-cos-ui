@@ -31,6 +31,7 @@ export type CosModalProps = {
    * @default true
    */
   isCancelButtonVisible?: boolean
+  cancelButtonProps?: Pick<CosButtonProps, 'disabled'>
   bodyRef?: React.RefObject<HTMLDivElement | null>
   onActionClick?: () => void
   onCloseClick: () => void
@@ -52,6 +53,7 @@ export const CosModal = (props: CosModalProps) => {
     actionText = t('component.modal.action'),
     actionButtonProps,
     isCancelButtonVisible = true,
+    cancelButtonProps,
     bodyRef,
     onActionClick,
     onCloseClick,
@@ -111,6 +113,7 @@ export const CosModal = (props: CosModalProps) => {
                 usage="text-only"
                 size="lg"
                 onClick={onCloseClick}
+                {...cancelButtonProps}
               >
                 {t('component.modal.cancel')}
               </CosButton>

@@ -16,10 +16,8 @@ import {
   NodesApiListNodeGPUCardsRequest,
 } from '@cube-frontend/api'
 import OverflowMenuHorizontal from '@cube-frontend/ui-library/icons/monochrome/overflow_menu_horizontal.svg?react'
-import { ResourceEditModal } from '../ResourceEditModal'
 import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_filled.svg?react'
 import FullScreen from '@cube-frontend/ui-library/icons/monochrome/full_screen.svg?react'
-import { mockGpuResource } from '../mockGpuResources'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
 import GpuDetails from './GpuDetails'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
@@ -27,6 +25,7 @@ import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/use
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { GpuDetailsFullViewModal } from './GpuDetailsFullViewModal/GpuDetailsFullViewModal'
+import { EditGPUResourceModal } from './EditGPUResourceModal/EditGPUResourceModal'
 
 export type GpuResourceRow = CosTableRow & ListNodeGPUCardsResponseDataInner
 
@@ -81,7 +80,7 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
     (row) => row.id === resourceIdToFullView,
   )
 
-  const editTarget = mockGpuResource.find((row) => row.id === resourceIdToEdit)
+  const editTarget = gpuResources.find((row) => row.id === resourceIdToEdit)
 
   const openResourceFullView = (row: GpuResourceRow) => {
     setResourceIdToFullView(row.id)
@@ -176,9 +175,10 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
         }
       >
         <CosOverflowMenu.Item
-          title="Edit Resource Type"
+          title="Edit GPU Type"
           type="plain"
           onClick={() => openResourceEditModal(row)}
+          disabled={row.status.current === GPUCardStatus.InUse}
         />
       </CosOverflowMenu>
     )
@@ -271,16 +271,21 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
           </GpuResourceTable.Column>
         </GpuResourceTable>
       </CosGeneralPanel>
-      <GpuDetailsFullViewModal
-        isModalOpen={!!fullViewTarget}
-        resource={fullViewTarget}
-        onClose={closeResourceFullView}
-      />
-      <ResourceEditModal
-        isModalOpen={!!editTarget}
-        resource={editTarget}
-        onClose={closeResourceEditModal}
-      />
+      {fullViewTarget && (
+        <GpuDetailsFullViewModal
+          isModalOpen={!!fullViewTarget}
+          resource={fullViewTarget}
+          onClose={closeResourceFullView}
+        />
+      )}
+      {editTarget && (
+        <EditGPUResourceModal
+          isModalOpen={!!editTarget}
+          nodeName={node?.hostname}
+          resource={editTarget}
+          onClose={closeResourceEditModal}
+        />
+      )}
     </>
   )
 }

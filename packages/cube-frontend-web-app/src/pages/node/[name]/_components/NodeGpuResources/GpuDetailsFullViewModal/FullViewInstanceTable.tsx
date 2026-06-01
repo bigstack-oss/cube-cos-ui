@@ -83,9 +83,11 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
 
   return (
     <div className="flex flex-col gap-y-2">
-      <div className="primary-body3 text-functional-text">{title}</div>
+      <div className="primary-body3 font-semibold text-functional-title">
+        {title}
+      </div>
       <InstanceTable rows={instancesInView}>
-        <InstanceTable.Column property="name" label="Instance" />
+        <InstanceTable.Column property="name" label="Instance" emphasize />
         <InstanceTable.Column property="profileAlias" label="Alias" />
         <InstanceTable.Column property="utilizationPercent" label="Utilization">
           {(utilizationPercent) => `${utilizationPercent} %`}

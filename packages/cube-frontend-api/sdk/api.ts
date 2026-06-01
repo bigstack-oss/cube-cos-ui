@@ -9724,6 +9724,18 @@ export interface ListNodeGPUCardsResponseDataInner {
     'allocationSummary': ListNodeGPUCardsResponseDataInnerAllocationSummary | null;
     /**
      * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'profileCountLimit': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'vramLimitMiB': number | null;
+    /**
+     * 
      * @type {Array<ListNodeGPUCardsResponseDataInnerProfilesInner>}
      * @memberof ListNodeGPUCardsResponseDataInner
      */
@@ -14039,6 +14051,121 @@ export interface UpdateNodeDeviceResponse {
      * 
      * @type {string}
      * @memberof UpdateNodeDeviceResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeGPUCard409Response
+ */
+export interface UpdateNodeGPUCard409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeGPUCard409Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCard409Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCard409Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeGPUCard500Response
+ */
+export interface UpdateNodeGPUCard500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeGPUCard500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCard500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCard500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeGPUCardPutRequest
+ */
+export interface UpdateNodeGPUCardPutRequest {
+    /**
+     * 
+     * @type {GPUSupportResourceType}
+     * @memberof UpdateNodeGPUCardPutRequest
+     */
+    'resourceType': GPUSupportResourceType;
+    /**
+     * 
+     * @type {Array<UpdateNodeGPUCardPutRequestProfilesInner>}
+     * @memberof UpdateNodeGPUCardPutRequest
+     */
+    'profiles'?: Array<UpdateNodeGPUCardPutRequestProfilesInner>;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface UpdateNodeGPUCardPutRequestProfilesInner
+ */
+export interface UpdateNodeGPUCardPutRequestProfilesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCardPutRequestProfilesInner
+     */
+    'id': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeGPUCardPutRequestProfilesInner
+     */
+    'count': number;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateNodeGPUCardResponse
+ */
+export interface UpdateNodeGPUCardResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeGPUCardResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCardResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCardResponse
      */
     'status': string;
 }
@@ -25149,6 +25276,58 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Update node GPU card
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} gpuId A UUID with a \&quot;GPU-\&quot; prefix
+         * @param {UpdateNodeGPUCardPutRequest} updateNodeGPUCardPutRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeGPUCard: async (dataCenter: string, nodeName: string, gpuId: string, updateNodeGPUCardPutRequest: UpdateNodeGPUCardPutRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('updateNodeGPUCard', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('updateNodeGPUCard', 'nodeName', nodeName)
+            // verify required parameter 'gpuId' is not null or undefined
+            assertParamExists('updateNodeGPUCard', 'gpuId', gpuId)
+            // verify required parameter 'updateNodeGPUCardPutRequest' is not null or undefined
+            assertParamExists('updateNodeGPUCard', 'updateNodeGPUCardPutRequest', updateNodeGPUCardPutRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/gpuCards/{gpuId}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"gpuId"}}`, encodeURIComponent(String(gpuId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateNodeGPUCardPutRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update an OSD on the node
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -25457,6 +25636,22 @@ export const NodesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Update node GPU card
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} gpuId A UUID with a \&quot;GPU-\&quot; prefix
+         * @param {UpdateNodeGPUCardPutRequest} updateNodeGPUCardPutRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateNodeGPUCard(dataCenter: string, nodeName: string, gpuId: string, updateNodeGPUCardPutRequest: UpdateNodeGPUCardPutRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateNodeGPUCardResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateNodeGPUCard(dataCenter, nodeName, gpuId, updateNodeGPUCardPutRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.updateNodeGPUCard']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Update an OSD on the node
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} nodeName The name of the node
@@ -25625,6 +25820,16 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
          */
         updateNodeDevice(requestParameters: NodesApiUpdateNodeDeviceRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateNodeDeviceResponse> {
             return localVarFp.updateNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, requestParameters.updateNodeDeviceRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update node GPU card
+         * @param {NodesApiUpdateNodeGPUCardRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateNodeGPUCard(requestParameters: NodesApiUpdateNodeGPUCardRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateNodeGPUCardResponse> {
+            return localVarFp.updateNodeGPUCard(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.gpuId, requestParameters.updateNodeGPUCardPutRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -26035,6 +26240,41 @@ export interface NodesApiUpdateNodeDeviceRequest {
 }
 
 /**
+ * Request parameters for updateNodeGPUCard operation in NodesApi.
+ * @export
+ * @interface NodesApiUpdateNodeGPUCardRequest
+ */
+export interface NodesApiUpdateNodeGPUCardRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiUpdateNodeGPUCard
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiUpdateNodeGPUCard
+     */
+    readonly nodeName: string
+
+    /**
+     * A UUID with a \&quot;GPU-\&quot; prefix
+     * @type {string}
+     * @memberof NodesApiUpdateNodeGPUCard
+     */
+    readonly gpuId: string
+
+    /**
+     * 
+     * @type {UpdateNodeGPUCardPutRequest}
+     * @memberof NodesApiUpdateNodeGPUCard
+     */
+    readonly updateNodeGPUCardPutRequest: UpdateNodeGPUCardPutRequest
+}
+
+/**
  * Request parameters for updateNodeOsd operation in NodesApi.
  * @export
  * @interface NodesApiUpdateNodeOsdRequest
@@ -26258,6 +26498,18 @@ export class NodesApi extends BaseAPI {
      */
     public updateNodeDevice(requestParameters: NodesApiUpdateNodeDeviceRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).updateNodeDevice(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.deviceName, requestParameters.updateNodeDeviceRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update node GPU card
+     * @param {NodesApiUpdateNodeGPUCardRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public updateNodeGPUCard(requestParameters: NodesApiUpdateNodeGPUCardRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).updateNodeGPUCard(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.gpuId, requestParameters.updateNodeGPUCardPutRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

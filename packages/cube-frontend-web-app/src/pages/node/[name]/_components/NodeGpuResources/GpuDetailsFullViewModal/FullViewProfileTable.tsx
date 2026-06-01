@@ -43,9 +43,11 @@ export const FullViewProfileTable = (props: FullViewProfileTableProps) => {
 
   return (
     <div className="flex flex-col gap-y-2">
-      <div className="primary-body3 text-functional-text">{title}</div>
+      <div className="primary-body3 font-semibold text-functional-title">
+        {title}
+      </div>
       <ProfileTable rows={profilesInView}>
-        <ProfileTable.Column property="name" label="Profiles / ID" />
+        <ProfileTable.Column property="name" label="Profiles / ID" emphasize />
         <ProfileTable.Column property="vramMiB" label="VRAM">
           {(vramMiB) => toReadableSizeString(vramMiB, 'MiB')}
         </ProfileTable.Column>
