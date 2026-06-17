@@ -1,24 +1,23 @@
 import { twMerge } from 'tailwind-merge'
-import {
-  ListNodeGPUCardsResponseDataInner,
-  ListNodeGPUCardsResponseDataInnerProfilesInner,
-} from '@cube-frontend/api'
 import { GetInfoTable } from '@cube-frontend/web-app/components/InfoTable/InfoTable'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
 import { confirmTableStyles } from './tableStyles'
-import { getResourceTypeLabel } from '../editGPUResourceUtils'
+import { ConfirmTableData, getResourceTypeLabel } from '../editGPUResourceUtils'
+import { GPUProfileRow } from '../../utils'
 
-const ConfirmTableInfoTable =
-  GetInfoTable<ListNodeGPUCardsResponseDataInnerProfilesInner>()
+const ConfirmTableInfoTable = GetInfoTable<GPUProfileRow>()
 
 type ConfirmTableProps = {
-  confirmTableData: ListNodeGPUCardsResponseDataInner
+  confirmTableData: ConfirmTableData
 }
 
 export const ConfirmTable = (props: ConfirmTableProps) => {
   const { confirmTableData } = props
 
   const isPgpu = confirmTableData.resourceType === 'pgpu'
+
+  const profileRows = confirmTableData.editedProfiles
+  const profileCount = profileRows.length
 
   return (
     <div className="flex w-full flex-col gap-y-2">
@@ -54,8 +53,8 @@ export const ConfirmTable = (props: ConfirmTableProps) => {
             <tr>
               <td colSpan={3} className={confirmTableStyles.bodyTd()}>
                 <ConfirmTableInfoTable
-                  rows={confirmTableData.profiles ?? []}
-                  title={`Profiles/ ID (${confirmTableData.profiles?.length ?? 0})`}
+                  rows={profileRows}
+                  title={`Profiles/ ID (${profileCount})`}
                   scrollBehavior="vertical"
                 >
                   <ConfirmTableInfoTable.Column property="name" />

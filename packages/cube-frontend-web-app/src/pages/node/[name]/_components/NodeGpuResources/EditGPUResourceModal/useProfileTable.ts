@@ -5,7 +5,10 @@ import {
   ListNodeGPUCardsResponseDataInner,
 } from '@cube-frontend/api'
 import {
+  checkActiveMigBackedVgpuProfileValidity,
+  checkActiveSriovVgpuProfileValidity,
   createFormState,
+  ConfirmTableData,
   getConfirmTableData,
   getProfileLimits,
   ProfileFormSummary,
@@ -24,7 +27,7 @@ export type UseProfileTable = {
   profileLimits: ProfileLimits
   profileFormSummary: ProfileFormSummary
   isActionButtonDisabled: boolean
-  confirmTableData: ListNodeGPUCardsResponseDataInner | null
+  confirmTableData: ConfirmTableData | null
   onResourceTypeChange: (resourceType: GPUSupportResourceType) => void
   onSriovVgpuProfileCheck: (rowId: string, checked: boolean) => void
   onMigVgpuProfileCheck: (rowId: string, checked: boolean) => void
@@ -142,34 +145,39 @@ export const useProfileTable = (
     const isCheckedProfilesEmpty = !profileTable[selectedResourceType].some(
       (profile) => profile.checked && profile.count > 0,
     )
-    const isCountsLimitExceeded =
+    const isAllCountsValid =
       selectedResourceType === 'sriovVgpu'
-        ? profileFormSummary.sriovVgpu.count > profileLimits.count
-        : profileFormSummary.migBackedVgpu.count > profileLimits.count ||
-          profileFormSummary.migBackedVgpu.vramMiB > profileLimits.vramMiB
+        ? checkActiveSriovVgpuProfileValidity(
+            profileLimits,
+            profileFormSummary.sriovVgpu,
+          )
+        : checkActiveMigBackedVgpuProfileValidity(
+            profileLimits,
+            profileFormSummary.migBackedVgpu,
+            profileTable.migBackedVgpu,
+          )
 
-    return isCheckedProfilesEmpty || isCountsLimitExceeded
+    return isCheckedProfilesEmpty || !isAllCountsValid
   }, [
-    profileFormSummary,
-    profileLimits.count,
-    profileLimits.vramMiB,
+    profileFormSummary.migBackedVgpu,
+    profileFormSummary.sriovVgpu,
+    profileLimits,
     profileTable,
     selectedResourceType,
   ])
 
-  const confirmTableData =
-    useMemo<ListNodeGPUCardsResponseDataInner | null>(() => {
-      if (!selectedResourceType) return null
+  const confirmTableData = useMemo<ConfirmTableData | null>(() => {
+    if (!selectedResourceType) return null
 
-      return getConfirmTableData({
-        resource: editingResource,
-        selectedResourceType,
-        selectedProfileTableRow:
-          selectedResourceType === 'pgpu'
-            ? []
-            : profileTable[selectedResourceType],
-      })
-    }, [editingResource, selectedResourceType, profileTable])
+    return getConfirmTableData({
+      resource: editingResource,
+      selectedResourceType,
+      selectedProfileTableRow:
+        selectedResourceType === 'pgpu'
+          ? []
+          : profileTable[selectedResourceType],
+    })
+  }, [editingResource, selectedResourceType, profileTable])
 
   return {
     editingResource,

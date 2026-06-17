@@ -1,9 +1,9 @@
 import { CosContentSwitcher, CosModal } from '@cube-frontend/ui-library'
-import { GpuResourceRow } from '../NodeGpuResources'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { GPUResourceType } from '@cube-frontend/api'
 import { FullViewInstanceTable } from './FullViewInstanceTable'
 import { FullViewProfileTable } from './FullViewProfileTable'
+import { GpuResourceRow, getProfilesByResourceType } from '../utils'
 
 type FullViewTab = 'profiles' | 'instances'
 
@@ -23,12 +23,16 @@ export const GpuDetailsFullViewModal = (
   const [activeTab, setActiveTab] = useState<FullViewTab>('profiles')
 
   useEffect(() => {
-    if (resource?.resourceType === GPUResourceType.Pgpu) {
+    if (isPgpu) {
       setActiveTab('instances')
     } else {
       setActiveTab('profiles')
     }
-  }, [resource?.resourceType])
+  }, [isPgpu])
+
+  const profiles = useMemo(() => {
+    return resource ? getProfilesByResourceType(resource) : []
+  }, [resource])
 
   const tabTitleMap: Record<FullViewTab, string> = {
     profiles: 'Profiles / ID',
@@ -39,7 +43,7 @@ export const GpuDetailsFullViewModal = (
     profiles: () => (
       <FullViewProfileTable
         title={tabTitleMap['profiles']}
-        profiles={resource?.profiles ?? []}
+        profiles={profiles}
       />
     ),
     instances: () => (

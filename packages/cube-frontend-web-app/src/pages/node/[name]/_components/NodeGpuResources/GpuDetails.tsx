@@ -1,17 +1,18 @@
-import {
-  ListNodeGPUCardsResponseDataInnerAttachedInstancesInner,
-  ListNodeGPUCardsResponseDataInnerProfilesInner,
-} from '@cube-frontend/api'
+import { ListNodeGPUCardsResponseDataInnerAttachedInstancesInner } from '@cube-frontend/api'
 import { GetInfoTable } from '@cube-frontend/web-app/components/InfoTable/InfoTable'
 import {
   toReadableSizeString,
   toReadableUsedSize,
 } from '@cube-frontend/web-app/utils/byte'
-import { GpuResourceRow } from './NodeGpuResources'
 import { CosHyperlink } from '@cube-frontend/ui-library'
+import { useMemo } from 'react'
+import {
+  GpuResourceRow,
+  GPUProfileRow,
+  getProfilesByResourceType,
+} from './utils'
 
-const GpuProfilesInfoTable =
-  GetInfoTable<ListNodeGPUCardsResponseDataInnerProfilesInner>()
+const GpuProfilesInfoTable = GetInfoTable<GPUProfileRow>()
 
 const GpuAttachedInstanceInfoTable =
   GetInfoTable<ListNodeGPUCardsResponseDataInnerAttachedInstancesInner>()
@@ -23,7 +24,9 @@ export type GpuDetailsProps = {
 const GpuDetails = (props: GpuDetailsProps) => {
   const { row } = props
 
-  const profileCount = row.profiles?.length ?? 0
+  const profiles = useMemo(() => getProfilesByResourceType(row), [row])
+
+  const profileCount = profiles?.length ?? 0
   const profileTitle = `Profiles / ID (${profileCount})`
 
   const attachedInstanceCount = row.attachedInstances?.length ?? 0
@@ -67,10 +70,10 @@ const GpuDetails = (props: GpuDetailsProps) => {
 
   return (
     <div className="flex flex-col gap-y-9">
-      {row.resourceType !== 'pgpu' && (
+      {profiles.length > 0 && (
         <GpuProfilesInfoTable
           title={profileTitle}
-          rows={row.profiles || []}
+          rows={profiles}
           isLoading={false}
           scrollBehavior="horizontal"
         >

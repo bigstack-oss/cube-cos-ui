@@ -2393,6 +2393,55 @@ export type GPUCardStatus = typeof GPUCardStatus[keyof typeof GPUCardStatus];
 /**
  * 
  * @export
+ * @interface GPUProfile
+ */
+export interface GPUProfile {
+    /**
+     * 
+     * @type {number}
+     * @memberof GPUProfile
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GPUProfile
+     */
+    'name': string;
+    /**
+     * Floating-point number
+     * @type {number}
+     * @memberof GPUProfile
+     */
+    'vramMiB': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GPUProfile
+     */
+    'count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GPUProfile
+     */
+    'remaining': number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GPUProfile
+     */
+    'aliasName': string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof GPUProfile
+     */
+    'countLimit': number | null;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -9709,13 +9758,13 @@ export interface ListNodeGPUCardsResponseDataInner {
      * @type {ListNodeGPUCardsResponseDataInnerVram}
      * @memberof ListNodeGPUCardsResponseDataInner
      */
-    'vram': ListNodeGPUCardsResponseDataInnerVram | null;
+    'vram': ListNodeGPUCardsResponseDataInnerVram;
     /**
      * 
      * @type {ListNodeGPUCardsResponseDataInnerGpu}
      * @memberof ListNodeGPUCardsResponseDataInner
      */
-    'gpu': ListNodeGPUCardsResponseDataInnerGpu | null;
+    'gpu': ListNodeGPUCardsResponseDataInnerGpu;
     /**
      * 
      * @type {ListNodeGPUCardsResponseDataInnerAllocationSummary}
@@ -9730,16 +9779,10 @@ export interface ListNodeGPUCardsResponseDataInner {
     'profileCountLimit': number | null;
     /**
      * 
-     * @type {number}
+     * @type {ListNodeGPUCardsResponseDataInnerProfiles}
      * @memberof ListNodeGPUCardsResponseDataInner
      */
-    'vramLimitMiB': number | null;
-    /**
-     * 
-     * @type {Array<ListNodeGPUCardsResponseDataInnerProfilesInner>}
-     * @memberof ListNodeGPUCardsResponseDataInner
-     */
-    'profiles': Array<ListNodeGPUCardsResponseDataInnerProfilesInner> | null;
+    'profiles': ListNodeGPUCardsResponseDataInnerProfiles;
     /**
      * 
      * @type {Array<ListNodeGPUCardsResponseDataInnerAttachedInstancesInner>}
@@ -9799,7 +9842,7 @@ export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInner {
      */
     'profileAlias': string | null;
     /**
-     * Floating-point number
+     * 
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
      */
@@ -9862,7 +9905,7 @@ export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUs
  */
 export interface ListNodeGPUCardsResponseDataInnerGpu {
     /**
-     * Floating-point number
+     * 
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerGpu
      */
@@ -9871,45 +9914,21 @@ export interface ListNodeGPUCardsResponseDataInnerGpu {
 /**
  * 
  * @export
- * @interface ListNodeGPUCardsResponseDataInnerProfilesInner
+ * @interface ListNodeGPUCardsResponseDataInnerProfiles
  */
-export interface ListNodeGPUCardsResponseDataInnerProfilesInner {
+export interface ListNodeGPUCardsResponseDataInnerProfiles {
     /**
      * 
-     * @type {string}
-     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
+     * @type {Array<GPUProfile>}
+     * @memberof ListNodeGPUCardsResponseDataInnerProfiles
      */
-    'id': string;
+    'sriovVgpu': Array<GPUProfile> | null;
     /**
      * 
-     * @type {string}
-     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
+     * @type {Array<GPUProfile>}
+     * @memberof ListNodeGPUCardsResponseDataInnerProfiles
      */
-    'name': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
-     */
-    'vramMiB': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
-     */
-    'count': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
-     */
-    'remaining': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListNodeGPUCardsResponseDataInnerProfilesInner
-     */
-    'aliasName': string | null;
+    'migBackedVgpu': Array<GPUProfile> | null;
 }
 /**
  * 
@@ -9951,7 +9970,7 @@ export interface ListNodeGPUCardsResponseDataInnerVram {
      */
     'totalMiB': number;
     /**
-     * Floating-point number
+     * 
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerVram
      */

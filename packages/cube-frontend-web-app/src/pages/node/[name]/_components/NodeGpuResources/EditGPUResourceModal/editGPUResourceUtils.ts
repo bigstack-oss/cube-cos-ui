@@ -1,12 +1,12 @@
-import { omit } from 'lodash'
 import {
+  GPUProfile,
   GPUResourceType,
   GPUSupportResourceType,
   ListNodeGPUCardsResponseDataInner,
-  ListNodeGPUCardsResponseDataInnerProfilesInner,
   UpdateNodeGPUCardPutRequest,
   UpdateNodeGPUCardPutRequestProfilesInner,
 } from '@cube-frontend/api'
+import { GPUProfileRow } from '../utils'
 
 export const gpuResourceSteps = ['edit', 'confirm'] as const
 
@@ -22,7 +22,7 @@ export const getResourceTypeLabel = (resourceType: GPUResourceType): string => {
   return resourceType === 'unset' ? '' : resourceTypeLabelMap[resourceType]
 }
 
-export type ProfileTableRow = ListNodeGPUCardsResponseDataInnerProfilesInner & {
+export type ProfileTableRow = GPUProfileRow & {
   checked: boolean
 }
 
@@ -39,14 +39,14 @@ export const emptyProfileTable = (): ProfileTable => ({
 })
 
 export const toProfileTableRow = (
-  profile: ListNodeGPUCardsResponseDataInnerProfilesInner,
+  profile: GPUProfile,
   isInitialActive: boolean,
 ): ProfileTableRow => {
-  const { count, ...rest } = profile
+  const { count, id, ...rest } = profile
 
   return isInitialActive
-    ? { ...rest, checked: count > 0, count }
-    : { ...rest, checked: false, count: 0 }
+    ? { ...rest, id: id.toString(), checked: count > 0, count }
+    : { ...rest, id: id.toString(), checked: false, count: 0 }
 }
 
 const initGpuResourceForm = (
@@ -57,18 +57,16 @@ const initGpuResourceForm = (
 } => {
   const { resourceType, supportResourceTypes, profiles } = resource
 
-  const rows = profiles ?? []
-
   return {
     selectedResourceType:
       resourceType === 'unset'
         ? (supportResourceTypes[0] ?? null)
         : resourceType,
     profileTable: {
-      sriovVgpu: rows.map((p) =>
+      sriovVgpu: (profiles.sriovVgpu ?? []).map((p) =>
         toProfileTableRow(p, resourceType === 'sriovVgpu'),
       ),
-      migBackedVgpu: rows.map((p) =>
+      migBackedVgpu: (profiles.migBackedVgpu ?? []).map((p) =>
         toProfileTableRow(p, resourceType === 'migBackedVgpu'),
       ),
     },
@@ -97,12 +95,12 @@ export const getProfileLimits = (
   resource: ListNodeGPUCardsResponseDataInner,
 ): ProfileLimits => ({
   count: resource.profileCountLimit ?? Number.POSITIVE_INFINITY,
-  vramMiB: resource.vramLimitMiB ?? Number.POSITIVE_INFINITY,
+  vramMiB: resource.vram.totalMiB ?? Number.POSITIVE_INFINITY,
 })
 
 export type ProfileFormSummary = {
   sriovVgpu: { count: number }
-  migBackedVgpu: { count: number; vramMiB: number }
+  migBackedVgpu: { vramMiB: number }
 }
 
 const getActiveProfileRows = (rows: ProfileTableRow[]): ProfileTableRow[] =>
@@ -118,16 +116,36 @@ export const sumActiveSriovVgpuProfileUsage = (
     { count: 0 },
   )
 
+export const checkActiveSriovVgpuProfileValidity = (
+  limits: ProfileLimits,
+  summary: ProfileFormSummary['sriovVgpu'],
+): boolean => {
+  return summary.count <= limits.count
+}
+
 export const sumActiveMigBackedVgpuProfileUsage = (
   rows: ProfileTableRow[],
 ): ProfileFormSummary['migBackedVgpu'] =>
   getActiveProfileRows(rows).reduce(
     (acc, { count, vramMiB }) => ({
-      count: acc.count + count,
       vramMiB: acc.vramMiB + count * vramMiB,
     }),
-    { count: 0, vramMiB: 0 },
+    { vramMiB: 0 },
   )
+
+export const checkActiveMigBackedVgpuProfileValidity = (
+  limits: ProfileLimits,
+  summary: ProfileFormSummary['migBackedVgpu'],
+  rows: ProfileTable['migBackedVgpu'],
+): boolean => {
+  const activeRows = getActiveProfileRows(rows)
+  return (
+    summary.vramMiB <= limits.vramMiB &&
+    activeRows.every(
+      (row) => row.countLimit === null || row.count <= row.countLimit,
+    )
+  )
+}
 
 type GetConfirmTableDataProps = {
   resource: ListNodeGPUCardsResponseDataInner
@@ -135,30 +153,35 @@ type GetConfirmTableDataProps = {
   selectedProfileTableRow: ProfileTableRow[]
 }
 
+export type ConfirmTableData = Pick<
+  ListNodeGPUCardsResponseDataInner,
+  'name' | 'resourceType' | 'pciAddress'
+> & {
+  editedProfiles: ProfileTableRow[]
+}
+
 export const getConfirmTableData = (
   props: GetConfirmTableDataProps,
-): ListNodeGPUCardsResponseDataInner | null => {
+): ConfirmTableData | null => {
   const { resource, selectedResourceType, selectedProfileTableRow } = props
 
   if (!selectedResourceType) return null
 
-  const rest = omit(resource, ['profiles', 'resourceType'])
-
-  const filteredProfiles: ListNodeGPUCardsResponseDataInnerProfilesInner[] =
-    getActiveProfileRows(selectedProfileTableRow).map((row) =>
-      omit(row, 'checked'),
-    )
+  const filteredProfiles: ProfileTableRow[] = getActiveProfileRows(
+    selectedProfileTableRow,
+  )
 
   return {
-    ...rest,
+    name: resource.name,
+    pciAddress: resource.pciAddress,
     resourceType: selectedResourceType,
-    profiles: selectedResourceType === 'pgpu' ? [] : filteredProfiles,
+    editedProfiles: filteredProfiles,
   }
 }
 
 type GetPayloadProps = {
   selectedResourceType: GPUSupportResourceType | null
-  confirmTableData: ListNodeGPUCardsResponseDataInner | null
+  confirmTableData: ConfirmTableData | null
 }
 
 export const getPayload = (
@@ -171,10 +194,10 @@ export const getPayload = (
   const profiles =
     selectedResourceType === 'pgpu'
       ? undefined
-      : ((confirmTableData.profiles?.map((p) => ({
+      : (confirmTableData.editedProfiles.map((p) => ({
           id: p.id,
           count: p.count,
-        })) ?? []) satisfies UpdateNodeGPUCardPutRequestProfilesInner[])
+        })) satisfies UpdateNodeGPUCardPutRequestProfilesInner[])
 
   return {
     resourceType: selectedResourceType,

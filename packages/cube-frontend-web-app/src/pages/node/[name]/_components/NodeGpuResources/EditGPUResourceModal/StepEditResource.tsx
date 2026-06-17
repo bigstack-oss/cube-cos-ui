@@ -56,8 +56,6 @@ export const StepEditResource = (props: StepEditResourceProps) => {
         profiles={profileTable.migBackedVgpu}
         vramMiBLimit={profileLimits.vramMiB}
         vramMiBCurrentSum={profileFormSummary.migBackedVgpu.vramMiB}
-        profileCountLimit={profileLimits.count}
-        profileCountCurrentSum={profileFormSummary.migBackedVgpu.count}
         onProfileCheck={onMigVgpuProfileCheck}
         onProfileCountsChange={onMigVgpuProfileCountsChange}
       />

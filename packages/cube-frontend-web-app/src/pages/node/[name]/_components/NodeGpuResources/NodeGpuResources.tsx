@@ -4,14 +4,13 @@ import {
   CosGeneralPanel,
   CosLoadingSpinner,
   CosOverflowMenu,
-  CosTableRow,
+  CosTooltip,
   GetCosViewDetailsTable,
   useExpandedRowIdSet,
 } from '@cube-frontend/ui-library'
 import {
   GPUCardStatus,
   GPUResourceType,
-  ListNodeGPUCardsResponseDataInner,
   Node,
   NodesApiListNodeGPUCardsRequest,
 } from '@cube-frontend/api'
@@ -26,8 +25,7 @@ import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { GpuDetailsFullViewModal } from './GpuDetailsFullViewModal/GpuDetailsFullViewModal'
 import { EditGPUResourceModal } from './EditGPUResourceModal/EditGPUResourceModal'
-
-export type GpuResourceRow = CosTableRow & ListNodeGPUCardsResponseDataInner
+import { GpuResourceRow } from './utils'
 
 const GpuResourceTable = GetCosViewDetailsTable<GpuResourceRow>()
 
@@ -116,7 +114,6 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   }
 
   const renderVRamAllocation = (row: GpuResourceRow) => {
-    if (row.resourceType === GPUResourceType.Unset) return null
     if (!row.vram) return null
 
     const { total, used, sizeUnit } = toReadableUsedSize({
@@ -129,14 +126,12 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   }
 
   const renderVramUtilization = (row: GpuResourceRow) => {
-    if (row.resourceType === GPUResourceType.Unset) return null
     if (!row.vram) return null
 
     return `${row.vram.utilizationPercent}%`
   }
 
   const renderGpuUtilization = (row: GpuResourceRow) => {
-    if (row.resourceType === GPUResourceType.Unset) return null
     if (!row.gpu) return null
 
     return `${row.gpu.utilizationPercent}%`
@@ -186,20 +181,6 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
 
   const { expandedRowIdSet, onExpandChange } = useExpandedRowIdSet()
 
-  const renderDetailsTable = (row: GpuResourceRow) => {
-    return (
-      <div className="flex w-full justify-between gap-x-4">
-        <GpuDetails row={row} />
-        <CosButton
-          type="ghost"
-          usage="icon-only"
-          Icon={FullScreen}
-          onClick={() => openResourceFullView(row)}
-        />
-      </div>
-    )
-  }
-
   const isRowExpandDisabled = (row: GpuResourceRow) => {
     if (row.resourceType === GPUResourceType.Unset) {
       return true
@@ -213,6 +194,29 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
     }
 
     return false
+  }
+
+  const renderDetailsTable = (row: GpuResourceRow) => {
+    const isExpandDisabled = isRowExpandDisabled(row)
+
+    if (isExpandDisabled) return null
+
+    return (
+      <div className="flex w-full justify-between gap-x-4">
+        <GpuDetails row={row} />
+        <CosTooltip
+          hoverContent={{ message: 'Full-view' }}
+          placement="top-left"
+        >
+          <CosButton
+            type="ghost"
+            usage="icon-only"
+            Icon={FullScreen}
+            onClick={() => openResourceFullView(row)}
+          />
+        </CosTooltip>
+      </div>
+    )
   }
 
   return (

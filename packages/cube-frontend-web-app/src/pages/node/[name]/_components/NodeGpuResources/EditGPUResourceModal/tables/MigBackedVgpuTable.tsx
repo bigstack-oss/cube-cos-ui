@@ -14,8 +14,6 @@ type MigBackedVgpuTableProps = {
   profiles: ProfileTableRow[]
   vramMiBLimit: number
   vramMiBCurrentSum: number
-  profileCountLimit: number
-  profileCountCurrentSum: number
   onProfileCheck: (rowId: string, checked: boolean) => void
   onProfileCountsChange: (rowId: string, counts: number) => void
 }
@@ -27,8 +25,6 @@ export const MigBackedVgpuTable = (props: MigBackedVgpuTableProps) => {
     profiles,
     vramMiBLimit: originalVramMiBLimit,
     vramMiBCurrentSum: originalVramMiBCurrentSum,
-    profileCountLimit,
-    profileCountCurrentSum,
     onProfileCheck,
     onProfileCountsChange,
   } = props
@@ -76,11 +72,6 @@ export const MigBackedVgpuTable = (props: MigBackedVgpuTableProps) => {
             limit={{ value: vramMiBLimit, unit: vramMiBSizeUnit }}
             currentSum={{ value: vramMiBCurrentSum, unit: vramMiBSizeUnit }}
           />
-          <ProfileTableLimitHint
-            label="Counts limit"
-            limit={{ value: profileCountLimit }}
-            currentSum={{ value: profileCountCurrentSum }}
-          />
         </div>
       </div>
       <ProfileTable
@@ -92,14 +83,25 @@ export const MigBackedVgpuTable = (props: MigBackedVgpuTableProps) => {
       >
         <ProfileTable.Column label="Profile/ID" property="name" />
         <ProfileTable.Column label="Counts" property="count">
-          {(counts, row) => (
-            <CosTableInput
-              className="max-w-[59px]"
-              value={counts}
-              onChange={(e) => handleProfileCountsChange(e, row.id)}
-            />
-          )}
+          {(counts, row) => {
+            const countLimit = row.countLimit ?? Number.POSITIVE_INFINITY
+            const isCountsValid = row.checked ? counts <= countLimit : true
+
+            return (
+              <CosTableInput
+                className="max-w-[59px]"
+                value={counts}
+                onChange={(e) => handleProfileCountsChange(e, row.id)}
+                hideErrorIcon={true}
+                errorMessage={isCountsValid ? undefined : 'Wrong value'}
+              />
+            )
+          }}
         </ProfileTable.Column>
+        <ProfileTable.Column
+          label="Max. count"
+          property="countLimit"
+        ></ProfileTable.Column>
         <ProfileTable.Column label="VRAM" property="vramMiB">
           {(vramMiB) => toReadableSizeString(vramMiB, 'MiB')}
         </ProfileTable.Column>

@@ -1,7 +1,5 @@
-import { ListNodeGPUCardsResponseDataInnerProfilesInner } from '@cube-frontend/api'
 import {
   GetCosBasicTable,
-  CosTableRow,
   CosPagination,
   ItemsPerPage,
   DEFAULT_ITEMS_PER_PAGE,
@@ -9,15 +7,13 @@ import {
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
 import { useMemo, useState } from 'react'
 import { getItemsInView } from './utils'
+import { GPUProfileRow } from '../utils'
 
-type ProfileTableRow = CosTableRow &
-  ListNodeGPUCardsResponseDataInnerProfilesInner
-
-const ProfileTable = GetCosBasicTable<ProfileTableRow>()
+const ProfileTable = GetCosBasicTable<GPUProfileRow>()
 
 type FullViewProfileTableProps = {
   title: string
-  profiles: ListNodeGPUCardsResponseDataInnerProfilesInner[]
+  profiles: GPUProfileRow[]
 }
 
 export const FullViewProfileTable = (props: FullViewProfileTableProps) => {
@@ -37,7 +33,7 @@ export const FullViewProfileTable = (props: FullViewProfileTableProps) => {
     setItemPerPage(page)
   }
 
-  const profilesInView = useMemo<ProfileTableRow[]>(() => {
+  const profilesInView = useMemo<GPUProfileRow[]>(() => {
     return getItemsInView(profiles, currentPage, itemPerPage)
   }, [profiles, currentPage, itemPerPage])
 

@@ -1,10 +1,10 @@
 import ChevronLeft from '@cube-frontend/ui-library/icons/monochrome/chevron_left.svg?react'
 import { CosButton } from '@cube-frontend/ui-library'
-import { ListNodeGPUCardsResponseDataInner } from '@cube-frontend/api'
 import { ConfirmTable } from './tables/ConfirmTable'
+import { ConfirmTableData } from './editGPUResourceUtils'
 
 export type StepConfirmResourceProps = {
-  confirmTableData: ListNodeGPUCardsResponseDataInner | null
+  confirmTableData: ConfirmTableData
   onGoBackToEditClick: () => void
 }
 

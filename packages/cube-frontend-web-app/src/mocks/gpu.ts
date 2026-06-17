@@ -22,7 +22,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     profileCountLimit: 10,
-    vramLimitMiB: 81920,
     vram: {
       allocatedMiB: 32768,
       totalMiB: 81920,
@@ -35,24 +34,48 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 2,
       total: 6,
     },
-    profiles: [
-      {
-        id: 'a100-1-5c',
-        name: 'A100-1-5C',
-        vramMiB: 5120,
-        count: 16,
-        remaining: 14,
-        aliasName: 'Inference_Small',
-      },
-      {
-        id: 'a100-2-10c',
-        name: 'A100-2-10C',
-        vramMiB: 10240,
-        count: 8,
-        remaining: 7,
-        aliasName: 'Training_Medium',
-      },
-    ],
+    profiles: {
+      sriovVgpu: [
+        {
+          id: 1,
+          name: 'A100-1-5C',
+          vramMiB: 5120,
+          count: 0,
+          remaining: 0,
+          aliasName: 'Inference_Small',
+          countLimit: null,
+        },
+        {
+          id: 2,
+          name: 'A100-2-10C',
+          vramMiB: 10240,
+          count: 0,
+          remaining: 0,
+          aliasName: 'Training_Medium',
+          countLimit: null,
+        },
+      ],
+      migBackedVgpu: [
+        {
+          id: 1,
+          name: 'A100-1-5C',
+          vramMiB: 5120,
+          count: 16,
+          remaining: 14,
+          aliasName: 'Inference_Small',
+          countLimit: 16,
+        },
+        {
+          id: 2,
+          name: 'A100-2-10C',
+          vramMiB: 10240,
+          count: 8,
+          remaining: 7,
+          aliasName: 'Training_Medium',
+          countLimit: 8,
+        },
+      ],
+    },
     attachedInstances: [
       {
         id: 'vm-99',
@@ -86,10 +109,9 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     profileCountLimit: 10,
-    vramLimitMiB: 40960,
     vram: {
       allocatedMiB: 0,
-      totalMiB: 40960,
+      totalMiB: 4096000,
       utilizationPercent: 0,
     },
     gpu: {
@@ -99,16 +121,48 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 0,
       total: 4,
     },
-    profiles: [
-      {
-        id: 'a100-1-5c-40g',
-        name: 'A100-1-5C',
-        vramMiB: 5120,
-        count: 8,
-        remaining: 8,
-        aliasName: 'Inference_Small',
-      },
-    ],
+    profiles: {
+      sriovVgpu: [
+        {
+          id: 1,
+          name: 'A100-1-5C',
+          vramMiB: 5120,
+          count: 0,
+          remaining: 0,
+          aliasName: 'Inference_Small',
+          countLimit: null,
+        },
+        {
+          id: 2,
+          name: 'A100-2-10C',
+          vramMiB: 10240,
+          count: 0,
+          remaining: 0,
+          aliasName: 'Training_Medium',
+          countLimit: null,
+        },
+      ],
+      migBackedVgpu: [
+        {
+          id: 1,
+          name: 'A100-1-5C',
+          vramMiB: 5120,
+          count: 16,
+          remaining: 14,
+          aliasName: 'Inference_Small',
+          countLimit: 16,
+        },
+        {
+          id: 2,
+          name: 'A100-2-10C',
+          vramMiB: 10240,
+          count: 8,
+          remaining: 7,
+          aliasName: 'Training_Medium',
+          countLimit: 8,
+        },
+      ],
+    },
     attachedInstances: [],
   },
   // Unassigned
@@ -127,7 +181,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     profileCountLimit: 10,
-    vramLimitMiB: 81920,
     vram: {
       allocatedMiB: 0,
       totalMiB: 81920,
@@ -140,7 +193,10 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 0,
       total: 0,
     },
-    profiles: [],
+    profiles: {
+      sriovVgpu: [],
+      migBackedVgpu: [],
+    },
     attachedInstances: [],
   },
   // SR-IOV vGPU + InUse
@@ -158,7 +214,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
     ],
     profileCountLimit: 10,
-    vramLimitMiB: 16384,
     vram: {
       allocatedMiB: 12000,
       totalMiB: 16384,
@@ -171,16 +226,20 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 3,
       total: 8,
     },
-    profiles: [
-      {
-        id: 'flex-170-2g',
-        name: 'Flex-170-2G',
-        vramMiB: 2048,
-        count: 8,
-        remaining: 5,
-        aliasName: 'Media_Transcode',
-      },
-    ],
+    profiles: {
+      sriovVgpu: [
+        {
+          id: 1,
+          name: 'Flex-170-2G',
+          vramMiB: 2048,
+          count: 8,
+          remaining: 5,
+          aliasName: 'Media_Transcode',
+          countLimit: null,
+        },
+      ],
+      migBackedVgpu: [],
+    },
     attachedInstances: [
       {
         id: 'vm-201',
@@ -241,7 +300,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
     ],
     profileCountLimit: 10,
-    vramLimitMiB: 12288,
     vram: {
       allocatedMiB: 0,
       totalMiB: 12288,
@@ -254,16 +312,20 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 0,
       total: 4,
     },
-    profiles: [
-      {
-        id: 'flex-140-1g',
-        name: 'Flex-140-1G',
-        vramMiB: 1024,
-        count: 4,
-        remaining: 4,
-        aliasName: 'VDI_Light',
-      },
-    ],
+    profiles: {
+      sriovVgpu: [
+        {
+          id: 1,
+          name: 'Flex-140-1G',
+          vramMiB: 1024,
+          count: 4,
+          remaining: 4,
+          aliasName: 'VDI_Light',
+          countLimit: null,
+        },
+      ],
+      migBackedVgpu: [],
+    },
     attachedInstances: [],
   },
   // Unassigned
@@ -281,7 +343,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
     ],
     profileCountLimit: 10,
-    vramLimitMiB: 16384,
     vram: {
       allocatedMiB: 0,
       totalMiB: 16384,
@@ -294,7 +355,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 0,
       total: 0,
     },
-    profiles: [],
+    profiles: { sriovVgpu: [], migBackedVgpu: [] },
     attachedInstances: [],
   },
   // Passthrough + InUse
@@ -309,7 +370,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
     profileCountLimit: null,
-    vramLimitMiB: null,
     vram: {
       allocatedMiB: 24576,
       totalMiB: 24576,
@@ -322,7 +382,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 1,
       total: 1,
     },
-    profiles: [],
+    profiles: { sriovVgpu: [], migBackedVgpu: [] },
     attachedInstances: [
       {
         id: 'vm-301',
@@ -352,7 +412,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
     profileCountLimit: null,
-    vramLimitMiB: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 16384,
@@ -365,7 +424,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 0,
       total: 1,
     },
-    profiles: [],
+    profiles: { sriovVgpu: [], migBackedVgpu: [] },
     attachedInstances: [],
   },
   // Unassigned
@@ -380,7 +439,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
     profileCountLimit: null,
-    vramLimitMiB: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 16384,
@@ -393,7 +451,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 0,
       total: 0,
     },
-    profiles: [],
+    profiles: { sriovVgpu: [], migBackedVgpu: [] },
     attachedInstances: [],
   },
   // Passthrough + InUse (H100)
@@ -412,7 +470,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     profileCountLimit: 10,
-    vramLimitMiB: 81920,
     vram: {
       allocatedMiB: 40000,
       totalMiB: 81920,
@@ -425,7 +482,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 1,
       total: 1,
     },
-    profiles: [],
+    profiles: { sriovVgpu: [], migBackedVgpu: [] },
     attachedInstances: [
       {
         id: 'vm-401',
@@ -458,7 +515,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
     ],
     profileCountLimit: 10,
-    vramLimitMiB: 49152,
     vram: {
       allocatedMiB: 0,
       totalMiB: 49152,
@@ -469,9 +525,22 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
     },
     allocationSummary: {
       current: 0,
-      total: 1,
+      total: 8,
     },
-    profiles: [],
+    profiles: {
+      sriovVgpu: [
+        {
+          id: 1,
+          name: 'L40-6Q',
+          vramMiB: 6144,
+          count: 8,
+          remaining: 8,
+          aliasName: 'VDI_Standard',
+          countLimit: null,
+        },
+      ],
+      migBackedVgpu: [],
+    },
     attachedInstances: [],
   },
   // Unset + Unassigned
@@ -490,7 +559,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     profileCountLimit: 8,
-    vramLimitMiB: 24576,
     vram: {
       allocatedMiB: 0,
       totalMiB: 24576,
@@ -503,7 +571,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       current: 0,
       total: 0,
     },
-    profiles: [],
+    profiles: { sriovVgpu: [], migBackedVgpu: [] },
     attachedInstances: [],
   },
 ]
