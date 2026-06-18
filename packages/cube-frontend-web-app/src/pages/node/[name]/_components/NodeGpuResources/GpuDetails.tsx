@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ListNodeGPUCardsResponseDataInnerAttachedInstancesInner } from '@cube-frontend/api'
 import { GetInfoTable } from '@cube-frontend/web-app/components/InfoTable/InfoTable'
 import {
@@ -5,7 +7,6 @@ import {
   toReadableUsedSize,
 } from '@cube-frontend/web-app/utils/byte'
 import { CosHyperlink } from '@cube-frontend/ui-library'
-import { useMemo } from 'react'
 import {
   GpuResourceRow,
   GPUProfileRow,
@@ -24,13 +25,15 @@ export type GpuDetailsProps = {
 const GpuDetails = (props: GpuDetailsProps) => {
   const { row } = props
 
+  const { t } = useTranslation()
+
   const profiles = useMemo(() => getProfilesByResourceType(row), [row])
 
   const profileCount = profiles?.length ?? 0
-  const profileTitle = `Profiles / ID (${profileCount})`
+  const profileTitle = `${t('nodes.details.profilesIdList.title')} (${profileCount})`
 
   const attachedInstanceCount = row.attachedInstances?.length ?? 0
-  const attachedInstanceTitle = `Attached Instances (${attachedInstanceCount})`
+  const attachedInstanceTitle = `${t('nodes.details.attachedInstancesList.title')} (${attachedInstanceCount})`
 
   const renderAttachedInstanceMemoryUsage = (
     memory: ListNodeGPUCardsResponseDataInnerAttachedInstancesInner['memoryUsage'],
@@ -54,7 +57,7 @@ const GpuDetails = (props: GpuDetailsProps) => {
           href={row.links.console}
           target="_blank"
         >
-          Console
+          {t('nodes.details.attachedInstancesList.console')}
         </CosHyperlink>
         <CosHyperlink
           size="sm"
@@ -78,13 +81,22 @@ const GpuDetails = (props: GpuDetailsProps) => {
           scrollBehavior="horizontal"
         >
           <GpuProfilesInfoTable.Column property="name" />
-          <GpuProfilesInfoTable.Column label="VRAM" property="vramMiB">
+          <GpuProfilesInfoTable.Column
+            label={t('nodes.details.profilesIdList.vram')}
+            property="vramMiB"
+          >
             {(vramMiB) => toReadableSizeString(vramMiB, 'MiB')}
           </GpuProfilesInfoTable.Column>
-          <GpuProfilesInfoTable.Column label="Counts" property="count" />
-          <GpuProfilesInfoTable.Column label="Remaining" property="remaining" />
           <GpuProfilesInfoTable.Column
-            label="Alias name"
+            label={t('nodes.details.profilesIdList.counts')}
+            property="count"
+          />
+          <GpuProfilesInfoTable.Column
+            label={t('nodes.details.profilesIdList.remaining')}
+            property="remaining"
+          />
+          <GpuProfilesInfoTable.Column
+            label={t('nodes.details.profilesIdList.aliasName')}
             property="aliasName"
           />
         </GpuProfilesInfoTable>
@@ -99,23 +111,26 @@ const GpuDetails = (props: GpuDetailsProps) => {
           <GpuAttachedInstanceInfoTable.Column property="name" />
           {row.resourceType !== 'pgpu' && (
             <GpuAttachedInstanceInfoTable.Column
-              label="Alias"
+              label={t('nodes.details.attachedInstancesList.alias')}
               property="profileAlias"
             />
           )}
           <GpuAttachedInstanceInfoTable.Column
-            label="Utilization"
+            label={t('nodes.details.attachedInstancesList.utilization')}
             property="utilizationPercent"
           >
             {(utilizationPercent) => `${utilizationPercent} %`}
           </GpuAttachedInstanceInfoTable.Column>
           <GpuAttachedInstanceInfoTable.Column
-            label="Memory"
+            label={t('nodes.details.attachedInstancesList.memory')}
             property="memoryUsage"
           >
             {(memory) => renderAttachedInstanceMemoryUsage(memory)}
           </GpuAttachedInstanceInfoTable.Column>
-          <GpuAttachedInstanceInfoTable.Column label="Action" property="name">
+          <GpuAttachedInstanceInfoTable.Column
+            label={t('nodes.details.attachedInstancesList.action')}
+            property="name"
+          >
             {(_, row) => renderAttachedInstanceActions(row)}
           </GpuAttachedInstanceInfoTable.Column>
         </GpuAttachedInstanceInfoTable>

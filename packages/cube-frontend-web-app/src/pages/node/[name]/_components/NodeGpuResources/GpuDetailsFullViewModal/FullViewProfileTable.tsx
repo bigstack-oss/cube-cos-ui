@@ -1,13 +1,14 @@
+import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   GetCosBasicTable,
-  CosPagination,
   ItemsPerPage,
+  CosPagination,
   DEFAULT_ITEMS_PER_PAGE,
 } from '@cube-frontend/ui-library'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
-import { useMemo, useState } from 'react'
-import { getItemsInView } from './utils'
 import { GPUProfileRow } from '../utils'
+import { getItemsInView } from './utils'
 
 const ProfileTable = GetCosBasicTable<GPUProfileRow>()
 
@@ -18,6 +19,8 @@ type FullViewProfileTableProps = {
 
 export const FullViewProfileTable = (props: FullViewProfileTableProps) => {
   const { title, profiles } = props
+
+  const { t } = useTranslation()
 
   const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -43,13 +46,29 @@ export const FullViewProfileTable = (props: FullViewProfileTableProps) => {
         {title}
       </div>
       <ProfileTable rows={profilesInView}>
-        <ProfileTable.Column property="name" label="Profiles / ID" emphasize />
-        <ProfileTable.Column property="vramMiB" label="VRAM">
+        <ProfileTable.Column
+          property="name"
+          label={t('nodes.details.profilesIdList.title')}
+          emphasize
+        />
+        <ProfileTable.Column
+          property="vramMiB"
+          label={t('nodes.details.profilesIdList.vram')}
+        >
           {(vramMiB) => toReadableSizeString(vramMiB, 'MiB')}
         </ProfileTable.Column>
-        <ProfileTable.Column property="count" label="Counts" />
-        <ProfileTable.Column property="remaining" label="Remaining" />
-        <ProfileTable.Column property="aliasName" label="Alias name" />
+        <ProfileTable.Column
+          property="count"
+          label={t('nodes.details.profilesIdList.counts')}
+        />
+        <ProfileTable.Column
+          property="remaining"
+          label={t('nodes.details.profilesIdList.remaining')}
+        />
+        <ProfileTable.Column
+          property="aliasName"
+          label={t('nodes.details.profilesIdList.aliasName')}
+        />
       </ProfileTable>
       <CosPagination
         totalItems={profiles.length}

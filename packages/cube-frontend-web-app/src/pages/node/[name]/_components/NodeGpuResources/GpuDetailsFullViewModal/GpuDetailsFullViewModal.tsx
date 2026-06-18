@@ -1,9 +1,10 @@
-import { CosContentSwitcher, CosModal } from '@cube-frontend/ui-library'
 import { ReactNode, useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { CosContentSwitcher, CosModal } from '@cube-frontend/ui-library'
 import { GPUResourceType } from '@cube-frontend/api'
+import { GpuResourceRow, getProfilesByResourceType } from '../utils'
 import { FullViewInstanceTable } from './FullViewInstanceTable'
 import { FullViewProfileTable } from './FullViewProfileTable'
-import { GpuResourceRow, getProfilesByResourceType } from '../utils'
 
 type FullViewTab = 'profiles' | 'instances'
 
@@ -17,6 +18,8 @@ export const GpuDetailsFullViewModal = (
   props: GpuDetailsFullViewModalProps,
 ) => {
   const { isModalOpen, resource, onClose } = props
+
+  const { t } = useTranslation()
 
   const isPgpu = resource?.resourceType === GPUResourceType.Pgpu
 
@@ -35,8 +38,8 @@ export const GpuDetailsFullViewModal = (
   }, [resource])
 
   const tabTitleMap: Record<FullViewTab, string> = {
-    profiles: 'Profiles / ID',
-    instances: 'Attached Instances',
+    profiles: t('nodes.details.profilesIdList.title'),
+    instances: t('nodes.details.attachedInstancesList.title'),
   }
 
   const tableContentMap: Record<FullViewTab, () => ReactNode> = {
@@ -59,9 +62,9 @@ export const GpuDetailsFullViewModal = (
   return (
     <CosModal
       isOpen={isModalOpen}
-      title={`${resource?.name} Details`}
+      title={`${resource?.name} ${t('nodes.details.fullViewModal.details')}`}
       isCancelButtonVisible={false}
-      actionText="Close"
+      actionText={t('nodes.details.fullViewModal.actionText')}
       onActionClick={onClose}
       onCloseClick={onClose}
     >

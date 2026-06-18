@@ -4,7 +4,8 @@ import { GPUSupportResourceType } from '@cube-frontend/api'
 import { MigBackedVgpuTable } from './tables/MigBackedVgpuTable'
 import { SriovVgpuTable } from './tables/SriovVgpuTable'
 import { UseProfileTable } from './useProfileTable'
-import { resourceTypeLabelMap } from './editGPUResourceUtils'
+import { GpuTypeLabelKeyMap } from '../utils'
+import { useTranslation } from 'react-i18next'
 
 type StepEditResourceProps = Pick<
   UseProfileTable,
@@ -36,6 +37,32 @@ export const StepEditResource = (props: StepEditResourceProps) => {
 
   const { supportResourceTypes } = editingResource
 
+  const { t } = useTranslation()
+
+  const gpuTypeOptions: GPUSupportResourceType[] = [
+    GPUSupportResourceType.Pgpu,
+    GPUSupportResourceType.SriovVgpu,
+    GPUSupportResourceType.MigBackedVgpu,
+  ]
+
+  const renderDropdownItem = (type: GPUSupportResourceType) => {
+    const isSupported = supportResourceTypes.includes(type)
+    const label = t(GpuTypeLabelKeyMap[type])
+
+    return (
+      <CosDropdown.Item
+        key={type}
+        item={type}
+        onClick={() => onResourceTypeChange(type)}
+        disabled={!isSupported}
+      >
+        {isSupported
+          ? label
+          : `${label} (${t('nodes.details.editGpuType.notSupported')})`}
+      </CosDropdown.Item>
+    )
+  }
+
   const profileTableMap: Record<
     GPUSupportResourceType | 'noResourceType',
     () => ReactNode
@@ -63,8 +90,8 @@ export const StepEditResource = (props: StepEditResourceProps) => {
   }
 
   const dropdownTriggerText = selectedResourceType
-    ? resourceTypeLabelMap[selectedResourceType]
-    : 'Error: Resource type not found'
+    ? t(GpuTypeLabelKeyMap[selectedResourceType])
+    : t('nodes.details.editGpuType.gpuType.notFound')
 
   const renderContent =
     profileTableMap[selectedResourceType || 'noResourceType']
@@ -76,39 +103,13 @@ export const StepEditResource = (props: StepEditResourceProps) => {
           size="md"
           type="radio"
           variant="regular"
-          label="GPU type"
+          label={t('nodes.details.editGpuType.gpuType')}
           selectedItems={[selectedResourceType]}
           disabled={supportResourceTypes.length === 0}
         >
           <CosDropdown.Trigger>{dropdownTriggerText}</CosDropdown.Trigger>
           <CosDropdown.Menu>
-            <CosDropdown.Item
-              item="pgpu"
-              onClick={() => onResourceTypeChange('pgpu')}
-              disabled={!supportResourceTypes.includes('pgpu')}
-            >
-              {supportResourceTypes.includes('pgpu')
-                ? resourceTypeLabelMap.pgpu
-                : resourceTypeLabelMap.pgpu + '(Not supported)'}
-            </CosDropdown.Item>
-            <CosDropdown.Item
-              item="sriovVgpu"
-              onClick={() => onResourceTypeChange('sriovVgpu')}
-              disabled={!supportResourceTypes.includes('sriovVgpu')}
-            >
-              {supportResourceTypes.includes('sriovVgpu')
-                ? resourceTypeLabelMap.sriovVgpu
-                : resourceTypeLabelMap.sriovVgpu + '(Not supported)'}
-            </CosDropdown.Item>
-            <CosDropdown.Item
-              item="migBackedVgpu"
-              onClick={() => onResourceTypeChange('migBackedVgpu')}
-              disabled={!supportResourceTypes.includes('migBackedVgpu')}
-            >
-              {supportResourceTypes.includes('migBackedVgpu')
-                ? resourceTypeLabelMap.migBackedVgpu
-                : resourceTypeLabelMap.migBackedVgpu + '(Not supported)'}
-            </CosDropdown.Item>
+            {gpuTypeOptions.map(renderDropdownItem)}
           </CosDropdown.Menu>
         </CosDropdown>
       </div>

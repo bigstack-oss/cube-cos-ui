@@ -13,6 +13,7 @@ import {
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
 import { useMemo, useState } from 'react'
 import { getItemsInView } from './utils'
+import { useTranslation } from 'react-i18next'
 
 type InstanceTableRow = CosTableRow &
   ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
@@ -26,6 +27,8 @@ type FullViewInstanceTableProps = {
 
 export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
   const { title, instances } = props
+
+  const { t } = useTranslation()
 
   const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -67,7 +70,7 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
           href={links.console}
           target="_blank"
         >
-          Console
+          {t('nodes.details.attachedInstancesList.console')}
         </CosHyperlink>
         <CosHyperlink
           size="sm"
@@ -87,15 +90,31 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
         {title}
       </div>
       <InstanceTable rows={instancesInView}>
-        <InstanceTable.Column property="name" label="Instance" emphasize />
-        <InstanceTable.Column property="profileAlias" label="Alias" />
-        <InstanceTable.Column property="utilizationPercent" label="Utilization">
+        <InstanceTable.Column
+          property="name"
+          label={t('nodes.details.attachedInstancesList.instance')}
+          emphasize
+        />
+        <InstanceTable.Column
+          property="profileAlias"
+          label={t('nodes.details.attachedInstancesList.alias')}
+        />
+        <InstanceTable.Column
+          property="utilizationPercent"
+          label={t('nodes.details.attachedInstancesList.utilization')}
+        >
           {(utilizationPercent) => `${utilizationPercent} %`}
         </InstanceTable.Column>
-        <InstanceTable.Column property="memoryUsage" label="Memory">
+        <InstanceTable.Column
+          property="memoryUsage"
+          label={t('nodes.details.attachedInstancesList.memory')}
+        >
           {(memory) => renderMemoryUsage(memory)}
         </InstanceTable.Column>
-        <InstanceTable.Column property="links" label="Action">
+        <InstanceTable.Column
+          property="links"
+          label={t('nodes.details.attachedInstancesList.action')}
+        >
           {(links) => renderActions(links)}
         </InstanceTable.Column>
       </InstanceTable>

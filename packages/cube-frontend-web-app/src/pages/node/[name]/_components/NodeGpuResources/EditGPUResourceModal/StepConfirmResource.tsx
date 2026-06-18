@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import ChevronLeft from '@cube-frontend/ui-library/icons/monochrome/chevron_left.svg?react'
 import { CosButton } from '@cube-frontend/ui-library'
 import { ConfirmTable } from './tables/ConfirmTable'
@@ -11,13 +12,16 @@ export type StepConfirmResourceProps = {
 export const StepConfirmResource = (props: StepConfirmResourceProps) => {
   const { confirmTableData, onGoBackToEditClick } = props
 
+  const { t } = useTranslation()
+
   if (!confirmTableData) return null
 
   return (
     <div className="flex flex-col items-start gap-y-5">
       <div className="primary-body2 text-functional-text">
-        Please confirm your selected profile before proceeding. <br />
-        Once a instance is attached, the GPU Profile cannot be modified.
+        {t('nodes.details.editGpuType.confirmDescription1')}
+        <br />
+        {t('nodes.details.editGpuType.confirmDescription2')}
       </div>
       <ConfirmTable confirmTableData={confirmTableData} />
       <CosButton
@@ -27,7 +31,7 @@ export const StepConfirmResource = (props: StepConfirmResourceProps) => {
         Icon={ChevronLeft}
         onClick={onGoBackToEditClick}
       >
-        Back to edit
+        {t('nodes.details.editGpuType.backToEdit')}
       </CosButton>
     </div>
   )

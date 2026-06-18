@@ -8,6 +8,7 @@ import { StepConfirmResource } from './StepConfirmResource'
 import { StepEditResource } from './StepEditResource'
 import { getPayload, GpuResourceStep } from './editGPUResourceUtils'
 import { useProfileTable } from './useProfileTable'
+import { useTranslation } from 'react-i18next'
 
 export type EditGPUResourceModalProps = {
   isModalOpen: boolean
@@ -18,6 +19,8 @@ export type EditGPUResourceModalProps = {
 
 export const EditGPUResourceModal = (props: EditGPUResourceModalProps) => {
   const { isModalOpen, nodeName, resource, onClose } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -47,9 +50,9 @@ export const EditGPUResourceModal = (props: EditGPUResourceModalProps) => {
 
   const getActionText = () => {
     if (isEditStep) {
-      return 'Next'
+      return t('nodes.details.editGpuType.next')
     } else {
-      return 'Confirm'
+      return t('nodes.details.editGpuType.confirm')
     }
   }
 
@@ -93,7 +96,7 @@ export const EditGPUResourceModal = (props: EditGPUResourceModalProps) => {
   return (
     <CosModal
       size="sm"
-      title={`Edit GPU type: ${editingResource.name}`}
+      title={`${t('nodes.details.editGpuType')}: ${editingResource.name}`}
       isOpen={isModalOpen}
       actionText={getActionText()}
       actionButtonProps={{

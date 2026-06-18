@@ -6,6 +6,7 @@ import {
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
 import { ProfileTableRow } from '../editGPUResourceUtils'
 import { ProfileTableLimitHint } from './ProfileTableLimitHint'
+import { useTranslation } from 'react-i18next'
 
 type SriovVgpuTableProps = {
   profiles: ProfileTableRow[]
@@ -25,6 +26,8 @@ export const SriovVgpuTable = (props: SriovVgpuTableProps) => {
     onProfileCheck,
     onProfileCountsChange,
   } = props
+
+  const { t } = useTranslation()
 
   const selectedRowIds = useMemo(() => {
     return profiles
@@ -51,10 +54,10 @@ export const SriovVgpuTable = (props: SriovVgpuTableProps) => {
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between">
         <div className="primary-body3 flex font-semibold text-functional-title">
-          Select profiles/ID for GPU
+          {t('nodes.details.editGpuType.selectProfilesId')}
         </div>
         <ProfileTableLimitHint
-          label="Counts limit"
+          label={t('nodes.details.editGpuType.countLimit')}
           limit={{ value: profileCountLimit }}
           currentSum={{ value: profileCountCurrentSum }}
         />
@@ -66,8 +69,14 @@ export const SriovVgpuTable = (props: SriovVgpuTableProps) => {
         onCheckChange={onProfileCheck}
         onAllCheckChange={onAllProfileCheck}
       >
-        <ProfileTable.Column label="Profile/ID" property="name" />
-        <ProfileTable.Column label="Counts" property="count">
+        <ProfileTable.Column
+          label={t('nodes.details.profilesIdList.title')}
+          property="name"
+        />
+        <ProfileTable.Column
+          label={t('nodes.details.profilesIdList.counts')}
+          property="count"
+        >
           {(counts, row) => (
             <CosTableInput
               className="max-w-[59px]"
@@ -76,7 +85,10 @@ export const SriovVgpuTable = (props: SriovVgpuTableProps) => {
             />
           )}
         </ProfileTable.Column>
-        <ProfileTable.Column label="VRAM" property="vramMiB">
+        <ProfileTable.Column
+          label={t('nodes.details.profilesIdList.vram')}
+          property="vramMiB"
+        >
           {(vramMiB) => toReadableSizeString(vramMiB, 'MiB')}
         </ProfileTable.Column>
       </ProfileTable>

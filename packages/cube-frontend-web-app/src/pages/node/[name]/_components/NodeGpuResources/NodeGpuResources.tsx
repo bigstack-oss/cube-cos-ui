@@ -25,7 +25,9 @@ import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { GpuDetailsFullViewModal } from './GpuDetailsFullViewModal/GpuDetailsFullViewModal'
 import { EditGPUResourceModal } from './EditGPUResourceModal/EditGPUResourceModal'
-import { GpuResourceRow } from './utils'
+import { GpuResourceRow, GpuTypeLabelKeyMap } from './utils'
+import { useTranslation } from 'react-i18next'
+import { ParseKeys } from 'i18next'
 
 const GpuResourceTable = GetCosViewDetailsTable<GpuResourceRow>()
 
@@ -35,21 +37,16 @@ export type NodeGpuResourcesProps = {
 
 const GPU_POLLING_INTERVAL = 5000
 
-const GpuStatusDisplayMap: Record<GPUCardStatus, string> = {
-  [GPUCardStatus.Unassigned]: 'Unassigned',
-  [GPUCardStatus.Idle]: 'Idle',
-  [GPUCardStatus.InUse]: 'In-use',
-}
-
-const resourceTypeDisplayMap: Record<GPUResourceType, string> = {
-  [GPUResourceType.Unset]: 'Unset',
-  [GPUResourceType.Pgpu]: 'Passthrough',
-  [GPUResourceType.SriovVgpu]: 'SR-IOV vGPU',
-  [GPUResourceType.MigBackedVgpu]: 'MIG-backed vGPU',
+const GpuStatusDisplayKeyMap: Record<GPUCardStatus, ParseKeys> = {
+  [GPUCardStatus.Unassigned]: 'nodes.details.gpuList.status.unassigned',
+  [GPUCardStatus.Idle]: 'nodes.details.gpuList.status.idle',
+  [GPUCardStatus.InUse]: 'nodes.details.gpuList.status.inUse',
 }
 
 const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   const { node } = props
+
+  const { t } = useTranslation()
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -106,11 +103,17 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   }
 
   const renderResourceType = (resourceType: GPUResourceType) => {
+    const translatedTypeLabel = t(GpuTypeLabelKeyMap[resourceType])
+
     if (resourceType === GPUResourceType.Unset) {
-      return <span className="text-functional-text-light">Unset</span>
+      return (
+        <span className="text-functional-text-light">
+          {translatedTypeLabel}
+        </span>
+      )
     }
 
-    return resourceTypeDisplayMap[resourceType]
+    return translatedTypeLabel
   }
 
   const renderVRamAllocation = (row: GpuResourceRow) => {
@@ -138,18 +141,19 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   }
 
   const renderStatus = (status: GPUCardStatus) => {
+    const translatedStatusLabel = t(GpuStatusDisplayKeyMap[status])
     if (status === GPUCardStatus.Unassigned) {
       return (
         <div className="flex items-center gap-x-2">
-          <span className="text-status-warning">
-            {GpuStatusDisplayMap[status]}
+          <span className="whitespace-nowrap text-status-warning">
+            {translatedStatusLabel}
           </span>
-          <WarningFilled className="icon-md text-status-warning" />
+          <WarningFilled className="icon-md shrink-0 text-status-warning" />
         </div>
       )
     }
 
-    return GpuStatusDisplayMap[status]
+    return translatedStatusLabel
   }
 
   const renderAllocationSummary = (
@@ -170,7 +174,7 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
         }
       >
         <CosOverflowMenu.Item
-          title="Edit GPU Type"
+          title={t('nodes.details.editGpuType')}
           type="plain"
           onClick={() => openResourceEditModal(row)}
           disabled={row.status.current === GPUCardStatus.InUse}
@@ -205,7 +209,7 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
       <div className="flex w-full justify-between gap-x-4">
         <GpuDetails row={row} />
         <CosTooltip
-          hoverContent={{ message: 'Full-view' }}
+          hoverContent={{ message: t('nodes.details.fullViewModal.tooltip') }}
           placement="top-left"
         >
           <CosButton
@@ -224,7 +228,7 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
       <CosGeneralPanel
         leftSlot={
           <div className="primary-body3 text-functional-text">
-            GPU Resources
+            {t('nodes.details.gpuList.title')}
           </div>
         }
       >
@@ -237,33 +241,48 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
           isRowExpandDisabled={isRowExpandDisabled}
         >
           <GpuResourceTable.Column
-            label="GPU card"
+            label={t('nodes.details.gpuList.gpuCard')}
             property="name"
             emphasize={true}
           >
             {renderName}
           </GpuResourceTable.Column>
           <GpuResourceTable.Column
-            label="Resource type"
+            label={t('nodes.details.gpuList.resourceType')}
             property="resourceType"
           >
             {renderResourceType}
           </GpuResourceTable.Column>
-          <GpuResourceTable.Column label="VRAM Allocation" property="vram">
+          <GpuResourceTable.Column
+            label={t('nodes.details.gpuList.vramAllocation')}
+            property="vram"
+          >
             {(_, row) => renderVRamAllocation(row)}
           </GpuResourceTable.Column>
-          <GpuResourceTable.Column label="VRAM Utilization" property="vram">
+          <GpuResourceTable.Column
+            label={t('nodes.details.gpuList.vramUtilization')}
+            property="vram"
+          >
             {(_, row) => renderVramUtilization(row)}
           </GpuResourceTable.Column>
-          <GpuResourceTable.Column label="GPU Utilization" property="gpu">
+          <GpuResourceTable.Column
+            label={t('nodes.details.gpuList.gpuUtilization')}
+            property="gpu"
+          >
             {(_, row) => renderGpuUtilization(row)}
           </GpuResourceTable.Column>
-          <GpuResourceTable.Column label="PCI Address" property="pciAddress" />
-          <GpuResourceTable.Column label="Status" property="status">
+          <GpuResourceTable.Column
+            label={t('nodes.details.gpuList.pciAddress')}
+            property="pciAddress"
+          />
+          <GpuResourceTable.Column
+            label={t('nodes.details.gpuList.status')}
+            property="status"
+          >
             {(_, row) => renderStatus(row.status.current)}
           </GpuResourceTable.Column>
           <GpuResourceTable.Column
-            label="Allocation"
+            label={t('nodes.details.gpuList.allocation')}
             property="allocationSummary"
           >
             {(allocationSummary, row) =>

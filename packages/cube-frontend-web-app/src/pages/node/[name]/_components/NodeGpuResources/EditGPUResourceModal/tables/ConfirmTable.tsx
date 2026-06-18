@@ -1,9 +1,10 @@
 import { twMerge } from 'tailwind-merge'
+import { useTranslation } from 'react-i18next'
 import { GetInfoTable } from '@cube-frontend/web-app/components/InfoTable/InfoTable'
 import { toReadableSizeString } from '@cube-frontend/web-app/utils/byte'
+import { GPUProfileRow, GpuTypeLabelKeyMap } from '../../utils'
+import { ConfirmTableData } from '../editGPUResourceUtils'
 import { confirmTableStyles } from './tableStyles'
-import { ConfirmTableData, getResourceTypeLabel } from '../editGPUResourceUtils'
-import { GPUProfileRow } from '../../utils'
 
 const ConfirmTableInfoTable = GetInfoTable<GPUProfileRow>()
 
@@ -14,6 +15,8 @@ type ConfirmTableProps = {
 export const ConfirmTable = (props: ConfirmTableProps) => {
   const { confirmTableData } = props
 
+  const { t } = useTranslation()
+
   const isPgpu = confirmTableData.resourceType === 'pgpu'
 
   const profileRows = confirmTableData.editedProfiles
@@ -22,14 +25,20 @@ export const ConfirmTable = (props: ConfirmTableProps) => {
   return (
     <div className="flex w-full flex-col gap-y-2">
       <div className="primary-body3 flex font-semibold text-functional-title">
-        GPU Resource
+        {t('nodes.details.gpuList.title')}
       </div>
       <table className={confirmTableStyles.table()}>
         <thead className={confirmTableStyles.thead()}>
           <tr>
-            <th className={confirmTableStyles.th()}>GPU card</th>
-            <th className={confirmTableStyles.th()}>GPU type</th>
-            <th className={confirmTableStyles.th()}>PCI Address</th>
+            <th className={confirmTableStyles.th()}>
+              {t('nodes.details.gpuList.gpuCard')}
+            </th>
+            <th className={confirmTableStyles.th()}>
+              {t('nodes.details.editGpuType.gpuType')}
+            </th>
+            <th className={confirmTableStyles.th()}>
+              {t('nodes.details.gpuList.pciAddress')}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -43,7 +52,7 @@ export const ConfirmTable = (props: ConfirmTableProps) => {
               {confirmTableData.name}
             </td>
             <td className={confirmTableStyles.td({ isLast: isPgpu })}>
-              {getResourceTypeLabel(confirmTableData.resourceType)}
+              {t(GpuTypeLabelKeyMap[confirmTableData.resourceType])}
             </td>
             <td className={confirmTableStyles.td({ isLast: isPgpu })}>
               {confirmTableData.pciAddress}
@@ -54,16 +63,19 @@ export const ConfirmTable = (props: ConfirmTableProps) => {
               <td colSpan={3} className={confirmTableStyles.bodyTd()}>
                 <ConfirmTableInfoTable
                   rows={profileRows}
-                  title={`Profiles/ ID (${profileCount})`}
+                  title={`${t('nodes.details.profilesIdList.title')} (${profileCount})`}
                   scrollBehavior="vertical"
                 >
                   <ConfirmTableInfoTable.Column property="name" />
-                  <ConfirmTableInfoTable.Column property="vramMiB" label="VRAM">
+                  <ConfirmTableInfoTable.Column
+                    property="vramMiB"
+                    label={t('nodes.details.profilesIdList.vram')}
+                  >
                     {(vramMiB) => toReadableSizeString(vramMiB, 'MiB')}
                   </ConfirmTableInfoTable.Column>
                   <ConfirmTableInfoTable.Column
                     property="count"
-                    label="Counts"
+                    label={t('nodes.details.profilesIdList.counts')}
                   />
                 </ConfirmTableInfoTable>
               </td>

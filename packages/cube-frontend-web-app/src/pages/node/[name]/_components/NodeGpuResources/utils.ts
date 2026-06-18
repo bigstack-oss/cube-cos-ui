@@ -4,6 +4,7 @@ import {
   ListNodeGPUCardsResponseDataInner,
 } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
+import { ParseKeys } from 'i18next'
 
 export type GpuResourceRow = ListNodeGPUCardsResponseDataInner & CosTableRow
 
@@ -24,8 +25,16 @@ export const getProfilesByResourceType = (
   }
 
   if (resource.resourceType === GPUResourceType.MigBackedVgpu) {
-    return normalizeProfiles(resource.profiles?.migBackedVgpu ?? [])
+    return normalizeProfiles(resource.profiles.migBackedVgpu ?? [])
   }
 
   return []
+}
+
+export const GpuTypeLabelKeyMap: Record<GPUResourceType, ParseKeys> = {
+  [GPUResourceType.Unset]: 'nodes.details.gpuList.resourceType.unset',
+  [GPUResourceType.Pgpu]: 'nodes.details.gpuList.resourceType.pgpu',
+  [GPUResourceType.SriovVgpu]: 'nodes.details.gpuList.resourceType.sriovVgpu',
+  [GPUResourceType.MigBackedVgpu]:
+    'nodes.details.gpuList.resourceType.migBackedVgpu',
 }

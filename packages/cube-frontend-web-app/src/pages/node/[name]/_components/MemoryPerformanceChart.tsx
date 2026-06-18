@@ -71,7 +71,7 @@ export const MemoryPerformanceChart = (props: MemoryPerformanceChartProps) => {
 
   return (
     <CosGeneralPanel
-      topic={t('node.details.memoryPerformance')}
+      topic={t('nodes.details.memoryPerformance')}
       rightSlot={
         <TimeRangeDropdown
           timeRanges={chartTimeRanges}

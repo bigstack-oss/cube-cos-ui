@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   CosTableInput,
   GetCosBatchActionTable,
@@ -28,6 +29,8 @@ export const MigBackedVgpuTable = (props: MigBackedVgpuTableProps) => {
     onProfileCheck,
     onProfileCountsChange,
   } = props
+
+  const { t } = useTranslation()
 
   const selectedRowIds = useMemo(() => {
     return profiles
@@ -64,11 +67,11 @@ export const MigBackedVgpuTable = (props: MigBackedVgpuTableProps) => {
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between">
         <div className="primary-body3 font-semibold text-functional-title">
-          Select profiles/ID for GPU
+          {t('nodes.details.editGpuType.selectProfilesId')}
         </div>
         <div className="flex items-center gap-x-3">
           <ProfileTableLimitHint
-            label="GPU total"
+            label={t('nodes.details.editGpuType.gpuTotal')}
             limit={{ value: vramMiBLimit, unit: vramMiBSizeUnit }}
             currentSum={{ value: vramMiBCurrentSum, unit: vramMiBSizeUnit }}
           />
@@ -81,8 +84,14 @@ export const MigBackedVgpuTable = (props: MigBackedVgpuTableProps) => {
         onCheckChange={onProfileCheck}
         onAllCheckChange={onAllProfileCheck}
       >
-        <ProfileTable.Column label="Profile/ID" property="name" />
-        <ProfileTable.Column label="Counts" property="count">
+        <ProfileTable.Column
+          label={t('nodes.details.profilesIdList.title')}
+          property="name"
+        />
+        <ProfileTable.Column
+          label={t('nodes.details.profilesIdList.counts')}
+          property="count"
+        >
           {(counts, row) => {
             const countLimit = row.countLimit ?? Number.POSITIVE_INFINITY
             const isCountsValid = row.checked ? counts <= countLimit : true
@@ -93,16 +102,20 @@ export const MigBackedVgpuTable = (props: MigBackedVgpuTableProps) => {
                 value={counts}
                 onChange={(e) => handleProfileCountsChange(e, row.id)}
                 hideErrorIcon={true}
+                // Note: the error message is not translated because the error icon is hidden in the UI.
                 errorMessage={isCountsValid ? undefined : 'Wrong value'}
               />
             )
           }}
         </ProfileTable.Column>
         <ProfileTable.Column
-          label="Max. count"
+          label={t('nodes.details.editGpuType.maxCount')}
           property="countLimit"
-        ></ProfileTable.Column>
-        <ProfileTable.Column label="VRAM" property="vramMiB">
+        />
+        <ProfileTable.Column
+          label={t('nodes.details.profilesIdList.vram')}
+          property="vramMiB"
+        >
           {(vramMiB) => toReadableSizeString(vramMiB, 'MiB')}
         </ProfileTable.Column>
       </ProfileTable>

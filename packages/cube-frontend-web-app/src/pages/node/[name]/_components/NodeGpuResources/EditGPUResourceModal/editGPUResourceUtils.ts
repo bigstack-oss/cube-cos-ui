@@ -1,6 +1,5 @@
 import {
   GPUProfile,
-  GPUResourceType,
   GPUSupportResourceType,
   ListNodeGPUCardsResponseDataInner,
   UpdateNodeGPUCardPutRequest,
@@ -11,16 +10,6 @@ import { GPUProfileRow } from '../utils'
 export const gpuResourceSteps = ['edit', 'confirm'] as const
 
 export type GpuResourceStep = (typeof gpuResourceSteps)[number]
-
-export const resourceTypeLabelMap: Record<GPUSupportResourceType, string> = {
-  pgpu: 'Passthrough',
-  sriovVgpu: 'SR-IOV vGPU',
-  migBackedVgpu: 'MIG-backed vGPU',
-}
-
-export const getResourceTypeLabel = (resourceType: GPUResourceType): string => {
-  return resourceType === 'unset' ? '' : resourceTypeLabelMap[resourceType]
-}
 
 export type ProfileTableRow = GPUProfileRow & {
   checked: boolean
@@ -95,7 +84,7 @@ export const getProfileLimits = (
   resource: ListNodeGPUCardsResponseDataInner,
 ): ProfileLimits => ({
   count: resource.profileCountLimit ?? Number.POSITIVE_INFINITY,
-  vramMiB: resource.vram.totalMiB ?? Number.POSITIVE_INFINITY,
+  vramMiB: resource.vram.totalMiB,
 })
 
 export type ProfileFormSummary = {
