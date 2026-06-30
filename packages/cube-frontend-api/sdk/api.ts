@@ -9776,7 +9776,7 @@ export interface ListNodeGPUCardsResponseDataInner {
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInner
      */
-    'profileCountLimit': number | null;
+    'sriovVgpuProfileCountLimit': number | null;
     /**
      * 
      * @type {ListNodeGPUCardsResponseDataInnerProfiles}

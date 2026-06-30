@@ -43,11 +43,13 @@
     "reweighted",
     "rollbackability",
     "rollbackable",
+    "sriov",
     "svgr",
     "Svgs",
     "tseslint",
     "unrollbackable",
     "vcpu",
+    "Vgpu",
     "vite",
     "vitejs",
     "vitest"

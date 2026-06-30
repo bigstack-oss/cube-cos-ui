@@ -21,7 +21,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
       GPUSupportResourceType.MigBackedVgpu,
     ],
-    profileCountLimit: 10,
+    sriovVgpuProfileCountLimit: 10,
     vram: {
       allocatedMiB: 32768,
       totalMiB: 81920,
@@ -108,7 +108,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
       GPUSupportResourceType.MigBackedVgpu,
     ],
-    profileCountLimit: 10,
+    sriovVgpuProfileCountLimit: 10,
     vram: {
       allocatedMiB: 0,
       totalMiB: 4096000,
@@ -180,7 +180,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
       GPUSupportResourceType.MigBackedVgpu,
     ],
-    profileCountLimit: 10,
+    sriovVgpuProfileCountLimit: 10,
     vram: {
       allocatedMiB: 0,
       totalMiB: 81920,
@@ -213,7 +213,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.Pgpu,
       GPUSupportResourceType.SriovVgpu,
     ],
-    profileCountLimit: 10,
+    sriovVgpuProfileCountLimit: 10,
     vram: {
       allocatedMiB: 12000,
       totalMiB: 16384,
@@ -299,7 +299,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.Pgpu,
       GPUSupportResourceType.SriovVgpu,
     ],
-    profileCountLimit: 10,
+    sriovVgpuProfileCountLimit: 10,
     vram: {
       allocatedMiB: 0,
       totalMiB: 12288,
@@ -342,7 +342,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.Pgpu,
       GPUSupportResourceType.SriovVgpu,
     ],
-    profileCountLimit: 10,
+    sriovVgpuProfileCountLimit: 10,
     vram: {
       allocatedMiB: 0,
       totalMiB: 16384,
@@ -369,7 +369,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       isProcessing: true,
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
-    profileCountLimit: null,
+    sriovVgpuProfileCountLimit: null,
     vram: {
       allocatedMiB: 24576,
       totalMiB: 24576,
@@ -411,7 +411,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       isProcessing: false,
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
-    profileCountLimit: null,
+    sriovVgpuProfileCountLimit: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 16384,
@@ -438,7 +438,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       isProcessing: false,
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
-    profileCountLimit: null,
+    sriovVgpuProfileCountLimit: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 16384,
@@ -469,7 +469,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
       GPUSupportResourceType.MigBackedVgpu,
     ],
-    profileCountLimit: 10,
+    sriovVgpuProfileCountLimit: 10,
     vram: {
       allocatedMiB: 40000,
       totalMiB: 81920,
@@ -514,7 +514,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.Pgpu,
       GPUSupportResourceType.SriovVgpu,
     ],
-    profileCountLimit: 10,
+    sriovVgpuProfileCountLimit: 10,
     vram: {
       allocatedMiB: 0,
       totalMiB: 49152,
@@ -558,7 +558,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
       GPUSupportResourceType.SriovVgpu,
       GPUSupportResourceType.MigBackedVgpu,
     ],
-    profileCountLimit: 8,
+    sriovVgpuProfileCountLimit: 8,
     vram: {
       allocatedMiB: 0,
       totalMiB: 24576,
