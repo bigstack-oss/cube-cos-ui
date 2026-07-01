@@ -72,6 +72,7 @@ const moduleNameLabelMap: Record<string, string> = {
   ceph_osd: 'Ceph OSD',
   ceph_rgw: 'Ceph RGW',
   rbd_target: 'RBD Target',
+  fc_link: 'FC Link',
   neutron: 'Neutron',
   nova: 'Nova',
   cyborg: 'Cyborg',
