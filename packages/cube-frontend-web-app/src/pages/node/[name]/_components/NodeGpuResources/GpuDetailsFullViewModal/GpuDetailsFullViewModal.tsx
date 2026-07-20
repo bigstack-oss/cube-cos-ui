@@ -10,6 +10,7 @@ type FullViewTab = 'profiles' | 'instances'
 
 export type GpuDetailsFullViewModalProps = {
   isModalOpen: boolean
+  nodeName: string
   resource: GpuResourceRow | undefined
   onClose: () => void
 }
@@ -17,7 +18,7 @@ export type GpuDetailsFullViewModalProps = {
 export const GpuDetailsFullViewModal = (
   props: GpuDetailsFullViewModalProps,
 ) => {
-  const { isModalOpen, resource, onClose } = props
+  const { isModalOpen, nodeName, resource, onClose } = props
 
   const { t } = useTranslation()
 
@@ -52,6 +53,7 @@ export const GpuDetailsFullViewModal = (
     instances: () => (
       <FullViewInstanceTable
         title={tabTitleMap['instances']}
+        nodeName={nodeName}
         instances={resource?.attachedInstances ?? []}
       />
     ),

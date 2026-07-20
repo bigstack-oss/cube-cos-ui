@@ -184,7 +184,7 @@ export const getPayload = (
     selectedResourceType === 'pgpu'
       ? undefined
       : (confirmTableData.editedProfiles.map((p) => ({
-          id: p.id,
+          id: Number(p.id),
           count: p.count,
         })) satisfies UpdateNodeGPUCardPutRequestProfilesInner[])
 

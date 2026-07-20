@@ -1,3 +1,3 @@
-import { mockUpdateNodeGpuCard } from './gpu'
+import { mockGetGpuInstanceConsole, mockUpdateNodeGpuCard } from './gpu'
 
-export const handlers = [mockUpdateNodeGpuCard]
+export const handlers = [mockUpdateNodeGpuCard, mockGetGpuInstanceConsole]

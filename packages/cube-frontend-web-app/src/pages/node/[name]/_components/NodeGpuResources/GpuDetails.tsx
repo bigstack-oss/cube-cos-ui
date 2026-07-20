@@ -12,6 +12,7 @@ import {
   GPUProfileRow,
   getProfilesByResourceType,
 } from './utils'
+import { GpuConsoleLink } from './GpuConsoleLink'
 
 const GpuProfilesInfoTable = GetInfoTable<GPUProfileRow>()
 
@@ -19,11 +20,12 @@ const GpuAttachedInstanceInfoTable =
   GetInfoTable<ListNodeGPUCardsResponseDataInnerAttachedInstancesInner>()
 
 export type GpuDetailsProps = {
+  nodeName: string
   row: GpuResourceRow
 }
 
 const GpuDetails = (props: GpuDetailsProps) => {
-  const { row } = props
+  const { nodeName, row } = props
 
   const { t } = useTranslation()
 
@@ -51,14 +53,7 @@ const GpuDetails = (props: GpuDetailsProps) => {
   ) => {
     return (
       <div className="flex w-full flex-row gap-x-4">
-        <CosHyperlink
-          size="sm"
-          variant="text-inline"
-          href={row.links.console}
-          target="_blank"
-        >
-          {t('nodes.details.attachedInstancesList.console')}
-        </CosHyperlink>
+        <GpuConsoleLink nodeName={nodeName} instanceId={row.id} />
         <CosHyperlink
           size="sm"
           variant="text-inline"

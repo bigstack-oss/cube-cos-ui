@@ -3776,6 +3776,75 @@ export type GetFixpackUpdateProgressResponseDataProgressesInnerStatusCurrentEnum
 /**
  * 
  * @export
+ * @interface GetGpuInstanceConsole200Response
+ */
+export interface GetGpuInstanceConsole200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGpuInstanceConsole200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {GetGpuInstanceConsole200ResponseData}
+     * @memberof GetGpuInstanceConsole200Response
+     */
+    'data': GetGpuInstanceConsole200ResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGpuInstanceConsole200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGpuInstanceConsole200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGpuInstanceConsole200ResponseData
+ */
+export interface GetGpuInstanceConsole200ResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGpuInstanceConsole200ResponseData
+     */
+    'console': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGpuInstanceConsole500Response
+ */
+export interface GetGpuInstanceConsole500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGpuInstanceConsole500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGpuInstanceConsole500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGpuInstanceConsole500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface GetGrafanaDashboardLinkResponse
  */
 export interface GetGrafanaDashboardLinkResponse {
@@ -9795,6 +9864,12 @@ export interface ListNodeGPUCardsResponseDataInner {
      * @memberof ListNodeGPUCardsResponseDataInner
      */
     'status': ListNodeGPUCardsResponseDataInnerStatus;
+    /**
+     * True when NVML runtime enrichment that this card should have had (stats, attached instances) could not be obtained, so its reported capacity is not trustworthy. Consumers such as schedulers should not allocate off a degraded card.
+     * @type {boolean}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'degraded': boolean;
 }
 
 
@@ -9872,12 +9947,6 @@ export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks {
      * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
      */
     'grafana': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
-     */
-    'console': string;
 }
 /**
  * 
@@ -14076,6 +14145,31 @@ export interface UpdateNodeDeviceResponse {
 /**
  * 
  * @export
+ * @interface UpdateNodeGPUCard400Response
+ */
+export interface UpdateNodeGPUCard400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateNodeGPUCard400Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCard400Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateNodeGPUCard400Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface UpdateNodeGPUCard409Response
  */
 export interface UpdateNodeGPUCard409Response {
@@ -14152,10 +14246,10 @@ export interface UpdateNodeGPUCardPutRequest {
 export interface UpdateNodeGPUCardPutRequestProfilesInner {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof UpdateNodeGPUCardPutRequestProfilesInner
      */
-    'id': string;
+    'id': number;
     /**
      * 
      * @type {number}
@@ -20604,7 +20698,7 @@ export interface HealthApiGetHealthHistoryRequest {
 
     /**
      * The name of the module to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
-     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
+     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
      * @memberof HealthApiGetHealthHistory
      */
     readonly moduleType: GetHealthHistoryModuleTypeEnum
@@ -20758,7 +20852,7 @@ export interface HealthApiRepairModuleHealthRequest {
 
     /**
      * The name of the module to repair. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
-     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
+     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
      * @memberof HealthApiRepairModuleHealth
      */
     readonly moduleType: RepairModuleHealthModuleTypeEnum
@@ -20889,6 +20983,7 @@ export const GetHealthHistoryModuleTypeEnum = {
     CephMds: 'ceph_mds',
     CephMgr: 'ceph_mgr',
     RbdTarget: 'rbd_target',
+    FcLink: 'fc_link',
     Haproxy: 'haproxy',
     Httpd: 'httpd',
     Skyline: 'skyline',
@@ -21046,6 +21141,7 @@ export const RepairModuleHealthModuleTypeEnum = {
     CephMds: 'ceph_mds',
     CephMgr: 'ceph_mgr',
     RbdTarget: 'rbd_target',
+    FcLink: 'fc_link',
     Haproxy: 'haproxy',
     Httpd: 'httpd',
     Skyline: 'skyline',
@@ -24805,6 +24901,52 @@ export const NodesApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
+         * Mints a Nova noVNC console link for a single attached instance on demand. The GPU cards listing does not include console links, so that polling the listing does not create a console token per instance on every request; clients call this endpoint when a user opens a console.
+         * @summary Retrieve the console link for a GPU-attached instance
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} instanceId The id of the GPU-attached instance (VM).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGpuInstanceConsole: async (dataCenter: string, nodeName: string, instanceId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGpuInstanceConsole', 'dataCenter', dataCenter)
+            // verify required parameter 'nodeName' is not null or undefined
+            assertParamExists('getGpuInstanceConsole', 'nodeName', nodeName)
+            // verify required parameter 'instanceId' is not null or undefined
+            assertParamExists('getGpuInstanceConsole', 'instanceId', instanceId)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/nodes/{nodeName}/gpuCards/instances/{instanceId}/console`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"nodeName"}}`, encodeURIComponent(String(nodeName)))
+                .replace(`{${"instanceId"}}`, encodeURIComponent(String(instanceId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
          * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
@@ -25500,6 +25642,21 @@ export const NodesApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Mints a Nova noVNC console link for a single attached instance on demand. The GPU cards listing does not include console links, so that polling the listing does not create a console token per instance on every request; clients call this endpoint when a user opens a console.
+         * @summary Retrieve the console link for a GPU-attached instance
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} nodeName The name of the node
+         * @param {string} instanceId The id of the GPU-attached instance (VM).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGpuInstanceConsole(dataCenter: string, nodeName: string, instanceId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGpuInstanceConsole200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGpuInstanceConsole(dataCenter, nodeName, instanceId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NodesApi.getGpuInstanceConsole']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 
          * @summary Retrieve the node details
          * @param {string} dataCenter The name of the data center to operate
@@ -25741,6 +25898,16 @@ export const NodesApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.disconnectNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(axios, basePath));
         },
         /**
+         * Mints a Nova noVNC console link for a single attached instance on demand. The GPU cards listing does not include console links, so that polling the listing does not create a console token per instance on every request; clients call this endpoint when a user opens a console.
+         * @summary Retrieve the console link for a GPU-attached instance
+         * @param {NodesApiGetGpuInstanceConsoleRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGpuInstanceConsole(requestParameters: NodesApiGetGpuInstanceConsoleRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGpuInstanceConsole200Response> {
+            return localVarFp.getGpuInstanceConsole(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.instanceId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
          * @summary Retrieve the node details
          * @param {NodesApiGetNodeRequest} requestParameters Request parameters.
@@ -25948,6 +26115,34 @@ export interface NodesApiDisconnectNodeIpmiRequest {
      * @memberof NodesApiDisconnectNodeIpmi
      */
     readonly nodeName: string
+}
+
+/**
+ * Request parameters for getGpuInstanceConsole operation in NodesApi.
+ * @export
+ * @interface NodesApiGetGpuInstanceConsoleRequest
+ */
+export interface NodesApiGetGpuInstanceConsoleRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof NodesApiGetGpuInstanceConsole
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the node
+     * @type {string}
+     * @memberof NodesApiGetGpuInstanceConsole
+     */
+    readonly nodeName: string
+
+    /**
+     * The id of the GPU-attached instance (VM).
+     * @type {string}
+     * @memberof NodesApiGetGpuInstanceConsole
+     */
+    readonly instanceId: string
 }
 
 /**
@@ -26397,6 +26592,18 @@ export class NodesApi extends BaseAPI {
      */
     public disconnectNodeIpmi(requestParameters: NodesApiDisconnectNodeIpmiRequest, options?: RawAxiosRequestConfig) {
         return NodesApiFp(this.configuration).disconnectNodeIpmi(requestParameters.dataCenter, requestParameters.nodeName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Mints a Nova noVNC console link for a single attached instance on demand. The GPU cards listing does not include console links, so that polling the listing does not create a console token per instance on every request; clients call this endpoint when a user opens a console.
+     * @summary Retrieve the console link for a GPU-attached instance
+     * @param {NodesApiGetGpuInstanceConsoleRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NodesApi
+     */
+    public getGpuInstanceConsole(requestParameters: NodesApiGetGpuInstanceConsoleRequest, options?: RawAxiosRequestConfig) {
+        return NodesApiFp(this.configuration).getGpuInstanceConsole(requestParameters.dataCenter, requestParameters.nodeName, requestParameters.instanceId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

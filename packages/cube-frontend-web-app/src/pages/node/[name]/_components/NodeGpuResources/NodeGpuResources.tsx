@@ -207,7 +207,7 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
 
     return (
       <div className="flex w-full justify-between gap-x-4">
-        <GpuDetails row={row} />
+        <GpuDetails nodeName={node?.hostname ?? ''} row={row} />
         <CosTooltip
           hoverContent={{ message: t('nodes.details.fullViewModal.tooltip') }}
           placement="top-left"
@@ -297,6 +297,7 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
       {fullViewTarget && (
         <GpuDetailsFullViewModal
           isModalOpen={!!fullViewTarget}
+          nodeName={node?.hostname ?? ''}
           resource={fullViewTarget}
           onClose={closeResourceFullView}
         />

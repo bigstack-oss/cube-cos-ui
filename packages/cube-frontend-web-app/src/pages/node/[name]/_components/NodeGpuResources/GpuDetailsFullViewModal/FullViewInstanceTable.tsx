@@ -1,7 +1,4 @@
-import {
-  ListNodeGPUCardsResponseDataInnerAttachedInstancesInner,
-  ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks,
-} from '@cube-frontend/api'
+import { ListNodeGPUCardsResponseDataInnerAttachedInstancesInner } from '@cube-frontend/api'
 import {
   GetCosBasicTable,
   CosTableRow,
@@ -14,6 +11,7 @@ import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
 import { useMemo, useState } from 'react'
 import { getItemsInView } from './utils'
 import { useTranslation } from 'react-i18next'
+import { GpuConsoleLink } from '../GpuConsoleLink'
 
 type InstanceTableRow = CosTableRow &
   ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
@@ -22,11 +20,12 @@ const InstanceTable = GetCosBasicTable<InstanceTableRow>()
 
 type FullViewInstanceTableProps = {
   title: string
+  nodeName: string
   instances: ListNodeGPUCardsResponseDataInnerAttachedInstancesInner[]
 }
 
 export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
-  const { title, instances } = props
+  const { title, nodeName, instances } = props
 
   const { t } = useTranslation()
 
@@ -59,23 +58,14 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
     return `${used} ${sizeUnit} / ${total} ${sizeUnit}`
   }
 
-  const renderActions = (
-    links: ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks,
-  ) => {
+  const renderActions = (row: InstanceTableRow) => {
     return (
       <div className="flex w-full flex-row gap-x-4">
+        <GpuConsoleLink nodeName={nodeName} instanceId={row.id} />
         <CosHyperlink
           size="sm"
           variant="text-inline"
-          href={links.console}
-          target="_blank"
-        >
-          {t('nodes.details.attachedInstancesList.console')}
-        </CosHyperlink>
-        <CosHyperlink
-          size="sm"
-          variant="text-inline"
-          href={links.grafana}
+          href={row.links.grafana}
           target="_blank"
         >
           Grafana
@@ -115,7 +105,7 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
           property="links"
           label={t('nodes.details.attachedInstancesList.action')}
         >
-          {(links) => renderActions(links)}
+          {(_, row) => renderActions(row)}
         </InstanceTable.Column>
       </InstanceTable>
       <CosPagination

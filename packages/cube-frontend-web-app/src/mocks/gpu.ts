@@ -1,5 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 import {
+  GetGpuInstanceConsole200Response,
   ListNodeGPUCardsResponse,
   UpdateNodeGPUCardPutRequest,
   UpdateNodeGPUCardResponse,
@@ -15,6 +16,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // MIG-backed vGPU + InUse
   {
     id: 'gpu-001',
+    degraded: false,
     name: 'NVIDIA A100 80GB',
     resourceType: GPUResourceType.MigBackedVgpu,
     pciAddress: '0000:01:00.0',
@@ -94,7 +96,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
         },
         links: {
           grafana: 'https://example.grafana/vm-99',
-          console: 'https://example.console/vm-99',
         },
       },
     ],
@@ -102,6 +103,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // MIG-backed vGPU + Idle
   {
     id: 'gpu-002',
+    degraded: false,
     name: 'NVIDIA A100 40GB',
     resourceType: GPUResourceType.MigBackedVgpu,
     pciAddress: '0000:02:00.0',
@@ -174,6 +176,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // Unassigned
   {
     id: 'gpu-003',
+    degraded: false,
     name: 'NVIDIA A100 80GB',
     resourceType: GPUResourceType.Unset,
     pciAddress: '0000:03:00.0',
@@ -208,6 +211,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // SR-IOV vGPU + InUse
   {
     id: 'gpu-004',
+    degraded: false,
     name: 'Intel Data Center GPU Flex 170',
     resourceType: GPUResourceType.SriovVgpu,
     pciAddress: '0000:04:00.0',
@@ -258,7 +262,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
         },
         links: {
           grafana: 'https://example.grafana/vm-201',
-          console: 'https://example.console/vm-201',
         },
       },
       {
@@ -272,7 +275,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
         },
         links: {
           grafana: 'https://example.grafana/vm-202',
-          console: 'https://example.console/vm-202',
         },
       },
       {
@@ -286,7 +288,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
         },
         links: {
           grafana: 'https://example.grafana/vm-203',
-          console: 'https://example.console/vm-203',
         },
       },
     ],
@@ -294,6 +295,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // SR-IOV vGPU + Idle
   {
     id: 'gpu-005',
+    degraded: false,
     name: 'Intel Data Center GPU Flex 140',
     resourceType: GPUResourceType.SriovVgpu,
     pciAddress: '0000:05:00.0',
@@ -337,6 +339,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // Unassigned
   {
     id: 'gpu-006',
+    degraded: false,
     name: 'Intel Data Center GPU Flex 170',
     resourceType: GPUResourceType.Unset,
     pciAddress: '0000:06:00.0',
@@ -367,6 +370,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // Passthrough + InUse
   {
     id: 'gpu-007',
+    degraded: false,
     name: 'NVIDIA RTX 4090',
     resourceType: GPUResourceType.Pgpu,
     pciAddress: '0000:07:00.0',
@@ -401,7 +405,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
         },
         links: {
           grafana: 'https://example.grafana/vm-301',
-          console: 'https://example.console/vm-301',
         },
       },
     ],
@@ -409,6 +412,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // Passthrough + Idle
   {
     id: 'gpu-008',
+    degraded: false,
     name: 'NVIDIA RTX 4080',
     resourceType: GPUResourceType.Pgpu,
     pciAddress: '0000:08:00.0',
@@ -436,6 +440,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // Unassigned
   {
     id: 'gpu-009',
+    degraded: false,
     name: 'NVIDIA T4',
     resourceType: GPUResourceType.Unset,
     pciAddress: '0000:09:00.0',
@@ -463,6 +468,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // Passthrough + InUse (H100)
   {
     id: 'gpu-010',
+    degraded: false,
     name: 'NVIDIA H100 80GB',
     resourceType: GPUResourceType.Pgpu,
     pciAddress: '0000:0a:00.0',
@@ -501,7 +507,6 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
         },
         links: {
           grafana: 'https://example.grafana/vm-401',
-          console: 'https://example.console/vm-401',
         },
       },
     ],
@@ -509,6 +514,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // SR-IOV vGPU + Idle (L40)
   {
     id: 'gpu-011',
+    degraded: false,
     name: 'NVIDIA L40',
     resourceType: GPUResourceType.SriovVgpu,
     pciAddress: '0000:0b:00.0',
@@ -552,6 +558,7 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
   // Unset + Unassigned
   {
     id: 'gpu-012',
+    degraded: false,
     name: 'NVIDIA A30',
     resourceType: GPUResourceType.Unset,
     pciAddress: '0000:0c:00.0',
@@ -608,6 +615,27 @@ export const mockUpdateNodeGpuCard = http.put<
     const res: UpdateNodeGPUCardResponse = {
       code: 200,
       msg: 'Success',
+      status: 'ok',
+    }
+
+    return HttpResponse.json(res)
+  },
+)
+
+export const mockGetGpuInstanceConsole = http.get<{
+  dataCenter: string
+  nodeName: string
+  instanceId: string
+}>(
+  '/api/v1/datacenters/:dataCenter/nodes/:nodeName/gpuCards/instances/:instanceId/console',
+  async ({ params }) => {
+    await delay(1000)
+    const res: GetGpuInstanceConsole200Response = {
+      code: 200,
+      data: {
+        console: `https://example.console/${params.instanceId}`,
+      },
+      msg: 'gpu instance console link retrieved successfully',
       status: 'ok',
     }
 
