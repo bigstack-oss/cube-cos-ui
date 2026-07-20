@@ -128,3 +128,17 @@ Commits must follow [Conventional Commits](https://www.conventionalcommits.org/)
 ```bash
 git commit -s -m "feat: add new thing"
 ```
+
+## Pull Requests
+
+Every PR description must follow the repository PR template at
+`.github/PULL_REQUEST_TEMPLATE.md`. Keep all of its sections in order:
+
+- **What type of PR is this?** — one `/kind` line (`bug` / `cleanup` / `documentation` / `feature`).
+- **What this PR does / why we need it**
+- **Which issue(s) this PR fixes** — `Fixes #<n>` (leave `Fixes #` if none).
+- **Special notes for your reviewer**
+- **Additional documentation** — inside the `docs` block.
+
+The templates under `.github/ISSUE_TEMPLATE/` (`bug_report.md`, `feature_request.md`)
+are for GitHub Issues, not PRs — do not use them for PR descriptions.
