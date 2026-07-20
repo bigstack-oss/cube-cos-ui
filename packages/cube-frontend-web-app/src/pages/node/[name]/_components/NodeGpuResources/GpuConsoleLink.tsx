@@ -1,9 +1,9 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CosHyperlink } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
-import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 
 export type GpuConsoleLinkProps = {
@@ -25,19 +25,27 @@ export const GpuConsoleLink = (props: GpuConsoleLinkProps) => {
 
   const showErrorToast = useShowErrorToast()
 
-  const { isLoading, mutateResource: getGpuInstanceConsole } =
-    useCosMutationRequest(nodesApi.getGpuInstanceConsole)
+  const { getResource: getGpuInstanceConsole } = useCosGetRequest(
+    nodesApi.getGpuInstanceConsole,
+    () => ({
+      dataCenter: dataCenter!.name,
+      nodeName,
+      instanceId,
+    }),
+    { fetchOnMount: false, fetchOnParamChanges: false },
+  )
+
+  const [isOpeningConsole, setIsOpeningConsole] = useState(false)
 
   const onConsoleClick = async () => {
+    setIsOpeningConsole(true)
     try {
-      const { console: consoleUrl } = await getGpuInstanceConsole({
-        dataCenter: dataCenter!.name,
-        nodeName,
-        instanceId,
-      })
+      const { console: consoleUrl } = await getGpuInstanceConsole()
       window.open(consoleUrl, '_blank', 'noopener,noreferrer')
     } catch (error) {
       showErrorToast(error)
+    } finally {
+      setIsOpeningConsole(false)
     }
   }
 
@@ -45,7 +53,7 @@ export const GpuConsoleLink = (props: GpuConsoleLinkProps) => {
     <CosHyperlink
       size="sm"
       variant="text-inline"
-      disabled={isLoading}
+      disabled={isOpeningConsole}
       onClick={onConsoleClick}
     >
       {t('nodes.details.attachedInstancesList.console')}
