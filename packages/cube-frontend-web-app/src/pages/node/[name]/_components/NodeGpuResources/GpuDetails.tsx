@@ -11,6 +11,7 @@ import {
   GpuResourceRow,
   GPUProfileRow,
   getProfilesByResourceType,
+  isProfileRemainingSupported,
 } from './utils'
 import { GpuConsoleLink } from './GpuConsoleLink'
 
@@ -86,10 +87,12 @@ const GpuDetails = (props: GpuDetailsProps) => {
             label={t('nodes.details.profilesIdList.counts')}
             property="count"
           />
-          <GpuProfilesInfoTable.Column
-            label={t('nodes.details.profilesIdList.remaining')}
-            property="remaining"
-          />
+          {isProfileRemainingSupported(row.resourceType) && (
+            <GpuProfilesInfoTable.Column
+              label={t('nodes.details.profilesIdList.remaining')}
+              property="remaining"
+            />
+          )}
           <GpuProfilesInfoTable.Column
             label={t('nodes.details.profilesIdList.aliasName')}
             property="aliasName"

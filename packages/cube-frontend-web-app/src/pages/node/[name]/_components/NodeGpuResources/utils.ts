@@ -31,6 +31,14 @@ export const getProfilesByResourceType = (
   return []
 }
 
+/**
+ * Only MIG-backed vGPU limits how many instances a profile can serve, so only
+ * its profiles have a meaningful remaining count.
+ */
+export const isProfileRemainingSupported = (
+  resourceType: GPUResourceType,
+): boolean => resourceType === GPUResourceType.MigBackedVgpu
+
 export const GpuTypeLabelKeyMap: Record<GPUResourceType, ParseKeys> = {
   [GPUResourceType.Unset]: 'nodes.details.gpuList.resourceType.unset',
   [GPUResourceType.Pgpu]: 'nodes.details.gpuList.resourceType.pgpu',

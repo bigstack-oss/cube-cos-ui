@@ -2,7 +2,11 @@ import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CosContentSwitcher, CosModal } from '@cube-frontend/ui-library'
 import { GPUResourceType } from '@cube-frontend/api'
-import { GpuResourceRow, getProfilesByResourceType } from '../utils'
+import {
+  GpuResourceRow,
+  getProfilesByResourceType,
+  isProfileRemainingSupported,
+} from '../utils'
 import { FullViewInstanceTable } from './FullViewInstanceTable'
 import { FullViewProfileTable } from './FullViewProfileTable'
 
@@ -48,6 +52,9 @@ export const GpuDetailsFullViewModal = (
       <FullViewProfileTable
         title={tabTitleMap['profiles']}
         profiles={profiles}
+        isRemainingVisible={
+          !!resource && isProfileRemainingSupported(resource.resourceType)
+        }
       />
     ),
     instances: () => (

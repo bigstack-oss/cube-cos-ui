@@ -15,10 +15,11 @@ const ProfileTable = GetCosBasicTable<GPUProfileRow>()
 type FullViewProfileTableProps = {
   title: string
   profiles: GPUProfileRow[]
+  isRemainingVisible: boolean
 }
 
 export const FullViewProfileTable = (props: FullViewProfileTableProps) => {
-  const { title, profiles } = props
+  const { title, profiles, isRemainingVisible } = props
 
   const { t } = useTranslation()
 
@@ -61,10 +62,12 @@ export const FullViewProfileTable = (props: FullViewProfileTableProps) => {
           property="count"
           label={t('nodes.details.profilesIdList.counts')}
         />
-        <ProfileTable.Column
-          property="remaining"
-          label={t('nodes.details.profilesIdList.remaining')}
-        />
+        {isRemainingVisible && (
+          <ProfileTable.Column
+            property="remaining"
+            label={t('nodes.details.profilesIdList.remaining')}
+          />
+        )}
         <ProfileTable.Column
           property="aliasName"
           label={t('nodes.details.profilesIdList.aliasName')}
