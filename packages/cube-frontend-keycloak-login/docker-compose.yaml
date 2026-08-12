@@ -1,16 +1,22 @@
 name: cos-ui-keycloak-dev
 services:
   keycloak:
-    build: .
+    image: quay.io/keycloak/keycloak:18.0.2
     container_name: keycloak
+    # The image entrypoint is kc.sh, which has no default command. start-dev also turns
+    # off theme caching, which is what the standalone.xml overrides used to be for.
+    command: start-dev
     ports:
       - 8642:8080
     environment:
-      # The older version of Keycloak only supports these variables.
-      # The new `KC_DB_USERNAME` and `KC_DB_PASSWORD` won't work.
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
+      # Quarkus renamed these from KEYCLOAK_USER / KEYCLOAK_PASSWORD.
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      # Serve under /auth the way CubeCOS does, so local URLs match the real thing.
+      KC_HTTP_RELATIVE_PATH: /auth
+      # Replaces KEYCLOAK_DEFAULT_THEME; picks up the theme without touching realm settings.
+      KC_SPI_THEME_DEFAULT: cos-ui
       LOGIN_GREETING:
     volumes:
-      - ./keycloak/themes/cos-ui:/opt/jboss/keycloak/themes/cos-ui:ro
+      - ./keycloak/themes/cos-ui:/opt/keycloak/themes/cos-ui:ro
     restart: unless-stopped
