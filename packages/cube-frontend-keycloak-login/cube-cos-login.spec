@@ -27,7 +27,19 @@ pnpm run build
 rm -rf ./keycloak/themes/cos-ui/login/resources
 cp -r ./dist/resources ./keycloak/themes/cos-ui/login
 ctr=$(buildah from quay.io/keycloak/keycloak:%{keycloak_version})
-buildah copy $ctr ./keycloak/themes/ /opt/jboss/keycloak/themes/
+buildah copy $ctr ./keycloak/themes/ /opt/keycloak/themes/
+# The WildFly deployment asked for three cache owners via CACHE_OWNERS_COUNT. Quarkus
+# reads that from cache-ispn.xml instead, which ships with two.
+buildah run $ctr -- sed -i 's/owners="2"/owners="3"/g' /opt/keycloak/conf/cache-ispn.xml
+# Quarkus fixes these options when the server is augmented, so bake them in here. Left to
+# the runtime environment they make every pod re-augment while starting, and
+# http-relative-path cannot be changed at runtime at all.
+buildah run $ctr -- /opt/keycloak/bin/kc.sh build \
+    --db=mariadb \
+    --cache=ispn \
+    --health-enabled=true \
+    --metrics-enabled=true \
+    --http-relative-path=/auth
 buildah commit $ctr localhost:5080/bigstack/keycloak:%{version}
 buildah rm $ctr
 cd -
