@@ -34,12 +34,23 @@ buildah run $ctr -- sed -i 's/owners="2"/owners="3"/g' /opt/keycloak/conf/cache-
 # Quarkus fixes these options when the server is augmented, so bake them in here. Left to
 # the runtime environment they make every pod re-augment while starting, and
 # http-relative-path cannot be changed at runtime at all.
+#
+# transaction-xa-enabled=false is what lets this image run against CubeCOS' database at
+# all once the cluster is HA: keycloak 18 defaults to XA transactions, and MariaDB
+# refuses them whenever wsrep is on -- "This version of MariaDB doesn't yet support 'XA
+# transactions with Galera replication'". That aborts the very first bootstrap midway,
+# after the default client scopes are committed but before MIGRATION_MODEL is stamped,
+# so every later start re-runs the initial migration and dies on a duplicate role_list
+# scope. A single-node install has no [galera] section and never sees it. The option is
+# build-time only -- keycloak 18 rejects it on `kc.sh start` and does not even list it in
+# --help-all -- so this build line is the only place it can be set.
 buildah run $ctr -- /opt/keycloak/bin/kc.sh build \
     --db=mariadb \
     --cache=ispn \
     --health-enabled=true \
     --metrics-enabled=true \
-    --http-relative-path=/auth
+    --http-relative-path=/auth \
+    --transaction-xa-enabled=false
 buildah commit $ctr localhost:5080/bigstack/keycloak:%{version}
 buildah rm $ctr
 cd -
