@@ -1,0 +1,39 @@
+{
+  "name": "@cube-frontend/advisor-ui",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Cube AI Advisor SaaS web UI",
+  "type": "module",
+  "engines": {
+    "node": ">=v24.15",
+    "pnpm": ">=10.33"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "test": "vitest run"
+  },
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@cube-frontend/ui-library": "workspace:*",
+    "@cube-frontend/ui-theme": "workspace:*",
+    "@cube-frontend/utils": "workspace:*",
+    "classnames": "^2.5.1",
+    "i18next": "catalog:",
+    "react-i18next": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tailwindcss": "catalog:"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "jsdom": "^25.0.1",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

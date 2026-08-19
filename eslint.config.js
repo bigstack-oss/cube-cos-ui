@@ -93,7 +93,11 @@ export default tseslint.config(
         {
           patterns: [
             {
-              group: ['../**/cube-frontend*', 'packages/**/*'],
+              group: [
+                '../**/cube-frontend*',
+                '../**/cube-advisor*',
+                'packages/**/*',
+              ],
               message:
                 'Relative package imports are not allowed. Please use path alias imports instead.',
             },
