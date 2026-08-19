@@ -29,6 +29,8 @@ import {
   GpuResourceRow,
   GpuTypeLabelKeyMap,
   isGpuTypeEditDisabled,
+  isGpuUtilizationHistorySupported,
+  isGpuVramHistorySupported,
 } from './utils'
 import { useTranslation } from 'react-i18next'
 import { ParseKeys } from 'i18next'
@@ -121,11 +123,14 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   }
 
   const renderVRamAllocation = (row: GpuResourceRow) => {
-    if (!row.vram) return null
+    const { allocatedMiB, totalMiB } = row.vram ?? {}
+
+    if (allocatedMiB === null || totalMiB === null) return null
+    if (allocatedMiB === undefined || totalMiB === undefined) return null
 
     const { total, used, sizeUnit } = toReadableUsedSize({
-      used: row.vram.allocatedMiB,
-      total: row.vram.totalMiB,
+      used: allocatedMiB,
+      total: totalMiB,
       originalSizeUnit: 'MiB',
     })
 
@@ -133,15 +138,23 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   }
 
   const renderVramUtilization = (row: GpuResourceRow) => {
-    if (!row.vram) return null
+    const utilizationPercent = row.vram?.utilizationPercent
 
-    return `${row.vram.utilizationPercent}%`
+    if (utilizationPercent === null || utilizationPercent === undefined) {
+      return null
+    }
+
+    return `${utilizationPercent}%`
   }
 
   const renderGpuUtilization = (row: GpuResourceRow) => {
-    if (!row.gpu) return null
+    const utilizationPercent = row.gpu?.utilizationPercent
 
-    return `${row.gpu.utilizationPercent}%`
+    if (utilizationPercent === null || utilizationPercent === undefined) {
+      return null
+    }
+
+    return `${utilizationPercent}%`
   }
 
   const renderStatus = (status: GPUCardStatus) => {
@@ -170,6 +183,16 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
     return `${allocationSummary.current} / ${allocationSummary.total}`
   }
 
+  /**
+   * Each card reports its own history links, already filtered to that card's
+   * PCI address, so the row opens `row.links` instead of building a URL.
+   */
+  const openHistory = (link: string) => {
+    if (!link) return
+
+    window.open(link, '_blank', 'noopener,noreferrer')
+  }
+
   const renderAction = (row: GpuResourceRow) => {
     return (
       <CosOverflowMenu
@@ -182,6 +205,30 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
           type="plain"
           onClick={() => openResourceEditModal(row)}
           disabled={isGpuTypeEditDisabled(row.status)}
+        />
+        <CosOverflowMenu.Item
+          title={t('nodes.details.viewWorkloadHistory')}
+          type="plain"
+          onClick={() => openHistory(row.links.workloadHistory)}
+          disabled={!isGpuUtilizationHistorySupported(row.resourceType)}
+        />
+        <CosOverflowMenu.Item
+          title={t('nodes.details.viewVramHistory')}
+          type="plain"
+          onClick={() => openHistory(row.links.vramHistory)}
+          disabled={!isGpuVramHistorySupported(row.resourceType)}
+        />
+        <CosOverflowMenu.Item
+          title={t('nodes.details.viewWorkloadHistory')}
+          type="plain"
+          onClick={() => openHistory(row.links.workloadHistory)}
+          disabled={!isGpuUtilizationHistorySupported(row.resourceType)}
+        />
+        <CosOverflowMenu.Item
+          title={t('nodes.details.viewVramHistory')}
+          type="plain"
+          onClick={() => openHistory(row.links.vramHistory)}
+          disabled={!isGpuVramHistorySupported(row.resourceType)}
         />
       </CosOverflowMenu>
     )

@@ -335,6 +335,8 @@
   "nodes.details.fullViewModal.details": "詳情",
   "nodes.details.fullViewModal.actionText": "關閉",
   "nodes.details.editGpuType": "編輯 GPU 類型",
+  "nodes.details.viewWorkloadHistory": "查看工作負載歷史",
+  "nodes.details.viewVramHistory": "查看 VRAM 使用歷史",
   "nodes.details.editGpuType.next": "下一步",
   "nodes.details.editGpuType.confirm": "確認",
   "nodes.details.editGpuType.gpuType": "GPU 類型",

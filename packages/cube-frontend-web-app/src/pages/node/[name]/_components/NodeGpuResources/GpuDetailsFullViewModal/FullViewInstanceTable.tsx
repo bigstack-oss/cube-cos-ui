@@ -50,9 +50,13 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
   const renderMemoryUsage = (
     memory: ListNodeGPUCardsResponseDataInnerAttachedInstancesInner['memoryUsage'],
   ) => {
+    const { allocatedMiB, totalMiB } = memory
+
+    if (allocatedMiB === null || totalMiB === null) return null
+
     const { total, used, sizeUnit } = toReadableUsedSize({
-      used: memory.allocatedMiB,
-      total: memory.totalMiB,
+      used: allocatedMiB,
+      total: totalMiB,
       originalSizeUnit: 'MiB',
     })
     return `${used} ${sizeUnit} / ${total} ${sizeUnit}`
@@ -62,14 +66,16 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
     return (
       <div className="flex w-full flex-row gap-x-4">
         <GpuConsoleLink nodeName={nodeName} instanceId={row.id} />
-        <CosHyperlink
-          size="sm"
-          variant="text-inline"
-          href={row.links.grafana}
-          target="_blank"
-        >
-          Grafana
-        </CosHyperlink>
+        {row.links.grafana && (
+          <CosHyperlink
+            size="sm"
+            variant="text-inline"
+            href={row.links.grafana}
+            target="_blank"
+          >
+            Grafana
+          </CosHyperlink>
+        )}
       </div>
     )
   }

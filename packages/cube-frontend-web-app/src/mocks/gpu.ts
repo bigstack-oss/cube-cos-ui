@@ -12,7 +12,7 @@ import {
   ListNodeGPUCardsResponseDataInner,
 } from '@cube-frontend/api/sdk/api'
 
-export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
+const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
   // MIG-backed vGPU + InUse
   {
     id: 'gpu-001',
@@ -588,6 +588,24 @@ export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] = [
     attachedInstances: [],
   },
 ]
+
+/**
+ * The API builds these per card, filtered to the card's PCI address. Mirror that
+ * shape so a row opens a link that names one card, not the whole node.
+ */
+const historyLink = (pciAddress: string, panelId: number): string =>
+  `https://example.grafana/grafana/d/i-device/device?orgId=1&var-GPU_HOST=example-node-0&var-GPU_PCIID=${encodeURIComponent(
+    pciAddress,
+  )}&from=now-3h&to=now&viewPanel=${panelId}`
+
+export const mockGpuResource: ListNodeGPUCardsResponseDataInner[] =
+  mockGpuCards.map((card) => ({
+    ...card,
+    links: {
+      workloadHistory: historyLink(card.pciAddress, 50),
+      vramHistory: historyLink(card.pciAddress, 51),
+    },
+  }))
 
 export const mockListNodeGpuCards = http.get(
   '/api/v1/datacenters/:dataCenter/nodes/:nodeName/gpuCards',

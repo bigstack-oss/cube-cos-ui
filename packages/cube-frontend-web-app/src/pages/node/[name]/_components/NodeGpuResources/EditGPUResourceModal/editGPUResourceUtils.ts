@@ -84,7 +84,7 @@ export const getProfileLimits = (
   resource: ListNodeGPUCardsResponseDataInner,
 ): ProfileLimits => ({
   count: resource.sriovVgpuProfileCountLimit ?? Number.POSITIVE_INFINITY,
-  vramMiB: resource.vram.totalMiB,
+  vramMiB: resource.vram?.totalMiB ?? 0,
 })
 
 export type ProfileFormSummary = {

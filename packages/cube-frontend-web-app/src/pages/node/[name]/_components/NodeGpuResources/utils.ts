@@ -51,6 +51,26 @@ export const isGpuTypeEditDisabled = (
   status: ListNodeGPUCardsResponseDataInnerStatus,
 ): boolean => status.current === GPUCardStatus.InUse || status.isProcessing
 
+/**
+ * The Grafana GPU Utilization panel plots `util_gpu` from the `gpu.host`
+ * measurement. NVIDIA stops reporting device-level utilization once MIG is
+ * enabled, and a passthrough card is bound to vfio-pci and handed to a VM, so
+ * neither type ever draws a line.
+ */
+export const isGpuUtilizationHistorySupported = (
+  resourceType: GPUResourceType,
+): boolean =>
+  resourceType === GPUResourceType.Unset ||
+  resourceType === GPUResourceType.SriovVgpu
+
+/**
+ * The collector samples `mem_*` at device level, so VRAM survives MIG. Only a
+ * passthrough card is invisible to the host.
+ */
+export const isGpuVramHistorySupported = (
+  resourceType: GPUResourceType,
+): boolean => resourceType !== GPUResourceType.Pgpu
+
 export const GpuTypeLabelKeyMap: Record<GPUResourceType, ParseKeys> = {
   [GPUResourceType.Unset]: 'nodes.details.gpuList.resourceType.unset',
   [GPUResourceType.Pgpu]: 'nodes.details.gpuList.resourceType.pgpu',

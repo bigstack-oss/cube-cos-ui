@@ -335,6 +335,8 @@
   "nodes.details.fullViewModal.details": "Details",
   "nodes.details.fullViewModal.actionText": "Close",
   "nodes.details.editGpuType": "Edit GPU Type",
+  "nodes.details.viewWorkloadHistory": "View Workload History",
+  "nodes.details.viewVramHistory": "View VRAM History",
   "nodes.details.editGpuType.next": "Next",
   "nodes.details.editGpuType.confirm": "Confirm",
   "nodes.details.editGpuType.gpuType": "GPU Type",
