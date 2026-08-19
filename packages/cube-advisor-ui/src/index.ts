@@ -37,3 +37,19 @@ export {
   type ProviderMode,
   type TierPolicy,
 } from './components/ProviderBadge/provider'
+export {
+  FleetHome,
+  type FleetHomeProps,
+} from './components/FleetHome/FleetHome'
+export {
+  channelOf,
+  fleetCounts,
+  groupFleet,
+  isPackStale,
+  STALE_PACK_DAYS,
+  type AccessState,
+  type ClusterRow,
+  type CustomerGroup,
+  type PackVersion,
+  type PartnerGroup,
+} from './components/FleetHome/fleet'
