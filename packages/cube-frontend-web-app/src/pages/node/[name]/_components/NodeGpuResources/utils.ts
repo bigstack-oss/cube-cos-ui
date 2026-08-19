@@ -1,7 +1,9 @@
 import {
+  GPUCardStatus,
   GPUProfile,
   GPUResourceType,
   ListNodeGPUCardsResponseDataInner,
+  ListNodeGPUCardsResponseDataInnerStatus,
 } from '@cube-frontend/api'
 import { CosTableRow } from '@cube-frontend/ui-library'
 import { ParseKeys } from 'i18next'
@@ -38,6 +40,16 @@ export const getProfilesByResourceType = (
 export const isProfileRemainingSupported = (
   resourceType: GPUResourceType,
 ): boolean => resourceType === GPUResourceType.MigBackedVgpu
+
+/**
+ * Changing a card's resource type re-partitions the device, so it needs the card
+ * to be free *and* settled: a VM holding it would lose the device underneath it,
+ * and a card whose previous change is still running would take a second one on
+ * top of an unfinished state. `isProcessing` is what the row's spinner reads.
+ */
+export const isGpuTypeEditDisabled = (
+  status: ListNodeGPUCardsResponseDataInnerStatus,
+): boolean => status.current === GPUCardStatus.InUse || status.isProcessing
 
 export const GpuTypeLabelKeyMap: Record<GPUResourceType, ParseKeys> = {
   [GPUResourceType.Unset]: 'nodes.details.gpuList.resourceType.unset',

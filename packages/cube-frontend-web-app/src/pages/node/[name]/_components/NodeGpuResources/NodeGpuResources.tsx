@@ -25,7 +25,11 @@ import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
 import { usePolling } from '@cube-frontend/web-app/hooks/usePolling'
 import { GpuDetailsFullViewModal } from './GpuDetailsFullViewModal/GpuDetailsFullViewModal'
 import { EditGPUResourceModal } from './EditGPUResourceModal/EditGPUResourceModal'
-import { GpuResourceRow, GpuTypeLabelKeyMap } from './utils'
+import {
+  GpuResourceRow,
+  GpuTypeLabelKeyMap,
+  isGpuTypeEditDisabled,
+} from './utils'
 import { useTranslation } from 'react-i18next'
 import { ParseKeys } from 'i18next'
 
@@ -177,7 +181,7 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
           title={t('nodes.details.editGpuType')}
           type="plain"
           onClick={() => openResourceEditModal(row)}
-          disabled={row.status.current === GPUCardStatus.InUse}
+          disabled={isGpuTypeEditDisabled(row.status)}
         />
       </CosOverflowMenu>
     )
