@@ -53,3 +53,28 @@ export {
   type PackVersion,
   type PartnerGroup,
 } from './components/FleetHome/fleet'
+export {
+  CitationChip,
+  CommandRecommendation,
+  ConflictCard,
+  CoverageMeter,
+  Segment,
+} from './components/ClusterWorkspace/ClusterWorkspace'
+export {
+  canSee,
+  citationLabel,
+  commandBadge,
+  coverageLabel,
+  coverageOf,
+  isGrounded,
+  isLayerConflict,
+  type AnswerSegment,
+  type Audience,
+  type Citation,
+  type CommandBlock,
+  type Conflict,
+  type Coverage,
+  type OutlineEntry,
+  type SourceLayer,
+  type ViewerRole,
+} from './components/ClusterWorkspace/answer'
