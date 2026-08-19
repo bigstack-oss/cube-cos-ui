@@ -3895,6 +3895,56 @@ export interface GetGrafanaDashboardLinkResponseData {
 /**
  * 
  * @export
+ * @interface GetGrafanaDeviceGpuUtilization500Response
+ */
+export interface GetGrafanaDeviceGpuUtilization500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGrafanaDeviceGpuUtilization500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaDeviceGpuUtilization500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaDeviceGpuUtilization500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGrafanaDeviceGpuVram500Response
+ */
+export interface GetGrafanaDeviceGpuVram500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof GetGrafanaDeviceGpuVram500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaDeviceGpuVram500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetGrafanaDeviceGpuVram500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
  * @interface GetGrafanaHosts500Response
  */
 export interface GetGrafanaHosts500Response {
@@ -9860,6 +9910,12 @@ export interface ListNodeGPUCardsResponseDataInner {
     'attachedInstances': Array<ListNodeGPUCardsResponseDataInnerAttachedInstancesInner> | null;
     /**
      * 
+     * @type {ListNodeGPUCardsResponseDataInnerLinks}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'links': ListNodeGPUCardsResponseDataInnerLinks;
+    /**
+     * 
      * @type {ListNodeGPUCardsResponseDataInnerStatus}
      * @memberof ListNodeGPUCardsResponseDataInner
      */
@@ -9917,11 +9973,11 @@ export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInner {
      */
     'profileAlias': string | null;
     /**
-     * 
+     * Null when the value does not exist for this instance\'s GPU resource type: a MIG-backed vGPU reports no utilization, and a passed-through GPU is invisible to the host altogether.
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
      */
-    'utilizationPercent': number;
+    'utilizationPercent': number | null;
     /**
      * 
      * @type {ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage}
@@ -9942,11 +9998,11 @@ export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInner {
  */
 export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks {
     /**
-     * 
+     * Null when the dashboard variables cannot be pinned: without the owning project the dashboard\'s tenant, hostname and instance variables all resolve on load and the page can label this VM\'s chart with another VM. A GPU passed through to a VM has no vGPU series to chart in the first place, so no link is the honest answer -- the same rule as the stats above, where a value that cannot be measured is null rather than 0.
      * @type {string}
      * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
      */
-    'grafana': string;
+    'grafana': string | null;
 }
 /**
  * 
@@ -9959,13 +10015,13 @@ export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUs
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage
      */
-    'allocatedMiB': number;
+    'allocatedMiB': number | null;
     /**
      * 
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerMemoryUsage
      */
-    'totalMiB': number;
+    'totalMiB': number | null;
 }
 /**
  * 
@@ -9978,7 +10034,26 @@ export interface ListNodeGPUCardsResponseDataInnerGpu {
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerGpu
      */
-    'utilizationPercent': number;
+    'utilizationPercent': number | null;
+}
+/**
+ * History charts for this one card. They are reported inline with the card because the UI offers them from its row: a link built per node would be identical on every row of the same node. Both are always present -- a card with no series (a passed-through GPU, or utilization on a MIG-enabled card) still has a chart, it is simply empty.
+ * @export
+ * @interface ListNodeGPUCardsResponseDataInnerLinks
+ */
+export interface ListNodeGPUCardsResponseDataInnerLinks {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerLinks
+     */
+    'workloadHistory': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerLinks
+     */
+    'vramHistory': string;
 }
 /**
  * 
@@ -10021,7 +10096,7 @@ export interface ListNodeGPUCardsResponseDataInnerStatus {
 
 
 /**
- * 
+ * A null field means the number does not exist for this card rather than being zero, and the card is not degraded by it. A GPU passed through to a VM (pgpu) is bound to vfio-pci and is invisible to the host, so it has no runtime stats at all; a card with MIG enabled reports its framebuffer but no utilization, because NVIDIA provides none once the card is partitioned.
  * @export
  * @interface ListNodeGPUCardsResponseDataInnerVram
  */
@@ -10031,19 +10106,19 @@ export interface ListNodeGPUCardsResponseDataInnerVram {
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerVram
      */
-    'allocatedMiB': number;
+    'allocatedMiB': number | null;
     /**
      * 
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerVram
      */
-    'totalMiB': number;
+    'totalMiB': number | null;
     /**
      * 
      * @type {number}
      * @memberof ListNodeGPUCardsResponseDataInnerVram
      */
-    'utilizationPercent': number;
+    'utilizationPercent': number | null;
 }
 /**
  * 
@@ -19587,6 +19662,90 @@ export const GrafanaApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
+         * @summary Get Grafana device GPU utilization history dashboard link
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} hostname The hostname of the host to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaDeviceGpuUtilization: async (dataCenter: string, hostname: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaDeviceGpuUtilization', 'dataCenter', dataCenter)
+            // verify required parameter 'hostname' is not null or undefined
+            assertParamExists('getGrafanaDeviceGpuUtilization', 'hostname', hostname)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/devices/{hostname}/gpuUtilization`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"hostname"}}`, encodeURIComponent(String(hostname)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Grafana device GPU VRAM usage history dashboard link
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} hostname The hostname of the host to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaDeviceGpuVram: async (dataCenter: string, hostname: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('getGrafanaDeviceGpuVram', 'dataCenter', dataCenter)
+            // verify required parameter 'hostname' is not null or undefined
+            assertParamExists('getGrafanaDeviceGpuVram', 'hostname', hostname)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/grafana/devices/{hostname}/gpuVram`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"hostname"}}`, encodeURIComponent(String(hostname)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Get Grafana hosts dashboard
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} hostname The hostname of the host to operate
@@ -19871,6 +20030,34 @@ export const GrafanaApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Get Grafana device GPU utilization history dashboard link
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} hostname The hostname of the host to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaDeviceGpuUtilization(dataCenter: string, hostname: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaDeviceGpuUtilization(dataCenter, hostname, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaDeviceGpuUtilization']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get Grafana device GPU VRAM usage history dashboard link
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} hostname The hostname of the host to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGrafanaDeviceGpuVram(dataCenter: string, hostname: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetGrafanaDashboardLinkResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGrafanaDeviceGpuVram(dataCenter, hostname, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GrafanaApi.getGrafanaDeviceGpuVram']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Get Grafana hosts dashboard
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} hostname The hostname of the host to operate
@@ -19974,6 +20161,26 @@ export const GrafanaApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
+         * @summary Get Grafana device GPU utilization history dashboard link
+         * @param {GrafanaApiGetGrafanaDeviceGpuUtilizationRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaDeviceGpuUtilization(requestParameters: GrafanaApiGetGrafanaDeviceGpuUtilizationRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaDeviceGpuUtilization(requestParameters.dataCenter, requestParameters.hostname, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Grafana device GPU VRAM usage history dashboard link
+         * @param {GrafanaApiGetGrafanaDeviceGpuVramRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGrafanaDeviceGpuVram(requestParameters: GrafanaApiGetGrafanaDeviceGpuVramRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetGrafanaDashboardLinkResponse> {
+            return localVarFp.getGrafanaDeviceGpuVram(requestParameters.dataCenter, requestParameters.hostname, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get Grafana hosts dashboard
          * @param {GrafanaApiGetGrafanaHostsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -20044,6 +20251,48 @@ export const GrafanaApiFactory = function (configuration?: Configuration, basePa
         },
     };
 };
+
+/**
+ * Request parameters for getGrafanaDeviceGpuUtilization operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaDeviceGpuUtilizationRequest
+ */
+export interface GrafanaApiGetGrafanaDeviceGpuUtilizationRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaDeviceGpuUtilization
+     */
+    readonly dataCenter: string
+
+    /**
+     * The hostname of the host to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaDeviceGpuUtilization
+     */
+    readonly hostname: string
+}
+
+/**
+ * Request parameters for getGrafanaDeviceGpuVram operation in GrafanaApi.
+ * @export
+ * @interface GrafanaApiGetGrafanaDeviceGpuVramRequest
+ */
+export interface GrafanaApiGetGrafanaDeviceGpuVramRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaDeviceGpuVram
+     */
+    readonly dataCenter: string
+
+    /**
+     * The hostname of the host to operate
+     * @type {string}
+     * @memberof GrafanaApiGetGrafanaDeviceGpuVram
+     */
+    readonly hostname: string
+}
 
 /**
  * Request parameters for getGrafanaHosts operation in GrafanaApi.
@@ -20164,6 +20413,30 @@ export interface GrafanaApiGetGrafanaTopInstancesRequest {
  * @extends {BaseAPI}
  */
 export class GrafanaApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get Grafana device GPU utilization history dashboard link
+     * @param {GrafanaApiGetGrafanaDeviceGpuUtilizationRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaDeviceGpuUtilization(requestParameters: GrafanaApiGetGrafanaDeviceGpuUtilizationRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaDeviceGpuUtilization(requestParameters.dataCenter, requestParameters.hostname, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Grafana device GPU VRAM usage history dashboard link
+     * @param {GrafanaApiGetGrafanaDeviceGpuVramRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GrafanaApi
+     */
+    public getGrafanaDeviceGpuVram(requestParameters: GrafanaApiGetGrafanaDeviceGpuVramRequest, options?: RawAxiosRequestConfig) {
+        return GrafanaApiFp(this.configuration).getGrafanaDeviceGpuVram(requestParameters.dataCenter, requestParameters.hostname, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Get Grafana hosts dashboard
