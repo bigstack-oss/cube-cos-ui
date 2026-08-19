@@ -18,18 +18,30 @@ if [[ ! -d "$LOCAL_DIST_DIR" ]]; then
   exit 1
 fi
 
+# `dist` holds ~875 files, and all but five of them are font subsets. `scp -r`
+# pays a few SFTP round trips per file, so on a link with any latency the deploy
+# spends minutes on round trips rather than on the 24 MB itself. One tar stream
+# over one ssh connection pays that cost once.
 for remote_host in "${remote_hosts[@]}"; do
   backup_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   cos_ui_backup_path="${cos_ui_path}.${backup_date}.bak"
+  cos_ui_staging_path="${cos_ui_path}.${backup_date}.new"
 
   ssh_host="${user}@${remote_host}"
-  scp_cos_ui_path="${ssh_host}:${cos_ui_path}"
-  scp_cos_ui_backup_path="${ssh_host}:${cos_ui_backup_path}"
 
-  echo "[${ssh_host}] Backup: ${scp_cos_ui_path} -> ${scp_cos_ui_backup_path}"
+  echo "[${ssh_host}] Deploy: ${LOCAL_DIST_DIR} -> ${ssh_host}:${cos_ui_path}"
+  echo "[${ssh_host}] Backup: ${cos_ui_path} -> ${cos_ui_backup_path}"
+
+  # The staging directory is unpacked before anything moves, so the live site
+  # stays up for the whole transfer and a failed transfer leaves it untouched.
+  # Only the two `mv` calls at the end are visible to a user.
   # shellcheck disable=SC2029
-  ssh "$ssh_host" mv "${cos_ui_path}" "${cos_ui_backup_path}"
-
-  echo "[${ssh_host}] Deploy: ${LOCAL_DIST_DIR} -> $scp_cos_ui_path"
-  scp -r "$LOCAL_DIST_DIR" "$scp_cos_ui_path"
+  tar -czf - -C "$LOCAL_DIST_DIR" . |
+    ssh "$ssh_host" "set -eu
+      trap \"rm -rf '${cos_ui_staging_path}'\" EXIT
+      rm -rf '${cos_ui_staging_path}'
+      mkdir -p '${cos_ui_staging_path}'
+      tar -xzf - --no-same-owner -C '${cos_ui_staging_path}'
+      mv '${cos_ui_path}' '${cos_ui_backup_path}'
+      mv '${cos_ui_staging_path}' '${cos_ui_path}'"
 done
