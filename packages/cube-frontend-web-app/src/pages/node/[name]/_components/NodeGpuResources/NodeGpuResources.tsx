@@ -301,6 +301,10 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
             {renderName}
           </GpuResourceTable.Column>
           <GpuResourceTable.Column
+            label={t('nodes.details.gpuList.pciAddress')}
+            property="pciAddress"
+          />
+          <GpuResourceTable.Column
             label={t('nodes.details.gpuList.resourceType')}
             property="resourceType"
           >
@@ -324,10 +328,6 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
           >
             {(_, row) => renderGpuUtilization(row)}
           </GpuResourceTable.Column>
-          <GpuResourceTable.Column
-            label={t('nodes.details.gpuList.pciAddress')}
-            property="pciAddress"
-          />
           <GpuResourceTable.Column
             label={t('nodes.details.gpuList.status')}
             property="status"
