@@ -42,11 +42,13 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.2",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react-swc": "catalog:",
     "autoprefixer": "catalog:",
     "code-inspector-plugin": "catalog:",
+    "jsdom": "^30.0.1",
     "msw": "^2.7.0",
     "postcss": "catalog:",
     "tailwind-merge": "catalog:",

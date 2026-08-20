@@ -42,7 +42,14 @@ export type NodeGpuResourcesProps = {
   node: Node | undefined
 }
 
-const GPU_POLLING_INTERVAL = 5000
+/**
+ * `/gpuCards` re-execs hex_sdk and `nvidia-smi` on every request and answers in
+ * ~9.5s on a 4-card node (cubecos#1305), so a 5s interval described a refresh
+ * rate the endpoint could never deliver. The numbers on this table move on
+ * operator action; second-by-second utilization belongs in the Grafana history
+ * each row already links to.
+ */
+const GPU_POLLING_INTERVAL = 30 * 1000
 
 const GpuStatusDisplayKeyMap: Record<GPUCardStatus, ParseKeys> = {
   [GPUCardStatus.Unassigned]: 'nodes.details.gpuList.status.unassigned',
@@ -70,7 +77,9 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
     } satisfies NodesApiListNodeGPUCardsRequest
   })
 
-  usePolling(refreshGpuResources, GPU_POLLING_INTERVAL)
+  usePolling(refreshGpuResources, GPU_POLLING_INTERVAL, {
+    pauseWhenHidden: true,
+  })
 
   const [resourceIdToFullView, setResourceIdToFullView] = useState<
     string | null

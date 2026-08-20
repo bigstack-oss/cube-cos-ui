@@ -8,8 +8,15 @@ export type UseSequentialIntervalOptions = {
   immediate?: boolean
 }
 
+type StartIntervalOptions = {
+  /**
+   * Overrides the hook-level `immediate` option for this restart only.
+   */
+  immediate?: boolean
+}
+
 type UseSequentialInterval = {
-  startInterval: () => void
+  startInterval: (options?: StartIntervalOptions) => void
   stopInterval: () => void
 }
 
@@ -39,31 +46,36 @@ export const useSequentialInterval = (
 
   const callbackRef = useSyncedRef(callback)
 
-  const startInterval = useCallback(() => {
-    stopInterval()
+  const startInterval = useCallback(
+    (startOptions?: StartIntervalOptions) => {
+      stopInterval()
 
-    const sequentialRun = async () => {
-      try {
-        await callbackRef.current()
-      } finally {
-        sequentialRunTimerIdRef.current = setTimeout(() => {
+      const runFirstImmediately = startOptions?.immediate ?? immediate
+
+      const sequentialRun = async () => {
+        try {
+          await callbackRef.current()
+        } finally {
+          sequentialRunTimerIdRef.current = setTimeout(() => {
+            sequentialRun()
+          }, delay)
+        }
+      }
+
+      if (runFirstImmediately) {
+        // Wrap immediate sequential run in a 0ms timeout to correctly stop the
+        // first run in strict mode.
+        firstRunTimerIdRef.current = setTimeout(() => {
+          sequentialRun()
+        }, 0)
+      } else {
+        firstRunTimerIdRef.current = setTimeout(() => {
           sequentialRun()
         }, delay)
       }
-    }
-
-    if (immediate) {
-      // Wrap immediate sequential run in a 0ms timeout to correctly stop the
-      // first run in strict mode.
-      firstRunTimerIdRef.current = setTimeout(() => {
-        sequentialRun()
-      }, 0)
-    } else {
-      firstRunTimerIdRef.current = setTimeout(() => {
-        sequentialRun()
-      }, delay)
-    }
-  }, [stopInterval, callbackRef, delay, immediate])
+    },
+    [stopInterval, callbackRef, delay, immediate],
+  )
 
   useEffect(() => {
     startInterval()
