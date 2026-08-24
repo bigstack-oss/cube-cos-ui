@@ -19,6 +19,7 @@ import WarningFilled from '@cube-frontend/ui-library/icons/monochrome/warning_fi
 import FullScreen from '@cube-frontend/ui-library/icons/monochrome/full_screen.svg?react'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
 import GpuDetails from './GpuDetails'
+import { UnmeasurableValue } from './UnmeasurableValue'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
 import { nodesApi } from '@cube-frontend/web-app/api/cosApi'
@@ -125,8 +126,9 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   const renderVRamAllocation = (row: GpuResourceRow) => {
     const { allocatedMiB, totalMiB } = row.vram ?? {}
 
-    if (allocatedMiB === null || totalMiB === null) return null
-    if (allocatedMiB === undefined || totalMiB === undefined) return null
+    if (allocatedMiB == null || totalMiB == null) {
+      return <UnmeasurableValue resourceType={row.resourceType} />
+    }
 
     const { total, used, sizeUnit } = toReadableUsedSize({
       used: allocatedMiB,
@@ -140,8 +142,8 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   const renderVramUtilization = (row: GpuResourceRow) => {
     const utilizationPercent = row.vram?.utilizationPercent
 
-    if (utilizationPercent === null || utilizationPercent === undefined) {
-      return null
+    if (utilizationPercent == null) {
+      return <UnmeasurableValue resourceType={row.resourceType} />
     }
 
     return `${utilizationPercent}%`
@@ -150,8 +152,8 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   const renderGpuUtilization = (row: GpuResourceRow) => {
     const utilizationPercent = row.gpu?.utilizationPercent
 
-    if (utilizationPercent === null || utilizationPercent === undefined) {
-      return null
+    if (utilizationPercent == null) {
+      return <UnmeasurableValue resourceType={row.resourceType} />
     }
 
     return `${utilizationPercent}%`

@@ -33,10 +33,10 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     vram: {
       allocatedMiB: 32768,
       totalMiB: 81920,
-      utilizationPercent: 40,
+      utilizationPercent: null,
     },
     gpu: {
-      utilizationPercent: 24,
+      utilizationPercent: null,
     },
     allocationSummary: {
       current: 2,
@@ -89,13 +89,14 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
         id: 'vm-99',
         name: 'AI-Worker-01',
         profileAlias: 'A100-1-5C',
-        utilizationPercent: 20.35,
+        utilizationPercent: null,
         memoryUsage: {
           allocatedMiB: 1044,
           totalMiB: 5120,
         },
         links: {
-          grafana: 'https://example.grafana/vm-99',
+          workloadHistory: 'https://example.grafana/vm-99?viewPanel=36',
+          vramHistory: 'https://example.grafana/vm-99?viewPanel=37',
         },
       },
     ],
@@ -120,10 +121,10 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     vram: {
       allocatedMiB: 0,
       totalMiB: 4096000,
-      utilizationPercent: 0,
+      utilizationPercent: null,
     },
     gpu: {
-      utilizationPercent: 0,
+      utilizationPercent: null,
     },
     allocationSummary: {
       current: 0,
@@ -261,7 +262,8 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
           totalMiB: 2048,
         },
         links: {
-          grafana: 'https://example.grafana/vm-201',
+          workloadHistory: 'https://example.grafana/vm-201?viewPanel=36',
+          vramHistory: 'https://example.grafana/vm-201?viewPanel=37',
         },
       },
       {
@@ -274,7 +276,8 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
           totalMiB: 2048,
         },
         links: {
-          grafana: 'https://example.grafana/vm-202',
+          workloadHistory: 'https://example.grafana/vm-202?viewPanel=36',
+          vramHistory: 'https://example.grafana/vm-202?viewPanel=37',
         },
       },
       {
@@ -287,7 +290,8 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
           totalMiB: 2048,
         },
         links: {
-          grafana: 'https://example.grafana/vm-203',
+          workloadHistory: 'https://example.grafana/vm-203?viewPanel=36',
+          vramHistory: 'https://example.grafana/vm-203?viewPanel=37',
         },
       },
     ],
@@ -381,12 +385,12 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
     sriovVgpuProfileCountLimit: null,
     vram: {
-      allocatedMiB: 24576,
-      totalMiB: 24576,
-      utilizationPercent: 88,
+      allocatedMiB: null,
+      totalMiB: null,
+      utilizationPercent: null,
     },
     gpu: {
-      utilizationPercent: 92,
+      utilizationPercent: null,
     },
     allocationSummary: {
       current: 1,
@@ -398,13 +402,14 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
         id: 'vm-301',
         name: 'ML-Training-GPU',
         profileAlias: '',
-        utilizationPercent: 92.0,
+        utilizationPercent: null,
         memoryUsage: {
-          allocatedMiB: 22000,
-          totalMiB: 24576,
+          allocatedMiB: null,
+          totalMiB: null,
         },
         links: {
-          grafana: 'https://example.grafana/vm-301',
+          workloadHistory: null,
+          vramHistory: null,
         },
       },
     ],
@@ -423,12 +428,12 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
     sriovVgpuProfileCountLimit: null,
     vram: {
-      allocatedMiB: 0,
-      totalMiB: 16384,
-      utilizationPercent: 0,
+      allocatedMiB: null,
+      totalMiB: null,
+      utilizationPercent: null,
     },
     gpu: {
-      utilizationPercent: 0,
+      utilizationPercent: null,
     },
     allocationSummary: {
       current: 0,
@@ -483,12 +488,12 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     ],
     sriovVgpuProfileCountLimit: 10,
     vram: {
-      allocatedMiB: 40000,
-      totalMiB: 81920,
-      utilizationPercent: 48,
+      allocatedMiB: null,
+      totalMiB: null,
+      utilizationPercent: null,
     },
     gpu: {
-      utilizationPercent: 55,
+      utilizationPercent: null,
     },
     allocationSummary: {
       current: 1,
@@ -500,13 +505,14 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
         id: 'vm-401',
         name: 'LLM-Inference-01',
         profileAlias: '',
-        utilizationPercent: 55.0,
+        utilizationPercent: null,
         memoryUsage: {
-          allocatedMiB: 40000,
-          totalMiB: 81920,
+          allocatedMiB: null,
+          totalMiB: null,
         },
         links: {
-          grafana: 'https://example.grafana/vm-401',
+          workloadHistory: null,
+          vramHistory: null,
         },
       },
     ],

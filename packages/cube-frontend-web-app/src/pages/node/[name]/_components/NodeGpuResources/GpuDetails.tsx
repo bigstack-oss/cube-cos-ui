@@ -6,7 +6,6 @@ import {
   toReadableSizeString,
   toReadableUsedSize,
 } from '@cube-frontend/web-app/utils/byte'
-import { CosHyperlink } from '@cube-frontend/ui-library'
 import {
   GpuResourceRow,
   GPUProfileRow,
@@ -14,6 +13,8 @@ import {
   isProfileRemainingSupported,
 } from './utils'
 import { GpuConsoleLink } from './GpuConsoleLink'
+import { InstanceHistoryLinks } from './InstanceHistoryLinks'
+import { UnmeasurableValue } from './UnmeasurableValue'
 
 const GpuProfilesInfoTable = GetInfoTable<GPUProfileRow>()
 
@@ -43,7 +44,9 @@ const GpuDetails = (props: GpuDetailsProps) => {
   ) => {
     const { allocatedMiB, totalMiB } = memory
 
-    if (allocatedMiB === null || totalMiB === null) return null
+    if (allocatedMiB == null || totalMiB == null) {
+      return <UnmeasurableValue resourceType={row.resourceType} />
+    }
 
     const { total, used, sizeUnit } = toReadableUsedSize({
       used: allocatedMiB,
@@ -54,21 +57,15 @@ const GpuDetails = (props: GpuDetailsProps) => {
   }
 
   const renderAttachedInstanceActions = (
-    row: ListNodeGPUCardsResponseDataInnerAttachedInstancesInner,
+    instance: ListNodeGPUCardsResponseDataInnerAttachedInstancesInner,
   ) => {
     return (
       <div className="flex w-full flex-row gap-x-4">
-        <GpuConsoleLink nodeName={nodeName} instanceId={row.id} />
-        {row.links.grafana && (
-          <CosHyperlink
-            size="sm"
-            variant="text-inline"
-            href={row.links.grafana}
-            target="_blank"
-          >
-            Grafana
-          </CosHyperlink>
-        )}
+        <GpuConsoleLink nodeName={nodeName} instanceId={instance.id} />
+        <InstanceHistoryLinks
+          resourceType={row.resourceType}
+          links={instance.links}
+        />
       </div>
     )
   }
@@ -123,7 +120,13 @@ const GpuDetails = (props: GpuDetailsProps) => {
             label={t('nodes.details.attachedInstancesList.utilization')}
             property="utilizationPercent"
           >
-            {(utilizationPercent) => `${utilizationPercent} %`}
+            {(utilizationPercent) =>
+              utilizationPercent == null ? (
+                <UnmeasurableValue resourceType={row.resourceType} />
+              ) : (
+                `${utilizationPercent} %`
+              )
+            }
           </GpuAttachedInstanceInfoTable.Column>
           <GpuAttachedInstanceInfoTable.Column
             label={t('nodes.details.attachedInstancesList.memory')}
@@ -135,7 +138,7 @@ const GpuDetails = (props: GpuDetailsProps) => {
             label={t('nodes.details.attachedInstancesList.action')}
             property="name"
           >
-            {(_, row) => renderAttachedInstanceActions(row)}
+            {(_, instance) => renderAttachedInstanceActions(instance)}
           </GpuAttachedInstanceInfoTable.Column>
         </GpuAttachedInstanceInfoTable>
       )}

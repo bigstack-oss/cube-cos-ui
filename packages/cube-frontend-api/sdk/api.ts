@@ -9992,17 +9992,23 @@ export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInner {
     'links': ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks;
 }
 /**
- * 
+ * History charts for this one VM\'s GPU resource, the VM-level counterpart of the card\'s links: workload and VRAM each open their own panel of the instance dashboard\'s vGPU row, which ships collapsed. Both are null together when the dashboard variables cannot be pinned: without the owning project the dashboard\'s tenant, hostname and instance variables all resolve on load and the page can label this VM\'s chart with another VM. A GPU passed through to a VM has no vGPU series to chart in the first place, so no link is the honest answer -- the same rule as the stats above, where a value that cannot be measured is null rather than 0. An empty chart is not such a case: a MIG-backed vGPU reports no utilization, so its workload link opens an empty panel, exactly as the card-level workloadHistory does on a MIG-enabled card.
  * @export
  * @interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
  */
 export interface ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks {
     /**
-     * Null when the dashboard variables cannot be pinned: without the owning project the dashboard\'s tenant, hostname and instance variables all resolve on load and the page can label this VM\'s chart with another VM. A GPU passed through to a VM has no vGPU series to chart in the first place, so no link is the honest answer -- the same rule as the stats above, where a value that cannot be measured is null rather than 0.
+     * 
      * @type {string}
      * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
      */
-    'grafana': string | null;
+    'workloadHistory': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInnerAttachedInstancesInnerLinks
+     */
+    'vramHistory': string | null;
 }
 /**
  * 

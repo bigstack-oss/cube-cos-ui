@@ -1,10 +1,12 @@
-import { ListNodeGPUCardsResponseDataInnerAttachedInstancesInner } from '@cube-frontend/api'
+import {
+  GPUResourceType,
+  ListNodeGPUCardsResponseDataInnerAttachedInstancesInner,
+} from '@cube-frontend/api'
 import {
   GetCosBasicTable,
   CosTableRow,
   CosPagination,
   ItemsPerPage,
-  CosHyperlink,
   DEFAULT_ITEMS_PER_PAGE,
 } from '@cube-frontend/ui-library'
 import { toReadableUsedSize } from '@cube-frontend/web-app/utils/byte'
@@ -12,6 +14,8 @@ import { useMemo, useState } from 'react'
 import { getItemsInView } from './utils'
 import { useTranslation } from 'react-i18next'
 import { GpuConsoleLink } from '../GpuConsoleLink'
+import { InstanceHistoryLinks } from '../InstanceHistoryLinks'
+import { UnmeasurableValue } from '../UnmeasurableValue'
 
 type InstanceTableRow = CosTableRow &
   ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
@@ -21,11 +25,12 @@ const InstanceTable = GetCosBasicTable<InstanceTableRow>()
 type FullViewInstanceTableProps = {
   title: string
   nodeName: string
+  resourceType: GPUResourceType
   instances: ListNodeGPUCardsResponseDataInnerAttachedInstancesInner[]
 }
 
 export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
-  const { title, nodeName, instances } = props
+  const { title, nodeName, resourceType, instances } = props
 
   const { t } = useTranslation()
 
@@ -52,7 +57,9 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
   ) => {
     const { allocatedMiB, totalMiB } = memory
 
-    if (allocatedMiB === null || totalMiB === null) return null
+    if (allocatedMiB == null || totalMiB == null) {
+      return <UnmeasurableValue resourceType={resourceType} />
+    }
 
     const { total, used, sizeUnit } = toReadableUsedSize({
       used: allocatedMiB,
@@ -66,16 +73,7 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
     return (
       <div className="flex w-full flex-row gap-x-4">
         <GpuConsoleLink nodeName={nodeName} instanceId={row.id} />
-        {row.links.grafana && (
-          <CosHyperlink
-            size="sm"
-            variant="text-inline"
-            href={row.links.grafana}
-            target="_blank"
-          >
-            Grafana
-          </CosHyperlink>
-        )}
+        <InstanceHistoryLinks resourceType={resourceType} links={row.links} />
       </div>
     )
   }
@@ -99,7 +97,13 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
           property="utilizationPercent"
           label={t('nodes.details.attachedInstancesList.utilization')}
         >
-          {(utilizationPercent) => `${utilizationPercent} %`}
+          {(utilizationPercent) =>
+            utilizationPercent == null ? (
+              <UnmeasurableValue resourceType={resourceType} />
+            ) : (
+              `${utilizationPercent} %`
+            )
+          }
         </InstanceTable.Column>
         <InstanceTable.Column
           property="memoryUsage"

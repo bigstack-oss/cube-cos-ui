@@ -61,6 +61,7 @@ export const GpuDetailsFullViewModal = (
       <FullViewInstanceTable
         title={tabTitleMap['instances']}
         nodeName={nodeName}
+        resourceType={resource?.resourceType ?? GPUResourceType.Unset}
         instances={resource?.attachedInstances ?? []}
       />
     ),

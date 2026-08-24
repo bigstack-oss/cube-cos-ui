@@ -71,6 +71,37 @@ export const isGpuVramHistorySupported = (
   resourceType: GPUResourceType,
 ): boolean => resourceType !== GPUResourceType.Pgpu
 
+/**
+ * The instance Workload panel plots `util_gpu` from the `gpu.vm` measurement. A
+ * MIG-backed vGPU reports no utilization at all — the field is absent, which is
+ * why an instance on such a card already shows a dash instead of a number — so
+ * its workload chart opens empty. Only an SR-IOV vGPU draws the line. A
+ * passthrough card never reaches this check: the API sends no link for it.
+ */
+export const isInstanceWorkloadHistorySupported = (
+  resourceType: GPUResourceType,
+): boolean => resourceType === GPUResourceType.SriovVgpu
+
+/**
+ * The API reports `null` for a number the host cannot read, and it applies no
+ * per-resource-type rule while doing so — a nil source simply stays nil. Only two
+ * hardware configurations produce one, so the card's type explains the gap, and
+ * the reason stops being reachable on its own once DCGM supplies the numbers.
+ */
+export const getUnmeasurableReasonKey = (
+  resourceType: GPUResourceType,
+): ParseKeys => {
+  if (resourceType === GPUResourceType.Pgpu) {
+    return 'nodes.details.gpuList.unmeasurable.pgpu'
+  }
+
+  if (resourceType === GPUResourceType.MigBackedVgpu) {
+    return 'nodes.details.gpuList.unmeasurable.migBackedVgpu'
+  }
+
+  return 'nodes.details.gpuList.unmeasurable.generic'
+}
+
 export const GpuTypeLabelKeyMap: Record<GPUResourceType, ParseKeys> = {
   [GPUResourceType.Unset]: 'nodes.details.gpuList.resourceType.unset',
   [GPUResourceType.Pgpu]: 'nodes.details.gpuList.resourceType.pgpu',

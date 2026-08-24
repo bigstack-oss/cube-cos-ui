@@ -1,9 +1,11 @@
 import { describe, expect, test } from 'vitest'
 import { GPUCardStatus, GPUResourceType } from '@cube-frontend/api'
 import {
+  getUnmeasurableReasonKey,
   isGpuTypeEditDisabled,
   isGpuUtilizationHistorySupported,
   isGpuVramHistorySupported,
+  isInstanceWorkloadHistorySupported,
   isProfileRemainingSupported,
 } from './utils'
 
@@ -93,5 +95,49 @@ describe('isGpuVramHistorySupported', () => {
 
   test('returns false for passthrough GPU, which the host cannot see', () => {
     expect(isGpuVramHistorySupported(GPUResourceType.Pgpu)).toBe(false)
+  })
+})
+
+describe('isInstanceWorkloadHistorySupported', () => {
+  test('returns true for SR-IOV vGPU, the only type whose instance reports util_gpu', () => {
+    expect(isInstanceWorkloadHistorySupported(GPUResourceType.SriovVgpu)).toBe(
+      true,
+    )
+  })
+
+  test('returns false for MIG-backed vGPU, whose instance reports no utilization', () => {
+    expect(
+      isInstanceWorkloadHistorySupported(GPUResourceType.MigBackedVgpu),
+    ).toBe(false)
+  })
+
+  test('returns false for the types that never carry a charted instance', () => {
+    expect(isInstanceWorkloadHistorySupported(GPUResourceType.Pgpu)).toBe(false)
+    expect(isInstanceWorkloadHistorySupported(GPUResourceType.Unset)).toBe(
+      false,
+    )
+  })
+})
+
+describe('getUnmeasurableReasonKey', () => {
+  test('blames vfio-pci for a passthrough card', () => {
+    expect(getUnmeasurableReasonKey(GPUResourceType.Pgpu)).toBe(
+      'nodes.details.gpuList.unmeasurable.pgpu',
+    )
+  })
+
+  test('blames MIG mode for a MIG-backed card', () => {
+    expect(getUnmeasurableReasonKey(GPUResourceType.MigBackedVgpu)).toBe(
+      'nodes.details.gpuList.unmeasurable.migBackedVgpu',
+    )
+  })
+
+  test('falls back to the generic reason for a type that should report a value', () => {
+    expect(getUnmeasurableReasonKey(GPUResourceType.Unset)).toBe(
+      'nodes.details.gpuList.unmeasurable.generic',
+    )
+    expect(getUnmeasurableReasonKey(GPUResourceType.SriovVgpu)).toBe(
+      'nodes.details.gpuList.unmeasurable.generic',
+    )
   })
 })
