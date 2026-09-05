@@ -20970,7 +20970,7 @@ export interface HealthApiGetHealthHistoryRequest {
 
     /**
      * The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
-     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'logAnalytics' | 'notifications'}
+     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'metricsDb' | 'logAnalytics' | 'notifications'}
      * @memberof HealthApiGetHealthHistory
      */
     readonly serviceType: GetHealthHistoryServiceTypeEnum
@@ -21061,7 +21061,7 @@ export interface HealthApiGetServiceHealthHistoryRequest {
 
     /**
      * The name of the service to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
-     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'logAnalytics' | 'notifications'}
+     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'metricsDb' | 'logAnalytics' | 'notifications'}
      * @memberof HealthApiGetServiceHealthHistory
      */
     readonly serviceType: GetServiceHealthHistoryServiceTypeEnum
@@ -21124,7 +21124,7 @@ export interface HealthApiRepairModuleHealthRequest {
 
     /**
      * The name of the service which cover the module you tend to repair. use GET /api/v1/datacenters/{dataCenter}/services to get the service list and their modules.
-     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'logAnalytics' | 'notifications'}
+     * @type {'clusterLink' | 'clusterSys' | 'clusterSettings' | 'haCluster' | 'msgQueue' | 'iaasDb' | 'virtualIp' | 'storage' | 'apiService' | 'singleSignOn' | 'network' | 'compute' | 'bareMetal' | 'image' | 'blockStor' | 'fileStor' | 'objectStor' | 'orchestration' | 'lbaas' | 'dnsaas' | 'k8saas' | 'instanceHa' | 'businessLogic' | 'dataPipe' | 'metrics' | 'metricsDb' | 'logAnalytics' | 'notifications'}
      * @memberof HealthApiRepairModuleHealth
      */
     readonly serviceType: RepairModuleHealthServiceTypeEnum
@@ -21234,6 +21234,7 @@ export const GetHealthHistoryServiceTypeEnum = {
     BusinessLogic: 'businessLogic',
     DataPipe: 'dataPipe',
     Metrics: 'metrics',
+    MetricsDb: 'metricsDb',
     LogAnalytics: 'logAnalytics',
     Notifications: 'notifications'
 } as const;
@@ -21348,6 +21349,7 @@ export const GetServiceHealthHistoryServiceTypeEnum = {
     BusinessLogic: 'businessLogic',
     DataPipe: 'dataPipe',
     Metrics: 'metrics',
+    MetricsDb: 'metricsDb',
     LogAnalytics: 'logAnalytics',
     Notifications: 'notifications'
 } as const;
@@ -21392,6 +21394,7 @@ export const RepairModuleHealthServiceTypeEnum = {
     BusinessLogic: 'businessLogic',
     DataPipe: 'dataPipe',
     Metrics: 'metrics',
+    MetricsDb: 'metricsDb',
     LogAnalytics: 'logAnalytics',
     Notifications: 'notifications'
 } as const;

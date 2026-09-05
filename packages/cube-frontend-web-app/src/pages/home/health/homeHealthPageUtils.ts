@@ -28,6 +28,7 @@ const serviceNameLabelMap: Record<string, string> = {
   businessLogic: 'Business Logic',
   dataPipe: 'Data Pipe',
   metrics: 'Metrics',
+  metricsDb: 'Metrics DB',
   logAnalytics: 'Log Analytics',
   notifications: 'Notifications',
 }
@@ -93,6 +94,8 @@ const moduleNameLabelMap: Record<string, string> = {
   monasca: 'Monasca',
   telegraf: 'Telegraf',
   grafana: 'Grafana',
+  prometheus: 'Prometheus',
+  thanos: 'Thanos',
   filebeat: 'Filebeat',
   auditbeat: 'Auditbeat',
   logstash: 'Logstash',
