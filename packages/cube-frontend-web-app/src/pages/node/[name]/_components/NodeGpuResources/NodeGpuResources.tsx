@@ -229,18 +229,6 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
           onClick={() => openHistory(row.links.vramHistory)}
           disabled={!isGpuVramHistorySupported(row.resourceType)}
         />
-        <CosOverflowMenu.Item
-          title={t('nodes.details.viewWorkloadHistory')}
-          type="plain"
-          onClick={() => openHistory(row.links.workloadHistory)}
-          disabled={!isGpuUtilizationHistorySupported(row.resourceType)}
-        />
-        <CosOverflowMenu.Item
-          title={t('nodes.details.viewVramHistory')}
-          type="plain"
-          onClick={() => openHistory(row.links.vramHistory)}
-          disabled={!isGpuVramHistorySupported(row.resourceType)}
-        />
       </CosOverflowMenu>
     )
   }
