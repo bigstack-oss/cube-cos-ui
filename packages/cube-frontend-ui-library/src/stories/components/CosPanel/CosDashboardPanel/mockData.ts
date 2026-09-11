@@ -24,7 +24,7 @@ const getMockEvent = (index: number): Event => {
 at 192.168.0.8 is reachable`,
     host: 'dell13',
     category: 'Net',
-    service: 'senlin',
+    service: 'neutron',
     metadata: 'id:940c6a1f-1f42-4152a87e-56c0309939df',
     time: 'yyyy/mm/dd 00:00',
   }
