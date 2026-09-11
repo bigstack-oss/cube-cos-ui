@@ -20977,7 +20977,7 @@ export interface HealthApiGetHealthHistoryRequest {
 
     /**
      * The name of the module to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
-     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
+     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
      * @memberof HealthApiGetHealthHistory
      */
     readonly moduleType: GetHealthHistoryModuleTypeEnum
@@ -21131,7 +21131,7 @@ export interface HealthApiRepairModuleHealthRequest {
 
     /**
      * The name of the module to repair. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
-     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
+     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
      * @memberof HealthApiRepairModuleHealth
      */
     readonly moduleType: RepairModuleHealthModuleTypeEnum
@@ -21286,7 +21286,6 @@ export const GetHealthHistoryModuleTypeEnum = {
     Masakari: 'masakari',
     Zookeeper: 'zookeeper',
     Kafka: 'kafka',
-    Monasca: 'monasca',
     Telegraf: 'telegraf',
     Grafana: 'grafana',
     Filebeat: 'filebeat',
@@ -21446,7 +21445,6 @@ export const RepairModuleHealthModuleTypeEnum = {
     Masakari: 'masakari',
     Zookeeper: 'zookeeper',
     Kafka: 'kafka',
-    Monasca: 'monasca',
     Telegraf: 'telegraf',
     Grafana: 'grafana',
     Filebeat: 'filebeat',

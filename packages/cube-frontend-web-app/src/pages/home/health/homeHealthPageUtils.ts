@@ -91,7 +91,6 @@ const moduleNameLabelMap: Record<string, string> = {
   watcher: 'Watcher',
   zookeeper: 'ZooKeeper',
   kafka: 'Kafka',
-  monasca: 'Monasca',
   telegraf: 'Telegraf',
   grafana: 'Grafana',
   prometheus: 'Prometheus',
