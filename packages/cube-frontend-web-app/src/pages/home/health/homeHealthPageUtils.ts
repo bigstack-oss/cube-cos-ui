@@ -87,7 +87,6 @@ const moduleNameLabelMap: Record<string, string> = {
   designate: 'Designate',
   rancher: 'Rancher',
   masakari: 'Masakari',
-  senlin: 'Senlin',
   watcher: 'Watcher',
   zookeeper: 'ZooKeeper',
   kafka: 'Kafka',
