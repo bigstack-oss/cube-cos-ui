@@ -30,6 +30,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     sriovVgpuProfileCountLimit: 10,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 32768,
       totalMiB: 81920,
@@ -118,6 +119,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     sriovVgpuProfileCountLimit: 10,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 4096000,
@@ -191,6 +193,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     sriovVgpuProfileCountLimit: 10,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 81920,
@@ -225,6 +228,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.SriovVgpu,
     ],
     sriovVgpuProfileCountLimit: 10,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 12000,
       totalMiB: 16384,
@@ -312,6 +316,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.SriovVgpu,
     ],
     sriovVgpuProfileCountLimit: 10,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 12288,
@@ -356,6 +361,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.SriovVgpu,
     ],
     sriovVgpuProfileCountLimit: 10,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 16384,
@@ -384,6 +390,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
     sriovVgpuProfileCountLimit: null,
+    deviceProfile: 'geforce_rtx_4090_1',
     vram: {
       allocatedMiB: null,
       totalMiB: null,
@@ -427,6 +434,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
     sriovVgpuProfileCountLimit: null,
+    deviceProfile: 'geforce_rtx_4080_1',
     vram: {
       allocatedMiB: null,
       totalMiB: null,
@@ -455,6 +463,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     },
     supportResourceTypes: [GPUSupportResourceType.Pgpu],
     sriovVgpuProfileCountLimit: null,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 16384,
@@ -487,6 +496,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     sriovVgpuProfileCountLimit: 10,
+    deviceProfile: 'h100_80gb_pcie_1',
     vram: {
       allocatedMiB: null,
       totalMiB: null,
@@ -533,6 +543,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.SriovVgpu,
     ],
     sriovVgpuProfileCountLimit: 10,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 49152,
@@ -578,6 +589,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
       GPUSupportResourceType.MigBackedVgpu,
     ],
     sriovVgpuProfileCountLimit: 8,
+    deviceProfile: null,
     vram: {
       allocatedMiB: 0,
       totalMiB: 24576,
