@@ -49,6 +49,7 @@ const moduleNameLabelMap: Record<string, string> = {
   dns: 'DNS',
   bootstrap: 'Bootstrap',
   license: 'License',
+  advisor: 'AI Advisor',
   etcd: 'Etcd',
   nodelist: 'Node List',
   hacluster: 'HA Cluster',
