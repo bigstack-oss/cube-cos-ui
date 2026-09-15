@@ -9909,6 +9909,12 @@ export interface ListNodeGPUCardsResponseDataInner {
      */
     'attachedInstances': Array<ListNodeGPUCardsResponseDataInnerAttachedInstancesInner> | null;
     /**
+     * The Cyborg device profile a flavor\'s accel:device_profile must name to be scheduled onto this card. Only a pgpu card has one: sriovVgpu and migBackedVgpu cards are scheduled through the PCI alias reported on each of their profiles. Null on every other resource type, and on a pgpu card whose profile has not been created yet or could not be looked up.
+     * @type {string}
+     * @memberof ListNodeGPUCardsResponseDataInner
+     */
+    'deviceProfile': string | null;
+    /**
      * 
      * @type {ListNodeGPUCardsResponseDataInnerLinks}
      * @memberof ListNodeGPUCardsResponseDataInner
@@ -20977,7 +20983,7 @@ export interface HealthApiGetHealthHistoryRequest {
 
     /**
      * The name of the module to retrieve health history. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
-     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
+     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
      * @memberof HealthApiGetHealthHistory
      */
     readonly moduleType: GetHealthHistoryModuleTypeEnum
@@ -21131,7 +21137,7 @@ export interface HealthApiRepairModuleHealthRequest {
 
     /**
      * The name of the module to repair. use GET /api/v1/datacenters/{dataCenter}/services/{serviceType} to get the module list.
-     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'monasca' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
+     * @type {'link' | 'clock' | 'dns' | 'bootstrap' | 'license' | 'etcd' | 'nodelist' | 'hacluster' | 'rabbitmq' | 'mysql' | 'mongodb' | 'vip' | 'haproxy_ha' | 'ceph' | 'ceph_mon' | 'ceph_osd' | 'ceph_rgw' | 'ceph_mds' | 'ceph_mgr' | 'rbd_target' | 'fc_link' | 'haproxy' | 'httpd' | 'skyline' | 'api' | 'memcache' | 'k3s' | 'keycloak' | 'neutron' | 'nova' | 'cyborg' | 'ironic' | 'glance' | 'cinder' | 'manila' | 'swift' | 'heat' | 'octavia' | 'designate' | 'rancher' | 'masakari' | 'zookeeper' | 'kafka' | 'telegraf' | 'grafana' | 'filebeat' | 'auditbeat' | 'logstash' | 'opensearch' | 'opensearch-dashboards' | 'influxdb' | 'kapacitor'}
      * @memberof HealthApiRepairModuleHealth
      */
     readonly moduleType: RepairModuleHealthModuleTypeEnum
@@ -21286,7 +21292,6 @@ export const GetHealthHistoryModuleTypeEnum = {
     Masakari: 'masakari',
     Zookeeper: 'zookeeper',
     Kafka: 'kafka',
-    Monasca: 'monasca',
     Telegraf: 'telegraf',
     Grafana: 'grafana',
     Filebeat: 'filebeat',
@@ -21446,7 +21451,6 @@ export const RepairModuleHealthModuleTypeEnum = {
     Masakari: 'masakari',
     Zookeeper: 'zookeeper',
     Kafka: 'kafka',
-    Monasca: 'monasca',
     Telegraf: 'telegraf',
     Grafana: 'grafana',
     Filebeat: 'filebeat',
@@ -24486,7 +24490,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary Retrieve the various metrics with different view from single host or single vm
          * @param {string} dataCenter The name of the data center to operate
-         * @param {GetMetricByHostOrVmMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+         * @param {GetMetricByHostOrVmMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;storageUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
          * @param {GetMetricByHostOrVmViewTypeEnum} viewType The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
          * @param {GetMetricByHostOrVmEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
          * @param {string} entityIdOrName The id or name of the entity to query
@@ -24560,7 +24564,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary Retrieve the various metrics with different view from hosts or vms
          * @param {string} dataCenter The name of the data center to operate
-         * @param {GetMetricByTypesMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+         * @param {GetMetricByTypesMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;storageUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
          * @param {GetMetricByTypesViewTypeEnum} viewType The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
          * @param {GetMetricByTypesEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
@@ -24678,7 +24682,7 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Retrieve the various metrics with different view from single host or single vm
          * @param {string} dataCenter The name of the data center to operate
-         * @param {GetMetricByHostOrVmMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+         * @param {GetMetricByHostOrVmMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;storageUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
          * @param {GetMetricByHostOrVmViewTypeEnum} viewType The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
          * @param {GetMetricByHostOrVmEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
          * @param {string} entityIdOrName The id or name of the entity to query
@@ -24699,7 +24703,7 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Retrieve the various metrics with different view from hosts or vms
          * @param {string} dataCenter The name of the data center to operate
-         * @param {GetMetricByTypesMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+         * @param {GetMetricByTypesMetricTypeEnum} metricType The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;storageUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
          * @param {GetMetricByTypesViewTypeEnum} viewType The type of view to query, the value can be only \&#39;summary\&#39;, \&#39;history\&#39;, or \&#39;rank\&#39;.
          * @param {GetMetricByTypesEntityTypeEnum} entityType The type of entity to query, the value can be \&#39;hosts\&#39; or \&#39;vms\&#39;
          * @param {string} [start] The start time of the event to query, the value should be in RFC3339 format (default is 24 hours ago).
@@ -24785,8 +24789,8 @@ export interface MetricsApiGetMetricByHostOrVmRequest {
     readonly dataCenter: string
 
     /**
-     * The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
-     * @type {'cpuUsage' | 'memoryUsage' | 'diskUsage' | 'diskBandwidth' | 'diskIops' | 'diskLatency' | 'diskReadIops' | 'diskWriteIops' | 'networkTrafficIn' | 'networkTrafficOut'}
+     * The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;storageUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+     * @type {'cpuUsage' | 'memoryUsage' | 'diskUsage' | 'storageUsage' | 'diskBandwidth' | 'diskIops' | 'diskLatency' | 'diskReadIops' | 'diskWriteIops' | 'networkTrafficIn' | 'networkTrafficOut'}
      * @memberof MetricsApiGetMetricByHostOrVm
      */
     readonly metricType: GetMetricByHostOrVmMetricTypeEnum
@@ -24855,8 +24859,8 @@ export interface MetricsApiGetMetricByTypesRequest {
     readonly dataCenter: string
 
     /**
-     * The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
-     * @type {'cpuUsage' | 'memoryUsage' | 'diskUsage' | 'diskBandwidth' | 'diskIops' | 'diskLatency' | 'diskReadIops' | 'diskWriteIops' | 'networkTrafficIn' | 'networkTrafficOut'}
+     * The type of metric to query, the value can be \&#39;cpuUsage\&#39;, \&#39;memoryUsage\&#39;, \&#39;diskUsage\&#39;, \&#39;storageUsage\&#39;, \&#39;diskBandwidth\&#39;, \&#39;diskIops\&#39;, \&#39;diskLatency\&#39;, \&#39;diskReadIops\&#39;, \&#39;diskWriteIops\&#39;, \&#39;networkTrafficIn\&#39;, or \&#39;networkTrafficOut\&#39;.
+     * @type {'cpuUsage' | 'memoryUsage' | 'diskUsage' | 'storageUsage' | 'diskBandwidth' | 'diskIops' | 'diskLatency' | 'diskReadIops' | 'diskWriteIops' | 'networkTrafficIn' | 'networkTrafficOut'}
      * @memberof MetricsApiGetMetricByTypes
      */
     readonly metricType: GetMetricByTypesMetricTypeEnum
@@ -24969,6 +24973,7 @@ export const GetMetricByHostOrVmMetricTypeEnum = {
     CpuUsage: 'cpuUsage',
     MemoryUsage: 'memoryUsage',
     DiskUsage: 'diskUsage',
+    StorageUsage: 'storageUsage',
     DiskBandwidth: 'diskBandwidth',
     DiskIops: 'diskIops',
     DiskLatency: 'diskLatency',
@@ -25012,6 +25017,7 @@ export const GetMetricByTypesMetricTypeEnum = {
     CpuUsage: 'cpuUsage',
     MemoryUsage: 'memoryUsage',
     DiskUsage: 'diskUsage',
+    StorageUsage: 'storageUsage',
     DiskBandwidth: 'diskBandwidth',
     DiskIops: 'diskIops',
     DiskLatency: 'diskLatency',

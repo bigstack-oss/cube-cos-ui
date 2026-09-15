@@ -144,6 +144,7 @@
   "home.chart.vm.rankingTop10": "虛擬機排行前十名（由高到低）",
   "home.chart.vm.cpuUsage": "CPU 使用率",
   "home.chart.vm.memoryUsage": "記憶體使用率",
+  "home.chart.vm.diskUsage": "磁碟使用量",
   "home.chart.vm.diskIoRead": "磁碟 I/O 讀取",
   "home.chart.vm.diskIoWrite": "磁碟 I/O 寫入",
   "home.chart.vm.ingressTraffic": "入站流量",
