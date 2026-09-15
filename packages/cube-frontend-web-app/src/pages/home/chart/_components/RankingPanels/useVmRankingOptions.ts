@@ -19,6 +19,10 @@ export const useVmRankingOptions = (): VmRankingItem[] => {
       metricType: GetMetricByTypesMetricTypeEnum.MemoryUsage,
     },
     {
+      name: t('home.chart.vm.diskUsage'),
+      metricType: GetMetricByTypesMetricTypeEnum.StorageUsage,
+    },
+    {
       name: t('home.chart.vm.diskIoRead'),
       metricType: GetMetricByTypesMetricTypeEnum.DiskReadIops,
     },
