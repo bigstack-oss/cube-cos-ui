@@ -19,6 +19,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA A100 80GB',
     resourceType: GPUResourceType.MigBackedVgpu,
+    deviceProfile: null,
     pciAddress: '0000:01:00.0',
     status: {
       current: GPUCardStatus.InUse,
@@ -107,6 +108,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA A100 40GB',
     resourceType: GPUResourceType.MigBackedVgpu,
+    deviceProfile: null,
     pciAddress: '0000:02:00.0',
     status: {
       current: GPUCardStatus.Idle,
@@ -180,6 +182,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA A100 80GB',
     resourceType: GPUResourceType.Unset,
+    deviceProfile: null,
     pciAddress: '0000:03:00.0',
     status: {
       current: GPUCardStatus.Unassigned,
@@ -215,6 +218,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'Intel Data Center GPU Flex 170',
     resourceType: GPUResourceType.SriovVgpu,
+    deviceProfile: null,
     pciAddress: '0000:04:00.0',
     status: {
       current: GPUCardStatus.InUse,
@@ -302,6 +306,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'Intel Data Center GPU Flex 140',
     resourceType: GPUResourceType.SriovVgpu,
+    deviceProfile: null,
     pciAddress: '0000:05:00.0',
     status: {
       current: GPUCardStatus.Idle,
@@ -346,6 +351,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'Intel Data Center GPU Flex 170',
     resourceType: GPUResourceType.Unset,
+    deviceProfile: null,
     pciAddress: '0000:06:00.0',
     status: {
       current: GPUCardStatus.Unassigned,
@@ -377,6 +383,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA RTX 4090',
     resourceType: GPUResourceType.Pgpu,
+    deviceProfile: 'rtx4090_profile',
     pciAddress: '0000:07:00.0',
     status: {
       current: GPUCardStatus.InUse,
@@ -420,6 +427,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA RTX 4080',
     resourceType: GPUResourceType.Pgpu,
+    deviceProfile: null,
     pciAddress: '0000:08:00.0',
     status: {
       current: GPUCardStatus.Idle,
@@ -448,6 +456,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA T4',
     resourceType: GPUResourceType.Unset,
+    deviceProfile: null,
     pciAddress: '0000:09:00.0',
     status: {
       current: GPUCardStatus.Unassigned,
@@ -476,6 +485,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA H100 80GB',
     resourceType: GPUResourceType.Pgpu,
+    deviceProfile: 'h100_80gb_profile',
     pciAddress: '0000:0a:00.0',
     status: {
       current: GPUCardStatus.InUse,
@@ -523,6 +533,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA L40',
     resourceType: GPUResourceType.SriovVgpu,
+    deviceProfile: null,
     pciAddress: '0000:0b:00.0',
     status: {
       current: GPUCardStatus.Idle,
@@ -567,6 +578,7 @@ const mockGpuCards: Omit<ListNodeGPUCardsResponseDataInner, 'links'>[] = [
     degraded: false,
     name: 'NVIDIA A30',
     resourceType: GPUResourceType.Unset,
+    deviceProfile: null,
     pciAddress: '0000:0c:00.0',
     status: {
       current: GPUCardStatus.Unassigned,
