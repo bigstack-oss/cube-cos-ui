@@ -93,6 +93,11 @@ const InfoTable = <Row extends InfoTableRow>(props: InfoTableProps<Row>) => {
   }
 
   const renderTable = (rows: Row[]) => {
+    /**
+     * `border-separate` puts the spacing around the table's outer edge too, so
+     * the box needs no padding of its own -- the design asks for the same 16px
+     * between the border and a cell as between two cells.
+     */
     return (
       <table className="border-separate border-spacing-4">
         <thead>
@@ -137,7 +142,7 @@ const InfoTable = <Row extends InfoTableRow>(props: InfoTableProps<Row>) => {
         ) : (
           <div
             className={twMerge(
-              'border border-functional-border-divider bg-primary-0 p-4',
+              'border border-functional-border-divider bg-primary-0',
               className,
             )}
           >
@@ -160,7 +165,7 @@ const InfoTable = <Row extends InfoTableRow>(props: InfoTableProps<Row>) => {
         {isLoading ? (
           renderLoadingSpinner()
         ) : (
-          <div className="flex w-full gap-x-4 overflow-x-scroll border border-functional-border-divider bg-primary-0 p-4">
+          <div className="flex w-full gap-x-4 overflow-x-scroll border border-functional-border-divider bg-primary-0">
             {chunks.map((chunk, chunkIndex) => (
               <div key={chunkIndex} className="min-w-[491px] shrink-0">
                 {renderTable(chunk)}
