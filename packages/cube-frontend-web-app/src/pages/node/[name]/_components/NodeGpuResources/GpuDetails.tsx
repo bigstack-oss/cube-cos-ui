@@ -13,6 +13,7 @@ import {
   isProfileRemainingSupported,
 } from './utils'
 import { GpuConsoleLink } from './GpuConsoleLink'
+import { GpuDeviceProfile } from './GpuDeviceProfile'
 import { InstanceHistoryLinks } from './InstanceHistoryLinks'
 import { UnmeasurableValue } from './UnmeasurableValue'
 
@@ -80,6 +81,7 @@ const GpuDetails = (props: GpuDetailsProps) => {
    */
   return (
     <div className="flex max-w-[calc(100vw-460px)] flex-col gap-y-9">
+      <GpuDeviceProfile deviceProfile={row.deviceProfile} />
       {profiles.length > 0 && (
         <GpuProfilesInfoTable
           title={profileTitle}

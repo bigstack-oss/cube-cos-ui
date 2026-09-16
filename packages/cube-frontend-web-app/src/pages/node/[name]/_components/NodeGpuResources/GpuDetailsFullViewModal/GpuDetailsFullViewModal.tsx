@@ -7,6 +7,7 @@ import {
   getProfilesByResourceType,
   isProfileRemainingSupported,
 } from '../utils'
+import { FullViewDeviceProfileTable } from './FullViewDeviceProfileTable'
 import { FullViewInstanceTable } from './FullViewInstanceTable'
 import { FullViewProfileTable } from './FullViewProfileTable'
 
@@ -28,15 +29,25 @@ export const GpuDetailsFullViewModal = (
 
   const isPgpu = resource?.resourceType === GPUResourceType.Pgpu
 
+  const deviceProfile = resource?.deviceProfile ?? null
+
+  /**
+   * A pgpu card has no profile list — its Profiles tab holds the single Cyborg
+   * device profile instead. A card missing that name has nothing to show there,
+   * so the tab stays closed, the same way the card's own Profiles section
+   * renders nothing.
+   */
+  const isProfilesTabEmpty = isPgpu && !deviceProfile
+
   const [activeTab, setActiveTab] = useState<FullViewTab>('profiles')
 
   useEffect(() => {
-    if (isPgpu) {
+    if (isProfilesTabEmpty) {
       setActiveTab('instances')
     } else {
       setActiveTab('profiles')
     }
-  }, [isPgpu])
+  }, [isProfilesTabEmpty])
 
   const profiles = useMemo(() => {
     return resource ? getProfilesByResourceType(resource) : []
@@ -47,8 +58,19 @@ export const GpuDetailsFullViewModal = (
     instances: t('nodes.details.attachedInstancesList.title'),
   }
 
-  const tableContentMap: Record<FullViewTab, () => ReactNode> = {
-    profiles: () => (
+  const renderProfilesTab = (): ReactNode => {
+    if (isPgpu) {
+      return (
+        deviceProfile && (
+          <FullViewDeviceProfileTable
+            title={tabTitleMap['profiles']}
+            deviceProfile={deviceProfile}
+          />
+        )
+      )
+    }
+
+    return (
       <FullViewProfileTable
         title={tabTitleMap['profiles']}
         profiles={profiles}
@@ -56,7 +78,11 @@ export const GpuDetailsFullViewModal = (
           !!resource && isProfileRemainingSupported(resource.resourceType)
         }
       />
-    ),
+    )
+  }
+
+  const tableContentMap: Record<FullViewTab, () => ReactNode> = {
+    profiles: renderProfilesTab,
     instances: () => (
       <FullViewInstanceTable
         title={tabTitleMap['instances']}
@@ -83,7 +109,7 @@ export const GpuDetailsFullViewModal = (
           <CosContentSwitcher.Item
             isActive={activeTab === 'profiles'}
             onClick={() => setActiveTab('profiles')}
-            disabled={isPgpu}
+            disabled={isProfilesTabEmpty}
           >
             {tabTitleMap['profiles']}
           </CosContentSwitcher.Item>
