@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { CosModal } from '@cube-frontend/ui-library'
+import { CosInlineNotification, CosModal } from '@cube-frontend/ui-library'
 import { ListNodeGPUCardsResponseDataInner } from '@cube-frontend/api'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
@@ -40,8 +40,12 @@ export const EditGPUResourceModal = (props: EditGPUResourceModalProps) => {
     resetProfileForm,
   } = useProfileTable(resource)
 
-  const { isLoading: isUpdating, mutateResource: updateNodeGPUCard } =
-    useCosMutationRequest(nodesApi.updateNodeGPUCard)
+  const {
+    isLoading: isUpdating,
+    errorState,
+    clearError,
+    mutateResource: updateNodeGPUCard,
+  } = useCosMutationRequest(nodesApi.updateNodeGPUCard)
 
   const [step, setStep] = useState<GpuResourceStep>('edit')
 
@@ -57,10 +61,12 @@ export const EditGPUResourceModal = (props: EditGPUResourceModalProps) => {
   }
 
   const onGoBackToEditClick = () => {
+    clearError()
     setStep('edit')
   }
 
   const onCloseClick = () => {
+    clearError()
     setStep('edit')
     resetProfileForm()
     onClose()
@@ -109,26 +115,37 @@ export const EditGPUResourceModal = (props: EditGPUResourceModalProps) => {
       onCloseClick={onCloseClick}
       onActionClick={onActionClick}
     >
-      {isEditStep && (
-        <StepEditResource
-          editingResource={editingResource}
-          selectedResourceType={selectedResourceType}
-          profileTable={profileTable}
-          profileLimits={profileLimits}
-          profileFormSummary={profileFormSummary}
-          onResourceTypeChange={onResourceTypeChange}
-          onSriovVgpuProfileCheck={onSriovVgpuProfileCheck}
-          onMigVgpuProfileCheck={onMigVgpuProfileCheck}
-          onSriovVgpuProfileCountsChange={onSriovVgpuProfileCountsChange}
-          onMigVgpuProfileCountsChange={onMigVgpuProfileCountsChange}
-        />
-      )}
-      {isConfirmStep && confirmTableData && (
-        <StepConfirmResource
-          confirmTableData={confirmTableData}
-          onGoBackToEditClick={onGoBackToEditClick}
-        />
-      )}
+      <div className="flex flex-col gap-y-5">
+        {/*
+          The request fails with the modal still open on its confirm step, so the
+          reason belongs next to the button the operator is about to press again.
+        */}
+        {errorState && (
+          <CosInlineNotification type="error" isClosable={false}>
+            {errorState.api?.msg || errorState.native.message}
+          </CosInlineNotification>
+        )}
+        {isEditStep && (
+          <StepEditResource
+            editingResource={editingResource}
+            selectedResourceType={selectedResourceType}
+            profileTable={profileTable}
+            profileLimits={profileLimits}
+            profileFormSummary={profileFormSummary}
+            onResourceTypeChange={onResourceTypeChange}
+            onSriovVgpuProfileCheck={onSriovVgpuProfileCheck}
+            onMigVgpuProfileCheck={onMigVgpuProfileCheck}
+            onSriovVgpuProfileCountsChange={onSriovVgpuProfileCountsChange}
+            onMigVgpuProfileCountsChange={onMigVgpuProfileCountsChange}
+          />
+        )}
+        {isConfirmStep && confirmTableData && (
+          <StepConfirmResource
+            confirmTableData={confirmTableData}
+            onGoBackToEditClick={onGoBackToEditClick}
+          />
+        )}
+      </div>
     </CosModal>
   )
 }
