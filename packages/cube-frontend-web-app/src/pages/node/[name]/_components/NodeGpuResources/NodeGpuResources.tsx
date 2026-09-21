@@ -236,18 +236,7 @@ const NodeGpuResources = (props: NodeGpuResourcesProps) => {
   const { expandedRowIdSet, onExpandChange } = useExpandedRowIdSet()
 
   const isRowExpandDisabled = (row: GpuResourceRow) => {
-    if (row.resourceType === GPUResourceType.Unset) {
-      return true
-    }
-
-    if (
-      row.resourceType === GPUResourceType.Pgpu &&
-      row.status.current === GPUCardStatus.Idle
-    ) {
-      return true
-    }
-
-    return false
+    return row.resourceType === GPUResourceType.Unset
   }
 
   const renderDetailsTable = (row: GpuResourceRow) => {
