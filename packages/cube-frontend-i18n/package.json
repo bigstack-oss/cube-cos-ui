@@ -9,6 +9,7 @@
   },
   "scripts": {
     "tsc": "tsc -b",
+    "tsgo": "tsgo -b",
     "sync": "node scripts/syncI18n.ts"
   },
   "dependencies": {

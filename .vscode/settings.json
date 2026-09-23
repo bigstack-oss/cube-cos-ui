@@ -47,6 +47,7 @@
     "svgr",
     "Svgs",
     "tseslint",
+    "tsgo",
     "unrollbackable",
     "vcpu",
     "Vgpu",
@@ -60,5 +61,6 @@
   ],
   "i18n-ally.keystyle": "nested",
   "i18n-ally.displayLanguage": "en-US",
-  "i18n-ally.enabledFrameworks": ["react-i18next", "i18next"]
+  "i18n-ally.enabledFrameworks": ["react-i18next", "i18next"],
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "tsc": "tsc -b",
+    "tsgo": "tsgo -b",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
