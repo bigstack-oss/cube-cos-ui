@@ -1,8 +1,5 @@
 import { ChangeEvent, useState } from 'react'
 import {
-  GetPredefinedEventsCategoriesEnum,
-  GetPredefinedEventsIdsEnum,
-  GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
   TriggerResponseScript,
 } from '@cube-frontend/api'
@@ -10,7 +7,12 @@ import {
   EmailRecipientTableRow,
   SlackChannelTableRow,
 } from './_components/SetResponse/SetResponse'
-import { UpsertTriggersPayload } from './upsertTriggersUtils'
+import {
+  EventCategory,
+  EventId,
+  EventSeverity,
+  UpsertTriggersPayload,
+} from './upsertTriggersUtils'
 
 const getInitialPayload = (): UpsertTriggersPayload => {
   return {
@@ -29,9 +31,9 @@ const getInitialPayload = (): UpsertTriggersPayload => {
 type UseCreateTriggersPayload = {
   payload: UpsertTriggersPayload
   onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
-  onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
-  onCategorySelect: (categories: GetPredefinedEventsCategoriesEnum[]) => void
-  onEventIdSelect: (eventIds: GetPredefinedEventsIdsEnum[]) => void
+  onSeveritySelect: (severities: EventSeverity[]) => void
+  onCategorySelect: (categories: EventCategory[]) => void
+  onEventIdSelect: (eventIds: EventId[]) => void
   onEmailSelect: (emails: EmailRecipientTableRow[]) => void
   onSlackSelect: (slacks: SlackChannelTableRow[]) => void
   onScriptChange: (file: TriggerResponseScript) => void
@@ -55,25 +57,21 @@ export const useCreateTriggersPayload = (): UseCreateTriggersPayload => {
     }))
   }
 
-  const onSeveritySelect = (
-    severities: GetPredefinedEventsSeveritiesEnum[],
-  ): void => {
+  const onSeveritySelect = (severities: EventSeverity[]): void => {
     setPayload((prev) => ({
       ...prev,
       severities,
     }))
   }
 
-  const onCategorySelect = (
-    categories: GetPredefinedEventsCategoriesEnum[],
-  ): void => {
+  const onCategorySelect = (categories: EventCategory[]): void => {
     setPayload((prev) => ({
       ...prev,
       categories,
     }))
   }
 
-  const onEventIdSelect = (eventIds: GetPredefinedEventsIdsEnum[]): void => {
+  const onEventIdSelect = (eventIds: EventId[]): void => {
     setPayload((prev) => ({
       ...prev,
       eventIds,

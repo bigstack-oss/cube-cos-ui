@@ -3,13 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { isEmpty } from 'lodash'
 import { CosButton, CosSkeleton, CosStroke } from '@cube-frontend/ui-library'
 import AddSquare from '@cube-frontend/ui-library/icons/monochrome/add_square.svg?react'
+import { GetPredefinedEventsTypesEnum } from '@cube-frontend/api'
 import {
-  GetPredefinedEventsCategoriesEnum,
-  GetPredefinedEventsIdsEnum,
-  GetPredefinedEventsSeveritiesEnum,
-  GetPredefinedEventsTypesEnum,
-} from '@cube-frontend/api'
-import {
+  EventCategory,
+  EventId,
+  EventSeverity,
   TriggerAttribute,
   TriggerAttributeKeys,
   UpsertTriggersPayload,
@@ -45,9 +43,9 @@ type AttributePanelProps = {
   payload: UpsertTriggersPayload | undefined
   attribute: TriggerAttribute
   onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
-  onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
-  onCategorySelect: (categories: GetPredefinedEventsCategoriesEnum[]) => void
-  onEventIdSelect: (eventIds: GetPredefinedEventsIdsEnum[]) => void
+  onSeveritySelect: (severities: EventSeverity[]) => void
+  onCategorySelect: (categories: EventCategory[]) => void
+  onEventIdSelect: (eventIds: EventId[]) => void
   onResetClick: () => void
 }
 
@@ -134,9 +132,7 @@ export const AttributePanel = (props: AttributePanelProps) => {
     )
   }
 
-  const renderSeverityStackCard = (
-    severities: GetPredefinedEventsSeveritiesEnum[],
-  ) => {
+  const renderSeverityStackCard = (severities: EventSeverity[]) => {
     if (isEmpty(severities)) return null
 
     return (

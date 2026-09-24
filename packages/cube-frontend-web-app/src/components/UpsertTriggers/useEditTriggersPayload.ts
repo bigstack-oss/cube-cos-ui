@@ -1,8 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import {
-  GetPredefinedEventsCategoriesEnum,
-  GetPredefinedEventsIdsEnum,
-  GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
   GetTriggerMaterialsResponseDataAttribute,
   Trigger,
@@ -13,14 +10,20 @@ import {
   EmailRecipientTableRow,
   SlackChannelTableRow,
 } from './_components/SetResponse/SetResponse'
-import { filterEnumValues, UpsertTriggersPayload } from './upsertTriggersUtils'
+import {
+  EventCategory,
+  EventId,
+  EventSeverity,
+  UpsertTriggersPayload,
+  filterEnumValues,
+} from './upsertTriggersUtils'
 
 type UseEditTriggersPayload = {
   payload: UpsertTriggersPayload
   onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
-  onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
-  onCategorySelect: (categories: GetPredefinedEventsCategoriesEnum[]) => void
-  onEventIdSelect: (eventIds: GetPredefinedEventsIdsEnum[]) => void
+  onSeveritySelect: (severities: EventSeverity[]) => void
+  onCategorySelect: (categories: EventCategory[]) => void
+  onEventIdSelect: (eventIds: EventId[]) => void
   onEmailSelect: (emails: EmailRecipientTableRow[]) => void
   onSlackSelect: (slacks: SlackChannelTableRow[]) => void
   onScriptChange: (file: TriggerResponseScript) => void
@@ -42,20 +45,11 @@ const getInitialAttribute = (
     GetPredefinedEventsTypesEnum,
   )
 
-  const severities = filterEnumValues(
-    attribute.severities,
-    GetPredefinedEventsSeveritiesEnum,
-  )
+  const severities = attribute.severities ?? []
 
-  const categories = filterEnumValues(
-    attribute.categories,
-    GetPredefinedEventsCategoriesEnum,
-  )
+  const categories = attribute.categories ?? []
 
-  const eventIds = filterEnumValues(
-    attribute.eventIds,
-    GetPredefinedEventsIdsEnum,
-  )
+  const eventIds = attribute.eventIds ?? []
 
   return { alertTypes, severities, categories, eventIds }
 }
@@ -139,19 +133,15 @@ export const useEditTriggersPayload = (
     updatePayload((prev) => ({ ...prev, alertTypes }))
   }
 
-  const onSeveritySelect = (
-    severities: GetPredefinedEventsSeveritiesEnum[],
-  ): void => {
+  const onSeveritySelect = (severities: EventSeverity[]): void => {
     updatePayload((prev) => ({ ...prev, severities }))
   }
 
-  const onCategorySelect = (
-    categories: GetPredefinedEventsCategoriesEnum[],
-  ): void => {
+  const onCategorySelect = (categories: EventCategory[]): void => {
     updatePayload((prev) => ({ ...prev, categories }))
   }
 
-  const onEventIdSelect = (eventIds: GetPredefinedEventsIdsEnum[]): void => {
+  const onEventIdSelect = (eventIds: EventId[]): void => {
     updatePayload((prev) => ({ ...prev, eventIds }))
   }
 

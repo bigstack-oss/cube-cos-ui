@@ -1,8 +1,5 @@
 import { useContext } from 'react'
 import {
-  GetPredefinedEventsCategoriesEnum,
-  GetPredefinedEventsIdsEnum,
-  GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
   GetTriggerMaterialsResponseDataResponse,
   TriggersApiGetTriggerMaterialsRequest,
@@ -35,20 +32,11 @@ export const useTriggerMaterials = (): UseTriggerMaterials => {
     GetPredefinedEventsTypesEnum,
   )
 
-  const severities = filterEnumValues(
-    materials?.attribute.severities,
-    GetPredefinedEventsSeveritiesEnum,
-  )
+  const severities = materials?.attribute.severities ?? []
 
-  const categories = filterEnumValues(
-    materials?.attribute.categories,
-    GetPredefinedEventsCategoriesEnum,
-  )
+  const categories = materials?.attribute.categories ?? []
 
-  const eventIds = filterEnumValues(
-    materials?.attribute.eventIds,
-    GetPredefinedEventsIdsEnum,
-  )
+  const eventIds = materials?.attribute.eventIds ?? []
 
   return {
     isMaterialsLoading,
