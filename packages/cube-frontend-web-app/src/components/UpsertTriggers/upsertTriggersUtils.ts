@@ -1,8 +1,5 @@
 import { isEmpty } from 'lodash'
 import {
-  GetPredefinedEventsCategoriesEnum,
-  GetPredefinedEventsIdsEnum,
-  GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
   TriggerResponseScript,
 } from '@cube-frontend/api'
@@ -18,11 +15,16 @@ export enum UpsertTriggersStep {
   AddDescription = 'addDescription',
 }
 
+// Event attribute values come from the cluster's event catalogue, not a fixed list.
+export type EventSeverity = string
+export type EventCategory = string
+export type EventId = string
+
 export type UpsertTriggersPayload = {
   alertTypes: GetPredefinedEventsTypesEnum[]
-  severities: GetPredefinedEventsSeveritiesEnum[]
-  categories: GetPredefinedEventsCategoriesEnum[]
-  eventIds: GetPredefinedEventsIdsEnum[]
+  severities: EventSeverity[]
+  categories: EventCategory[]
+  eventIds: EventId[]
   emails: EmailRecipientTableRow[]
   slacks: SlackChannelTableRow[]
   script?: TriggerResponseScript
@@ -38,9 +40,9 @@ export type TriggerAttributeKeys =
 
 export type TriggerAttribute = {
   alertTypes: GetPredefinedEventsTypesEnum[]
-  severities: GetPredefinedEventsSeveritiesEnum[]
-  categories: GetPredefinedEventsCategoriesEnum[]
-  eventIds: GetPredefinedEventsIdsEnum[]
+  severities: EventSeverity[]
+  categories: EventCategory[]
+  eventIds: EventId[]
 }
 
 export const attributeLabelMap: Record<TriggerAttributeKeys, string> = {

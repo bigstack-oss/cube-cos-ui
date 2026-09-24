@@ -1,19 +1,17 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import xor from 'lodash/xor'
 import { CosDropdown, CosModal } from '@cube-frontend/ui-library'
+import { GetPredefinedEventsTypesEnum } from '@cube-frontend/api'
 import {
-  GetPredefinedEventsCategoriesEnum,
-  GetPredefinedEventsIdsEnum,
-  GetPredefinedEventsSeveritiesEnum,
-  GetPredefinedEventsTypesEnum,
-} from '@cube-frontend/api'
-import {
-  TriggerAttributeKeys,
+  EventCategory,
+  EventId,
+  EventSeverity,
   TriggerAttribute,
+  TriggerAttributeKeys,
   UpsertTriggersPayload,
+  useAlertTypeLabelMap,
   useAttributeSelectAllLabelMap,
   useAttributeLabelMap,
-  useAlertTypeLabelMap,
 } from '../../upsertTriggersUtils'
 import { AttributeCheckboxGroup } from './AttributeCheckboxGroup'
 import { isEqual } from 'lodash'
@@ -129,9 +127,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     })
   }
 
-  const onSelectedSeverityChange = (
-    severity: GetPredefinedEventsSeveritiesEnum,
-  ) => {
+  const onSelectedSeverityChange = (severity: EventSeverity) => {
     setSelectedAttributes((prev) => ({
       ...prev,
       severities: xor(prev.severities, [severity]),
@@ -148,9 +144,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     })
   }
 
-  const onSelectedCategoryChange = (
-    category: GetPredefinedEventsCategoriesEnum,
-  ) => {
+  const onSelectedCategoryChange = (category: EventCategory) => {
     setSelectedAttributes((prev) => ({
       ...prev,
       categories: xor(prev.categories, [category]),
@@ -167,7 +161,7 @@ export const AddAttributeModal = (props: AddAttributeModalProps) => {
     })
   }
 
-  const onSelectedEventIdChange = (eventId: GetPredefinedEventsIdsEnum) => {
+  const onSelectedEventIdChange = (eventId: EventId) => {
     setSelectedAttributes((prev) => ({
       ...prev,
       eventIds: xor(prev.eventIds, [eventId]),

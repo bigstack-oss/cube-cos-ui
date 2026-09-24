@@ -6,15 +6,15 @@ import {
 } from '@cube-frontend/ui-library'
 import {
   GetPredefinedEventFilterResponseDataInner,
-  GetPredefinedEventsCategoriesEnum,
-  GetPredefinedEventsIdsEnum,
-  GetPredefinedEventsSeveritiesEnum,
   GetPredefinedEventsTypesEnum,
 } from '@cube-frontend/api'
 import {
-  isEventsValid,
+  EventCategory,
+  EventId,
+  EventSeverity,
   TriggerAttribute,
   UpsertTriggersPayload,
+  isEventsValid,
 } from '../../upsertTriggersUtils'
 import { AttributePanel } from './AttributePanel'
 import { AttributeResultPanel } from './AttributeResultPanel'
@@ -34,9 +34,9 @@ type SelectEventsProps = {
   attribute: TriggerAttribute
   matchingEvents: GetPredefinedEventFilterResponseDataInner[]
   onAlertTypeSelect: (alertTypes: GetPredefinedEventsTypesEnum[]) => void
-  onSeveritySelect: (severities: GetPredefinedEventsSeveritiesEnum[]) => void
-  onCategorySelect: (categories: GetPredefinedEventsCategoriesEnum[]) => void
-  onEventIdSelect: (eventIds: GetPredefinedEventsIdsEnum[]) => void
+  onSeveritySelect: (severities: EventSeverity[]) => void
+  onCategorySelect: (categories: EventCategory[]) => void
+  onEventIdSelect: (eventIds: EventId[]) => void
   onNextClick: () => void
   onResetClick: () => void
 }
