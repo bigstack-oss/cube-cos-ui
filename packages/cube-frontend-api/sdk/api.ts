@@ -16490,13 +16490,13 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Retrieve the predefined events
          * @param {string} dataCenter The name of the data center to operate
          * @param {Array<GetPredefinedEventsTypesEnum>} [types] The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-         * @param {Array<GetPredefinedEventsCategoriesEnum>} [categories] The categories of the event to query.
-         * @param {Array<GetPredefinedEventsSeveritiesEnum>} [severities] The severities of the event to query.
-         * @param {Array<GetPredefinedEventsIdsEnum>} [ids] The ids of the event to query.
+         * @param {Array<string>} [categories] The categories of the event to query, as defined by the cluster\&#39;s event catalogue rather than by this spec.
+         * @param {Array<string>} [severities] The severities of the event to query, one of \&#39;INFO\&#39;, \&#39;WARNING\&#39;, \&#39;ERROR\&#39;, and \&#39;CRITICAL\&#39;.
+         * @param {Array<string>} [ids] The ids of the event to query, as defined by the cluster\&#39;s event catalogue rather than by this spec.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPredefinedEvents: async (dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<GetPredefinedEventsCategoriesEnum>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<GetPredefinedEventsIdsEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getPredefinedEvents: async (dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<string>, severities?: Array<string>, ids?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('getPredefinedEvents', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/events/predefined`
@@ -16726,13 +16726,13 @@ export const EventsApiFp = function(configuration?: Configuration) {
          * @summary Retrieve the predefined events
          * @param {string} dataCenter The name of the data center to operate
          * @param {Array<GetPredefinedEventsTypesEnum>} [types] The types of event to query, the value can be only \&#39;system\&#39;, \&#39;host\&#39;, and \&#39;instance\&#39;.
-         * @param {Array<GetPredefinedEventsCategoriesEnum>} [categories] The categories of the event to query.
-         * @param {Array<GetPredefinedEventsSeveritiesEnum>} [severities] The severities of the event to query.
-         * @param {Array<GetPredefinedEventsIdsEnum>} [ids] The ids of the event to query.
+         * @param {Array<string>} [categories] The categories of the event to query, as defined by the cluster\&#39;s event catalogue rather than by this spec.
+         * @param {Array<string>} [severities] The severities of the event to query, one of \&#39;INFO\&#39;, \&#39;WARNING\&#39;, \&#39;ERROR\&#39;, and \&#39;CRITICAL\&#39;.
+         * @param {Array<string>} [ids] The ids of the event to query, as defined by the cluster\&#39;s event catalogue rather than by this spec.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPredefinedEvents(dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<GetPredefinedEventsCategoriesEnum>, severities?: Array<GetPredefinedEventsSeveritiesEnum>, ids?: Array<GetPredefinedEventsIdsEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetPredefinedEventFilterResponse>> {
+        async getPredefinedEvents(dataCenter: string, types?: Array<GetPredefinedEventsTypesEnum>, categories?: Array<string>, severities?: Array<string>, ids?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetPredefinedEventFilterResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPredefinedEvents(dataCenter, types, categories, severities, ids, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EventsApi.getPredefinedEvents']?.[localVarOperationServerIndex]?.url;
@@ -17024,25 +17024,25 @@ export interface EventsApiGetPredefinedEventsRequest {
     readonly types?: Array<GetPredefinedEventsTypesEnum>
 
     /**
-     * The categories of the event to query.
-     * @type {Array<'PLC' | 'BSP' | 'RUG' | 'KSN' | 'CMP' | 'CEP' | 'NET' | 'SRV' | 'SDN' | 'VRT' | 'ETH' | 'CPU' | 'DSK' | 'MEM' | 'DEV'>}
+     * The categories of the event to query, as defined by the cluster\&#39;s event catalogue rather than by this spec.
+     * @type {Array<string>}
      * @memberof EventsApiGetPredefinedEvents
      */
-    readonly categories?: Array<GetPredefinedEventsCategoriesEnum>
+    readonly categories?: Array<string>
 
     /**
-     * The severities of the event to query.
-     * @type {Array<'INFO' | 'WARNING' | 'CRITICAL'>}
+     * The severities of the event to query, one of \&#39;INFO\&#39;, \&#39;WARNING\&#39;, \&#39;ERROR\&#39;, and \&#39;CRITICAL\&#39;.
+     * @type {Array<string>}
      * @memberof EventsApiGetPredefinedEvents
      */
-    readonly severities?: Array<GetPredefinedEventsSeveritiesEnum>
+    readonly severities?: Array<string>
 
     /**
-     * The ids of the event to query.
-     * @type {Array<'PLC00001I' | 'PLC00002I' | 'BSP00001I' | 'RUG00001I' | 'KSN00001I' | 'KSN00002I' | 'CMP01001I' | 'CMP01002I' | 'CMP02001I' | 'CMP02002I' | 'CMP02003I' | 'CEP00001I' | 'CEP00002W' | 'NET00001I' | 'NET00002W' | 'NET00003I' | 'NET00004W' | 'SRV00001I' | 'SRV00002W' | 'SRV00003C' | 'SRV01001I' | 'SRV01002I' | 'SDN00001I' | 'SDN00002I' | 'VRT00001I' | 'VRT00002W' | 'VRT00003C' | 'ETH00001I' | 'ETH00002W' | 'CPU00001I' | 'CPU00002W' | 'CPU00003C' | 'DSK00001I' | 'DSK00002W' | 'DSK00003C' | 'MEM00001I' | 'MEM00002W' | 'MEM00003C' | 'DEV00001I' | 'DEV00002W' | 'CPU00004I' | 'CPU00005W' | 'CPU00006C' | 'CPU00007I' | 'MEM00004I' | 'MEM00005W' | 'MEM00006C' | 'MEM00007I'>}
+     * The ids of the event to query, as defined by the cluster\&#39;s event catalogue rather than by this spec.
+     * @type {Array<string>}
      * @memberof EventsApiGetPredefinedEvents
      */
-    readonly ids?: Array<GetPredefinedEventsIdsEnum>
+    readonly ids?: Array<string>
 }
 
 /**
@@ -17271,90 +17271,6 @@ export const GetPredefinedEventsTypesEnum = {
     Instance: 'instance'
 } as const;
 export type GetPredefinedEventsTypesEnum = typeof GetPredefinedEventsTypesEnum[keyof typeof GetPredefinedEventsTypesEnum];
-/**
- * @export
- */
-export const GetPredefinedEventsCategoriesEnum = {
-    Plc: 'PLC',
-    Bsp: 'BSP',
-    Rug: 'RUG',
-    Ksn: 'KSN',
-    Cmp: 'CMP',
-    Cep: 'CEP',
-    Net: 'NET',
-    Srv: 'SRV',
-    Sdn: 'SDN',
-    Vrt: 'VRT',
-    Eth: 'ETH',
-    Cpu: 'CPU',
-    Dsk: 'DSK',
-    Mem: 'MEM',
-    Dev: 'DEV'
-} as const;
-export type GetPredefinedEventsCategoriesEnum = typeof GetPredefinedEventsCategoriesEnum[keyof typeof GetPredefinedEventsCategoriesEnum];
-/**
- * @export
- */
-export const GetPredefinedEventsSeveritiesEnum = {
-    Info: 'INFO',
-    Warning: 'WARNING',
-    Critical: 'CRITICAL'
-} as const;
-export type GetPredefinedEventsSeveritiesEnum = typeof GetPredefinedEventsSeveritiesEnum[keyof typeof GetPredefinedEventsSeveritiesEnum];
-/**
- * @export
- */
-export const GetPredefinedEventsIdsEnum = {
-    Plc00001I: 'PLC00001I',
-    Plc00002I: 'PLC00002I',
-    Bsp00001I: 'BSP00001I',
-    Rug00001I: 'RUG00001I',
-    Ksn00001I: 'KSN00001I',
-    Ksn00002I: 'KSN00002I',
-    Cmp01001I: 'CMP01001I',
-    Cmp01002I: 'CMP01002I',
-    Cmp02001I: 'CMP02001I',
-    Cmp02002I: 'CMP02002I',
-    Cmp02003I: 'CMP02003I',
-    Cep00001I: 'CEP00001I',
-    Cep00002W: 'CEP00002W',
-    Net00001I: 'NET00001I',
-    Net00002W: 'NET00002W',
-    Net00003I: 'NET00003I',
-    Net00004W: 'NET00004W',
-    Srv00001I: 'SRV00001I',
-    Srv00002W: 'SRV00002W',
-    Srv00003C: 'SRV00003C',
-    Srv01001I: 'SRV01001I',
-    Srv01002I: 'SRV01002I',
-    Sdn00001I: 'SDN00001I',
-    Sdn00002I: 'SDN00002I',
-    Vrt00001I: 'VRT00001I',
-    Vrt00002W: 'VRT00002W',
-    Vrt00003C: 'VRT00003C',
-    Eth00001I: 'ETH00001I',
-    Eth00002W: 'ETH00002W',
-    Cpu00001I: 'CPU00001I',
-    Cpu00002W: 'CPU00002W',
-    Cpu00003C: 'CPU00003C',
-    Dsk00001I: 'DSK00001I',
-    Dsk00002W: 'DSK00002W',
-    Dsk00003C: 'DSK00003C',
-    Mem00001I: 'MEM00001I',
-    Mem00002W: 'MEM00002W',
-    Mem00003C: 'MEM00003C',
-    Dev00001I: 'DEV00001I',
-    Dev00002W: 'DEV00002W',
-    Cpu00004I: 'CPU00004I',
-    Cpu00005W: 'CPU00005W',
-    Cpu00006C: 'CPU00006C',
-    Cpu00007I: 'CPU00007I',
-    Mem00004I: 'MEM00004I',
-    Mem00005W: 'MEM00005W',
-    Mem00006C: 'MEM00006C',
-    Mem00007I: 'MEM00007I'
-} as const;
-export type GetPredefinedEventsIdsEnum = typeof GetPredefinedEventsIdsEnum[keyof typeof GetPredefinedEventsIdsEnum];
 /**
  * @export
  */
