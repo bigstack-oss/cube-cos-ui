@@ -1218,11 +1218,17 @@ export interface DataCenter {
      */
     'name': string;
     /**
-     * 
+     * Roles a node in this data center type may be given.
      * @type {Array<NodeRole>}
      * @memberof DataCenter
      */
     'roles': Array<NodeRole>;
+    /**
+     * Roles that have at least one registered node, in the same order as roles. Derived from the node registry, not from metrics, so a role does not disappear while its nodes are missing metrics.
+     * @type {Array<NodeRole>}
+     * @memberof DataCenter
+     */
+    'registeredRoles': Array<NodeRole>;
     /**
      * 
      * @type {string}
