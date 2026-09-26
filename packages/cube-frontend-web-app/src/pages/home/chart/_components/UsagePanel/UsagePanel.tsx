@@ -3,7 +3,7 @@ import { CosGeneralPanel, CosStroke } from '@cube-frontend/ui-library'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useContext, useMemo } from 'react'
 import { UsageMetricsItem } from './UsageMetricsItem'
-import { metricsToRoleGroups, RoleGroup } from './usagePanelUtils'
+import { metricsToRoleUsages, RoleUsageItem } from './usagePanelUtils'
 import { useTranslation } from 'react-i18next'
 
 export type UsagePanelProps = {
@@ -18,9 +18,11 @@ export const UsagePanel = (props: UsagePanelProps) => {
 
   const { t } = useTranslation()
 
-  const roleGroups = useMemo<RoleGroup[]>(
-    () => metricsToRoleGroups(metrics, dataCenter!.type, t),
-    [metrics, dataCenter, t],
+  const registeredRoles = dataCenter!.registeredRoles
+
+  const roleUsages = useMemo<RoleUsageItem[]>(
+    () => metricsToRoleUsages(metrics, registeredRoles, t),
+    [metrics, registeredRoles, t],
   )
 
   return (
@@ -32,21 +34,26 @@ export const UsagePanel = (props: UsagePanelProps) => {
           memoryUsedPercent={metrics.dataCenter.usage.memory.usedPercent}
           isLoading={isLoading}
         />
-        <CosStroke />
-        {roleGroups.map((roleGroup, index) => (
-          <div key={index} className="flex items-center gap-x-4">
-            {roleGroup.map((roleUsage) => (
-              <UsageMetricsItem
-                key={roleUsage.name}
-                nodeCount={roleUsage.value.count}
-                name={roleUsage.name}
-                cpuUsedPercent={roleUsage.value.cpu.usedPercent}
-                memoryUsedPercent={roleUsage.value.memory.usedPercent}
-                isLoading={isLoading}
-              />
-            ))}
-          </div>
-        ))}
+        {roleUsages.length > 0 && (
+          <>
+            <CosStroke />
+            {/* A lone role spans the row like the data center item above. */}
+            <div
+              className={`grid gap-4 ${roleUsages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}
+            >
+              {roleUsages.map((roleUsage) => (
+                <UsageMetricsItem
+                  key={roleUsage.role}
+                  nodeCount={roleUsage.value.count}
+                  name={roleUsage.name}
+                  cpuUsedPercent={roleUsage.value.cpu.usedPercent}
+                  memoryUsedPercent={roleUsage.value.memory.usedPercent}
+                  isLoading={isLoading}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </CosGeneralPanel>
   )

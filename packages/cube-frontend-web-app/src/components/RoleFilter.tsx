@@ -21,7 +21,7 @@ export const RoleFilter = (props: RoleFilterProps) => {
 
   const { dataCenter } = useContext(DataCenterContext)
 
-  const allRoles = dataCenter!.roles
+  const allRoles = dataCenter!.registeredRoles
 
   const onAllCheckChange = (checked: boolean) => {
     handleRolesSelect(checked ? allRoles : [])
