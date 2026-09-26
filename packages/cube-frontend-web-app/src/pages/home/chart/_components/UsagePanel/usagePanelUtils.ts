@@ -1,91 +1,40 @@
 import { TFunction } from 'i18next'
 import {
-  DataCenterTypeEnum,
   GetMetricsResponseData,
+  GetMetricsResponseDataHostRole,
+  NodeRole,
   RoleUsage,
 } from '@cube-frontend/api'
 
-export type RoleGroup = {
+export type RoleUsageItem = {
+  role: NodeRole
   name: string
   value: RoleUsage
-}[]
-
-export const metricsToRoleGroups = (
-  metrics: GetMetricsResponseData,
-  dataCenterType: DataCenterTypeEnum,
-  t: TFunction,
-): RoleGroup[] => {
-  const mapFns: Record<
-    DataCenterTypeEnum,
-    (metrics: GetMetricsResponseData, t: TFunction) => RoleGroup[]
-  > = {
-    cloud: mapCloudRoleGroups,
-    edge: mapEdgeRoleGroups,
-  }
-  const fn = mapFns[dataCenterType]
-  if (!fn) {
-    console.warn(
-      `Cannot find the role groups mapper for data center with type ${dataCenterType}`,
-    )
-    return []
-  }
-  return fn(metrics, t)
 }
 
-const mapCloudRoleGroups = (
-  metrics: GetMetricsResponseData,
-  t: TFunction,
-): RoleGroup[] => {
-  return [
-    [
-      {
-        name: t('home.chart.usage.nodeRole', {
-          role: t('common.node.roles.control-converged'),
-        }),
-        value: metrics.host.role.controlConverged,
-      },
-      {
-        name: t('home.chart.usage.nodeRole', {
-          role: t('common.node.roles.control'),
-        }),
-        value: metrics.host.role.control,
-      },
-    ],
-    [
-      {
-        name: t('home.chart.usage.nodeRole', {
-          role: t('common.node.roles.compute'),
-        }),
-        value: metrics.host.role.compute,
-      },
-      {
-        name: t('home.chart.usage.nodeRole', {
-          role: t('common.node.roles.storage'),
-        }),
-        value: metrics.host.role.storage,
-      },
-    ],
-  ]
+const roleMetricKeys: Record<NodeRole, keyof GetMetricsResponseDataHostRole> = {
+  [NodeRole.ControlConverged]: 'controlConverged',
+  [NodeRole.Control]: 'control',
+  [NodeRole.Compute]: 'compute',
+  [NodeRole.Storage]: 'storage',
+  [NodeRole.EdgeCore]: 'edgeCore',
+  [NodeRole.Moderator]: 'moderator',
 }
 
-const mapEdgeRoleGroups = (
+/**
+ * One usage item per role that has a registered node, in the data center's
+ * order. Roles with no node are left out rather than shown as empty cards.
+ */
+export const metricsToRoleUsages = (
   metrics: GetMetricsResponseData,
+  registeredRoles: NodeRole[],
   t: TFunction,
-): RoleGroup[] => {
-  return [
-    [
-      {
-        name: t('home.chart.usage.nodeRole', {
-          role: t('common.node.roles.edge-core'),
-        }),
-        value: metrics.host.role.edgeCore,
-      },
-      {
-        name: t('home.chart.usage.nodeRole', {
-          role: t('common.node.roles.moderator'),
-        }),
-        value: metrics.host.role.moderator,
-      },
-    ],
-  ]
+): RoleUsageItem[] => {
+  return registeredRoles.map((role) => ({
+    role,
+    name: t('home.chart.usage.nodeRole', {
+      role: t(`common.node.roles.${role}`),
+    }),
+    value: metrics.host.role[roleMetricKeys[role]],
+  }))
 }

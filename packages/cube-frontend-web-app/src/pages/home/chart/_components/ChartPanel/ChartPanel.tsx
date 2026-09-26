@@ -24,7 +24,7 @@ export const ChartPanel = (props: ChartPanelProps) => {
 
   const { dataCenter } = useContext(DataCenterContext)
 
-  const roles = dataCenter!.roles
+  const roles = dataCenter!.registeredRoles
 
   const {
     vmBarChart,
