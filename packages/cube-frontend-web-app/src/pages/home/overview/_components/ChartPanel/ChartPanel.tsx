@@ -26,7 +26,7 @@ const ChartPanel = () => {
 
   const { dataCenter } = useContext(DataCenterContext)
 
-  const roles = dataCenter!.roles
+  const roles = dataCenter!.registeredRoles
 
   const {
     data: metrics = defaultMetrics,
