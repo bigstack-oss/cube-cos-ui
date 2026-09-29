@@ -6,7 +6,7 @@ import {
 import { CosHyperlink, CosTooltip } from '@cube-frontend/ui-library'
 import { noop } from 'lodash'
 import { ParseKeys } from 'i18next'
-import { isInstanceWorkloadHistorySupported } from './utils'
+import { getInstanceHistoryLinks } from './utils'
 
 type InstanceHistoryLinkProps = {
   label: string
@@ -55,36 +55,27 @@ export type InstanceHistoryLinksProps = {
 
 /**
  * An attached instance reports one history link per panel — workload and VRAM —
- * the VM-level counterpart of the pair each GPU card reports. Both come back
- * null together when the API cannot pin the dashboard variables, which would
- * label this VM's chart with another VM.
- *
- * The workload link is disabled on a MIG-backed card even when the API sends
- * one, for the same reason the card row disables its own workload menu item:
- * the hardware reports no utilization, so the panel opens empty.
+ * the VM-level counterpart of the pair each GPU card reports. The card type, not
+ * the API, decides which of them can open a chart; see getInstanceHistoryLinks.
  */
 export const InstanceHistoryLinks = (props: InstanceHistoryLinksProps) => {
   const { resourceType, links } = props
 
   const { t } = useTranslation()
 
-  const isWorkloadCharted = isInstanceWorkloadHistorySupported(resourceType)
+  const { workload, vram } = getInstanceHistoryLinks(resourceType, links)
 
   return (
     <>
       <InstanceHistoryLink
         label={t('nodes.details.attachedInstancesList.workloadHistory')}
-        href={isWorkloadCharted ? links.workloadHistory : null}
-        disabledReasonKey={
-          links.workloadHistory
-            ? 'nodes.details.attachedInstancesList.workloadHistoryEmpty'
-            : 'nodes.details.attachedInstancesList.historyUnavailable'
-        }
+        href={workload.href}
+        disabledReasonKey={workload.disabledReasonKey}
       />
       <InstanceHistoryLink
         label={t('nodes.details.attachedInstancesList.vramHistory')}
-        href={links.vramHistory}
-        disabledReasonKey="nodes.details.attachedInstancesList.historyUnavailable"
+        href={vram.href}
+        disabledReasonKey={vram.disabledReasonKey}
       />
     </>
   )

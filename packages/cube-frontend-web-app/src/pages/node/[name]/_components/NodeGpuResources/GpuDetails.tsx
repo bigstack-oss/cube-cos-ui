@@ -10,6 +10,7 @@ import {
   GpuResourceRow,
   GPUProfileRow,
   getProfilesByResourceType,
+  isInstanceProfileAliasSupported,
   isProfileRemainingSupported,
 } from './utils'
 import { GpuConsoleLink } from './GpuConsoleLink'
@@ -120,7 +121,7 @@ const GpuDetails = (props: GpuDetailsProps) => {
           scrollBehavior="horizontal"
         >
           <GpuAttachedInstanceInfoTable.Column property="name" />
-          {row.resourceType !== 'pgpu' && (
+          {isInstanceProfileAliasSupported(row.resourceType) && (
             <GpuAttachedInstanceInfoTable.Column
               label={t('nodes.details.attachedInstancesList.alias')}
               property="profileAlias"

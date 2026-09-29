@@ -1,10 +1,13 @@
 import { describe, expect, test } from 'vitest'
 import { GPUCardStatus, GPUResourceType } from '@cube-frontend/api'
 import {
+  getInstanceHistoryLinks,
   getUnmeasurableReasonKey,
   isGpuTypeEditDisabled,
   isGpuUtilizationHistorySupported,
   isGpuVramHistorySupported,
+  isInstanceProfileAliasSupported,
+  isInstanceVramHistorySupported,
   isInstanceWorkloadHistorySupported,
   isProfileRemainingSupported,
 } from './utils'
@@ -115,6 +118,94 @@ describe('isInstanceWorkloadHistorySupported', () => {
     expect(isInstanceWorkloadHistorySupported(GPUResourceType.Pgpu)).toBe(false)
     expect(isInstanceWorkloadHistorySupported(GPUResourceType.Unset)).toBe(
       false,
+    )
+  })
+})
+
+describe('isInstanceVramHistorySupported', () => {
+  test('returns true for both vGPU types, whose instances report mem_*', () => {
+    expect(isInstanceVramHistorySupported(GPUResourceType.SriovVgpu)).toBe(true)
+    expect(isInstanceVramHistorySupported(GPUResourceType.MigBackedVgpu)).toBe(
+      true,
+    )
+  })
+
+  test('returns false for the types that never carry a charted instance', () => {
+    expect(isInstanceVramHistorySupported(GPUResourceType.Pgpu)).toBe(false)
+    expect(isInstanceVramHistorySupported(GPUResourceType.Unset)).toBe(false)
+  })
+})
+
+describe('getInstanceHistoryLinks', () => {
+  const links = {
+    workloadHistory: 'https://grafana/workload',
+    vramHistory: 'https://grafana/vram',
+  }
+  const noLinks = { workloadHistory: null, vramHistory: null }
+  const noLinkKey = 'nodes.details.attachedInstancesList.historyUnavailable'
+  const pgpuKey = 'nodes.details.attachedInstancesList.historyUnavailable.pgpu'
+  const migEmptyKey = 'nodes.details.attachedInstancesList.workloadHistoryEmpty'
+
+  test('drops both links the API sends for a passthrough instance and blames vfio-pci', () => {
+    expect(getInstanceHistoryLinks(GPUResourceType.Pgpu, links)).toEqual({
+      workload: { href: null, disabledReasonKey: pgpuKey },
+      vram: { href: null, disabledReasonKey: pgpuKey },
+    })
+  })
+
+  test('blames vfio-pci for a passthrough instance when the API sends no links', () => {
+    expect(getInstanceHistoryLinks(GPUResourceType.Pgpu, noLinks)).toEqual({
+      workload: { href: null, disabledReasonKey: pgpuKey },
+      vram: { href: null, disabledReasonKey: pgpuKey },
+    })
+  })
+
+  test('keeps both links for an SR-IOV vGPU instance', () => {
+    const result = getInstanceHistoryLinks(GPUResourceType.SriovVgpu, links)
+
+    expect(result.workload.href).toBe(links.workloadHistory)
+    expect(result.vram.href).toBe(links.vramHistory)
+  })
+
+  test('keeps only the VRAM link for a MIG-backed instance and names MIG as the reason', () => {
+    expect(
+      getInstanceHistoryLinks(GPUResourceType.MigBackedVgpu, links),
+    ).toEqual({
+      workload: { href: null, disabledReasonKey: migEmptyKey },
+      vram: { href: links.vramHistory, disabledReasonKey: noLinkKey },
+    })
+  })
+
+  test('names MIG for a MIG-backed workload link even when the API sends no links', () => {
+    expect(
+      getInstanceHistoryLinks(GPUResourceType.MigBackedVgpu, noLinks),
+    ).toEqual({
+      workload: { href: null, disabledReasonKey: migEmptyKey },
+      vram: { href: null, disabledReasonKey: noLinkKey },
+    })
+  })
+
+  test('says the OpenStack lookup failed for an SR-IOV instance without links', () => {
+    expect(getInstanceHistoryLinks(GPUResourceType.SriovVgpu, noLinks)).toEqual(
+      {
+        workload: { href: null, disabledReasonKey: noLinkKey },
+        vram: { href: null, disabledReasonKey: noLinkKey },
+      },
+    )
+  })
+})
+
+describe('isInstanceProfileAliasSupported', () => {
+  test('returns false for passthrough GPU, whose instance takes the whole card', () => {
+    expect(isInstanceProfileAliasSupported(GPUResourceType.Pgpu)).toBe(false)
+  })
+
+  test('returns true for both vGPU types, whose instances use a profile', () => {
+    expect(isInstanceProfileAliasSupported(GPUResourceType.SriovVgpu)).toBe(
+      true,
+    )
+    expect(isInstanceProfileAliasSupported(GPUResourceType.MigBackedVgpu)).toBe(
+      true,
     )
   })
 })

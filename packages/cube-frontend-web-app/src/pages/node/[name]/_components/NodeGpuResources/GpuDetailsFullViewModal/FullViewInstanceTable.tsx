@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { GpuConsoleLink } from '../GpuConsoleLink'
 import { InstanceHistoryLinks } from '../InstanceHistoryLinks'
 import { UnmeasurableValue } from '../UnmeasurableValue'
+import { isInstanceProfileAliasSupported } from '../utils'
 
 type InstanceTableRow = CosTableRow &
   ListNodeGPUCardsResponseDataInnerAttachedInstancesInner
@@ -89,10 +90,12 @@ export const FullViewInstanceTable = (props: FullViewInstanceTableProps) => {
           label={t('nodes.details.attachedInstancesList.instance')}
           emphasize
         />
-        <InstanceTable.Column
-          property="profileAlias"
-          label={t('nodes.details.attachedInstancesList.alias')}
-        />
+        {isInstanceProfileAliasSupported(resourceType) && (
+          <InstanceTable.Column
+            property="profileAlias"
+            label={t('nodes.details.attachedInstancesList.alias')}
+          />
+        )}
         <InstanceTable.Column
           property="utilizationPercent"
           label={t('nodes.details.attachedInstancesList.utilization')}
