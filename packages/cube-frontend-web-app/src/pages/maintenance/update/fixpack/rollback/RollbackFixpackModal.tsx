@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   GetFixpackUpdateProgressResponseDataOperationEnum,
@@ -27,6 +27,12 @@ type RollbackFixpackModalProps = {
 export const RollbackFixpackModal = (props: RollbackFixpackModalProps) => {
   const { isOpen, fixpack, onRollbackRequested, onClose } = props
 
+  const [selectedNodes, setSelectedNodes] = useState<string[]>([])
+
+  useEffect(() => {
+    if (!isOpen) setSelectedNodes([])
+  }, [isOpen])
+
   const { isLoadingProgress, progressRows, fetchUpdateProgress } =
     useFixpackUpdateProgress({
       fixpack,
@@ -51,6 +57,7 @@ export const RollbackFixpackModal = (props: RollbackFixpackModalProps) => {
 
   const modalActionButtonProps = useRollbackFixpackModalActionButtonProps({
     fixpack,
+    selectedNodes,
     progressRows,
     onRollbackRequested,
     onSoftRebootRequested: fetchUpdateProgress,
@@ -67,7 +74,13 @@ export const RollbackFixpackModal = (props: RollbackFixpackModalProps) => {
 
   const renderContent = () => {
     if (isRollbackable) {
-      return <FixpackRollbackableNodesView fixpack={fixpack} />
+      return (
+        <FixpackRollbackableNodesView
+          fixpack={fixpack}
+          selectedNodes={selectedNodes}
+          onSelectedNodesChange={setSelectedNodes}
+        />
+      )
     }
 
     if (isRollingBack || isRolledBack) {

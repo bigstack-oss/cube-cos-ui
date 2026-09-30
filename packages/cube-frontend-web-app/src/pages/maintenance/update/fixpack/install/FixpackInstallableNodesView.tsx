@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useMemo } from 'react'
+import { ChangeEvent, useContext, useEffect, useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import {
   FixpacksApiListFixpackUpdatableNodesRequest,
@@ -17,6 +17,8 @@ import { FixpackRow } from '../listFixpacksUtils'
 
 type FixpackInstallableNodesViewProps = {
   fixpack: FixpackRow
+  selectedNodes: string[]
+  onSelectedNodesChange: (nodes: string[]) => void
   isRollbackDisclaimerRead: boolean
   isRollbackDisclaimerDisabled: boolean
   onRollbackDisclaimerReadChange?: (e: ChangeEvent<HTMLInputElement>) => void
@@ -39,6 +41,8 @@ export const FixpackInstallableNodesView = (
 ) => {
   const {
     fixpack,
+    selectedNodes,
+    onSelectedNodesChange,
     isRollbackDisclaimerRead,
     isRollbackDisclaimerDisabled,
     onRollbackDisclaimerReadChange,
@@ -59,6 +63,22 @@ export const FixpackInstallableNodesView = (
     [updatableNodes],
   )
 
+  // Pre-select the nodes that don't have this fixpack yet.
+  useEffect(() => {
+    if (!updatableNodes) return
+    onSelectedNodesChange(
+      updatableNodes.filter((n) => !n.installed).map((n) => n.name),
+    )
+  }, [updatableNodes, onSelectedNodesChange])
+
+  const toggleNode = (name: string, checked: boolean): void => {
+    onSelectedNodesChange(
+      checked
+        ? [...selectedNodes, name]
+        : selectedNodes.filter((n) => n !== name),
+    )
+  }
+
   const { t } = useTranslation()
 
   return (
@@ -71,10 +91,30 @@ export const FixpackInstallableNodesView = (
         />
       </div>
       <InstallableNodeTable isLoading={isLoading} rows={rows}>
+        <InstallableNodeTable.Column fitContent={true}>
+          {(_, row) => (
+            <CosCheckbox
+              aria-label={row.name}
+              checked={selectedNodes.includes(row.name)}
+              disabled={row.installed}
+              onChange={(e) => toggleNode(row.name, e.target.checked)}
+            />
+          )}
+        </InstallableNodeTable.Column>
         <InstallableNodeTable.Column
           label={t('maintenance.update.fixpack.installModal.host')}
           property="name"
         />
+        <InstallableNodeTable.Column
+          label={t('maintenance.update.fixpack.installModal.installStatus')}
+          property="installed"
+        >
+          {(installed: boolean) =>
+            installed
+              ? t('maintenance.update.fixpack.installModal.installed')
+              : t('maintenance.update.fixpack.installModal.notInstalled')
+          }
+        </InstallableNodeTable.Column>
         <InstallableNodeTable.Column
           label={t('maintenance.update.fixpack.installModal.lastUpdated')}
           property="updatedAt"

@@ -780,3 +780,34 @@ describe('Compute fixpacks action state', () => {
     })
   })
 })
+
+describe('Partially installed fixpacks', () => {
+  const createVersionedFixpack = (
+    version: string,
+    current: StatusEnum,
+  ): ListFixpacksResponseDataFixpacksInner =>
+    ({
+      version,
+      status: { current, isRollbackable: true },
+    }) as unknown as ListFixpacksResponseDataFixpacksInner
+
+  it('installed on every node: install❌|rollback✅', () => {
+    const [state] = computeFixpacksActionState(
+      [createVersionedFixpack('v1', StatusEnum.Installed)],
+      GetHealthsResponseDataOverallStatusCurrentEnum.Ok,
+      new Set(),
+    )
+    expect(state.install).toBe('hidden')
+    expect(state.rollback).toBe('available')
+  })
+
+  it('missing on some nodes: install✅|rollback✅', () => {
+    const [state] = computeFixpacksActionState(
+      [createVersionedFixpack('v1', StatusEnum.Installed)],
+      GetHealthsResponseDataOverallStatusCurrentEnum.Ok,
+      new Set(['v1']),
+    )
+    expect(state.install).toBe('available')
+    expect(state.rollback).toBe('available')
+  })
+})

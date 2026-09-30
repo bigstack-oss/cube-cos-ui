@@ -50,6 +50,22 @@ const useStatusTranslations = (): Record<ProgressStatus, string> => {
     [ProgressStatus.Resolved]: t(
       'maintenance.update.firmware.updateModal.status.resolved',
     ),
+    // rolling-update node states (hex_sdk power_roll_status_json)
+    [ProgressStatus.Pending]: t(
+      'maintenance.update.firmware.updateModal.status.pending',
+    ),
+    [ProgressStatus.Staging]: t(
+      'maintenance.update.firmware.updateModal.status.staging',
+    ),
+    [ProgressStatus.Draining]: t(
+      'maintenance.update.firmware.updateModal.status.draining',
+    ),
+    [ProgressStatus.Bootstrapping]: t(
+      'maintenance.update.firmware.updateModal.status.bootstrapping',
+    ),
+    [ProgressStatus.Finalizing]: t(
+      'maintenance.update.firmware.updateModal.status.finalizing',
+    ),
   }
 }
 
@@ -219,10 +235,10 @@ export const FirmwareUpdateProgress = (props: FirmwareUpdateProgressProps) => {
       return <StatusWithIcon {...statusWithIconProps} />
     }
 
+    // a state the enum doesn't know yet still gets a label, never a bare %
     const text =
-      current === ProgressStatus.Installing
-        ? statusTranslations[ProgressStatus.Installing]
-        : statusTranslations[current]
+      statusTranslations[current] ??
+      t('maintenance.update.firmware.updateModal.status.unknown')
 
     return (
       <div className="primary-body4 flex min-w-[120px] items-center gap-x-2.5 text-functional-text">
