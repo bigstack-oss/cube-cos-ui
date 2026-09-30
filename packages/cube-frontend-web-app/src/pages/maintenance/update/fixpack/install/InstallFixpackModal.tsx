@@ -19,19 +19,29 @@ import { FixpackRow } from '../listFixpacksUtils'
 type InstallFixpackModalProps = {
   isOpen: boolean
   fixpack: FixpackRow | undefined
+  isPartiallyInstalled: boolean
   onInstallationRequested: () => unknown
   onClose: () => void
 }
 
 export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
-  const { isOpen, fixpack, onInstallationRequested, onClose } = props
+  const {
+    isOpen,
+    fixpack,
+    isPartiallyInstalled,
+    onInstallationRequested,
+    onClose,
+  } = props
 
   const [isRollbackDisclaimerRead, setIsRollbackDisclaimerRead] =
     useState(false)
 
+  const [selectedNodes, setSelectedNodes] = useState<string[]>([])
+
   useEffect(() => {
     if (!isOpen) {
       setIsRollbackDisclaimerRead(false)
+      setSelectedNodes([])
     }
   }, [isOpen])
 
@@ -42,9 +52,13 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
         GetFixpackUpdateProgressResponseDataOperationEnum.Install,
     })
 
-  const isInstallable = fixpack?.status.current === StatusEnum.Available
+  // An installed fixpack some nodes still miss can be installed on them.
+  const isInstallable =
+    fixpack?.status.current === StatusEnum.Available ||
+    (fixpack?.status.current === StatusEnum.Installed && isPartiallyInstalled)
   const isInstalling = fixpack && isInstallingStatuses(fixpack.status.current)
-  const isInstalled = fixpack?.status.current === StatusEnum.Installed
+  const isInstalled =
+    fixpack?.status.current === StatusEnum.Installed && !isInstallable
 
   const { t } = useTranslation()
 
@@ -58,6 +72,8 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
 
   const modalActionButtonProps = useInstallFixpackModalActionButtonProps({
     fixpack,
+    isInstallable,
+    selectedNodes,
     progressRows,
     isRollbackDisclaimerRead,
     onInstallationRequested,
@@ -80,10 +96,12 @@ export const InstallFixpackModal = (props: InstallFixpackModalProps) => {
   }, [isOpen, fixpack?.status, onClose])
 
   const renderContent = () => {
-    if (isInstallable) {
+    if (fixpack && isInstallable) {
       return (
         <FixpackInstallableNodesView
           fixpack={fixpack}
+          selectedNodes={selectedNodes}
+          onSelectedNodesChange={setSelectedNodes}
           isRollbackDisclaimerRead={isRollbackDisclaimerRead}
           isRollbackDisclaimerDisabled={
             modalActionButtonProps.actionButtonProps?.loading ?? false

@@ -22,10 +22,11 @@ export const useCephHealthStatus = (): CephHealthStatus => {
   )
 
   const cephModule = useMemo(() => {
-    const storageService = healthsData?.services.find(
+    // services/modules come back null while the API is still starting
+    const storageService = healthsData?.services?.find(
       (service) => service.name === 'storage',
     )
-    const cephModule = storageService?.modules.find(
+    const cephModule = storageService?.modules?.find(
       (module) => module.name === 'ceph',
     )
     return cephModule

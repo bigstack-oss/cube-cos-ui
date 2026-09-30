@@ -1,10 +1,14 @@
-import { useContext, useMemo } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import {
   FixpacksApiListFixpackUpdatableNodesRequest,
   ListFixpackRollbackableNodesResponseDataInner,
 } from '@cube-frontend/api'
-import { CosTableRow, GetCosBasicTable } from '@cube-frontend/ui-library'
+import {
+  CosCheckbox,
+  CosTableRow,
+  GetCosBasicTable,
+} from '@cube-frontend/ui-library'
 import { fixpacksApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -13,6 +17,8 @@ import { FixpackRow } from '../listFixpacksUtils'
 
 type FixpackRollbackableNodesViewProps = {
   fixpack: FixpackRow
+  selectedNodes: string[]
+  onSelectedNodesChange: (nodes: string[]) => void
 }
 
 const RollbackableNodeTable = GetCosBasicTable<RollbackableNodeRow>()
@@ -30,7 +36,7 @@ const nodeToTableRow = (
 export const FixpackRollbackableNodesView = (
   props: FixpackRollbackableNodesViewProps,
 ) => {
-  const { fixpack } = props
+  const { fixpack, selectedNodes, onSelectedNodesChange } = props
 
   const { dataCenter } = useContext(DataCenterContext)
 
@@ -47,6 +53,20 @@ export const FixpackRollbackableNodesView = (
     [rollbackableNodes],
   )
 
+  // Pre-select every node whose latest fixpack is this one.
+  useEffect(() => {
+    if (!rollbackableNodes) return
+    onSelectedNodesChange(rollbackableNodes.map((n) => n.name))
+  }, [rollbackableNodes, onSelectedNodesChange])
+
+  const toggleNode = (name: string, checked: boolean): void => {
+    onSelectedNodesChange(
+      checked
+        ? [...selectedNodes, name]
+        : selectedNodes.filter((n) => n !== name),
+    )
+  }
+
   const { t } = useTranslation()
 
   return (
@@ -59,6 +79,15 @@ export const FixpackRollbackableNodesView = (
         />
       </div>
       <RollbackableNodeTable isLoading={isLoading} rows={rows}>
+        <RollbackableNodeTable.Column fitContent={true}>
+          {(_, row) => (
+            <CosCheckbox
+              aria-label={row.name}
+              checked={selectedNodes.includes(row.name)}
+              onChange={(e) => toggleNode(row.name, e.target.checked)}
+            />
+          )}
+        </RollbackableNodeTable.Column>
         <RollbackableNodeTable.Column
           label={t('maintenance.update.fixpack.rollbackModal.host')}
           property="name"

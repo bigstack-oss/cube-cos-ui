@@ -13,6 +13,8 @@ import { MaintenanceUpdateLayout } from '../_components/MaintenanceUpdateLayout'
 import { ReleaseNotePanel } from '../_components/ReleaseNotePanel'
 import { useCephHealthStatus } from '../_components/useCephHealthStatus'
 import { useReleaseNotePanel } from '../_components/useReleaseNotePanel'
+import { NodeFixpackStatusTable } from './_components/NodeFixpackStatusTable'
+import { useNodeFixpackStatus } from './_components/useNodeFixpackStatus'
 import { DeleteFixpackModal } from './actions/DeleteFixpackModal'
 import { InstallAction } from './actions/InstallAction'
 import { RemoveAction } from './actions/RemoveAction'
@@ -59,9 +61,20 @@ export const MaintenanceUpdateFixpackPage = () => {
 
   const cephHealthStatus = useCephHealthStatus()
 
+  const {
+    isLoading: isLoadingNodeStatus,
+    nodeStatuses,
+    partiallyInstalledVersions,
+  } = useNodeFixpackStatus()
+
   const fixpacksActionStates = useMemo<FixpackActionState[]>(
-    () => computeFixpacksActionState(allFixpacks, cephHealthStatus),
-    [allFixpacks, cephHealthStatus],
+    () =>
+      computeFixpacksActionState(
+        allFixpacks,
+        cephHealthStatus,
+        partiallyInstalledVersions,
+      ),
+    [allFixpacks, cephHealthStatus, partiallyInstalledVersions],
   )
 
   const {
@@ -198,6 +211,10 @@ export const MaintenanceUpdateFixpackPage = () => {
               onPageChange={onPageChange}
               onItemsPerPageChange={onItemsPerPageChange}
             />
+            <NodeFixpackStatusTable
+              isLoading={isLoadingNodeStatus}
+              nodeStatuses={nodeStatuses}
+            />
           </div>
         </CosCollapsiblePanelLayout.LeftPanel>
         <CosCollapsiblePanelLayout.RightPanel
@@ -217,6 +234,10 @@ export const MaintenanceUpdateFixpackPage = () => {
       <InstallFixpackModal
         isOpen={isInstallModalOpen}
         fixpack={fixpackToInstall}
+        isPartiallyInstalled={
+          !!fixpackToInstall &&
+          partiallyInstalledVersions.has(fixpackToInstall.version)
+        }
         onInstallationRequested={listFixpacks}
         onClose={onInstallModalClose}
       />

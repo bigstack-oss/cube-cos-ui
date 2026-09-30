@@ -3589,7 +3589,7 @@ export type GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum = typ
  */
 export interface GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus {
     /**
-     * 
+     * The rolling-update states (pending ... finalizing) come from hex_sdk power_roll_status_json; the rest from a non-rolling update.
      * @type {string}
      * @memberof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatus
      */
@@ -3620,7 +3620,12 @@ export const GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentE
     Rebooting: 'rebooting',
     Failed: 'failed',
     Resolved: 'resolved',
-    Succeeded: 'succeeded'
+    Succeeded: 'succeeded',
+    Pending: 'pending',
+    Staging: 'staging',
+    Draining: 'draining',
+    Bootstrapping: 'bootstrapping',
+    Finalizing: 'finalizing'
 } as const;
 
 export type GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum = typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum[keyof typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerStatusCurrentEnum];
@@ -7866,6 +7871,12 @@ export interface InstallFixpackRequest {
      * @memberof InstallFixpackRequest
      */
     'version': string;
+    /**
+     * Nodes to install on, one at a time. Defaults to the nodes that don\'t have the fixpack yet.
+     * @type {Array<string>}
+     * @memberof InstallFixpackRequest
+     */
+    'nodes'?: Array<string>;
 }
 /**
  * 
@@ -8201,6 +8212,112 @@ export type ListFirmwaresResponseDataFirmwaresInnerStatusCurrentEnum = typeof Li
 /**
  * 
  * @export
+ * @interface ListFixpackNodeStatus400Response
+ */
+export interface ListFixpackNodeStatus400Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFixpackNodeStatus400Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackNodeStatus400Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackNodeStatus400Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpackNodeStatus500Response
+ */
+export interface ListFixpackNodeStatus500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFixpackNodeStatus500Response
+     */
+    'code'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackNodeStatus500Response
+     */
+    'msg'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackNodeStatus500Response
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpackNodeStatusResponse
+ */
+export interface ListFixpackNodeStatusResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListFixpackNodeStatusResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<ListFixpackNodeStatusResponseDataInner>}
+     * @memberof ListFixpackNodeStatusResponse
+     */
+    'data': Array<ListFixpackNodeStatusResponseDataInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackNodeStatusResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackNodeStatusResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListFixpackNodeStatusResponseDataInner
+ */
+export interface ListFixpackNodeStatusResponseDataInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof ListFixpackNodeStatusResponseDataInner
+     */
+    'name': string;
+    /**
+     * Fixpacks installed on the node, from its own history
+     * @type {Array<string>}
+     * @memberof ListFixpackNodeStatusResponseDataInner
+     */
+    'installed': Array<string>;
+    /**
+     * `ok`, `missing <versions>` or `unreachable`
+     * @type {string}
+     * @memberof ListFixpackNodeStatusResponseDataInner
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
  * @interface ListFixpackRollbackableNodes500Response
  */
 export interface ListFixpackRollbackableNodes500Response {
@@ -8328,6 +8445,12 @@ export interface ListFixpackUpdatableNodesResponseDataInner {
      * @memberof ListFixpackUpdatableNodesResponseDataInner
      */
     'updatedAt': string;
+    /**
+     * Whether the node\'s own history has this fixpack installed
+     * @type {boolean}
+     * @memberof ListFixpackUpdatableNodesResponseDataInner
+     */
+    'installed': boolean;
 }
 /**
  * 
@@ -12658,6 +12781,19 @@ export interface RollbackFixpack500Response {
      * @memberof RollbackFixpack500Response
      */
     'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RollbackFixpackRequest
+ */
+export interface RollbackFixpackRequest {
+    /**
+     * Nodes to roll back. Defaults to the nodes whose latest fixpack is this version.
+     * @type {Array<string>}
+     * @memberof RollbackFixpackRequest
+     */
+    'nodes'?: Array<string>;
 }
 /**
  * 
@@ -18614,6 +18750,49 @@ export const FixpacksApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
+         * Each node is checked against `version`, or against every fixpack installed on any node when `version` is omitted.
+         * @summary Get each node\'s fixpack status
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFixpackNodeStatus: async (dataCenter: string, version?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listFixpackNodeStatus', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/fixpacks/status`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (version !== undefined) {
+                localVarQueryParameter['version'] = version;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
          * @summary Get nodes that can be rolled back with the specified fixpack
          * @param {string} dataCenter The name of the data center to operate
@@ -18750,10 +18929,11 @@ export const FixpacksApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Rollback a fixpack
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} version The version of the file to delete
+         * @param {RollbackFixpackRequest} [rollbackFixpackRequest] Optional nodes to roll back
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        rollbackFixpack: async (dataCenter: string, version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        rollbackFixpack: async (dataCenter: string, version: string, rollbackFixpackRequest?: RollbackFixpackRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('rollbackFixpack', 'dataCenter', dataCenter)
             // verify required parameter 'version' is not null or undefined
@@ -18778,9 +18958,12 @@ export const FixpacksApiAxiosParamCreator = function (configuration?: Configurat
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(rollbackFixpackRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -18987,6 +19170,20 @@ export const FixpacksApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Each node is checked against `version`, or against every fixpack installed on any node when `version` is omitted.
+         * @summary Get each node\'s fixpack status
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listFixpackNodeStatus(dataCenter: string, version?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListFixpackNodeStatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listFixpackNodeStatus(dataCenter, version, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FixpacksApi.listFixpackNodeStatus']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 
          * @summary Get nodes that can be rolled back with the specified fixpack
          * @param {string} dataCenter The name of the data center to operate
@@ -19034,11 +19231,12 @@ export const FixpacksApiFp = function(configuration?: Configuration) {
          * @summary Rollback a fixpack
          * @param {string} dataCenter The name of the data center to operate
          * @param {string} version The version of the file to delete
+         * @param {RollbackFixpackRequest} [rollbackFixpackRequest] Optional nodes to roll back
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rollbackFixpack(dataCenter: string, version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RollbackFixpack202Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.rollbackFixpack(dataCenter, version, options);
+        async rollbackFixpack(dataCenter: string, version: string, rollbackFixpackRequest?: RollbackFixpackRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RollbackFixpack202Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rollbackFixpack(dataCenter, version, rollbackFixpackRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FixpacksApi.rollbackFixpack']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -19136,6 +19334,16 @@ export const FixpacksApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.installFixpack(requestParameters.dataCenter, requestParameters.installFixpackRequest, options).then((request) => request(axios, basePath));
         },
         /**
+         * Each node is checked against `version`, or against every fixpack installed on any node when `version` is omitted.
+         * @summary Get each node\'s fixpack status
+         * @param {FixpacksApiListFixpackNodeStatusRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listFixpackNodeStatus(requestParameters: FixpacksApiListFixpackNodeStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListFixpackNodeStatusResponse> {
+            return localVarFp.listFixpackNodeStatus(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
          * @summary Get nodes that can be rolled back with the specified fixpack
          * @param {FixpacksApiListFixpackRollbackableNodesRequest} requestParameters Request parameters.
@@ -19173,7 +19381,7 @@ export const FixpacksApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         rollbackFixpack(requestParameters: FixpacksApiRollbackFixpackRequest, options?: RawAxiosRequestConfig): AxiosPromise<RollbackFixpack202Response> {
-            return localVarFp.rollbackFixpack(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(axios, basePath));
+            return localVarFp.rollbackFixpack(requestParameters.dataCenter, requestParameters.version, requestParameters.rollbackFixpackRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -19293,6 +19501,27 @@ export interface FixpacksApiInstallFixpackRequest {
 }
 
 /**
+ * Request parameters for listFixpackNodeStatus operation in FixpacksApi.
+ * @export
+ * @interface FixpacksApiListFixpackNodeStatusRequest
+ */
+export interface FixpacksApiListFixpackNodeStatusRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof FixpacksApiListFixpackNodeStatus
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof FixpacksApiListFixpackNodeStatus
+     */
+    readonly version?: string
+}
+
+/**
  * Request parameters for listFixpackRollbackableNodes operation in FixpacksApi.
  * @export
  * @interface FixpacksApiListFixpackRollbackableNodesRequest
@@ -19381,6 +19610,13 @@ export interface FixpacksApiRollbackFixpackRequest {
      * @memberof FixpacksApiRollbackFixpack
      */
     readonly version: string
+
+    /**
+     * Optional nodes to roll back
+     * @type {RollbackFixpackRequest}
+     * @memberof FixpacksApiRollbackFixpack
+     */
+    readonly rollbackFixpackRequest?: RollbackFixpackRequest
 }
 
 /**
@@ -19502,6 +19738,18 @@ export class FixpacksApi extends BaseAPI {
     }
 
     /**
+     * Each node is checked against `version`, or against every fixpack installed on any node when `version` is omitted.
+     * @summary Get each node\'s fixpack status
+     * @param {FixpacksApiListFixpackNodeStatusRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FixpacksApi
+     */
+    public listFixpackNodeStatus(requestParameters: FixpacksApiListFixpackNodeStatusRequest, options?: RawAxiosRequestConfig) {
+        return FixpacksApiFp(this.configuration).listFixpackNodeStatus(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * 
      * @summary Get nodes that can be rolled back with the specified fixpack
      * @param {FixpacksApiListFixpackRollbackableNodesRequest} requestParameters Request parameters.
@@ -19546,7 +19794,7 @@ export class FixpacksApi extends BaseAPI {
      * @memberof FixpacksApi
      */
     public rollbackFixpack(requestParameters: FixpacksApiRollbackFixpackRequest, options?: RawAxiosRequestConfig) {
-        return FixpacksApiFp(this.configuration).rollbackFixpack(requestParameters.dataCenter, requestParameters.version, options).then((request) => request(this.axios, this.basePath));
+        return FixpacksApiFp(this.configuration).rollbackFixpack(requestParameters.dataCenter, requestParameters.version, requestParameters.rollbackFixpackRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

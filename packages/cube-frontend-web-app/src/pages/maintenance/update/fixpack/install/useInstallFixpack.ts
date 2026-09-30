@@ -10,6 +10,7 @@ type UseInstallFixpack = {
 
 export const useInstallFixpack = (
   fixpackVersion: string | undefined,
+  nodes: string[],
   onInstallationRequested: () => unknown,
 ): UseInstallFixpack => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -34,6 +35,7 @@ export const useInstallFixpack = (
         dataCenter: dataCenter!.name,
         installFixpackRequest: {
           version: fixpackVersion,
+          nodes,
         },
       })
       onInstallationRequested()

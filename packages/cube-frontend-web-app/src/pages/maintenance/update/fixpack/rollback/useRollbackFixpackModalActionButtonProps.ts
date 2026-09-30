@@ -21,6 +21,7 @@ type UseRollbackFixpackModalActionButtonProps = Pick<
 
 type UseRollbackFixpackModalActionButtonPropsArgs = {
   fixpack: ListFixpacksResponseDataFixpacksInner | undefined
+  selectedNodes: string[]
   progressRows: ProgressTableRow[]
   onRollbackRequested: () => unknown
   onSoftRebootRequested: () => unknown
@@ -32,6 +33,7 @@ export const useRollbackFixpackModalActionButtonProps = (
 ): UseRollbackFixpackModalActionButtonProps => {
   const {
     fixpack,
+    selectedNodes,
     progressRows,
     onRollbackRequested,
     onSoftRebootRequested,
@@ -40,6 +42,7 @@ export const useRollbackFixpackModalActionButtonProps = (
 
   const { isRollbackButtonLoading, onRollbackClick } = useRollbackFixpack(
     fixpack?.version,
+    selectedNodes,
     onRollbackRequested,
   )
 
@@ -68,6 +71,7 @@ export const useRollbackFixpackModalActionButtonProps = (
       actionText: t('maintenance.update.fixpack.rollbackModal.yesRollback'),
       actionButtonProps: {
         loading: isRollbackButtonLoading,
+        disabled: selectedNodes.length === 0,
       },
       onActionClick: onRollbackClick,
     }
