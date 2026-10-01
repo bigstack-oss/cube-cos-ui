@@ -1,7 +1,7 @@
 name: cos-ui-keycloak-dev
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:18.0.2
+    image: quay.io/keycloak/keycloak:22.0.5
     container_name: keycloak
     # The image entrypoint is kc.sh, which has no default command. start-dev also turns
     # off theme caching, which is what the standalone.xml overrides used to be for.
