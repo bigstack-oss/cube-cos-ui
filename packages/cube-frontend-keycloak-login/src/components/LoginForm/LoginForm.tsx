@@ -1,44 +1,41 @@
 import { CosButton, CosStroke } from '@cube-frontend/ui-library'
-import { twMerge } from 'tailwind-merge'
-import { mainContentPaddingTopClass } from '../../keycloakLoginStyles'
-import { LoginCopyright } from './LoginCopyright'
+import { LoginPageContext } from '../../keycloakLoginContext'
+import { AuthForm } from '../AuthLayout/AuthForm'
 import { LoginFields } from './LoginField'
 import { LoginHeader } from './LoginHeader'
 import { LoginHelp } from './LoginHelp'
 
-export const LoginForm = () => {
-  const { formActionUrl, authSelectedCredentials } = window.keycloakLoginContext
+export type LoginFormProps = {
+  context: LoginPageContext
+}
+
+export const LoginForm = (props: LoginFormProps) => {
+  const { context } = props
+  const { formActionUrl, authSelectedCredentials, loginGreeting } = context
 
   return (
-    <form
-      className={twMerge(
-        'flex h-full w-1/2 flex-col items-center',
-        mainContentPaddingTopClass,
-      )}
-      method="post"
-      action={formActionUrl}
-    >
-      <div className="flex w-[504px] flex-col items-center [&>*]:w-full">
-        <LoginHeader />
-        <CosStroke
-          className="mb-[23px] mt-12"
-          type="dot"
-          color="border-chart-2"
-        />
-        <LoginFields />
-        <CosButton className="mt-12" htmlType="submit" size="lg">
-          Log in
-        </CosButton>
-        <LoginHelp />
-        {/* Keeping this input to match the native Keycloak login form. */}
-        <input
-          type="hidden"
-          name="credentialId"
-          tabIndex={-1}
-          value={authSelectedCredentials}
-        />
-      </div>
-      <LoginCopyright />
-    </form>
+    <AuthForm action={formActionUrl}>
+      <LoginHeader
+        title="Log in to the Data Center"
+        description={loginGreeting || 'Welcome to COS cloud service platform!'}
+      />
+      <CosStroke
+        className="mb-[23px] mt-12"
+        type="dot"
+        color="border-chart-2"
+      />
+      <LoginFields context={context} />
+      <CosButton className="mt-12" htmlType="submit" size="lg">
+        Log in
+      </CosButton>
+      <LoginHelp />
+      {/* Keeping this input to match the native Keycloak login form. */}
+      <input
+        type="hidden"
+        name="credentialId"
+        tabIndex={-1}
+        value={authSelectedCredentials}
+      />
+    </AuthForm>
   )
 }

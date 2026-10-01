@@ -12,6 +12,7 @@
     "tsc": "tsc",
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "test": "vitest run",
     "copy-output": "rm -rf ./keycloak/themes/cos-ui/login/resources && cp -r ./dist/resources ./keycloak/themes/cos-ui/login",
     "infra": "docker compose -f ./docker-compose.yaml up -d"
   },
@@ -35,6 +36,7 @@
     "postcss": "catalog:",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-svgr": "catalog:"
+    "vite-plugin-svgr": "catalog:",
+    "vitest": "catalog:"
   }
 }

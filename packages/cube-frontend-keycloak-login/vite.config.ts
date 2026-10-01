@@ -14,9 +14,14 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    codeInspectorPlugin({
-      bundler: 'vite',
-    }),
+    // The inspector starts its own server, which keeps vitest from exiting.
+    ...(process.env.VITEST
+      ? []
+      : [
+          codeInspectorPlugin({
+            bundler: 'vite',
+          }),
+        ]),
     svgr({
       svgrOptions: {
         ref: true,
