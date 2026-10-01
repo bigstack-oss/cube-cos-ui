@@ -92,6 +92,7 @@ const moduleNameLabelMap: Record<string, string> = {
   kafka: 'Kafka',
   telegraf: 'Telegraf',
   grafana: 'Grafana',
+  lachesis: 'Lachesis',
   prometheus: 'Prometheus',
   thanos: 'Thanos',
   filebeat: 'Filebeat',
