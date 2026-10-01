@@ -68,10 +68,12 @@ export const isRollbackableFixpack = (
 
 /**
  * @param fixpacks Fixpacks should be sorted by the order they were added in descending order.
+ * @param partiallyInstalledVersions Installed versions some nodes still miss; they stay installable.
  */
 export const computeFixpacksActionState = (
   fixpacks: ListFixpacksResponseDataFixpacksInner[],
   cephHealthStatus: CephHealthStatus,
+  partiallyInstalledVersions: Set<string> = new Set(),
 ): FixpackActionState[] => {
   const latestInstalledPermanentFixpackIndex =
     findLatestInstalledPermanentFixpackIndex(fixpacks)
@@ -91,6 +93,7 @@ export const computeFixpacksActionState = (
         fixpack,
         olderFixpack,
         cephHealthStatus,
+        partiallyInstalledVersions.has(fixpack.version),
       ),
       rollback: computeRollbackActionState(
         fixpack,
@@ -111,6 +114,7 @@ const computeInstallActionState = (
   fixpack: ListFixpacksResponseDataFixpacksInner,
   olderFixpack: ListFixpacksResponseDataFixpacksInner | undefined,
   cephHealthStatus: CephHealthStatus,
+  isPartiallyInstalled: boolean,
 ): InstallActionState => {
   const isInstalling = isInstallingStatuses(fixpack.status.current)
 
@@ -118,7 +122,10 @@ const computeInstallActionState = (
 
   const isRollingBack = isRollingBackStatuses(fixpack.status.current)
 
-  if (isRollingBack || fixpack.status.current === StatusEnum.Installed) {
+  const isFullyInstalled =
+    fixpack.status.current === StatusEnum.Installed && !isPartiallyInstalled
+
+  if (isRollingBack || isFullyInstalled) {
     return 'hidden'
   }
 

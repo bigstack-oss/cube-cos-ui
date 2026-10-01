@@ -10,6 +10,7 @@ type UseRollbackFixpack = {
 
 export const useRollbackFixpack = (
   fixpackVersion: string | undefined,
+  nodes: string[],
   onRollbackRequested: () => unknown,
 ): UseRollbackFixpack => {
   const { dataCenter } = useContext(DataCenterContext)
@@ -33,6 +34,7 @@ export const useRollbackFixpack = (
       await callRollbackFixpackApi({
         dataCenter: dataCenter!.name,
         version: fixpackVersion,
+        rollbackFixpackRequest: { nodes },
       })
       onRollbackRequested()
       // To avoid the rollback button briefly flashing back to a non-loading

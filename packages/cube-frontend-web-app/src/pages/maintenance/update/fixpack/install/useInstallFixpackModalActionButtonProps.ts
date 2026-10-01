@@ -1,7 +1,4 @@
-import {
-  ListFixpacksResponseDataFixpacksInnerStatusCurrentEnum as FixpackStatus,
-  ListFixpacksResponseDataFixpacksInner,
-} from '@cube-frontend/api'
+import { ListFixpacksResponseDataFixpacksInner } from '@cube-frontend/api'
 import { CosModalProps } from '@cube-frontend/ui-library'
 import { useMemo } from 'react'
 import {
@@ -21,6 +18,8 @@ type UseInstallFixpackModalActionButtonProps = Pick<
 
 type UseInstallFixpackModalActionButtonPropsArgs = {
   fixpack: ListFixpacksResponseDataFixpacksInner | undefined
+  isInstallable: boolean
+  selectedNodes: string[]
   progressRows: ProgressTableRow[]
   isRollbackDisclaimerRead: boolean
   onInstallationRequested: () => unknown
@@ -33,6 +32,8 @@ export const useInstallFixpackModalActionButtonProps = (
 ): UseInstallFixpackModalActionButtonProps => {
   const {
     fixpack,
+    isInstallable,
+    selectedNodes,
     progressRows,
     isRollbackDisclaimerRead,
     onInstallationRequested,
@@ -42,13 +43,12 @@ export const useInstallFixpackModalActionButtonProps = (
 
   const { isInstallButtonLoading, onInstallClick } = useInstallFixpack(
     fixpack?.version,
+    selectedNodes,
     onInstallationRequested,
   )
 
   const { isCallingSoftRebootDataCenterApi, onRebootClick } =
     useSoftRebootDataCenter(onSoftRebootRequested)
-
-  const isInstallable = fixpack?.status.current === FixpackStatus.Available
 
   const isInstalling = fixpack && isInstallingStatuses(fixpack.status.current)
 
@@ -63,12 +63,14 @@ export const useInstallFixpackModalActionButtonProps = (
 
   const { t } = useTranslation()
 
-  if (isInstallable) {
+  if (fixpack && isInstallable) {
     return {
       actionText: t('maintenance.update.fixpack.installModal.yesInstall'),
       actionButtonProps: {
         loading: isInstallButtonLoading,
-        disabled: !fixpack.status.isRollbackable && !isRollbackDisclaimerRead,
+        disabled:
+          selectedNodes.length === 0 ||
+          (!fixpack.status.isRollbackable && !isRollbackDisclaimerRead),
       },
       onActionClick: onInstallClick,
     }
