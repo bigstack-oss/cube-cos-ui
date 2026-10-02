@@ -144,6 +144,7 @@
   "home.chart.vm.rankingTop10": "VM Ranking Top 10 (High to low)",
   "home.chart.vm.cpuUsage": "Cpu Usage",
   "home.chart.vm.memoryUsage": "Memory Usage",
+  "home.chart.vm.diskUsage": "Disk Usage",
   "home.chart.vm.diskIoRead": "Disk IO Read",
   "home.chart.vm.diskIoWrite": "Disk IO Write",
   "home.chart.vm.ingressTraffic": "Ingress Traffic",
