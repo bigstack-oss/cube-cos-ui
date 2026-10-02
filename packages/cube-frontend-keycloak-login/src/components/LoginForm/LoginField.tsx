@@ -5,10 +5,15 @@ import {
   CosPasswordInput,
 } from '@cube-frontend/ui-library'
 import { useMemo } from 'react'
+import { LoginPageContext } from '../../keycloakLoginContext'
 
-export const LoginFields = () => {
+export type LoginFieldsProps = {
+  context: LoginPageContext
+}
+
+export const LoginFields = (props: LoginFieldsProps) => {
   const { incorrectCredentials, sessionTimedOut, isRememberMeEnabled } =
-    window.keycloakLoginContext
+    props.context
 
   const naggingMessage = useMemo<string | undefined>(() => {
     if (sessionTimedOut) {

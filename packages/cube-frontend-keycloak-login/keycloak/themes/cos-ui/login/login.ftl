@@ -3,6 +3,7 @@
     <#if section = "form">
         <script>
             window.keycloakLoginContext = {
+                pageId: 'login',
                 resourcesPath: '${url.resourcesPath}',
                 incorrectCredentials: ${messagesPerField.existsError('username','password')?c},
                 sessionTimedOut: <#if message?has_content && message.type == 'error' && message.summary?contains('timed out')>true<#else>false</#if>,

@@ -12,6 +12,20 @@ pnpm keycloak-login:dev
 
 Visit http://localhost:5173 to begin development. Once you're done, move on to the next step.
 
+The theme renders four Keycloak pages, and each `.ftl` tells the React app which one it is
+through `pageId`. In development, pick the page with `?page=<pageId>`:
+
+| Page                                              | `.ftl`                      | Extra flags               |
+| ------------------------------------------------- | --------------------------- | ------------------------- |
+| http://localhost:5173                             | `login.ftl`                 |                           |
+| http://localhost:5173/?page=login-otp             | `login-otp.ftl`             | `devices`, `errors`       |
+| http://localhost:5173/?page=login-config-totp     | `login-config-totp.ftl`     | `manual`, `aia`, `errors` |
+| http://localhost:5173/?page=login-update-password | `login-update-password.ftl` | `aia`, `errors`           |
+
+`devices` shows two OTP devices, `manual` the "Unable to scan?" mode, `aia` the Cancel button
+of an action the user started from the account console, and `errors` Keycloak's field errors.
+The mocks live in `src/keycloakLoginContextSetupDev.ts`.
+
 ## 2. Starting the Keycloak Server
 
 Run:
@@ -52,7 +66,9 @@ see the COS login page.
 
 That option is a server-wide default covering every theme type, and this package only ships
 a `login` theme, so the welcome, admin and account pages fall back to the built-in theme and
-log a `Failed to find WELCOME theme cos-ui` error. Harmless for a local preview.
+log a `Failed to find WELCOME theme cos-ui` error. On Keycloak 22 the account and admin
+consoles answer 500 instead, so after a local login the redirect lands on an error page — the
+login pages themselves are unaffected.
 
 CubeCOS does **not** deploy it that way — it sets the theme as the master realm's login
 theme instead, so only the login page is affected and nothing logs a fallback error (see
