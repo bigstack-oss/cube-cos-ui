@@ -46,7 +46,7 @@ This copies the generated files to `packages/cube-frontend-keycloak-login/keyclo
 
 ## 5. Viewing the COS Login Page
 
-`docker-compose.yaml` sets `KC_SPI_THEME_DEFAULT=cos-ui`, so the preview container serves
+`docker-compose.yaml` sets `KC_SPI_THEME__DEFAULT=cos-ui`, so the preview container serves
 `cos-ui` without anyone having to change a realm setting first. Just log out and you should
 see the COS login page.
 
@@ -56,7 +56,7 @@ log a `Failed to find WELCOME theme cos-ui` error. Harmless for a local preview.
 
 CubeCOS does **not** deploy it that way — it sets the theme as the master realm's login
 theme instead, so only the login page is affected and nothing logs a fallback error (see
-bigstack-oss/cubecos#187). To mirror that locally, drop `KC_SPI_THEME_DEFAULT` from
+bigstack-oss/cubecos#187). To mirror that locally, drop `KC_SPI_THEME__DEFAULT` from
 `docker-compose.yaml` and set the theme per realm:
 
 1. Log in to the Keycloak Admin Console at http://localhost:8642/auth/admin using `admin/admin`.
@@ -82,8 +82,10 @@ local previews — keep the two in step.
 Since Keycloak 18 the server runs on Quarkus rather than WildFly, which is why:
 
 - themes live under `/opt/keycloak/themes/` rather than `/opt/jboss/keycloak/themes/`,
-- the admin user comes from `KEYCLOAK_ADMIN` / `KEYCLOAK_ADMIN_PASSWORD` rather than
+- the admin user comes from `KC_BOOTSTRAP_ADMIN_USERNAME` / `KC_BOOTSTRAP_ADMIN_PASSWORD`
+  (since 26; 18 to 25 used `KEYCLOAK_ADMIN` / `KEYCLOAK_ADMIN_PASSWORD`) rather than
   `KEYCLOAK_USER` / `KEYCLOAK_PASSWORD`,
-- the default theme comes from `KC_SPI_THEME_DEFAULT` rather than `KEYCLOAK_DEFAULT_THEME`,
+- the default theme comes from `KC_SPI_THEME__DEFAULT` (`KC_SPI_THEME_DEFAULT` before 26)
+  rather than `KEYCLOAK_DEFAULT_THEME`,
 - theme caching is off automatically under `start-dev`, so the `standalone.xml` and
   `standalone-ha.xml` overrides this package used to carry are gone.
