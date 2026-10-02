@@ -17038,14 +17038,14 @@ export interface EventsApiGetPredefinedEventsRequest {
 
     /**
      * The severities of the event to query.
-     * @type {Array<'INFO' | 'WARNING' | 'CRITICAL'>}
+     * @type {Array<'INFO' | 'WARNING' | 'ERROR' | 'CRITICAL'>}
      * @memberof EventsApiGetPredefinedEvents
      */
     readonly severities?: Array<GetPredefinedEventsSeveritiesEnum>
 
     /**
      * The ids of the event to query.
-     * @type {Array<'PLC00001I' | 'PLC00002I' | 'BSP00001I' | 'RUG00001I' | 'KSN00001I' | 'KSN00002I' | 'CMP01001I' | 'CMP01002I' | 'CMP02001I' | 'CMP02002I' | 'CMP02003I' | 'CEP00001I' | 'CEP00002W' | 'NET00001I' | 'NET00002W' | 'NET00003I' | 'NET00004W' | 'SRV00001I' | 'SRV00002W' | 'SRV00003C' | 'SRV01001I' | 'SRV01002I' | 'SDN00001I' | 'SDN00002I' | 'VRT00001I' | 'VRT00002W' | 'VRT00003C' | 'ETH00001I' | 'ETH00002W' | 'CPU00001I' | 'CPU00002W' | 'CPU00003C' | 'DSK00001I' | 'DSK00002W' | 'DSK00003C' | 'MEM00001I' | 'MEM00002W' | 'MEM00003C' | 'DEV00001I' | 'DEV00002W' | 'CPU00004I' | 'CPU00005W' | 'CPU00006C' | 'CPU00007I' | 'MEM00004I' | 'MEM00005W' | 'MEM00006C' | 'MEM00007I'>}
+     * @type {Array<'PLC00001I' | 'PLC00002I' | 'BSP00001I' | 'RUG00001I' | 'KSN00001I' | 'KSN00002I' | 'CMP01001I' | 'CMP01002I' | 'CMP02001I' | 'CMP02002I' | 'CMP02003I' | 'CEP00001I' | 'CEP00002W' | 'NET00001I' | 'NET00002W' | 'NET00003I' | 'NET00004W' | 'SRV00001I' | 'SRV00002W' | 'SRV00003C' | 'SRV00004E' | 'SRV00005I' | 'SRV01001I' | 'SRV01002I' | 'SDN00001I' | 'SDN00002I' | 'VRT00001I' | 'VRT00002W' | 'VRT00003C' | 'ETH00001I' | 'ETH00002W' | 'CPU00001I' | 'CPU00002W' | 'CPU00003C' | 'DSK00001I' | 'DSK00002W' | 'DSK00003C' | 'MEM00001I' | 'MEM00002W' | 'MEM00003C' | 'DEV00001I' | 'DEV00002W' | 'CPU00004I' | 'CPU00005W' | 'CPU00006C' | 'CPU00007I' | 'MEM00004I' | 'MEM00005W' | 'MEM00006C' | 'MEM00007I'>}
      * @memberof EventsApiGetPredefinedEvents
      */
     readonly ids?: Array<GetPredefinedEventsIdsEnum>
@@ -17304,6 +17304,7 @@ export type GetPredefinedEventsCategoriesEnum = typeof GetPredefinedEventsCatego
 export const GetPredefinedEventsSeveritiesEnum = {
     Info: 'INFO',
     Warning: 'WARNING',
+    Error: 'ERROR',
     Critical: 'CRITICAL'
 } as const;
 export type GetPredefinedEventsSeveritiesEnum = typeof GetPredefinedEventsSeveritiesEnum[keyof typeof GetPredefinedEventsSeveritiesEnum];
@@ -17331,6 +17332,8 @@ export const GetPredefinedEventsIdsEnum = {
     Srv00001I: 'SRV00001I',
     Srv00002W: 'SRV00002W',
     Srv00003C: 'SRV00003C',
+    Srv00004E: 'SRV00004E',
+    Srv00005I: 'SRV00005I',
     Srv01001I: 'SRV01001I',
     Srv01002I: 'SRV01002I',
     Sdn00001I: 'SDN00001I',
