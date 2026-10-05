@@ -18,6 +18,7 @@
     "keycloak-login:copy-output": "pnpm --filter @cube-frontend/keycloak-login copy-output",
     "keycloak-login:dev": "pnpm --filter @cube-frontend/keycloak-login dev",
     "keycloak-login:infra": "pnpm --filter @cube-frontend/keycloak-login infra",
+    "keycloak-login:test": "pnpm --filter @cube-frontend/keycloak-login test",
     "prettier": "prettier --check \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
     "prettier:fix": "prettier --write \"{**/*,*}.{js,ts,tsx,json,scss,md}\"",
     "format": "pnpm prettier:fix && pnpm eslint:fix",

@@ -108,3 +108,6 @@ jobs:
 
       - name: Run unit test in web-app
         run: pnpm web-app:test
+
+      - name: Run unit test in keycloak-login
+        run: pnpm keycloak-login:test

@@ -66,7 +66,7 @@ see the COS login page.
 
 That option is a server-wide default covering every theme type, and this package only ships
 a `login` theme, so the welcome, admin and account pages fall back to the built-in theme and
-log a `Failed to find WELCOME theme cos-ui` error. On Keycloak 22 the account and admin
+log a `Failed to find WELCOME theme cos-ui` error. On Keycloak 22 and 26 the account and admin
 consoles answer 500 instead, so after a local login the redirect lands on an error page — the
 login pages themselves are unaffected.
 
@@ -78,6 +78,41 @@ bigstack-oss/cubecos#187). To mirror that locally, drop `KC_SPI_THEME__DEFAULT` 
 1. Log in to the Keycloak Admin Console at http://localhost:8642/auth/admin using `admin/admin`.
 2. In **Master** Realm -> **Realm Settings**, open the **Themes** tab.
 3. Change Login Theme from `Select one...` to `cos-ui`, then click **Save**.
+
+## 6. Walking the OTP and Password Pages
+
+Keycloak shows `login-config-totp`, `login-update-password` and `login-otp` only to a user
+with required actions or an OTP device, and the admin console answers 500 under
+`KC_SPI_THEME__DEFAULT` (see step 5). Create the user with `kcadm.sh` inside the container
+instead:
+
+```sh
+kc() { docker exec keycloak /opt/keycloak/bin/kcadm.sh "$@"; }
+kc config credentials --server http://localhost:8080/auth --realm master --user admin --password admin
+# Docker forwards the browser's requests from a bridge address, which master's default
+# sslRequired=external treats as remote, so the login page answers "HTTPS required".
+kc update realms/master -s sslRequired=NONE
+kc create users -r master -s username=t317 -s enabled=true -s firstName=T317 -s lastName=Test \
+  -s email=t317@example.invalid -s emailVerified=true -s 'requiredActions=["CONFIGURE_TOTP"]'
+kc set-password -r master --username t317 --new-password Temp-317 --temporary
+```
+
+Then open the login flow. `account-console` is a public client that requires PKCE, so a
+plain authorization URL fails with `Missing parameter: code_challenge_method`. The code is
+never exchanged, so any valid S256 challenge works:
+
+```text
+http://localhost:8642/auth/realms/master/protocol/openid-connect/auth?client_id=account-console&redirect_uri=http%3A%2F%2Flocalhost%3A8642%2Fauth%2Frealms%2Fmaster%2Faccount%2F&response_type=code&scope=openid&code_challenge_method=S256&code_challenge=Bu9iYvjUK9ms4soGQmlTmYstPqmdfdx6eHY_8l7U97U
+```
+
+Log in as `t317` / `Temp-317`: you get the OTP setup page, then the password update. Log out
+and in again for the OTP prompt. For the Cancel button of an action the user started
+(`cancel-aia`), stay logged in and append `&kc_action=CONFIGURE_TOTP` or
+`&kc_action=UPDATE_PASSWORD` to the same URL; Cancel returns with `kc_action_status=cancelled`.
+Running the `CONFIGURE_TOTP` action again adds a second device, which turns on the device
+selector on the OTP prompt.
+
+Clean up with `kc delete users/$(kc get users -r master -q username=t317 --fields id --format csv --noquotes) -r master`.
 
 ## Folder Structure
 
