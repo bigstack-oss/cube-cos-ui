@@ -124,7 +124,7 @@ describe('KeycloakPage', () => {
     expect(html).toContain('name="totp"')
     expect(findTag(html, 'name="totpSecret"')).toContain('value="raw-secret"')
     expect(html).toContain('name="userLabel"')
-    expect(html).toContain('name="logout-sessions"')
+    expect(findTag(html, 'name="logout-sessions"')).not.toContain('checked')
     expect(html).not.toContain('name="mode"')
     expect(html).not.toContain('name="cancel-aia"')
   })
