@@ -747,7 +747,7 @@
   "maintenance.update.never": "Never",
   "maintenance.update.noData": "No Data",
   "maintenance.update.firmware.firmware": "Firmware",
-  "maintenance.update.firmware.firmwareList": "FirmwareList",
+  "maintenance.update.firmware.firmwareList": "Firmware List",
   "maintenance.update.firmware.note": "Note",
   "maintenance.update.firmware.lastUpdated": "Last Updated",
   "maintenance.update.firmware.firmwareVersion": "Firmware Version",
