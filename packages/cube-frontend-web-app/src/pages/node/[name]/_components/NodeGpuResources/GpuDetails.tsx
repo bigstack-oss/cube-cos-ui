@@ -76,12 +76,16 @@ const GpuDetails = (props: GpuDetailsProps) => {
    * Both tables scroll horizontally, but a scroll container still reports its
    * content width to the table cell above it, and the GPU table sizes its
    * columns from that. Without a cap, a card with many profiles widens the whole
-   * table and pushes the overflow menu out of view. The cap subtracts the page
-   * chrome around this cell — sidebar, panel padding, the expand-button column
-   * and the cell padding — so the tables never ask for more than the row shows.
+   * table and pushes the overflow menu out of view.
+   *
+   * The cap mirrors the page content width — the viewport minus the 200 px
+   * sidebar (`Layout.tsx`), but never more than 1600 px (`Content.tsx`) — then
+   * subtracts the 260 px of chrome around this cell: content padding, panel
+   * padding, the expand-button column and the cell padding. Without the 1600 px
+   * limit, a viewport wider than 1800 px lets the cap outgrow the row again.
    */
   return (
-    <div className="flex max-w-[calc(100vw-460px)] flex-col gap-y-9">
+    <div className="flex max-w-[calc(min(100vw_-_200px,1600px)_-_260px)] flex-col gap-y-9">
       <GpuDeviceProfile deviceProfile={row.deviceProfile} />
       {profiles.length > 0 && (
         <GpuProfilesInfoTable
