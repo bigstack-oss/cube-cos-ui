@@ -34,7 +34,10 @@ Run:
 pnpm keycloak-login:infra
 ```
 
-Wait a few minutes for the container to initialize. Once it's ready, you should see the Keycloak Welcome page at http://localhost:8642/auth.
+Wait a few minutes for the container to initialize. It is ready once
+http://localhost:8642/auth/realms/master answers 200 with the realm's JSON. The Welcome page at
+http://localhost:8642/auth/ answers 400 (`Theme is null`) under `KC_SPI_THEME__DEFAULT`, for the
+same reason as the admin console in [step 5](#5-viewing-the-cos-login-page).
 
 Be aware of a [known issue](https://github.com/docker/for-win/issues/584#issuecomment-286792858) in Docker: host-mount volumes won't be available for containers that auto-start in detached mode (`-d`) after host reboot (i.e., restarting your computer). To work around this, you need to restart the container after every host reboot.
 
