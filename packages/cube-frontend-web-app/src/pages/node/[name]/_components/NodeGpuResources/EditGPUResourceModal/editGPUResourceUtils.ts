@@ -80,11 +80,32 @@ export type ProfileLimits = {
   vramMiB: number
 }
 
+// The budget a MIG-backed carve is checked against: the card's nominal
+// MIG-backed capacity, the largest vramMiB * countLimit among its MIG-backed
+// profiles (countLimit taken as 1 where unknown, as on a pgpu card). Not the
+// card's measured VRAM total: profile sizes are nominal, so a 96 GB card whose
+// measured total is 95.59 GiB could never select its own full-size profile.
+// The API and hex_config apply the same budget. Falls back to the measured
+// total when the card lists no MIG-backed profiles.
+export const getMigBackedCapacityMiB = (
+  resource: ListNodeGPUCardsResponseDataInner,
+): number => {
+  const capacityMiB = Math.max(
+    0,
+    ...(resource.profiles.migBackedVgpu ?? []).map(
+      ({ vramMiB, countLimit }) =>
+        vramMiB * (countLimit && countLimit > 0 ? countLimit : 1),
+    ),
+  )
+
+  return capacityMiB > 0 ? capacityMiB : (resource.vram?.totalMiB ?? 0)
+}
+
 export const getProfileLimits = (
   resource: ListNodeGPUCardsResponseDataInner,
 ): ProfileLimits => ({
   count: resource.sriovVgpuProfileCountLimit ?? Number.POSITIVE_INFINITY,
-  vramMiB: resource.vram?.totalMiB ?? 0,
+  vramMiB: getMigBackedCapacityMiB(resource),
 })
 
 export type ProfileFormSummary = {
