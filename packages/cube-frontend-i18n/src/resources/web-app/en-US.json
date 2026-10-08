@@ -359,6 +359,7 @@
   "nodes.details.editGpuType.confirmDescription2": "Once a instance is attached, the GPU Profile cannot be modified.",
   "nodes.details.editGpuType.backToEdit": "Back to edit",
   "nodes.details.editGpuType.notSupported": "Not supported",
+  "nodes.details.editGpuType.sriovVgpuCapacityWarning": "Staying within the counts limit does not guarantee success. NVIDIA reserves extra VRAM for each vGPU, so a combination close to the GPU's total VRAM can still fail to apply or reset the GPU.",
   "nodes.ipmiControl.title": "IPMI Control",
   "nodes.ipmiControl.disconnectFromIpmi.title": "Disconnect From IPMI",
   "nodes.ipmiControl.disconnectFromIpmi.message": "Once disconnected from IPMI, power control actions (power on/off, power cycle) will no longer be available.",

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import ChevronLeft from '@cube-frontend/ui-library/icons/monochrome/chevron_left.svg?react'
-import { CosButton } from '@cube-frontend/ui-library'
+import { GPUSupportResourceType } from '@cube-frontend/api'
+import { CosButton, CosInlineNotification } from '@cube-frontend/ui-library'
 import { ConfirmTable } from './tables/ConfirmTable'
 import { ConfirmTableData } from './editGPUResourceUtils'
 
@@ -23,6 +24,15 @@ export const StepConfirmResource = (props: StepConfirmResourceProps) => {
         <br />
         {t('nodes.details.editGpuType.confirmDescription2')}
       </div>
+      {/*
+        The SR-IOV vGPU check only counts VFs. NVIDIA reserves extra VRAM per
+        vGPU, so a combination that passes can still fail to apply.
+      */}
+      {confirmTableData.resourceType === GPUSupportResourceType.SriovVgpu && (
+        <CosInlineNotification type="warning" isClosable={false}>
+          {t('nodes.details.editGpuType.sriovVgpuCapacityWarning')}
+        </CosInlineNotification>
+      )}
       <ConfirmTable confirmTableData={confirmTableData} />
       <CosButton
         type="ghost"
