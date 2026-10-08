@@ -359,6 +359,7 @@
   "nodes.details.editGpuType.confirmDescription2": "虛擬機一旦附加，即無法修改 GPU 設定檔。",
   "nodes.details.editGpuType.backToEdit": "返回編輯",
   "nodes.details.editGpuType.notSupported": "不支援",
+  "nodes.details.editGpuType.sriovVgpuCapacityWarning": "符合數量限制不代表一定能套用成功。NVIDIA 會為每個 vGPU 額外保留 VRAM，因此接近 GPU 總 VRAM 的組合仍可能套用失敗，或導致 GPU 被重置。",
   "nodes.ipmiControl.title": "IPMI 控制",
   "nodes.ipmiControl.disconnectFromIpmi.title": "中斷 IPMI 連線",
   "nodes.ipmiControl.disconnectFromIpmi.message": "中斷 IPMI 連線後，電源控制（開啟電源／關閉電源／重啟電源）將無法使用。",
