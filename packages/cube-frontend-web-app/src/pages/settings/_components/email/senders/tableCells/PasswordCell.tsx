@@ -17,6 +17,7 @@ export const PasswordCell = (props: PasswordCellProps) => {
   const { t } = useTranslation()
 
   const {
+    auth,
     password,
     isNew,
     isEditing,
@@ -24,7 +25,7 @@ export const PasswordCell = (props: PasswordCellProps) => {
   } = row
 
   if (!isEditing) {
-    if (isNew) {
+    if (isNew || !auth) {
       return ''
     }
     return mask
@@ -35,10 +36,10 @@ export const PasswordCell = (props: PasswordCellProps) => {
       <CosTableInput
         name={'password' satisfies keyof EmailSenderRow}
         type="password"
-        className="w-32"
+        className="w-20"
         value={password}
         hideErrorIcon={true}
-        disabled={isUpdating}
+        disabled={isUpdating || !auth}
         onChange={onChange}
       />
       {!isNew && (
