@@ -11,6 +11,7 @@ export const emailSenderToRow = (
   const emailSenderForUi: EmailSenderForUi = {
     ...emailSender,
     port: emailSender.port.toString(),
+    username: emailSender.username ?? '',
     password: '',
   }
 
@@ -25,14 +26,20 @@ export const emailSenderToRow = (
   }
 }
 
+// Credentials are sent only when the relay authenticates. With auth off the
+// API never sends them and drops any it has, so leave them out of the request.
+const toCredentials = (row: EmailSenderRow) =>
+  row.auth ? { username: row.username, password: row.password } : {}
+
 export const rowToEmailSenderPostRequest = (
   row: EmailSenderRow,
 ): EmailSenderPostRequest => ({
   from: row.from,
   host: row.host,
   port: parseInt(row.port),
-  username: row.username,
-  password: row.password,
+  auth: row.auth,
+  tls: row.tls,
+  ...toCredentials(row),
 })
 
 export const rowToEmailSenderPatchRequest = (
@@ -41,6 +48,7 @@ export const rowToEmailSenderPatchRequest = (
   from: row.from,
   host: row.host,
   port: parseInt(row.port),
-  username: row.username,
-  password: row.password,
+  auth: row.auth,
+  tls: row.tls,
+  ...toCredentials(row),
 })

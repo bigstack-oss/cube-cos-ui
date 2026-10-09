@@ -26,11 +26,13 @@ export const updateEmailSender = async (
       emailSenderPatchRequest: updatedEmailSender,
     })
     patchRow(row.id, {
+      username: updatedEmailSender.username ?? '',
       password: '',
       accessVerified: false,
       originalState: {
         ...updatedEmailSender,
         port: row.port,
+        username: updatedEmailSender.username ?? '',
         password: '',
         accessVerified: false,
       },

@@ -26,6 +26,7 @@ export const createEmailSender = async (
       emailSenderPostRequest: newEmailSender,
     })
     patchRow(row.id, {
+      username: newEmailSender.username ?? '',
       password: '',
       accessVerified: false,
       status: {
@@ -36,6 +37,7 @@ export const createEmailSender = async (
       originalState: {
         ...newEmailSender,
         port: row.port,
+        username: newEmailSender.username ?? '',
         password: '',
         accessVerified: false,
       },

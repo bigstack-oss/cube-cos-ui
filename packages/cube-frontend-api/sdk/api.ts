@@ -2207,6 +2207,12 @@ export interface EmailSenderPatchRequest {
      */
     'port'?: number;
     /**
+     * Whether to authenticate to the relay with username and password. When unset, the current value is kept. When false, SMTP AUTH is never attempted and username and password are ignored.
+     * @type {boolean}
+     * @memberof EmailSenderPatchRequest
+     */
+    'auth'?: boolean;
+    /**
      * 
      * @type {string}
      * @memberof EmailSenderPatchRequest
@@ -2220,11 +2226,19 @@ export interface EmailSenderPatchRequest {
     'password'?: string;
     /**
      * 
+     * @type {EmailSenderTls}
+     * @memberof EmailSenderPatchRequest
+     */
+    'tls'?: EmailSenderTls;
+    /**
+     * 
      * @type {string}
      * @memberof EmailSenderPatchRequest
      */
     'from'?: string;
 }
+
+
 /**
  * 
  * @export
@@ -2244,6 +2258,12 @@ export interface EmailSenderPostRequest {
      */
     'port': number;
     /**
+     * Whether to authenticate to the relay with username and password. When unset, it is true if a username is given. When false, SMTP AUTH is never attempted and username and password are ignored.
+     * @type {boolean}
+     * @memberof EmailSenderPostRequest
+     */
+    'auth'?: boolean;
+    /**
      * 
      * @type {string}
      * @memberof EmailSenderPostRequest
@@ -2257,11 +2277,19 @@ export interface EmailSenderPostRequest {
     'password'?: string;
     /**
      * 
+     * @type {EmailSenderTls}
+     * @memberof EmailSenderPostRequest
+     */
+    'tls'?: EmailSenderTls;
+    /**
+     * 
      * @type {string}
      * @memberof EmailSenderPostRequest
      */
     'from': string;
 }
+
+
 /**
  * 
  * @export
@@ -2281,11 +2309,23 @@ export interface EmailSenderResponse {
      */
     'port': number;
     /**
+     * Whether to authenticate to the relay with username and password. When false, SMTP AUTH is never attempted and username and password are ignored.
+     * @type {boolean}
+     * @memberof EmailSenderResponse
+     */
+    'auth': boolean;
+    /**
      * 
      * @type {string}
      * @memberof EmailSenderResponse
      */
-    'username': string;
+    'username'?: string;
+    /**
+     * 
+     * @type {EmailSenderTls}
+     * @memberof EmailSenderResponse
+     */
+    'tls': EmailSenderTls;
     /**
      * 
      * @type {string}
@@ -2305,6 +2345,23 @@ export interface EmailSenderResponse {
      */
     'status': SettingStatus;
 }
+
+
+/**
+ * Transport encryption policy, matching bigstack-dependency-go pkg/email/v2: none stays plaintext even if the relay advertises STARTTLS, opportunistic upgrades to STARTTLS when advertised, mandatory fails unless the upgrade succeeds. A request that leaves it unset is treated as mandatory. Alert mail is sent by Kapacitor, which always upgrades to STARTTLS when the relay advertises it, so for alert mail the policy only decides whether the relay certificate is verified (mandatory) or not (none, opportunistic).
+ * @export
+ * @enum {string}
+ */
+
+export const EmailSenderTls = {
+    None: 'none',
+    Opportunistic: 'opportunistic',
+    Mandatory: 'mandatory'
+} as const;
+
+export type EmailSenderTls = typeof EmailSenderTls[keyof typeof EmailSenderTls];
+
+
 /**
  * 
  * @export

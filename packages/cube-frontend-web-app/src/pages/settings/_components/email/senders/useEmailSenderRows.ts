@@ -6,7 +6,7 @@ import { merge } from 'lodash'
 import { ChangeEvent, useContext, useState } from 'react'
 import { createEmailSender } from './actions/createEmailSender'
 import { updateEmailSender } from './actions/updateEmailSender'
-import { EmailSenderRow } from './emailSendersUtils'
+import { EmailSenderForUi, EmailSenderRow } from './emailSendersUtils'
 import { useSyncSenderRows } from './useSyncSenderRows'
 
 export type UseEmailSenderRows = {
@@ -14,6 +14,7 @@ export type UseEmailSenderRows = {
   onEditClick: (rowId: string) => void
   onCancelEditClick: (rowId: string) => void
   onChange: (rowId: string, e: ChangeEvent<HTMLInputElement>) => void
+  onFieldChange: (rowId: string, payload: Partial<EmailSenderForUi>) => void
   onSaveClick: (rowId: string) => Promise<void>
   onSenderVerified: (rowId: string) => void
 }
@@ -63,6 +64,15 @@ export const useEmailSenderRows = (
     })
   }
 
+  // For controls that report a value rather than an input event, such as the
+  // authentication toggle and the TLS dropdown.
+  const onFieldChange = (
+    rowId: string,
+    payload: Partial<EmailSenderForUi>,
+  ): void => {
+    patchRow(rowId, payload)
+  }
+
   const onSaveClick = async (rowId: string): Promise<void> => {
     const row = rows.find((row) => row.id === rowId)
     if (!row) return
@@ -103,6 +113,7 @@ export const useEmailSenderRows = (
     onEditClick,
     onCancelEditClick,
     onChange,
+    onFieldChange,
     onSaveClick,
     onSenderVerified,
   }
