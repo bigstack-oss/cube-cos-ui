@@ -9,7 +9,9 @@ import { noop } from 'lodash'
 import { EmailSendersHeader } from './EmailSendersHeader'
 import { EmailSenderRow } from './emailSendersUtils'
 import { ActionCell } from './tableCells/ActionCell'
+import { AuthCell } from './tableCells/AuthCell'
 import { PasswordCell } from './tableCells/PasswordCell'
+import { TlsCell } from './tableCells/TlsCell'
 import { UseEmailSenderRows } from './useEmailSenderRows'
 import { useEmailSenderRowsErrorMap } from './useEmailSenderRowsErrorMap'
 import { useVerifyEmailSenderModal } from './useVerifyEmailSenderModal'
@@ -28,6 +30,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
     onEditClick,
     onCancelEditClick,
     onChange,
+    onFieldChange,
     onSaveClick,
     onSenderVerified: onSenderVerifiedProp,
   } = props
@@ -62,6 +65,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
             <div className="flex items-center gap-x-2">
               {row.isEditing ? (
                 <CosTableInput
+                  className="w-36"
                   name={'from' satisfies keyof EmailSenderRow}
                   type="email"
                   value={from}
@@ -93,6 +97,7 @@ export const EmailSenders = (props: EmailSendersProps) => {
           {(host, row) =>
             row.isEditing ? (
               <CosTableInput
+                className="w-36"
                 name={'host' satisfies keyof EmailSenderRow}
                 value={host}
                 placeholder={t('settings.emailSender.host')}
@@ -126,18 +131,40 @@ export const EmailSenders = (props: EmailSendersProps) => {
           }
         </EmailSenderTable.Column>
         <EmailSenderTable.Column
+          property="tls"
+          label={t('settings.emailSender.tls')}
+        >
+          {(_, row) => (
+            <TlsCell
+              row={row}
+              onFieldChange={(payload) => onFieldChange(row.id, payload)}
+            />
+          )}
+        </EmailSenderTable.Column>
+        <EmailSenderTable.Column
+          property="auth"
+          label={t('settings.emailSender.auth')}
+        >
+          {(_, row) => (
+            <AuthCell
+              row={row}
+              onFieldChange={(payload) => onFieldChange(row.id, payload)}
+            />
+          )}
+        </EmailSenderTable.Column>
+        <EmailSenderTable.Column
           property="username"
           label={t('settings.emailSender.username')}
         >
           {(username, row) =>
             row.isEditing ? (
               <CosTableInput
-                className="w-24"
+                className="w-20"
                 name={'username' satisfies keyof EmailSenderRow}
                 value={username}
                 placeholder={t('settings.emailSender.username')}
                 errorMessage={rowsErrorMap.get(row.id)?.username}
-                disabled={row.status.isUpdating}
+                disabled={row.status.isUpdating || !row.auth}
                 onChange={(e) => onChange(row.id, e)}
               />
             ) : (
