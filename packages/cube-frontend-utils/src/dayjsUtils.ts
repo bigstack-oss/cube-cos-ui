@@ -3,7 +3,7 @@ import utc from 'dayjs/plugin/utc'
 
 dayjs.extend(utc)
 
-const TZ_OFFSET_REGEX_TRAILING = /[+-]\d{2}:\d{2}$/
+const TZ_OFFSET_REGEX_TRAILING = /(?:[+-]\d{2}:\d{2}|Z)$/i
 
 export const respectTz: PluginFunc = (
   _option: unknown,
@@ -16,7 +16,10 @@ export const respectTz: PluginFunc = (
       console.warn(`Missing timezone offset in date ${date}`)
       return dayjs(date)
     }
-    return dayjs(date).utcOffset(match[0])
+    // A trailing `Z` is offset 0 (Go's RFC3339 prints it at UTC); `utcOffset`
+    // does not accept the string `Z` itself.
+    const offset = match[0].toUpperCase() === 'Z' ? '+00:00' : match[0]
+    return dayjs(date).utcOffset(offset)
   }
 }
 
@@ -35,7 +38,10 @@ declare module 'dayjs' {
    * With `dayjs.respectTzOffset('2025-03-05T12:34:56+03:00').format('HH:mm')`,
    * the result would correctly be `12:34`.
    *
-   * @param date A date string with a timezone offset, e.g., `2025-03-05T12:34:56+03:00`.
+   * A trailing `Z` is read as `+00:00`, so `2025-03-05T12:34:56Z` gives `12:34`
+   * whatever the browser's timezone.
+   *
+   * @param date A date string with a timezone offset, e.g., `2025-03-05T12:34:56+03:00` or `2025-03-05T12:34:56Z`.
    * @returns A Dayjs instance with the time adjusted according to the given timezone offset.
    */
   export function respectTzOffset(date: string): Dayjs
