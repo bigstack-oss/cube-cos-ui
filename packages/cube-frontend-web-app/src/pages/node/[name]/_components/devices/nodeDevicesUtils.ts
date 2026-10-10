@@ -75,6 +75,37 @@ export const useDeviceEditableDataSchema = () => {
   return deviceEditableDataSchema
 }
 
+export type DeviceSaveActions = {
+  /** Set when the Defined Class changed; `undefined` means leave it alone. */
+  definedClass?: DeviceType
+  /** Set when the OSD reweight changed; `undefined` means leave it alone. */
+  osdReweight?: number
+}
+
+/**
+ * Decides which updates a Save sends, so that a class-only change never
+ * touches the OSD reweight (it would move data) and vice versa. Reweights are
+ * compared as two-decimal numbers, so `1` and `1.00` count as unchanged.
+ */
+export const getDeviceSaveActions = (
+  blockDevice: ListNodeDevicesResponseDataInner,
+  parsed: { definedClass: DeviceType; osdReweight: number },
+): DeviceSaveActions => {
+  const toHundredths = (value: number) => Math.round(value * 100)
+  const actions: DeviceSaveActions = {}
+
+  if (parsed.definedClass !== blockDevice.class) {
+    actions.definedClass = parsed.definedClass
+  }
+  if (
+    toHundredths(parsed.osdReweight) !== toHundredths(blockDevice.osd.reweight)
+  ) {
+    actions.osdReweight = parsed.osdReweight
+  }
+
+  return actions
+}
+
 export const formatOSDUsage = (usagePercent: number): string => {
   if (usagePercent === 0) return '0%'
   const rounded = Math.round(usagePercent)
