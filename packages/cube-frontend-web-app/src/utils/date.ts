@@ -10,6 +10,14 @@ export const formatSupportFilesTimestamp = (date: string) => {
   return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm:ss')
 }
 
+export const formatHealthHistoryTimestamp = (date: string) => {
+  return dayjs.respectTzOffset(date).format('YYYY/MM/DD HH:mm:ss')
+}
+
+export const formatHealthDetailTime = (date: string) => {
+  return dayjs.respectTzOffset(date).format('YYYY/MM/DD hh:mm:ss A')
+}
+
 export const formatPanelUpdateTime = (date: Dayjs) => {
   return date.format('YYYY/MM/DD HH:mm')
 }

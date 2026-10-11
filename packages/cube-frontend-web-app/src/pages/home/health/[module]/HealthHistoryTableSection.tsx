@@ -9,7 +9,7 @@ import {
   ItemsPerPage,
 } from '@cube-frontend/ui-library'
 import { cva } from 'class-variance-authority'
-import dayjs from 'dayjs'
+import { formatHealthHistoryTimestamp } from '@cube-frontend/web-app/utils/date'
 import { upperCase, upperFirst } from 'lodash'
 import { useMemo } from 'react'
 import { HistoryRow, historyToTableRows } from './healthDetailsUtils'
@@ -97,7 +97,7 @@ export const HealthHistoryTableSection = (
           label={t('home.health.history.timestamp')}
           property="time"
         >
-          {(time) => dayjs(time).format('YYYY/MM/DD HH:mm:ss')}
+          {(time) => formatHealthHistoryTimestamp(time)}
         </HistoryTable.Column>
         <HistoryTable.Column
           label={t('home.health.history.status')}
