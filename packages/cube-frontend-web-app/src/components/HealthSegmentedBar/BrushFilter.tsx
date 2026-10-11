@@ -1,7 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { scaleTime, brushX, select, type D3BrushEvent } from 'd3'
-import dayjs, { Dayjs } from 'dayjs'
+import { Dayjs } from 'dayjs'
 import { cubeTheme } from '@cube-frontend/ui-theme'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { toDataCenterTime } from '@cube-frontend/web-app/utils/date'
 import { BrushFilterHandler } from './BrushFilterHandler'
 
 export type DateTimeRange = [Dayjs, Dayjs]
@@ -23,6 +25,8 @@ export const BrushFilter = (props: BrushFilter) => {
     onSelectedDateTimeRangeChange,
   } = props
   const brushNodeRef = useRef<SVGGElement>(null)
+  const { dataCenter } = useContext(DataCenterContext)
+  const utcTimeZone = dataCenter?.utcTimeZone
 
   const xScale = useMemo(() => {
     const range = [0, width] as const
@@ -72,7 +76,7 @@ export const BrushFilter = (props: BrushFilter) => {
 
       const selectedDate = brushSelection
         .map(xScale.invert)
-        .map(dayjs) as DateTimeRange
+        .map((date) => toDataCenterTime(date, utcTimeZone)) as DateTimeRange
       onSelectedDateTimeRangeChange(selectedDate)
     }
 
@@ -84,7 +88,7 @@ export const BrushFilter = (props: BrushFilter) => {
       .on('start', handleBrushMove)
       .on('brush', handleBrushMove)
       .on('end', handleBrushMove)
-  }, [width, height, onSelectedDateTimeRangeChange, xScale.invert])
+  }, [width, height, onSelectedDateTimeRangeChange, xScale.invert, utcTimeZone])
 
   useEffect(() => {
     const brushNode = brushNodeRef.current

@@ -1,8 +1,10 @@
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 import { scaleTime } from 'd3'
 import { cubeTheme } from '@cube-frontend/ui-theme'
 import { DateTimeRange } from '@cube-frontend/web-app/components/HealthSegmentedBar/BrushFilter'
+import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
+import { toDataCenterTime } from '@cube-frontend/web-app/utils/date'
 
 const PIXEL_PER_TICK = 100
 const SHOW_SECONDS_THRESHOLD_MINUTES = 5
@@ -35,6 +37,8 @@ const formatTime = (dateTime: Dayjs, dateTimeRange: DateTimeRange) => {
 
 export const TimeAxis = (props: TimeAxisProps) => {
   const { dateTimeRange, xRange } = props
+  const { dataCenter } = useContext(DataCenterContext)
+  const utcTimeZone = dataCenter?.utcTimeZone
 
   const ticks = useMemo(() => {
     const xScale = scaleTime().domain(dateTimeRange).range(xRange)
@@ -42,10 +46,10 @@ export const TimeAxis = (props: TimeAxisProps) => {
     const numberOfTicksTarget = Math.max(1, Math.floor(width / PIXEL_PER_TICK))
 
     return xScale.ticks(numberOfTicksTarget).map((value) => ({
-      value: dayjs(value),
+      value: toDataCenterTime(value, utcTimeZone),
       xOffset: xScale(value),
     }))
-  }, [dateTimeRange, xRange])
+  }, [dateTimeRange, xRange, utcTimeZone])
 
   const drawPathCommands = [
     ['M', xRange[0], TICK_HEIGHT], // start point
