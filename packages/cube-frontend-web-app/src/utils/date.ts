@@ -18,6 +18,18 @@ export const formatHealthDetailTime = (date: string) => {
   return dayjs.respectTzOffset(date).format('YYYY/MM/DD hh:mm:ss A')
 }
 
+/**
+ * Moves an instant computed in the browser (a d3 tick, a brush selection) into
+ * the data center's offset, so it is displayed like the server's times and the
+ * sidebar clock rather than in the browser's zone.
+ */
+export const toDataCenterTime = (
+  date: Date | Dayjs,
+  utcTimeZone: string | undefined,
+): Dayjs => {
+  return utcTimeZone ? dayjs(date).utcOffset(utcTimeZone) : dayjs(date)
+}
+
 export const formatPanelUpdateTime = (date: Dayjs) => {
   return date.format('YYYY/MM/DD HH:mm')
 }
