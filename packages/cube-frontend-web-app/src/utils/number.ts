@@ -14,10 +14,11 @@ export function toFixedNumber(num: number, digits: number) {
   return Math.round(num * pow) / pow
 }
 
-// TODO: Add unit tests.
 export const toAbbreviation = (num: number) => {
-  const SI_SYMBOL = ['', 'k', 'm', 'g', 't', 'p', 'e']
-  const tier = (Math.log10(num) / 3) | 0
+  // SI: prefixes from mega (10^6) up are uppercase; kilo stays lowercase.
+  const SI_SYMBOL = ['', 'k', 'M', 'G', 'T', 'P', 'E']
+  // Values at or below 0.001 give a negative tier, which has no symbol.
+  const tier = Math.max(0, (Math.log10(num) / 3) | 0)
 
   if (tier === 0) return toFixedNumber(num, 2)
 
