@@ -135,10 +135,18 @@ Every PR description must follow the repository PR template at
 `.github/PULL_REQUEST_TEMPLATE.md`. Keep all of its sections in order:
 
 - **What type of PR is this?** — one `/kind` line (`bug` / `cleanup` / `documentation` / `feature`).
-- **What this PR does / why we need it**
+- **Review level** — `Review level: <A–E>`, picked from `.github/REVIEW_LEVELS.md` (highest matching change wins).
+- **What this PR does / why we need it** — what changes for the user, in plain words.
 - **Which issue(s) this PR fixes** — `Fixes #<n>` (leave `Fixes #` if none).
-- **Special notes for your reviewer**
+- **How to verify** — steps a tester can repeat without reading the code.
+- **Screenshots** — Before / After table for UI changes, `UI: no visible change`, or `N/A`; plus `Verified on <sha>` and `Design approval:` (who approved, with a link, or `N/A` and why).
+- **Checklist** — tick only what was really done, including updating related issues and tickets in every repo.
+- **Special notes for your reviewer** — approach, risks, root cause for bugs.
 - **Additional documentation** — inside the `docs` block.
+
+Before opening a PR, verify the change and draft the description with the `pr-verify` skill
+(`.claude/skills/pr-verify/SKILL.md`). Never write local file paths in a PR, and never commit screenshots.
+The `PR description check` workflow warns when a UI PR has no screenshots or the description has a local path.
 
 The templates under `.github/ISSUE_TEMPLATE/` (`bug_report.md`, `feature_request.md`)
 are for GitHub Issues, not PRs — do not use them for PR descriptions.
