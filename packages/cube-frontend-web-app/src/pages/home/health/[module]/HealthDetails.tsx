@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import dayjs from 'dayjs'
+import { formatHealthDetailTime } from '@cube-frontend/web-app/utils/date'
 import InformationCircle from '@cube-frontend/ui-library/icons/monochrome/information_circle.svg?react'
 import {
   CosButton,
@@ -100,7 +100,7 @@ export const HealthDetails = (props: HealthDetailsProps) => {
     if (!activeHistoryRow) {
       return undefined
     }
-    return dayjs(activeHistoryRow.time).format('YYYY/MM/DD hh:mm:ss A')
+    return formatHealthDetailTime(activeHistoryRow.time)
   }
 
   const timeText = getTimeText()

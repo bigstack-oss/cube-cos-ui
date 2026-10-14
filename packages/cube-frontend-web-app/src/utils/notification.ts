@@ -44,7 +44,7 @@ export const notificationToToastArgs = (
       text: t('notifications.check'),
       onClick: noop,
     },
-    time: dayjs.respectTzOffset(time).format('HH:mm:ss A'),
+    time: dayjs.respectTzOffset(time).format('hh:mm:ss A'),
   }
 }
 
