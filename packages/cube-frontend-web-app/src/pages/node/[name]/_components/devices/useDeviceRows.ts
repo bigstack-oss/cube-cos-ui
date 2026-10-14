@@ -10,6 +10,7 @@ import {
   createEditableData,
   DeviceEditableData,
   DeviceRow,
+  getDeviceSaveActions,
   useDeviceEditableDataSchema,
 } from './nodeDevicesUtils'
 import { useSyncDeviceRows } from './useSyncDeviceRows'
@@ -96,6 +97,13 @@ export const useDeviceRows = (nodeName: string | undefined): UseDeviceRows => {
     const parsedData = deviceEditableDataSchema.safeParse(row.dataForEdit).data
     if (!parsedData) return
 
+    const { definedClass, osdReweight } = getDeviceSaveActions(row, parsedData)
+    if (definedClass === undefined && osdReweight === undefined) {
+      // Nothing changed: no request, and no watch update to wait for.
+      onCancelEditClick(row)
+      return
+    }
+
     patchRow(row.id, {
       isSaving: true,
     })
@@ -104,8 +112,9 @@ export const useDeviceRows = (nodeName: string | undefined): UseDeviceRows => {
 
     try {
       await Promise.all([
-        updateNodeDevice(row.device, parsedData.definedClass),
-        reweightOSDs(osdIds, parsedData.osdReweight),
+        definedClass !== undefined &&
+          updateNodeDevice(row.device, definedClass),
+        osdReweight !== undefined && reweightOSDs(osdIds, osdReweight),
       ])
       // Keep row in editing & saving state while awaiting device info sync via
       // HTTP chunked transfer (watch).
