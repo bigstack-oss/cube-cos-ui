@@ -83,8 +83,12 @@ jobs:
           if [ -n "$ui" ] && [ "$tier" != "none" ]; then
             has '!\[|<img|user-attachments/assets' || problems+=("UI files changed: add Before / After screenshots.")
             has 'Verified on `?[0-9a-f]{7,40}' || problems+=("UI files changed: add 'Verified on <commit sha>'.")
-            if [ "$(rank "$effective")" -ge 4 ]; then
-              has '^Recording:' || problems+=("Level $effective with UI changes: add a 'Recording:' line.")
+          fi
+          if [ "$(rank "$effective")" -ge 4 ] && [ -n "$src" ]; then
+            has 'E2E test plan[^|]*\|[[:space:]]*[^|[:space:]]' || problems+=("Level $effective: link the E2E test plan under 'Additional documentation'.")
+            has 'E2E test report[^|]*\|[[:space:]]*[^|[:space:]]' || problems+=("Level $effective: link the E2E test report under 'Additional documentation'.")
+            if [ "$effective" = "A" ]; then
+              has 'ELI5[^|]*\|[[:space:]]*[^|[:space:]]' || problems+=("Level A: link the ELI5 explainer under 'Additional documentation'.")
             fi
           fi
           if [ "$tier" = "critical" ] || [ "$tier" = "medium" ]; then

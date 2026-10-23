@@ -28,15 +28,24 @@ Judge by what the change can break, not by the file path.
 
 Requirements add up: each level needs everything the levels below it need.
 
-| Level | Author, before review                                                                              | Reviewer                                                        |
-| ----- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| E     | CI is green; you reviewed your own diff                                                            | Skims the diff (one approval is still required)                 |
-| D     | + ran it in a browser; steps to verify in the PR; related issues updated (section 3)               | Checks the screenshots                                          |
-| C     | + unit tests that fail without the change                                                          | Reads the code and the tests                                    |
-| B     | + the whole flow end to end, including empty, error, and permission-denied paths, with a recording | Watches the recording                                           |
-| A     | + a rollback plan in the PR                                                                        | Runs the change; a second approval for login, auth, CI, release |
+| Level | Author, before review                                                                                               | Reviewer                                                        |
+| ----- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| E     | CI is green; you reviewed your own diff                                                                             | Skims the diff (one approval is still required)                 |
+| D     | + ran it in a browser; steps to verify in the PR; related issues updated (section 3)                                | Checks the screenshots                                          |
+| C     | + unit tests that fail without the change                                                                           | Reads the code and the tests                                    |
+| B     | + the whole flow end to end, including empty, error, and permission-denied paths; link the E2E test plan and report | Reads the test plan and report                                  |
+| A     | + a rollback plan in the PR; link an ELI5 explainer                                                                 | Runs the change; a second approval for login, auth, CI, release |
 
-cube-cos-ui has no automated e2e tests yet, so level B means a recorded run in a browser for now.
+cube-cos-ui has no automated e2e tests yet, so level B means a run in a browser for now.
+
+The documents go in the "Read more" table under "Additional documentation", for PRs that change code. Use links the
+whole team can open; share Claude artifacts with the organization.
+
+| Document        | What it holds                                                    | Required for |
+| --------------- | ---------------------------------------------------------------- | ------------ |
+| ELI5 explainer  | The change in plain words and pictures, for reviewers new to it  | A            |
+| E2E test plan   | Each case: steps, expected result, the before / after to compare | A, B         |
+| E2E test report | Each case passed or failed, with annotated screenshots           | A, B         |
 
 ## 2. UI tier
 
@@ -90,7 +99,7 @@ The `PR description check` workflow warns, and never blocks during the pilot, wh
 
 - the review level or the UI tier is missing, or the level is below the floor of the changed paths
 - level C or higher changes source files and no test file
-- level B or higher changes UI files and has no `Recording:` line
+- level B or higher changes code and the E2E test plan or report has no link; level A also needs the ELI5 explainer
 - UI files change, the tier is not none, and there are no screenshots or no `Verified on <sha>`
 - the UI tier is critical or medium and `Design approval:` names no designer
 - the description contains a local file path
