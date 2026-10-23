@@ -1,0 +1,109 @@
+name: PR description check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+    branches:
+      - 'develop'
+      - 'release_*'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  pr-description:
+    name: PR description
+    # Dependabot PRs are level E and UI tier none (see .github/REVIEW_LEVELS.md).
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      # Pilot: warnings only. Set STRICT to 'true' to fail the check instead.
+      - name: Check PR description
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          STRICT: 'false'
+        run: |
+          problems=()
+          has() { printf '%s' "$PR_BODY" | grep -qiE "$1"; }
+          rank() { case "$1" in A) echo 5 ;; B) echo 4 ;; C) echo 3 ;; D) echo 2 ;; *) echo 1 ;; esac; }
+
+          # Path floors. Keep in sync with section 5 of .github/REVIEW_LEVELS.md.
+          floor() {
+            local w='packages/cube-frontend-web-app/src'
+            case "$1" in
+              *.md | *.test.ts | *.test.tsx | *.stories.tsx | */src/mocks/*) echo E ;;
+              packages/cube-frontend-keycloak-login/* | "$w"/api/* | .github/workflows/* | *.spec | */vite.config.*) echo A ;;
+              "$w"/CosRoutes.tsx | "$w"/App.tsx | "$w"/main.tsx | "$w"/layout/* | "$w"/context/* | "$w"/stores/* | "$w"/hooks/useCosRequest/*) echo B ;;
+              packages/cube-frontend-api/* | packages/cube-frontend-utils/src/* | "$w"/*.ts | packages/cube-frontend-ui-library/src/*.ts) echo C ;;
+              packages/*/src/*.tsx | packages/*/src/*.css | packages/*/src/*.scss | packages/cube-frontend-i18n/* | packages/cube-frontend-ui-theme/*) echo D ;;
+              *) echo E ;;
+            esac
+          }
+
+          files="$(gh api "repos/$REPO/pulls/$PR_NUMBER/files" --paginate --jq '.[].filename')"
+          required=E
+          required_by=""
+          while IFS= read -r f; do
+            [ -n "$f" ] || continue
+            l="$(floor "$f")"
+            if [ "$(rank "$l")" -gt "$(rank "$required")" ]; then
+              required="$l"
+              required_by="$f"
+            fi
+          done <<< "$files"
+          ui="$(printf '%s\n' "$files" | grep -E '^packages/[^/]+/src/.*\.(tsx|css|scss)$' | grep -vE '\.(test|stories)\.tsx$' || true)"
+          src="$(printf '%s\n' "$files" | grep -E '^packages/[^/]+/src/.*\.tsx?$' | grep -vE '\.(test|stories)\.tsx?$|/mocks/|\.d\.ts$' || true)"
+          tests="$(printf '%s\n' "$files" | grep -E '\.test\.tsx?$' || true)"
+
+          level="$(printf '%s' "$PR_BODY" | grep -oE '^Review level:[[:space:]*]*[A-E]\b' | grep -oE '[A-E]$' | head -1 || true)"
+          tier="$(printf '%s' "$PR_BODY" | grep -oiE '^UI tier:[[:space:]*]*(critical|medium|low|none)' | grep -oiE '[a-z]+$' | head -1 | tr 'A-Z' 'a-z' || true)"
+          effective="${level:-$required}"
+
+          if [ -z "$level" ]; then
+            problems+=("Add 'Review level: <A-E>'. The changed files suggest at least $required.")
+          elif [ "$(rank "$level")" -lt "$(rank "$required")" ]; then
+            problems+=("Review level $level is below $required, which $required_by needs. Raise it, or say why in 'Special notes'.")
+          fi
+          if [ -z "$tier" ]; then
+            problems+=("Add 'UI tier: <critical|medium|low|none>', copied from the ticket's ui:<tier> label (several tickets: the highest; none: add the label to the ticket).")
+          fi
+          if [ "$(rank "$effective")" -ge 3 ] && [ -n "$src" ] && [ -z "$tests" ]; then
+            problems+=("Level $effective changes source files but no test file. Add tests, or say why in 'Special notes'.")
+          fi
+          if [ -n "$ui" ] && [ "$tier" != "none" ]; then
+            has '!\[|<img|user-attachments/assets' || problems+=("UI files changed: add Before / After screenshots.")
+            has 'Verified on `?[0-9a-f]{7,40}' || problems+=("UI files changed: add 'Verified on <commit sha>'.")
+            if [ "$(rank "$effective")" -ge 4 ]; then
+              has '^Recording:' || problems+=("Level $effective with UI changes: add a 'Recording:' line.")
+            fi
+          fi
+          if [ "$tier" = "critical" ] || [ "$tier" = "medium" ]; then
+            has '^Design approval:[[:space:]]*@' || problems+=("UI tier $tier: request the designer, then write 'Design approval: @<designer>, <link>'.")
+          fi
+          if has '/Users/[A-Za-z0-9_]|/home/[a-z]|~/[A-Za-z]|[A-Z]:\\Users\\[A-Za-z]'; then
+            problems+=("The description contains a local file path. Upload the file instead.")
+          fi
+
+          {
+            echo "## PR description check"
+            echo "Review level: ${level:-none} (floor from changed files: $required). UI tier: ${tier:-none given}."
+            if [ "${#problems[@]}" -eq 0 ]; then
+              echo "All checks passed."
+            else
+              for p in "${problems[@]}"; do echo "- $p"; done
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          for p in "${problems[@]}"; do echo "::warning title=PR description::$p"; done
+          if [ "$STRICT" = "true" ] && [ "${#problems[@]}" -gt 0 ]; then
+            exit 1
+          fi

@@ -140,5 +140,11 @@ Every PR description must follow the repository PR template at
 - **Special notes for your reviewer**
 - **Additional documentation** — inside the `docs` block.
 
+In **Special notes for your reviewer**, add `Review level: <A-E>` and `UI tier: <critical|medium|low|none>`
+(`.github/REVIEW_LEVELS.md`; copy the tier from the ticket's `ui:<tier>` label, the highest if several),
+how to verify, and for UI changes the Before / After screenshots and design approval.
+Verify the change and draft the description with the `pr-verify` skill (`.claude/skills/pr-verify/SKILL.md`).
+Never write local file paths in a PR, and never commit screenshots.
+
 The templates under `.github/ISSUE_TEMPLATE/` (`bug_report.md`, `feature_request.md`)
 are for GitHub Issues, not PRs — do not use them for PR descriptions.

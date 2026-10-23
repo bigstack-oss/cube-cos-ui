@@ -26,6 +26,7 @@ Steps to reproduce the behavior:
 ## Expected behavior
 
 A clear and concise description of what you expected to happen.
+Write it so QA can repeat the steps above and check the fix.
 
 ## Screenshots
 
@@ -37,3 +38,4 @@ Add any other context about the problem here.
 
 - Hardware [e.g. CPU, RAM, Disk Controller, Disks]
 - Supporting logs
+- UI tier: critical / medium / low / none (also set the `ui:<tier>` label)
