@@ -97,7 +97,13 @@ export const useDeviceRows = (nodeName: string | undefined): UseDeviceRows => {
     const parsedData = deviceEditableDataSchema.safeParse(row.dataForEdit).data
     if (!parsedData) return
 
-    const { definedClass, osdReweight } = getDeviceSaveActions(row, parsedData)
+    const initialData = deviceEditableDataSchema.safeParse(
+      createEditableData(row),
+    ).data
+    const { definedClass, osdReweight } = getDeviceSaveActions(
+      initialData,
+      parsedData,
+    )
     if (definedClass === undefined && osdReweight === undefined) {
       // Nothing changed: no request, and no watch update to wait for.
       onCancelEditClick(row)
