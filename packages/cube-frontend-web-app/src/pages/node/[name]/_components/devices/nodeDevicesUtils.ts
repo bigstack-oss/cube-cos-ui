@@ -82,23 +82,32 @@ export type DeviceSaveActions = {
   osdReweight?: number
 }
 
+export type ParsedDeviceEditableData = {
+  definedClass: DeviceType
+  osdReweight: number
+}
+
 /**
  * Decides which updates a Save sends, so that a class-only change never
- * touches the OSD reweight (it would move data) and vice versa. Reweights are
- * compared as two-decimal numbers, so `1` and `1.00` count as unchanged.
+ * touches the OSD reweight (it would move data) and vice versa. `initial` is
+ * the row's own editable data parsed by the same schema as `parsed`, so both
+ * sides go through `formatOSDReweight` and compare like for like. Reweights are
+ * compared as two-decimal numbers, so `1` and `1.00` count as unchanged. If the
+ * initial data does not parse, every field counts as changed.
  */
 export const getDeviceSaveActions = (
-  blockDevice: ListNodeDevicesResponseDataInner,
-  parsed: { definedClass: DeviceType; osdReweight: number },
+  initial: ParsedDeviceEditableData | undefined,
+  parsed: ParsedDeviceEditableData,
 ): DeviceSaveActions => {
   const toHundredths = (value: number) => Math.round(value * 100)
   const actions: DeviceSaveActions = {}
 
-  if (parsed.definedClass !== blockDevice.class) {
+  if (parsed.definedClass !== initial?.definedClass) {
     actions.definedClass = parsed.definedClass
   }
   if (
-    toHundredths(parsed.osdReweight) !== toHundredths(blockDevice.osd.reweight)
+    initial === undefined ||
+    toHundredths(parsed.osdReweight) !== toHundredths(initial.osdReweight)
   ) {
     actions.osdReweight = parsed.osdReweight
   }
