@@ -75,6 +75,46 @@ export const useDeviceEditableDataSchema = () => {
   return deviceEditableDataSchema
 }
 
+export type DeviceSaveActions = {
+  /** Set when the Defined Class changed; `undefined` means leave it alone. */
+  definedClass?: DeviceType
+  /** Set when the OSD reweight changed; `undefined` means leave it alone. */
+  osdReweight?: number
+}
+
+export type ParsedDeviceEditableData = {
+  definedClass: DeviceType
+  osdReweight: number
+}
+
+/**
+ * Decides which updates a Save sends, so that a class-only change never
+ * touches the OSD reweight (it would move data) and vice versa. `initial` is
+ * the row's own editable data parsed by the same schema as `parsed`, so both
+ * sides go through `formatOSDReweight` and compare like for like. Reweights are
+ * compared as two-decimal numbers, so `1` and `1.00` count as unchanged. If the
+ * initial data does not parse, every field counts as changed.
+ */
+export const getDeviceSaveActions = (
+  initial: ParsedDeviceEditableData | undefined,
+  parsed: ParsedDeviceEditableData,
+): DeviceSaveActions => {
+  const toHundredths = (value: number) => Math.round(value * 100)
+  const actions: DeviceSaveActions = {}
+
+  if (parsed.definedClass !== initial?.definedClass) {
+    actions.definedClass = parsed.definedClass
+  }
+  if (
+    initial === undefined ||
+    toHundredths(parsed.osdReweight) !== toHundredths(initial.osdReweight)
+  ) {
+    actions.osdReweight = parsed.osdReweight
+  }
+
+  return actions
+}
+
 export const formatOSDUsage = (usagePercent: number): string => {
   if (usagePercent === 0) return '0%'
   const rounded = Math.round(usagePercent)
