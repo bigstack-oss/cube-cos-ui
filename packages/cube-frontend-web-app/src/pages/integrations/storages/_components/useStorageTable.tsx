@@ -1,5 +1,6 @@
 import { useContext, useMemo, useState } from 'react'
 import _ from 'lodash'
+import { isCancel } from 'axios'
 import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -9,6 +10,8 @@ import {
   IntegrationsApiVerifyStorageIntegrationRequest,
 } from '@cube-frontend/api'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
+import { isCosRequestError } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 import { RequestingStorages, StorageRow } from '../storageUtils'
 import { useStorageTableRows } from './useStorageTableRows'
 
@@ -33,6 +36,7 @@ export type UseStorageTable = {
 
 export const useStorageTable = (): UseStorageTable => {
   const { dataCenter } = useContext(DataCenterContext)
+  const showErrorToast = useShowErrorToast()
 
   const {
     data,
@@ -128,7 +132,8 @@ export const useStorageTable = (): UseStorageTable => {
       await requestDelete(req)
       await fetchIntegrationStorages()
     } catch (error) {
-      console.error('Error deleting storage:', error)
+      if (isCancel(error)) return
+      showErrorToast(isCosRequestError(error) ? error.native : error)
     } finally {
       setRequestingDeleteStorageNames((prev) => {
         const newSet = new Set(prev)
