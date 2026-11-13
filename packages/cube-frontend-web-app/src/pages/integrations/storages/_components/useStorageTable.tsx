@@ -1,6 +1,5 @@
 import { useContext, useMemo, useState } from 'react'
 import _ from 'lodash'
-import { isCancel } from 'axios'
 import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
 import { DataCenterContext } from '@cube-frontend/web-app/context/DataCenterContext'
 import { useCosGetRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosGetRequest'
@@ -10,7 +9,7 @@ import {
   IntegrationsApiVerifyStorageIntegrationRequest,
 } from '@cube-frontend/api'
 import { useCosMutationRequest } from '@cube-frontend/web-app/hooks/useCosRequest/useCosMutationRequest'
-import { isCosRequestError } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
+import { silentPromise } from '@cube-frontend/web-app/hooks/useCosRequest/cosRequestUtils'
 import { useShowErrorToast } from '@cube-frontend/web-app/hooks/useShowErrorToast/useShowErrorToast'
 import { RequestingStorages, StorageRow } from '../storageUtils'
 import { useStorageTableRows } from './useStorageTableRows'
@@ -68,9 +67,9 @@ export const useStorageTable = (): UseStorageTable => {
         new Set(prev).add(storageName),
       )
       await requestSetDefault(req)
-      await fetchIntegrationStorages()
+      await silentPromise(fetchIntegrationStorages)
     } catch (error) {
-      console.error('Error setting default storage:', error)
+      showErrorToast(error)
     } finally {
       setRequestingSetDefaultStorageNames((prev) => {
         const newSet = new Set(prev)
@@ -96,9 +95,9 @@ export const useStorageTable = (): UseStorageTable => {
     try {
       setRequestingVerifyStorageNames((prev) => new Set(prev).add(storageName))
       await requestVerify(req)
-      await fetchIntegrationStorages()
+      await silentPromise(fetchIntegrationStorages)
     } catch (error) {
-      console.error('Error verifying storage:', error)
+      showErrorToast(error)
     } finally {
       setRequestingVerifyStorageNames((prev) => {
         const newSet = new Set(prev)
@@ -130,10 +129,9 @@ export const useStorageTable = (): UseStorageTable => {
     try {
       setRequestingDeleteStorageNames((prev) => new Set(prev).add(storageName))
       await requestDelete(req)
-      await fetchIntegrationStorages()
+      await silentPromise(fetchIntegrationStorages)
     } catch (error) {
-      if (isCancel(error)) return
-      showErrorToast(isCosRequestError(error) ? error.native : error)
+      showErrorToast(error)
     } finally {
       setRequestingDeleteStorageNames((prev) => {
         const newSet = new Set(prev)

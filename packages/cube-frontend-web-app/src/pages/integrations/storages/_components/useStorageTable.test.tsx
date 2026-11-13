@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { DataCenter } from '@cube-frontend/api'
 import { act, cleanup, renderHook, waitFor } from '@testing-library/react'
-import { AxiosError, AxiosHeaders, CanceledError } from 'axios'
+import { AxiosError, AxiosHeaders } from 'axios'
 import { PropsWithChildren } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { integrationsApi } from '@cube-frontend/web-app/api/cosApi'
@@ -66,6 +66,7 @@ describe('useStorageTable delete', () => {
   afterEach(() => {
     cleanup()
     vi.clearAllMocks()
+    vi.restoreAllMocks()
   })
 
   it('shows the reason the API refused the delete with', async () => {
@@ -87,12 +88,13 @@ describe('useStorageTable delete', () => {
     expect(result.current.rowActions.delete.isConfirmModalOpen).toBe(false)
   })
 
-  it('stays quiet when polling cancels the refresh after a delete', async () => {
+  it('does not report a failed refresh after an accepted delete', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => undefined)
     vi.mocked(integrationsApi.listIntegrationStorages)
       .mockResolvedValueOnce({
         data: { code: 200, msg: '', status: 'ok', data: [] },
       } as never)
-      .mockRejectedValueOnce(new CanceledError())
+      .mockRejectedValueOnce(apiError(500, 'internal error'))
     vi.mocked(integrationsApi.deleteIntegrationStorage).mockResolvedValue({
       data: { code: 202, msg: '', status: 'accepted' },
     } as never)
@@ -106,4 +108,38 @@ describe('useStorageTable delete', () => {
     expect(integrationsApi.listIntegrationStorages).toHaveBeenCalledTimes(2)
     expect(showErrorToast).not.toHaveBeenCalled()
   })
+})
+
+describe('useStorageTable set default and verify', () => {
+  afterEach(() => {
+    cleanup()
+    vi.clearAllMocks()
+  })
+
+  it.each([
+    ['setDefault', integrationsApi.setStorageAsDefault],
+    ['verify', integrationsApi.verifyStorageIntegration],
+  ] as const)(
+    'shows the reason the API refused %s with',
+    async (action, api) => {
+      vi.mocked(integrationsApi.listIntegrationStorages).mockResolvedValue({
+        data: { code: 200, msg: '', status: 'ok', data: [] },
+      } as never)
+      vi.mocked(api).mockRejectedValue(
+        apiError(400, 'storage nfs1 is not ready'),
+      )
+
+      const { result } = renderStorageTable()
+      await waitFor(() => expect(result.current.showLoading).toBe(false))
+
+      await act(async () => {
+        await result.current.rowActions[action]('nfs1')
+      })
+
+      expect(showErrorToast).toHaveBeenCalledTimes(1)
+      expect(parseErrorMessage(showErrorToast.mock.calls[0][0])).toBe(
+        'storage nfs1 is not ready',
+      )
+    },
+  )
 })
