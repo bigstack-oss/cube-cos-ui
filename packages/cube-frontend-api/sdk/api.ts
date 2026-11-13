@@ -684,6 +684,25 @@ export interface CreateSlackChannel500Response {
 /**
  * 
  * @export
+ * @interface CreateStorageTierRequest
+ */
+export interface CreateStorageTierRequest {
+    /**
+     * Becomes the device class, CRUSH rule, pool and volume type name. Letters, digits, \'-\' and \'_\'; must not contain \'-pool\' or \'-ssd\'.
+     * @type {string}
+     * @memberof CreateStorageTierRequest
+     */
+    'name': string;
+    /**
+     * OSD ids, as \"0\" or \"osd.0\".
+     * @type {Array<string>}
+     * @memberof CreateStorageTierRequest
+     */
+    'osdIds': Array<string>;
+}
+/**
+ * 
+ * @export
  * @interface CreateSupportFiles400Response
  */
 export interface CreateSupportFiles400Response {
@@ -1608,6 +1627,31 @@ export interface DeleteIntegrationStorage202Response {
      * 
      * @type {string}
      * @memberof DeleteIntegrationStorage202Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteIntegrationStorage409Response
+ */
+export interface DeleteIntegrationStorage409Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteIntegrationStorage409Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorage409Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteIntegrationStorage409Response
      */
     'status': string;
 }
@@ -3591,12 +3635,26 @@ export interface GetFirmwareUpgradeProgressResponseData {
      */
     'isRollingApplied': boolean;
     /**
+     * Kind of the running roll; absent when no roll is running
+     * @type {string}
+     * @memberof GetFirmwareUpgradeProgressResponseData
+     */
+    'kind'?: GetFirmwareUpgradeProgressResponseDataKindEnum;
+    /**
      * 
      * @type {Array<GetFirmwareUpgradeProgressResponseDataProgressesInner>}
      * @memberof GetFirmwareUpgradeProgressResponseData
      */
     'progresses': Array<GetFirmwareUpgradeProgressResponseDataProgressesInner>;
 }
+
+export const GetFirmwareUpgradeProgressResponseDataKindEnum = {
+    Upgrade: 'upgrade',
+    Restart: 'restart'
+} as const;
+
+export type GetFirmwareUpgradeProgressResponseDataKindEnum = typeof GetFirmwareUpgradeProgressResponseDataKindEnum[keyof typeof GetFirmwareUpgradeProgressResponseDataKindEnum];
+
 /**
  * 
  * @export
@@ -3634,7 +3692,15 @@ export const GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum = {
     ClusterCheckingAndRepairing: 'cluster checking and repairing',
     ClusterCheckedAndRepaired: 'cluster checked and repaired',
     ResetAndBootedNonActiveServer: 'reset and booted non-active server',
-    ClusterCheckAndRepairSkippedAsNotAllNodesAreBootstrappedAndSynced: 'cluster check and repair skipped as not all nodes are bootstrapped and synced'
+    ClusterCheckAndRepairSkippedAsNotAllNodesAreBootstrappedAndSynced: 'cluster check and repair skipped as not all nodes are bootstrapped and synced',
+    Pending: 'pending',
+    Staging: 'staging',
+    StageFailed: 'stage_failed',
+    Draining: 'draining',
+    Rebooting: 'rebooting',
+    Bootstrapping: 'bootstrapping',
+    Finalizing: 'finalizing',
+    Done: 'done'
 } as const;
 
 export type GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum = typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum[keyof typeof GetFirmwareUpgradeProgressResponseDataProgressesInnerPhaseEnum];
@@ -9481,6 +9547,62 @@ export interface ListIntegrationStorageModelsResponseDataInnerStorageVolumeType 
     'settings': Array<ListIntegrationStorageModelsResponseDataInnerMultipathInnerAttributesInner>;
 }
 /**
+ * 
+ * @export
+ * @interface ListIntegrationStorageTiers200Response
+ */
+export interface ListIntegrationStorageTiers200Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListIntegrationStorageTiers200Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {Array<StorageTier>}
+     * @memberof ListIntegrationStorageTiers200Response
+     */
+    'data': Array<StorageTier>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageTiers200Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageTiers200Response
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface ListIntegrationStorageTiers500Response
+ */
+export interface ListIntegrationStorageTiers500Response {
+    /**
+     * 
+     * @type {number}
+     * @memberof ListIntegrationStorageTiers500Response
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageTiers500Response
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ListIntegrationStorageTiers500Response
+     */
+    'status': string;
+}
+/**
  * Integrated storage vendors
  * @export
  * @interface ListIntegrationStorageVendors200Response
@@ -13558,6 +13680,85 @@ export interface StorageKeyValuePair {
      * @memberof StorageKeyValuePair
      */
     'value': string;
+}
+/**
+ * 
+ * @export
+ * @interface StorageTier
+ */
+export interface StorageTier {
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageTier
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageTier
+     */
+    'state': StorageTierStateEnum;
+}
+
+export const StorageTierStateEnum = {
+    Registered: 'registered',
+    RegistryPartial: 'registry-partial',
+    RegistryOnly: 'registry-only',
+    Unmanaged: 'unmanaged'
+} as const;
+
+export type StorageTierStateEnum = typeof StorageTierStateEnum[keyof typeof StorageTierStateEnum];
+
+/**
+ * 
+ * @export
+ * @interface StorageTierResultResponse
+ */
+export interface StorageTierResultResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof StorageTierResultResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {StorageTierResultResponseData}
+     * @memberof StorageTierResultResponse
+     */
+    'data': StorageTierResultResponseData;
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageTierResultResponse
+     */
+    'msg': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageTierResultResponse
+     */
+    'status': string;
+}
+/**
+ * 
+ * @export
+ * @interface StorageTierResultResponseData
+ */
+export interface StorageTierResultResponseData {
+    /**
+     * 
+     * @type {string}
+     * @memberof StorageTierResultResponseData
+     */
+    'name'?: string;
+    /**
+     * What hex_sdk printed on the node handling the request.
+     * @type {string}
+     * @memberof StorageTierResultResponseData
+     */
+    'output'?: string;
 }
 /**
  * 
@@ -22568,6 +22769,50 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
+         * Synchronous. The node handling the request builds the tier on the Ceph side (device class on the OSDs, CRUSH rule, pool, volume type) and registers it as a Cinder backend; it then registers the tier on every other control and restarts cinder-volume once. The pool\'s replication size is not an input; it is the smaller of the base pool\'s size and the number of hosts the OSDs are on. Creating an existing tier again completes what is missing.
+         * @summary Create a storage (device) tier
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {CreateStorageTierRequest} createStorageTierRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createIntegrationStorageTier: async (dataCenter: string, createStorageTierRequest: CreateStorageTierRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('createIntegrationStorageTier', 'dataCenter', dataCenter)
+            // verify required parameter 'createStorageTierRequest' is not null or undefined
+            assertParamExists('createIntegrationStorageTier', 'createStorageTierRequest', createStorageTierRequest)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/tiers`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createStorageTierRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
          * @summary Delete an integration storage
          * @param {string} dataCenter The name of the data center to operate
@@ -22625,6 +22870,48 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
             const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/models/{driverName}`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
                 .replace(`{${"driverName"}}`, encodeURIComponent(String(driverName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Synchronous. Refused while volumes use the tier\'s volume type. The tier is taken out of every control\'s registry and cinder-volume is restarted before the volume type, pool and CRUSH rule are deleted once; its OSDs are left with no device class. If the delete fails while the tier\'s objects are still there, the registry entries are put back. A tier that is only a registry entry has just that removed.
+         * @summary Delete a storage (device) tier
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} tierName The name of the storage (device) tier.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteIntegrationStorageTier: async (dataCenter: string, tierName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('deleteIntegrationStorageTier', 'dataCenter', dataCenter)
+            // verify required parameter 'tierName' is not null or undefined
+            assertParamExists('deleteIntegrationStorageTier', 'tierName', tierName)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/tiers/{tierName}`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)))
+                .replace(`{${"tierName"}}`, encodeURIComponent(String(tierName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -22742,6 +23029,44 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
             // verify required parameter 'dataCenter' is not null or undefined
             assertParamExists('listIntegrationStorageModels', 'dataCenter', dataCenter)
             const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/models`
+                .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Every device tier this node sees, with its storage tier registry state. `unmanaged` is a device class, CRUSH rule and pool of one name that the registry does not list, so it was not created by CubeCOS.
+         * @summary Retrieve the list of storage (device) tiers
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listIntegrationStorageTiers: async (dataCenter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataCenter' is not null or undefined
+            assertParamExists('listIntegrationStorageTiers', 'dataCenter', dataCenter)
+            const localVarPath = `/api/v1/datacenters/{dataCenter}/integrations/storages/tiers`
                 .replace(`{${"dataCenter"}}`, encodeURIComponent(String(dataCenter)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -23118,6 +23443,20 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Synchronous. The node handling the request builds the tier on the Ceph side (device class on the OSDs, CRUSH rule, pool, volume type) and registers it as a Cinder backend; it then registers the tier on every other control and restarts cinder-volume once. The pool\'s replication size is not an input; it is the smaller of the base pool\'s size and the number of hosts the OSDs are on. Creating an existing tier again completes what is missing.
+         * @summary Create a storage (device) tier
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {CreateStorageTierRequest} createStorageTierRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createIntegrationStorageTier(dataCenter: string, createStorageTierRequest: CreateStorageTierRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StorageTierResultResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createIntegrationStorageTier(dataCenter, createStorageTierRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.createIntegrationStorageTier']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 
          * @summary Delete an integration storage
          * @param {string} dataCenter The name of the data center to operate
@@ -23143,6 +23482,20 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteIntegrationStorageModel(dataCenter, driverName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.deleteIntegrationStorageModel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Synchronous. Refused while volumes use the tier\'s volume type. The tier is taken out of every control\'s registry and cinder-volume is restarted before the volume type, pool and CRUSH rule are deleted once; its OSDs are left with no device class. If the delete fails while the tier\'s objects are still there, the registry entries are put back. A tier that is only a registry entry has just that removed.
+         * @summary Delete a storage (device) tier
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {string} tierName The name of the storage (device) tier.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteIntegrationStorageTier(dataCenter: string, tierName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StorageTierResultResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteIntegrationStorageTier(dataCenter, tierName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.deleteIntegrationStorageTier']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -23183,6 +23536,19 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listIntegrationStorageModels(dataCenter, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.listIntegrationStorageModels']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Every device tier this node sees, with its storage tier registry state. `unmanaged` is a device class, CRUSH rule and pool of one name that the registry does not list, so it was not created by CubeCOS.
+         * @summary Retrieve the list of storage (device) tiers
+         * @param {string} dataCenter The name of the data center to operate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listIntegrationStorageTiers(dataCenter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListIntegrationStorageTiers200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listIntegrationStorageTiers(dataCenter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['IntegrationsApi.listIntegrationStorageTiers']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -23314,6 +23680,16 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
             return localVarFp.createIntegrationStorageModel(requestParameters.dataCenter, requestParameters.storageModel, options).then((request) => request(axios, basePath));
         },
         /**
+         * Synchronous. The node handling the request builds the tier on the Ceph side (device class on the OSDs, CRUSH rule, pool, volume type) and registers it as a Cinder backend; it then registers the tier on every other control and restarts cinder-volume once. The pool\'s replication size is not an input; it is the smaller of the base pool\'s size and the number of hosts the OSDs are on. Creating an existing tier again completes what is missing.
+         * @summary Create a storage (device) tier
+         * @param {IntegrationsApiCreateIntegrationStorageTierRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createIntegrationStorageTier(requestParameters: IntegrationsApiCreateIntegrationStorageTierRequest, options?: RawAxiosRequestConfig): AxiosPromise<StorageTierResultResponse> {
+            return localVarFp.createIntegrationStorageTier(requestParameters.dataCenter, requestParameters.createStorageTierRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
          * @summary Delete an integration storage
          * @param {IntegrationsApiDeleteIntegrationStorageRequest} requestParameters Request parameters.
@@ -23332,6 +23708,16 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          */
         deleteIntegrationStorageModel(requestParameters: IntegrationsApiDeleteIntegrationStorageModelRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteIntegrationStorageModel202Response> {
             return localVarFp.deleteIntegrationStorageModel(requestParameters.dataCenter, requestParameters.driverName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Synchronous. Refused while volumes use the tier\'s volume type. The tier is taken out of every control\'s registry and cinder-volume is restarted before the volume type, pool and CRUSH rule are deleted once; its OSDs are left with no device class. If the delete fails while the tier\'s objects are still there, the registry entries are put back. A tier that is only a registry entry has just that removed.
+         * @summary Delete a storage (device) tier
+         * @param {IntegrationsApiDeleteIntegrationStorageTierRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteIntegrationStorageTier(requestParameters: IntegrationsApiDeleteIntegrationStorageTierRequest, options?: RawAxiosRequestConfig): AxiosPromise<StorageTierResultResponse> {
+            return localVarFp.deleteIntegrationStorageTier(requestParameters.dataCenter, requestParameters.tierName, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -23362,6 +23748,16 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          */
         listIntegrationStorageModels(requestParameters: IntegrationsApiListIntegrationStorageModelsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListIntegrationStorageModelsResponse> {
             return localVarFp.listIntegrationStorageModels(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Every device tier this node sees, with its storage tier registry state. `unmanaged` is a device class, CRUSH rule and pool of one name that the registry does not list, so it was not created by CubeCOS.
+         * @summary Retrieve the list of storage (device) tiers
+         * @param {IntegrationsApiListIntegrationStorageTiersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listIntegrationStorageTiers(requestParameters: IntegrationsApiListIntegrationStorageTiersRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListIntegrationStorageTiers200Response> {
+            return localVarFp.listIntegrationStorageTiers(requestParameters.dataCenter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -23479,6 +23875,27 @@ export interface IntegrationsApiCreateIntegrationStorageModelRequest {
 }
 
 /**
+ * Request parameters for createIntegrationStorageTier operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiCreateIntegrationStorageTierRequest
+ */
+export interface IntegrationsApiCreateIntegrationStorageTierRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiCreateIntegrationStorageTier
+     */
+    readonly dataCenter: string
+
+    /**
+     * 
+     * @type {CreateStorageTierRequest}
+     * @memberof IntegrationsApiCreateIntegrationStorageTier
+     */
+    readonly createStorageTierRequest: CreateStorageTierRequest
+}
+
+/**
  * Request parameters for deleteIntegrationStorage operation in IntegrationsApi.
  * @export
  * @interface IntegrationsApiDeleteIntegrationStorageRequest
@@ -23518,6 +23935,27 @@ export interface IntegrationsApiDeleteIntegrationStorageModelRequest {
      * @memberof IntegrationsApiDeleteIntegrationStorageModel
      */
     readonly driverName: string
+}
+
+/**
+ * Request parameters for deleteIntegrationStorageTier operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiDeleteIntegrationStorageTierRequest
+ */
+export interface IntegrationsApiDeleteIntegrationStorageTierRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiDeleteIntegrationStorageTier
+     */
+    readonly dataCenter: string
+
+    /**
+     * The name of the storage (device) tier.
+     * @type {string}
+     * @memberof IntegrationsApiDeleteIntegrationStorageTier
+     */
+    readonly tierName: string
 }
 
 /**
@@ -23565,6 +24003,20 @@ export interface IntegrationsApiListIntegrationStorageModelsRequest {
      * The name of the data center to operate
      * @type {string}
      * @memberof IntegrationsApiListIntegrationStorageModels
+     */
+    readonly dataCenter: string
+}
+
+/**
+ * Request parameters for listIntegrationStorageTiers operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiListIntegrationStorageTiersRequest
+ */
+export interface IntegrationsApiListIntegrationStorageTiersRequest {
+    /**
+     * The name of the data center to operate
+     * @type {string}
+     * @memberof IntegrationsApiListIntegrationStorageTiers
      */
     readonly dataCenter: string
 }
@@ -23748,6 +24200,18 @@ export class IntegrationsApi extends BaseAPI {
     }
 
     /**
+     * Synchronous. The node handling the request builds the tier on the Ceph side (device class on the OSDs, CRUSH rule, pool, volume type) and registers it as a Cinder backend; it then registers the tier on every other control and restarts cinder-volume once. The pool\'s replication size is not an input; it is the smaller of the base pool\'s size and the number of hosts the OSDs are on. Creating an existing tier again completes what is missing.
+     * @summary Create a storage (device) tier
+     * @param {IntegrationsApiCreateIntegrationStorageTierRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public createIntegrationStorageTier(requestParameters: IntegrationsApiCreateIntegrationStorageTierRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).createIntegrationStorageTier(requestParameters.dataCenter, requestParameters.createStorageTierRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * 
      * @summary Delete an integration storage
      * @param {IntegrationsApiDeleteIntegrationStorageRequest} requestParameters Request parameters.
@@ -23769,6 +24233,18 @@ export class IntegrationsApi extends BaseAPI {
      */
     public deleteIntegrationStorageModel(requestParameters: IntegrationsApiDeleteIntegrationStorageModelRequest, options?: RawAxiosRequestConfig) {
         return IntegrationsApiFp(this.configuration).deleteIntegrationStorageModel(requestParameters.dataCenter, requestParameters.driverName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Synchronous. Refused while volumes use the tier\'s volume type. The tier is taken out of every control\'s registry and cinder-volume is restarted before the volume type, pool and CRUSH rule are deleted once; its OSDs are left with no device class. If the delete fails while the tier\'s objects are still there, the registry entries are put back. A tier that is only a registry entry has just that removed.
+     * @summary Delete a storage (device) tier
+     * @param {IntegrationsApiDeleteIntegrationStorageTierRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public deleteIntegrationStorageTier(requestParameters: IntegrationsApiDeleteIntegrationStorageTierRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).deleteIntegrationStorageTier(requestParameters.dataCenter, requestParameters.tierName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -23805,6 +24281,18 @@ export class IntegrationsApi extends BaseAPI {
      */
     public listIntegrationStorageModels(requestParameters: IntegrationsApiListIntegrationStorageModelsRequest, options?: RawAxiosRequestConfig) {
         return IntegrationsApiFp(this.configuration).listIntegrationStorageModels(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Every device tier this node sees, with its storage tier registry state. `unmanaged` is a device class, CRUSH rule and pool of one name that the registry does not list, so it was not created by CubeCOS.
+     * @summary Retrieve the list of storage (device) tiers
+     * @param {IntegrationsApiListIntegrationStorageTiersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public listIntegrationStorageTiers(requestParameters: IntegrationsApiListIntegrationStorageTiersRequest, options?: RawAxiosRequestConfig) {
+        return IntegrationsApiFp(this.configuration).listIntegrationStorageTiers(requestParameters.dataCenter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
