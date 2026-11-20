@@ -74,6 +74,9 @@ For every tier except none:
 - At sprint end, the sync owner syncs merged UI to the team design system. The designer checks low changes and files
   follow-up issues.
 
+Reviewers can run the `pr-review-tests` skill to check the PR against its level and tier, and to find missing test
+cases in the E2E test plan.
+
 ## 3. Issues and tickets
 
 The PR author keeps the related issues up to date, in every repo. Issues often live in `cubecos`:

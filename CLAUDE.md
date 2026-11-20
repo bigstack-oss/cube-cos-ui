@@ -145,6 +145,7 @@ In **Special notes for your reviewer**, add `Review level: <A-E>` and `UI tier: 
 how to verify, and for UI changes the Before / After screenshots and design approval.
 Verify the change and draft the description with the `pr-verify` skill (`.claude/skills/pr-verify/SKILL.md`).
 Never write local file paths in a PR, and never commit screenshots.
+Reviewers can check a PR and its test plan with the `pr-review-tests` skill (`.claude/skills/pr-review-tests/SKILL.md`).
 
 The templates under `.github/ISSUE_TEMPLATE/` (`bug_report.md`, `feature_request.md`)
 are for GitHub Issues, not PRs — do not use them for PR descriptions.
